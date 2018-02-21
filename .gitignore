@@ -1,0 +1,8 @@
+# Ignore IDE settings
+.idea
+
+# Ignore installed NPM package files
+node_modules
+
+# Ignore webpack build output
+dist
