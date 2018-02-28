@@ -20,6 +20,12 @@
     // Allow programmer to decide which formatting is more readable on a case-by-case basis.
     "arrow-body-style": "off",
 
+    // Enforce consistent use of parentheses around arrow function parameters.
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
+
     // 'stroustrup' is the only style that allows for comments between the 'if' and the 'else' block.
     "brace-style": [
       "error",

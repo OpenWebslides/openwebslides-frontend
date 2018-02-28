@@ -1,24 +1,34 @@
 // @flow
 
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 
+import type { State } from 'types/state';
 import topics from 'modules/topics';
 
-type Props = TranslatorProps & { /* new props go here */ };
+type StateProps = {
+  topicIds: Array<string>,
+};
 
-const TopicsList = topics.components.components.list;
+type Props = TranslatorProps & StateProps;
+
+const mapStateToProps = (state: State): StateProps => {
+  return {
+    topicIds: topics.selectors.getAll(state).map((topic) => topic.id),
+  };
+};
 
 const TopicsPage = (props: Props): React.Node => {
-  const { t } = props;
+  const { topicIds } = props;
+  const TopicsList = topics.components.components.list;
 
   return (
     <div>
-      <p>{t('common:lipsum.short')}</p>
-      <TopicsList />
+      <TopicsList topicIds={topicIds} />
     </div>
   );
 };
 
-export default translate()(TopicsPage);
+export default connect(mapStateToProps)(translate()(TopicsPage));

@@ -10,12 +10,15 @@ import type { TranslatorProps } from 'react-i18next';
 import { Button } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
-import type { Topic } from '../model';
-import { getAll } from '../selectors';
 import { add, edit, remove } from '../actions';
 
+import Preview from './Preview';
+
+type PassedProps = {
+  topicIds: Array<string>,
+};
+
 type StateProps = {
-  topics: Array<Topic>,
   lastTopicId: ?string,
 };
 
@@ -25,15 +28,12 @@ type DispatchProps = {
   onRemoveButtonClick: (string) => void,
 };
 
-type Props = TranslatorProps & StateProps & DispatchProps;
+type Props = TranslatorProps & PassedProps & StateProps & DispatchProps;
 
-const mapStateToProps = (state: State): StateProps => {
-  const topics = getAll(state);
-  const lastTopic = _.last(topics);
-  const lastTopicId = (lastTopic != null) ? lastTopic.id : null;
+const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  const lastTopicId = (props.topicIds.length > 0) ? _.last(props.topicIds) : null;
 
   return {
-    topics,
     lastTopicId,
   };
 };
@@ -61,7 +61,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
 const List = (props: Props): React.Node => {
   const {
     t,
-    topics,
+    topicIds,
     lastTopicId,
     onAddButtonClick,
     onEditButtonClick,
@@ -70,9 +70,9 @@ const List = (props: Props): React.Node => {
 
   return (
     <div>
-      <pre>
-        {JSON.stringify(topics, null, 2)}
-      </pre>
+      {topicIds.map((topicId) => (
+        <Preview key={topicId} topicId={topicId} />
+      ))}
       <p>
         <Button onClick={onAddButtonClick}>{t('common:button.add')}</Button>
         {lastTopicId && (
