@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 
+import { Button } from 'semantic-ui-react';
+
 import type { State } from 'types/state';
 import type { Topic } from '../model';
 import { getAll } from '../selectors';
@@ -72,11 +74,11 @@ const List = (props: Props): React.Node => {
         {JSON.stringify(topics, null, 2)}
       </pre>
       <p>
-        <button onClick={onAddButtonClick}>{t('common:button.add')}</button>
+        <Button onClick={onAddButtonClick}>{t('common:button.add')}</Button>
         {lastTopicId && (
           <span>
-            <button onClick={() => onEditButtonClick(lastTopicId)}>{t('common:button.edit')}</button>
-            <button onClick={() => onRemoveButtonClick(lastTopicId)}>{t('common:button.remove')}</button>
+            <Button onClick={() => onEditButtonClick(lastTopicId)}>{t('common:button.edit')}</Button>
+            <Button onClick={() => onRemoveButtonClick(lastTopicId)}>{t('common:button.remove')}</Button>
           </span>
         )}
       </p>
