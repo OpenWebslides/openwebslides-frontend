@@ -44,6 +44,7 @@ type MediaContentItemType = $Values<typeof mediaContentItemTypes>;
 const blockContentItemTypes = {
   ...plainTextContentItemTypes,
   ...mediaContentItemTypes,
+  LIST,
 };
 type BlockContentItemType =
   | PlainTextContentItemType
