@@ -40,26 +40,19 @@ const mediaContentItemTypes = {
 };
 type MediaContentItemType = $Values<typeof mediaContentItemTypes>;
 
-// Group contentItemTypes that serve as containers for other contentItems.
-const containerContentItemTypes = {
-  ROOT,
-  LIST,
-};
-type ContainerContentItemType = $Values<typeof containerContentItemTypes>;
-
 // Group contentItemTypes that contain 'building blocks' of content.
 const blockContentItemTypes = {
   ...plainTextContentItemTypes,
   ...mediaContentItemTypes,
-  ...containerContentItemTypes,
 };
 type BlockContentItemType =
   | PlainTextContentItemType
   | MediaContentItemType
-  | ContainerContentItemType;
+  | typeof LIST;
 
 // Group contentItemTypes that contain non-block symbols, such as slide or page breaks.
 const symbolContentItemTypes = {
+  ROOT,
   SLIDE_BREAK,
   COURSE_BREAK,
 };
@@ -196,7 +189,7 @@ type BlockContentItem = {
   +type: BlockContentItemType,
   // ContentItem metadata.
   +metadata: Metadata,
-  // Ids of contentItems nested under this contentItem.
+  // Ids of contentItems directly nested under this contentItem.
   +subItemIds: Array<Identifier>,
 };
 
@@ -224,21 +217,13 @@ type MediaContentItem = {
   +caption: ?string,
 };
 
-// Group type for 'container' contentItems.
-type ContainerContentItem = {
-  ...$Exact<BlockContentItem>,
-  // Limit contentItem type to containerContentItemTypes.
-  +type: ContainerContentItemType,
-  // Ids of the contentItems that are children of this container.
-  +childItemIds: Array<Identifier>,
-};
-
 // Type for a ROOT contentItem.
 export type RootContentItem = {
-  ...$Exact<ContainerContentItem>,
+  ...$Exact<SymbolContentItem>,
   // Limit contentItem type to ROOT.
   +type: typeof ROOT,
-  // Custom ROOT props go here.
+  // Ids of the headings that are direct children of the root.
+  +topLevelHeadingItemIds: Array<Identifier>,
 };
 
 // Type for a HEADING contentItem.
@@ -259,9 +244,11 @@ export type ParagraphContentItem = {
 
 // Type for a LIST contentItem.
 export type ListContentItem = {
-  ...$Exact<ContainerContentItem>,
+  ...$Exact<BlockContentItem>,
   // Limit contentItem type to LIST.
   +type: typeof LIST,
+  // Ids of the list items contained in this list. (Note: nested lists are not supported.)
+  +listItemIds: Array<Identifier>,
   // TRUE if the list contains ordered items, FALSE if not.
   +ordered: boolean,
 };
@@ -363,4 +350,7 @@ export type ContentItem =
 
 export {
   contentItemTypes,
+  highlightTypes,
+  visibilityTypes,
+  tagTypes,
 };
