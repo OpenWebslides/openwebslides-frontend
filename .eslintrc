@@ -79,7 +79,8 @@
     ],
 
     // Consistency with airbnb's 'no-dupe-keys' rule.
-    "flowtype/no-dupe-keys": "error",
+    // Note: temporarily turned of until https://github.com/gajus/eslint-plugin-flowtype/pull/318 has been merged #TODO
+    // "flowtype/no-dupe-keys": "error",
 
     // Discourage suppressing flow errors.
     "flowtype/no-flow-fix-me-comments": "warn",
