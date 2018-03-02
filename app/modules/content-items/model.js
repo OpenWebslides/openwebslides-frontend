@@ -21,6 +21,32 @@ const IFRAME: 'contentItemTypes/IFRAME' = 'contentItemTypes/IFRAME';
 const SLIDE_BREAK: 'contentItemTypes/SLIDE_BREAK' = 'contentItemTypes/SLIDE_BREAK';
 const COURSE_BREAK: 'contentItemTypes/COURSE_BREAK' = 'contentItemTypes/COURSE_BREAK';
 
+// Group all contentItemtypes.
+const contentItemTypes = {
+  ROOT,
+  HEADING,
+  PARAGRAPH,
+  LIST,
+  LIST_ITEM,
+  BLOCKQUOTE,
+  CODE,
+  IMAGE,
+  VIDEO,
+  AUDIO,
+  IFRAME,
+  SLIDE_BREAK,
+  COURSE_BREAK,
+};
+type ContentItemType = $Values<typeof contentItemTypes>;
+
+// Group contentItemTypes that contain special symbols, such as slide or page breaks.
+const symbolContentItemTypes = {
+  ROOT,
+  SLIDE_BREAK,
+  COURSE_BREAK,
+};
+type SymbolContentItemType = $Values<typeof symbolContentItemTypes>;
+
 // Group contentItemTypes that contain plain text.
 const plainTextContentItemTypes = {
   HEADING,
@@ -40,33 +66,41 @@ const mediaContentItemTypes = {
 };
 type MediaContentItemType = $Values<typeof mediaContentItemTypes>;
 
-// Group contentItemTypes that contain 'building blocks' of content.
-const blockContentItemTypes = {
-  ...plainTextContentItemTypes,
-  ...mediaContentItemTypes,
+// Group contentItemTypes that can have metadata.
+const taggableContentItemTypes = {
+  HEADING,
+  PARAGRAPH,
+  LIST,
+  LIST_ITEM,
+  BLOCKQUOTE,
+  CODE,
+  IMAGE,
+  VIDEO,
+  AUDIO,
+  IFRAME,
+};
+type TaggableContentItemType = $Values<typeof taggableContentItemTypes>;
+
+// Group contentItemTypes that can have sub-items.
+const subableContentItemTypes = {
+  HEADING,
+  PARAGRAPH,
+  LIST,
+  BLOCKQUOTE,
+  CODE,
+  IMAGE,
+  VIDEO,
+  AUDIO,
+  IFRAME,
+};
+type SubableContentItemType = $Values<typeof subableContentItemTypes>;
+
+// Group contentItemTypes that can contain other contentItems.
+const containerContentItemTypes = {
+  ROOT,
   LIST,
 };
-type BlockContentItemType =
-  | PlainTextContentItemType
-  | MediaContentItemType
-  | typeof LIST;
-
-// Group contentItemTypes that contain non-block symbols, such as slide or page breaks.
-const symbolContentItemTypes = {
-  ROOT,
-  SLIDE_BREAK,
-  COURSE_BREAK,
-};
-type SymbolContentItemType = $Values<typeof symbolContentItemTypes>;
-
-// Group all contentItemtypes.
-const contentItemTypes = {
-  ...blockContentItemTypes,
-  ...symbolContentItemTypes,
-};
-type ContentItemType =
-  | BlockContentItemType
-  | SymbolContentItemType;
+type ContainerContentItemType = $Values<typeof containerContentItemTypes>;
 
 
 // TagTypes ----------------------------------------------------------------------------------------
@@ -176,27 +210,16 @@ type BaseContentItem = {
   +type: ContentItemType,
 };
 
-// Group type for 'symbol' contentItems.
+// Additional props for 'symbol' contentItems.
 type SymbolContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to symbolContentItemTypes.
   +type: SymbolContentItemType,
 };
 
-// Group type for 'block' contentItems.
-type BlockContentItem = {
-  ...$Exact<BaseContentItem>,
-  // Limit contentItem type to blockContentItemTypes.
-  +type: BlockContentItemType,
-  // ContentItem metadata.
-  +metadata: Metadata,
-  // Ids of contentItems directly nested under this contentItem.
-  +subItemIds: Array<Identifier>,
-};
-
-// Group type for 'plainText' contentItems.
+// Additonal props for 'plainText' contentItems.
 type PlainTextContentItem = {
-  ...$Exact<BlockContentItem>,
+  ...$Exact<BaseContentItem>,
   // Limit contentItem type to plainTextContentItemTypes.
   +type: PlainTextContentItemType,
   // The plain text content of the contentItem.
@@ -205,9 +228,9 @@ type PlainTextContentItem = {
   +highlights: Array<Highlight>,
 };
 
-// Group type for 'media' contentItems.
+// Additional props for 'media' contentItems.
 type MediaContentItem = {
-  ...$Exact<BlockContentItem>,
+  ...$Exact<BaseContentItem>,
   // Limit contentItem type to mediaContentItemTypes.
   +type: MediaContentItemType,
   // The source url of the media.
@@ -218,18 +241,47 @@ type MediaContentItem = {
   +caption: ?string,
 };
 
+// Additional props for taggable contentItems.
+type TaggableContentItem = {
+  ...$Exact<BaseContentItem>,
+  // Limit contentItem type to taggableContentItemTypes.
+  +type: TaggableContentItemType,
+  // ContentItem metadata.
+  +metadata: Metadata,
+};
+
+// Additional props for subable contentItems.
+type SubableContentItem = {
+  ...$Exact<BaseContentItem>,
+  // Limit contentItem type to subableContentItemTypes.
+  +type: SubableContentItemType,
+  // Ids of contentItems directly nested under this contentItem.
+  +subItemIds: Array<Identifier>,
+};
+
+// Additional props for container contentItems.
+type ContainerContentItem = {
+  ...$Exact<BaseContentItem>,
+  // Limit contentItem type to containerContentItemTypes.
+  +type: ContainerContentItemType,
+  // Ids of contentItems that are direct children of this container.
+  +childItemIds: Array<Identifier>,
+};
+
 // Type for a ROOT contentItem.
 export type RootContentItem = {
   ...$Exact<SymbolContentItem>,
+  ...$Exact<ContainerContentItem>,
   // Limit contentItem type to ROOT.
   +type: typeof ROOT,
-  // Ids of the headings that are direct children of the root.
-  +topLevelHeadingItemIds: Array<Identifier>,
+  // Custom ROOT props go here.
 };
 
 // Type for a HEADING contentItem.
 export type HeadingContentItem = {
   ...$Exact<PlainTextContentItem>,
+  ...$Exact<TaggableContentItem>,
+  ...$Exact<SubableContentItem>,
   // Limit contentItem type to HEADING.
   +type: typeof HEADING,
   // Custom HEADING props go here.
@@ -238,6 +290,8 @@ export type HeadingContentItem = {
 // Type for a PARAGRAPH contentItem.
 export type ParagraphContentItem = {
   ...$Exact<PlainTextContentItem>,
+  ...$Exact<TaggableContentItem>,
+  ...$Exact<SubableContentItem>,
   // Limit contentItem type to PARAGRAPH.
   +type: typeof PARAGRAPH,
   // Custom PARAGRAPH props go here.
@@ -245,11 +299,11 @@ export type ParagraphContentItem = {
 
 // Type for a LIST contentItem.
 export type ListContentItem = {
-  ...$Exact<BlockContentItem>,
+  ...$Exact<ContainerContentItem>,
+  ...$Exact<TaggableContentItem>,
+  ...$Exact<SubableContentItem>,
   // Limit contentItem type to LIST.
   +type: typeof LIST,
-  // Ids of the list items contained in this list. (Note: nested lists are not supported.)
-  +listItemIds: Array<Identifier>,
   // TRUE if the list contains ordered items, FALSE if not.
   +ordered: boolean,
 };
@@ -257,6 +311,7 @@ export type ListContentItem = {
 // Type for a LIST_ITEM contentItem.
 export type ListItemContentItem = {
   ...$Exact<PlainTextContentItem>,
+  ...$Exact<TaggableContentItem>,
   // Limit contentItem type to LIST_ITEM.
   +type: typeof LIST_ITEM,
   // Custom LIST_ITEM props go here.
@@ -265,6 +320,8 @@ export type ListItemContentItem = {
 // Type for a BLOCKQUOTE contentItem.
 export type BlockquoteContentItem = {
   ...$Exact<PlainTextContentItem>,
+  ...$Exact<TaggableContentItem>,
+  ...$Exact<SubableContentItem>,
   // Limit contentItem type to BLOCKQUOTE.
   +type: typeof BLOCKQUOTE,
   // The person / organisation / etc. that is the source of the quote.
@@ -276,6 +333,8 @@ export type BlockquoteContentItem = {
 // Type for a CODE contentItem.
 export type CodeContentItem = {
   ...$Exact<PlainTextContentItem>,
+  ...$Exact<TaggableContentItem>,
+  ...$Exact<SubableContentItem>,
   // Limit contentItem type to CODE.
   +type: typeof CODE,
   // The language (e.g. JavaScript, JSON, ...) that the code is written in.
@@ -285,6 +344,8 @@ export type CodeContentItem = {
 // Type for an IMAGE contentItem.
 export type ImageContentItem = {
   ...$Exact<MediaContentItem>,
+  ...$Exact<TaggableContentItem>,
+  ...$Exact<SubableContentItem>,
   // Limit contentItem type to IMAGE.
   +type: typeof IMAGE,
   // Custom IMAGE props go here.
@@ -293,6 +354,8 @@ export type ImageContentItem = {
 // Type for a VIDEO contentItem.
 export type VideoContentItem = {
   ...$Exact<MediaContentItem>,
+  ...$Exact<TaggableContentItem>,
+  ...$Exact<SubableContentItem>,
   // Limit contentItem type to VIDEO.
   +type: typeof VIDEO,
   // Custom VIDEO props go here.
@@ -301,6 +364,8 @@ export type VideoContentItem = {
 // Type for an AUDIO contentItem.
 export type AudioContentItem = {
   ...$Exact<MediaContentItem>,
+  ...$Exact<TaggableContentItem>,
+  ...$Exact<SubableContentItem>,
   // Limit contentItem type to AUDIO,
   +type: typeof AUDIO,
   // Custom AUDIO props go here.
@@ -309,6 +374,8 @@ export type AudioContentItem = {
 // Type for an IFRAME contentItem.
 export type IframeContentItem = {
   ...$Exact<MediaContentItem>,
+  ...$Exact<TaggableContentItem>,
+  ...$Exact<SubableContentItem>,
   // Limit contentItem type to IFRAME.
   +type: typeof IFRAME,
   // Custom IFRAME props go here.
