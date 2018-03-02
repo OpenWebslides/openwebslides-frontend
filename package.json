@@ -8,6 +8,7 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
+    "babel-jest": "^22.4.1",
     "babel-loader": "^7.1.2",
     "babel-plugin-lodash": "^3.3.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -28,6 +29,7 @@
     "flow-bin": "^0.65.0",
     "flow-status-webpack-plugin": "^0.1.7",
     "html-webpack-plugin": "^2.30.1",
+    "jest": "^22.4.2",
     "redux-devtools-extension": "^2.13.2",
     "style-loader": "^0.20.2",
     "svg-url-loader": "^2.3.1",
@@ -51,6 +53,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "dev-server": "webpack-dev-server"
+    "dev-server": "webpack-dev-server",
+    "test": "jest"
   }
 }

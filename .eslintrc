@@ -5,7 +5,9 @@
   ],
   "env": {
     // Don't throw error when using global browser variables such as 'document' or 'window'.
-    "browser": true
+    "browser": true,
+    // Don't throw error when using jest functions such as 'descibe' or 'it'.
+    "jest": true
   },
   "plugins": [
     // ESLint checking for Flow.

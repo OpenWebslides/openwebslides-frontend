@@ -8,3 +8,6 @@ node_modules
 dist
 
 package-lock.json
+
+# Ignore jest coverage info
+coverage
