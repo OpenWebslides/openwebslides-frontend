@@ -177,6 +177,7 @@
       {
         "extensions": [".js"]
       }
-    ]
+    ],
+    max-len: 1
   }
 }
