@@ -6,3 +6,5 @@ node_modules
 
 # Ignore webpack build output
 dist
+
+package-lock.json
