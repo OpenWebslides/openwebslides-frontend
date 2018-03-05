@@ -4,7 +4,7 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 // import { Link } from 'react-router-dom';
-import { Divider, Icon, Container, Image, Menu } from 'semantic-ui-react';
+import { Grid, Divider, Icon, Container, Image, Menu } from 'semantic-ui-react';
 
 type Props = TranslatorProps & { /* new props go here */ };
 
@@ -73,13 +73,12 @@ const MenuRight = (): React.Node => {
   return (
     <Menu.Menu position="right">
       <Menu.Item>
-        <Icon.Group size="large">
-          <Icon size="large" name="thin circle" />
-          <Icon name="bell outline" />
-        </Icon.Group>
+        <Icon name="bell outline" size="large" />
       </Menu.Item>
-      <Menu.Item className="ui right aligned category search item">
-        <h2>Professor X</h2>
+      <Menu.Item>
+        <strong>Professor X</strong>
+      </Menu.Item>
+      <Menu.Item>
         <Icon name="user" size="large" circular="true" inverted="true" />
       </Menu.Item>
     </Menu.Menu>
@@ -109,30 +108,30 @@ const PureHomePage = (props: Props): React.Node => {
 
   return (
     <div>
-      <Menu attached="top">
+      <Menu secondary="true" attached="top">
         <Menu.Item icon="true">
           <Image size="tiny" src="/assets/images/logo.png" href="/" />
           {t('app:title')}
         </Menu.Item>
         <MenuRight />
       </Menu>
-      <HomeContainer />
+      <Grid>
+        <Grid.Column width={1}>
+          <Menu secondary="true" attached="left" vertical="true" fluid="true">
+            <Menu.Item>
+              <Icon name="book" size="small" link="true" href="/topics" />
+            </Menu.Item>
+          </Menu>
+        </Grid.Column>
+
+        <Grid.Column stretched="true" width={15}>
+          <HomeContainer />
+        </Grid.Column>
+      </Grid>
     </div>
   );
 };
-/*
-  <div className="ui bottom attached pushable">
-    <Sidebar attached="left" as={Menu} visible="true" className="very thin inverted" vertical="true" >
-      <Menu.Item name="library">
-        <Icon name="book" size="large" link="true" href="/topics" />
-      </Menu.Item>
-    </Sidebar>
-    <div className="pusher">
-      <h1>Test</h1>
-      <p>LALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALALALALALLALA</p>
-    </div>
-  </div>
-*/
+
 
 const HomePage = translate()(PureHomePage);
 
