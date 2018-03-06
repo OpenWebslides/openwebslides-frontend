@@ -3,71 +3,14 @@
 import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
-// import { Link } from 'react-router-dom';
-import { Grid, Divider, Icon, Container, Image, Menu } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Grid, Icon, Image, Menu } from 'semantic-ui-react';
+
+import home from 'modules/home';
 
 type Props = TranslatorProps & { /* new props go here */ };
 
-const HomeSocialFeed = (): React.Node => {
-  return (
-    <Container>
-      <h1>Social feed</h1>
-      <p>
-        <strong>Student U</strong> commented on topic
-        <strong>
-          {`
-            "Analysis of UV light"
-          `}
-        </strong>
-      </p>
-
-      <p>
-        <strong>Professor W</strong> deleted topic
-        <strong>
-          {`
-            "The genesis of the WWW"
-          `}
-        </strong>
-      </p>
-
-      <p>
-        <strong>Professor X</strong> created topic
-        <strong>
-          {`
-            "Mutations: How do they affect our world today"
-          `}
-        </strong>
-      </p>
-
-      <p>
-        <strong>Student Y</strong> created a pull request for topic
-        <strong>
-          {`
-            "Why 'The Walking Dead' avoids the Z word"
-          `}
-        </strong>
-      </p>
-    </Container>
-  );
-};
-
-const HomeSearchSection = (): React.Node => {
-  return (
-    <Container>
-      Search for topics here!
-    </Container>
-  );
-};
-
-const HomeContainer = (): React.Node => {
-  return (
-    <Container>
-      <HomeSocialFeed />
-      <Divider section="true" />
-      <HomeSearchSection />
-    </Container>
-  );
-};
+const HomeContainer = home.components.components.homecontainer;
 
 const MenuRight = (): React.Node => {
   return (
@@ -119,9 +62,7 @@ const HomePage = (props: Props): React.Node => {
         <Grid.Column stretched="true" width={2}>
           <Menu attached="left" vertical="true" fluid="true">
             <Menu.Header>
-              <Icon name="book" size="large" link="true">
-                <a href="/topics"> Topics</a>
-              </Icon>
+              <Icon name="book" as={Link} to="/topics" size="large" link="true" />
             </Menu.Header>
           </Menu>
         </Grid.Column>
