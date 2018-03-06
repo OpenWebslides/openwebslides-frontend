@@ -11,3 +11,6 @@ package-lock.json
 
 # Ignore jest coverage info
 coverage
+
+# Ignore local yarn error output
+yarn-error.log
