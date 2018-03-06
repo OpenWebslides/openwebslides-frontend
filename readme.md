@@ -12,7 +12,21 @@ yarn run dev-server
 
 ### ... run tests:
 
-TODO
+Minimal output:
+```
+yarn run test
+```
+
+Verbose test output + coverage report:
+```
+yarn run test-report
+```
+
+### ... run flow check:
+
+```
+yarn run flow
+```
 
 ## Good to read:
 

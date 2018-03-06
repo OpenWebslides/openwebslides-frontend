@@ -104,8 +104,9 @@ const config = {
     // Enable importing files of these types without specifying their extentions
     extensions: ['.js', '.jsx'],
     // Use the app folder as an aditional root for imports.
-    // Note: folders added here need be added in the module.system.node.resolve_dirname option
-    // in .flowconfig as well.
+    // Note: folders added here need to also be added in:
+    // - the module.system.node.resolve_dirname option in .flowconfig
+    // - the moduleDirectories option in jest.config.js
     modules: [paths.NODE_MODULES, paths.APP],
   },
 
