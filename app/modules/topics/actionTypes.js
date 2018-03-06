@@ -2,16 +2,16 @@
 
 import type { Error } from 'types/error';
 
-export const ADD = 'topics/ADD';
-export const EDIT = 'topics/EDIT';
-export const REMOVE = 'topics/REMOVE';
+export const ADD: 'topics/ADD' = 'topics/ADD';
+export const EDIT: 'topics/EDIT' = 'topics/EDIT';
+export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
 
-export const ADD_ERROR = 'topics/ADD_ERROR';
-export const EDIT_ERROR = 'topics/EDIT_ERROR';
-export const REMOVE_ERROR = 'topics/REMOVE_ERROR';
+export const ADD_ERROR: 'topics/ADD_ERROR' = 'topics/ADD_ERROR';
+export const EDIT_ERROR: 'topics/EDIT_ERROR' = 'topics/EDIT_ERROR';
+export const REMOVE_ERROR: 'topics/REMOVE_ERROR' = 'topics/REMOVE_ERROR';
 
 export type AddAction = {
-  type: 'topics/ADD',
+  type: typeof ADD,
   payload: {
     id: string,
     title: string,
@@ -20,7 +20,7 @@ export type AddAction = {
 };
 
 export type EditAction = {
-  type: 'topics/EDIT',
+  type: typeof EDIT,
   payload: {
     id: string,
     title: ?string,
@@ -29,24 +29,24 @@ export type EditAction = {
 };
 
 export type RemoveAction = {
-  type: 'topics/REMOVE',
+  type: typeof REMOVE,
   payload: {
     id: string,
   },
 };
 
 export type AddErrorAction = {
-  type: 'topics/ADD_ERROR',
+  type: typeof ADD_ERROR,
   error: Error,
 };
 
 export type EditErrorAction = {
-  type: 'topics/EDIT_ERROR',
+  type: typeof EDIT_ERROR,
   error: Error,
 };
 
 export type RemoveErrorAction = {
-  type: 'topics/REMOVE_ERROR',
+  type: typeof REMOVE_ERROR,
   error: Error,
 };
 
