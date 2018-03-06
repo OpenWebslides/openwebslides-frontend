@@ -31,4 +31,5 @@ const TopicsPage = (props: Props): React.Node => {
   );
 };
 
+export { TopicsPage as PureTopicsPage };
 export default connect(mapStateToProps)(translate()(TopicsPage));

@@ -21,4 +21,5 @@ const HomePage = (props: Props): React.Node => {
   );
 };
 
+export { HomePage as PureHomePage };
 export default translate()(HomePage);

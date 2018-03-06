@@ -86,4 +86,5 @@ const List = (props: Props): React.Node => {
   );
 };
 
+export { List as PureList };
 export default connect(mapStateToProps, mapDispatchToProps)(translate()(List));

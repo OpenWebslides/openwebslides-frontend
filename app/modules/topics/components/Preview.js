@@ -53,4 +53,5 @@ const Preview = (props: Props): React.Node => {
   );
 };
 
+export { Preview as PurePreview };
 export default connect(mapStateToProps)(translate()(Preview));
