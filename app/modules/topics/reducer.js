@@ -6,13 +6,13 @@ import type { TopicsState } from './index';
 import type { Topic } from './model';
 
 const initialState: TopicsState = {
-  abcdef: {
-    id: 'abcdef',
+  abcdefghij: {
+    id: 'abcdefghij',
     title: 'Test topic 1',
     description: 'Lorem ipsum dolor sit amet.',
   },
-  ghijkl: {
-    id: 'ghijkl',
+  klmnopqrst: {
+    id: 'klmnopqrst',
     title: 'Test topic 2',
     description: '',
   },
