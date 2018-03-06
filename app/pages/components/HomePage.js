@@ -115,16 +115,18 @@ const HomePage = (props: Props): React.Node => {
         </Menu.Item>
         <MenuRight />
       </Menu>
-      <Grid>
-        <Grid.Column width={1}>
-          <Menu secondary="true" attached="left" vertical="true" fluid="true">
-            <Menu.Item>
-              <Icon name="book" size="small" link="true" href="/topics" />
-            </Menu.Item>
+      <Grid stretched="true">
+        <Grid.Column stretched="true" width={2}>
+          <Menu attached="left" vertical="true" fluid="true">
+            <Menu.Header>
+              <Icon name="book" size="large" link="true">
+                <a href="/topics"> Topics</a>
+              </Icon>
+            </Menu.Header>
           </Menu>
         </Grid.Column>
 
-        <Grid.Column stretched="true" width={15}>
+        <Grid.Column stretched="true" width={14}>
           <HomeContainer />
         </Grid.Column>
       </Grid>
