@@ -7,6 +7,8 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
+import 'semantic-ui-css/semantic.min.css';
+
 // The uppermost app container component.
 import Application from './Application';
 

@@ -76,6 +76,27 @@ const config = {
         exclude: /node_modules/,
         use: 'babel-loader',
       },
+      {
+        // Load CSS files
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        // Load SVG files
+        test: /\.svg/,
+        use: {
+          loader: 'svg-url-loader',
+          options: {}
+        }
+      },
+      {
+        // Load binary assets
+        test: /\.(woff|woff2|eot|ttf|otf|png|gif|jpg)$/,
+        use: {
+          loader: 'file-loader',
+          options: {}
+        }
+      }
     ],
   },
 
