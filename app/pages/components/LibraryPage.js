@@ -6,11 +6,11 @@ import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Segment, Grid, Icon, Image, Menu } from 'semantic-ui-react';
 
-import home from 'modules/home';
+import library from 'modules/library';
 
 type Props = TranslatorProps & { /* new props go here */ };
 
-const HomeContainer = home.components.components.homecontainer;
+const LibraryContainer = library.components.components.librarycontainer;
 
 const MenuRight = (): React.Node => {
   return (
@@ -28,25 +28,7 @@ const MenuRight = (): React.Node => {
   );
 };
 
-/* TODO passing t prop not possible yet
-const MenuLeft = (props: Props): React.Node => {
-  const { t } = props;
-
-  return (
-    <div>
-      <Menu.Item icon="true">
-        <Image size="tiny" src="/assets/images/logo.png" />
-        {t('app:title')}
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/topics">Topics page</Link>
-      </Menu.Item>
-    </div>
-  );
-};
-*/
-
-const PureHomePage = (props: Props): React.Node => {
+const LibraryPage = (props: Props): React.Node => {
   const { t } = props;
 
   return (
@@ -73,7 +55,7 @@ const PureHomePage = (props: Props): React.Node => {
         </Grid.Column>
 
         <Grid.Column stretched={true} width={14}>
-          <HomeContainer />
+          <LibraryContainer />
         </Grid.Column>
       </Grid>
     </div>
@@ -81,7 +63,5 @@ const PureHomePage = (props: Props): React.Node => {
 };
 
 
-const HomePage = translate()(PureHomePage);
-
-export { PureHomePage };
-export default HomePage;
+export { LibraryPage as PureLibraryPage };
+export default translate()(LibraryPage);
