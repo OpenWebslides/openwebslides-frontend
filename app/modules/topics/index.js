@@ -6,6 +6,8 @@ import * as model from './model';
 import * as selectors from './selectors';
 import reducer from './reducer';
 
+import type { Topic, TopicsState } from './model';
+
 const topics = {
   actions,
   components,
@@ -14,8 +16,5 @@ const topics = {
   selectors,
 };
 
-export type TopicsState = {
-  +[topicId: string]: model.Topic,
-};
-
+export type { Topic, TopicsState };
 export default topics;

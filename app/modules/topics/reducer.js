@@ -2,8 +2,7 @@
 
 import _ from 'lodash';
 import * as t from './actionTypes';
-import type { TopicsState } from './index';
-import type { Topic } from './model';
+import type { Topic, TopicsState } from './model';
 
 const initialState: TopicsState = {
   abcdefghij: {

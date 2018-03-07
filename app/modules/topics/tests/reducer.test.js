@@ -3,7 +3,7 @@
 
 import reducer from '../reducer';
 import * as t from '../actionTypes';
-import type { TopicsState } from '../index';
+import type { TopicsState } from '../model';
 
 describe(`reducer`, (): void => {
 

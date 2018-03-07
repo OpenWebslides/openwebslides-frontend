@@ -1,209 +1,41 @@
 // @flow
 
-import type { Identifier, SelectionPosition } from 'types/model';
+import type { Identifier } from 'types/model';
 
-
-// ContentItemTypes --------------------------------------------------------------------------------
-
-// Weird syntax is necessary to avoid repeating string literals in flow types.
-// See https://github.com/facebook/flow/issues/2377#issuecomment-262894389
-const ROOT: 'contentItemTypes/ROOT' = 'contentItemTypes/ROOT';
-const HEADING: 'contentItemTypes/HEADING' = 'contentItemTypes/HEADING';
-const PARAGRAPH: 'contentItemTypes/PARAGRAPH' = 'contentItemTypes/PARAGRAPH';
-const LIST: 'contentItemTypes/LIST' = 'contentItemTypes/LIST';
-const LIST_ITEM: 'contentItemTypes/LIST_ITEM' = 'contentItemTypes/LIST_ITEM';
-const BLOCKQUOTE: 'contentItemTypes/BLOCKQUOTE' = 'contentItemTypes/BLOCKQUOTE';
-const CODE: 'contentItemTypes/CODE' = 'contentItemTypes/CODE';
-const IMAGE: 'contentItemTypes/IMAGE' = 'contentItemTypes/IMAGE';
-const VIDEO: 'contentItemTypes/VIDEO' = 'contentItemTypes/VIDEO';
-const AUDIO: 'contentItemTypes/AUDIO' = 'contentItemTypes/AUDIO';
-const IFRAME: 'contentItemTypes/IFRAME' = 'contentItemTypes/IFRAME';
-const SLIDE_BREAK: 'contentItemTypes/SLIDE_BREAK' = 'contentItemTypes/SLIDE_BREAK';
-const COURSE_BREAK: 'contentItemTypes/COURSE_BREAK' = 'contentItemTypes/COURSE_BREAK';
-
-// Group all contentItemtypes.
-const contentItemTypes = {
-  ROOT,
-  HEADING,
-  PARAGRAPH,
-  LIST,
-  LIST_ITEM,
-  BLOCKQUOTE,
-  CODE,
-  IMAGE,
-  VIDEO,
-  AUDIO,
-  IFRAME,
-  SLIDE_BREAK,
-  COURSE_BREAK,
-};
-type ContentItemType = $Values<typeof contentItemTypes>;
-
-// Group contentItemTypes that contain special symbols, such as slide or page breaks.
-const symbolContentItemTypes = {
-  ROOT,
-  SLIDE_BREAK,
-  COURSE_BREAK,
-};
-type SymbolContentItemType = $Values<typeof symbolContentItemTypes>;
-
-// Group contentItemTypes that contain plain text.
-const plainTextContentItemTypes = {
-  HEADING,
-  PARAGRAPH,
-  LIST_ITEM,
-  BLOCKQUOTE,
-  CODE,
-};
-type PlainTextContentItemType = $Values<typeof plainTextContentItemTypes>;
-
-// Group contentItemTypes that contain media.
-const mediaContentItemTypes = {
-  IMAGE,
-  VIDEO,
-  AUDIO,
-  IFRAME,
-};
-type MediaContentItemType = $Values<typeof mediaContentItemTypes>;
-
-// Group contentItemTypes that can have metadata.
-const taggableContentItemTypes = {
-  HEADING,
-  PARAGRAPH,
-  LIST,
-  LIST_ITEM,
-  BLOCKQUOTE,
-  CODE,
-  IMAGE,
-  VIDEO,
-  AUDIO,
-  IFRAME,
-};
-type TaggableContentItemType = $Values<typeof taggableContentItemTypes>;
-
-// Group contentItemTypes that can have sub-items.
-const subableContentItemTypes = {
-  HEADING,
-  PARAGRAPH,
-  LIST,
-  BLOCKQUOTE,
-  CODE,
-  IMAGE,
-  VIDEO,
-  AUDIO,
-  IFRAME,
-};
-type SubableContentItemType = $Values<typeof subableContentItemTypes>;
-
-// Group contentItemTypes that can contain other contentItems.
-const containerContentItemTypes = {
-  ROOT,
-  LIST,
-};
-type ContainerContentItemType = $Values<typeof containerContentItemTypes>;
-
-
-// TagTypes ----------------------------------------------------------------------------------------
-
-const IMPORTANT: 'tagTypes/IMPORTANT' = 'tagTypes/IMPORTANT';
-const OPINION: 'tagTypes/OPINION' = 'tagTypes/OPINION';
-
-// Group all tagTypes.
-const tagTypes = {
-  IMPORTANT,
-  OPINION,
-};
-
-// Type for contentItem tags.
-type Tag = $Values<typeof tagTypes>;
-
-
-// VisiblityTypes ----------------------------------------------------------------------------------
-
-const VISIBLE: 'visibilityTypes/VISIBLE' = 'visibilityTypes/VISIBLE';
-const HIDDEN: 'visibilityTypes/HIDDEN' = 'visibilityTypes/HIDDEN';
-
-// Group all visibilityTypes.
-const visibilityTypes = {
-  VISIBLE,
-  HIDDEN,
-};
-
-// Type for contentItem visibility.
-type Visibility = $Values<typeof visibilityTypes>;
-
-
-// Metadata ----------------------------------------------------------------------------------------
-
-// Type for contentItem metadata.
-type Metadata = {
-  // ContentItem tags
-  // Use these to toggle specific styles (such as exclamation marks next to the item, etc.)
-  +tags: Array<Tag>,
-  // Manual overrides for contentItem visibility
-  // Use these to override the automatic visibility settings for the contentItem, if necessary.
-  +visibilityOverrides: {
-    // Visibility override for slide view.
-    +slide?: Visibility,
-    // Visibility override for course view.
-    +course?: Visibility,
-  },
-};
-
-
-// Highlights --------------------------------------------------------------------------------------
-
-const MILD_EMPHASIS: 'highlightTypes/MILD_EMPHASIS' = 'highlightTypes/MILD_EMPHASIS';
-const STRONG_EMPHASIS: 'highlightTypes/STRONG_EMPHASIS' = 'highlightTypes/STRONG_EMPHASIS';
-const LINK: 'highlightTypes/LINK' = 'highlightTypes/LINK';
-
-// Group all highlightTypes.
-const highlightTypes = {
-  MILD_EMPHASIS,
-  STRONG_EMPHASIS,
-  LINK,
-};
-type HighlightType = $Values<typeof highlightTypes>;
-
-// Base type for highlights.
-type BaseHighlight = {
-  // Type of the highlight.
-  +type: HighlightType,
-  // Highlight position in the text.
-  +position: SelectionPosition,
-};
-
-// Type for a MILD_EMPHASIS highlight.
-type MildEmphasisHighlight = {
-  ...$Exact<BaseHighlight>,
-  // Limit highlight type to MILD_EMPHASIS.
-  +type: typeof MILD_EMPHASIS,
-};
-
-// Type for a STRONG_EMPHASIS highlight.
-type StrongEmphasisHighlight = {
-  ...$Exact<BaseHighlight>,
-  // Limit highlight type to STRONG_EMPHASIS.
-  +type: typeof STRONG_EMPHASIS,
-};
-
-// Type for a LINK highlight.
-type LinkHighlight = {
-  ...$Exact<BaseHighlight>,
-  // Limit highlight type to LINK.
-  +type: typeof LINK,
-  // The href attribute of the link.
-  +href: string,
-};
-
-// Type for a generic highlight.
-type Highlight = MildEmphasisHighlight | StrongEmphasisHighlight | LinkHighlight;
-
-
-// ContentItems ------------------------------------------------------------------------------------
+import {
+  contentItemTypes,
+  symbolContentItemTypes,
+  plainTextContentItemTypes,
+  mediaContentItemTypes,
+  taggableContentItemTypes,
+  subableContentItemTypes,
+  containerContentItemTypes,
+} from './model/contentItemTypes';
+import type {
+  ContentItemType,
+  SymbolContentItemType,
+  PlainTextContentItemType,
+  MediaContentItemType,
+  TaggableContentItemType,
+  SubableContentItemType,
+  ContainerContentItemType,
+} from './model/contentItemTypes';
+import { highlightTypes } from './model/highlights';
+import type {
+  BaseHighlight,
+  MildEmphasisHighlight,
+  StrongEmphasisHighlight,
+  LinkHighlight,
+  Highlight,
+} from './model/highlights';
+import type { Metadata } from './model/metadata';
+import { tagTypes } from './model/tags';
+import type { Tag } from './model/tags';
+import { visibilityTypes } from './model/visibilities';
+import type { Visibility } from './model/visibilities';
 
 // Base type for contentItems.
-type BaseContentItem = {
+export type BaseContentItem = {
   // Unique identifier for the contentItem.
   +id: Identifier,
   // Type of the contentItem.
@@ -211,14 +43,14 @@ type BaseContentItem = {
 };
 
 // Additional props for 'symbol' contentItems.
-type SymbolContentItem = {
+export type SymbolContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to symbolContentItemTypes.
   +type: SymbolContentItemType,
 };
 
 // Additonal props for 'plainText' contentItems.
-type PlainTextContentItem = {
+export type PlainTextContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to plainTextContentItemTypes.
   +type: PlainTextContentItemType,
@@ -229,7 +61,7 @@ type PlainTextContentItem = {
 };
 
 // Additional props for 'media' contentItems.
-type MediaContentItem = {
+export type MediaContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to mediaContentItemTypes.
   +type: MediaContentItemType,
@@ -242,7 +74,7 @@ type MediaContentItem = {
 };
 
 // Additional props for taggable contentItems.
-type TaggableContentItem = {
+export type TaggableContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to taggableContentItemTypes.
   +type: TaggableContentItemType,
@@ -251,7 +83,7 @@ type TaggableContentItem = {
 };
 
 // Additional props for subable contentItems.
-type SubableContentItem = {
+export type SubableContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to subableContentItemTypes.
   +type: SubableContentItemType,
@@ -260,7 +92,7 @@ type SubableContentItem = {
 };
 
 // Additional props for container contentItems.
-type ContainerContentItem = {
+export type ContainerContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to containerContentItemTypes.
   +type: ContainerContentItemType,
@@ -273,7 +105,7 @@ export type RootContentItem = {
   ...$Exact<SymbolContentItem>,
   ...$Exact<ContainerContentItem>,
   // Limit contentItem type to ROOT.
-  +type: typeof ROOT,
+  +type: typeof contentItemTypes.ROOT,
   // Custom ROOT props go here.
 };
 
@@ -283,7 +115,7 @@ export type HeadingContentItem = {
   ...$Exact<TaggableContentItem>,
   ...$Exact<SubableContentItem>,
   // Limit contentItem type to HEADING.
-  +type: typeof HEADING,
+  +type: typeof contentItemTypes.HEADING,
   // Custom HEADING props go here.
 };
 
@@ -293,7 +125,7 @@ export type ParagraphContentItem = {
   ...$Exact<TaggableContentItem>,
   ...$Exact<SubableContentItem>,
   // Limit contentItem type to PARAGRAPH.
-  +type: typeof PARAGRAPH,
+  +type: typeof contentItemTypes.PARAGRAPH,
   // Custom PARAGRAPH props go here.
 };
 
@@ -303,7 +135,7 @@ export type ListContentItem = {
   ...$Exact<TaggableContentItem>,
   ...$Exact<SubableContentItem>,
   // Limit contentItem type to LIST.
-  +type: typeof LIST,
+  +type: typeof contentItemTypes.LIST,
   // TRUE if the list contains ordered items, FALSE if not.
   +ordered: boolean,
 };
@@ -313,7 +145,7 @@ export type ListItemContentItem = {
   ...$Exact<PlainTextContentItem>,
   ...$Exact<TaggableContentItem>,
   // Limit contentItem type to LIST_ITEM.
-  +type: typeof LIST_ITEM,
+  +type: typeof contentItemTypes.LIST_ITEM,
   // Custom LIST_ITEM props go here.
 };
 
@@ -323,7 +155,7 @@ export type BlockquoteContentItem = {
   ...$Exact<TaggableContentItem>,
   ...$Exact<SubableContentItem>,
   // Limit contentItem type to BLOCKQUOTE.
-  +type: typeof BLOCKQUOTE,
+  +type: typeof contentItemTypes.BLOCKQUOTE,
   // The person / organisation / etc. that is the source of the quote.
   +cite: string,
   // The url to the source of the quote.
@@ -336,7 +168,7 @@ export type CodeContentItem = {
   ...$Exact<TaggableContentItem>,
   ...$Exact<SubableContentItem>,
   // Limit contentItem type to CODE.
-  +type: typeof CODE,
+  +type: typeof contentItemTypes.CODE,
   // The language (e.g. JavaScript, JSON, ...) that the code is written in.
   +language: string,
 };
@@ -347,7 +179,7 @@ export type ImageContentItem = {
   ...$Exact<TaggableContentItem>,
   ...$Exact<SubableContentItem>,
   // Limit contentItem type to IMAGE.
-  +type: typeof IMAGE,
+  +type: typeof contentItemTypes.IMAGE,
   // Custom IMAGE props go here.
 };
 
@@ -357,7 +189,7 @@ export type VideoContentItem = {
   ...$Exact<TaggableContentItem>,
   ...$Exact<SubableContentItem>,
   // Limit contentItem type to VIDEO.
-  +type: typeof VIDEO,
+  +type: typeof contentItemTypes.VIDEO,
   // Custom VIDEO props go here.
 };
 
@@ -367,7 +199,7 @@ export type AudioContentItem = {
   ...$Exact<TaggableContentItem>,
   ...$Exact<SubableContentItem>,
   // Limit contentItem type to AUDIO,
-  +type: typeof AUDIO,
+  +type: typeof contentItemTypes.AUDIO,
   // Custom AUDIO props go here.
 };
 
@@ -377,7 +209,7 @@ export type IframeContentItem = {
   ...$Exact<TaggableContentItem>,
   ...$Exact<SubableContentItem>,
   // Limit contentItem type to IFRAME.
-  +type: typeof IFRAME,
+  +type: typeof contentItemTypes.IFRAME,
   // Custom IFRAME props go here.
 };
 
@@ -385,7 +217,7 @@ export type IframeContentItem = {
 export type SlideBreakContentItem = {
   ...$Exact<SymbolContentItem>,
   // Limit contentItem type to SLIDE_BREAK.
-  +type: typeof SLIDE_BREAK,
+  +type: typeof contentItemTypes.SLIDE_BREAK,
   // Custom SLIDE_BREAK props go here.
 };
 
@@ -393,7 +225,7 @@ export type SlideBreakContentItem = {
 export type CourseBreakContentItem = {
   ...$Exact<SymbolContentItem>,
   // Limit contentItem type to COURSE_BREAK.
-  +type: typeof COURSE_BREAK,
+  +type: typeof contentItemTypes.COURSE_BREAK,
   // Custom COURSE_BREAK props go here.
 };
 
@@ -413,12 +245,37 @@ export type ContentItem =
   | SlideBreakContentItem
   | CourseBreakContentItem;
 
-
-// Export constants --------------------------------------------------------------------------------
+export type ContentItemsState = {
+  +[contentItemId: string]: ContentItem,
+};
 
 export {
   contentItemTypes,
+  symbolContentItemTypes,
+  plainTextContentItemTypes,
+  mediaContentItemTypes,
+  taggableContentItemTypes,
+  subableContentItemTypes,
+  containerContentItemTypes,
   highlightTypes,
-  visibilityTypes,
   tagTypes,
+  visibilityTypes,
+};
+
+export type {
+  ContentItemType,
+  SymbolContentItemType,
+  PlainTextContentItemType,
+  MediaContentItemType,
+  TaggableContentItemType,
+  SubableContentItemType,
+  ContainerContentItemType,
+  Metadata,
+  BaseHighlight,
+  MildEmphasisHighlight,
+  StrongEmphasisHighlight,
+  LinkHighlight,
+  Highlight,
+  Tag,
+  Visibility,
 };
