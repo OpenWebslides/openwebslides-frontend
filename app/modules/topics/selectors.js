@@ -18,5 +18,5 @@ export const getAllById = (state: State): { +[topicId: string]: Topic } => {
 
 export const getAll = (state: State): Array<Topic> => {
   const topicsById = getAllById(state);
-  return Object.keys(topicsById).map(key => topicsById[key]);
+  return Object.keys(topicsById).map((key) => topicsById[key]);
 };

@@ -5,7 +5,9 @@
   ],
   "env": {
     // Don't throw error when using global browser variables such as 'document' or 'window'.
-    "browser": true
+    "browser": true,
+    // Don't throw error when using jest functions such as 'descibe' or 'it'.
+    "jest": true
   },
   "plugins": [
     // ESLint checking for Flow.
@@ -19,6 +21,12 @@
 
     // Allow programmer to decide which formatting is more readable on a case-by-case basis.
     "arrow-body-style": "off",
+
+    // Enforce consistent use of parentheses around arrow function parameters.
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
 
     // 'stroustrup' is the only style that allows for comments between the 'if' and the 'else' block.
     "brace-style": [
@@ -73,7 +81,8 @@
     ],
 
     // Consistency with airbnb's 'no-dupe-keys' rule.
-    "flowtype/no-dupe-keys": "error",
+    // Note: temporarily turned of until https://github.com/gajus/eslint-plugin-flowtype/pull/318 has been merged #TODO
+    // "flowtype/no-dupe-keys": "error",
 
     // Discourage suppressing flow errors.
     "flowtype/no-flow-fix-me-comments": "warn",

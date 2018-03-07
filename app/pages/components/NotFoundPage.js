@@ -14,4 +14,5 @@ const NotFoundPage = (props: Props): React.Node => {
   );
 };
 
+export { NotFoundPage as PureNotFoundPage };
 export default translate()(NotFoundPage);

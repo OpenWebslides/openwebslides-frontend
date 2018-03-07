@@ -48,6 +48,15 @@ export const edit = (
     };
   }
 
+  if (newTitle === null && newDescription === null) {
+    return {
+      type: t.EDIT_ERROR,
+      error: {
+        message: 'Action must contain at least one edit.',
+      },
+    };
+  }
+
   return {
     type: t.EDIT,
     payload: {
