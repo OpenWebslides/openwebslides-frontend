@@ -4,7 +4,7 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, Divider, Segment, Grid, Icon, Image, Menu } from 'semantic-ui-react';
+import { Form, Input, TextArea, Button, Card, Divider, Segment, Grid, Icon, Image, Menu } from 'semantic-ui-react';
 
 type Props = TranslatorProps & { /* new props go here */ };
 
@@ -64,7 +64,7 @@ const LibraryPage = (props: Props): React.Node => {
           </Menu>
         </Grid.Column>
 
-        <Grid.Column stretched={true} width={9}>
+        <Grid.Column stretched={true} width={8}>
           <h1>All topics</h1>
           <Card.Group>
             <Card>
@@ -115,8 +115,13 @@ const LibraryPage = (props: Props): React.Node => {
 
         </Grid.Column>
 
-        <Grid.Column stretched={true} width={5}>
+        <Grid.Column verticalAlign="top" width={6}>
           <h1>Create new topic</h1>
+          <Form>
+            <Form.Field id="form-input-control-title" control={Input} label="Title" placeholder="Title" />
+            <Form.Field id="form-textarea-control-description" control={TextArea} label="Discription" placeholder="Description" />
+            <Form.Field id="form-button-control-public" control={Button} content="Confirm" />
+          </Form>
         </Grid.Column>
       </Grid>
     </div>
