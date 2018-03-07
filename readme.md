@@ -4,29 +4,27 @@ React app for the OpenWebslides open-source co-creation platform.
 
 ## How to...
 
-### ... run the webpack dev server:
+- Run the webpack dev server: `yarn run dev-server`
+- Run tests:
+  - Minimal output: `yarn run test`
+  - Verbose test output + coverage report: `yarn run test-report`
+- Run ESLint check: `yarn run lint`
+- Run Flow check: `yarn run flow`
 
-```
-yarn run dev-server
-```
+## Note on pre-commit & pre-push hooks
 
-### ... run tests:
+`package.json` contains a `precommit` and a `prepush` script, which are automatically executed on git commit / push using [Husky](https://github.com/typicode/husky). They can also be executed manually using `yarn run precommit` and `yarn run prepush`, respectively.
 
-Minimal output:
-```
-yarn run test
-```
+The following checks need to pass in order for a commit to succeed:
+- Code contains no eslint errors
+- Code contains no flow errors
 
-Verbose test output + coverage report:
-```
-yarn run test-report
-```
+The following checks need to pass in order for a push to succeed:
+- There are no failing tests
 
-### ... run flow check:
+## Note on `flow-typed`
 
-```
-yarn run flow
-```
+Please keep this up-to-date by running `flow-typed install` every time `package.json` is updated.
 
 ## Good to read:
 
