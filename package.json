@@ -22,7 +22,6 @@
     "eslint": "^4.17.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-import-resolver-webpack": "^0.8.4",
-    "eslint-loader": "^1.9.0",
     "eslint-plugin-flowtype": "^2.44.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
@@ -56,8 +55,9 @@
   "scripts": {
     "build": "webpack",
     "dev-server": "webpack-dev-server",
+    "lint": "eslint .",
     "test": "jest",
     "test-report": "jest --verbose --coverage",
-    "precommit": "yarn run flow && yarn run test"
+    "precommit": "yarn run lint && yarn run flow && yarn run test"
   }
 }

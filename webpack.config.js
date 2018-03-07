@@ -57,14 +57,6 @@ const config = {
   module: {
     rules: [
       {
-        // Check source files with ESLint; fail build if errors are found
-        // Enforce this happening before any other processing
-        enforce: 'pre',
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: 'eslint-loader',
-      },
-      {
         // Transpile .js and .jsx files using Babel
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -73,24 +65,24 @@ const config = {
       {
         // Load CSS files
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
       },
       {
         // Load SVG files
         test: /\.svg/,
         use: {
           loader: 'svg-url-loader',
-          options: {}
-        }
+          options: {},
+        },
       },
       {
         // Load binary assets
         test: /\.(woff|woff2|eot|ttf|otf|png|gif|jpg)$/,
         use: {
           loader: 'file-loader',
-          options: {}
-        }
-      }
+          options: {},
+        },
+      },
     ],
   },
 
