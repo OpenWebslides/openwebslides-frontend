@@ -1,6 +1,8 @@
 // @flow
 /* eslint-disable padded-blocks, flowtype/no-weak-types */
 
+import { dummyTopics } from 'data/dummyData';
+
 import reducer from '../reducer';
 import * as t from '../actionTypes';
 import type { TopicsState } from '../model';
@@ -14,20 +16,8 @@ describe(`reducer`, (): void => {
         message: `Flow will complain if the passed action isn't some kind of valid TopicAction.`,
       },
     };
-    const expectedState: TopicsState = {
-      abcdefghij: {
-        id: 'abcdefghij',
-        title: 'Test topic 1',
-        description: 'Lorem ipsum dolor sit amet.',
-      },
-      klmnopqrst: {
-        id: 'klmnopqrst',
-        title: 'Test topic 2',
-        description: '',
-      },
-    };
 
-    expect(reducer(undefined, dummyAction)).toEqual(expectedState);
+    expect(reducer(undefined, dummyAction)).toEqual(dummyTopics);
   });
 
   it(`handles topic ADD action`, (): void => {

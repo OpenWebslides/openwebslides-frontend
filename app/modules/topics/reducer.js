@@ -1,21 +1,13 @@
 // @flow
 
 import _ from 'lodash';
+
+import { dummyTopics } from 'data/dummyData';
+
 import * as t from './actionTypes';
 import type { Topic, TopicsState } from './model';
 
-const initialState: TopicsState = {
-  abcdefghij: {
-    id: 'abcdefghij',
-    title: 'Test topic 1',
-    description: 'Lorem ipsum dolor sit amet.',
-  },
-  klmnopqrst: {
-    id: 'klmnopqrst',
-    title: 'Test topic 2',
-    description: '',
-  },
-};
+const initialState: TopicsState = dummyTopics;
 
 const add = (state: TopicsState, action: t.AddAction): TopicsState => {
   const { id, title, description } = action.payload;
