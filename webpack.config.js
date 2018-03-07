@@ -7,7 +7,6 @@ const path = require('path');
 
 // Require plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const FlowStatusWebpackPlugin = require('flow-status-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 // Path name constants
@@ -53,11 +52,6 @@ const config = {
     }),
     // Minify output
     new UglifyJSPlugin(),
-    // Check source files for Flow errors; fail build if errors are found
-    new FlowStatusWebpackPlugin({
-      failOnError: true,
-      restartFlow: false, // prevent plugin from interfering with flow server run by the IDE
-    }),
   ],
 
   module: {
