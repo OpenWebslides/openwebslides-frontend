@@ -146,7 +146,7 @@ describe(`actions`, (): void => {
       const expectedAction: t.EditErrorAction = {
         type: t.EDIT_ERROR,
         error: {
-          message: 'Action must contain at least one edit',
+          message: 'Action must contain at least one edit.',
         },
       };
 
