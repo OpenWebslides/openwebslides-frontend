@@ -58,6 +58,7 @@
     "lint": "eslint .",
     "test": "jest",
     "test-report": "jest --verbose --coverage",
-    "precommit": "yarn run lint && yarn run flow && yarn run test"
+    "precommit": "yarn run lint && yarn run flow",
+    "prepush": "yarn run test"
   }
 }
