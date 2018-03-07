@@ -1,4 +1,4 @@
-# openwebslides-frontend
+# Open Webslides [![Travis](https://travis-ci.org/OpenWebslides/openwebslides-frontend.svg?branch=master)](https://travis-ci.org/OpenWebslides/openwebslides-frontend) [![Coverage Status](https://coveralls.io/repos/github/OpenWebslides/openwebslides-frontend/badge.svg?branch=feature-travis)](https://coveralls.io/github/OpenWebslides/openwebslides-frontend?branch=feature-travis)
 
 React app for the OpenWebslides open-source co-creation platform.
 
