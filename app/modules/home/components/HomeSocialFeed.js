@@ -7,7 +7,7 @@ const HomeSocialFeed = (): React.Node => {
   return (
     <Container>
       <h1>Social feed</h1>
-      <Feed>
+      <Feed size="large">
         <Feed.Event>
           <Feed.Label>
             <img src="/assets/images/avatar/student_m.jpg" alt="profile" />
@@ -20,8 +20,10 @@ const HomeSocialFeed = (): React.Node => {
                   "Analysis of UV light"
                 `}
               </strong>
-              <Feed.Date>1 Minute Ago</Feed.Date>
             </Feed.Summary>
+            <Feed.Meta>
+              <Feed.Date>1 Minute Ago</Feed.Date>
+            </Feed.Meta>
           </Feed.Content>
         </Feed.Event>
 
@@ -37,8 +39,10 @@ const HomeSocialFeed = (): React.Node => {
                   "The genesis of the WWW"
                 `}
               </strong>
-              <Feed.Date>42 Minutes Ago</Feed.Date>
             </Feed.Summary>
+            <Feed.Meta>
+              <Feed.Date>42 Minutes Ago</Feed.Date>
+            </Feed.Meta>
           </Feed.Content>
         </Feed.Event>
 
@@ -54,8 +58,10 @@ const HomeSocialFeed = (): React.Node => {
                   "Introduction to mutations in modern biology"
                 `}
               </strong>
-              <Feed.Date>2 Hour Ago</Feed.Date>
             </Feed.Summary>
+            <Feed.Meta>
+              <Feed.Date>2 Hour Ago</Feed.Date>
+            </Feed.Meta>
           </Feed.Content>
         </Feed.Event>
       </Feed>
