@@ -7,10 +7,9 @@ node_modules
 # Ignore webpack build output
 dist
 
-package-lock.json
-
 # Ignore jest coverage info
 coverage
 
-# Ignore local yarn error output
+# Ignore local and/or unsupported package manager files
+package-lock.json
 yarn-error.log
