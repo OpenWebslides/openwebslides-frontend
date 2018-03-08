@@ -5,7 +5,9 @@
 
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
+import { Provider } from 'react-redux';
+
+import configureStore from 'store/configureStore';
 
 import 'semantic-ui-css/semantic.min.css';
 
@@ -15,27 +17,17 @@ import Application from './Application';
 // The HTML element that should contain the app.
 const appRootElement: (Element | null) = document.getElementById('react-app');
 
+// The Redux store.
+const store = configureStore();
+
 if (appRootElement !== null) {
-  // Function that renders the supplied Component with React
-  const render = (RootComponent: React.ComponentType<*>): void => {
-    ReactDOM.render(
-      <AppContainer>
-        <RootComponent />
-      </AppContainer>,
-      appRootElement,
-    );
-  };
-
-  // Render the application
-  render(Application);
-
-  // Webpack Hot Module Replacement API
-  if (module.hot) {
-    // $FlowFixMe
-    module.hot.accept(Application, (): void => {
-      render(Application);
-    });
-  }
+  // Renders the Application component with React.
+  ReactDOM.render(
+    <Provider store={store}>
+      <Application />
+    </Provider>,
+    appRootElement,
+  );
 }
 else {
   console.error('React app root element not found.');
