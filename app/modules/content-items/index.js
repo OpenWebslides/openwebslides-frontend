@@ -2,6 +2,7 @@
 /* eslint-disable import/no-duplicates */
 
 import * as model from './model';
+import components from './components';
 
 import {
   contentItemTypes,
@@ -56,6 +57,7 @@ import type {
 } from './model';
 
 const contentItems = {
+  components,
   model,
 };
 
