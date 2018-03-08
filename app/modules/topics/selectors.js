@@ -1,8 +1,7 @@
 // @flow
 
 import type { State } from 'types/state';
-import type { TopicsState } from './index';
-import type { Topic } from './model';
+import type { Topic, TopicsState } from './model';
 
 const getModule = (state: State): TopicsState => {
   return state.modules.topics;

@@ -14,6 +14,7 @@
 
 # Allow importing directly from these folders.
 module.name_mapper='^config' ->'<PROJECT_ROOT>/app/config'
+module.name_mapper='^data' ->'<PROJECT_ROOT>/app/data'
 module.name_mapper='^i18n' ->'<PROJECT_ROOT>/app/i18n'
 module.name_mapper='^lib' ->'<PROJECT_ROOT>/app/lib'
 module.name_mapper='^modules' ->'<PROJECT_ROOT>/app/modules'

@@ -14,6 +14,10 @@ export type Topic = {
   // +rootContentItemId: Identifier, // #TODO
 };
 
+export type TopicsState = {
+  +[topicId: string]: Topic,
+};
+
 export const generateId = (): string => {
   return generateRandomString(ID_LENGTH);
 };
