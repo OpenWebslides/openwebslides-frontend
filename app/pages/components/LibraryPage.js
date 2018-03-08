@@ -68,7 +68,7 @@ const LibraryPage = (props: Props): React.Node => {
           <Grid.Row>
             <Grid padded="vertically">
               <Grid.Column width={12}>
-                <h1>All topics</h1>
+                <h1>Library</h1>
               </Grid.Column>
               <Grid.Column width={4}>
                 <Button floated="right">
@@ -86,11 +86,14 @@ const LibraryPage = (props: Props): React.Node => {
                   <Image src="/assets/images/icons/fork.png" />
                   1 Fork
                   <Divider />
-                  <Image src="/assets/images/icons/edit.png" />
-                  Edit
-                  <Divider />
-                  <Image src="/assets/images/icons/delete.png" />
-                  Delete
+
+                  <Button>
+                    Edit
+                  </Button>
+
+                  <Button basic={true} color="red" floated="right">
+                    Delete
+                  </Button>
                 </Card.Content>
               </Card>
 
@@ -101,11 +104,14 @@ const LibraryPage = (props: Props): React.Node => {
                   <Image src="/assets/images/icons/fork.png" />
                   5 Forks
                   <Divider />
-                  <Image src="/assets/images/icons/edit.png" />
-                  Edit
-                  <Divider />
-                  <Image src="/assets/images/icons/delete.png" />
-                  Delete
+
+                  <Button>
+                    Edit
+                  </Button>
+
+                  <Button basic={true} color="red" floated="right">
+                    Delete
+                  </Button>
                 </Card.Content>
               </Card>
 
@@ -116,11 +122,13 @@ const LibraryPage = (props: Props): React.Node => {
                   <Image src="/assets/images/icons/fork.png" />
                   &gt;9000 Forks
                   <Divider />
-                  <Image src="/assets/images/icons/edit.png" />
-                  Edit
-                  <Divider />
-                  <Image src="/assets/images/icons/delete.png" />
-                  Delete
+                  <Button>
+                    Edit
+                  </Button>
+
+                  <Button basic={true} color="red" floated="right">
+                    Delete
+                  </Button>
                 </Card.Content>
               </Card>
             </Card.Group>

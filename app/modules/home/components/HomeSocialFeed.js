@@ -6,7 +6,7 @@ import { Container, Feed } from 'semantic-ui-react';
 const HomeSocialFeed = (): React.Node => {
   return (
     <Container>
-      <h1>Social feed</h1>
+      <h1>Recent activity</h1>
       <Feed size="large">
         <Feed.Event>
           <Feed.Label>

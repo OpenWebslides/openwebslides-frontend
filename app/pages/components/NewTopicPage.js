@@ -54,7 +54,7 @@ const NewTopicPage = (props: Props): React.Node => {
           <h1>Create new topic</h1>
           <Form>
             <Form.Field id="form-input-control-title" control={Input} label="Title" placeholder="Title" />
-            <Form.Field id="form-textarea-control-description" control={TextArea} label="Discription" placeholder="Description" />
+            <Form.Field id="form-textarea-control-description" control={TextArea} label="Description" placeholder="Description" />
             <Form.Group>
               <Form.Field id="form-button-control-public" control={Button}>
                 <Link to="/Library">Cancel</Link>
