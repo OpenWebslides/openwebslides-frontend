@@ -8,12 +8,12 @@ import contentItems from 'modules/content-items';
 
 type Props = TranslatorProps & { /* new props go here */ };
 
-const EditorPage = (props: Props): React.Node => {
-  const Editor = contentItems.components.editor;
+const ContentItemsEditor = contentItems.components.Editor;
 
+const EditorPage = (props: Props): React.Node => {
   return (
     <div>
-      <Editor />
+      <ContentItemsEditor />
     </div>
   );
 };

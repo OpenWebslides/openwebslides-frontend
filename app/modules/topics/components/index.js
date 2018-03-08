@@ -4,8 +4,8 @@ import List from './List';
 import Preview from './Preview';
 
 const index = {
-  list: List,
-  preview: Preview,
+  List,
+  Preview,
 };
 
 export default index;
