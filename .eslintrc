@@ -55,6 +55,14 @@
     // Allow programmer to decide which formatting is more readable on a case-by-case basis.
     "no-else-return": "off",
 
+    // Allow React props to go unused, so that all components can be based on a single template (that includes props).
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "props"
+      }
+    ],
+
     // Require quotes around numbers used as props,
     // for compatibility with external libraries which may not support unquoted numbers (e.g. i18next).
     "quote-props": [
