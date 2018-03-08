@@ -14,13 +14,15 @@ import HomePage from './components/HomePage';
 import LibraryPage from './components/LibraryPage';
 import TopicsPage from './components/TopicsPage';
 import EditorPage from './components/EditorPage';
+import NewTopicPage from './components/NewTopicPage';
 
 const routes = (
   <Switch>
     <Route path="/" exact={true} component={HomePage} />
     <Route path="/library" component={LibraryPage} />
-    <Route path="/topics" component={TopicsPage} />
     <Route path="/editor" component={EditorPage} />
+    <Route path="/topics" exact={true} component={TopicsPage} />
+    <Route path="/topics/new" component={NewTopicPage} />
     <Route component={NotFoundPage} />
   </Switch>
 );

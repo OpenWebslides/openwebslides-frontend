@@ -4,7 +4,7 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Form, Input, TextArea, Button, Card, Divider, Segment, Grid, Icon, Image, Menu } from 'semantic-ui-react';
+import { Button, Card, Divider, Segment, Grid, Icon, Image, Menu } from 'semantic-ui-react';
 
 type Props = TranslatorProps & { /* new props go here */ };
 
@@ -50,7 +50,7 @@ const LibraryPage = (props: Props): React.Node => {
         </Menu.Item>
         <MenuRight />
       </Menu>
-      <Grid stretched={true}>
+      <Grid stretched={true} padded="horizontally">
         <Grid.Column stretched={true} width={2}>
           <Menu vertical={true} fluid={true}>
             <Menu.Header>
@@ -64,64 +64,67 @@ const LibraryPage = (props: Props): React.Node => {
           </Menu>
         </Grid.Column>
 
-        <Grid.Column stretched={true} width={8}>
-          <h1>All topics</h1>
-          <Card.Group>
-            <Card>
-              <Card.Content header="Introduction to mutations in modern biology" />
-              <Card.Content description={description1} />
-              <Card.Content extra={true}>
-                <Image src="/assets/images/icons/fork.png" />
-                1 Fork
-                <Divider />
-                <Image src="/assets/images/icons/edit.png" />
-                Edit
-                <Divider />
-                <Image src="/assets/images/icons/delete.png" />
-                Delete
-              </Card.Content>
-            </Card>
+        <Grid.Column stretched={true} width={14}>
+          <Grid.Row>
+            <Grid padded="vertically">
+              <Grid.Column width={12}>
+                <h1>All topics</h1>
+              </Grid.Column>
+              <Grid.Column width={4}>
+                <Button floated="right">
+                  <Link to="/topics/new">Create new topic</Link>
+                </Button>
+              </Grid.Column>
+            </Grid>
+          </Grid.Row>
+          <Grid.Row>
+            <Card.Group>
+              <Card>
+                <Card.Content header="Introduction to mutations in modern biology" />
+                <Card.Content description={description1} />
+                <Card.Content extra={true}>
+                  <Image src="/assets/images/icons/fork.png" />
+                  1 Fork
+                  <Divider />
+                  <Image src="/assets/images/icons/edit.png" />
+                  Edit
+                  <Divider />
+                  <Image src="/assets/images/icons/delete.png" />
+                  Delete
+                </Card.Content>
+              </Card>
 
-            <Card>
-              <Card.Content header="Y U DO DIS: An analysis of modern slang" />
-              <Card.Content description={description2} />
-              <Card.Content extra={true}>
-                <Image src="/assets/images/icons/fork.png" />
-                5 Forks
-                <Divider />
-                <Image src="/assets/images/icons/edit.png" />
-                Edit
-                <Divider />
-                <Image src="/assets/images/icons/delete.png" />
-                Delete
-              </Card.Content>
-            </Card>
+              <Card>
+                <Card.Content header="Y U DO DIS: An analysis of modern slang" />
+                <Card.Content description={description2} />
+                <Card.Content extra={true}>
+                  <Image src="/assets/images/icons/fork.png" />
+                  5 Forks
+                  <Divider />
+                  <Image src="/assets/images/icons/edit.png" />
+                  Edit
+                  <Divider />
+                  <Image src="/assets/images/icons/delete.png" />
+                  Delete
+                </Card.Content>
+              </Card>
 
-            <Card>
-              <Card.Content header="The cultural impact of Dragon Ball Z on youths today" />
-              <Card.Content description={description3} />
-              <Card.Content extra={true}>
-                <Image src="/assets/images/icons/fork.png" />
-                &gt;9000 Forks
-                <Divider />
-                <Image src="/assets/images/icons/edit.png" />
-                Edit
-                <Divider />
-                <Image src="/assets/images/icons/delete.png" />
-                Delete
-              </Card.Content>
-            </Card>
-          </Card.Group>
-
-        </Grid.Column>
-
-        <Grid.Column verticalAlign="top" width={6}>
-          <h1>Create new topic</h1>
-          <Form>
-            <Form.Field id="form-input-control-title" control={Input} label="Title" placeholder="Title" />
-            <Form.Field id="form-textarea-control-description" control={TextArea} label="Discription" placeholder="Description" />
-            <Form.Field id="form-button-control-public" control={Button} content="Confirm" />
-          </Form>
+              <Card>
+                <Card.Content header="The cultural impact of Dragon Ball Z on youths today" />
+                <Card.Content description={description3} />
+                <Card.Content extra={true}>
+                  <Image src="/assets/images/icons/fork.png" />
+                  &gt;9000 Forks
+                  <Divider />
+                  <Image src="/assets/images/icons/edit.png" />
+                  Edit
+                  <Divider />
+                  <Image src="/assets/images/icons/delete.png" />
+                  Delete
+                </Card.Content>
+              </Card>
+            </Card.Group>
+          </Grid.Row>
         </Grid.Column>
       </Grid>
     </div>
