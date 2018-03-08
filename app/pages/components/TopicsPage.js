@@ -23,7 +23,7 @@ const mapStateToProps = (state: State): StateProps => {
 
 const TopicsPage = (props: Props): React.Node => {
   const { topicIds } = props;
-  const TopicsList = topics.components.components.list;
+  const TopicsList = topics.components.list;
 
   return (
     <div>
