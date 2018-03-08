@@ -6,10 +6,11 @@ import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 
 import type { State } from 'types/state';
+import type { Identifier } from 'types/model';
 import topics from 'modules/topics';
 
 type StateProps = {
-  topicIds: Array<string>,
+  topicIds: Array<Identifier>,
 };
 
 type Props = TranslatorProps & StateProps;

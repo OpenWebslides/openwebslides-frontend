@@ -1,6 +1,7 @@
 // @flow
 
 import type { Error } from 'types/error';
+import type { Identifier } from 'types/model';
 
 export const ADD: 'topics/ADD' = 'topics/ADD';
 export const EDIT: 'topics/EDIT' = 'topics/EDIT';
@@ -13,7 +14,7 @@ export const REMOVE_ERROR: 'topics/REMOVE_ERROR' = 'topics/REMOVE_ERROR';
 export type AddAction = {
   type: typeof ADD,
   payload: {
-    id: string,
+    id: Identifier,
     title: string,
     description: string,
   },
@@ -22,7 +23,7 @@ export type AddAction = {
 export type EditAction = {
   type: typeof EDIT,
   payload: {
-    id: string,
+    id: Identifier,
     title: ?string,
     description: ?string,
   },
@@ -31,7 +32,7 @@ export type EditAction = {
 export type RemoveAction = {
   type: typeof REMOVE,
   payload: {
-    id: string,
+    id: Identifier,
   },
 };
 

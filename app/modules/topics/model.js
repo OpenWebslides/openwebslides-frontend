@@ -15,9 +15,9 @@ export type Topic = {
 };
 
 export type TopicsState = {
-  +[topicId: string]: Topic,
+  +[topicId: Identifier]: Topic,
 };
 
-export const generateId = (): string => {
+export const generateId = (): Identifier => {
   return generateRandomString(ID_LENGTH);
 };

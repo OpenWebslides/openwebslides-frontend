@@ -246,7 +246,7 @@ export type ContentItem =
   | CourseBreakContentItem;
 
 export type ContentItemsState = {
-  +[contentItemId: string]: ContentItem,
+  +[contentItemId: Identifier]: ContentItem,
 };
 
 export {

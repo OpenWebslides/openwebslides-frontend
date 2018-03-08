@@ -6,11 +6,12 @@ import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 
 import type { State } from 'types/state';
+import type { Identifier } from 'types/model';
 import type { Topic } from '../model';
 import { getById } from '../selectors';
 
 type PassedProps = {
-  topicId: string,
+  topicId: Identifier,
 };
 
 type StateProps = {

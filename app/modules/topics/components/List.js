@@ -10,16 +10,17 @@ import type { TranslatorProps } from 'react-i18next';
 import { Button } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
+import type { Identifier } from 'types/model';
 import { add, edit, remove } from '../actions';
 
 import Preview from './Preview';
 
 type PassedProps = {
-  topicIds: Array<string>,
+  topicIds: Array<Identifier>,
 };
 
 type StateProps = {
-  lastTopicId: ?string,
+  lastTopicId: ?Identifier,
 };
 
 type DispatchProps = {

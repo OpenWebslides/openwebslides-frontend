@@ -9,15 +9,15 @@ const generateRandomStringOfVariableLength = (): string => {
 };
 
 const generateRandomString = (length: number): string => {
-  let randomId: string = '';
+  let randomString: string = '';
 
-  // Keep adding random strings until the lengt of randomId is greater than or equal to $length
-  while (randomId.length < length) {
-    randomId += generateRandomStringOfVariableLength();
+  // Keep adding random strings until the lengt of randomString is greater than or equal to $length
+  while (randomString.length < length) {
+    randomString += generateRandomStringOfVariableLength();
   }
 
   // Take a substring of the exact $length
-  return randomId.substr(0, length);
+  return randomString.substr(0, length);
 };
 
 export default generateRandomString;
