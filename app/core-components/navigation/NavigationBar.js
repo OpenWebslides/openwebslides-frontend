@@ -4,13 +4,20 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Icon, Image, Menu } from 'semantic-ui-react';
+import { Segment, Icon, Image, Menu } from 'semantic-ui-react';
 
-type Props = TranslatorProps & { /* new props go here */ };
+type Props = TranslatorProps & { };
 
+// TODO: pass t function to MenuRight
 const MenuRight = (): React.Node => {
   return (
     <Menu.Menu position="right">
+      <Menu.Item>
+        <Segment>
+          <Link to="/Library">Library</Link>
+        </Segment>
+      </Menu.Item>
+
       <Menu.Item>
         <Icon name="bell outline" size="large" />
       </Menu.Item>

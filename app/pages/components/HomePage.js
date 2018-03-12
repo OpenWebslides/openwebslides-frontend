@@ -26,9 +26,6 @@ const PureHomePage = (props: Props): React.Node => {
               <Segment vertical={true}>
                 <Link to="/topics">{t('common:link.topics')}</Link>
               </Segment>
-              <Segment vertical={true}>
-                <Link to="/Library">{t('common:link.library')}</Link>
-              </Segment>
             </Menu.Header>
           </Menu>
         </Grid.Column>
