@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable padded-blocks, flowtype/no-weak-types */
 
-import { dummyTopics } from 'data/dummyData';
+import { dummyTopics } from '../dummyData';
 
 import reducer from '../reducer';
 import * as t from '../actionTypes';

@@ -2,7 +2,7 @@
 
 import _ from 'lodash';
 
-import { dummyTopics } from 'data/dummyData';
+import { dummyTopics } from './dummyData';
 
 import * as t from './actionTypes';
 import type { Topic, TopicsState } from './model';
