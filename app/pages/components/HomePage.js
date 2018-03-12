@@ -4,15 +4,77 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Segment, Grid, Menu } from 'semantic-ui-react';
-
-import home from 'modules/home';
+import { Container, Feed, Segment, Grid, Menu } from 'semantic-ui-react';
 
 import Page from '../Page';
 
 type Props = TranslatorProps & { /* new props go here */ };
 
-const HomeContainer = home.components.components.homecontainer;
+const HomeContent = (): React.Node => {
+  return (
+    <Container>
+      <h1>Recent activity</h1>
+      <Feed size="large">
+        <Feed.Event>
+          <Feed.Label>
+            <img src="/assets/images/avatar/student_m.jpg" alt="profile" />
+          </Feed.Label>
+          <Feed.Content>
+            <Feed.Summary>
+              <Feed.User>Student U </Feed.User> commented on topic
+              <strong>
+                {`
+                  "Analysis of UV light"
+                `}
+              </strong>
+            </Feed.Summary>
+            <Feed.Meta>
+              <Feed.Date>1 Minute Ago</Feed.Date>
+            </Feed.Meta>
+          </Feed.Content>
+        </Feed.Event>
+
+        <Feed.Event>
+          <Feed.Label>
+            <img src="/assets/images/avatar/professor2.jpg" alt="profile" />
+          </Feed.Label>
+          <Feed.Content>
+            <Feed.Summary>
+              <Feed.User>Professor W</Feed.User> deleted topic
+              <strong>
+                {`
+                  "The genesis of the WWW"
+                `}
+              </strong>
+            </Feed.Summary>
+            <Feed.Meta>
+              <Feed.Date>42 Minutes Ago</Feed.Date>
+            </Feed.Meta>
+          </Feed.Content>
+        </Feed.Event>
+
+        <Feed.Event>
+          <Feed.Label>
+            <img src="/assets/images/avatar/professor.jpg" alt="profile" />
+          </Feed.Label>
+          <Feed.Content>
+            <Feed.Summary>
+              <Feed.User>Professor X</Feed.User>  created topic
+              <strong>
+                {`
+                  "Introduction to mutations in modern biology"
+                `}
+              </strong>
+            </Feed.Summary>
+            <Feed.Meta>
+              <Feed.Date>2 Hour Ago</Feed.Date>
+            </Feed.Meta>
+          </Feed.Content>
+        </Feed.Event>
+      </Feed>
+    </Container>
+  );
+};
 
 const PureHomePage = (props: Props): React.Node => {
   const { t } = props;
@@ -31,7 +93,7 @@ const PureHomePage = (props: Props): React.Node => {
         </Grid.Column>
 
         <Grid.Column stretched={true} width={14}>
-          <HomeContainer />
+          <HomeContent />
         </Grid.Column>
       </Grid>
     </Page>
