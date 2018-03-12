@@ -15,6 +15,10 @@ const common = {
     edit: 'Edit',
     remove: 'Remove',
   },
+  link: {
+    topics: 'Topics',
+    library: 'Library',
+  },
 };
 
 export default common;
