@@ -43,11 +43,11 @@ const LibraryPage = (props: Props): React.Node => {
           <Grid.Row>
             <Grid padded="vertically">
               <Grid.Column width={12}>
-                <h1>Library</h1>
+                <h1>{t('pages:librarypage.title')}</h1>
               </Grid.Column>
               <Grid.Column width={4}>
                 <Button floated="right">
-                  <Link to="/topics/new">Create new topic</Link>
+                  <Link to="/topics/new">{t('common:link.newtopic')}</Link>
                 </Button>
               </Grid.Column>
             </Grid>

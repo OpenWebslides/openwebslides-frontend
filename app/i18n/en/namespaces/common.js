@@ -17,7 +17,13 @@ const common = {
   },
   link: {
     topics: 'Topics',
+    newtopic: 'Create new topic',
     library: 'Library',
+  },
+  feed: {
+    comment: 'commented on topic',
+    deleteTopic: 'deleted topic',
+    createTopic: 'created topic',
   },
 };
 
