@@ -6,7 +6,7 @@ import * as model from './model';
 // import * as selectors from './selectors';
 // import reducer from './reducer';
 
-import type { Account, AuthenticationState } from './model';
+import type { Account, AuthState } from './model';
 
 const authentication = {
   // actions,
@@ -16,5 +16,5 @@ const authentication = {
   // selectors,
 };
 
-export type { Account, AuthenticationState };
+export type { Account, AuthState };
 export default authentication;
