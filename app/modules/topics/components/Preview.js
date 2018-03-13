@@ -26,7 +26,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const Preview = (props: Props): React.Node => {
+const PurePreview = (props: Props): React.Node => {
   const { t, topic } = props;
 
   return (
@@ -54,5 +54,7 @@ const Preview = (props: Props): React.Node => {
   );
 };
 
-export { Preview as PurePreview };
-export default connect(mapStateToProps)(translate()(Preview));
+const Preview = connect(mapStateToProps)(translate()(PurePreview));
+
+export { PurePreview };
+export default Preview;

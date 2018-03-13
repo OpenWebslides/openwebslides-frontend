@@ -23,7 +23,7 @@ const mapStateToProps = (state: State): StateProps => {
 
 const TopicsList = topics.components.List;
 
-const TopicsPage = (props: Props): React.Node => {
+const PureTopicsPage = (props: Props): React.Node => {
   const { topicIds } = props;
 
   return (
@@ -33,5 +33,7 @@ const TopicsPage = (props: Props): React.Node => {
   );
 };
 
-export { TopicsPage as PureTopicsPage };
-export default connect(mapStateToProps)(translate()(TopicsPage));
+const TopicsPage = connect(mapStateToProps)(translate()(PureTopicsPage));
+
+export { PureTopicsPage };
+export default TopicsPage;

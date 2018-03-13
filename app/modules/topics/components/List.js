@@ -59,7 +59,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   };
 };
 
-const List = (props: Props): React.Node => {
+const PureList = (props: Props): React.Node => {
   const {
     t,
     topicIds,
@@ -87,5 +87,7 @@ const List = (props: Props): React.Node => {
   );
 };
 
-export { List as PureList };
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(List));
+const List = connect(mapStateToProps, mapDispatchToProps)(translate()(PureList));
+
+export { PureList };
+export default List;

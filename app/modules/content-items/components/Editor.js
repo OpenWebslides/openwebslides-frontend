@@ -36,7 +36,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const Editor = (props: Props): React.Node => {
+const PureEditor = (props: Props): React.Node => {
   const { t, rootContentItem } = props;
 
   return (
@@ -49,5 +49,7 @@ const Editor = (props: Props): React.Node => {
   );
 };
 
-export { Editor as PureEditor };
-export default connect(mapStateToProps)(translate()(Editor));
+const Editor = connect(mapStateToProps)(translate()(PureEditor));
+
+export { PureEditor };
+export default Editor;

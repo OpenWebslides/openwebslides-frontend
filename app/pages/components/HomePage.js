@@ -8,7 +8,7 @@ import { Button } from 'semantic-ui-react';
 
 type Props = TranslatorProps & { /* new props go here */ };
 
-const HomePage = (props: Props): React.Node => {
+const PureHomePage = (props: Props): React.Node => {
   const { t } = props;
 
   return (
@@ -21,5 +21,7 @@ const HomePage = (props: Props): React.Node => {
   );
 };
 
-export { HomePage as PureHomePage };
-export default translate()(HomePage);
+const HomePage = translate()(PureHomePage);
+
+export { PureHomePage };
+export default HomePage;

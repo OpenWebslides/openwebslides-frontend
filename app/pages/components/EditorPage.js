@@ -10,7 +10,7 @@ type Props = TranslatorProps & { /* new props go here */ };
 
 const ContentItemsEditor = contentItems.components.Editor;
 
-const EditorPage = (props: Props): React.Node => {
+const PureEditorPage = (props: Props): React.Node => {
   return (
     <div>
       <ContentItemsEditor rootContentItemId="qyrgv0bcd6" />
@@ -18,5 +18,7 @@ const EditorPage = (props: Props): React.Node => {
   );
 };
 
-export { EditorPage as PureEditorPage };
-export default translate()(EditorPage);
+const EditorPage = translate()(PureEditorPage);
+
+export { PureEditorPage };
+export default EditorPage;
