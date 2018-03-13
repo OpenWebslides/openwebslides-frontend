@@ -13,7 +13,7 @@ const ContentItemsEditor = contentItems.components.Editor;
 const EditorPage = (props: Props): React.Node => {
   return (
     <div>
-      <ContentItemsEditor />
+      <ContentItemsEditor rootContentItemId="qyrgv0bcd6" />
     </div>
   );
 };
