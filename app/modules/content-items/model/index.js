@@ -1,6 +1,7 @@
 // @flow
 
 import type { Identifier } from 'types/model';
+import generateRandomString from 'lib/generate-random-string';
 
 import {
   contentItemTypes,
@@ -10,7 +11,7 @@ import {
   taggableContentItemTypes,
   subableContentItemTypes,
   containerContentItemTypes,
-} from './model/contentItemTypes';
+} from './contentItemTypes';
 import type {
   ContentItemType,
   SymbolContentItemType,
@@ -19,20 +20,27 @@ import type {
   TaggableContentItemType,
   SubableContentItemType,
   ContainerContentItemType,
-} from './model/contentItemTypes';
-import { highlightTypes } from './model/highlights';
+} from './contentItemTypes';
+import { highlightTypes } from './highlights';
 import type {
   BaseHighlight,
   MildEmphasisHighlight,
   StrongEmphasisHighlight,
   LinkHighlight,
   Highlight,
-} from './model/highlights';
-import type { Metadata } from './model/metadata';
-import { tagTypes } from './model/tags';
-import type { Tag } from './model/tags';
-import { visibilityTypes } from './model/visibilities';
-import type { Visibility } from './model/visibilities';
+} from './highlights';
+import type { Metadata } from './metadata';
+import { tagTypes } from './tags';
+import type { Tag } from './tags';
+import { visibilityTypes } from './visibilities';
+import type { Visibility } from './visibilities';
+
+// #TODO optimal id length / generation method?
+const ID_LENGTH = 10;
+
+export const generateId = (): Identifier => {
+  return generateRandomString(ID_LENGTH);
+};
 
 // Base type for contentItems.
 export type BaseContentItem = {

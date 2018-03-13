@@ -1,8 +1,11 @@
 // @flow
 /* eslint-disable import/no-duplicates */
 
+import * as actions from './actions';
 import * as model from './model';
+import * as selectors from './selectors';
 import components from './components';
+import reducer from './reducer';
 
 import {
   contentItemTypes,
@@ -57,8 +60,11 @@ import type {
 } from './model';
 
 const contentItems = {
+  actions,
   components,
   model,
+  reducer,
+  selectors,
 };
 
 export {
