@@ -4,7 +4,8 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Button, Card, Divider, Grid, Icon } from 'semantic-ui-react';
+
+import { Button, Card, Divider, Grid, Icon, Image } from 'semantic-ui-react';
 
 import Page from '../Page';
 
@@ -45,11 +46,24 @@ const LibraryPage = (props: Props): React.Node => {
           <Card>
             <Card.Content header="Introduction to mutations in modern biology" />
             <Card.Content description={description1} />
-            <Card.Content extra={true}>
-              <Icon name="fork" />
-              1 Fork
-              <Divider />
+            <Card.Content>
+              <Grid divided={true} columns={3}>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/fork.png" />
+                  1
+                </Grid.Column>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/merge.png" />
+                  0
 
+                </Grid.Column>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/annotations.png" />
+                   3
+                </Grid.Column>
+              </Grid>
+            </Card.Content>
+            <Card.Content>
               <Button>
                 Edit
               </Button>
@@ -63,11 +77,24 @@ const LibraryPage = (props: Props): React.Node => {
           <Card>
             <Card.Content header="Y U DO DIS: An analysis of modern slang" />
             <Card.Content description={description2} />
-            <Card.Content extra={true}>
-              <Icon name="fork" />
-              5 Forks
-              <Divider />
+            <Card.Content>
+              <Grid divided={true} columns={3}>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/fork.png" />
+                  5
+                </Grid.Column>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/merge.png" />
+                  1
 
+                </Grid.Column>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/annotations.png" />
+                  14
+                </Grid.Column>
+              </Grid>
+            </Card.Content>
+            <Card.Content>
               <Button>
                 Edit
               </Button>
@@ -81,10 +108,24 @@ const LibraryPage = (props: Props): React.Node => {
           <Card>
             <Card.Content header="The cultural impact of Dragon Ball Z on youths today" />
             <Card.Content description={description3} />
-            <Card.Content extra={true}>
-              <Icon name="fork" />
-              &gt;9000 Forks
-              <Divider />
+            <Card.Content>
+              <Grid divided={true} columns={3}>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/fork.png" />
+                  &gt;9000
+                </Grid.Column>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/merge.png" />
+                  0
+
+                </Grid.Column>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/annotations.png" />
+                  1408
+                </Grid.Column>
+              </Grid>
+            </Card.Content>
+            <Card.Content>
               <Button>
                 Edit
               </Button>
