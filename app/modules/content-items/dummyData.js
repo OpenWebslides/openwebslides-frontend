@@ -66,7 +66,7 @@ export const dummyContentItems: ContentItemsState = {
   qyrgv0bcd6: {
     id: 'qyrgv0bcd6',
     type: contentItemTypes.ROOT,
-    childItemIds: [],
+    childItemIds: ['j0vcu0y7vk', 'ua32xchh7q'],
   },
   j0vcu0y7vk: {
     id: 'j0vcu0y7vk',
