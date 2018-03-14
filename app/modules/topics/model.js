@@ -11,7 +11,7 @@ export type Topic = {
   +id: Identifier,
   +title: string,
   +description: string,
-  // +rootContentItemId: Identifier, // #TODO
+  +rootContentItemId: Identifier,
 };
 
 export type TopicsState = {
