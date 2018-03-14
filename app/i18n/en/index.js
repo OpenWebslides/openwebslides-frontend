@@ -1,6 +1,7 @@
 // @flow
 
 import app from './namespaces/app';
+import auth from './namespaces/auth';
 import common from './namespaces/common';
 import errors from './namespaces/errors';
 import model from './namespaces/model';
@@ -14,6 +15,7 @@ import navbar from './namespaces/navbar';
 
 const index = {
   app,
+  auth,
   common,
   errors,
   model,
