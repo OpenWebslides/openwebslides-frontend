@@ -6,11 +6,12 @@ import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 
 import type { State } from 'types/state';
+import type { Identifier } from 'types/model';
 import type { Topic } from '../model';
 import { getById } from '../selectors';
 
 type PassedProps = {
-  topicId: string,
+  topicId: Identifier,
 };
 
 type StateProps = {
@@ -25,7 +26,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const Preview = (props: Props): React.Node => {
+const PurePreview = (props: Props): React.Node => {
   const { t, topic } = props;
 
   return (
@@ -53,5 +54,7 @@ const Preview = (props: Props): React.Node => {
   );
 };
 
-export { Preview as PurePreview };
-export default connect(mapStateToProps)(translate()(Preview));
+const Preview = connect(mapStateToProps)(translate()(PurePreview));
+
+export { PurePreview };
+export default Preview;

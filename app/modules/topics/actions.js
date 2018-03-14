@@ -1,6 +1,9 @@
 // @flow
 
 import _ from 'lodash';
+
+import type { Identifier } from 'types/model';
+
 import * as t from './actionTypes';
 import { generateId } from './model';
 
@@ -32,7 +35,7 @@ export const add = (
 };
 
 export const edit = (
-  id: string,
+  id: Identifier,
   title: ?string = null,
   description: ?string = null,
 ): t.EditAction | t.EditErrorAction => {
@@ -68,7 +71,7 @@ export const edit = (
 };
 
 export const remove = (
-  id: string,
+  id: Identifier,
 ): t.RemoveAction | t.RemoveErrorAction => {
   return {
     type: t.REMOVE,

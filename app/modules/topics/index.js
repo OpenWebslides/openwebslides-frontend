@@ -1,9 +1,9 @@
 // @flow
 
 import * as actions from './actions';
-import * as components from './components';
 import * as model from './model';
 import * as selectors from './selectors';
+import components from './components';
 import reducer from './reducer';
 
 import type { Topic, TopicsState } from './model';

@@ -3,7 +3,9 @@
 import List from './List';
 import Preview from './Preview';
 
-export const components = {
-  list: List,
-  preview: Preview,
+const index = {
+  List,
+  Preview,
 };
+
+export default index;

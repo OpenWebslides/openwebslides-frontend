@@ -3,20 +3,19 @@
 import type { Error } from 'types/error';
 import type { Identifier } from 'types/model';
 
-export const ADD: 'topics/ADD' = 'topics/ADD';
-export const EDIT: 'topics/EDIT' = 'topics/EDIT';
-export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
+export const ADD: 'contentItems/ADD' = 'contentItems/ADD';
+export const EDIT: 'contentItems/EDIT' = 'contentItems/EDIT';
+export const REMOVE: 'contentItems/REMOVE' = 'contentItems/REMOVE';
 
-export const ADD_ERROR: 'topics/ADD_ERROR' = 'topics/ADD_ERROR';
-export const EDIT_ERROR: 'topics/EDIT_ERROR' = 'topics/EDIT_ERROR';
-export const REMOVE_ERROR: 'topics/REMOVE_ERROR' = 'topics/REMOVE_ERROR';
+export const ADD_ERROR: 'contentItems/ADD_ERROR' = 'contentItems/ADD_ERROR';
+export const EDIT_ERROR: 'contentItems/EDIT_ERROR' = 'contentItems/EDIT_ERROR';
+export const REMOVE_ERROR: 'contentItems/REMOVE_ERROR' = 'contentItems/REMOVE_ERROR';
 
 export type AddAction = {
   type: typeof ADD,
   payload: {
     id: Identifier,
-    title: string,
-    description: string,
+    // #TODO stub
   },
 };
 
@@ -24,8 +23,7 @@ export type EditAction = {
   type: typeof EDIT,
   payload: {
     id: Identifier,
-    title: ?string,
-    description: ?string,
+    // #TODO stub
   },
 };
 
@@ -51,7 +49,7 @@ export type RemoveErrorAction = {
   error: Error,
 };
 
-export type TopicAction =
+export type ContentItemAction =
   | AddAction
   | EditAction
   | RemoveAction

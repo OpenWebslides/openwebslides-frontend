@@ -10,16 +10,17 @@ import type { TranslatorProps } from 'react-i18next';
 import { Button } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
+import type { Identifier } from 'types/model';
 import { add, edit, remove } from '../actions';
 
 import Preview from './Preview';
 
 type PassedProps = {
-  topicIds: Array<string>,
+  topicIds: Array<Identifier>,
 };
 
 type StateProps = {
-  lastTopicId: ?string,
+  lastTopicId: ?Identifier,
 };
 
 type DispatchProps = {
@@ -58,7 +59,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   };
 };
 
-const List = (props: Props): React.Node => {
+const PureList = (props: Props): React.Node => {
   const {
     t,
     topicIds,
@@ -86,5 +87,7 @@ const List = (props: Props): React.Node => {
   );
 };
 
-export { List as PureList };
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(List));
+const List = connect(mapStateToProps, mapDispatchToProps)(translate()(PureList));
+
+export { PureList };
+export default List;

@@ -6,10 +6,11 @@ import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 
 import type { State } from 'types/state';
+import type { Identifier } from 'types/model';
 import topics from 'modules/topics';
 
 type StateProps = {
-  topicIds: Array<string>,
+  topicIds: Array<Identifier>,
 };
 
 type Props = TranslatorProps & StateProps;
@@ -20,9 +21,10 @@ const mapStateToProps = (state: State): StateProps => {
   };
 };
 
-const TopicsPage = (props: Props): React.Node => {
+const TopicsList = topics.components.List;
+
+const PureTopicsPage = (props: Props): React.Node => {
   const { topicIds } = props;
-  const TopicsList = topics.components.components.list;
 
   return (
     <div>
@@ -31,5 +33,7 @@ const TopicsPage = (props: Props): React.Node => {
   );
 };
 
-export { TopicsPage as PureTopicsPage };
-export default connect(mapStateToProps)(translate()(TopicsPage));
+const TopicsPage = connect(mapStateToProps)(translate()(PureTopicsPage));
+
+export { PureTopicsPage };
+export default TopicsPage;

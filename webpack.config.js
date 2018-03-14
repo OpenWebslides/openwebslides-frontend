@@ -20,7 +20,7 @@ const paths = {
 // Webpack configuration
 const config = {
 
-  entry: ['react-hot-loader/patch', path.join(paths.APP, 'index.js')],
+  entry: path.join(paths.APP, 'index.js'),
 
   output: {
     // Output bundle path & filename
@@ -46,6 +46,8 @@ const config = {
   plugins: [
     // Include hot reloading functionality
     new webpack.HotModuleReplacementPlugin(),
+    // More readable path names when using Hot Module Replacement
+    new webpack.NamedModulesPlugin(),
     // Automatically insert the webpack-generated app.bundle.js script into index.html
     new HtmlWebpackPlugin({
       template: path.join(paths.PUBLIC, 'index.html'),
@@ -68,18 +70,19 @@ const config = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        // Load SVG files
-        test: /\.svg/,
+        // Load binary assets
+        test: /\.(woff|woff2|eot|ttf|otf|svg|png|gif|jpg)$/,
         use: {
-          loader: 'svg-url-loader',
+          loader: 'file-loader',
           options: {},
         },
       },
       {
-        // Load binary assets
-        test: /\.(woff|woff2|eot|ttf|otf|png|gif|jpg)$/,
+        // Load SVG images
+        test: /\.svg/,
+        exclude: '/fonts/',
         use: {
-          loader: 'file-loader',
+          loader: 'svg-url-loader',
           options: {},
         },
       },

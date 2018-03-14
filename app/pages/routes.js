@@ -12,11 +12,13 @@ import { Route, Switch } from 'react-router-dom';
 import NotFoundPage from './components/NotFoundPage';
 import HomePage from './components/HomePage';
 import TopicsPage from './components/TopicsPage';
+import EditorPage from './components/EditorPage';
 
 const routes = (
   <Switch>
     <Route path="/" exact={true} component={HomePage} />
     <Route path="/topics" component={TopicsPage} />
+    <Route path="/editor" component={EditorPage} />
     <Route component={NotFoundPage} />
   </Switch>
 );

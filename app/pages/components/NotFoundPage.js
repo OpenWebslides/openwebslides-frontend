@@ -6,7 +6,7 @@ import type { TranslatorProps } from 'react-i18next';
 
 type Props = TranslatorProps & { /* new props go here */ };
 
-const NotFoundPage = (props: Props): React.Node => {
+const PureNotFoundPage = (props: Props): React.Node => {
   const { t } = props;
 
   return (
@@ -14,5 +14,7 @@ const NotFoundPage = (props: Props): React.Node => {
   );
 };
 
-export { NotFoundPage as PureNotFoundPage };
-export default translate()(NotFoundPage);
+const NotFoundPage = translate()(PureNotFoundPage);
+
+export { PureNotFoundPage };
+export default NotFoundPage;
