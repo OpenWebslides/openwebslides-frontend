@@ -25,7 +25,7 @@ export const dummyContentItems: ContentItemsState = {
   plqfm799be: ({
     id: 'plqfm799be',
     type: contentItemTypes.PARAGRAPH,
-    text: 'Lorem **ipsum** dolor sit amet, [consectetur](https://www.lipsum.com) adipiscing elit.',
+    text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*.',
     metadata: {
       tags: [],
       visibilityOverrides: {},

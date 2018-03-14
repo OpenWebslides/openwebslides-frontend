@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
+import ReactMarkdown from 'react-markdown';
 
 import { Icon, Segment } from 'semantic-ui-react';
 
@@ -15,11 +16,16 @@ type PassedProps = {
 
 type Props = TranslatorProps & PassedProps;
 
+const allowedTypes = [
+  'emphasis',
+  'strong',
+  'inlineCode',
+  'link',
+];
+
 const PurePlainTextContentItemDisplay = (props: Props): React.Node => {
   const { contentItem } = props;
   let iconName: string;
-
-  // #TODO highlights (using markdown?)
 
   switch (contentItem.type) {
     case plainTextContentItemTypes.PARAGRAPH:
@@ -35,7 +41,11 @@ const PurePlainTextContentItemDisplay = (props: Props): React.Node => {
   return (
     <Segment>
       <Icon name={iconName} />
-      {contentItem.text}
+      <ReactMarkdown
+        source={contentItem.text}
+        allowedTypes={allowedTypes}
+        unwrapDisallowed={true}
+      />
     </Segment>
   );
 };
