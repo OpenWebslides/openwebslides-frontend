@@ -1,9 +1,9 @@
 // @flow
 
-import Editor from './Editor';
+import EditorRoot from './EditorRoot';
 
 const index = {
-  Editor,
+  EditorRoot,
 };
 
 export default index;

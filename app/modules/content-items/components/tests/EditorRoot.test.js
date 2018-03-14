@@ -4,17 +4,20 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { PureEditorPage } from '../EditorPage';
+import { PureEditorRoot } from '../EditorRoot';
 
-describe(`EditorPage`, (): void => {
+import { contentItemTypes } from '../../model';
+
+describe(`EditorRoot`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureEditorPage
+      <PureEditorRoot
+        rootContentItemId=""
+        rootContentItem={{ id: 'abcdefghij', type: contentItemTypes.ROOT, childItemIds: [] }}
         t={(key: ?string): string => key || 'string'}
         i18nLoadedAt={new Date()}
         i18n={{}}
-        match={{ params: {}, isExact: true, path: '', url: '' }}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
