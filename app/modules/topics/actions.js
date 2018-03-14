@@ -30,6 +30,7 @@ export const add = (
       id: newId,
       title: newTitle,
       description: newDescription,
+      rootContentItemId: 'abcdefghij', // #TODO stub
     },
   };
 };

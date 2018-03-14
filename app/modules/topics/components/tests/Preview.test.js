@@ -9,10 +9,17 @@ import { PurePreview } from '../Preview';
 describe(`Preview`, (): void => {
 
   it(`renders without errors`, (): void => {
+    const dummyTopic = {
+      id: 'abcdefghij',
+      title: 'Lorem ipsum',
+      description: '',
+      rootContentItemId: 'abcdefghij',
+    };
+
     const enzymeWrapper = shallow(
       <PurePreview
-        topicId="abcde"
-        topic={{ id: 'abcde', title: 'Lorem ipsum', description: '' }}
+        topicId="abcdefghij"
+        topic={dummyTopic}
         t={(key: ?string): string => key || 'string'}
         i18nLoadedAt={new Date()}
         i18n={{}}

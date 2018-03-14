@@ -11,12 +11,14 @@ describe(`actions`, (): void => {
     it(`returns a topic ADD action, when parameters are valid`, (): void => {
       const title = 'Lorem ipsum';
       const description = 'Lorem ipsum dolor sit amet';
+      const rootContentItemId = 'abcdefghij';
       const expectedAction: t.AddAction = {
         type: t.ADD,
         payload: {
           id: '',
           title,
           description,
+          rootContentItemId,
         },
       };
       const generatedAction: t.AddAction = ((actions.add(title, description): any): t.AddAction);
@@ -25,6 +27,8 @@ describe(`actions`, (): void => {
       expect(generatedAction.payload.id.length).toEqual(10);
       expect(generatedAction.payload.title).toEqual(expectedAction.payload.title);
       expect(generatedAction.payload.description).toEqual(expectedAction.payload.description);
+      expect(generatedAction.payload.rootContentItemId)
+        .toEqual(expectedAction.payload.rootContentItemId);
     });
 
     it(`returns a topic ADD_ERROR action, when title parameter is an empty string`, (): void => {
@@ -49,6 +53,7 @@ describe(`actions`, (): void => {
           id: '',
           title,
           description: '',
+          rootContentItemId: '',
         },
       };
       const generatedAction: t.AddAction = ((actions.add(title, description): any): t.AddAction);
