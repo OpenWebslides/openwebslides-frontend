@@ -6,15 +6,20 @@ import { shallow } from 'enzyme';
 
 import { PureEditor } from '../Editor';
 
-import { contentItemTypes } from '../../model';
-
-describe(`Editor`, (): void => {
+describe(`List`, (): void => {
 
   it(`renders without errors`, (): void => {
+    const dummyTopic = {
+      id: 'abcdefghij',
+      title: 'Lorem ipsum',
+      description: '',
+      rootContentItemId: 'abcdefghij',
+    };
+
     const enzymeWrapper = shallow(
       <PureEditor
-        rootContentItemId=""
-        rootContentItem={{ id: 'abcdefghij', type: contentItemTypes.ROOT, childItemIds: [] }}
+        topicId="abcdefghij"
+        topic={dummyTopic}
         t={(key: ?string): string => key || 'string'}
         i18nLoadedAt={new Date()}
         i18n={{}}
