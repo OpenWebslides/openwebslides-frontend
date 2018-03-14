@@ -8,8 +8,6 @@ import type { Match } from 'react-router-dom';
 
 import topics from 'modules/topics';
 
-import Page from '../Page';
-
 type RouteProps = {
   match: Match,
 };
@@ -48,12 +46,10 @@ const DummyContent = (props: RouteProps): React.Node => {
 
 const PureEditorPage = (props: Props): React.Node => {
   return (
-    <Page>
-      <Switch>
-        <Route path={`${props.match.url}/:id`} component={TopicEditorForId} />
-        <Route component={DummyContent} />
-      </Switch>
-    </Page>
+    <Switch>
+      <Route path={`${props.match.url}/:id`} component={TopicEditorForId} />
+      <Route component={DummyContent} />
+    </Switch>
   );
 };
 
