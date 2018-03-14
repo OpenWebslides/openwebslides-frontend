@@ -137,4 +137,19 @@ export const dummyContentItems: ContentItemsState = {
     },
     subItemIds: [],
   }: ParagraphContentItem),
+  q4lg2u0p78: {
+    id: 'q4lg2u0p78',
+    type: contentItemTypes.ROOT,
+    childItemIds: [],
+  },
+  a4lhct0p78: {
+    id: 'a4lhct0p78',
+    type: contentItemTypes.ROOT,
+    childItemIds: [],
+  },
+  b4lg245148: {
+    id: 'b4lg245148',
+    type: contentItemTypes.ROOT,
+    childItemIds: [],
+  },
 };
