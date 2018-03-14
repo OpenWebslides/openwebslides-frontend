@@ -26,7 +26,7 @@ const PurePlainTextContentItemDisplay = (props: Props): React.Node => {
       iconName = 'paragraph';
       break;
     case plainTextContentItemTypes.HEADING:
-      iconName = 'heading';
+      iconName = 'header';
       break;
     default:
       iconName = 'warning sign';
