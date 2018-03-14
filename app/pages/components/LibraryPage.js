@@ -31,7 +31,7 @@ const LibraryPage = (props: Props): React.Node => {
       <Grid.Row>
         <Grid padded="vertically">
           <Grid.Column width={12}>
-            <h1>{t('pages:librarypage.title')}</h1>
+            <h1>{t('pages:library.title')}</h1>
           </Grid.Column>
           <Grid.Column width={4}>
             <Button floated="right">

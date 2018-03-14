@@ -17,7 +17,7 @@ const PureHomePage = (props: Props): React.Node => {
       <Grid.Row>
         <Grid padded="vertically">
           <Grid.Column>
-            <h1>{t('pages:homepage.title')}</h1>
+            <h1>{t('pages:home.title')}</h1>
             <Feed size="large">
               <Feed.Event>
                 <Feed.Label>

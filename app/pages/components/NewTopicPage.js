@@ -1,18 +1,24 @@
 // @flow
 
 import * as React from 'react';
+import { translate } from 'react-i18next';
+import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Grid, Form, Input, TextArea, Button } from 'semantic-ui-react';
 
 import Page from '../Page';
 
-const NewTopicPage = (): React.Node => {
+type Props = TranslatorProps & { /* new props go here */ };
+
+const NewTopicPage = (props: Props): React.Node => {
+  const { t } = props;
+
   return (
     <Page>
       <Grid.Row>
         <Grid padded="vertically">
           <Grid.Column>
-            <h1>Create new topic</h1>
+            <h1>{t('pages:topic_new.title')}</h1>
             <Form>
               <Form.Field id="form-input-control-title" control={Input} label="Title" placeholder="Title" />
               <Form.Field id="form-textarea-control-description" control={TextArea} label="Description" placeholder="Description" />
@@ -31,4 +37,4 @@ const NewTopicPage = (): React.Node => {
 };
 
 export { NewTopicPage as PureNewTopicPage };
-export default NewTopicPage;
+export default translate()(NewTopicPage);

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Image, Menu } from 'semantic-ui-react';
+import { Icon, Image, Menu } from 'semantic-ui-react';
 
 type Props = TranslatorProps & { };
 
@@ -14,19 +14,19 @@ const MenuRight = (): React.Node => {
     <Menu.Menu position="right">
       <Menu.Item>
         <Link to="/Library">
-          <Image size="mini" src="/assets/images/icons/book.png" />
+          <Icon size="large" name="book" />
           Library
         </Link>
       </Menu.Item>
 
       <Menu.Item>
-        <Image size="mini" src="/assets/images/icons/bell-outline.png" />
+        <Icon size="large" name="bell outline" />
       </Menu.Item>
       <Menu.Item>
         <strong>Professor X</strong>
       </Menu.Item>
       <Menu.Item>
-        <Image size="mini" src="/assets/images/icons/user.png" />
+        <Icon size="large" name="user" />
       </Menu.Item>
     </Menu.Menu>
   );
