@@ -21,9 +21,9 @@ const common = {
     library: 'Library',
   },
   feed: {
-    comment: 'commented on topic',
-    deleteTopic: 'deleted topic',
-    createTopic: 'created topic',
+    comment: ' {{action}} {{object}}',
+    deleteTopic: ' {{action}} {{object}}',
+    createTopic: ' {{action}} {{object}}',
   },
 };
 
