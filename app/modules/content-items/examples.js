@@ -13,7 +13,6 @@ const headingContentItem: $Exact<model.HeadingContentItem> = {
   id: '5nbknerhtd',
   type: model.contentItemTypes.HEADING,
   text: 'This is a heading!!!',
-  highlights: [],
   metadata: {
     tags: [],
     visibilityOverrides: {},
@@ -24,26 +23,7 @@ const headingContentItem: $Exact<model.HeadingContentItem> = {
 const paragraphContentItem: $Exact<model.ParagraphContentItem> = {
   id: 'f0clvd9l27',
   type: model.contentItemTypes.PARAGRAPH,
-  text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  highlights: [
-    {
-      // Highlights the word 'ipsum'.
-      type: model.highlightTypes.STRONG_EMPHASIS,
-      position: {
-        start: 6,
-        length: 5,
-      },
-    },
-    {
-      // Adds link to the word 'consectetur'.
-      type: model.highlightTypes.LINK,
-      position: {
-        start: 28,
-        length: 11,
-      },
-      href: 'https://www.lipsum.com',
-    },
-  ],
+  text: 'Lorem **ipsum** dolor sit amet, [consectetur](https://www.lipsum.com) adipiscing elit.',
   metadata: {
     tags: [],
     visibilityOverrides: {
@@ -70,7 +50,6 @@ const listItemContentItem: $Exact<model.ListItemContentItem> = {
   id: 'dnwy65sy7q',
   type: model.contentItemTypes.LIST_ITEM,
   text: 'This is a list item.',
-  highlights: [],
   metadata: {
     tags: [],
     visibilityOverrides: {},
@@ -81,7 +60,6 @@ const blockquoteContentItem: $Exact<model.BlockquoteContentItem> = {
   id: 'nqak0qx8qu',
   type: model.contentItemTypes.BLOCKQUOTE,
   text: 'Do. Or do not. There is no try.',
-  highlights: [],
   metadata: {
     tags: [],
     visibilityOverrides: {},
@@ -95,7 +73,6 @@ const codeContentItem: $Exact<model.CodeContentItem> = {
   id: 'wiwj9xqnf3',
   type: model.contentItemTypes.CODE,
   text: 'console.log("Hello world!");',
-  highlights: [],
   metadata: {
     tags: [],
     visibilityOverrides: {},
