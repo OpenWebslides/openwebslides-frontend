@@ -6,6 +6,7 @@ import errors from './namespaces/errors';
 import model from './namespaces/model';
 import editor from './namespaces/editor';
 import pages from './namespaces/pages';
+import feed from './namespaces/feed';
 
 const index = {
   app,
@@ -14,6 +15,7 @@ const index = {
   model,
   editor,
   pages,
+  feed,
 };
 
 export default index;

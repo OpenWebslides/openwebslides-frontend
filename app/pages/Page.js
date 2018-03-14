@@ -7,11 +7,11 @@ import { Container, Grid } from 'semantic-ui-react';
 
 import NavigationBar from 'core-components/navigation/NavigationBar';
 
-type ChildrenProps = {
+type PassedProps = {
   children: React.Node,
 };
 
-type Props = TranslatorProps & ChildrenProps;
+type Props = TranslatorProps & PassedProps;
 
 const Page = (props: Props): React.Node => {
   return (

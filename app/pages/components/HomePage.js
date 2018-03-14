@@ -26,7 +26,7 @@ const PureHomePage = (props: Props): React.Node => {
                 <Feed.Content>
                   <Feed.Summary>
                     <Feed.User>Student U </Feed.User>
-                    {t('common:feed.comment', { action: 'commented on', object: 'topic' })}
+                    {t('feed:feed_item.comment', { action: 'commented on', object: 'topic' })}
                     <strong>
                       {`
                   "Analysis of UV light"
@@ -46,7 +46,7 @@ const PureHomePage = (props: Props): React.Node => {
                 <Feed.Content>
                   <Feed.Summary>
                     <Feed.User>Professor W</Feed.User>
-                    {t('common:feed.deleteTopic', { action: 'deleted', object: 'topic' })}
+                    {t('feed:feed_item.deleteTopic', { action: 'deleted', object: 'topic' })}
                     <strong>
                       {`
                   "The genesis of the WWW"
@@ -66,7 +66,7 @@ const PureHomePage = (props: Props): React.Node => {
                 <Feed.Content>
                   <Feed.Summary>
                     <Feed.User>Professor X </Feed.User>
-                    {t('common:feed.createTopic', { action: 'created', object: 'topic' })}
+                    {t('feed:feed_item.createTopic', { action: 'created', object: 'topic' })}
                     <strong>
                       {`
                   "Introduction to mutations in modern biology"

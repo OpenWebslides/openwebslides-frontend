@@ -20,11 +20,6 @@ const common = {
     newtopic: 'Create new topic',
     library: 'Library',
   },
-  feed: {
-    comment: ' {{action}} {{object}}',
-    deleteTopic: ' {{action}} {{object}}',
-    createTopic: ' {{action}} {{object}}',
-  },
 };
 
 export default common;

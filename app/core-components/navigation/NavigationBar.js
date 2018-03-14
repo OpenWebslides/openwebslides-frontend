@@ -36,17 +36,15 @@ const NavigationBar = (props: Props): React.Node => {
   const { t } = props;
 
   return (
-    <div>
-      <Menu secondary={true} attached="top">
-        <Menu.Item icon={true}>
-          <Link to="/">
-            <Image size="tiny" src="/assets/images/logo.png" />
-            {t('app:title')}
-          </Link>
-        </Menu.Item>
-        <MenuRight />
-      </Menu>
-    </div>
+    <Menu secondary={true} attached="top">
+      <Menu.Item icon={true}>
+        <Link to="/">
+          <Image size="tiny" src="/assets/images/logo.png" />
+          {t('app:title')}
+        </Link>
+      </Menu.Item>
+      <MenuRight />
+    </Menu>
   );
 };
 
