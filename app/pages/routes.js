@@ -17,6 +17,12 @@ import NewTopicPage from './components/NewTopicPage';
 import ProfilePage from './components/ProfilePage';
 import TempSlideTestPage from './components/TempSlideTestPage';
 
+import SigninPage from './components/authentication/SigninPage';
+import SignupPage from './components/authentication/SignupPage';
+// import ConfirmAccountPage from './components/authentication/ConfirmAccountPage';
+// import ResetAccountPage from './components/authentication/ResetAccountPage';
+// import OAuthCallbackPage from './components/authentication/OAuthCallbackPage';
+
 const routes = (
   <Switch>
     <Route path="/" exact={true} component={HomePage} />
@@ -25,6 +31,8 @@ const routes = (
     <Route path="/topics/new" component={NewTopicPage} />
     <Route path="/profile" component={ProfilePage} />
     <Route path="/tempslidetest" component={TempSlideTestPage} />
+    <Route path="/auth/signin" exact={true} component={SigninPage} />
+    <Route path="/auth/signup" exact={true} component={SignupPage} />
     <Route component={NotFoundPage} />
   </Switch>
 );
