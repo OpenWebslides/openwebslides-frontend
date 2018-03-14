@@ -59,7 +59,7 @@ const PureEditorBlock = (props: Props): React.Node => {
     <div>
       {contentItemDisplay}
       { subableContentItem && (
-        <div style={{ borderLeft: '0.2em solid lightgray', marginLeft: '0.9rem', paddingLeft: '0.9rem' }}>
+        <div style={{ borderLeft: '0.2em solid lightgray', paddingLeft: '1rem' }}>
           { subableContentItem.subItemIds.map((id: Identifier) => (
             <EditorBlock key={id} contentItemId={id} />
           ))}
