@@ -8,6 +8,8 @@ import { Button, Card, Divider, Grid, Image } from 'semantic-ui-react';
 
 import Page from '../Page';
 
+import fork from 'assets/images/icons/fork.png';
+
 type Props = TranslatorProps & { /* new props go here */ };
 
 const description1 = `This is an introductory course on the subject of mutations.
@@ -46,7 +48,7 @@ const LibraryPage = (props: Props): React.Node => {
             <Card.Content header="Introduction to mutations in modern biology" />
             <Card.Content description={description1} />
             <Card.Content extra={true}>
-              <Image src="/assets/images/icons/fork.png" />
+              <Image src={fork} />
               1 Fork
               <Divider />
 
@@ -64,7 +66,7 @@ const LibraryPage = (props: Props): React.Node => {
             <Card.Content header="Y U DO DIS: An analysis of modern slang" />
             <Card.Content description={description2} />
             <Card.Content extra={true}>
-              <Image src="/assets/images/icons/fork.png" />
+              <Image src={fork} />
               5 Forks
               <Divider />
 
@@ -82,7 +84,7 @@ const LibraryPage = (props: Props): React.Node => {
             <Card.Content header="The cultural impact of Dragon Ball Z on youths today" />
             <Card.Content description={description3} />
             <Card.Content extra={true}>
-              <Image src="/assets/images/icons/fork.png" />
+              <Image src={fork} />
               &gt;9000 Forks
               <Divider />
               <Button>

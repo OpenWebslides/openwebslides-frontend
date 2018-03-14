@@ -7,6 +7,10 @@ import { Feed, Grid } from 'semantic-ui-react';
 
 import Page from '../Page';
 
+import student from 'assets/images/avatar/student_m.jpg';
+import professor from 'assets/images/avatar/professor.jpg';
+import professor2 from 'assets/images/avatar/professor2.jpg';
+
 type Props = TranslatorProps & { /* new props go here */ };
 
 const PureHomePage = (props: Props): React.Node => {
@@ -21,7 +25,7 @@ const PureHomePage = (props: Props): React.Node => {
             <Feed size="large">
               <Feed.Event>
                 <Feed.Label>
-                  <img src="/assets/images/avatar/student_m.jpg" alt="profile" />
+                  <img src={student} alt="profile" />
                 </Feed.Label>
                 <Feed.Content>
                   <Feed.Summary>
@@ -41,7 +45,7 @@ const PureHomePage = (props: Props): React.Node => {
 
               <Feed.Event>
                 <Feed.Label>
-                  <img src="/assets/images/avatar/professor2.jpg" alt="profile" />
+                  <img src={professor2} alt="profile" />
                 </Feed.Label>
                 <Feed.Content>
                   <Feed.Summary>
@@ -61,7 +65,7 @@ const PureHomePage = (props: Props): React.Node => {
 
               <Feed.Event>
                 <Feed.Label>
-                  <img src="/assets/images/avatar/professor.jpg" alt="profile" />
+                  <img src={professor} alt="profile" />
                 </Feed.Label>
                 <Feed.Content>
                   <Feed.Summary>

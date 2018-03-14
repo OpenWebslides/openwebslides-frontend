@@ -6,6 +6,8 @@ import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Icon, Image, Menu } from 'semantic-ui-react';
 
+import logo from 'assets/images/logo.png'
+
 type Props = TranslatorProps & { };
 
 // TODO: pass t function to MenuRight
@@ -39,7 +41,7 @@ const NavigationBar = (props: Props): React.Node => {
     <Menu secondary={true} attached="top">
       <Menu.Item icon={true}>
         <Link to="/">
-          <Image size="tiny" src="/assets/images/logo.png" />
+          <Image size="tiny" src={logo} />
           {t('app:title')}
         </Link>
       </Menu.Item>
