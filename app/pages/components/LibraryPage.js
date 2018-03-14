@@ -24,6 +24,10 @@ const description3 = `This is an introductory course on the subject of DBZ
                       and its cultural impact. Beware: this is a Work In Progress.
                       Or better yet: rejoice, because this isn't even the topic's FINAL FORM!`;
 
+const description4 = `Lorem ipsum dolor sit amet.`;
+
+const description5 = ``;
+
 const LibraryPage = (props: Props): React.Node => {
   const { t } = props;
 
@@ -65,7 +69,13 @@ const LibraryPage = (props: Props): React.Node => {
             </Card.Content>
             <Card.Content>
               <Button>
-                Edit
+                <Link to={{
+                  pathname: '/editor',
+                  state: { rootContentItemId: 'q4lg2u0p78' },
+                }}
+                >
+                  Edit
+                </Link>
               </Button>
 
               <Button basic={true} color="red" floated="right">
@@ -96,7 +106,13 @@ const LibraryPage = (props: Props): React.Node => {
             </Card.Content>
             <Card.Content>
               <Button>
-                Edit
+                <Link to={{
+                  pathname: '/editor',
+                  state: { rootContentItemId: 'a4lhct0p78' },
+                }}
+                >
+                  Edit
+                </Link>
               </Button>
 
               <Button basic={true} color="red" floated="right">
@@ -127,7 +143,85 @@ const LibraryPage = (props: Props): React.Node => {
             </Card.Content>
             <Card.Content>
               <Button>
-                Edit
+                <Link to={{
+                  pathname: '/editor',
+                  state: { rootContentItemId: 'b4lg245148' },
+                }}
+                >
+                  Edit
+                </Link>
+              </Button>
+
+              <Button basic={true} color="red" floated="right">
+                Delete
+              </Button>
+            </Card.Content>
+          </Card>
+          <Card>
+            <Card.Content header="Test topic 1" />
+            <Card.Content description={description4} />
+            <Card.Content>
+              <Grid divided={true} columns={3}>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/fork.png" />
+                  1
+                </Grid.Column>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/merge.png" />
+                  0
+
+                </Grid.Column>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/annotations.png" />
+                  3
+                </Grid.Column>
+              </Grid>
+            </Card.Content>
+            <Card.Content>
+              <Button>
+                <Link to={{
+                  pathname: '/editor',
+                  state: { rootContentItemId: 'w4lg2u0p1h' },
+                }}
+                >
+                  Edit
+                </Link>
+              </Button>
+
+              <Button basic={true} color="red" floated="right">
+                Delete
+              </Button>
+            </Card.Content>
+          </Card>
+          <Card>
+            <Card.Content header="Test topic 2" />
+            <Card.Content description={description5} />
+            <Card.Content>
+              <Grid divided={true} columns={3}>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/fork.png" />
+                  1
+                </Grid.Column>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/merge.png" />
+                  0
+
+                </Grid.Column>
+                <Grid.Column>
+                  <Image src="/assets/images/icons/annotations.png" />
+                  3
+                </Grid.Column>
+              </Grid>
+            </Card.Content>
+            <Card.Content>
+              <Button>
+                <Link to={{
+                  pathname: '/editor',
+                  state: { rootContentItemId: 'qyrgv0bcd6' },
+                }}
+                >
+                  Edit
+                </Link>
               </Button>
 
               <Button basic={true} color="red" floated="right">
