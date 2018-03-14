@@ -5,7 +5,7 @@ import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 
-import { Icon, Segment } from 'semantic-ui-react';
+import { Grid, Icon, Segment } from 'semantic-ui-react';
 
 import { plainTextContentItemTypes } from '../../model';
 import type { PlainTextContentItem } from '../../model';
@@ -40,12 +40,20 @@ const PurePlainTextContentItemDisplay = (props: Props): React.Node => {
 
   return (
     <Segment>
-      <Icon name={iconName} />
-      <ReactMarkdown
-        source={contentItem.text}
-        allowedTypes={allowedTypes}
-        unwrapDisallowed={true}
-      />
+      <Grid verticalAlign="middle">
+        <Grid.Row style={{ flexWrap: 'nowrap' }}>
+          <Grid.Column style={{ width: 'auto' }}>
+            <Icon name={iconName} color="grey" />
+          </Grid.Column>
+          <Grid.Column style={{ width: 'auto' }}>
+            <ReactMarkdown
+              source={contentItem.text}
+              allowedTypes={allowedTypes}
+              unwrapDisallowed={true}
+            />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </Segment>
   );
 };
