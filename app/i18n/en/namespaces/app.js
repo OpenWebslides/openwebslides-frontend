@@ -1,7 +1,7 @@
 // @flow
 
 const app = {
-  title: 'OpenWebslides',
+  title: 'Open Webslides',
 };
 
 export default app;
