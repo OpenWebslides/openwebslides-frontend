@@ -10,6 +10,7 @@ import topics from 'modules/topics';
 
 import Page from '../Page';
 
+
 type RouteProps = {
   match: Match,
 };
