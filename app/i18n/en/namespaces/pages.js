@@ -1,10 +1,10 @@
 // @flow
 
 const pages = {
-  homepage: {
+  home: {
     title: 'Recent activity',
   },
-  librarypage: {
+  library: {
     title: 'Library',
   },
 };
