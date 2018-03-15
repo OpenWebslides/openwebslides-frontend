@@ -11,6 +11,7 @@ describe(`LibraryPage`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureLibraryPage
+        topicIds={[]}
         t={(key: ?string): string => key || 'string'}
         i18nLoadedAt={new Date()}
         i18n={{}}
