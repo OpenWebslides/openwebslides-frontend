@@ -3,25 +3,19 @@
 import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
-import ReactMarkdown from 'react-markdown';
 
-import { Grid, Icon, Segment } from 'semantic-ui-react';
+import { Icon, Segment } from 'semantic-ui-react';
 
 import { plainTextContentItemTypes } from '../../model';
 import type { PlainTextContentItem } from '../../model';
+
+import EditableTextContent from '../helpers/EditableTextContent';
 
 type PassedProps = {
   contentItem: PlainTextContentItem,
 };
 
 type Props = TranslatorProps & PassedProps;
-
-const allowedTypes = [
-  'emphasis',
-  'strong',
-  'inlineCode',
-  'link',
-];
 
 const PurePlainTextContentItemDisplay = (props: Props): React.Node => {
   const { contentItem } = props;
@@ -40,20 +34,19 @@ const PurePlainTextContentItemDisplay = (props: Props): React.Node => {
 
   return (
     <Segment>
-      <Grid verticalAlign="middle">
-        <Grid.Row style={{ flexWrap: 'nowrap' }}>
-          <Grid.Column style={{ width: 'auto' }}>
-            <Icon name={iconName} color="grey" />
-          </Grid.Column>
-          <Grid.Column style={{ width: 'auto' }}>
-            <ReactMarkdown
-              source={contentItem.text}
-              allowedTypes={allowedTypes}
-              unwrapDisallowed={true}
-            />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <div style={{ display: 'table', width: '100%' }}>
+        <div style={{ display: 'table-cell', width: '1%', paddingRight: '1rem' }}>
+          <Icon name={iconName} color="grey" />
+        </div>
+        <div style={{ display: 'table-cell', width: '99%' }}>
+          { /* $FlowFixMe */ }
+          <EditableTextContent
+            text={contentItem.text}
+            onActivate={(): void => {}}
+            onDeactivate={(): void => {}}
+          />
+        </div>
+      </div>
     </Segment>
   );
 };
