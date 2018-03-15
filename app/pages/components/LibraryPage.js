@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import topics from 'modules/topics';
+import { Button, Grid } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 import Page from '../Page';
 
@@ -26,11 +28,28 @@ const mapStateToProps = (state: State): StateProps => {
 const TopicsCollection = topics.components.CardCollection;
 
 const PureLibraryPage = (props: Props): React.Node => {
-  const { topicIds } = props;
+  const {
+    t,
+    topicIds,
+  } = props;
 
   return (
     <Page>
-      <TopicsCollection topicIds={topicIds} />
+      <Grid.Row>
+        <Grid padded="vertically">
+          <Grid.Column width={12}>
+            <h1>{t('pages:library.title')}</h1>
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <Button floated="right">
+              <Link to="/topics/new">{t('common:link.newtopic')}</Link>
+            </Button>
+          </Grid.Column>
+        </Grid>
+      </Grid.Row>
+      <Grid.Row>
+        <TopicsCollection topicIds={topicIds} />
+      </Grid.Row>
     </Page>
   );
 };
