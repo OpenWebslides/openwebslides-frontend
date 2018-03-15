@@ -52,6 +52,7 @@ const PureTopicCard = (props: Props): React.Node => {
   } = props;
 
   const topicId = topic.id;
+  const { rootContentItemId } = topic;
 
   return (
     <Card raised={true}>
@@ -78,7 +79,7 @@ const PureTopicCard = (props: Props): React.Node => {
         <Button>
           <Link to={{
             pathname: '/editor',
-            state: { rootContentItemId: 'q4lg2u0p78' },
+            state: { rootContentItemId },
           }}
           >
             Edit

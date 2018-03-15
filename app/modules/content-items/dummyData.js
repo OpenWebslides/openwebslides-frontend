@@ -137,6 +137,22 @@ export const dummyContentItems: ContentItemsState = {
     },
     subItemIds: [],
   }: ParagraphContentItem),
+  testtest00: { /* this has no topic attached to it! */
+    id: 'testtest00',
+    type: contentItemTypes.ROOT,
+    childItemIds: ['testtest01'],
+  },
+  testtest01: {
+    id: 'testtest01',
+    type: contentItemTypes.HEADING,
+    text: 'This topic has no text yet',
+    highlights: [],
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  },
   q4lg2u0p78: {
     id: 'q4lg2u0p78',
     type: contentItemTypes.ROOT,
