@@ -76,7 +76,7 @@ const PureTopicCard = (props: Props): React.Node => {
         </Grid>
       </Card.Content>
       <Card.Content>
-        <Button>
+        <Button as="span">
           <Link to={{
             pathname: '/editor',
             state: { rootContentItemId },
@@ -86,7 +86,7 @@ const PureTopicCard = (props: Props): React.Node => {
           </Link>
         </Button>
 
-        <Button basic={true} color="red" floated="right" onClick={() => onRemoveButtonClick(topicId)}>
+        <Button as="span" basic={true} color="red" floated="right" onClick={() => onRemoveButtonClick(topicId)}>
           {t('common:button.remove')}
         </Button>
       </Card.Content>
