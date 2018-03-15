@@ -16,4 +16,8 @@ module.exports = {
   setupTestFrameworkScriptFile: '<rootDir>/app/setupTests.js',
   // Output descriptions of individual tests, instead of just the names of the tested files.
   // verbose: true,
+  moduleNameMapper: {
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/mocks/fileMock.js',
+    '\\.(css|less)$': '<rootDir>/mocks/styleMock.js',
+  },
 };

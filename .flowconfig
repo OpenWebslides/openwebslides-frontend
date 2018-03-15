@@ -13,6 +13,7 @@
 # module.system.node.resolve_dirname=app
 
 # Allow importing directly from these folders.
+module.name_mapper='^assets' ->'<PROJECT_ROOT>/app/assets'
 module.name_mapper='^config' ->'<PROJECT_ROOT>/app/config'
 module.name_mapper='^core-components' ->'<PROJECT_ROOT>/app/core-components'
 module.name_mapper='^data' ->'<PROJECT_ROOT>/app/data'

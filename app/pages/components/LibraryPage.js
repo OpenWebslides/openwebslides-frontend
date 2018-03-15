@@ -4,7 +4,7 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Button, Card, Divider, Grid, Image } from 'semantic-ui-react';
+import { Button, Card, Divider, Grid, Icon } from 'semantic-ui-react';
 
 import Page from '../Page';
 
@@ -46,7 +46,7 @@ const LibraryPage = (props: Props): React.Node => {
             <Card.Content header="Introduction to mutations in modern biology" />
             <Card.Content description={description1} />
             <Card.Content extra={true}>
-              <Image src="/assets/images/icons/fork.png" />
+              <Icon name="fork" />
               1 Fork
               <Divider />
 
@@ -64,7 +64,7 @@ const LibraryPage = (props: Props): React.Node => {
             <Card.Content header="Y U DO DIS: An analysis of modern slang" />
             <Card.Content description={description2} />
             <Card.Content extra={true}>
-              <Image src="/assets/images/icons/fork.png" />
+              <Icon name="fork" />
               5 Forks
               <Divider />
 
@@ -82,7 +82,7 @@ const LibraryPage = (props: Props): React.Node => {
             <Card.Content header="The cultural impact of Dragon Ball Z on youths today" />
             <Card.Content description={description3} />
             <Card.Content extra={true}>
-              <Image src="/assets/images/icons/fork.png" />
+              <Icon name="fork" />
               &gt;9000 Forks
               <Divider />
               <Button>
