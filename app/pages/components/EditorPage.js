@@ -10,7 +10,6 @@ import topics from 'modules/topics';
 
 import Page from '../Page';
 
-
 type RouteProps = {
   match: Match,
 };
@@ -32,6 +31,7 @@ const TopicEditorForId = (props: RouteProps): React.Node => {
     return null;
   }
 };
+
 
 const DummyContent = (props: RouteProps): React.Node => {
   const { match } = props;
