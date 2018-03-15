@@ -3,238 +3,40 @@
 import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import { Button, Card, Divider, Grid, Icon, Image } from 'semantic-ui-react';
+import type { State } from 'types/state';
+import type { Identifier } from 'types/model';
+import topics from 'modules/topics';
 
 import Page from '../Page';
 
-type Props = TranslatorProps & { /* new props go here */ };
+type StateProps = {
+  topicIds: Array<Identifier>,
+};
 
-const description1 = `This is an introductory course on the subject of mutations.
-                      It should help you understand how genetic evolution works
-                      and why mutants, like the famous X-men, exist`;
+type Props = TranslatorProps & StateProps;
 
-const description2 = `This is an introductory course on the subject of modern slang.
-                      It should help the reader to better understand teens,
-                      as well as peoplez of the internet, and how they
-                      communicate. Beware: course contains dank memes`;
+const mapStateToProps = (state: State): StateProps => {
+  return {
+    topicIds: topics.selectors.getAll(state).map((topic) => topic.id),
+  };
+};
 
-const description3 = `This is an introductory course on the subject of DBZ
-                      and its cultural impact. Beware: this is a Work In Progress.
-                      Or better yet: rejoice, because this isn't even the topic's FINAL FORM!`;
+const TopicsCollection = topics.components.CardCollection;
 
-const description4 = `Lorem ipsum dolor sit amet.`;
-
-const description5 = ``;
-
-const LibraryPage = (props: Props): React.Node => {
-  const { t } = props;
+const PureLibraryPage = (props: Props): React.Node => {
+  const { topicIds } = props;
 
   return (
     <Page>
-      <Grid.Row>
-        <Grid padded="vertically">
-          <Grid.Column width={12}>
-            <h1>{t('pages:library.title')}</h1>
-          </Grid.Column>
-          <Grid.Column width={4}>
-            <Button floated="right">
-              <Link to="/topics/new">{t('common:link.newtopic')}</Link>
-            </Button>
-          </Grid.Column>
-        </Grid>
-      </Grid.Row>
-      <Grid.Row>
-        <Card.Group>
-          <Card>
-            <Card.Content header="Introduction to mutations in modern biology" />
-            <Card.Content description={description1} />
-            <Card.Content>
-              <Grid divided={true} columns={3}>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/fork.png" />
-                  1
-                </Grid.Column>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/merge.png" />
-                  0
-
-                </Grid.Column>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/annotations.png" />
-                   3
-                </Grid.Column>
-              </Grid>
-            </Card.Content>
-            <Card.Content>
-              <Button>
-                <Link to={{
-                  pathname: '/editor',
-                  state: { rootContentItemId: 'q4lg2u0p78' },
-                }}
-                >
-                  Edit
-                </Link>
-              </Button>
-
-              <Button basic={true} color="red" floated="right">
-                Delete
-              </Button>
-            </Card.Content>
-          </Card>
-
-          <Card>
-            <Card.Content header="Y U DO DIS: An analysis of modern slang" />
-            <Card.Content description={description2} />
-            <Card.Content>
-              <Grid divided={true} columns={3}>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/fork.png" />
-                  5
-                </Grid.Column>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/merge.png" />
-                  1
-
-                </Grid.Column>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/annotations.png" />
-                  14
-                </Grid.Column>
-              </Grid>
-            </Card.Content>
-            <Card.Content>
-              <Button>
-                <Link to={{
-                  pathname: '/editor',
-                  state: { rootContentItemId: 'a4lhct0p78' },
-                }}
-                >
-                  Edit
-                </Link>
-              </Button>
-
-              <Button basic={true} color="red" floated="right">
-                Delete
-              </Button>
-            </Card.Content>
-          </Card>
-
-          <Card>
-            <Card.Content header="The cultural impact of Dragon Ball Z on youths today" />
-            <Card.Content description={description3} />
-            <Card.Content>
-              <Grid divided={true} columns={3}>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/fork.png" />
-                  &gt;9000
-                </Grid.Column>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/merge.png" />
-                  0
-
-                </Grid.Column>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/annotations.png" />
-                  1408
-                </Grid.Column>
-              </Grid>
-            </Card.Content>
-            <Card.Content>
-              <Button>
-                <Link to={{
-                  pathname: '/editor',
-                  state: { rootContentItemId: 'b4lg245148' },
-                }}
-                >
-                  Edit
-                </Link>
-              </Button>
-
-              <Button basic={true} color="red" floated="right">
-                Delete
-              </Button>
-            </Card.Content>
-          </Card>
-          <Card>
-            <Card.Content header="Test topic 1" />
-            <Card.Content description={description4} />
-            <Card.Content>
-              <Grid divided={true} columns={3}>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/fork.png" />
-                  1
-                </Grid.Column>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/merge.png" />
-                  0
-
-                </Grid.Column>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/annotations.png" />
-                  3
-                </Grid.Column>
-              </Grid>
-            </Card.Content>
-            <Card.Content>
-              <Button>
-                <Link to={{
-                  pathname: '/editor',
-                  state: { rootContentItemId: 'w4lg2u0p1h' },
-                }}
-                >
-                  Edit
-                </Link>
-              </Button>
-
-              <Button basic={true} color="red" floated="right">
-                Delete
-              </Button>
-            </Card.Content>
-          </Card>
-          <Card>
-            <Card.Content header="Test topic 2" />
-            <Card.Content description={description5} />
-            <Card.Content>
-              <Grid divided={true} columns={3}>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/fork.png" />
-                  1
-                </Grid.Column>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/merge.png" />
-                  0
-
-                </Grid.Column>
-                <Grid.Column>
-                  <Image src="/assets/images/icons/annotations.png" />
-                  3
-                </Grid.Column>
-              </Grid>
-            </Card.Content>
-            <Card.Content>
-              <Button>
-                <Link to={{
-                  pathname: '/editor',
-                  state: { rootContentItemId: 'qyrgv0bcd6' },
-                }}
-                >
-                  Edit
-                </Link>
-              </Button>
-
-              <Button basic={true} color="red" floated="right">
-                Delete
-              </Button>
-            </Card.Content>
-          </Card>
-        </Card.Group>
-      </Grid.Row>
+      <TopicsCollection topicIds={topicIds} />
     </Page>
   );
 };
 
+const LibraryPage = connect(mapStateToProps)(translate()(PureLibraryPage));
 
-export { LibraryPage as PureLibraryPage };
-export default translate()(LibraryPage);
+export { PureLibraryPage };
+export default LibraryPage;
+

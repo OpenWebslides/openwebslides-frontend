@@ -13,6 +13,7 @@ describe(`LibraryPage`, (): void => {
     const enzymeWrapper = shallow(
       <PureLibraryPage
         {...dummyTranslatorProps}
+        topicIds={[]}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
