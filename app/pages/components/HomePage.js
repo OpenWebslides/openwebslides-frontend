@@ -5,11 +5,11 @@ import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Feed, Grid } from 'semantic-ui-react';
 
-import Page from '../Page';
-
 import student from 'assets/images/avatar/student_m.jpg';
 import professor from 'assets/images/avatar/professor.jpg';
 import professor2 from 'assets/images/avatar/professor2.jpg';
+
+import Page from '../Page';
 
 type Props = TranslatorProps & { /* new props go here */ };
 
