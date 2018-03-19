@@ -16,6 +16,7 @@ const PureSigninForm = (props: Props): React.node => {
       <Form.Field>
         <Field
           component={Input}
+          name="email"
           placeholder={t('auth:input.email')}
           icon="at"
           iconPosition="left"
@@ -24,6 +25,7 @@ const PureSigninForm = (props: Props): React.node => {
       <Form.Field>
         <Field
           component={Input}
+          name="password"
           type="password"
           placeholder={t('auth:input.password')}
           icon="lock"
