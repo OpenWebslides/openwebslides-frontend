@@ -9,6 +9,10 @@ import { Provider } from 'react-redux';
 
 import configureStore from 'store/configureStore';
 
+// Semantic UI
+import 'semantic-ui-less/definitions/globals/reset.less';
+import 'semantic-ui-less/definitions/globals/site.less';
+
 // The uppermost app container component.
 import Application from './Application';
 

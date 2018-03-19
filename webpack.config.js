@@ -8,6 +8,7 @@ const path = require('path');
 // Require plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // Path name constants
 const paths = {
@@ -54,6 +55,8 @@ const config = {
     }),
     // Minify output
     new UglifyJSPlugin(),
+    // Extract CSS from the JS bundle into a separate file for parallel loading
+    new ExtractTextPlugin('styles.css'),
   ],
 
   module: {
@@ -70,14 +73,6 @@ const config = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        // Load binary assets
-        test: /\.(woff|woff2|eot|ttf|otf|svg|png|gif|jpg)$/,
-        use: {
-          loader: 'file-loader',
-          options: {},
-        },
-      },
-      {
         // Load SVG images
         test: /\.svg/,
         exclude: '/fonts/',
@@ -85,6 +80,67 @@ const config = {
           loader: 'svg-url-loader',
           options: {},
         },
+      },
+      // Load LESS files
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            { loader: 'css-loader' },
+            { loader: 'less-loader' },
+          ],
+        }),
+        exclude: [/[/\\]node_modules[/\\]semantic-ui-less[/\\]/],
+      },
+      // Load semantic-ui-less files
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            { loader: 'css-loader' },
+            {
+              loader: 'semantic-ui-less-module-loader',
+              // you can also add specific options:
+              options: { siteFolder: path.join(__dirname, 'src/site') },
+            },
+          ],
+        }),
+        include: [/[/\\]node_modules[/\\]semantic-ui-less[/\\]/],
+      },
+      {
+        // Load binary assets
+        test: /\.(woff|woff2|eot|ttf|otf|svg|png|gif|jpg)$/,
+        use: {
+          loader: 'file-loader',
+          options: {},
+        },
+      },
+      // Load static assets
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 10240,
+            absolute: true,
+            name: 'images/[path][name]-[hash:7].[ext]',
+          },
+        },
+        include: [path.join(__dirname, 'src'), /[/\\]node_modules[/\\]semantic-ui-less[/\\]/],
+      },
+      // Load fonts
+      {
+        test: /\.(woff|woff2|ttf|svg|eot)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 10240,
+            name: 'fonts/[name]-[hash:7].[ext]',
+          },
+        },
+        include: [path.join(__dirname, 'src'), /[/\\]node_modules[/\\]semantic-ui-less[/\\]/],
       },
     ],
   },
