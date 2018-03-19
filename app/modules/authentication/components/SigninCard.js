@@ -4,7 +4,7 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 
-import { Card, Form, Input, Button } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import SigninForm from './forms/SigninForm';
@@ -12,7 +12,7 @@ import SigninForm from './forms/SigninForm';
 type Props = TranslatorProps;
 
 const PureSigninCard = (props: Props): React.node => {
-  const { t, rootContentItem } = props;
+  const { t } = props;
 
   return (
     <Card fluid={true}>
