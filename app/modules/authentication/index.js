@@ -1,7 +1,7 @@
 // @flow
 
 // import * as actions from './actions';
-import * as components from './components';
+import components from './components';
 import * as model from './model';
 // import * as selectors from './selectors';
 // import reducer from './reducer';

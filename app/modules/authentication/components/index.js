@@ -1,8 +1,9 @@
 // @flow
 
-import SigninContainer from './SigninContainer';
+import SigninCard from './SigninCard';
 
-export const components = {
-  signinContainer: SigninContainer,
+const index = {
+  SigninCard,
 };
 
+export default index;
