@@ -7,7 +7,7 @@ import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 import { Field, reduxForm } from 'redux-form';
 import { Form, Input, Button } from 'semantic-ui-react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import type { State } from 'types/state';
 
@@ -92,7 +92,7 @@ const ReduxSigninForm = reduxForm({
   form: 'signin',
   onSubmit: handleSignin,
 })(PureSigninForm);
-const SigninForm = translate()(ReduxSigninForm);
+const SigninForm = connect(mapStateToProps)(translate()(ReduxSigninForm));
 
 export { PureSigninForm, ReduxSigninForm };
 export default SigninForm;
