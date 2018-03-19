@@ -1,19 +1,19 @@
 // @flow
 
 // import * as actions from './actions';
-import components from './components';
 import * as model from './model';
-// import * as selectors from './selectors';
+import * as selectors from './selectors';
+import components from './components';
 // import reducer from './reducer';
 
 import type { Account, AuthState } from './model';
 
 const authentication = {
   // actions,
-  components,
   model,
+  selectors,
+  components,
   // reducer,
-  // selectors,
 };
 
 export type { Account, AuthState };
