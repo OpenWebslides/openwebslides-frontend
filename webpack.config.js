@@ -56,7 +56,9 @@ const config = {
     // Minify output
     new UglifyJSPlugin(),
     // Extract CSS from the JS bundle into a separate file for parallel loading
-    new ExtractTextPlugin('styles.css'),
+    new ExtractTextPlugin({
+     filename: '[name].[contenthash].css',
+    }),
   ],
 
   module: {
@@ -103,7 +105,7 @@ const config = {
             {
               loader: 'semantic-ui-less-module-loader',
               // you can also add specific options:
-              options: { siteFolder: path.join(__dirname, 'src/site') },
+              options: { siteFolder: path.join(__dirname, 'app/assets/stylesheets/') },
             },
           ],
         }),
@@ -153,6 +155,10 @@ const config = {
     // - the module.system.node.resolve_dirname option in .flowconfig
     // - the moduleDirectories option in jest.config.js
     modules: [paths.NODE_MODULES, paths.APP],
+    // Map Semantic UI LESS' theme.config to our site theme config
+    alias: {
+      '../../theme.config$': path.join(__dirname, 'app/assets/stylesheets/theme.config'),
+     },
   },
 
 };
