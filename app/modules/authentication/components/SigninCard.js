@@ -5,8 +5,8 @@ import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 
 import { Card, Button } from 'semantic-ui-react';
-
 import { Link } from 'react-router-dom';
+
 import SigninForm from './forms/SigninForm';
 
 type Props = CustomTranslatorProps;

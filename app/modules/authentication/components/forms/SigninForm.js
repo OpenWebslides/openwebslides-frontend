@@ -92,7 +92,7 @@ const ReduxSigninForm = reduxForm({
   form: 'signin',
   onSubmit: handleSignin,
 })(PureSigninForm);
-const SigninForm = connect(mapStateToProps)(translate()(ReduxSigninForm));
+const SigninForm = translate()(ReduxSigninForm);
 
 export { PureSigninForm, ReduxSigninForm };
 export default SigninForm;
