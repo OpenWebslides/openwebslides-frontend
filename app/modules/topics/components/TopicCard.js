@@ -75,14 +75,14 @@ const PureTopicCard = (props: Props): React.Node => {
         </Grid>
       </Card.Content>
       <Card.Content>
-        <Button as="span">
-          <Link to={{
-            pathname: `/editor/${topicId}`,
-          }}
-          >
+        <Link to={{
+          pathname: `/editor/${topicId}`,
+        }}
+        >
+          <Button as="span">
             Edit
-          </Link>
-        </Button>
+          </Button>
+        </Link>
 
         <Button as="span" basic={true} color="red" floated="right" onClick={() => onRemoveButtonClick(topicId)}>
           {t('common:button.remove')}
