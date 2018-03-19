@@ -4,7 +4,8 @@ import React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Field, reduxForm } from 'redux-form';
-import { Form, Input } from 'semantic-ui-react';
+import { Card, Form, Input, Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 type Props = TranslatorProps;
 
@@ -32,6 +33,15 @@ const PureSigninForm = (props: Props): React.node => {
           iconPosition="left"
         />
       </Form.Field>
+
+      <Button.Group fluid={true}>
+        <Button primary={true} type="submit">
+          {t('auth:button.signin')}
+        </Button>
+        <Button basic={true} as={Link} to="/auth/signup">
+          {t('auth:button.signup')}
+        </Button>
+      </Button.Group>
     </Form>
   );
 };

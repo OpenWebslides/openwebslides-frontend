@@ -4,8 +4,7 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 
-import { Card, Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Card } from 'semantic-ui-react';
 
 import SigninForm from './forms/SigninForm';
 
@@ -26,16 +25,6 @@ const PureSigninCard = (props: Props): React.node => {
       </Card.Content>
       <Card.Content>
         <SigninForm />
-      </Card.Content>
-      <Card.Content extra={true}>
-        <Button.Group fluid={true}>
-          <Button primary={true} type="submit">
-            {t('auth:button.signin')}
-          </Button>
-          <Button basic={true} as={Link} to="/auth/signup">
-            {t('auth:button.signup')}
-          </Button>
-        </Button.Group>
       </Card.Content>
     </Card>
   );
