@@ -6,7 +6,7 @@ import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
-import timeSince from 'lib/time-since';
+import moment from 'moment';
 
 import { Feed } from 'semantic-ui-react';
 
@@ -44,6 +44,7 @@ const PureFeedItem = (props: Props): React.Node => {
     case predicateTypes.CREATE: predicate = 'created'; break;
     case predicateTypes.FORK: predicate = 'forked'; break;
     case predicateTypes.DELETE: predicate = 'deleted'; break;
+    case predicateTypes.UPDATE: predicate = 'updated'; break;
     default: predicate = 'acted on';
   }
 
@@ -63,7 +64,7 @@ const PureFeedItem = (props: Props): React.Node => {
           </strong>
         </Feed.Summary>
         <Feed.Meta>
-          <Feed.Date>{timeSince(feedItem.timestamp)}</Feed.Date>
+          <Feed.Date>{moment(feedItem.timestamp).fromNow()}</Feed.Date>
         </Feed.Meta>
       </Feed.Content>
     </Feed.Event>
