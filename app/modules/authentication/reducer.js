@@ -4,13 +4,8 @@ import * as t from './actionTypes';
 import type { Account, AuthState } from './model';
 
 const initialState: AuthState = {
-  authenticated: true,
-  account: {
-    id: 'ieieie1234',
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-  },
+  authenticated: false,
+  account: null,
 };
 
 const signin = (state: AuthState, action: t.SigninEmailAction | t.SigninOAuthAction): AuthState => {

@@ -13,34 +13,21 @@ import { isAuthenticated, getAccount } from '../../selectors';
 import type { Account } from '../../model';
 import { signinEmail } from '../../actions';
 
-type PassedProps = {};
-
 type StateProps = {
   authenticated: boolean,
   account: ?Account,
 };
 
-type DispatchProps = {
-  onSubmit: () => void,
-};
+type Props = TranslatorProps & StateProps;
 
-type Props = TranslatorProps & PassedProps & StateProps & DispatchProps;
+const handleSignin = (values, dispatch): void => {
+  dispatch(signinEmail(values.email, values.password));
+};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   return {
     authenticated: isAuthenticated(state),
     account: getAccount(state),
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
-  return {
-    onSubmit: (values): void => {
-      console.log(values);
-      dispatch(
-        signinEmail('john.doe@example.com', 'foo'),
-      );
-    },
   };
 };
 
@@ -87,8 +74,9 @@ const PureSigninForm = (props: Props): React.node => {
 const ReduxSigninForm = reduxForm({
   // Unique name for the from
   form: 'signin',
+  onSubmit: handleSignin,
 })(PureSigninForm);
-const SigninForm = connect(mapStateToProps, mapDispatchToProps)(translate()(ReduxSigninForm));
+const SigninForm = connect(mapStateToProps)(translate()(ReduxSigninForm));
 
 export { PureSigninForm, ReduxSigninForm };
 export default SigninForm;
