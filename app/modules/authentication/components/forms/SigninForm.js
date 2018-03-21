@@ -7,7 +7,7 @@ import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Field, reduxForm } from 'redux-form';
 import { Card, Form, Input, Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { isAuthenticated, getAccount } from '../../selectors';
 import type { Account } from '../../model';
@@ -45,7 +45,10 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
 };
 
 const PureSigninForm = (props: Props): React.node => {
-  const { t, handleSubmit } = props;
+  const { t, handleSubmit, authenticated } = props;
+
+  if (authenticated)
+    return <Redirect to="/" />;
 
   return (
     <Form onSubmit={handleSubmit}>
