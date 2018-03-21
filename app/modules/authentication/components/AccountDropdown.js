@@ -27,11 +27,11 @@ const mapStateToProps = (state: State): StateProps => {
 const PureAccountDropdown = (props: Props): React.node => {
   const { t, authenticated, account } = props;
 
-  const displayName = authenticated ? (account.firstName || account.email) : null;
+  const displayName = authenticated ? (`${account.firstName} ${account.lastName}` || account.email) : null;
 
   if (authenticated) {
     return (
-      <Dropdown text={props.account.firstName} pointing={true} className="item">
+      <Dropdown text={displayName} pointing={true} className="item">
         <Dropdown.Menu>
           <Dropdown.Header>Account</Dropdown.Header>
           <Dropdown.Item>Preferences</Dropdown.Item>
