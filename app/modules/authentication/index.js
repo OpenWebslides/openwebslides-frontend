@@ -4,7 +4,7 @@
 import * as model from './model';
 import * as selectors from './selectors';
 import components from './components';
-// import reducer from './reducer';
+import reducer from './reducer';
 
 import type { Account, AuthState } from './model';
 
@@ -13,7 +13,7 @@ const authentication = {
   model,
   selectors,
   components,
-  // reducer,
+  reducer,
 };
 
 export type { Account, AuthState };

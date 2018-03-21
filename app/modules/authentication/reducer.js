@@ -1,11 +1,11 @@
 // @flow
 
-import { dummyAuthentication } from 'data/dummyData';
-
 import * as t from './actionTypes';
 import type { Account, AuthState } from './model';
 
-const initialState: AuthState = dummyAuthentication;
+const initialState: AuthState = {
+  account: null,
+};
 
 const signin = (state: AuthState, action: t.SigninEmailAction | t.SigninOAuthAction): AuthState => {
   const { email } = action.payload;
