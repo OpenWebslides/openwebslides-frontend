@@ -6,10 +6,16 @@ import { Grid } from 'semantic-ui-react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import topics from 'modules/topics';
+import type { State } from 'types/state';
+import type { Identifier } from 'types/model';
 
 import Page from '../Page';
 
 const CreateNewTopicCard = topics.components.NewTopicCard;
+
+type StateProps = {
+  topicIds: Array<Identifier>,
+};
 
 const mapStateToProps = (state: State): StateProps => {
   return {
@@ -18,7 +24,7 @@ const mapStateToProps = (state: State): StateProps => {
 };
 
 const TopicsCollection = topics.components.CardCollection;
-type Props = TranslatorProps & { /* new props go here */ };
+type Props = TranslatorProps & StateProps;
 
 const PureNewTopicPage = (props: Props): React.Node => {
   const {
