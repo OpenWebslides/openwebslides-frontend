@@ -4,15 +4,15 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Icon, Image, Menu, Grid } from 'semantic-ui-react';
+import { Image, Menu, Grid } from 'semantic-ui-react';
 
 import logo from 'assets/images/logo_white.png';
 
 import authentication from 'modules/authentication';
 
-const { AccountDropdown } = authentication.components;
-
 type Props = TranslatorProps;
+
+const { AccountMenu } = authentication.components;
 
 const PureLogo = (props: Props): React.Node => {
   const { t } = props;
@@ -37,31 +37,14 @@ const PureLogo = (props: Props): React.Node => {
 
 const Logo = translate()(PureLogo);
 
-const PureMenuActions = (props: Props): React.Node => {
-  const { t } = props;
-
-  return (
-    <Menu.Menu position="right">
-      <Menu.Item as={Link} to="/library">
-        {t('navbar:library')}
-      </Menu.Item>
-
-      <Menu.Item as={Link} to="#">
-        <Icon name="bell outline" />
-      </Menu.Item>
-
-      <AccountDropdown />
-    </Menu.Menu>
-  );
-};
-
-const MenuActions = translate()(PureMenuActions);
-
 const PureNavigationBar = (): React.Node => {
   return (
     <Menu secondary={true} attached="top">
       <Logo />
-      <MenuActions />
+
+      <Menu.Menu position="right">
+        <AccountMenu />
+      </Menu.Menu>
     </Menu>
   );
 };

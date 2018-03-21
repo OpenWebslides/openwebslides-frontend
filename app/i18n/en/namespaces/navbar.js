@@ -1,7 +1,6 @@
 // @flow
 
 const navbar = {
-  user: 'User',
   library: 'Library',
   account: 'Account',
   preferences: 'Preferences',

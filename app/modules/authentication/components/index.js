@@ -1,11 +1,11 @@
 // @flow
 
 import SigninCard from './SigninCard';
-import AccountDropdown from './AccountDropdown';
+import AccountMenu from './AccountMenu';
 
 const index = {
   SigninCard,
-  AccountDropdown,
+  AccountMenu,
 };
 
 export default index;
