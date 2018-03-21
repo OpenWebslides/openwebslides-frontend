@@ -19,7 +19,7 @@ const PureFeedCollection = (props: Props): React.Node => {
   } = props;
 
   return (
-    <Feed>
+    <Feed size="large">
       {feedItemIds.map((feedItemId) => (
         <FeedItem key={feedItemId} feedItemId={feedItemId} />
       ))}
