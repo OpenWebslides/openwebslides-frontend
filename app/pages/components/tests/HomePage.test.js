@@ -11,6 +11,7 @@ describe(`HomePage`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureHomePage
+        feedItemIds={[]}
         t={(key: ?string): string => key || 'string'}
         i18nLoadedAt={new Date()}
         i18n={{}}

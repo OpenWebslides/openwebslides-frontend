@@ -1,6 +1,7 @@
 // @flow
 
 import type { Error } from 'types/error';
+import type { predicateType } from './model';
 
 export const ADD: 'feedItems/ADD' = 'feedItems/ADD';
 
@@ -12,7 +13,7 @@ export type AddAction = {
     id: string,
     userId: string,
     topicId: string,
-    predicate: string,
+    predicate: predicateType,
     timestamp: number,
   },
 };

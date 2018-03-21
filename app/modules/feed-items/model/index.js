@@ -18,7 +18,7 @@ export const generateId = (): Identifier => {
   return generateRandomString(ID_LENGTH);
 };
 
-export type FeedItem = {
+export type FeedItemType = {
   +id: Identifier,
   +userId: Identifier,
   +topicId: Identifier,
@@ -27,7 +27,7 @@ export type FeedItem = {
 };
 
 export type FeedItemsState = {
-  +[feedItemId: string]: FeedItem,
+  +[feedItemId: string]: FeedItemType,
 };
 
 export {

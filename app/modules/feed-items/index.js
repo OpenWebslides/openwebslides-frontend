@@ -1,16 +1,20 @@
 // @flow
 
 import * as actions from './actions';
-import * as model from './model/index';
+import * as model from './model';
+import * as selectors from './selectors';
 import components from './components';
+import reducer from './reducer';
 
-import type { FeedItem, FeedItemsState } from './model/index';
+import type { FeedItemType, FeedItemsState } from './model';
 
 const feedItems = {
   actions,
   components,
   model,
+  reducer,
+  selectors,
 };
 
-export type { FeedItem, FeedItemsState };
+export type { FeedItemType, FeedItemsState };
 export default feedItems;

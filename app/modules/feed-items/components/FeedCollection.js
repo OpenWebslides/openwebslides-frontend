@@ -1,24 +1,33 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { Identifier } from 'types/model';
 
-type Props = TranslatorProps;
+import { Feed } from 'semantic-ui-react';
+
+import FeedItem from './FeedItem';
+
+type PassedProps = {
+  feedItemIds: Array<Identifier>,
+};
+
+type Props = PassedProps;
 
 const PureFeedCollection = (props: Props): React.Node => {
   const {
-    t,
+    feedItemIds,
   } = props;
 
   return (
-    <div>
-      <p>{t('common:button.save')}</p>
-    </div>
+    <Feed>
+      {feedItemIds.map((feedItemId) => (
+        <FeedItem key={feedItemId} feedItemId={feedItemId} />
+      ))}
+    </Feed>
   );
 };
 
-const FeedCollection = translate()(PureFeedCollection);
+const FeedCollection = PureFeedCollection;
 
 export { PureFeedCollection };
 export default FeedCollection;

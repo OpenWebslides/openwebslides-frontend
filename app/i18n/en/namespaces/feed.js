@@ -5,6 +5,7 @@ const feed = {
     comment: ' {{action}} {{object}}',
     deleteTopic: ' {{action}} {{object}}',
     createTopic: ' {{action}} {{object}}',
+    action: ' {{action}} {{object}}',
   },
 };
 
