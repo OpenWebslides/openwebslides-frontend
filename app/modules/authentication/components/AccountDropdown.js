@@ -1,30 +1,61 @@
 // @flow
 
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { Dropdown, Menu } from 'semantic-ui-react';
 
-import { Dropdown } from 'semantic-ui-react';
+import { Account } from '../model';
+import { isAuthenticated, getAccount } from '../selectors';
 
-type Props = TranslatorProps;
-
-const PureAccountDropdown = (props: Props): React.node => {
-  const { t } = props;
-
-  return (
-    <Dropdown text="User" pointing={true} className="item">
-      <Dropdown.Menu>
-        <Dropdown.Header>Account</Dropdown.Header>
-        <Dropdown.Item>Preferences</Dropdown.Item>
-        <Dropdown.Divider />
-        <Dropdown.Header>Account</Dropdown.Header>
-        <Dropdown.Item>Sign out</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-  );
+type StateProps = {
+  authenticated: boolean,
+  account: ?Account,
 };
 
-const AccountDropdown = translate()(PureAccountDropdown);
+type Props = TranslatorProps & StateProps;
+
+const mapStateToProps = (state: State): StateProps => {
+  return {
+    authenticated: isAuthenticated(state),
+    account: getAccount(state),
+  };
+};
+
+const PureAccountDropdown = (props: Props): React.node => {
+  const { t, authenticated, account } = props;
+
+  const displayName = authenticated ? (account.firstName || account.email) : null;
+
+  if (authenticated) {
+    return (
+      <Dropdown text={props.account.firstName} pointing={true} className="item">
+        <Dropdown.Menu>
+          <Dropdown.Header>Account</Dropdown.Header>
+          <Dropdown.Item>Preferences</Dropdown.Item>
+          <Dropdown.Divider />
+          <Dropdown.Header>Account</Dropdown.Header>
+          <Dropdown.Item>Sign out</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <Menu.Item as={Link} primary={true} to="/auth/signin">
+          {t('auth:button.signin')}
+        </Menu.Item>
+        <Menu.Item as={Link} to="/auth/signup">
+          {t('auth:button.signup')}
+        </Menu.Item>
+      </React.Fragment>
+    );
+  }
+};
+
+const AccountDropdown = connect(mapStateToProps)(translate()(PureAccountDropdown));
 
 export { PureAccountDropdown };
 export default AccountDropdown;
