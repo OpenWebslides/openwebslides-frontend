@@ -44,7 +44,7 @@ const PureAccountDropdown = (props: Props): React.node => {
   } else {
     return (
       <React.Fragment>
-        <Menu.Item as={Link} primary={true} to="/auth/signin">
+        <Menu.Item as={Link} to="/auth/signin">
           {t('auth:button.signin')}
         </Menu.Item>
         <Menu.Item as={Link} to="/auth/signup">
