@@ -4,9 +4,13 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Icon, Image, Menu, Dropdown, Grid } from 'semantic-ui-react';
+import { Icon, Image, Menu, Grid } from 'semantic-ui-react';
 
 import logo from 'assets/images/logo_white.png';
+
+import authentication from 'modules/authentication';
+
+const { AccountDropdown } = authentication.components;
 
 type Props = TranslatorProps;
 
@@ -46,15 +50,7 @@ const PureMenuActions = (props: Props): React.Node => {
         <Icon name="bell outline" />
       </Menu.Item>
 
-      <Dropdown text={t('navbar:user')} pointing={true} className="item">
-        <Dropdown.Menu>
-          <Dropdown.Header>{t('navbar:account')}</Dropdown.Header>
-          <Dropdown.Item as={Link} to="/profile">{t('navbar:preferences')}</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Header>{t('navbar:account')}</Dropdown.Header>
-          <Dropdown.Item>{t('navbar:signout')}</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      <AccountDropdown />
     </Menu.Menu>
   );
 };
