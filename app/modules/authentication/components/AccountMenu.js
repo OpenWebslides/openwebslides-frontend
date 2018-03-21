@@ -9,10 +9,15 @@ import { Dropdown, Menu, Icon } from 'semantic-ui-react';
 
 import { Account } from '../model';
 import { isAuthenticated, getAccount } from '../selectors';
+import { signout } from '../actions';
 
 type StateProps = {
   authenticated: boolean,
   account: ?Account,
+};
+
+type DispatchProps = {
+  handleSignout: () => void,
 };
 
 type Props = TranslatorProps & StateProps;
@@ -24,8 +29,16 @@ const mapStateToProps = (state: State): StateProps => {
   };
 };
 
+const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+  return {
+    handleSignout: (): void => {
+      dispatch(signout());
+    },
+  }
+}
+
 const PureAccountMenu = (props: Props): React.node => {
-  const { t, authenticated, account } = props;
+  const { t, authenticated, account, handleSignout } = props;
 
   const displayName = authenticated ? (`${account.firstName} ${account.lastName}` || account.email) : null;
 
@@ -54,17 +67,18 @@ const PureAccountMenu = (props: Props): React.node => {
       <Dropdown text={displayName} pointing={true} className="item">
         <Dropdown.Menu>
           <Dropdown.Header>{t('navbar:account')}</Dropdown.Header>
-          <Dropdown.Item as={Link} to="/profile">{t('navbar:preferences')}</Dropdown.Item>
+          <Dropdown.Item>{t('navbar:preferences')}</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Header>{t('navbar:account')}</Dropdown.Header>
-          <Dropdown.Item>{t('navbar:signout')}</Dropdown.Item>
+          <Dropdown.Item onClick={handleSignout}>
+            {t('navbar:signout')}
+          </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </React.Fragment>
   );
 };
 
-const AccountMenu = connect(mapStateToProps)(translate()(PureAccountMenu));
+const AccountMenu = connect(mapStateToProps, mapDispatchToProps)(translate()(PureAccountMenu));
 
 export { PureAccountMenu };
 export default AccountMenu;

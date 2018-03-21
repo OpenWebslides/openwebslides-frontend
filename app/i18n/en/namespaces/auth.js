@@ -12,6 +12,7 @@ const auth = {
   button: {
     signin: 'Sign in',
     signup: 'Sign up',
+    signout: 'Sign out',
     create: 'Create account',
     back: 'Back to sign in',
   },

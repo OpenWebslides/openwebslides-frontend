@@ -26,7 +26,7 @@ export const signinEmail = (
   };
 };
 
-export const signinOauth = (
+export const signinOAuth = (
   email: string,
 ): t.SigninOAuthAction | t.SigninOAuthErrorAction => {
   if (email !== 'john.doe@example.com') {
