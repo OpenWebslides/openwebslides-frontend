@@ -4,7 +4,13 @@ import * as t from './actionTypes';
 import type { Account, AuthState } from './model';
 
 const initialState: AuthState = {
-  account: null,
+  authenticated: true,
+  account: {
+    id: 'ieieie1234',
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@example.com',
+  },
 };
 
 const signin = (state: AuthState, action: t.SigninEmailAction | t.SigninOAuthAction): AuthState => {
@@ -19,6 +25,7 @@ const signin = (state: AuthState, action: t.SigninEmailAction | t.SigninOAuthAct
 
   return {
     ...state,
+    authenticated: true,
     account,
   };
 };
@@ -35,6 +42,7 @@ const signup = (state: AuthState, action: t.SignupAction): AuthState => {
 
   return {
     ...state,
+    authenticated: true,
     account,
   };
 };
@@ -42,6 +50,7 @@ const signup = (state: AuthState, action: t.SignupAction): AuthState => {
 const signout = (state: AuthState): AuthState => {
   return {
     ...state,
+    authenticated: false,
     account: null,
   };
 };

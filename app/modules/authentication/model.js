@@ -15,6 +15,7 @@ export type Account = {
 };
 
 export type AuthState = {
+  +authenticated: boolean,
   +account: ?Account,
 };
 
