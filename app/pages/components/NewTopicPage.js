@@ -1,35 +1,20 @@
 // @flow
 
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import topics from 'modules/topics';
-import type { State } from 'types/state';
-import type { Identifier } from 'types/model';
 
 import Page from '../Page';
 
 const CreateNewTopicCard = topics.components.NewTopicCard;
 
-type StateProps = {
-  topicIds: Array<Identifier>,
-};
-
-const mapStateToProps = (state: State): StateProps => {
-  return {
-    topicIds: topics.selectors.getAll(state).map((topic) => topic.id),
-  };
-};
-
-const TopicsCollection = topics.components.CardCollection;
-type Props = TranslatorProps & StateProps;
+type Props = TranslatorProps;
 
 const PureNewTopicPage = (props: Props): React.Node => {
   const {
     t,
-    topicIds,
   } = props;
 
   return (
@@ -39,7 +24,6 @@ const PureNewTopicPage = (props: Props): React.Node => {
           <Grid.Column>
             <h1>{t('pages:topic_new.title')}</h1>
             <CreateNewTopicCard />
-            <TopicsCollection topicIds={topicIds} />
           </Grid.Column>
         </Grid>
       </Grid.Row>
@@ -47,7 +31,7 @@ const PureNewTopicPage = (props: Props): React.Node => {
   );
 };
 
-const NewTopicPage = connect(mapStateToProps)(translate()(PureNewTopicPage));
+const NewTopicPage = translate()(PureNewTopicPage);
 
 export { PureNewTopicPage };
 export default NewTopicPage;
