@@ -93,23 +93,6 @@ const config = {
             { loader: 'less-loader' },
           ],
         }),
-        exclude: [/[/\\]node_modules[/\\]semantic-ui-less[/\\]/],
-      },
-      // Load semantic-ui-less files
-      {
-        test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            { loader: 'css-loader' },
-            {
-              loader: 'semantic-ui-less-module-loader',
-              // you can also add specific options:
-              options: { siteFolder: path.join(__dirname, 'app/assets/stylesheets/') },
-            },
-          ],
-        }),
-        include: [/[/\\]node_modules[/\\]semantic-ui-less[/\\]/],
       },
       {
         // Load binary assets
