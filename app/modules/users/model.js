@@ -15,6 +15,11 @@ export type User = {
   +password: string,
 };
 
+export type UserNameEmail = {
+  +name: string,
+  +email: string,
+};
+
 export type UsersState = {
   +[userId: Identifier]: User,
 };

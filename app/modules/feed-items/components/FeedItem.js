@@ -4,17 +4,19 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
+import _ from 'lodash';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import moment from 'moment';
-import { getUserNameById } from 'modules/users/selectors';
+import { getUserNameEmailById } from 'modules/users/selectors';
 import { getTitleById } from 'modules/topics/selectors';
+import type { UserNameEmail } from 'modules/users/model';
+import md5 from 'blueimp-md5';
 
 import { Feed } from 'semantic-ui-react';
 
-import professor2 from 'assets/images/avatar/professor2.jpg';
-
 import type { FeedItemType } from '../model';
+
 import { predicateTypes } from '../model';
 import { getById } from '../selectors';
 
@@ -25,7 +27,7 @@ type PassedProps = {
 
 type StateProps = {
   feedItem: FeedItemType,
-  userName: string,
+  userNameEmail: UserNameEmail,
   topicName: string,
 };
 
@@ -35,7 +37,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const feedItem = getById(state, props.feedItemId);
   return {
     feedItem,
-    userName: getUserNameById(state, feedItem.userId),
+    userNameEmail: getUserNameEmailById(state, feedItem.userId),
     topicName: getTitleById(state, feedItem.topicId),
   };
 };
@@ -44,7 +46,7 @@ const PureFeedItem = (props: Props): React.Node => {
   const {
     t,
     feedItem,
-    userName,
+    userNameEmail,
     topicName,
   } = props;
 
@@ -58,14 +60,16 @@ const PureFeedItem = (props: Props): React.Node => {
     default: predicate = 'acted on';
   }
 
+  const imageHash = md5(_.trim(userNameEmail.email).toLowerCase());
+
   return (
     <Feed.Event>
       <Feed.Label>
-        <img src={professor2} alt="profile" />
+        <img src={`https://www.gravatar.com/avatar/${imageHash}`} alt="profile" />
       </Feed.Label>
       <Feed.Content>
         <Feed.Summary>
-          <Feed.User>{userName}&nbsp;</Feed.User>
+          <Feed.User>{userNameEmail.name}&nbsp;</Feed.User>
           {t('feed:feed_item.action', { context: `${predicate}` })}
           &nbsp;
           <strong>
