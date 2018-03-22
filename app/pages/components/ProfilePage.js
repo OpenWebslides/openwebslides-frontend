@@ -4,10 +4,14 @@ import * as React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
+import users from 'modules/users';
 
 import Page from '../Page';
 
 type Props = TranslatorProps;
+
+const { InfoCard } = users.components;
+
 
 const PureProfilePage = (props: Props): React.Node => {
   const {
@@ -20,6 +24,7 @@ const PureProfilePage = (props: Props): React.Node => {
         <Grid padded="vertically">
           <Grid.Column>
             <h1>{t('pages:profile.title')}</h1>
+            <InfoCard />
           </Grid.Column>
         </Grid>
       </Grid.Row>
