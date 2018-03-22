@@ -29,7 +29,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const PureInfoCard = (props: Props): React.Node => {
   const { t, user } = props;
-  console.log(user);
+
   const firstName = t('profile:firstName');
   const lastName = t('profile:lastName');
   return (

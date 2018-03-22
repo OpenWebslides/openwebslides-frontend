@@ -7,6 +7,8 @@ import type { Identifier } from 'types/model';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import moment from 'moment';
+import { getUserNameById } from 'modules/users/selectors';
+import { getTitleById } from 'modules/topics/selectors';
 
 import { Feed } from 'semantic-ui-react';
 
@@ -16,19 +18,25 @@ import type { FeedItemType } from '../model';
 import { predicateTypes } from '../model';
 import { getById } from '../selectors';
 
+
 type PassedProps = {
   feedItemId: Identifier,
 };
 
 type StateProps = {
   feedItem: FeedItemType,
+  userName: string,
+  topicName: string,
 };
 
 type Props = TranslatorProps & PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  const feedItem = getById(state, props.feedItemId);
   return {
-    feedItem: getById(state, props.feedItemId),
+    feedItem,
+    userName: getUserNameById(state, feedItem.userId),
+    topicName: getTitleById(state, feedItem.topicId),
   };
 };
 
@@ -36,6 +44,8 @@ const PureFeedItem = (props: Props): React.Node => {
   const {
     t,
     feedItem,
+    userName,
+    topicName,
   } = props;
 
   let predicate:string = '';
@@ -55,12 +65,12 @@ const PureFeedItem = (props: Props): React.Node => {
       </Feed.Label>
       <Feed.Content>
         <Feed.Summary>
-          <Feed.User>{feedItem.userId}&nbsp;</Feed.User>
+          <Feed.User>{userName}&nbsp;</Feed.User>
           {t('feed:feed_item.action', { context: `${predicate}` })}
           &nbsp;
           <strong>
             &quot;
-            {feedItem.topicId}
+            {topicName}
             &quot;
           </strong>
         </Feed.Summary>

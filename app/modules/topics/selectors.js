@@ -12,6 +12,10 @@ export const getById = (state: State, id: Identifier): Topic => {
   return getModule(state)[id];
 };
 
+export const getTitleById = (state: State, id: Identifier): string => {
+  return getModule(state)[id].title;
+};
+
 export const getAllById = (state: State): { +[topicId: Identifier]: Topic } => {
   return getModule(state);
 };
