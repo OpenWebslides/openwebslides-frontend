@@ -9,8 +9,8 @@ const ID_LENGTH = 10;
 
 export type User = {
   +id: Identifier,
-  +first_name: string,
-  +last_name: ?string,
+  +firstName: string,
+  +lastName: ?string,
   +email: string,
   +password: string,
 };

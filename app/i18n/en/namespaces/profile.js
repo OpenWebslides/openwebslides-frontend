@@ -1,7 +1,8 @@
 // @flow
 
 const profile = {
-  name: 'Name',
+  firstName: 'First name',
+  lastName: 'Last name',
 };
 
 export default profile;

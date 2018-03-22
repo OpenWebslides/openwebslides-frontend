@@ -1,23 +1,44 @@
 // @flow
 
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Card, Image } from 'semantic-ui-react';
 import professor from 'assets/images/card/professor.jpg';
+import type { Identifier } from 'types/model';
+import type { State } from 'types/state';
+import type { User } from '../model';
+import { getById } from '../selectors';
 
-type Props = TranslatorProps;
+type PassedProps = {
+  userId: Identifier,
+};
+
+type StateProps = {
+  user: User,
+};
+
+type Props = TranslatorProps & PassedProps & StateProps;
+
+const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  return {
+    user: getById(state, props.userId),
+  };
+};
 
 const PureInfoCard = (props: Props): React.Node => {
-  const { t } = props;
-
-  const name = t('profile:name');
+  const { t, user } = props;
+  console.log(user);
+  const firstName = t('profile:firstName');
+  const lastName = t('profile:lastName');
   return (
     <Card>
       <Image src={professor} />
       <Card.Content>
         <Card.Header>
-          {name}: USER NAME
+          {firstName}: {user.firstName} <br />
+          {lastName}: {user.lastName}
         </Card.Header>
         <Card.Meta>
           <span className="date">
@@ -38,7 +59,7 @@ const PureInfoCard = (props: Props): React.Node => {
   );
 };
 
-const InfoCard = translate()(PureInfoCard);
+const InfoCard = connect(mapStateToProps)(translate()(PureInfoCard));
 
 export { PureInfoCard };
 export default InfoCard;

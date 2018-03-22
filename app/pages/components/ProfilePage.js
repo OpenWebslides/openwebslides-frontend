@@ -24,7 +24,7 @@ const PureProfilePage = (props: Props): React.Node => {
         <Grid padded="vertically">
           <Grid.Column>
             <h1>{t('pages:profile.title')}</h1>
-            <InfoCard />
+            <InfoCard userId="jasperdhae" />
           </Grid.Column>
         </Grid>
       </Grid.Row>
