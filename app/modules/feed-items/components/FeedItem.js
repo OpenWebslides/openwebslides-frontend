@@ -55,8 +55,9 @@ const PureFeedItem = (props: Props): React.Node => {
       </Feed.Label>
       <Feed.Content>
         <Feed.Summary>
-          <Feed.User>{feedItem.userId}</Feed.User>
+          <Feed.User>{feedItem.userId}&nbsp;</Feed.User>
           {t('feed:feed_item.action', { context: `${predicate}` })}
+          &nbsp;
           <strong>
             &quot;
             {feedItem.topicId}

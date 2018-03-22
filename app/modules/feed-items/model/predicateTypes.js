@@ -17,4 +17,4 @@ export const predicateTypes = {
   UPDATE,
 };
 
-export type predicateType = $Values<typeof predicateTypes>;
+export type PredicateType = $Values<typeof predicateTypes>;

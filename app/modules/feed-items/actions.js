@@ -3,12 +3,12 @@
 import _ from 'lodash';
 import * as t from './actionTypes';
 import { generateId } from './model';
-import type { predicateType } from './model';
+import type { PredicateType } from './model';
 
 export const add = (
   userId: string,
   topicId: string,
-  predicate: predicateType,
+  predicate: PredicateType,
 ): t.AddAction | t.AddErrorAction => {
   const newId = generateId();
 
