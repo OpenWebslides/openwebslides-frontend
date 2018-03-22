@@ -15,6 +15,7 @@ import LibraryPage from './components/LibraryPage';
 import TopicsPage from './components/TopicsPage';
 import EditorPage from './components/EditorPage';
 import NewTopicPage from './components/NewTopicPage';
+import ProfilePage from './components/ProfilePage';
 
 const routes = (
   <Switch>
@@ -23,6 +24,7 @@ const routes = (
     <Route path="/editor" component={EditorPage} />
     <Route path="/topics" exact={true} component={TopicsPage} />
     <Route path="/topics/new" component={NewTopicPage} />
+    <Route path="/profile" component={ProfilePage} />
     <Route component={NotFoundPage} />
   </Switch>
 );

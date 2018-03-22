@@ -10,6 +10,9 @@ const pages = {
   topic_new: {
     title: 'Create new topic',
   },
+  profile: {
+    title: 'Profile',
+  },
 };
 
 export default pages;
