@@ -10,7 +10,7 @@ import Page from '../Page';
 
 type Props = TranslatorProps;
 
-const { InfoCard } = users.components;
+const { ProfileCard } = users.components;
 
 
 const PureProfilePage = (props: Props): React.Node => {
@@ -24,7 +24,7 @@ const PureProfilePage = (props: Props): React.Node => {
         <Grid padded="vertically">
           <Grid.Column>
             <h1>{t('pages:profile.title')}</h1>
-            <InfoCard userId="jasperdhae" />
+            <ProfileCard userId="jasperdhae" />
           </Grid.Column>
         </Grid>
       </Grid.Row>

@@ -1,9 +1,9 @@
 // @flow
 
-import InfoCard from './InfoCard';
+import ProfileCard from './ProfileCard';
 
 const index = {
-  InfoCard,
+  ProfileCard,
 };
 
 export default index;
