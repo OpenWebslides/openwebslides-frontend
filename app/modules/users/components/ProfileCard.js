@@ -6,8 +6,10 @@ import { Card, Image } from 'semantic-ui-react';
 import professor from 'assets/images/card/professor.jpg';
 import type { Identifier } from 'types/model';
 import type { State } from 'types/state';
+import SimpleList from 'modules/topics/components/SimpleList';
 import type { User } from '../model';
 import { getById } from '../selectors';
+
 
 type PassedProps = {
   userId: Identifier,
@@ -33,16 +35,11 @@ const PureProfileCard = (props: Props): React.Node => {
       <Image src={professor} />
       <Card.Content>
         <Card.Header>
-          {user.firstName} &nbsp; {user.lastName}
+          {user.firstName}&nbsp;{user.lastName}
         </Card.Header>
       </Card.Content>
       <Card.Content>
-        <p>
-          Topic 1
-        </p>
-        <p>
-          Topic 2
-        </p>
+        <SimpleList />
       </Card.Content>
     </Card>
   );
