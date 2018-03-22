@@ -40,11 +40,11 @@ const PureFeedItem = (props: Props): React.Node => {
 
   let predicate:string = '';
   switch (feedItem.predicate) {
-    case predicateTypes.COMMENT: predicate = 'commented on'; break;
-    case predicateTypes.CREATE: predicate = 'created'; break;
-    case predicateTypes.FORK: predicate = 'forked'; break;
-    case predicateTypes.DELETE: predicate = 'deleted'; break;
-    case predicateTypes.UPDATE: predicate = 'updated'; break;
+    case predicateTypes.COMMENT: predicate = 'COMMENT'; break;
+    case predicateTypes.CREATE: predicate = 'CREATE'; break;
+    case predicateTypes.FORK: predicate = 'FORK'; break;
+    case predicateTypes.DELETE: predicate = 'DELETE'; break;
+    case predicateTypes.UPDATE: predicate = 'UPDATE'; break;
     default: predicate = 'acted on';
   }
 
@@ -56,7 +56,7 @@ const PureFeedItem = (props: Props): React.Node => {
       <Feed.Content>
         <Feed.Summary>
           <Feed.User>{feedItem.userId}</Feed.User>
-          {t('feed:feed_item.action', { action: `${predicate}`, object: 'topic ' })}
+          {t('feed:feed_item.action', { context: `${predicate}` })}
           <strong>
             &quot;
             {feedItem.topicId}
