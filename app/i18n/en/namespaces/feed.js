@@ -2,9 +2,12 @@
 
 const feed = {
   feed_item: {
-    comment: ' {{action}} {{object}}',
-    deleteTopic: ' {{action}} {{object}}',
-    createTopic: ' {{action}} {{object}}',
+    action_COMMENT: ' commented on topic ',
+    action_CREATE: ' created the topic ',
+    action_DELETE: ' deleted the topic ',
+    action_FORK: ' forked the topic ',
+    action_UPDATE: ' updated the topic ',
+
   },
 };
 
