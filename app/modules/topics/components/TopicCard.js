@@ -3,12 +3,15 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import type { Dispatch } from 'redux';
-import { Card, Button, Grid, Image } from 'semantic-ui-react';
+import { Card, Button, Grid, Icon, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
+
+import annotations from 'assets/images/icons/annotations.png';
+import merge from 'assets/images/icons/merge.png';
 
 import { getById } from '../selectors';
 import type { Topic } from '../model';
@@ -60,16 +63,16 @@ const PureTopicCard = (props: Props): React.Node => {
       <Card.Content>
         <Grid divided={true} columns={3}>
           <Grid.Column>
-            <Image src="/assets/images/icons/fork.png" />
+            <Icon name="fork" />
             1
           </Grid.Column>
           <Grid.Column>
-            <Image src="/assets/images/icons/merge.png" />
+            <Image src={merge} />
             0
 
           </Grid.Column>
           <Grid.Column>
-            <Image src="/assets/images/icons/annotations.png" />
+            <Image src={annotations} />
             3
           </Grid.Column>
         </Grid>
