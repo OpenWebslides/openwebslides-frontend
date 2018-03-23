@@ -6,22 +6,24 @@ import { Field, reduxForm } from 'redux-form';
 import type { FormProps } from 'redux-form';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Form, Button } from 'semantic-ui-react';
+import type { RouterHistory } from 'react-router-dom';
 import { add } from '../actions';
 
+
 type DispatchProps = {
-  onAddButtonClick: (string, string) => void,
+  onAddButtonClick: (string, string, RouterHistory) => void,
 };
 
-type Props = TranslatorProps & DispatchProps & FormProps;
+type Props = TranslatorProps & DispatchProps & FormProps & RouterHistory;
 
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
-    onAddButtonClick: (title: string, description: string): void => {
+    onAddButtonClick: (title: string, description: string, history: RouterHistory): void => {
       dispatch(
         add(title, description),
-      );
+      ).then(history.replace('/library'));
     },
   };
 };
@@ -76,11 +78,12 @@ const PureNewTopicCard = (props: Props): React.Node => {
   const {
     t,
     onAddButtonClick,
+    history,
   } = props;
 
   // TODO: the flow type for values might be a bit dodgy
   const handleSubmit = (values: { +[values: * ]: string }): void => {
-    onAddButtonClick(values.title, values.description);
+    onAddButtonClick(values.title, values.description, history);
   };
 
   return (
@@ -90,7 +93,7 @@ const PureNewTopicCard = (props: Props): React.Node => {
   );
 };
 
-const NewTopicCard = connect(null, mapDispatchToProps)(translate()(PureNewTopicCard));
+const NewTopicCard = withRouter(connect(null, mapDispatchToProps)(translate()(PureNewTopicCard)));
 
 export { PureNewTopicCard };
 export default NewTopicCard;
