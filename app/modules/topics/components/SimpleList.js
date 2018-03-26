@@ -16,12 +16,15 @@ import { getAllTopicIdsWithUserId } from '../selectors';
 type StateProps = {
   topicIds: Array<Identifier>,
 };
+type PassedProps = {
+  userId: Identifier,
+};
 
-type Props = TranslatorProps & StateProps;
+type Props = TranslatorProps & StateProps & PassedProps;
 
-const mapStateToProps = (state: State): StateProps => {
+const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   return {
-    topicIds: getAllTopicIdsWithUserId(state, 'markfrank1'),
+    topicIds: getAllTopicIdsWithUserId(state, props.userId),
   };
 };
 
