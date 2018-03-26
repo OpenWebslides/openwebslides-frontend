@@ -46,6 +46,7 @@ describe(`reducer`, (): void => {
       type: t.ADD,
       payload: {
         id: 'klmnopqrst',
+        userId: 'testtest12',
         title: 'Test topic 2',
         description: '',
         rootContentItemId: 'abcdefghij',
@@ -81,6 +82,7 @@ describe(`reducer`, (): void => {
       type: t.EDIT,
       payload: {
         id: 'abcdefghij',
+        userId: 'testtest12',
         title: 'Edited test topic',
         description: 'Description has been edited.',
       },

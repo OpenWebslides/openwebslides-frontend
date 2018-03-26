@@ -34,7 +34,7 @@ export const dummyFeedItems: FeedItemsState = {
   },
   jkjkjk3456: {
     id: 'jkjkjk3456',
-    userId: 'johan12345',
+    userId: 'johanjohan',
     topicId: 'bbbbbbbbbb',
     predicate: predicateTypes.FORK,
     timestamp: 1521627599112,

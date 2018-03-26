@@ -29,3 +29,32 @@ export const getById = (state: State, props: { id: Identifier }): ?Topic => {
 export const getTitleById = (state: State, id: Identifier): string => {
   return getModule(state).byId[id].title;
 };
+
+// eslint-disable-next-line
+export const getAllTopicIdsWithUserId = (state: State, userId: Identifier): Array<Identifier> => {
+  const topicsById = getModule(state).byId;
+
+  /* DEBUG
+  console.log('result from getModule()');
+  console.log(topicsById);
+  const keying = Object.keys(topicsById);
+  console.log('result from keying');
+  console.log(keying);
+  const mapping = Object.keys(topicsById).map((key) => topicsById[key]);
+  console.log('result from mapping');
+  console.log(mapping);
+  const result = Object
+  .keys(topicsById).map((key) => topicsById[key]).filter((topic) => topic.userId === userId);
+  console.log('result from filtering');
+  console.log(result);
+  */
+
+
+  // Flow is disabled here because of a long-standing bug: https://github.com/facebook/flow/issues/3067
+  return (
+    Object
+      .keys(topicsById)
+      .map((key) => topicsById[key])
+      .filter((topic) => topic.userId === userId)
+  );
+};

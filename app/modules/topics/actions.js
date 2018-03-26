@@ -8,6 +8,7 @@ import * as t from './actionTypes';
 import { generateId } from './model';
 
 export const add = (
+  userId: Identifier,
   title: string,
   description: ?string = null,
 ): t.AddAction | t.AddErrorAction => {
@@ -28,9 +29,10 @@ export const add = (
     type: t.ADD,
     payload: {
       id: newId,
+      userId,
       title: newTitle,
       description: newDescription,
-      rootContentItemId: 'abcdefghij', // #TODO stub
+      rootContentItemId: 'w4lg2u0p1h', // #TODO stub
     },
   };
 };

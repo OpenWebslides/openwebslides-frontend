@@ -12,7 +12,7 @@ describe(`TopicCard`, (): void => {
     const enzymeWrapper = shallow(
       <PureTopicCard
         topicId="abcde"
-        topic={{ id: 'abcde', title: 'Lorem ipsum', description: '', rootContentItemId: 'qsdfgh' }}
+        topic={{ id: 'abcde', userId: 'abcdefghij', title: 'Lorem ipsum', description: '', rootContentItemId: 'qsdfgh' }}
         onRemoveButtonClick={(): void => {}}
         t={(key: ?string): string => key || 'string'}
         i18nLoadedAt={new Date()}

@@ -10,8 +10,8 @@ export const dummyUsers: UsersState = {
     email: 'mark.dobrovski@hotmail.com',
     password: 'markswachtwoord',
   },
-  johan12345: {
-    id: 'johan12345',
+  johanjohan: {
+    id: 'johanjohan',
     firstName: 'Johan',
     lastName: 'Johansson',
     email: 'Johan@Johansson.se',
