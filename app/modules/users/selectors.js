@@ -12,7 +12,7 @@ export const getById = (state: State, id: Identifier): User => {
   return getModule(state)[id];
 };
 
-export const getUserNameEmailById = (state: State, id: Identifier): UserNameEmail => {
+export const getDisplayNameAndEmailById = (state: State, id: Identifier): UserNameEmail => {
   const user = getModule(state)[id];
   const lastName = user.lastName == null ? '' : user.lastName;
   return {

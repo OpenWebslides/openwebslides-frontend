@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import moment from 'moment';
-import { getUserNameEmailById } from 'modules/users/selectors';
+import { getDisplayNameAndEmailById } from 'modules/users/selectors';
 import { getTitleById } from 'modules/topics/selectors';
 import type { UserNameEmail } from 'modules/users/model';
 import md5 from 'blueimp-md5';
@@ -16,6 +16,7 @@ import md5 from 'blueimp-md5';
 import { Feed } from 'semantic-ui-react';
 
 import type { FeedItemType } from '../model';
+import { GRAVATAR_SIZE } from '../constants';
 
 import { predicateTypes } from '../model';
 import { getById } from '../selectors';
@@ -37,7 +38,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const feedItem = getById(state, props.feedItemId);
   return {
     feedItem,
-    userNameEmail: getUserNameEmailById(state, feedItem.userId),
+    userNameEmail: getDisplayNameAndEmailById(state, feedItem.userId),
     topicName: getTitleById(state, feedItem.topicId),
   };
 };
@@ -65,7 +66,7 @@ const PureFeedItem = (props: Props): React.Node => {
   return (
     <Feed.Event>
       <Feed.Label>
-        <img src={`https://www.gravatar.com/avatar/${imageHash}`} alt="profile" />
+        <img src={`https://www.gravatar.com/avatar/${imageHash}?s=${GRAVATAR_SIZE}`} alt="profile" />
       </Feed.Label>
       <Feed.Content>
         <Feed.Summary>
