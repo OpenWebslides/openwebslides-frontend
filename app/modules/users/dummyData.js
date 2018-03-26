@@ -3,24 +3,24 @@
 import type { UsersState } from './model';
 
 export const dummyUsers: UsersState = {
-  jasperdhae: {
-    id: 'jasperdhae',
-    firstName: 'Jasper',
-    lastName: 'D\'haene',
-    email: 'jasper.dhaene@hotmail.com',
-    password: 'jasperswachtwoord',
+  markfrank1: {
+    id: 'markfrank1',
+    firstName: 'Mark F.',
+    lastName: 'Dobrovski',
+    email: 'mark.dobrovski@hotmail.com',
+    password: 'markswachtwoord',
   },
-  florian123: {
-    id: 'florian123',
-    firstName: 'Florian',
-    lastName: 'Dejonckheere',
-    email: 'florian@florian.be',
-    password: 'florianswachtwoord',
+  johan12345: {
+    id: 'johan12345',
+    firstName: 'Johan',
+    lastName: 'Johansson',
+    email: 'Johan@Johansson.se',
+    password: 'johanswachtwoord',
   },
   jantje1234: {
     id: 'jantje1234',
-    firstName: 'Jan',
-    lastName: '',
+    firstName: 'Jantje',
+    lastName: 'Van Achter Den Hoek',
     email: 'Jantje@achterdenhoek.be',
     password: 'jantjeswachtwoord',
   },
