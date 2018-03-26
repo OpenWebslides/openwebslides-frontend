@@ -8,6 +8,7 @@ import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Link, withRouter } from 'react-router-dom';
 import { Form, Button } from 'semantic-ui-react';
+import { CURRENT_USER } from 'modules/users/constants';
 import type { RouterHistory } from 'react-router-dom';
 import { add } from '../actions';
 
@@ -22,7 +23,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     onAddButtonClick: (title: string, description: string, history: RouterHistory): void => {
       dispatch(
-        add(title, description),
+        add(CURRENT_USER, title, description),
       ).then(history.replace('/library'));
     },
   };
