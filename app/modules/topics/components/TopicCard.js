@@ -3,15 +3,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import type { Dispatch } from 'redux';
-import { Card, Button, Grid, Icon, Image } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
-
-import annotations from 'assets/images/icons/annotations.png';
-import merge from 'assets/images/icons/merge.png';
 
 import { getById } from '../selectors';
 import type { Topic } from '../model';
@@ -59,24 +56,7 @@ const PureTopicCard = (props: Props): React.Node => {
   return (
     <Card raised={true}>
       <Card.Content header={topic.title} />
-      <Card.Content description={topic.description} />
-      <Card.Content>
-        <Grid divided={true} columns={3}>
-          <Grid.Column>
-            <Icon name="fork" />
-            1
-          </Grid.Column>
-          <Grid.Column>
-            <Image src={merge} />
-            0
-
-          </Grid.Column>
-          <Grid.Column>
-            <Image src={annotations} />
-            3
-          </Grid.Column>
-        </Grid>
-      </Card.Content>
+      <Card.Content description={topic.description || `(${t('topics:noDiscription')})`} />
       <Card.Content>
         <Link to={{
           pathname: `/editor/${topicId}`,
