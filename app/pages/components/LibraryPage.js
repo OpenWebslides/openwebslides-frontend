@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import topics from 'modules/topics';
+import { CURRENT_USER } from 'modules/users/constants';
 import { Button, Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
@@ -21,7 +22,7 @@ type Props = TranslatorProps & StateProps;
 
 const mapStateToProps = (state: State): StateProps => {
   return {
-    topicIds: topics.selectors.getAllTopicIdsWithUserId(state, 'johanjohan'),
+    topicIds: topics.selectors.getAllTopicIdsWithUserId(state, CURRENT_USER),
   };
 };
 

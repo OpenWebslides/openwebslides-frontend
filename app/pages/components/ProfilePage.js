@@ -6,6 +6,7 @@ import type { Match } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
+import { CURRENT_USER } from 'modules/users/constants';
 import users from 'modules/users';
 
 import Page from '../Page';
@@ -21,7 +22,7 @@ const { ProfileCard } = users.components;
 const CurrentUserProfile = (): React.Node => {
   return (
     <React.Fragment>
-      <ProfileCard userId="markfrank1" />
+      <ProfileCard userId={CURRENT_USER} />
     </React.Fragment>
   );
 };
