@@ -8,7 +8,7 @@ import {
 } from './predicateTypes';
 
 import type {
-  predicateType,
+  PredicateType,
 } from './predicateTypes';
 
 // #TODO optimal id length / generation method?
@@ -22,7 +22,7 @@ export type FeedItemType = {
   +id: Identifier,
   +userId: Identifier,
   +topicId: Identifier,
-  +predicate: predicateType,
+  +predicate: PredicateType,
   +timestamp: number,
 };
 
@@ -35,6 +35,6 @@ export {
 };
 
 export type {
-  predicateType,
+  PredicateType,
 };
 

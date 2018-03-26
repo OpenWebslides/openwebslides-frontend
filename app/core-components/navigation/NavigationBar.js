@@ -24,7 +24,7 @@ const MenuRight = (): React.Node => {
       <Dropdown text="User" pointing={true} className="item">
         <Dropdown.Menu>
           <Dropdown.Header>Account</Dropdown.Header>
-          <Dropdown.Item>Preferences</Dropdown.Item>
+          <Dropdown.Item as={Link} to="/profile">Preferences</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Header>Account</Dropdown.Header>
           <Dropdown.Item>Sign out</Dropdown.Item>

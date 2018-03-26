@@ -4,17 +4,23 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
+import _ from 'lodash';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import moment from 'moment';
+import { getDisplayNameAndEmailById } from 'modules/users/selectors';
+import { getTitleById } from 'modules/topics/selectors';
+import type { DisplayNameAndEmailType } from 'modules/users/model';
+import md5 from 'blueimp-md5';
 
 import { Feed } from 'semantic-ui-react';
 
-import professor2 from 'assets/images/avatar/professor2.jpg';
-
 import type { FeedItemType } from '../model';
+import { GRAVATAR_SIZE } from '../constants';
+
 import { predicateTypes } from '../model';
 import { getById } from '../selectors';
+
 
 type PassedProps = {
   feedItemId: Identifier,
@@ -22,13 +28,18 @@ type PassedProps = {
 
 type StateProps = {
   feedItem: FeedItemType,
+  displayNameAndEmail: DisplayNameAndEmailType,
+  topicName: string,
 };
 
 type Props = TranslatorProps & PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  const feedItem = getById(state, props.feedItemId);
   return {
-    feedItem: getById(state, props.feedItemId),
+    feedItem,
+    displayNameAndEmail: getDisplayNameAndEmailById(state, feedItem.userId),
+    topicName: getTitleById(state, feedItem.topicId),
   };
 };
 
@@ -36,6 +47,8 @@ const PureFeedItem = (props: Props): React.Node => {
   const {
     t,
     feedItem,
+    displayNameAndEmail,
+    topicName,
   } = props;
 
   let predicate:string = '';
@@ -48,18 +61,21 @@ const PureFeedItem = (props: Props): React.Node => {
     default: predicate = 'acted on';
   }
 
+  const imageHash = md5(_.trim(displayNameAndEmail.email).toLowerCase());
+
   return (
     <Feed.Event>
       <Feed.Label>
-        <img src={professor2} alt="profile" />
+        <img src={`https://www.gravatar.com/avatar/${imageHash}?s=${GRAVATAR_SIZE}`} alt="profile" />
       </Feed.Label>
       <Feed.Content>
         <Feed.Summary>
-          <Feed.User>{feedItem.userId}</Feed.User>
+          <Feed.User>{displayNameAndEmail.displayName}&nbsp;</Feed.User>
           {t('feed:feed_item.action', { context: `${predicate}` })}
+          &nbsp;
           <strong>
             &quot;
-            {feedItem.topicId}
+            {topicName}
             &quot;
           </strong>
         </Feed.Summary>

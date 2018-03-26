@@ -7,6 +7,8 @@ import model from './namespaces/model';
 import editor from './namespaces/editor';
 import pages from './namespaces/pages';
 import feed from './namespaces/feed';
+import profile from './namespaces/profile';
+import actions from './namespaces/actions';
 
 const index = {
   app,
@@ -16,6 +18,8 @@ const index = {
   editor,
   pages,
   feed,
+  profile,
+  actions,
 };
 
 export default index;

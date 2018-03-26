@@ -41,6 +41,7 @@
     "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {
+    "blueimp-md5": "^2.10.0",
     "i18next": "^10.4.1",
     "lodash": "^4.17.5",
     "moment": "^2.21.0",
