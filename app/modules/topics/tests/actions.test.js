@@ -9,6 +9,7 @@ describe(`actions`, (): void => {
   describe(`add`, (): void => {
 
     it(`returns a topic ADD action, when parameters are valid`, (): void => {
+      const userId = 'testtest12';
       const title = 'Lorem ipsum';
       const description = 'Lorem ipsum dolor sit amet';
       const rootContentItemId = 'abcdefghij';
@@ -16,6 +17,7 @@ describe(`actions`, (): void => {
         type: t.ADD,
         payload: {
           id: '',
+          userId,
           title,
           description,
           rootContentItemId,
@@ -32,6 +34,7 @@ describe(`actions`, (): void => {
     });
 
     it(`returns a topic ADD_ERROR action, when title parameter is an empty string`, (): void => {
+      const userId = 'testtest12';
       const title = '';
       const description = null;
       const expectedAction: t.AddErrorAction = {
@@ -41,22 +44,25 @@ describe(`actions`, (): void => {
         },
       };
 
-      expect(actions.add(title, description)).toEqual(expectedAction);
+      expect(actions.add(userId, title, description)).toEqual(expectedAction);
     });
 
     it(`returns a topic ADD action with description an empty string, when description parameter is NULL`, (): void => {
+      const userId = 'testtest12';
       const title = 'Lorem ipsum';
       const description = null;
       const expectedAction: t.AddAction = {
         type: t.ADD,
         payload: {
           id: '',
+          userId,
           title,
           description: '',
           rootContentItemId: '',
         },
       };
-      const generatedAction: t.AddAction = ((actions.add(title, description): any): t.AddAction);
+      // eslint-disable-next-line
+      const generatedAction: t.AddAction = ((actions.add(userId, title, description): any): t.AddAction);
 
       expect(generatedAction.type).toEqual(expectedAction.type);
       expect(generatedAction.payload.description).toEqual(expectedAction.payload.description);

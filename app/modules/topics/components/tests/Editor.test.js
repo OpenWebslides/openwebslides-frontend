@@ -11,6 +11,7 @@ describe(`List`, (): void => {
   it(`renders without errors`, (): void => {
     const dummyTopic = {
       id: 'abcdefghij',
+      userId: '1234567890',
       title: 'Lorem ipsum',
       description: '',
       rootContentItemId: 'abcdefghij',

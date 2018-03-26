@@ -24,6 +24,7 @@ describe(`reducer`, (): void => {
     const prevState: TopicsState = {
       abcdefghij: {
         id: 'abcdefghij',
+        userId: 'testtest12',
         title: 'Test topic 1',
         description: 'Lorem ipsum dolor sit amet.',
         rootContentItemId: 'abcdefghij',
@@ -33,6 +34,7 @@ describe(`reducer`, (): void => {
       type: t.ADD,
       payload: {
         id: 'klmnopqrst',
+        userId: 'testtest12',
         title: 'Test topic 2',
         description: '',
         rootContentItemId: 'abcdefghij',
@@ -41,12 +43,14 @@ describe(`reducer`, (): void => {
     const nextState: TopicsState = {
       abcdefghij: {
         id: 'abcdefghij',
+        userId: 'testtest12',
         title: 'Test topic 1',
         description: 'Lorem ipsum dolor sit amet.',
         rootContentItemId: 'abcdefghij',
       },
       klmnopqrst: {
         id: 'klmnopqrst',
+        userId: 'testtest12',
         title: 'Test topic 2',
         description: '',
         rootContentItemId: 'abcdefghij',
@@ -60,6 +64,7 @@ describe(`reducer`, (): void => {
     const prevState: TopicsState = {
       abcdefghij: {
         id: 'abcdefghij',
+        userId: 'testtest12',
         title: 'Test topic 1',
         description: 'Lorem ipsum dolor sit amet.',
         rootContentItemId: 'abcdefghij',
@@ -69,6 +74,7 @@ describe(`reducer`, (): void => {
       type: t.EDIT,
       payload: {
         id: 'abcdefghij',
+        userId: 'testtest12',
         title: 'Edited test topic',
         description: 'Description has been edited.',
       },
@@ -76,6 +82,7 @@ describe(`reducer`, (): void => {
     const nextState: TopicsState = {
       abcdefghij: {
         id: 'abcdefghij',
+        userId: 'testtest12',
         title: 'Edited test topic',
         description: 'Description has been edited.',
         rootContentItemId: 'abcdefghij',
@@ -89,12 +96,14 @@ describe(`reducer`, (): void => {
     const prevState: TopicsState = {
       abcdefghij: {
         id: 'abcdefghij',
+        userId: 'testtest12',
         title: 'Test topic 1',
         description: 'Lorem ipsum dolor sit amet.',
         rootContentItemId: 'abcdefghij',
       },
       klmnopqrst: {
         id: 'klmnopqrst',
+        userId: 'testtest12',
         title: 'Test topic 2',
         description: '',
         rootContentItemId: 'abcdefghij',
@@ -109,6 +118,7 @@ describe(`reducer`, (): void => {
     const nextState: TopicsState = {
       abcdefghij: {
         id: 'abcdefghij',
+        userId: 'testtest12',
         title: 'Test topic 1',
         description: 'Lorem ipsum dolor sit amet.',
         rootContentItemId: 'abcdefghij',

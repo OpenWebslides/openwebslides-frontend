@@ -21,7 +21,7 @@ type Props = TranslatorProps & StateProps;
 
 const mapStateToProps = (state: State): StateProps => {
   return {
-    topicIds: topics.selectors.getAll(state).map((topic) => topic.id),
+    topicIds: topics.selectors.getAllTopicIdsWithUserId(state, 'johanjohan'),
   };
 };
 
