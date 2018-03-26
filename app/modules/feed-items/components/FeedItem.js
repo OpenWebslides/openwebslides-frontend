@@ -29,7 +29,7 @@ type PassedProps = {
 type StateProps = {
   feedItem: FeedItemType,
   displayNameAndEmail: DisplayNameAndEmailType,
-  topicName: string,
+  topicTitle: string,
 };
 
 type Props = TranslatorProps & PassedProps & StateProps;
@@ -39,7 +39,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   return {
     feedItem,
     displayNameAndEmail: getDisplayNameAndEmailById(state, feedItem.userId),
-    topicName: getTitleById(state, feedItem.topicId),
+    topicTitle: getTitleById(state, feedItem.topicId),
   };
 };
 
@@ -48,7 +48,7 @@ const PureFeedItem = (props: Props): React.Node => {
     t,
     feedItem,
     displayNameAndEmail,
-    topicName,
+    topicTitle,
   } = props;
 
   let predicate:string = '';
@@ -75,7 +75,7 @@ const PureFeedItem = (props: Props): React.Node => {
           &nbsp;
           <strong>
             &quot;
-            {topicName}
+            {topicTitle}
             &quot;
           </strong>
         </Feed.Summary>
