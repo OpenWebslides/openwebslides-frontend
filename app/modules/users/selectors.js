@@ -2,7 +2,7 @@
 
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import type { User, UsersState, UserNameEmail } from './model';
+import type { User, UsersState, DisplayNameAndEmailType } from './model';
 
 const getModule = (state: State): UsersState => {
   return state.modules.users;
@@ -12,11 +12,12 @@ export const getById = (state: State, id: Identifier): User => {
   return getModule(state)[id];
 };
 
-export const getDisplayNameAndEmailById = (state: State, id: Identifier): UserNameEmail => {
+// eslint-disable-next-line
+export const getDisplayNameAndEmailById = (state: State, id: Identifier): DisplayNameAndEmailType => {
   const user = getModule(state)[id];
   const lastName = user.lastName == null ? '' : user.lastName;
   return {
-    name: `${user.firstName} ${lastName}`,
+    displayName: `${user.firstName} ${lastName}`,
     email: user.email,
   };
 };

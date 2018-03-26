@@ -15,8 +15,8 @@ export type User = {
   +password: string,
 };
 
-export type UserNameEmail = {
-  +name: string,
+export type DisplayNameAndEmailType = {
+  +displayName: string,
   +email: string,
 };
 

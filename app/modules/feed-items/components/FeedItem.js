@@ -10,7 +10,7 @@ import type { TranslatorProps } from 'react-i18next';
 import moment from 'moment';
 import { getDisplayNameAndEmailById } from 'modules/users/selectors';
 import { getTitleById } from 'modules/topics/selectors';
-import type { UserNameEmail } from 'modules/users/model';
+import type { DisplayNameAndEmailType } from 'modules/users/model';
 import md5 from 'blueimp-md5';
 
 import { Feed } from 'semantic-ui-react';
@@ -28,7 +28,7 @@ type PassedProps = {
 
 type StateProps = {
   feedItem: FeedItemType,
-  userNameEmail: UserNameEmail,
+  displayNameAndEmail: DisplayNameAndEmailType,
   topicName: string,
 };
 
@@ -38,7 +38,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const feedItem = getById(state, props.feedItemId);
   return {
     feedItem,
-    userNameEmail: getDisplayNameAndEmailById(state, feedItem.userId),
+    displayNameAndEmail: getDisplayNameAndEmailById(state, feedItem.userId),
     topicName: getTitleById(state, feedItem.topicId),
   };
 };
@@ -47,7 +47,7 @@ const PureFeedItem = (props: Props): React.Node => {
   const {
     t,
     feedItem,
-    userNameEmail,
+    displayNameAndEmail,
     topicName,
   } = props;
 
@@ -61,7 +61,7 @@ const PureFeedItem = (props: Props): React.Node => {
     default: predicate = 'acted on';
   }
 
-  const imageHash = md5(_.trim(userNameEmail.email).toLowerCase());
+  const imageHash = md5(_.trim(displayNameAndEmail.email).toLowerCase());
 
   return (
     <Feed.Event>
@@ -70,7 +70,7 @@ const PureFeedItem = (props: Props): React.Node => {
       </Feed.Label>
       <Feed.Content>
         <Feed.Summary>
-          <Feed.User>{userNameEmail.name}&nbsp;</Feed.User>
+          <Feed.User>{displayNameAndEmail.displayName}&nbsp;</Feed.User>
           {t('feed:feed_item.action', { context: `${predicate}` })}
           &nbsp;
           <strong>
