@@ -3,16 +3,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card, Image } from 'semantic-ui-react';
-import professor from 'assets/images/card/professor.jpg';
-import type { Identifier } from 'types/model';
+import _ from 'lodash';
+import md5 from 'blueimp-md5';
 import type { State } from 'types/state';
 import SimpleList from 'modules/topics/components/SimpleList';
 import type { User } from '../model';
-import { getById } from '../selectors';
-
+import { getWithId } from '../selectors';
+import { GRAVATAR_SIZE_LARGE } from '../constants';
 
 type PassedProps = {
-  userId: Identifier,
+  // TODO: change to identifier once fallback option for
+  // erroneous input in /profile/:id is implemented
+  userId: string,
 };
 
 type StateProps = {
@@ -23,23 +25,25 @@ type Props = PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   return {
-    user: getById(state, props.userId),
+    user: getWithId(state, props.userId),
   };
 };
 
 const PureProfileCard = (props: Props): React.Node => {
   const { user } = props;
 
+  const imageHash = md5(_.trim(user.email).toLowerCase());
+
   return (
     <Card>
-      <Image src={professor} />
+      <Image src={`https://www.gravatar.com/avatar/${imageHash}?s=${GRAVATAR_SIZE_LARGE}`} />
       <Card.Content>
         <Card.Header>
           {user.firstName}&nbsp;{user.lastName}
         </Card.Header>
       </Card.Content>
       <Card.Content>
-        <SimpleList />
+        <SimpleList userId={user.id} />
       </Card.Content>
     </Card>
   );
