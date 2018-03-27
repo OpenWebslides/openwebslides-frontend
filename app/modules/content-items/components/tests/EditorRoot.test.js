@@ -4,14 +4,17 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { PureTopicsPage } from '../TopicsPage';
+import { PureEditorRoot } from '../EditorRoot';
 
-describe(`TopicsPage`, (): void => {
+import { contentItemTypes } from '../../model';
+
+describe(`EditorRoot`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureTopicsPage
-        topicIds={[]}
+      <PureEditorRoot
+        rootContentItemId=""
+        rootContentItem={{ id: 'abcdefghij', type: contentItemTypes.ROOT, childItemIds: [] }}
         t={(key: ?string): string => key || 'string'}
         i18nLoadedAt={new Date()}
         i18n={{}}

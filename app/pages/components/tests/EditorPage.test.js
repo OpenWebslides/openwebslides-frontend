@@ -14,6 +14,8 @@ describe(`EditorPage`, (): void => {
         t={(key: ?string): string => key || 'string'}
         i18nLoadedAt={new Date()}
         i18n={{}}
+        match={{ params: {}, isExact: true, path: '', url: '' }}
+        rootContentItemId="abcde"
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

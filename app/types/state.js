@@ -12,5 +12,6 @@ export type State = {
     +contentItems: ContentItemsState,
     +users: UsersState,
   },
+  +form: {},
   +error: {},
 };

@@ -9,6 +9,8 @@ import { Icon, Segment } from 'semantic-ui-react';
 import { plainTextContentItemTypes } from '../../model';
 import type { PlainTextContentItem } from '../../model';
 
+import EditableTextContent from '../helpers/EditableTextContent';
+
 type PassedProps = {
   contentItem: PlainTextContentItem,
 };
@@ -18,8 +20,6 @@ type Props = TranslatorProps & PassedProps;
 const PurePlainTextContentItemDisplay = (props: Props): React.Node => {
   const { contentItem } = props;
   let iconName: string;
-
-  // #TODO highlights (using markdown?)
 
   switch (contentItem.type) {
     case plainTextContentItemTypes.PARAGRAPH:
@@ -34,8 +34,19 @@ const PurePlainTextContentItemDisplay = (props: Props): React.Node => {
 
   return (
     <Segment>
-      <Icon name={iconName} />
-      {contentItem.text}
+      <div style={{ display: 'table', width: '100%' }}>
+        <div style={{ display: 'table-cell', width: '1%', paddingRight: '1rem' }}>
+          <Icon name={iconName} color="grey" />
+        </div>
+        <div style={{ display: 'table-cell', width: '99%' }}>
+          { /* $FlowFixMe */ }
+          <EditableTextContent
+            text={contentItem.text}
+            onActivate={(): void => {}}
+            onDeactivate={(): void => {}}
+          />
+        </div>
+      </div>
     </Segment>
   );
 };

@@ -15,8 +15,10 @@ export type AddAction = {
   type: typeof ADD,
   payload: {
     id: Identifier,
+    userId: Identifier,
     title: string,
     description: string,
+    rootContentItemId: Identifier,
   },
 };
 

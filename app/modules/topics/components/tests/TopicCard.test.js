@@ -4,17 +4,15 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { PureList } from '../List';
+import { PureTopicCard } from '../TopicCard';
 
-describe(`List`, (): void => {
+describe(`TopicCard`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureList
-        topicIds={[]}
-        lastTopicId="abcde"
-        onAddButtonClick={(): void => {}}
-        onEditButtonClick={(): void => {}}
+      <PureTopicCard
+        topicId="abcde"
+        topic={{ id: 'abcde', userId: 'abcdefghij', title: 'Lorem ipsum', description: '', rootContentItemId: 'qsdfgh' }}
         onRemoveButtonClick={(): void => {}}
         t={(key: ?string): string => key || 'string'}
         i18nLoadedAt={new Date()}

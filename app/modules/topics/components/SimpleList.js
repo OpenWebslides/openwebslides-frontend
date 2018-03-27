@@ -10,18 +10,21 @@ import type { Identifier } from 'types/model';
 
 import SimpleTopic from './SimpleTopic';
 
-import { getAll } from '../selectors';
+import { getAllTopicIdsByUserId } from '../selectors';
 
 
 type StateProps = {
   topicIds: Array<Identifier>,
 };
+type PassedProps = {
+  userId: Identifier,
+};
 
-type Props = TranslatorProps & StateProps;
+type Props = TranslatorProps & StateProps & PassedProps;
 
-const mapStateToProps = (state: State): StateProps => {
+const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   return {
-    topicIds: getAll(state).map((topic) => topic.id),
+    topicIds: getAllTopicIdsByUserId(state, props.userId),
   };
 };
 

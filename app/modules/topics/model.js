@@ -9,9 +9,10 @@ const ID_LENGTH = 10;
 
 export type Topic = {
   +id: Identifier,
+  +userId: Identifier,
   +title: string,
   +description: string,
-  // +rootContentItemId: Identifier, // #TODO
+  +rootContentItemId: Identifier,
 };
 
 export type TopicsState = {

@@ -4,15 +4,23 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { PurePreview } from '../Preview';
+import { PureEditor } from '../Editor';
 
-describe(`Preview`, (): void => {
+describe(`List`, (): void => {
 
   it(`renders without errors`, (): void => {
+    const dummyTopic = {
+      id: 'abcdefghij',
+      userId: '1234567890',
+      title: 'Lorem ipsum',
+      description: '',
+      rootContentItemId: 'abcdefghij',
+    };
+
     const enzymeWrapper = shallow(
-      <PurePreview
-        topicId="abcde"
-        topic={{ id: 'abcde', title: 'Lorem ipsum', description: '' }}
+      <PureEditor
+        topicId="abcdefghij"
+        topic={dummyTopic}
         t={(key: ?string): string => key || 'string'}
         i18nLoadedAt={new Date()}
         i18n={{}}
