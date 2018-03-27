@@ -56,7 +56,7 @@ const PureTopicCard = (props: Props): React.Node => {
   return (
     <Card raised={true}>
       <Card.Content header={topic.title} />
-      <Card.Content description={topic.description || `(${t('topics:noDiscription')})`} />
+      <Card.Content description={topic.description || `(${t('topics:noDescription')})`} />
       <Card.Content>
         <Link to={{
           pathname: `/editor/${topicId}`,
