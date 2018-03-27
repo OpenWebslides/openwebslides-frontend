@@ -1,7 +1,7 @@
 // @flow
 
 const topics = {
-  noDiscription: 'No description found',
+  noDescription: 'No description found',
 };
 
 export default topics;
