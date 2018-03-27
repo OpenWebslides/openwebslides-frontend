@@ -30,11 +30,9 @@ export const getTitleById = (state: State, id: Identifier): string => {
   return getModule(state).byId[id].title;
 };
 
-export const getAllTopicIdsWithUserId = (state: State, userId: Identifier): Array<Identifier> => {
+export const getAllTopicIdsByUserId = (state: State, userId: Identifier): Array<Identifier> => {
   const topicsById = getModule(state).byId;
 
-
-  // Flow is disabled here because of a long-standing bug: https://github.com/facebook/flow/issues/3067
   return (
     Object
       .keys(topicsById)

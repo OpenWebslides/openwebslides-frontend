@@ -8,7 +8,7 @@ const getModule = (state: State): UsersState => {
   return state.modules.users;
 };
 
-export const getWithId = (state: State, id: Identifier): User => {
+export const getById = (state: State, id: Identifier): User => {
   return getModule(state)[id];
 };
 

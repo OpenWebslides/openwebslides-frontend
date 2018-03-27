@@ -8,7 +8,7 @@ import md5 from 'blueimp-md5';
 import type { State } from 'types/state';
 import SimpleList from 'modules/topics/components/SimpleList';
 import type { User } from '../model';
-import { getWithId } from '../selectors';
+import { getById } from '../selectors';
 import { GRAVATAR_SIZE_LARGE } from '../constants';
 
 type PassedProps = {
@@ -25,7 +25,7 @@ type Props = PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   return {
-    user: getWithId(state, props.userId),
+    user: getById(state, props.userId),
   };
 };
 
