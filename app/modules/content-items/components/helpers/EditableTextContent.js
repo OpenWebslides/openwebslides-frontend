@@ -3,9 +3,10 @@
 import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-import { Input } from 'semantic-ui-react';
+import { Form, Input, TextArea } from 'semantic-ui-react';
 
 type Props = {
+  multiline: boolean,
   text: string,
   onActivate: (text: string) => void,
   onDeactivate: (text: string) => void,
@@ -16,6 +17,10 @@ type State = {
 };
 
 class EditableTextContent extends React.Component<Props, State> {
+  static defaultProps = {
+    multiline: false,
+  };
+
   static allowedMarkdownTypes = [
     'emphasis',
     'strong',
@@ -31,15 +36,15 @@ class EditableTextContent extends React.Component<Props, State> {
   }
 
   componentDidUpdate = (): void => {
-    if (this.state.isActive && this.inputRef != null) {
-      this.inputRef.focus();
+    if (this.state.isActive && this.fieldRef != null) {
+      this.fieldRef.focus();
     }
   };
 
-  inputRef: ?HTMLInputElement;
+  fieldRef: ?HTMLTextAreaElement;
 
-  handleRef = (c: ?HTMLInputElement): void => {
-    this.inputRef = c;
+  handleRef = (c: ?HTMLTextAreaElement): void => {
+    this.fieldRef = c;
   };
 
   activate = (): void => {
@@ -53,14 +58,30 @@ class EditableTextContent extends React.Component<Props, State> {
   };
 
   renderAsInput = (): React.Node => {
-    return (
-      <Input
-        fluid={true}
-        value={this.props.text}
-        onBlur={this.deactivate}
-        ref={this.handleRef}
-      />
-    );
+    if (this.props.multiline) {
+      return (
+        <Form>
+          <TextArea
+            autoHeight={true}
+            value={this.props.text}
+            onBlur={this.deactivate}
+            ref={this.handleRef}
+          />
+        </Form>
+      );
+    }
+    else {
+      return (
+        <Form>
+          <Input
+            fluid={true}
+            value={this.props.text}
+            onBlur={this.deactivate}
+            ref={this.handleRef}
+          />
+        </Form>
+      );
+    }
   };
 
   renderAsText = (): React.Node => {
