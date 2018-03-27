@@ -63,25 +63,16 @@ const config = {
 
   module: {
     rules: [
+      // Transpile .js and .jsx files using Babel
       {
-        // Transpile .js and .jsx files using Babel
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
+      // Load CSS files
       {
-        // Load CSS files
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
-      },
-      {
-        // Load SVG images
-        test: /\.svg/,
-        exclude: '/fonts/',
-        use: {
-          loader: 'svg-url-loader',
-          options: {},
-        },
       },
       // Load LESS files
       {
@@ -94,38 +85,41 @@ const config = {
           ],
         }),
       },
+      // Load font files using file-loader.
+      // Note: this must be done before loading general SVG files, to allow the svg-url-loader rule
+      // specified below to override this one on all svg files that are not located in the /fonts/
+      // folder.
       {
-        // Load binary assets
-        test: /\.(woff|woff2|eot|ttf|otf|svg|png|gif|jpg)$/,
+        test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
         use: {
           loader: 'file-loader',
-          options: {},
         },
       },
-      // Load static assets
+      // Load images using url-loader, which works like file-loader, but if the asset is smaller
+      // than the limit specified in its options, it is embedded as a data URI to avoid extra
+      // requests.
       {
-        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        test: /\.(png|jpg|jpeg|gif)$/,
         use: {
           loader: 'url-loader',
           options: {
-            limit: 10240,
+            limit: 10000,
             absolute: true,
-            name: 'images/[path][name]-[hash:7].[ext]',
+            name: 'images/[path][name]-[hash:8].[ext]',
           },
         },
-        include: [path.join(__dirname, 'src'), /[/\\]node_modules[/\\]semantic-ui-less[/\\]/],
       },
-      // Load fonts
+      // Load SVG images using svg-url-loader, which works like url-loader except it does not
+      // base64 encode the svg, since svg is a human-readable format.
+      // Important note: the /fonts/ folder (or any other folder that may contain svg fonts) must
+      // be excluded, since unencoded svg will cause syntax errors in the CSS if a svg font is
+      // referenced in an @font-face rule.
       {
-        test: /\.(woff|woff2|ttf|svg|eot)$/,
+        test: /\.svg/,
+        exclude: '/fonts/',
         use: {
-          loader: 'url-loader',
-          options: {
-            limit: 10240,
-            name: 'fonts/[name]-[hash:7].[ext]',
-          },
+          loader: 'svg-url-loader',
         },
-        include: [path.join(__dirname, 'src'), /[/\\]node_modules[/\\]semantic-ui-less[/\\]/],
       },
     ],
   },
