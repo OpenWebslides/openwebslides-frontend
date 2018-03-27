@@ -10,7 +10,7 @@ import type { Identifier } from 'types/model';
 
 import SimpleTopic from './SimpleTopic';
 
-import { getAllTopicIdsWithUserId } from '../selectors';
+import { getAllTopicIdsByUserId } from '../selectors';
 
 
 type StateProps = {
@@ -24,7 +24,7 @@ type Props = TranslatorProps & StateProps & PassedProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   return {
-    topicIds: getAllTopicIdsWithUserId(state, props.userId),
+    topicIds: getAllTopicIdsByUserId(state, props.userId),
   };
 };
 

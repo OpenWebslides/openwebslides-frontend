@@ -14,7 +14,7 @@ type Props = TranslatorProps & { };
 const MenuRight = (): React.Node => {
   return (
     <Menu.Menu position="right">
-      <Menu.Item as={Link} to="/Library">
+      <Menu.Item as={Link} to="/library">
         Library
       </Menu.Item>
 

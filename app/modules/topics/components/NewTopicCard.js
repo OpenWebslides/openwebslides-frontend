@@ -62,10 +62,12 @@ const NewTopicCardForm = (props: Props): React.Node => {
       </Form.Field>
 
       <Form.Group>
-        <Form.Field id="form-button-control-public" control={Button}>
-          <Link to="/Library">{t('common:button.cancel')}</Link>
-        </Form.Field>
-        <Form.Button id="form-button-control-public" content={t('common:button.save')} />
+        <Link to="/Library">
+          <Button as="span">
+            {t('common:button.cancel')}
+          </Button>
+        </Link>
+        <Form.Button id="form-button-control-public" content={t('common:button.save')} primary={true} />
       </Form.Group>
     </Form>
   );

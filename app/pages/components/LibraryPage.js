@@ -22,7 +22,7 @@ type Props = TranslatorProps & StateProps;
 
 const mapStateToProps = (state: State): StateProps => {
   return {
-    topicIds: topics.selectors.getAllTopicIdsWithUserId(state, CURRENT_USER),
+    topicIds: topics.selectors.getAllTopicIdsByUserId(state, CURRENT_USER),
   };
 };
 
@@ -42,9 +42,11 @@ const PureLibraryPage = (props: Props): React.Node => {
             <h1>{t('pages:library.title')}</h1>
           </Grid.Column>
           <Grid.Column width={4}>
-            <Button floated="right">
-              <Link to="/topics/new">{t('common:link.newtopic')}</Link>
-            </Button>
+            <Link to="/topics/new">
+              <Button as="span">
+                {t('common:link.newtopic')}
+              </Button>
+            </Link>
           </Grid.Column>
         </Grid>
       </Grid.Row>
