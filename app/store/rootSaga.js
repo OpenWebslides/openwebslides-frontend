@@ -1,14 +1,17 @@
 // @flow
+
+import { apiSagas } from 'modules/api';
+import contentItems from 'modules/content-items';
+
 /**
  * Sets up the root saga.
  */
 
 import { all, call } from 'redux-saga/effects';
 
-import contentItems from 'modules/content-items';
-
 const rootSaga = function* (): Generator<*, *, *> {
   yield all([
+    ...apiSagas,
     call(contentItems.saga),
   ]);
 };
