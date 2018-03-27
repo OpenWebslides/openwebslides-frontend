@@ -57,7 +57,7 @@ const config = {
     new UglifyJSPlugin(),
     // Extract CSS from the JS bundle into a separate file for parallel loading
     new ExtractTextPlugin({
-     filename: '[name].[contenthash].css',
+      filename: '[name].[contenthash].css',
     }),
   ],
 
@@ -141,7 +141,7 @@ const config = {
     // Map Semantic UI LESS' theme.config to our site theme config
     alias: {
       '../../theme.config$': path.join(__dirname, 'app/assets/stylesheets/theme.config'),
-     },
+    },
   },
 
 };

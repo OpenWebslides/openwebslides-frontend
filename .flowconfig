@@ -24,4 +24,9 @@ module.name_mapper='^pages' ->'<PROJECT_ROOT>/app/pages'
 module.name_mapper='^store' ->'<PROJECT_ROOT>/app/store'
 module.name_mapper='^types' ->'<PROJECT_ROOT>/app/types'
 
+# Stop flow from complaining about imported files with these extensions
+# (Requires the 'empty' npm package to be installed.)
+module.name_mapper='.*\(.css\)' -> 'empty/object'
+module.name_mapper='.*\(.less\)' -> 'empty/object'
+
 [strict]
