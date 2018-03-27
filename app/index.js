@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 
 import configureStore from 'store/configureStore';
 
-import 'semantic-ui-less/semantic.less';
+import 'assets/stylesheets/semantic.less';
 
 // The uppermost app container component.
 import Application from './Application';
