@@ -29,7 +29,7 @@ const ApiRequest = () => {
   that.parameters = {};
 
   // Request HTTP method
-  that.method = METHODS.GET;
+  that.method = 'GET';
 
   // Request body
   that.body = {};

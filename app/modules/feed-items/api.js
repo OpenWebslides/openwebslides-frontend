@@ -1,6 +1,6 @@
 // @flow
 
-import ApiRequest from '../ApiRequest';
+import ApiRequest from 'lib/api/ApiRequest';
 
 import { ENDPOINT } from './constants';
 
@@ -19,6 +19,8 @@ const fetch = async () => {
   return responseBody.data;
 };
 
-export {
+const Api = {
   fetch,
 };
+
+export default Api;

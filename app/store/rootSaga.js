@@ -2,8 +2,8 @@
 
 import { all, call } from 'redux-saga/effects';
 
-import api from 'modules/api';
 import contentItems from 'modules/content-items';
+import feedItems from 'modules/feed-items';
 
 /**
  * Sets up the root saga.
@@ -11,7 +11,7 @@ import contentItems from 'modules/content-items';
 
 const rootSaga = function* (): Generator<*, *, *> {
   yield all([
-    ...api.sagas,
+    ...feedItems.sagas,
     call(contentItems.saga),
   ]);
 };

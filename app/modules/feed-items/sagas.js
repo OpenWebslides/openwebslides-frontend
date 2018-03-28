@@ -2,7 +2,7 @@
 
 import { takeLatest } from 'redux-saga/effects';
 
-import { fetch } from './helpers';
+import { fetch } from './sagaHelpers';
 import { FETCH_FEED } from './actionTypes';
 
 const sagas = [

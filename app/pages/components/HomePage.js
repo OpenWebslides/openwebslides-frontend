@@ -9,7 +9,7 @@ import feedItems from 'modules/feed-items';
 import type { Identifier } from 'types/model';
 import type { State } from 'types/state';
 
-import { FETCH_FEED } from 'modules/api/feed/actionTypes';
+import { FETCH_FEED } from 'modules/feed-items/actionTypes';
 
 import Page from '../Page';
 
