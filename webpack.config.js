@@ -8,6 +8,7 @@ const path = require('path');
 // Require plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // Path name constants
 const paths = {
@@ -54,36 +55,70 @@ const config = {
     }),
     // Minify output
     new UglifyJSPlugin(),
+    // Extract CSS from the JS bundle into a separate file for parallel loading
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash].css',
+    }),
   ],
 
   module: {
     rules: [
+      // Transpile .js and .jsx files using Babel
       {
-        // Transpile .js and .jsx files using Babel
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
+      // Load CSS files
       {
-        // Load CSS files
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      // Load LESS files
       {
-        // Load binary assets
-        test: /\.(woff|woff2|eot|ttf|otf|svg|png|gif|jpg)$/,
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            { loader: 'css-loader' },
+            { loader: 'less-loader' },
+          ],
+        }),
+      },
+      // Load font files using file-loader.
+      // Note: this must be done before loading general SVG files, to allow the svg-url-loader rule
+      // specified below to override this one on all svg files that are not located in the /fonts/
+      // folder.
+      {
+        test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
         use: {
           loader: 'file-loader',
-          options: {},
         },
       },
+      // Load images using url-loader, which works like file-loader, but if the asset is smaller
+      // than the limit specified in its options, it is embedded as a data URI to avoid extra
+      // requests.
       {
-        // Load SVG images
+        test: /\.(png|jpg|jpeg|gif)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            absolute: true,
+            name: 'images/[path][name]-[hash:8].[ext]',
+          },
+        },
+      },
+      // Load SVG images using svg-url-loader, which works like url-loader except it does not
+      // base64 encode the svg, since svg is a human-readable format.
+      // Important note: the /fonts/ folder (or any other folder that may contain svg fonts) must
+      // be excluded, since unencoded svg will cause syntax errors in the CSS if a svg font is
+      // referenced in an @font-face rule.
+      {
         test: /\.svg/,
         exclude: '/fonts/',
         use: {
           loader: 'svg-url-loader',
-          options: {},
         },
       },
     ],
@@ -97,6 +132,10 @@ const config = {
     // - the module.system.node.resolve_dirname option in .flowconfig
     // - the moduleDirectories option in jest.config.js
     modules: [paths.NODE_MODULES, paths.APP],
+    // Map Semantic UI LESS' theme.config to our site theme config
+    alias: {
+      '../../theme.config$': path.join(__dirname, 'app/assets/stylesheets/theme.config'),
+    },
   },
 
 };
