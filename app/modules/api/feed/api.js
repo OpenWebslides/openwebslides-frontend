@@ -2,8 +2,6 @@
 
 import ApiRequest from '../ApiRequest';
 
-import { GET } from '../constants';
-
 import { ENDPOINT } from './constants';
 
 const fetch = async () => {
@@ -11,7 +9,7 @@ const fetch = async () => {
 
   request
     .setEndpoint(ENDPOINT)
-    .setMethod(GET)
+    .setMethod('GET')
     .addParameter('sort', '-createdAt')
     .addParameter('page[offset]', 0);
 
