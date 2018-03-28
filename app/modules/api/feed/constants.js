@@ -1,4 +1,4 @@
 // @flow
 
 // API endpoint
-export default const ENDPOINT = '/notifications';
+export const ENDPOINT = '/notifications';

@@ -1,14 +1,11 @@
 // @flow
 
-import ApiRequest from './ApiRequest';
+import feedSagas from './feed/sagas';
 
-import * as feed from './feed';
+const sagas = [
+  ...feedSagas,
+];
 
-const api = {
-  ApiRequest,
-  apiSagas: [
-    ...feed.sagas,
-  ],
+export default {
+  sagas,
 };
-
-export default api;
