@@ -2,21 +2,22 @@
 
 import ApiRequest from 'lib/api/ApiRequest';
 
+import { methodTypes } from 'lib/api/model';
+
 import { ENDPOINT } from './constants';
 
-const fetch = async () => {
+const fetch = async (): string => {
   const request = new ApiRequest();
 
   request
     .setEndpoint(ENDPOINT)
-    .setMethod('GET')
+    .setMethod(methodTypes.GET)
     .addParameter('sort', '-createdAt')
-    .addParameter('page[offset]', 0);
+    .addParameter('page[offset]', '0');
 
   const response = await request.execute();
-  const responseBody = await response.json();
 
-  return responseBody.data;
+  return response;
 };
 
 const Api = {

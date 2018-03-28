@@ -1,84 +1,91 @@
 // @flow
 
-import { DEFAULT_URL, METHODS } from './constants';
+import { DEFAULT_URL } from './constants';
 
 import asyncFetch from './asyncFetch';
+import type {
+  Request,
+  RequestConfig,
+  MethodType,
+} from './model';
 
-const ApiRequest = () => {
-  const that = {};
+const ApiRequest = (): Request => {
+  const request: Request = {};
 
   /**
    * Properties
    *
    * */
+  request.config = {
+    // Request URL (base)
+    url: DEFAULT_URL,
 
-  // Request URL (base)
-  that.url = DEFAULT_URL;
+    // Request endpoint
+    endpoint: '',
 
-  // Request endpoint
-  that.endpoint = null;
+    // Request headers
+    headers: {
+      'Content-Type': 'application/vnd.api+json',
+      Accept: 'application/vnd.api+json',
+      Authorization: null,
+    },
 
-  // Request headers
-  that.headers = {
-    'Content-Type': 'application/vnd.api+json',
-    'Accept': 'application/vnd.api+json',
-    'Authorization': null,
+    // Request parameters
+    parameters: {},
+
+    // Request HTTP method
+    method: 'GET',
+
+    // Request body
+    body: {},
   };
-
-  // Request parameters
-  that.parameters = {};
-
-  // Request HTTP method
-  that.method = 'GET';
-
-  // Request body
-  that.body = {};
 
   /**
    * Methods
    *
    * */
+  request.setEndpoint = (endpoint: string): Request => {
+    request.config.endpoint = endpoint;
 
-  that.setEndpoint = (endpoint) => {
-    that.endpoint = endpoint;
-
-    return that;
+    return request;
   };
 
-  that.setMethod = (method) => {
-    that.method = method;
+  request.setMethod = (method: MethodType): Request => {
+    request.config.method = method;
 
-    return that;
+    return request;
   };
 
-  that.addParameter = (parameter, value) => {
-    that.parameters[parameter] = value;
+  request.addParameter = (parameter: string, value: string): Request => {
+    request.config.parameters[parameter] = value;
 
-    return that;
+    return request;
   };
 
   // Execute HTTP request
-  that.execute = async () => {
-    let url = that.url + that.endpoint;
+  request.execute = async (): Promise<*> => {
+    let url: string = `${request.config.url}${request.config.endpoint}`;
 
-    if (that.parameters) {
-      const query = Object.keys(that.parameters).map((k) => {
-        return encodeURIComponent(k) + '=' + encodeURIComponent(that.parameters[k])
+    if (request.config.parameters) {
+      const query = Object.keys(request.config.parameters).map((k: string): string => {
+        return `${encodeURIComponent(k)}=${encodeURIComponent(request.config.parameters[k])}`;
       }).join('&');
 
       url += `?${query}`;
     }
 
-    const config = {
-      headers: that.headers,
-      method: that.method,
-      body: that.body,
+    const options: RequestConfig = {
+      method: request.config.method,
+      headers: request.config.headers,
+      url: request.config.url,
+      body: request.config.body,
+      mode: 'no-cors',
     };
 
-    return asyncFetch(url, config);
+    return asyncFetch(url, options);
   };
 
-  return that;
+  return request;
 };
 
 export default ApiRequest;

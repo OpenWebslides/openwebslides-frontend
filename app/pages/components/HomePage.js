@@ -27,11 +27,11 @@ const mapStateToProps = (state: State): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
-    handleRequestFeed: () => {
+    handleRequestFeed: (): void => {
       dispatch({
         type: FETCH_FEED,
       });
-    }
+    },
   };
 };
 
