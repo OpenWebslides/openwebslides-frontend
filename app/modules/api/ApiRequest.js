@@ -2,8 +2,15 @@
 
 import { DEFAULT_URL, METHODS } from './constants';
 
+import asyncFetch from './asyncFetch';
+
 const ApiRequest = () => {
   const that = {};
+
+  /**
+   * Properties
+   *
+   * */
 
   // Request URL (base)
   that.url = DEFAULT_URL;
@@ -19,7 +26,7 @@ const ApiRequest = () => {
   };
 
   // Request parameters
-  that.params = {};
+  that.parameters = {};
 
   // Request HTTP method
   that.method = METHODS.GET;
@@ -27,6 +34,30 @@ const ApiRequest = () => {
   // Request body
   that.body = {};
 
+  /**
+   * Methods
+   *
+   * */
+
+  that.setEndpoint = (endpoint) => {
+    that.endpoint = endpoint;
+
+    return that;
+  };
+
+  that.setMethod = (method) => {
+    that.method = method;
+
+    return that;
+  };
+
+  that.addParameter = (parameter, value) => {
+    that.parameters[parameter] = value;
+
+    return that;
+  };
+
+  // Execute HTTP request
   that.execute = async () => {
     let url = that.url + that.endpoint;
 
