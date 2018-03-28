@@ -17,6 +17,7 @@ export type AddAction = {
     id: Identifier,
     title: string,
     description: string,
+    rootContentItemId: Identifier,
   },
 };
 

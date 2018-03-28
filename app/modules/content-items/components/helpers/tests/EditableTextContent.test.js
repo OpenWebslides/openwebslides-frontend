@@ -4,17 +4,16 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { PureEditorPage } from '../EditorPage';
+import EditableTextContent from '../EditableTextContent';
 
-describe(`EditorPage`, (): void => {
+describe(`EditableTextContent`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureEditorPage
-        t={(key: ?string): string => key || 'string'}
-        i18nLoadedAt={new Date()}
-        i18n={{}}
-        match={{ params: {}, isExact: true, path: '', url: '' }}
+      <EditableTextContent
+        text="Test"
+        onActivate={(): void => {}}
+        onDeactivate={(): void => {}}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

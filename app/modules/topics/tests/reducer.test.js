@@ -26,6 +26,7 @@ describe(`reducer`, (): void => {
         id: 'abcdefghij',
         title: 'Test topic 1',
         description: 'Lorem ipsum dolor sit amet.',
+        rootContentItemId: 'abcdefghij',
       },
     };
     const addAction: t.AddAction = {
@@ -34,6 +35,7 @@ describe(`reducer`, (): void => {
         id: 'klmnopqrst',
         title: 'Test topic 2',
         description: '',
+        rootContentItemId: 'abcdefghij',
       },
     };
     const nextState: TopicsState = {
@@ -41,11 +43,13 @@ describe(`reducer`, (): void => {
         id: 'abcdefghij',
         title: 'Test topic 1',
         description: 'Lorem ipsum dolor sit amet.',
+        rootContentItemId: 'abcdefghij',
       },
       klmnopqrst: {
         id: 'klmnopqrst',
         title: 'Test topic 2',
         description: '',
+        rootContentItemId: 'abcdefghij',
       },
     };
 
@@ -58,6 +62,7 @@ describe(`reducer`, (): void => {
         id: 'abcdefghij',
         title: 'Test topic 1',
         description: 'Lorem ipsum dolor sit amet.',
+        rootContentItemId: 'abcdefghij',
       },
     };
     const editAction: t.EditAction = {
@@ -73,6 +78,7 @@ describe(`reducer`, (): void => {
         id: 'abcdefghij',
         title: 'Edited test topic',
         description: 'Description has been edited.',
+        rootContentItemId: 'abcdefghij',
       },
     };
 
@@ -85,11 +91,13 @@ describe(`reducer`, (): void => {
         id: 'abcdefghij',
         title: 'Test topic 1',
         description: 'Lorem ipsum dolor sit amet.',
+        rootContentItemId: 'abcdefghij',
       },
       klmnopqrst: {
         id: 'klmnopqrst',
         title: 'Test topic 2',
         description: '',
+        rootContentItemId: 'abcdefghij',
       },
     };
     const removeAction: t.RemoveAction = {
@@ -103,6 +111,7 @@ describe(`reducer`, (): void => {
         id: 'abcdefghij',
         title: 'Test topic 1',
         description: 'Lorem ipsum dolor sit amet.',
+        rootContentItemId: 'abcdefghij',
       },
     };
 

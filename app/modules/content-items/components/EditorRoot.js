@@ -8,8 +8,6 @@ import { connect } from 'react-redux';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
-import { Header } from 'semantic-ui-react';
-
 import { getById } from '../selectors';
 import { contentItemTypes } from '../model';
 import type { RootContentItem } from '../model';
@@ -17,7 +15,6 @@ import type { RootContentItem } from '../model';
 import EditorBlock from './EditorBlock';
 
 type PassedProps = {
-  // #TODO pass topicId instead of rootContentItemId
   rootContentItemId: Identifier,
 };
 
@@ -39,12 +36,11 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const PureEditor = (props: Props): React.Node => {
-  const { t, rootContentItem } = props;
+const PureEditorRoot = (props: Props): React.Node => {
+  const { rootContentItem } = props;
 
   return (
     <div>
-      <Header as="h1">{t('editor:header')}</Header>
       { rootContentItem.childItemIds.map((id) => (
         <EditorBlock key={id} contentItemId={id} />
       ))}
@@ -52,7 +48,7 @@ const PureEditor = (props: Props): React.Node => {
   );
 };
 
-const Editor = connect(mapStateToProps)(translate()(PureEditor));
+const EditorRoot = connect(mapStateToProps)(translate()(PureEditorRoot));
 
-export { PureEditor };
-export default Editor;
+export { PureEditorRoot };
+export default EditorRoot;

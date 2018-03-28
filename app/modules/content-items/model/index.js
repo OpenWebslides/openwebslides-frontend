@@ -21,14 +21,6 @@ import type {
   SubableContentItemType,
   ContainerContentItemType,
 } from './contentItemTypes';
-import { highlightTypes } from './highlights';
-import type {
-  BaseHighlight,
-  MildEmphasisHighlight,
-  StrongEmphasisHighlight,
-  LinkHighlight,
-  Highlight,
-} from './highlights';
 import type { Metadata } from './metadata';
 import { tagTypes } from './tags';
 import type { Tag } from './tags';
@@ -62,10 +54,9 @@ export type PlainTextContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to plainTextContentItemTypes.
   +type: PlainTextContentItemType,
-  // The plain text content of the contentItem.
+  // The text content of the contentItem.
+  // May contain markdown to create emphasized / linked elements.
   +text: string,
-  // Highlights in the plain text content (such as emphasis and links).
-  +highlights: Array<Highlight>,
 };
 
 // Additional props for 'media' contentItems.
@@ -265,7 +256,6 @@ export {
   taggableContentItemTypes,
   subableContentItemTypes,
   containerContentItemTypes,
-  highlightTypes,
   tagTypes,
   visibilityTypes,
 };
@@ -279,11 +269,6 @@ export type {
   SubableContentItemType,
   ContainerContentItemType,
   Metadata,
-  BaseHighlight,
-  MildEmphasisHighlight,
-  StrongEmphasisHighlight,
-  LinkHighlight,
-  Highlight,
   Tag,
   Visibility,
 };

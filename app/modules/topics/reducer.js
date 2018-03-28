@@ -10,12 +10,18 @@ import type { Topic, TopicsState } from './model';
 const initialState: TopicsState = dummyTopics;
 
 const add = (state: TopicsState, action: t.AddAction): TopicsState => {
-  const { id, title, description } = action.payload;
+  const {
+    id,
+    title,
+    description,
+    rootContentItemId,
+  } = action.payload;
 
   const newTopic: Topic = {
     id,
     title,
     description,
+    rootContentItemId,
   };
 
   return {
