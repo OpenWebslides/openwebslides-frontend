@@ -1,6 +1,9 @@
 // @flow
 
-/*
+// #TODO babel-plugin-flow-react-proptypes throws an error "Cannot read property 'key' of undefined"
+// Should probably create a minimal test case to reproduce and make bug report... someday.
+// eslint-disable-next-line lines-around-directive
+'no babel-plugin-flow-react-proptypes';
 
 import * as contentItems from 'modules/content-items';
 
@@ -93,5 +96,3 @@ export type DenormalizedContentItem =
   | DenormalizedIframeContentItem
   | DenormalizedSlideBreakContentItem
   | DenormalizedCourseBreakContentItem;
-
-*/

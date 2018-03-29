@@ -4,13 +4,10 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 
-// #TODO throws errror when trying to convert flow types to proptypes
-// import type { DenormalizedRootContentItem } from './model';
-
-import * as contentItems from 'modules/content-items';
+import type { DenormalizedRootContentItem } from './model';
 
 type PassedProps = {
-  contentItemTreeRootItem: contentItems.RootContentItem,
+  contentItemTreeRootItem: DenormalizedRootContentItem,
 };
 
 type Props = TranslatorProps & PassedProps;
