@@ -4,7 +4,7 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 
-import type { DenormalizedRootContentItem } from './model';
+import type { DenormalizedRootContentItem } from 'modules/content-items';
 
 type PassedProps = {
   contentItemTreeRootItem: DenormalizedRootContentItem,

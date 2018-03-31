@@ -90,6 +90,14 @@ export type SubableContentItem = {
   +subItemIds: Array<Identifier>,
 };
 
+// Additional props for denormalized subable contentItems.
+export type DenormalizedSubableContentItem = {
+  ...$Exact<SubableContentItem>,
+  // ContentItems directly nested under this contentItem.
+  // eslint-disable-next-line no-use-before-define
+  +subItems: Array<ContentItem>,
+};
+
 // Additional props for container contentItems.
 export type ContainerContentItem = {
   ...$Exact<BaseContentItem>,
@@ -99,6 +107,14 @@ export type ContainerContentItem = {
   +childItemIds: Array<Identifier>,
 };
 
+// Additional props for denormalized container contentItems.
+export type DenormalizedContainerContentItem = {
+  ...$Exact<ContainerContentItem>,
+  // ContentItems that are direct children of this container.
+  // eslint-disable-next-line no-use-before-define
+  +childItems: Array<ContentItem>,
+};
+
 // Type for a ROOT contentItem.
 export type RootContentItem = {
   ...$Exact<SymbolContentItem>,
@@ -106,6 +122,12 @@ export type RootContentItem = {
   // Limit contentItem type to ROOT.
   +type: typeof contentItemTypes.ROOT,
   // Custom ROOT props go here.
+};
+
+// Type for a denormalized ROOT contentItem.
+export type DenormalizedRootContentItem = {
+  ...$Exact<RootContentItem>,
+  ...$Exact<DenormalizedContainerContentItem>,
 };
 
 // Type for a HEADING contentItem.
@@ -118,6 +140,12 @@ export type HeadingContentItem = {
   // Custom HEADING props go here.
 };
 
+// Type for a denormalized HEADING contentItem.
+export type DenormalizedHeadingContentItem = {
+  ...$Exact<HeadingContentItem>,
+  ...$Exact<DenormalizedSubableContentItem>,
+};
+
 // Type for a PARAGRAPH contentItem.
 export type ParagraphContentItem = {
   ...$Exact<PlainTextContentItem>,
@@ -126,6 +154,12 @@ export type ParagraphContentItem = {
   // Limit contentItem type to PARAGRAPH.
   +type: typeof contentItemTypes.PARAGRAPH,
   // Custom PARAGRAPH props go here.
+};
+
+// Type for a denormalized PARAGRAPH contentItem.
+export type DenormalizedParagraphContentItem = {
+  ...$Exact<ParagraphContentItem>,
+  ...$Exact<DenormalizedSubableContentItem>,
 };
 
 // Type for a LIST contentItem.
@@ -139,6 +173,13 @@ export type ListContentItem = {
   +ordered: boolean,
 };
 
+// Type for a denormalized LIST contentItem.
+export type DenormalizedListContentItem = {
+  ...$Exact<ListContentItem>,
+  ...$Exact<DenormalizedContainerContentItem>,
+  ...$Exact<DenormalizedSubableContentItem>,
+};
+
 // Type for a LIST_ITEM contentItem.
 export type ListItemContentItem = {
   ...$Exact<PlainTextContentItem>,
@@ -146,6 +187,11 @@ export type ListItemContentItem = {
   // Limit contentItem type to LIST_ITEM.
   +type: typeof contentItemTypes.LIST_ITEM,
   // Custom LIST_ITEM props go here.
+};
+
+// Type for a denormalized LIST_ITEM contentItem.
+export type DenormalizedListItemContentItem = {
+  ...$Exact<ListItemContentItem>,
 };
 
 // Type for a BLOCKQUOTE contentItem.
@@ -161,6 +207,12 @@ export type BlockquoteContentItem = {
   +href: ?string,
 };
 
+// Type for a denormalized BLOCKQUOTE contentITem.
+export type DenormalizedBlockquoteContentItem = {
+  ...$Exact<BlockquoteContentItem>,
+  ...$Exact<DenormalizedSubableContentItem>,
+};
+
 // Type for a CODE contentItem.
 export type CodeContentItem = {
   ...$Exact<PlainTextContentItem>,
@@ -170,6 +222,12 @@ export type CodeContentItem = {
   +type: typeof contentItemTypes.CODE,
   // The language (e.g. JavaScript, JSON, ...) that the code is written in.
   +language: string,
+};
+
+// Type for a denormalized CODE contentItem.
+export type DenormalizedCodeContentItem = {
+  ...$Exact<CodeContentItem>,
+  ...$Exact<DenormalizedSubableContentItem>,
 };
 
 // Type for an IMAGE contentItem.
@@ -182,6 +240,12 @@ export type ImageContentItem = {
   // Custom IMAGE props go here.
 };
 
+// Type for a denormalized IMAGE contentItem.
+export type DenormalizedImageContentItem = {
+  ...$Exact<ImageContentItem>,
+  ...$Exact<DenormalizedSubableContentItem>,
+};
+
 // Type for a VIDEO contentItem.
 export type VideoContentItem = {
   ...$Exact<MediaContentItem>,
@@ -190,6 +254,12 @@ export type VideoContentItem = {
   // Limit contentItem type to VIDEO.
   +type: typeof contentItemTypes.VIDEO,
   // Custom VIDEO props go here.
+};
+
+// Type for a denormalized VIDEO contentItem.
+export type DenormalizedVideoContentItem = {
+  ...$Exact<VideoContentItem>,
+  ...$Exact<DenormalizedSubableContentItem>,
 };
 
 // Type for an AUDIO contentItem.
@@ -202,6 +272,12 @@ export type AudioContentItem = {
   // Custom AUDIO props go here.
 };
 
+// Type for a denormalized AUDIO contentItem.
+export type DenormalizedAudioContentItem = {
+  ...$Exact<AudioContentItem>,
+  ...$Exact<DenormalizedSubableContentItem>,
+};
+
 // Type for an IFRAME contentItem.
 export type IframeContentItem = {
   ...$Exact<MediaContentItem>,
@@ -212,6 +288,12 @@ export type IframeContentItem = {
   // Custom IFRAME props go here.
 };
 
+// Type for a denormalized IFRAME contentItem.
+export type DenormalizedIframeContentItem = {
+  ...$Exact<IframeContentItem>,
+  ...$Exact<DenormalizedSubableContentItem>,
+};
+
 // Type for a SLIDE_BREAK contentItem.
 export type SlideBreakContentItem = {
   ...$Exact<SymbolContentItem>,
@@ -220,12 +302,22 @@ export type SlideBreakContentItem = {
   // Custom SLIDE_BREAK props go here.
 };
 
+// Type for a denormalized SLIDE_BREAK contentItem.
+export type DenormalizedSlideBreakContentItem = {
+  ...$Exact<SlideBreakContentItem>,
+};
+
 // Type for a COURSE_BREAK contentItem.
 export type CourseBreakContentItem = {
   ...$Exact<SymbolContentItem>,
   // Limit contentItem type to COURSE_BREAK.
   +type: typeof contentItemTypes.COURSE_BREAK,
   // Custom COURSE_BREAK props go here.
+};
+
+// Type for a denormalized COURSE_BREAK contentItem.
+export type DenormalizedCourseBreakContentItem = {
+  ...$Exact<CourseBreakContentItem>,
 };
 
 // Type for generic contentItems.
@@ -243,6 +335,22 @@ export type ContentItem =
   | IframeContentItem
   | SlideBreakContentItem
   | CourseBreakContentItem;
+
+// Type for generic denormalized contentItems.
+export type DenormalizedContentItem =
+  | DenormalizedRootContentItem
+  | DenormalizedHeadingContentItem
+  | DenormalizedParagraphContentItem
+  | DenormalizedListContentItem
+  | DenormalizedListItemContentItem
+  | DenormalizedBlockquoteContentItem
+  | DenormalizedCodeContentItem
+  | DenormalizedImageContentItem
+  | DenormalizedVideoContentItem
+  | DenormalizedAudioContentItem
+  | DenormalizedIframeContentItem
+  | DenormalizedSlideBreakContentItem
+  | DenormalizedCourseBreakContentItem;
 
 export type ContentItemsById = {
   +[contentItemId: Identifier]: ContentItem,
