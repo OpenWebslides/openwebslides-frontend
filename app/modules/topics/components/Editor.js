@@ -28,7 +28,7 @@ type Props = TranslatorProps & PassedProps & StateProps;
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const topic = getById(state, { id: props.topicId });
 
-  if (topic === null) {
+  if (topic == null) {
     throw new Error(`Topic with id "${props.topicId}" could not be found.`);
   }
 

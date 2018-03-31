@@ -28,6 +28,10 @@ type Props = TranslatorProps & PassedProps & StateProps;
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const contentItem = getById(state, { id: props.contentItemId });
 
+  if (contentItem == null) {
+    throw new Error(`ContentItem with id "${props.contentItemId}" could not be found.`);
+  }
+
   return {
     contentItem,
   };
