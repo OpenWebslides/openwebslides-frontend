@@ -95,7 +95,7 @@ export type DenormalizedSubableContentItem = {
   ...$Exact<SubableContentItem>,
   // ContentItems directly nested under this contentItem.
   // eslint-disable-next-line no-use-before-define
-  +subItems: Array<ContentItem>,
+  +subItems: Array<DenormalizedContentItem>,
 };
 
 // Additional props for container contentItems.
@@ -112,7 +112,7 @@ export type DenormalizedContainerContentItem = {
   ...$Exact<ContainerContentItem>,
   // ContentItems that are direct children of this container.
   // eslint-disable-next-line no-use-before-define
-  +childItems: Array<ContentItem>,
+  +childItems: Array<DenormalizedContentItem>,
 };
 
 // Type for a ROOT contentItem.
