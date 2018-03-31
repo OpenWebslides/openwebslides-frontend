@@ -25,7 +25,7 @@ type StateProps = {
 type Props = TranslatorProps & PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const rootContentItem = getById(state, props.rootContentItemId);
+  const rootContentItem = getById(state, { id: props.rootContentItemId });
 
   if (rootContentItem.type !== contentItemTypes.ROOT) {
     throw new Error('Not a ROOT contentItem.');

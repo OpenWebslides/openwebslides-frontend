@@ -26,7 +26,7 @@ type StateProps = {
 type Props = TranslatorProps & PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const contentItem = getById(state, props.contentItemId);
+  const contentItem = getById(state, { id: props.contentItemId });
 
   return {
     contentItem,

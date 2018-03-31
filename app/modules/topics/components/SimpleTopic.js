@@ -21,7 +21,7 @@ type Props = PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   return {
-    topic: getById(state, props.topicId),
+    topic: getById(state, { id: props.topicId }),
   };
 };
 
