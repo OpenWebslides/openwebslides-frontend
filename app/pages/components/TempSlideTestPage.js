@@ -1,7 +1,5 @@
 // @flow
 
-'no babel-plugin-flow-react-proptypes';
-
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
