@@ -1,5 +1,5 @@
-// flow-typed signature: 25e4ee422b9f0108f151f2c05dd2471d
-// flow-typed version: 107feb8c45/react-router-dom_v4.x.x/flow_>=v0.53.x
+// flow-typed signature: 6fe122b8ae0256995f2765654f10c5b2
+// flow-typed version: 154fa81382/react-router-dom_v4.x.x/flow_>=v0.53.x
 
 declare module "react-router-dom" {
   declare export class BrowserRouter extends React$Component<{
@@ -18,6 +18,7 @@ declare module "react-router-dom" {
   }> {}
 
   declare export class Link extends React$Component<{
+    className?: string,
     to: string | LocationShape,
     replace?: boolean,
     children?: React$Node
