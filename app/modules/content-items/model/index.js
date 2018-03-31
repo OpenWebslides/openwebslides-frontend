@@ -244,8 +244,12 @@ export type ContentItem =
   | SlideBreakContentItem
   | CourseBreakContentItem;
 
-export type ContentItemsState = {
+export type ContentItemsById = {
   +[contentItemId: Identifier]: ContentItem,
+};
+
+export type ContentItemsState = {
+  +byId: ContentItemsById,
 };
 
 export {

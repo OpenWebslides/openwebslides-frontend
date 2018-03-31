@@ -1,8 +1,8 @@
 // @flow
 
-import type { TopicsState } from './model';
+import type { TopicsById } from './model';
 
-export const dummyTopics: TopicsState = {
+export const dummyTopicsById: TopicsById = {
   feeyhnd0w0: {
     id: 'feeyhnd0w0',
     title: 'Test topic 1',

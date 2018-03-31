@@ -2,12 +2,14 @@
 
 import _ from 'lodash';
 
-import { dummyTopics } from './dummyData';
+import { dummyTopicsById } from './dummyData';
 
 import * as t from './actionTypes';
 import type { Topic, TopicsState } from './model';
 
-const initialState: TopicsState = dummyTopics;
+const initialState: TopicsState = {
+  byId: dummyTopicsById,
+};
 
 const add = (state: TopicsState, action: t.AddAction): TopicsState => {
   const {
@@ -26,26 +28,36 @@ const add = (state: TopicsState, action: t.AddAction): TopicsState => {
 
   return {
     ...state,
-    [id]: newTopic,
+    byId: {
+      ...state.byId,
+      [id]: newTopic,
+    },
   };
 };
 
 const edit = (state: TopicsState, action: t.EditAction): TopicsState => {
   const { id, title, description } = action.payload;
-  let editedTopic: Topic = state[id];
+  let editedTopic: Topic = state.byId[id];
 
   if (title != null) editedTopic = { ...editedTopic, title };
   if (description != null) editedTopic = { ...editedTopic, description };
 
   return {
     ...state,
-    [id]: editedTopic,
+    byId: {
+      ...state.byId,
+      [id]: editedTopic,
+    },
   };
 };
 
 const remove = (state: TopicsState, action: t.RemoveAction): TopicsState => {
   const { id } = action.payload;
-  return _.omit(state, id);
+
+  return {
+    ...state,
+    byId: _.omit(state.byId, id),
+  };
 };
 
 const reducer = (state: TopicsState = initialState, action: t.TopicAction): TopicsState => {

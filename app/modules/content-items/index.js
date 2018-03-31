@@ -50,6 +50,7 @@ import type {
   SlideBreakContentItem,
   CourseBreakContentItem,
   ContentItem,
+  ContentItemsById,
   ContentItemsState,
 } from './model';
 
@@ -104,6 +105,7 @@ export type {
   SlideBreakContentItem,
   CourseBreakContentItem,
   ContentItem,
+  ContentItemsById,
   ContentItemsState,
 };
 export default contentItems;
