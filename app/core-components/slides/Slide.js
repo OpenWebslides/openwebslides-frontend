@@ -17,7 +17,9 @@ const PureSlide = (props: Props): React.Node => {
 
   return (
     <div>
-      {JSON.stringify(contentItemTreeRootItem, null, 2)}
+      <pre>
+        {JSON.stringify(contentItemTreeRootItem, null, 2)}
+      </pre>
     </div>
   );
 };
