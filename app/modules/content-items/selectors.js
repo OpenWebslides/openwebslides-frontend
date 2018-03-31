@@ -4,7 +4,13 @@ import _ from 'lodash';
 import { createSelector } from 'reselect';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import type { ContentItem, ContentItemsById, ContentItemsState } from './model';
+import denormalize from './lib/denormalize';
+import type {
+  ContentItem,
+  DenormalizedContentItem,
+  ContentItemsById,
+  ContentItemsState,
+} from './model';
 
 const getModule = (state: State): ContentItemsState => {
   return state.modules.contentItems;
@@ -24,3 +30,10 @@ export const getAll = createSelector(
 export const getById = (state: State, props: { id: Identifier }): ?ContentItem => {
   return _.get(getAllById(state), props.id, null);
 };
+
+export const getDenormalizedById = createSelector(
+  [getById, getAllById],
+  (contentItem: ?ContentItem, contentItemsById: ContentItemsById): ?DenormalizedContentItem => {
+    return denormalize(contentItem, contentItemsById);
+  },
+);

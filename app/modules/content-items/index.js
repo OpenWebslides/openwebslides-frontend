@@ -65,6 +65,7 @@ import type {
   DenormalizedIframeContentItem,
   DenormalizedSlideBreakContentItem,
   DenormalizedCourseBreakContentItem,
+  DenormalizedContentItem,
   ContentItemsById,
   ContentItemsState,
 } from './model';
@@ -135,6 +136,7 @@ export type {
   DenormalizedIframeContentItem,
   DenormalizedSlideBreakContentItem,
   DenormalizedCourseBreakContentItem,
+  DenormalizedContentItem,
   ContentItemsById,
   ContentItemsState,
 };
