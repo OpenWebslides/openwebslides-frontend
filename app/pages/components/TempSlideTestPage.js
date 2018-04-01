@@ -7,7 +7,7 @@ import type { TranslatorProps } from 'react-i18next';
 
 import type { State } from 'types/state';
 import contentItems, { contentItemTypes } from 'modules/content-items';
-import type { DenormalizedContentItem } from 'modules/content-items';
+import type { DenormalizedRootContentItem } from 'modules/content-items';
 import Slide from 'core-components/slides/Slide';
 
 import Page from '../Page';
@@ -15,7 +15,11 @@ import Page from '../Page';
 type PassedProps = {};
 
 type StateProps = {
-  contentItemTreeRootItem: DenormalizedContentItem,
+  // Slide takes a denormalized root contentItem instead of a root contentItem id, because in a
+  // later stage the contentItem tree passed to the slide needs to be transformed further
+  // (for example, by splitting up sections and inserting repeated headers if a section is longer
+  // than a single slide) and the contentItem tree can't just be extracted from the state directly.
+  contentItemTreeRootItem: DenormalizedRootContentItem,
 };
 
 type Props = TranslatorProps & StateProps & PassedProps;

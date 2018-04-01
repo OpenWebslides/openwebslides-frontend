@@ -6,14 +6,14 @@ import { shallow } from 'enzyme';
 import { dummyTranslatorProps } from 'config/tests';
 
 import { contentItemTypes } from 'modules/content-items';
-import type { DenormalizedContentItem } from 'modules/content-items';
+import type { DenormalizedRootContentItem } from 'modules/content-items';
 
 import { PureTempSlideTestPage } from '../TempSlideTestPage';
 
 describe(`TempSlideTestPage`, (): void => {
 
   it(`renders without errors`, (): void => {
-    const dummyDenormalizedContentItem: DenormalizedContentItem = {
+    const dummyDenormalizedContentItem: DenormalizedRootContentItem = {
       id: 'abcdefghij',
       type: contentItemTypes.ROOT,
       childItemIds: [],
