@@ -3,6 +3,7 @@
 
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { dummyTranslatorProps } from 'config/tests';
 
 import { PureEditor } from '../Editor';
 
@@ -18,11 +19,9 @@ describe(`List`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureEditor
+        {...dummyTranslatorProps}
         topicId="abcdefghij"
         topic={dummyTopic}
-        t={(key: ?string): string => key || 'string'}
-        i18nLoadedAt={new Date()}
-        i18n={{}}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

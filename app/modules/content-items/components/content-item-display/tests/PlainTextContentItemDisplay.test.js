@@ -3,6 +3,7 @@
 
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { dummyTranslatorProps } from 'config/tests';
 
 import { PurePlainTextContentItemDisplay } from '../PlainTextContentItemDisplay';
 
@@ -25,10 +26,8 @@ describe(`PlainTextContentItemDisplay`, (): void => {
 
     const enzymeWrapper = shallow(
       <PurePlainTextContentItemDisplay
+        {...dummyTranslatorProps}
         contentItem={dummyContentItem}
-        t={(key: ?string): string => key || 'string'}
-        i18nLoadedAt={new Date()}
-        i18n={{}}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
