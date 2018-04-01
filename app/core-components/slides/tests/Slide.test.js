@@ -3,6 +3,7 @@
 
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { dummyTranslatorProps } from 'config/tests';
 
 import * as contentItems from 'modules/content-items';
 
@@ -20,10 +21,8 @@ describe(`Slide`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureSlide
+        {...dummyTranslatorProps}
         contentItemTreeRootItem={dummyContentItemTreeRoot}
-        t={(key: ?string): string => key || 'string'}
-        i18nLoadedAt={new Date()}
-        i18n={{}}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

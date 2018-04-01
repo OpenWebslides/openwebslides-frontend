@@ -3,6 +3,7 @@
 
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { dummyTranslatorProps } from 'config/tests';
 
 import { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedContentItem } from 'modules/content-items';
@@ -20,10 +21,8 @@ describe(`TempSlideTestPage`, (): void => {
     };
     const enzymeWrapper = shallow(
       <PureTempSlideTestPage
+        {...dummyTranslatorProps}
         contentItemTreeRootItem={dummyDenormalizedContentItem}
-        t={(key: ?string): string => key || 'string'}
-        i18nLoadedAt={new Date()}
-        i18n={{}}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
