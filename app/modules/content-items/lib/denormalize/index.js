@@ -50,10 +50,6 @@ const denormalizeProp = (
     denormalizedContentItem[denormalizedItemsProp] = descendantItems;
   }
 
-  // Forcible type cast because use case is too complicated for flow to handle correctly.
-  // eslint-disable-next-line no-unused-expressions, flowtype/no-weak-types
-  (denormalizedContentItem: DenormalizedContentItem);
-
   return denormalizedContentItem;
 };
 
