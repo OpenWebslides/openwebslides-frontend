@@ -3,7 +3,6 @@
 
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
-import { dummyTranslatorProps } from 'config/tests';
 
 import { PureInlineMarkdown } from '..';
 
@@ -19,7 +18,6 @@ describe(`InlineMarkdown`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureInlineMarkdown
-        {...dummyTranslatorProps}
         text={dummyText}
       />,
     );
@@ -29,7 +27,6 @@ describe(`InlineMarkdown`, (): void => {
   it(`renders an element with class 'inline-markdown'`, (): void => {
     const enzymeWrapper = render(
       <PureInlineMarkdown
-        {...dummyTranslatorProps}
         text={dummyText}
       />,
     );
@@ -39,7 +36,6 @@ describe(`InlineMarkdown`, (): void => {
   it(`renders only inline HTML elements`, (): void => {
     const enzymeWrapper = render(
       <PureInlineMarkdown
-        {...dummyTranslatorProps}
         text={dummyText}
       />,
     );
@@ -51,7 +47,6 @@ describe(`InlineMarkdown`, (): void => {
   it(`converts its text prop to text without markdown syntax`, (): void => {
     const enzymeWrapper = render(
       <PureInlineMarkdown
-        {...dummyTranslatorProps}
         text={dummyText}
       />,
     );
@@ -61,7 +56,6 @@ describe(`InlineMarkdown`, (): void => {
   it(`converts text surrounded by single asterisks to em tags`, (): void => {
     const enzymeWrapper = render(
       <PureInlineMarkdown
-        {...dummyTranslatorProps}
         text={dummyText}
       />,
     );
@@ -77,7 +71,6 @@ describe(`InlineMarkdown`, (): void => {
   it(`converts text surrounded by double asterisks to strong tags`, (): void => {
     const enzymeWrapper = render(
       <PureInlineMarkdown
-        {...dummyTranslatorProps}
         text={dummyText}
       />,
     );
@@ -93,7 +86,6 @@ describe(`InlineMarkdown`, (): void => {
   it(`converts text surrounded by backticks to code tags`, (): void => {
     const enzymeWrapper = render(
       <PureInlineMarkdown
-        {...dummyTranslatorProps}
         text={dummyText}
       />,
     );
@@ -109,7 +101,6 @@ describe(`InlineMarkdown`, (): void => {
   it(`converts text surrounded by square brackets and followed by an url between round brackets to anchor tags`, (): void => {
     const enzymeWrapper = render(
       <PureInlineMarkdown
-        {...dummyTranslatorProps}
         text={dummyText}
       />,
     );

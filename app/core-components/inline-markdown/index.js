@@ -1,8 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 
 const allowedMarkdownTypes = [
@@ -16,7 +14,7 @@ type PassedProps = {
   text: string,
 };
 
-type Props = TranslatorProps & PassedProps;
+type Props = PassedProps;
 
 const PureInlineMarkdown = (props: Props): React.Node => {
   const { text } = props;
@@ -32,7 +30,7 @@ const PureInlineMarkdown = (props: Props): React.Node => {
   );
 };
 
-const InlineMarkdown = translate()(PureInlineMarkdown);
+const InlineMarkdown = PureInlineMarkdown;
 
 export { PureInlineMarkdown };
 export default InlineMarkdown;
