@@ -13,10 +13,9 @@ import { PureTempSlideTestPage } from '../TempSlideTestPage';
 describe(`TempSlideTestPage`, (): void => {
 
   it(`renders without errors`, (): void => {
-    const dummyDenormalizedContentItem: DenormalizedRootContentItem = {
+    const dummyDenormalizedContentItem: $Exact<DenormalizedRootContentItem> = {
       id: 'abcdefghij',
       type: contentItemTypes.ROOT,
-      childItemIds: [],
       childItems: [],
     };
     const enzymeWrapper = shallow(

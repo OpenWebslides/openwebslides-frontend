@@ -9,13 +9,13 @@ import type { Topic, TopicsState } from '../model';
 
 describe(`reducer`, (): void => {
 
-  const dummyTopic1: Topic = {
+  const dummyTopic1: $Exact<Topic> = {
     id: 'abcdefghij',
     title: 'dummy topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'abcdefghij',
   };
-  const dummyTopic2: Topic = {
+  const dummyTopic2: $Exact<Topic> = {
     id: 'klmnopqrst',
     title: 'dummy topic 2',
     description: '',

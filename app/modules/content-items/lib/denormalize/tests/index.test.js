@@ -20,7 +20,7 @@ import type {
 
 describe(`denormalize`, (): void => {
 
-  const dummyHeading2: HeadingContentItem = {
+  const dummyHeading2: $Exact<HeadingContentItem> = {
     id: 'ua32xchh7q',
     type: contentItemTypes.HEADING,
     text: 'Phasellus posuere tincidunt enim',
@@ -30,12 +30,12 @@ describe(`denormalize`, (): void => {
     },
     subItemIds: [],
   };
-  const dummyRoot2: RootContentItem = {
+  const dummyRoot2: $Exact<RootContentItem> = {
     id: 'w4lg2u0p1h',
     type: contentItemTypes.ROOT,
     childItemIds: [dummyHeading2.id],
   };
-  const dummyNestedParagraph3: ParagraphContentItem = {
+  const dummyNestedParagraph3: $Exact<ParagraphContentItem> = {
     id: 'cpi389s1e3',
     type: contentItemTypes.PARAGRAPH,
     text: 'Sed ut neque tristique, venenatis purus a, consequat orci. Aenean sed lectus et ante aliquet maximus. Integer hendrerit odio volutpat tincidunt consectetur. Cras venenatis, nibh a dignissim consectetur, augue tortor viverra nisi, quis euismod urna ligula ac turpis. Pellentesque eget faucibus urna, id sodales odio. Quisque ipsum ante, fringilla elementum mauris vel, tincidunt rhoncus augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -45,7 +45,7 @@ describe(`denormalize`, (): void => {
     },
     subItemIds: [],
   };
-  const dummyNestedParagraph2: ParagraphContentItem = {
+  const dummyNestedParagraph2: $Exact<ParagraphContentItem> = {
     id: 'vrci6v35s7',
     type: contentItemTypes.PARAGRAPH,
     text: 'Sed hendrerit eget metus nec elementum. Aenean commodo semper sapien, nec porta leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla blandit elit et metus tincidunt semper. Sed ac tellus odio. Sed placerat faucibus leo a convallis. Pellentesque eget libero at lacus rutrum pretium.',
@@ -55,7 +55,7 @@ describe(`denormalize`, (): void => {
     },
     subItemIds: [],
   };
-  const dummyListItem2: ListItemContentItem = {
+  const dummyListItem2: $Exact<ListItemContentItem> = {
     id: 'rqwnagv4ky',
     type: contentItemTypes.LIST_ITEM,
     text: 'This is a list item.',
@@ -64,7 +64,7 @@ describe(`denormalize`, (): void => {
       visibilityOverrides: {},
     },
   };
-  const dummyListItem1: ListItemContentItem = {
+  const dummyListItem1: $Exact<ListItemContentItem> = {
     id: 'dnwy65sy7q',
     type: contentItemTypes.LIST_ITEM,
     text: 'This is a list item.',
@@ -73,7 +73,7 @@ describe(`denormalize`, (): void => {
       visibilityOverrides: {},
     },
   };
-  const dummyList1: ListContentItem = {
+  const dummyList1: $Exact<ListContentItem> = {
     id: 'g09fzfwsnp',
     type: contentItemTypes.LIST,
     metadata: {
@@ -84,7 +84,7 @@ describe(`denormalize`, (): void => {
     childItemIds: [dummyListItem1.id, dummyListItem2.id],
     ordered: false,
   };
-  const dummyNestedParagraph1: ParagraphContentItem = {
+  const dummyNestedParagraph1: $Exact<ParagraphContentItem> = {
     id: 'uieqlbgnxb',
     type: contentItemTypes.PARAGRAPH,
     text: 'Morbi sed felis quis mi luctus malesuada at eu neque. Integer auctor lorem leo, ut semper massa dignissim et. Nulla dictum ullamcorper mattis. Suspendisse suscipit porttitor gravida. Aliquam porttitor tortor augue, sit amet lacinia ligula sodales sit amet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vitae purus sed odio pulvinar sagittis egestas non est. Aliquam nisi urna, faucibus in tellus in, tristique suscipit justo. Etiam rutrum nisl sit amet venenatis euismod. Nullam dictum imperdiet libero, et ornare est semper eu. Aenean dui ligula, vulputate et nisi eu, bibendum tempus arcu. In ornare sem et nunc volutpat, eu elementum neque vestibulum. Nullam dictum ipsum in viverra blandit. Suspendisse potenti.',
@@ -94,7 +94,7 @@ describe(`denormalize`, (): void => {
     },
     subItemIds: [],
   };
-  const dummyParagraph1: ParagraphContentItem = {
+  const dummyParagraph1: $Exact<ParagraphContentItem> = {
     id: 'yp8bumunth',
     type: contentItemTypes.PARAGRAPH,
     text: 'Nullam ultrices rhoncus quam vulputate bibendum. Aliquam vehicula augue quis nibh iaculis semper.',
@@ -104,7 +104,7 @@ describe(`denormalize`, (): void => {
     },
     subItemIds: [dummyNestedParagraph1.id],
   };
-  const dummyHeading1: HeadingContentItem = {
+  const dummyHeading1: $Exact<HeadingContentItem> = {
     id: 'j0vcu0y7vk',
     type: contentItemTypes.HEADING,
     text: 'Nam malesuada fermentum',
@@ -114,7 +114,7 @@ describe(`denormalize`, (): void => {
     },
     subItemIds: [dummyParagraph1.id, dummyList1.id],
   };
-  const dummyRoot1: RootContentItem = {
+  const dummyRoot1: $Exact<RootContentItem> = {
     id: 'qyrgv0bcd6',
     type: contentItemTypes.ROOT,
     childItemIds: [dummyHeading1.id],

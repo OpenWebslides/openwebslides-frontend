@@ -14,7 +14,7 @@ import type {
 
 describe(`selectors`, (): void => {
 
-  const dummyHeading1: HeadingContentItem = {
+  const dummyHeading1: $Exact<HeadingContentItem> = {
     id: 'qflasjgtxr',
     type: contentItemTypes.HEADING,
     text: 'Lorem ipsum',
@@ -24,12 +24,12 @@ describe(`selectors`, (): void => {
     },
     subItemIds: [],
   };
-  const dummyRoot2: RootContentItem = {
+  const dummyRoot2: $Exact<RootContentItem> = {
     id: 'w4lg2u0p1h',
     type: contentItemTypes.ROOT,
     childItemIds: ['qflasjgtxr'],
   };
-  const dummyRoot1: RootContentItem = {
+  const dummyRoot1: $Exact<RootContentItem> = {
     id: 'qyrgv0bcd6',
     type: contentItemTypes.ROOT,
     childItemIds: [],
