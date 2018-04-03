@@ -4,7 +4,7 @@
 const asyncFetch = async (url: string, options: RequestOptions): Promise<*> => {
   const response = await fetch(url, options);
   const { status } = response;
-  const responseBody = await response.text();
+  const responseBody = await response.json();
 
   switch (status) {
     case 400:

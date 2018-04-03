@@ -13,6 +13,7 @@ const fetch = async (): string => {
     .setEndpoint(ENDPOINT)
     .setMethod(methodTypes.GET)
     .addParameter('sort', '-createdAt')
+    .addParameter('page[limit]', '10')
     .addParameter('page[offset]', '0');
 
   const response = await request.execute();

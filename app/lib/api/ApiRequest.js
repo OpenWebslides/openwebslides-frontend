@@ -77,9 +77,7 @@ const ApiRequest = (): Request => {
     const options: RequestConfig = {
       method: request.config.method,
       headers: request.config.headers,
-      url: request.config.url,
       body: request.config.body,
-      mode: 'no-cors',
     };
 
     return asyncFetch(url, options);
