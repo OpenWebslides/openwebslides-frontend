@@ -1,0 +1,45 @@
+/*******************************
+           .ows_slide
+*******************************/
+
+.ows_slide {
+  @number-of-plain-text-lines-on-slide: 12;
+  @slide-base-line-height: 1.8;
+  @slide-ratio-v: 2;
+  @slide-ratio-h: 3;
+  @slide-padding: 2em;
+
+  @slide-height: (@number-of-plain-text-lines-on-slide * @slide-base-line-height * 1em) + (@slide-padding * 2);
+  @slide-width: @slide-height * @slide-ratio-h / @slide-ratio-v;
+
+  &__size {
+    height: @slide-height;
+    width: @slide-width;
+    overflow-y: auto;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    border: 1px solid gray;
+    line-height: @slide-base-line-height;
+  }
+
+  &__content {
+    padding: @slide-padding;
+  }
+
+  // #TODO probably best to redefine all typogrpahic elements
+  // since Semantic UI's base typography is hard to work with
+  // and slide styles should ideally not depend on a css framework.
+
+  p {
+    // Override Semantic UI styles for paragraphs
+    line-height: inherit;
+
+    &:first-child,
+    &:last-child {
+      // Override Semantic UI styles for first & last paragraphs
+      margin: @paragraphMargin;
+    }
+  }
+}

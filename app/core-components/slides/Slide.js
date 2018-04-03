@@ -22,10 +22,14 @@ const PureSlide = (props: Props): React.Node => {
 
   return (
     <div className="ows_slide">
-      <ContentItemHtmlDisplay
-        contentItem={contentItemTreeRootItem}
-        headingLevel={rootHeadingLevel}
-      />
+      <div className="ows_slide__size">
+        <div className="ows_slide__content">
+          <ContentItemHtmlDisplay
+            contentItem={contentItemTreeRootItem}
+            headingLevel={rootHeadingLevel}
+          />
+        </div>
+      </div>
     </div>
   );
 };
