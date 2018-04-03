@@ -1,11 +1,13 @@
 // @flow
 
-import { dummyContentItems } from './dummyData';
+import { dummyContentItemsById } from './dummyData';
 
 import * as t from './actionTypes';
 import type { ContentItemsState } from './model';
 
-const initialState: ContentItemsState = dummyContentItems;
+const initialState: ContentItemsState = {
+  byId: dummyContentItemsById,
+};
 
 // eslint-disable-next-line no-unused-vars
 const add = (state: ContentItemsState, action: t.AddAction): ContentItemsState => {

@@ -1,13 +1,29 @@
 // @flow
 /* eslint-disable padded-blocks, flowtype/no-weak-types */
 
-import { dummyTopics } from '../dummyData';
+import { dummyTopicsById } from '../dummyData';
 
 import reducer from '../reducer';
 import * as t from '../actionTypes';
-import type { TopicsState } from '../model';
+import type { Topic, TopicsState } from '../model';
 
 describe(`reducer`, (): void => {
+
+  const dummyTopic1: Topic = {
+    id: 'abcdefghij',
+    title: 'dummy topic 1',
+    description: 'Lorem ipsum dolor sit amet.',
+    rootContentItemId: 'abcdefghij',
+  };
+  const dummyTopic2: Topic = {
+    id: 'klmnopqrst',
+    title: 'dummy topic 2',
+    description: '',
+    rootContentItemId: 'abcdefghij',
+  };
+  const dummyInitialState = {
+    byId: dummyTopicsById,
+  };
 
   it(`returns the initial state, when state parameter is undefined`, (): void => {
     const dummyAction = {
@@ -17,16 +33,13 @@ describe(`reducer`, (): void => {
       },
     };
 
-    expect(reducer(undefined, dummyAction)).toEqual(dummyTopics);
+    expect(reducer(undefined, dummyAction)).toEqual(dummyInitialState);
   });
 
   it(`handles topic ADD action`, (): void => {
     const prevState: TopicsState = {
-      abcdefghij: {
-        id: 'abcdefghij',
-        title: 'Test topic 1',
-        description: 'Lorem ipsum dolor sit amet.',
-        rootContentItemId: 'abcdefghij',
+      byId: {
+        [dummyTopic1.id]: dummyTopic1,
       },
     };
     const addAction: t.AddAction = {
@@ -39,17 +52,14 @@ describe(`reducer`, (): void => {
       },
     };
     const nextState: TopicsState = {
-      abcdefghij: {
-        id: 'abcdefghij',
-        title: 'Test topic 1',
-        description: 'Lorem ipsum dolor sit amet.',
-        rootContentItemId: 'abcdefghij',
-      },
-      klmnopqrst: {
-        id: 'klmnopqrst',
-        title: 'Test topic 2',
-        description: '',
-        rootContentItemId: 'abcdefghij',
+      byId: {
+        [dummyTopic1.id]: dummyTopic1,
+        klmnopqrst: {
+          id: 'klmnopqrst',
+          title: 'Test topic 2',
+          description: '',
+          rootContentItemId: 'abcdefghij',
+        },
       },
     };
 
@@ -58,11 +68,13 @@ describe(`reducer`, (): void => {
 
   it(`handles topic EDIT action`, (): void => {
     const prevState: TopicsState = {
-      abcdefghij: {
-        id: 'abcdefghij',
-        title: 'Test topic 1',
-        description: 'Lorem ipsum dolor sit amet.',
-        rootContentItemId: 'abcdefghij',
+      byId: {
+        abcdefghij: {
+          id: 'abcdefghij',
+          title: 'dummy topic 1',
+          description: 'Lorem ipsum dolor sit amet.',
+          rootContentItemId: 'abcdefghij',
+        },
       },
     };
     const editAction: t.EditAction = {
@@ -74,11 +86,13 @@ describe(`reducer`, (): void => {
       },
     };
     const nextState: TopicsState = {
-      abcdefghij: {
-        id: 'abcdefghij',
-        title: 'Edited test topic',
-        description: 'Description has been edited.',
-        rootContentItemId: 'abcdefghij',
+      byId: {
+        abcdefghij: {
+          id: 'abcdefghij',
+          title: 'Edited test topic',
+          description: 'Description has been edited.',
+          rootContentItemId: 'abcdefghij',
+        },
       },
     };
 
@@ -87,31 +101,20 @@ describe(`reducer`, (): void => {
 
   it(`handles topic REMOVE action`, (): void => {
     const prevState: TopicsState = {
-      abcdefghij: {
-        id: 'abcdefghij',
-        title: 'Test topic 1',
-        description: 'Lorem ipsum dolor sit amet.',
-        rootContentItemId: 'abcdefghij',
-      },
-      klmnopqrst: {
-        id: 'klmnopqrst',
-        title: 'Test topic 2',
-        description: '',
-        rootContentItemId: 'abcdefghij',
+      byId: {
+        [dummyTopic1.id]: dummyTopic1,
+        [dummyTopic2.id]: dummyTopic2,
       },
     };
     const removeAction: t.RemoveAction = {
       type: t.REMOVE,
       payload: {
-        id: 'klmnopqrst',
+        id: dummyTopic2.id,
       },
     };
     const nextState: TopicsState = {
-      abcdefghij: {
-        id: 'abcdefghij',
-        title: 'Test topic 1',
-        description: 'Lorem ipsum dolor sit amet.',
-        rootContentItemId: 'abcdefghij',
+      byId: {
+        [dummyTopic1.id]: dummyTopic1,
       },
     };
 

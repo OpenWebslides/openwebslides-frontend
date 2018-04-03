@@ -3,10 +3,10 @@
 import { contentItemTypes } from './model';
 import type {
   ParagraphContentItem,
-  ContentItemsState,
+  ContentItemsById,
 } from './model';
 
-export const dummyContentItems: ContentItemsState = {
+export const dummyContentItemsById: ContentItemsById = {
   w4lg2u0p1h: {
     id: 'w4lg2u0p1h',
     type: contentItemTypes.ROOT,

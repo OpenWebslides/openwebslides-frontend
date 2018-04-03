@@ -14,8 +14,12 @@ export type Topic = {
   +rootContentItemId: Identifier,
 };
 
-export type TopicsState = {
+export type TopicsById = {
   +[topicId: Identifier]: Topic,
+};
+
+export type TopicsState = {
+  +byId: TopicsById,
 };
 
 export const generateId = (): Identifier => {
