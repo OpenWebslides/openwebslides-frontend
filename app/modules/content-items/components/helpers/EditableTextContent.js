@@ -1,9 +1,10 @@
 // @flow
 
 import * as React from 'react';
-import ReactMarkdown from 'react-markdown';
 
 import { Form, Input, TextArea } from 'semantic-ui-react';
+
+import InlineMarkdown from 'core-components/inline-markdown';
 
 type Props = {
   multiline: boolean,
@@ -20,13 +21,6 @@ class EditableTextContent extends React.Component<Props, State> {
   static defaultProps = {
     multiline: false,
   };
-
-  static allowedMarkdownTypes = [
-    'emphasis',
-    'strong',
-    'inlineCode',
-    'link',
-  ];
 
   constructor(props: Props): void {
     super(props);
@@ -94,11 +88,7 @@ class EditableTextContent extends React.Component<Props, State> {
         onFocus={this.activate}
         style={{ cursor: 'pointer' }}
       >
-        <ReactMarkdown
-          source={this.props.text}
-          allowedTypes={EditableTextContent.allowedMarkdownTypes}
-          unwrapDisallowed={true}
-        />
+        <InlineMarkdown text={this.props.text} />
       </div>
     );
     /* eslint-enable */

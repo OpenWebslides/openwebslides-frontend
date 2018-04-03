@@ -1,25 +1,43 @@
 // @flow
 /* eslint-disable padded-blocks, flowtype/no-weak-types */
 
-import { getById, getAllById, getAll } from '../selectors';
+import { getById, getAllById, getAll, getDenormalizedById } from '../selectors';
 import { contentItemTypes } from '../model';
-import type { ContentItem, ContentItemsById, ContentItemsState, RootContentItem } from '../model';
+import type {
+  RootContentItem,
+  DenormalizedRootContentItem,
+  HeadingContentItem,
+  DenormalizedHeadingContentItem,
+  ContentItemsById,
+  ContentItemsState,
+} from '../model';
 
 describe(`selectors`, (): void => {
 
-  const dummyContentItem1: ContentItem = ({
+  const dummyHeading1: $Exact<HeadingContentItem> = {
+    id: 'qflasjgtxr',
+    type: contentItemTypes.HEADING,
+    text: 'Lorem ipsum',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  };
+  const dummyRoot2: $Exact<RootContentItem> = {
     id: 'w4lg2u0p1h',
     type: contentItemTypes.ROOT,
     childItemIds: ['qflasjgtxr'],
-  }: RootContentItem);
-  const dummyContentItem2: ContentItem = ({
+  };
+  const dummyRoot1: $Exact<RootContentItem> = {
     id: 'qyrgv0bcd6',
     type: contentItemTypes.ROOT,
-    childItemIds: ['j0vcu0y7vk', 'ua32xchh7q'],
-  }: RootContentItem);
+    childItemIds: [],
+  };
   const dummyContentItemsById: ContentItemsById = {
-    [dummyContentItem1.id]: dummyContentItem1,
-    [dummyContentItem2.id]: dummyContentItem2,
+    [dummyRoot1.id]: dummyRoot1,
+    [dummyRoot2.id]: dummyRoot2,
+    [dummyHeading1.id]: dummyHeading1,
   };
   const dummyContentItemsState: ContentItemsState = {
     byId: dummyContentItemsById,
@@ -40,8 +58,8 @@ describe(`selectors`, (): void => {
   describe(`getById`, (): void => {
 
     it(`returns the correct contentItem for the given id, when the given id is valid`, (): void => {
-      const contentItem = getById(dummyState, { id: dummyContentItem1.id });
-      expect(contentItem).toBe(dummyContentItem1);
+      const contentItem = getById(dummyState, { id: dummyRoot1.id });
+      expect(contentItem).toBe(dummyRoot1);
     });
 
     it(`returns NULL, when the given id is invalid`, (): void => {
@@ -69,12 +87,35 @@ describe(`selectors`, (): void => {
 
     it(`returns an array containing all contentItems, when there are one or more contentItems in the state`, (): void => {
       const contentItems = getAll(dummyState);
-      expect(contentItems).toEqual([dummyContentItem1, dummyContentItem2]);
+      expect(contentItems).toEqual([dummyRoot1, dummyRoot2, dummyHeading1]);
     });
 
     it(`returns an empty array, when there are no contentItems in the state`, (): void => {
       const contentItems = getAll(dummyEmptyState);
       expect(contentItems).toEqual([]);
+    });
+
+  });
+
+  describe(`getDenormalizedById`, (): void => {
+
+    it(`returns the correct denormalized contentItem for the given id, when the given id is valid`, (): void => {
+      const denormalizedContentItem = getDenormalizedById(dummyState, { id: dummyRoot2.id });
+      const expectedResult: DenormalizedRootContentItem = {
+        ...dummyRoot2,
+        childItems: [
+          ({
+            ...dummyHeading1,
+            subItems: [],
+          }: DenormalizedHeadingContentItem),
+        ],
+      };
+      expect(denormalizedContentItem).toEqual(expectedResult);
+    });
+
+    it(`returns NULL, when the given id is invalid`, (): void => {
+      const denormalizedContentItem = getDenormalizedById(dummyState, { id: 'jihgfedcba' });
+      expect(denormalizedContentItem).toBeNull();
     });
 
   });

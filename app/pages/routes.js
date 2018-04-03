@@ -16,6 +16,7 @@ import TopicsPage from './components/TopicsPage';
 import EditorPage from './components/EditorPage';
 import NewTopicPage from './components/NewTopicPage';
 import ProfilePage from './components/ProfilePage';
+import TempSlideTestPage from './components/TempSlideTestPage';
 
 const routes = (
   <Switch>
@@ -25,6 +26,7 @@ const routes = (
     <Route path="/topics" exact={true} component={TopicsPage} />
     <Route path="/topics/new" component={NewTopicPage} />
     <Route path="/profile" component={ProfilePage} />
+    <Route path="/tempslidetest" component={TempSlideTestPage} />
     <Route component={NotFoundPage} />
   </Switch>
 );
