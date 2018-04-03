@@ -33,7 +33,6 @@ const PureProfileCard = (props: Props): React.Node => {
   const { user } = props;
 
   const imageHash = md5(_.trim(user.email).toLowerCase());
-
   return (
     <Card>
       <Image src={`https://www.gravatar.com/avatar/${imageHash}?s=${GRAVATAR_SIZE_LARGE}`} />

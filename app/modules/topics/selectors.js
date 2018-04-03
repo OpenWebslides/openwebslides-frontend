@@ -31,12 +31,13 @@ export const getTitleById = (state: State, id: Identifier): string => {
 };
 
 export const getAllTopicIdsByUserId = (state: State, userId: Identifier): Array<Identifier> => {
-  const topicsById = getModule(state).byId;
+  const topicsById = getAllById(state);
 
   return (
     Object
       .keys(topicsById)
       .map((key) => topicsById[key])
       .filter((topic) => topic.userId === userId)
+      .map((topic) => topic.id)
   );
 };
