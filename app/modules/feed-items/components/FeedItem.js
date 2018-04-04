@@ -2,16 +2,16 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import _ from 'lodash';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import moment from 'moment';
-import { getDisplayNameAndEmailById } from 'modules/users/selectors';
 import { getTitleById } from 'modules/topics/selectors';
-import type { DisplayNameAndEmailType } from 'modules/users/model';
 import { GRAVATAR_SIZE_SMALL } from 'modules/users/constants';
+import users from 'modules/users';
 import md5 from 'blueimp-md5';
 
 import { Feed } from 'semantic-ui-react';
@@ -21,6 +21,8 @@ import type { FeedItemType } from '../model';
 import { predicateTypes } from '../model';
 import { getById } from '../selectors';
 
+const getUserById = users.selectors.getById;
+
 
 type PassedProps = {
   feedItemId: Identifier,
@@ -28,7 +30,7 @@ type PassedProps = {
 
 type StateProps = {
   feedItem: FeedItemType,
-  displayNameAndEmail: DisplayNameAndEmailType,
+  user: User,
   topicTitle: string,
 };
 
@@ -36,10 +38,12 @@ type Props = TranslatorProps & PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const feedItem = getById(state, props.feedItemId);
+  const user = getUserById(state, feedItem.userId);
+  const topicTitle = getTitleById(state, feedItem.topicId);
   return {
     feedItem,
-    displayNameAndEmail: getDisplayNameAndEmailById(state, feedItem.userId),
-    topicTitle: getTitleById(state, feedItem.topicId),
+    user,
+    topicTitle,
   };
 };
 
@@ -47,7 +51,7 @@ const PureFeedItem = (props: Props): React.Node => {
   const {
     t,
     feedItem,
-    displayNameAndEmail,
+    user,
     topicTitle,
   } = props;
 
@@ -61,7 +65,10 @@ const PureFeedItem = (props: Props): React.Node => {
     default: predicate = 'acted on';
   }
 
-  const imageHash = md5(_.trim(displayNameAndEmail.email).toLowerCase());
+  const imageHash = md5(_.trim(user.email).toLowerCase());
+  // construct full, displayed name of user
+  const lastName = user.lastName == null ? '' : user.lastName;
+  const displayName = `${user.firstName} ${lastName}`;
 
   return (
     <Feed.Event>
@@ -70,7 +77,9 @@ const PureFeedItem = (props: Props): React.Node => {
       </Feed.Label>
       <Feed.Content>
         <Feed.Summary>
-          <Feed.User>{displayNameAndEmail.displayName}&nbsp;</Feed.User>
+          <Link as="Feed.User" to={`/profile/${user.id}`}>
+            {displayName}&nbsp;
+          </Link>
           {t('feed:feed_item.action', { context: `${predicate}` })}
           &nbsp;
           <strong>
