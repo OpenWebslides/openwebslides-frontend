@@ -19,8 +19,7 @@ const Page = (props: Props): React.Node => {
       <NavigationBar />
       <div className="page-layout__grid">
         <Grid stretched={true}>
-          <Grid.Column width={1} />
-          <Grid.Column stretched={true} width={14}>
+          <Grid.Column width={16}>
             <div>
               {props.children}
             </div>
