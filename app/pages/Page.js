@@ -17,7 +17,7 @@ const Page = (props: Props): React.Node => {
   return (
     <React.Fragment>
       <NavigationBar />
-      <div className="ows_page__grid">
+      <div className="page-layout__grid">
         <Grid stretched={true}>
           <Grid.Column width={1} />
           <Grid.Column stretched={true} width={14}>
