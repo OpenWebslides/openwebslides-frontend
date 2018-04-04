@@ -5,4 +5,4 @@
 // Note: we import these from here in order to have access to Semantic UI variables.
 & { @import "../../custom/test"; }
 & { @import "../../custom/ows_slide"; }
-& { @import "../../custom/ows_page"; }
+& { @import "../../custom/page-layout"; }
