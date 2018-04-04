@@ -16,7 +16,7 @@ const PureSignupPage = (props: Props): React.Node => {
   return (
     <Page>
       <Grid centered={true} verticalAlign="middle">
-        <Grid.Column width={6}>
+        <Grid.Column width={8}>
           <Card fluid={true}>
             <Card.Content extra={true}>
               <Card.Header>
@@ -36,8 +36,8 @@ const PureSignupPage = (props: Props): React.Node => {
                     iconPosition="left"
                   />
                 </Form.Field>
-                <Form.Group inline={true}>
-                  <Form.Field>
+                <Form.Group>
+                  <Form.Field width={8}>
                     <label>{t('auth:input.firstname')}</label>
                     <Input
                       placeholder={t('auth:input.firstname')}
@@ -45,7 +45,7 @@ const PureSignupPage = (props: Props): React.Node => {
                       iconPosition="left"
                     />
                   </Form.Field>
-                  <Form.Field>
+                  <Form.Field width={8}>
                     <label>{t('auth:input.lastname')}</label>
                     <Input
                       placeholder={t('auth:input.lastname')}
