@@ -74,7 +74,9 @@ const PureFeedItem = (props: Props): React.Node => {
   return (
     <Feed.Event>
       <Feed.Label>
-        <img src={`https://www.gravatar.com/avatar/${imageHash}?s=${GRAVATAR_SIZE_SMALL}`} alt="profile" />
+        <Link to={`/profile/${user.id}`}>
+          <img src={`https://www.gravatar.com/avatar/${imageHash}?s=${GRAVATAR_SIZE_SMALL}`} alt="profile" />
+        </Link>
       </Feed.Label>
       <Feed.Content>
         <Feed.Summary>
