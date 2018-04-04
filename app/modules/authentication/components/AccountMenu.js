@@ -7,7 +7,9 @@ import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Dropdown, Menu, Icon } from 'semantic-ui-react';
 
-import { Account } from '../model';
+import type { State } from 'types/state';
+
+import type { Account } from '../model';
 import { isAuthenticated, getAccount } from '../selectors';
 import { signout } from '../actions';
 
@@ -20,7 +22,7 @@ type DispatchProps = {
   handleSignout: () => void,
 };
 
-type Props = TranslatorProps & StateProps;
+type Props = TranslatorProps & StateProps & DispatchProps;
 
 const mapStateToProps = (state: State): StateProps => {
   return {
@@ -34,15 +36,15 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
     handleSignout: (): void => {
       dispatch(signout());
     },
-  }
-}
+  };
+};
 
-const PureAccountMenu = (props: Props): React.node => {
+const PureAccountMenu = (props: Props): React.Node => {
   const { t, authenticated, account, handleSignout } = props;
 
-  const displayName = authenticated ? (`${account.firstName} ${account.lastName}` || account.email) : null;
+  const displayName = authenticated && account ? (`${account.firstName} ${account.lastName ? account.lastName : ''}` || account.email) : null;
 
-  if (!authenticated)
+  if (!authenticated) {
     return (
       <React.Fragment>
         <Menu.Item as={Link} to="/auth/signin">
@@ -53,6 +55,7 @@ const PureAccountMenu = (props: Props): React.node => {
         </Menu.Item>
       </React.Fragment>
     );
+  }
 
   return (
     <React.Fragment>

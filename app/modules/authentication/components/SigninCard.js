@@ -10,7 +10,7 @@ import SigninForm from './forms/SigninForm';
 
 type Props = TranslatorProps;
 
-const PureSigninCard = (props: Props): React.node => {
+const PureSigninCard = (props: Props): React.Node => {
   const { t } = props;
 
   return (

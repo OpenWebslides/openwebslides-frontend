@@ -11,11 +11,9 @@ import Page from 'pages/Page';
 
 type Props = TranslatorProps & { /* new props go here */ };
 
-const SigninCard = authentication.components.SigninCard;
+const { SigninCard } = authentication.components;
 
 const PureSigninPage = (props: Props): React.Node => {
-  const { t } = props;
-
   return (
     <Page>
       <Grid centered={true} verticalAlign="middle">

@@ -1,26 +1,41 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import type { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { Field, reduxForm } from 'redux-form';
-import { Card, Form, Input, Button } from 'semantic-ui-react';
+import { Form, Input, Button } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
+
+import type { State } from 'types/state';
 
 import { isAuthenticated, getAccount } from '../../selectors';
 import type { Account } from '../../model';
 import { signinEmail } from '../../actions';
+
+type PassedProps = {
+};
+
 
 type StateProps = {
   authenticated: boolean,
   account: ?Account,
 };
 
-type Props = TranslatorProps & StateProps;
+type DispatchProps = {
+  handleSubmit: () => void,
+};
 
-const handleSignin = (values, dispatch): void => {
+type Props = TranslatorProps & PassedProps & StateProps & DispatchProps;
+
+type ValuesType = {
+  email: string,
+  password: string,
+};
+
+const handleSignin = (values: ValuesType, dispatch: Dispatch<*>): void => {
   dispatch(signinEmail(values.email, values.password));
 };
 
@@ -31,11 +46,12 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const PureSigninForm = (props: Props): React.node => {
+const PureSigninForm = (props: Props): React.Node => {
   const { t, handleSubmit, authenticated } = props;
 
-  if (authenticated)
+  if (authenticated) {
     return <Redirect to="/" />;
+  }
 
   return (
     <Form onSubmit={handleSubmit}>
