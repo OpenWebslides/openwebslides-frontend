@@ -3,7 +3,7 @@
 import * as React from 'react';
 import type { TranslatorProps } from 'react-i18next';
 import { translate } from 'react-i18next';
-import { Container, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 
 import NavigationBar from 'core-components/navigation/NavigationBar';
 
@@ -15,17 +15,19 @@ type Props = TranslatorProps & PassedProps;
 
 const Page = (props: Props): React.Node => {
   return (
-    <div>
+    <React.Fragment>
       <NavigationBar />
-      <Grid stretched={true} relaxed="very">
-        <Grid.Column width={1} />
-        <Grid.Column stretched={true} width={14}>
-          <Container>
-            {props.children}
-          </Container>
-        </Grid.Column>
-      </Grid>
-    </div>
+      <div className="ows_page__grid">
+        <Grid stretched={true}>
+          <Grid.Column width={1} />
+          <Grid.Column stretched={true} width={14}>
+            <div>
+              {props.children}
+            </div>
+          </Grid.Column>
+        </Grid>
+      </div>
+    </React.Fragment>
   );
 };
 
