@@ -11,12 +11,14 @@ describe(`reducer`, (): void => {
 
   const dummyTopic1: $Exact<Topic> = {
     id: 'abcdefghij',
+    userId: 'wxcvbnqsdf',
     title: 'dummy topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'abcdefghij',
   };
   const dummyTopic2: $Exact<Topic> = {
     id: 'klmnopqrst',
+    userId: 'qsdfghjklm',
     title: 'dummy topic 2',
     description: '',
     rootContentItemId: 'abcdefghij',
@@ -46,6 +48,7 @@ describe(`reducer`, (): void => {
       type: t.ADD,
       payload: {
         id: 'klmnopqrst',
+        userId: 'qsdfghjklm',
         title: 'Test topic 2',
         description: '',
         rootContentItemId: 'abcdefghij',
@@ -56,6 +59,7 @@ describe(`reducer`, (): void => {
         [dummyTopic1.id]: dummyTopic1,
         klmnopqrst: {
           id: 'klmnopqrst',
+          userId: 'qsdfghjklm',
           title: 'Test topic 2',
           description: '',
           rootContentItemId: 'abcdefghij',
@@ -71,6 +75,7 @@ describe(`reducer`, (): void => {
       byId: {
         abcdefghij: {
           id: 'abcdefghij',
+          userId: 'wxcvbnqsdf',
           title: 'dummy topic 1',
           description: 'Lorem ipsum dolor sit amet.',
           rootContentItemId: 'abcdefghij',
@@ -89,6 +94,7 @@ describe(`reducer`, (): void => {
       byId: {
         abcdefghij: {
           id: 'abcdefghij',
+          userId: 'wxcvbnqsdf',
           title: 'Edited test topic',
           description: 'Description has been edited.',
           rootContentItemId: 'abcdefghij',

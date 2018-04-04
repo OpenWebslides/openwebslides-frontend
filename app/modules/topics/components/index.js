@@ -1,17 +1,20 @@
 // @flow
 
-import List from './List';
-import Preview from './Preview';
-import Editor from './Editor';
 import SimpleList from './SimpleList';
 import SimpleTopic from './SimpleTopic';
+import Editor from './Editor';
+import TopicCard from './TopicCard';
+import CardCollection from './CardCollection';
+import NewTopicCard from './NewTopicCard';
+
 
 const index = {
-  List,
-  Preview,
-  Editor,
   SimpleList,
   SimpleTopic,
+  Editor,
+  TopicCard,
+  CardCollection,
+  NewTopicCard,
 };
 
 export default index;

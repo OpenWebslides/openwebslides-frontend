@@ -14,6 +14,7 @@ const initialState: TopicsState = {
 const add = (state: TopicsState, action: t.AddAction): TopicsState => {
   const {
     id,
+    userId,
     title,
     description,
     rootContentItemId,
@@ -21,6 +22,7 @@ const add = (state: TopicsState, action: t.AddAction): TopicsState => {
 
   const newTopic: Topic = {
     id,
+    userId,
     title,
     description,
     rootContentItemId,

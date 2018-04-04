@@ -11,12 +11,12 @@ import moment from 'moment';
 import { getDisplayNameAndEmailById } from 'modules/users/selectors';
 import { getTitleById } from 'modules/topics/selectors';
 import type { DisplayNameAndEmailType } from 'modules/users/model';
+import { GRAVATAR_SIZE_SMALL } from 'modules/users/constants';
 import md5 from 'blueimp-md5';
 
 import { Feed } from 'semantic-ui-react';
 
 import type { FeedItemType } from '../model';
-import { GRAVATAR_SIZE } from '../constants';
 
 import { predicateTypes } from '../model';
 import { getById } from '../selectors';
@@ -29,7 +29,7 @@ type PassedProps = {
 type StateProps = {
   feedItem: FeedItemType,
   displayNameAndEmail: DisplayNameAndEmailType,
-  topicName: string,
+  topicTitle: string,
 };
 
 type Props = TranslatorProps & PassedProps & StateProps;
@@ -39,7 +39,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   return {
     feedItem,
     displayNameAndEmail: getDisplayNameAndEmailById(state, feedItem.userId),
-    topicName: getTitleById(state, feedItem.topicId),
+    topicTitle: getTitleById(state, feedItem.topicId),
   };
 };
 
@@ -48,7 +48,7 @@ const PureFeedItem = (props: Props): React.Node => {
     t,
     feedItem,
     displayNameAndEmail,
-    topicName,
+    topicTitle,
   } = props;
 
   let predicate:string = '';
@@ -66,7 +66,7 @@ const PureFeedItem = (props: Props): React.Node => {
   return (
     <Feed.Event>
       <Feed.Label>
-        <img src={`https://www.gravatar.com/avatar/${imageHash}?s=${GRAVATAR_SIZE}`} alt="profile" />
+        <img src={`https://www.gravatar.com/avatar/${imageHash}?s=${GRAVATAR_SIZE_SMALL}`} alt="profile" />
       </Feed.Label>
       <Feed.Content>
         <Feed.Summary>
@@ -75,7 +75,7 @@ const PureFeedItem = (props: Props): React.Node => {
           &nbsp;
           <strong>
             &quot;
-            {topicName}
+            {topicTitle}
             &quot;
           </strong>
         </Feed.Summary>

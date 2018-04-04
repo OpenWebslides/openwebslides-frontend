@@ -8,12 +8,14 @@ describe(`selectors`, (): void => {
 
   const dummyTopic1: $Exact<Topic> = {
     id: 'abcdefghij',
+    userId: 'wxcvbnqsdf',
     title: 'dummy topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'abcdefghij',
   };
   const dummyTopic2: $Exact<Topic> = {
     id: 'klmnopqrst',
+    userId: 'qsdfghjklm',
     title: 'dummy topic 2',
     description: '',
     rootContentItemId: 'abcdefghij',
