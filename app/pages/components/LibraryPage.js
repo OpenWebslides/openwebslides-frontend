@@ -38,10 +38,10 @@ const PureLibraryPage = (props: Props): React.Node => {
     <Page>
       <Grid.Row>
         <Grid>
-          <Grid.Column width={12}>
+          <Grid.Column width={13}>
             <h1>{t('pages:library.title')}</h1>
           </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column width={3}>
             <Link to="/topics/new">
               <Button as="span">
                 {t('common:link.newtopic')}
