@@ -4,19 +4,21 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 import { translate } from 'react-i18next';
+
 import type { CustomTranslatorProps } from 'types/translator';
-import { CURRENT_USER } from 'modules/users/constants';
+
 import users from 'modules/users';
 
 import Page from '../Page';
+
+const { CURRENT_USER } = users.constants;
+const { ProfileCard } = users.components;
 
 type RouteProps = {
   match: Match,
 };
 
 type Props = CustomTranslatorProps & RouteProps;
-
-const { ProfileCard } = users.components;
 
 const CurrentUserProfile = (): React.Node => {
   return (

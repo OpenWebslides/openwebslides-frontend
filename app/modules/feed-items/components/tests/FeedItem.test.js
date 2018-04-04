@@ -17,6 +17,13 @@ describe(`FeedItem`, (): void => {
       email: 'jan.jansen@email.com',
       password: 'janswachtwoord',
     };
+    const dummyTopic = {
+      id: 'abcdefghij',
+      userId: '1234567890',
+      title: 'Lorem ipsum',
+      description: '',
+      rootContentItemId: 'abcdefghij',
+    };
     const feedItem = {
       id: 'zzzzzzzzzz',
       userId: 'xxxxxxxxxx',
@@ -29,8 +36,8 @@ describe(`FeedItem`, (): void => {
         {...dummyTranslatorProps}
         feedItemId="zzzzzzzzzz"
         user={user}
+        topic={dummyTopic}
         feedItem={feedItem}
-        topicTitle="abcdefghijklmnop"
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
