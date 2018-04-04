@@ -37,7 +37,7 @@ const PureLibraryPage = (props: Props): React.Node => {
   return (
     <Page>
       <Grid.Row>
-        <Grid padded="vertically">
+        <Grid>
           <Grid.Column width={12}>
             <h1>{t('pages:library.title')}</h1>
           </Grid.Column>
