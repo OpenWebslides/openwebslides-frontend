@@ -22,6 +22,7 @@ import { predicateTypes } from '../model';
 import { getById } from '../selectors';
 
 const getUserById = users.selectors.getById;
+const { User } = users.model;
 
 
 type PassedProps = {
