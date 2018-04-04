@@ -15,11 +15,6 @@ export type User = {
   +password: string,
 };
 
-export type DisplayNameAndEmailType = {
-  +displayName: string,
-  +email: string,
-};
-
 export type UsersState = {
   +[userId: Identifier]: User,
 };
