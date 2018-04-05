@@ -6,7 +6,7 @@ import type { TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Icon, Image, Menu, Dropdown, Grid } from 'semantic-ui-react';
 
-import logo from 'assets/images/logo.png';
+import logo from 'assets/images/logo_white.png';
 
 type Props = TranslatorProps & { };
 
@@ -20,7 +20,9 @@ const Logo = (props: Props): React.Node => {
             <Image src={logo} />
           </Grid.Column>
           <Grid.Column width={12} verticalAlign="middle">
-            <strong>{t('app:title')}</strong>
+            <p>
+              <strong>{t('app:title')}</strong>
+            </p>
           </Grid.Column>
         </Grid.Row>
       </Grid>
