@@ -11,6 +11,9 @@ type Props = {
   text: string,
   onActivate: (text: string) => void,
   onDeactivate: (text: string) => void,
+  className: string,
+  textClassNameSuffix: string,
+  inputClassNameSuffix: string,
 };
 
 type State = {
@@ -20,6 +23,9 @@ type State = {
 class EditableTextContent extends React.Component<Props, State> {
   static defaultProps = {
     multiline: false,
+    className: 'editable-text-content',
+    textClassNameSuffix: '__text',
+    inputClassNameSuffix: '__input',
   };
 
   constructor(props: Props): void {
@@ -52,41 +58,42 @@ class EditableTextContent extends React.Component<Props, State> {
   };
 
   renderAsInput = (): React.Node => {
-    if (this.props.multiline) {
-      return (
-        <Form>
-          <TextArea
-            autoHeight={true}
-            value={this.props.text}
-            onBlur={this.deactivate}
-            ref={this.handleRef}
-          />
-        </Form>
-      );
-    }
-    else {
-      return (
-        <Form>
-          <Input
-            fluid={true}
-            value={this.props.text}
-            onBlur={this.deactivate}
-            ref={this.handleRef}
-          />
-        </Form>
-      );
-    }
+    return (
+      <Form>
+        {
+          (this.props.multiline)
+            ? (
+              <TextArea
+                className={`${this.props.className}${this.props.inputClassNameSuffix} ${this.props.className}${this.props.inputClassNameSuffix}--multiline`}
+                autoHeight={true}
+                value={this.props.text}
+                onBlur={this.deactivate}
+                ref={this.handleRef}
+              />
+            )
+            : (
+              <Input
+                className={`${this.props.className}${this.props.inputClassNameSuffix} ${this.props.className}${this.props.inputClassNameSuffix}--singleline`}
+                fluid={true}
+                value={this.props.text}
+                onBlur={this.deactivate}
+                ref={this.handleRef}
+              />
+            )
+        }
+      </Form>
+    );
   };
 
   renderAsText = (): React.Node => {
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     return (
       <div
+        className={`${this.props.className}${this.props.textClassNameSuffix}`}
         role="link"
         tabIndex={0}
         onClick={this.activate}
         onFocus={this.activate}
-        style={{ cursor: 'pointer' }}
       >
         <InlineMarkdown text={this.props.text} />
       </div>
@@ -95,12 +102,15 @@ class EditableTextContent extends React.Component<Props, State> {
   };
 
   render = (): React.Node => {
-    if (this.state.isActive) {
-      return this.renderAsInput();
-    }
-    else {
-      return this.renderAsText();
-    }
+    return (
+      <div className={this.props.className}>
+        {
+          (this.state.isActive)
+            ? this.renderAsInput()
+            : this.renderAsText()
+        }
+      </div>
+    );
   };
 }
 
