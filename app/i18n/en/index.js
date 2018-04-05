@@ -10,6 +10,7 @@ import feed from './namespaces/feed';
 import profile from './namespaces/profile';
 import actions from './namespaces/actions';
 import topics from './namespaces/topics';
+import navbar from './namespaces/navbar';
 
 const index = {
   app,
@@ -22,6 +23,7 @@ const index = {
   profile,
   actions,
   topics,
+  navbar,
 };
 
 export default index;
