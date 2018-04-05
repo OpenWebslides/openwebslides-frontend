@@ -20,9 +20,9 @@ const Logo = (props: Props): React.Node => {
             <Image src={logo} />
           </Grid.Column>
           <Grid.Column width={12} verticalAlign="middle">
-            <p>
+            <Menu.Item>
               <strong>{t('app:title')}</strong>
-            </p>
+            </Menu.Item>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -41,6 +41,7 @@ const MenuActions = (props: Props): React.Node => {
       <Menu.Item as={Link} to="#">
         <Icon name="bell outline" />
       </Menu.Item>
+
       <Dropdown text={t('navbar:user')} pointing={true} className="item">
         <Dropdown.Menu>
           <Dropdown.Header>{t('navbar:account')}</Dropdown.Header>

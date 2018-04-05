@@ -63,7 +63,7 @@ const NewTopicCardForm = (props: Props): React.Node => {
 
       <Form.Group>
         <Link to="/Library">
-          <Button as="span">
+          <Button as="span" secondary={true}>
             {t('common:button.cancel')}
           </Button>
         </Link>
