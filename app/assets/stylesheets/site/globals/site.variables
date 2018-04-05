@@ -3,3 +3,5 @@
 *******************************/
 
 @ows_pink: #D60B52;
+
+@primaryColor: @ows_pink;

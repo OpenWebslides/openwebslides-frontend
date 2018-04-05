@@ -68,7 +68,7 @@ const PureTopicCard = (props: Props): React.Node => {
           pathname: `/editor/${topicId}`,
         }}
         >
-          <Button as="span">
+          <Button as="span" primary={true}>
             Edit
           </Button>
         </Link>

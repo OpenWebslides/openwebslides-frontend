@@ -8,7 +8,7 @@ import { Icon, Image, Menu, Dropdown, Grid } from 'semantic-ui-react';
 
 import logo from 'assets/images/logo_white.png';
 
-type Props = TranslatorProps & { };
+type Props = TranslatorProps;
 
 const Logo = (props: Props): React.Node => {
   const { t } = props;
