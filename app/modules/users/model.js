@@ -1,5 +1,4 @@
 // @flow
-/* eslint-disable import/prefer-default-export */
 
 import type { Identifier } from 'types/model';
 import generateRandomString from 'lib/generate-random-string';

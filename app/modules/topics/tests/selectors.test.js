@@ -1,5 +1,4 @@
 // @flow
-/* eslint-disable padded-blocks, flowtype/no-weak-types */
 
 import { getById, getAllById, getAll } from '../selectors';
 import type { Topic, TopicsById, TopicsState } from '../model';
