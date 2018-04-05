@@ -9,3 +9,6 @@
 & { @import "../../custom/content-item-editable-display"; }
 & { @import "../../custom/page-layout"; }
 & { @import "../../custom/navbar"; }
+& { @import "../../custom/global"; }
+
+@primaryColor: @ows_pink;

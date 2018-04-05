@@ -2,5 +2,4 @@
     User Variable Overrides
 *******************************/
 
-@ows_pink: #D60B52;
 @secondaryBackground: @ows_pink;
