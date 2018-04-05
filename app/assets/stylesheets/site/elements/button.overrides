@@ -1,3 +1,16 @@
 /*******************************
          Site Overrides
 *******************************/
+
+.ui.secondary.buttons .button,
+.ui.secondary.button {
+    background: none;
+    color: @lightBlack;
+}
+
+.ui.secondary.buttons .button:hover,
+.ui.secondary.button:hover {
+    background: saturate(darken(@white, 5), 10, relative);
+    color: @lightBlack;
+}
+

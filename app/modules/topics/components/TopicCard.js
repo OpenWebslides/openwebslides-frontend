@@ -73,7 +73,7 @@ const PureTopicCard = (props: Props): React.Node => {
           </Button>
         </Link>
 
-        <Button as="span" basic={true} color="red" floated="right" onClick={() => onRemoveButtonClick(topicId)}>
+        <Button as="span" secondary={true} floated="right" onClick={() => onRemoveButtonClick(topicId)}>
           {t('common:button.remove')}
         </Button>
       </Card.Content>

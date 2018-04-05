@@ -10,3 +10,12 @@
 & { @import "../../custom/page-layout"; }
 & { @import "../../custom/navbar"; }
 & { @import "../../custom/global"; }
+
+a, a:active, a:hover {
+  color: @ows_pink;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
