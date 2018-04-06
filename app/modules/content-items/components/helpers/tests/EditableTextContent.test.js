@@ -5,7 +5,7 @@ import { mount, shallow } from 'enzyme';
 
 import EditableTextContent from '../EditableTextContent';
 
-describe('EditableTextContent', (): void => {
+describe(`EditableTextContent`, (): void => {
 
   const dummyText = 'Lorem ipsum dolor sit amet.';
   const dummyActivate = jest.fn();
@@ -22,7 +22,7 @@ describe('EditableTextContent', (): void => {
   // the form element itself is selected, and works for both <input> and <textarea>.
   const inputSelector = '[onBlur]';
 
-  it('renders without errors', (): void => {
+  it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <EditableTextContent
         text={dummyText}
@@ -33,7 +33,7 @@ describe('EditableTextContent', (): void => {
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });
 
-  it('renders its text prop', (): void => {
+  it(`renders its text prop`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         text={dummyText}
@@ -44,7 +44,7 @@ describe('EditableTextContent', (): void => {
     expect(enzymeWrapper.text()).toContain(dummyText);
   });
 
-  it('renders itself in text mode, when it has not been interacted with yet', (): void => {
+  it(`renders itself in text mode, when it has not been interacted with yet`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         text={dummyText}
@@ -59,7 +59,7 @@ describe('EditableTextContent', (): void => {
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
   });
 
-  it('renders itself in input mode, when it is in text mode and receives a click event', (): void => {
+  it(`renders itself in input mode, when it is in text mode and receives a click event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         text={dummyText}
@@ -75,7 +75,7 @@ describe('EditableTextContent', (): void => {
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(1);
   });
 
-  it('renders itself in input mode, when it is in text mode and receives a focus event', (): void => {
+  it(`renders itself in input mode, when it is in text mode and receives a focus event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         text={dummyText}
@@ -91,7 +91,7 @@ describe('EditableTextContent', (): void => {
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(1);
   });
 
-  it('renders itself in text mode, when it is in input mode and receives a blur event, and when it is in singleline mode', (): void => {
+  it(`renders itself in text mode, when it is in input mode and receives a blur event, and when it is in singleline mode`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         text={dummyText}
@@ -108,7 +108,7 @@ describe('EditableTextContent', (): void => {
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
   });
 
-  it('renders itself in text mode, when it is in input mode and receives a blur event, and when it is in multiline mode', (): void => {
+  it(`renders itself in text mode, when it is in input mode and receives a blur event, and when it is in multiline mode`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         multiline={true}
@@ -126,7 +126,7 @@ describe('EditableTextContent', (): void => {
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
   });
 
-  it('calls the passed onActivate function, when it is in text mode and receives a click event', (): void => {
+  it(`calls the passed onActivate function, when it is in text mode and receives a click event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         text={dummyText}
@@ -141,7 +141,7 @@ describe('EditableTextContent', (): void => {
     expect(dummyActivate).toHaveBeenCalled();
   });
 
-  it('calls the passed onActivate function, when it is in text mode and receives a focus event', (): void => {
+  it(`calls the passed onActivate function, when it is in text mode and receives a focus event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         text={dummyText}
@@ -156,7 +156,7 @@ describe('EditableTextContent', (): void => {
     expect(dummyActivate).toHaveBeenCalled();
   });
 
-  it('calls the passed onDeactivate function, when it is in input render mode and receives a blur event', (): void => {
+  it(`calls the passed onDeactivate function, when it is in input render mode and receives a blur event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         text={dummyText}
