@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { render, shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import { contentItemTypes } from 'modules/content-items';
 import type {
@@ -80,7 +80,7 @@ describe(`ContentItemHtmlDisplay`, (): void => {
   });
 
   it(`renders all of the contentItem's sub items, when the contentItem is subable and has sub items`, (): void => {
-    const enzymeWrapper = render(
+    const enzymeWrapper = mount(
       <PureContentItemHtmlDisplay
         contentItem={dummyRoot1}
         headingLevel={1}
@@ -89,7 +89,7 @@ describe(`ContentItemHtmlDisplay`, (): void => {
       />,
     );
 
-    const subItemsTags = enzymeWrapper.find(`.${subItemsClassName}`);
+    const subItemsTags = enzymeWrapper.find(`.${subItemsClassName}`).hostNodes();
     expect(subItemsTags).toHaveLength(2);
 
     const level1SubItemsTag = subItemsTags.first();
@@ -97,7 +97,7 @@ describe(`ContentItemHtmlDisplay`, (): void => {
     expect(level1SubItemsTag.text()).toContain(dummyNestedParagraph1.text);
     expect(level1SubItemsTag.text()).toContain(dummyNestedParagraph2.text);
 
-    const level2SubItemsTags = level1SubItemsTag.find(`.${subItemsClassName}`);
+    const level2SubItemsTags = level1SubItemsTag.children().find(`.${subItemsClassName}`).hostNodes();
     expect(level2SubItemsTags).toHaveLength(1);
 
     const level2SubItemsTag = level2SubItemsTags.first();
@@ -107,7 +107,7 @@ describe(`ContentItemHtmlDisplay`, (): void => {
   });
 
   it(`does not render an empty sub items container, when the contentItem is not subable`, (): void => {
-    const enzymeWrapper = render(
+    const enzymeWrapper = mount(
       <PureContentItemHtmlDisplay
         contentItem={dummyRoot2}
         headingLevel={1}
@@ -115,12 +115,12 @@ describe(`ContentItemHtmlDisplay`, (): void => {
         subItemsClassNameSuffix={subItemsClassNameSuffix}
       />,
     );
-    const subItemsTags = enzymeWrapper.find(`.${subItemsClassName}`);
+    const subItemsTags = enzymeWrapper.find(`.${subItemsClassName}`).hostNodes();
     expect(subItemsTags).toHaveLength(0);
   });
 
   it(`does not render an empty sub items container, when the contentItem is subable but does not contain any sub items`, (): void => {
-    const enzymeWrapper = render(
+    const enzymeWrapper = mount(
       <PureContentItemHtmlDisplay
         contentItem={dummyNestedParagraph1}
         headingLevel={1}
@@ -128,35 +128,52 @@ describe(`ContentItemHtmlDisplay`, (): void => {
         subItemsClassNameSuffix={subItemsClassNameSuffix}
       />,
     );
-    const subItemsTags = enzymeWrapper.find(`.${subItemsClassName}`);
+    const subItemsTags = enzymeWrapper.find(`.${subItemsClassName}`).hostNodes();
     expect(subItemsTags).toHaveLength(0);
   });
 
   it(`renders a heading and its sub items wrapped inside a section`, (): void => {
-    const enzymeWrapper = render(
+    const enzymeWrapper = mount(
       <PureContentItemHtmlDisplay
         contentItem={dummyRoot1}
         headingLevel={1}
       />,
     );
-    const sectionTag = enzymeWrapper.find('h1').parents('section');
+    const sectionTag = enzymeWrapper.find('h1').parents('section').hostNodes();
     expect(sectionTag.text()).toContain(dummyLevel1Heading.text);
     expect(sectionTag.text()).toContain(dummyLevel2Heading.text);
   });
 
   it(`renders nested headings with increasing heading levels`, (): void => {
-    const enzymeWrapper = render(
+    const enzymeWrapper = mount(
       <PureContentItemHtmlDisplay
         contentItem={dummyRoot1}
         headingLevel={1}
       />,
     );
-    const h1Tags = enzymeWrapper.find('h1');
-    const h2Tags = enzymeWrapper.find('h2');
+    const h1Tags = enzymeWrapper.find('h1').hostNodes();
+    const h2Tags = enzymeWrapper.find('h2').hostNodes();
     expect(h1Tags).toHaveLength(1);
     expect(h1Tags.first().text()).toEqual(dummyLevel1Heading.text);
     expect(h2Tags).toHaveLength(1);
     expect(h2Tags.first().text()).toEqual(dummyLevel2Heading.text);
+  });
+
+  it(`passes non-default class names to child and sub items`, (): void => {
+    const dummyContainerClassName = 'dsfgoejfef';
+    const dummySubItemsClassNameSuffix = 'fkioojkpge';
+    const enzymeWrapper = mount(
+      <PureContentItemHtmlDisplay
+        contentItem={dummyRoot1}
+        headingLevel={1}
+        containerClassName={dummyContainerClassName}
+        subItemsClassNameSuffix={dummySubItemsClassNameSuffix}
+      />,
+    );
+    const containerTags = enzymeWrapper.find(`.${dummyContainerClassName}`).hostNodes();
+    expect(containerTags).toHaveLength(4);
+    const subItemsTags = enzymeWrapper.find(`.${dummyContainerClassName}${dummySubItemsClassNameSuffix}`).hostNodes();
+    expect(subItemsTags).toHaveLength(2);
   });
 
 });

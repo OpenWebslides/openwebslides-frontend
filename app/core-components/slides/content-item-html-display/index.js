@@ -51,6 +51,12 @@ type PassedProps = {
 
 type Props = PassedProps;
 
+const passThroughProps = [
+  'headingLevel',
+  'containerClassName',
+  'subItemsClassNameSuffix',
+];
+
 const SubItemsHtmlDisplay = (props: Props): React.Node => {
   const { contentItem, headingLevel, containerClassName, subItemsClassNameSuffix } = props;
 
@@ -74,6 +80,7 @@ const SubItemsHtmlDisplay = (props: Props): React.Node => {
           {subableContentItem.subItems.map(
             (subItem: DenormalizedContentItem): React.Node => (
               <ContentItemHtmlDisplay
+                {..._.pick(props, passThroughProps)}
                 key={subItem.id}
                 contentItem={subItem}
                 headingLevel={subItemsHeadingLevel}
@@ -87,15 +94,14 @@ const SubItemsHtmlDisplay = (props: Props): React.Node => {
 };
 
 const PureContentItemHtmlDisplay = (props: Props): React.Node => {
-  const { contentItem, headingLevel, containerClassName } = props;
+  const { contentItem } = props;
   const DisplayComponent = contentItemTypesToDisplayComponentMap[contentItem.type];
 
   return (
     <DisplayComponent
+      {..._.pick(props, passThroughProps)}
       // eslint-disable-next-line flowtype/no-weak-types
       contentItem={(contentItem: any)}
-      headingLevel={headingLevel}
-      containerClassName={containerClassName}
     >
       <SubItemsHtmlDisplay {...props} />
     </DisplayComponent>
@@ -109,5 +115,5 @@ PureContentItemHtmlDisplay.defaultProps = {
 
 const ContentItemHtmlDisplay = PureContentItemHtmlDisplay;
 
-export { PureContentItemHtmlDisplay };
+export { PureContentItemHtmlDisplay, passThroughProps };
 export default ContentItemHtmlDisplay;
