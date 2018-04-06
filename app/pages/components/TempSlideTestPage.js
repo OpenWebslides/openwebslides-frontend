@@ -9,6 +9,7 @@ import type { State } from 'types/state';
 import contentItems, { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
 import Slide from 'core-components/slides/Slide';
+import { TwitterPicker } from 'react-color';
 
 import Page from '../Page';
 
@@ -45,9 +46,13 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const PureTempSlideTestPage = (props: Props): React.Node => {
   const { contentItemTreeRootItem } = props;
+  // handleChange = (color, event){
+  //   this.setState({background: color.hex});
+  // };
 
   return (
     <Page>
+      <TwitterPicker onChange={this.handleChange} />
       <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
     </Page>
   );
