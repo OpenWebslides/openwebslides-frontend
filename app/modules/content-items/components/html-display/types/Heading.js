@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import InlineMarkdown from 'core-components/inline-markdown';
-import type { DenormalizedHeadingContentItem } from 'modules/content-items';
+import type { DenormalizedHeadingContentItem } from '../../../model';
 
 type PassedProps = {
   contentItem: DenormalizedHeadingContentItem,

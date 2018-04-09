@@ -8,11 +8,11 @@
 import _ from 'lodash';
 import * as React from 'react';
 
-import { contentItemTypes, subableContentItemTypes } from 'modules/content-items';
+import { contentItemTypes, subableContentItemTypes } from '../../model';
 import type {
   DenormalizedContentItem,
   DenormalizedSubableContentItem,
-} from 'modules/content-items';
+} from '../../model';
 
 import Root from './types/Root';
 import Heading from './types/Heading';
@@ -79,7 +79,7 @@ const SubItemsHtmlDisplay = (props: Props): React.Node => {
         <div className={`${containerClassName}${subItemsClassNameSuffix}`}>
           {subableContentItem.subItems.map(
             (subItem: DenormalizedContentItem): React.Node => (
-              <ContentItemHtmlDisplay
+              <HtmlDisplay
                 {..._.pick(props, passThroughProps)}
                 key={subItem.id}
                 contentItem={subItem}
@@ -93,7 +93,7 @@ const SubItemsHtmlDisplay = (props: Props): React.Node => {
   }
 };
 
-const PureContentItemHtmlDisplay = (props: Props): React.Node => {
+const PureHtmlDisplay = (props: Props): React.Node => {
   const { contentItem } = props;
   const DisplayComponent = contentItemTypesToDisplayComponentMap[contentItem.type];
 
@@ -108,12 +108,12 @@ const PureContentItemHtmlDisplay = (props: Props): React.Node => {
   );
 };
 
-PureContentItemHtmlDisplay.defaultProps = {
+PureHtmlDisplay.defaultProps = {
   containerClassName: 'ows_container',
   subItemsClassNameSuffix: '__sub-items',
 };
 
-const ContentItemHtmlDisplay = PureContentItemHtmlDisplay;
+const HtmlDisplay = PureHtmlDisplay;
 
-export { PureContentItemHtmlDisplay, passThroughProps };
-export default ContentItemHtmlDisplay;
+export { PureHtmlDisplay, passThroughProps };
+export default HtmlDisplay;

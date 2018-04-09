@@ -3,16 +3,16 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { contentItemTypes } from 'modules/content-items';
+import { contentItemTypes } from '../../../model';
 import type {
   DenormalizedRootContentItem,
   DenormalizedHeadingContentItem,
   DenormalizedParagraphContentItem,
-} from 'modules/content-items';
+} from '../../../model';
 
-import { PureContentItemHtmlDisplay } from '..';
+import { PureHtmlDisplay } from '..';
 
-describe(`ContentItemHtmlDisplay`, (): void => {
+describe(`HtmlDisplay`, (): void => {
 
   const containerClassName = 'ows_container';
   const subItemsClassNameSuffix = '__sub-items';
@@ -71,7 +71,7 @@ describe(`ContentItemHtmlDisplay`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureContentItemHtmlDisplay
+      <PureHtmlDisplay
         contentItem={dummyRoot1}
         headingLevel={1}
       />,
@@ -81,7 +81,7 @@ describe(`ContentItemHtmlDisplay`, (): void => {
 
   it(`renders all of the contentItem's sub items, when the contentItem is subable and has sub items`, (): void => {
     const enzymeWrapper = mount(
-      <PureContentItemHtmlDisplay
+      <PureHtmlDisplay
         contentItem={dummyRoot1}
         headingLevel={1}
         containerClassName={containerClassName}
@@ -108,7 +108,7 @@ describe(`ContentItemHtmlDisplay`, (): void => {
 
   it(`does not render an empty sub items container, when the contentItem is not subable`, (): void => {
     const enzymeWrapper = mount(
-      <PureContentItemHtmlDisplay
+      <PureHtmlDisplay
         contentItem={dummyRoot2}
         headingLevel={1}
         containerClassName={containerClassName}
@@ -121,7 +121,7 @@ describe(`ContentItemHtmlDisplay`, (): void => {
 
   it(`does not render an empty sub items container, when the contentItem is subable but does not contain any sub items`, (): void => {
     const enzymeWrapper = mount(
-      <PureContentItemHtmlDisplay
+      <PureHtmlDisplay
         contentItem={dummyNestedParagraph1}
         headingLevel={1}
         containerClassName={containerClassName}
@@ -134,7 +134,7 @@ describe(`ContentItemHtmlDisplay`, (): void => {
 
   it(`renders a heading and its sub items wrapped inside a section`, (): void => {
     const enzymeWrapper = mount(
-      <PureContentItemHtmlDisplay
+      <PureHtmlDisplay
         contentItem={dummyRoot1}
         headingLevel={1}
       />,
@@ -146,7 +146,7 @@ describe(`ContentItemHtmlDisplay`, (): void => {
 
   it(`renders nested headings with increasing heading levels`, (): void => {
     const enzymeWrapper = mount(
-      <PureContentItemHtmlDisplay
+      <PureHtmlDisplay
         contentItem={dummyRoot1}
         headingLevel={1}
       />,
@@ -163,7 +163,7 @@ describe(`ContentItemHtmlDisplay`, (): void => {
     const dummyContainerClassName = 'dsfgoejfef';
     const dummySubItemsClassNameSuffix = 'fkioojkpge';
     const enzymeWrapper = mount(
-      <PureContentItemHtmlDisplay
+      <PureHtmlDisplay
         contentItem={dummyRoot1}
         headingLevel={1}
         containerClassName={dummyContainerClassName}

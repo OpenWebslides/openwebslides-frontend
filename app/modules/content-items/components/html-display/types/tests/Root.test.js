@@ -3,11 +3,11 @@
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
-import { contentItemTypes } from 'modules/content-items';
+import { contentItemTypes } from '../../../../model';
 import type {
   DenormalizedRootContentItem,
   DenormalizedHeadingContentItem,
-} from 'modules/content-items';
+} from '../../../../model';
 
 import { PureRoot } from '../Root';
 

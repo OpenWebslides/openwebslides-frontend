@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import InlineMarkdown from 'core-components/inline-markdown';
-import type { DenormalizedParagraphContentItem } from 'modules/content-items';
+import type { DenormalizedParagraphContentItem } from '../../../model';
 
 type PassedProps = {
   contentItem: DenormalizedParagraphContentItem,

@@ -3,8 +3,8 @@
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
-import { contentItemTypes } from 'modules/content-items';
-import type { DenormalizedHeadingContentItem } from 'modules/content-items';
+import { contentItemTypes } from '../../../../model';
+import type { DenormalizedHeadingContentItem } from '../../../../model';
 
 import { PureHeading } from '../Heading';
 

@@ -3,9 +3,9 @@
 import _ from 'lodash';
 import * as React from 'react';
 
-import type { DenormalizedContentItem, DenormalizedRootContentItem } from 'modules/content-items';
+import type { DenormalizedContentItem, DenormalizedRootContentItem } from '../../../model';
 
-import ContentItemHtmlDisplay, { passThroughProps } from '..';
+import HtmlDisplay, { passThroughProps } from '..';
 
 type PassedProps = {
   contentItem: DenormalizedRootContentItem,
@@ -19,7 +19,7 @@ const PureRoot = (props: Props): React.Node => {
 
   return contentItem.childItems.map((childItem: DenormalizedContentItem): React.Node => {
     return (
-      <ContentItemHtmlDisplay
+      <HtmlDisplay
         {..._.pick(props, passThroughProps)}
         key={childItem.id}
         contentItem={childItem}

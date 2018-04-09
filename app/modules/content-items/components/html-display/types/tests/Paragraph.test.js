@@ -3,8 +3,8 @@
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
-import { contentItemTypes } from 'modules/content-items';
-import type { DenormalizedParagraphContentItem } from 'modules/content-items';
+import { contentItemTypes } from '../../../../model';
+import type { DenormalizedParagraphContentItem } from '../../../../model';
 
 import { PureParagraph } from '../Paragraph';
 
