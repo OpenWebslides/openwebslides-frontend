@@ -6,3 +6,4 @@
 & { @import "../../custom/test"; }
 & { @import "../../custom/ows_slide"; }
 & { @import "../../custom/editable-text-content"; }
+& { @import "../../custom/content-item-editable-display"; }

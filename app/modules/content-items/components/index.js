@@ -1,9 +1,9 @@
 // @flow
 
-import EditorRoot from './EditorRoot';
+import EditableDisplay from './editable-display';
 
 const index = {
-  EditorRoot,
+  EditableDisplay,
 };
 
 export default index;

@@ -37,7 +37,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const ContentItemsEditorRoot = contentItems.components.EditorRoot;
+const ContentItemEditableDisplay = contentItems.components.EditableDisplay;
 
 const PureEditor = (props: Props): React.Node => {
   const { topic } = props;
@@ -45,7 +45,8 @@ const PureEditor = (props: Props): React.Node => {
   return (
     <div>
       <Header as="h1">{topic.title}</Header>
-      <ContentItemsEditorRoot rootContentItemId={topic.rootContentItemId} />
+      { /* $FlowFixMe See: https://github.com/facebook/flow/issues/4644 */ }
+      <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
     </div>
   );
 };
