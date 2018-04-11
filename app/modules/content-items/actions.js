@@ -1,5 +1,7 @@
 // @flow
 
+import _ from 'lodash';
+
 import type { Identifier } from 'types/model';
 
 import * as t from './actionTypes';
@@ -7,7 +9,7 @@ import { generateId } from './model';
 
 export const add = (
 
-): t.AddAction | t.AddErrorAction => {
+): t.AddAction => {
   const newId = generateId();
 
   // #TODO stub
@@ -20,22 +22,67 @@ export const add = (
   };
 };
 
-export const edit = (
+export const editPlainText = (
   id: Identifier,
-): t.EditAction | t.EditErrorAction => {
-  // #TODO stub
+  text: ?string,
+): t.EditPlainTextAction => {
+  const newId = id;
+  const newText = text != null ? _.trim(text) : text;
+
+  if (newText === undefined) {
+    throw new Error(`Attempted to create superfluous action.`);
+  }
+  if (newText === '') {
+    throw new Error(`"text" prop cannot be an empty string.`);
+  }
 
   return {
-    type: t.EDIT,
+    type: t.EDIT_PLAIN_TEXT,
     payload: {
-      id,
+      id: newId,
+      text: newText,
+    },
+  };
+};
+
+export const editMedia = (
+  id: Identifier,
+  src: ?string,
+  alt: ?string,
+  caption: ?string,
+): t.EditMediaAction => {
+  const newId = id;
+  const newSrc = src != null ? _.trim(src) : src;
+  const newAlt = alt != null ? _.trim(alt) : alt;
+  let newCaption: ?string = caption != null ? _.trim(caption) : caption;
+
+  if (newSrc === undefined && newAlt === undefined && newCaption === undefined) {
+    throw new Error(`Attempted to create superfluous action.`);
+  }
+  if (newSrc === '') {
+    throw new Error(`"src" prop cannot be an empty string.`);
+  }
+  if (newAlt === '') {
+    throw new Error(`"alt" prop cannot be an empty string.`);
+  }
+  if (newCaption === '') {
+    newCaption = null;
+  }
+
+  return {
+    type: t.EDIT_MEDIA,
+    payload: {
+      id: newId,
+      src: newSrc,
+      alt: newAlt,
+      caption: newCaption,
     },
   };
 };
 
 export const remove = (
   id: Identifier,
-): t.RemoveAction | t.RemoveErrorAction => {
+): t.RemoveAction => {
   return {
     type: t.REMOVE,
     payload: {
