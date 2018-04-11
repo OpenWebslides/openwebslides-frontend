@@ -59,7 +59,7 @@
     "no-unused-vars": [
       "error",
       {
-        "argsIgnorePattern": "props|state|action"
+        "argsIgnorePattern": "props|state|dispatch|action"
       }
     ],
 
