@@ -8,6 +8,7 @@ import EditableTextContent from '../EditableTextContent';
 describe(`EditableTextContent`, (): void => {
 
   const dummyText = 'Lorem ipsum dolor sit amet.';
+  const dummyInput = jest.fn();
   const dummyActivate = jest.fn();
   const dummyDeactivate = jest.fn();
   const dummyClassName = 'editable-text-content';
@@ -25,9 +26,7 @@ describe(`EditableTextContent`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <EditableTextContent
-        text={dummyText}
-        onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
+        initialText={dummyText}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -36,9 +35,7 @@ describe(`EditableTextContent`, (): void => {
   it(`renders its text prop`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
-        text={dummyText}
-        onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
+        initialText={dummyText}
       />,
     );
     expect(enzymeWrapper.text()).toContain(dummyText);
@@ -47,7 +44,8 @@ describe(`EditableTextContent`, (): void => {
   it(`renders itself in text mode, when it has not been interacted with yet`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
-        text={dummyText}
+        initialText={dummyText}
+        onInput={dummyInput}
         onActivate={dummyActivate}
         onDeactivate={dummyDeactivate}
         className={dummyClassName}
@@ -62,7 +60,8 @@ describe(`EditableTextContent`, (): void => {
   it(`renders itself in input mode, when it is in text mode and receives a click event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
-        text={dummyText}
+        initialText={dummyText}
+        onInput={dummyInput}
         onActivate={dummyActivate}
         onDeactivate={dummyDeactivate}
         className={dummyClassName}
@@ -78,7 +77,8 @@ describe(`EditableTextContent`, (): void => {
   it(`renders itself in input mode, when it is in text mode and receives a focus event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
-        text={dummyText}
+        initialText={dummyText}
+        onInput={dummyInput}
         onActivate={dummyActivate}
         onDeactivate={dummyDeactivate}
         className={dummyClassName}
@@ -91,10 +91,11 @@ describe(`EditableTextContent`, (): void => {
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(1);
   });
 
-  it(`renders itself in text mode, when it is in input mode and receives a blur event, and when it is in singleline mode`, (): void => {
+  it(`renders itself in text mode, when it is in singleline input mode and receives a blur event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
-        text={dummyText}
+        initialText={dummyText}
+        onInput={dummyInput}
         onActivate={dummyActivate}
         onDeactivate={dummyDeactivate}
         className={dummyClassName}
@@ -108,11 +109,12 @@ describe(`EditableTextContent`, (): void => {
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
   });
 
-  it(`renders itself in text mode, when it is in input mode and receives a blur event, and when it is in multiline mode`, (): void => {
+  it(`renders itself in text mode, when it is in multiline input mode and receives a blur event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         multiline={true}
-        text={dummyText}
+        initialText={dummyText}
+        onInput={dummyInput}
         onActivate={dummyActivate}
         onDeactivate={dummyDeactivate}
         className={dummyClassName}
@@ -129,7 +131,8 @@ describe(`EditableTextContent`, (): void => {
   it(`calls the passed onActivate function, when it is in text mode and receives a click event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
-        text={dummyText}
+        initialText={dummyText}
+        onInput={dummyInput}
         onActivate={dummyActivate}
         onDeactivate={dummyDeactivate}
         className={dummyClassName}
@@ -144,7 +147,8 @@ describe(`EditableTextContent`, (): void => {
   it(`calls the passed onActivate function, when it is in text mode and receives a focus event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
-        text={dummyText}
+        initialText={dummyText}
+        onInput={dummyInput}
         onActivate={dummyActivate}
         onDeactivate={dummyDeactivate}
         className={dummyClassName}
@@ -156,10 +160,11 @@ describe(`EditableTextContent`, (): void => {
     expect(dummyActivate).toHaveBeenCalled();
   });
 
-  it(`calls the passed onDeactivate function, when it is in input render mode and receives a blur event`, (): void => {
+  it(`calls the passed onDeactivate function, when it is in input mode and receives a blur event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
-        text={dummyText}
+        initialText={dummyText}
+        onInput={dummyInput}
         onActivate={dummyActivate}
         onDeactivate={dummyDeactivate}
         className={dummyClassName}
@@ -169,7 +174,24 @@ describe(`EditableTextContent`, (): void => {
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('blur');
-    expect(dummyDeactivate).toHaveBeenCalled();
+    expect(dummyDeactivate).toHaveBeenCalledWith(dummyText);
+  });
+
+  it(`calls the passed onInput function, when it is in input mode and receives an input event`, (): void => {
+    const enzymeWrapper = mount(
+      <EditableTextContent
+        initialText={dummyText}
+        onInput={dummyInput}
+        onActivate={dummyActivate}
+        onDeactivate={dummyDeactivate}
+        className={dummyClassName}
+        textClassNameSuffix={dummyTextClassNameSuffix}
+        inputClassNameSuffix={dummyInputClassNameSuffix}
+      />,
+    );
+    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
+    enzymeWrapper.find(inputSelector).hostNodes().simulate('input');
+    expect(dummyInput).toHaveBeenCalledWith(dummyText);
   });
 
 });

@@ -8,9 +8,10 @@ import InlineMarkdown from 'core-components/inline-markdown';
 
 type Props = {
   multiline: boolean,
-  text: string,
-  onActivate: (text: string) => void,
-  onDeactivate: (text: string) => void,
+  initialText: string,
+  onInput?: (text: string) => void,
+  onActivate?: () => void,
+  onDeactivate?: (text: string) => void,
   className: string,
   textClassNameSuffix: string,
   inputClassNameSuffix: string,
@@ -18,11 +19,13 @@ type Props = {
 
 type State = {
   isActive: boolean,
+  text: string,
 };
 
 class EditableTextContent extends React.Component<Props, State> {
   static defaultProps = {
     multiline: false,
+    initialText: '',
     className: 'editable-text-content',
     textClassNameSuffix: '__text',
     inputClassNameSuffix: '__input',
@@ -32,6 +35,7 @@ class EditableTextContent extends React.Component<Props, State> {
     super(props);
     this.state = {
       isActive: false,
+      text: props.initialText,
     };
   }
 
@@ -41,20 +45,25 @@ class EditableTextContent extends React.Component<Props, State> {
     }
   };
 
-  fieldRef: ?HTMLTextAreaElement;
+  fieldRef: ?HTMLInputElement;
 
-  handleRef = (c: ?HTMLTextAreaElement): void => {
+  handleRef = (c: ?HTMLInputElement): void => {
     this.fieldRef = c;
   };
 
-  activate = (): void => {
-    this.setState({ isActive: true });
-    this.props.onActivate(this.props.text);
+  handleInput = (event: SyntheticInputEvent<HTMLInputElement>): void => {
+    this.setState({ text: event.currentTarget.value });
+    if (this.props.onInput) this.props.onInput(event.currentTarget.value);
   };
 
-  deactivate = (): void => {
+  handleActivate = (): void => {
+    this.setState({ isActive: true });
+    if (this.props.onActivate) this.props.onActivate();
+  };
+
+  handleDeactivate = (event: SyntheticEvent<HTMLInputElement>): void => {
     this.setState({ isActive: false });
-    this.props.onDeactivate(this.props.text);
+    if (this.props.onDeactivate) this.props.onDeactivate(event.currentTarget.value);
   };
 
   renderAsInput = (): React.Node => {
@@ -66,8 +75,9 @@ class EditableTextContent extends React.Component<Props, State> {
               <TextArea
                 className={`${this.props.className}${this.props.inputClassNameSuffix} ${this.props.className}${this.props.inputClassNameSuffix}--multiline`}
                 autoHeight={true}
-                value={this.props.text}
-                onBlur={this.deactivate}
+                value={this.state.text}
+                onInput={this.handleInput}
+                onBlur={this.handleDeactivate}
                 ref={this.handleRef}
               />
             )
@@ -75,8 +85,9 @@ class EditableTextContent extends React.Component<Props, State> {
               <Input
                 className={`${this.props.className}${this.props.inputClassNameSuffix} ${this.props.className}${this.props.inputClassNameSuffix}--singleline`}
                 fluid={true}
-                value={this.props.text}
-                onBlur={this.deactivate}
+                value={this.state.text}
+                onInput={this.handleInput}
+                onBlur={this.handleDeactivate}
                 ref={this.handleRef}
               />
             )
@@ -92,10 +103,10 @@ class EditableTextContent extends React.Component<Props, State> {
         className={`${this.props.className}${this.props.textClassNameSuffix}`}
         role="link"
         tabIndex={0}
-        onClick={this.activate}
-        onFocus={this.activate}
+        onClick={this.handleActivate}
+        onFocus={this.handleActivate}
       >
-        <InlineMarkdown text={this.props.text} />
+        <InlineMarkdown text={this.state.text} />
       </div>
     );
     /* eslint-enable */
