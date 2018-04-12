@@ -3,9 +3,14 @@
  * Sets up the root saga.
  */
 
-// eslint-disable-next-line no-empty-function
-const rootSaga = function* (): Generator<*, *, *> {
+import { all, call } from 'redux-saga/effects';
 
+import contentItems from 'modules/content-items';
+
+const rootSaga = function* (): Generator<*, *, *> {
+  yield all([
+    call(contentItems.saga),
+  ]);
 };
 
 export default rootSaga;

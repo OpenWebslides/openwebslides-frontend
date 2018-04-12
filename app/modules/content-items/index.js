@@ -6,6 +6,7 @@ import * as model from './model';
 import * as selectors from './selectors';
 import components from './components';
 import reducer from './reducer';
+import saga from './saga';
 
 import {
   contentItemTypes,
@@ -75,6 +76,7 @@ const contentItems = {
   components,
   model,
   reducer,
+  saga,
   selectors,
 };
 

@@ -90,3 +90,33 @@ export const remove = (
     },
   };
 };
+
+export const updatePlainText = (
+  id: Identifier,
+  text: ?string,
+): t.UpdatePlainTextAction => {
+  return {
+    type: t.UPDATE_PLAIN_TEXT,
+    payload: {
+      id,
+      text,
+    },
+  };
+};
+
+export const updateMedia = (
+  id: Identifier,
+  src: ?string,
+  alt: ?string,
+  caption: ?string,
+): t.UpdateMediaAction => {
+  return {
+    type: t.UPDATE_MEDIA,
+    payload: {
+      id,
+      src,
+      alt,
+      caption,
+    },
+  };
+};

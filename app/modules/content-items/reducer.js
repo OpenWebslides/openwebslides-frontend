@@ -93,9 +93,14 @@ const remove = (state: ContentItemsState, action: t.RemoveAction): ContentItemsS
   return state;
 };
 
+const set = (state: ContentItemsState, action: t.SetAction): ContentItemsState => {
+  // #TODO stub
+  return state;
+};
+
 const reducer = (
   state: ContentItemsState = initialState,
-  action: t.ContentItemAction,
+  action: t.ContentItemReducerAction,
 ): ContentItemsState => {
   switch (action.type) {
     case t.ADD:
@@ -106,6 +111,8 @@ const reducer = (
       return editMedia(state, action);
     case t.REMOVE:
       return remove(state, action);
+    case t.SET:
+      return set(state, action);
     default:
       // Type error when not all action.type cases are handled.
       // eslint-disable-next-line no-unused-expressions
