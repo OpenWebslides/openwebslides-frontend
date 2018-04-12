@@ -3,6 +3,8 @@
 import _ from 'lodash';
 import * as React from 'react';
 
+import type { Identifier } from 'types/model';
+
 import type { HeadingContentItem } from '../../../model';
 
 import { passThroughProps } from '..';
@@ -11,12 +13,13 @@ import EditableTextContent from '../EditableTextContent';
 
 type PassedProps = {
   contentItem: HeadingContentItem,
+  onUpdatePlainText: (id: Identifier, text: string) => void,
 };
 
 type Props = PassedProps;
 
 const PureHeading = (props: Props): React.Node => {
-  const { contentItem } = props;
+  const { contentItem, onUpdatePlainText } = props;
 
   return (
     <DisplayBlockWrapper
@@ -24,10 +27,8 @@ const PureHeading = (props: Props): React.Node => {
       iconName="header"
     >
       <EditableTextContent
-        multiline={false}
-        text={contentItem.text}
-        onActivate={(): void => {}}
-        onDeactivate={(): void => {}}
+        initialText={contentItem.text}
+        onDeactivate={(text: string) => onUpdatePlainText(contentItem.id, text)}
       />
     </DisplayBlockWrapper>
   );

@@ -10,6 +10,7 @@ import type { Identifier } from 'types/model';
 import { contentItemTypes, subableContentItemTypes } from '../../model';
 import type { ContentItem, SubableContentItem } from '../../model';
 import { getById } from '../../selectors';
+import { updatePlainText } from '../../actions';
 
 import Root from './types/Root';
 import Heading from './types/Heading';
@@ -45,11 +46,16 @@ type StateProps = {
   contentItem: ContentItem,
 };
 
-type Props = PassedProps & StateProps;
+type DispatchProps = {
+  onUpdatePlainText: (id: Identifier, text: string) => void,
+};
+
+type Props = PassedProps & StateProps & DispatchProps;
 
 const passThroughProps = [
   'baseClassName',
   'subItemsClassNameSuffix',
+  'onUpdatePlainText',
 ];
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
@@ -61,6 +67,16 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
   return {
     contentItem,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
+  return {
+    onUpdatePlainText: (id: Identifier, text: string): void => {
+      dispatch(
+        updatePlainText(id, text),
+      );
+    },
   };
 };
 
@@ -116,7 +132,7 @@ PureEditableDisplay.defaultProps = {
   subItemsClassNameSuffix: '__sub-items',
 };
 
-const EditableDisplay = connect(mapStateToProps)(PureEditableDisplay);
+const EditableDisplay = connect(mapStateToProps, mapDispatchToProps)(PureEditableDisplay);
 
 export { PureEditableDisplay, passThroughProps };
 export default EditableDisplay;

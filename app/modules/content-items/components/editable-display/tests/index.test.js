@@ -23,6 +23,7 @@ import * as dummyContentItemData from '../../../lib/test-resources/dummyContentI
 
 describe(`EditableDisplay`, (): void => {
 
+  const dummyOnUpdatePlainText = (): void => {};
   const dummyBaseClassName = 'EditableDisplayBaseClassName';
   const dummySubItemsClassNameSuffix = 'EditableDisplaySubItemsClassNameSuffix';
   // const baseSelector = `.${dummyBaseClassName}`;
@@ -93,6 +94,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId="abcdefghij"
         contentItem={{ id: 'abcdefghij', type: contentItemTypes.ROOT, childItemIds: [] }}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -106,6 +108,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.rootContentItem.id}
         contentItem={dummyContentItemData.rootContentItem}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.find('PureRoot')).toHaveLength(1);
@@ -115,6 +118,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.headingContentItem.id}
         contentItem={dummyContentItemData.headingContentItem}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.find('PureHeading')).toHaveLength(1);
@@ -124,6 +128,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.paragraphContentItem.id}
         contentItem={dummyContentItemData.paragraphContentItem}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.find('PureParagraph')).toHaveLength(1);
@@ -133,6 +138,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.listContentItem.id}
         contentItem={dummyContentItemData.listContentItem}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -142,6 +148,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.listItemContentItem.id}
         contentItem={dummyContentItemData.listItemContentItem}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -151,6 +158,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.blockquoteContentItem.id}
         contentItem={dummyContentItemData.blockquoteContentItem}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -160,6 +168,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.codeContentItem.id}
         contentItem={dummyContentItemData.codeContentItem}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -169,6 +178,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.imageContentItem.id}
         contentItem={dummyContentItemData.imageContentItem}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -178,6 +188,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.videoContentItem.id}
         contentItem={dummyContentItemData.videoContentItem}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -187,6 +198,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.audioContentItem.id}
         contentItem={dummyContentItemData.audioContentItem}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -196,6 +208,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.iframeContentItem.id}
         contentItem={dummyContentItemData.iframeContentItem}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -205,6 +218,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.slideBreakContentItem.id}
         contentItem={dummyContentItemData.slideBreakContentItem}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -214,6 +228,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.courseBreakContentItem.id}
         contentItem={dummyContentItemData.courseBreakContentItem}
+        onUpdatePlainText={dummyOnUpdatePlainText}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
