@@ -1,5 +1,4 @@
 // @flow
-/* eslint-disable padded-blocks, flowtype/no-weak-types */
 
 import denormalize from '..';
 

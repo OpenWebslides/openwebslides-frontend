@@ -197,5 +197,17 @@
     // Generates false positives when props are immediately passed to other function
     // Example: in a mapStateToProps function where prop is passed to selector function
     "react/no-unused-prop-types": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.test.js"
+      ],
+      "rules": {
+        "max-len": "off",
+        "padded-blocks": "off",
+        "flowtype/no-weak-types": "off"
+      }
+    }
+  ]
 }

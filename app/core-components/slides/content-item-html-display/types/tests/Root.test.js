@@ -1,5 +1,4 @@
 // @flow
-/* eslint-disable padded-blocks, flowtype/no-weak-types */
 
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
