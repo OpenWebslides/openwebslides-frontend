@@ -4,6 +4,7 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { Header } from 'semantic-ui-react';
 
@@ -37,7 +38,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const ContentItemsEditorRoot = contentItems.components.EditorRoot;
+const ContentItemEditableDisplay = contentItems.components.EditableDisplay;
 
 const PureEditor = (props: Props): React.Node => {
   const { topic } = props;
@@ -45,7 +46,9 @@ const PureEditor = (props: Props): React.Node => {
   return (
     <div>
       <Header as="h1">{topic.title}</Header>
-      <ContentItemsEditorRoot rootContentItemId={topic.rootContentItemId} />
+      <Link to="/tempslidetest">Temp slide test page</Link>
+      { /* $FlowFixMe See: https://github.com/facebook/flow/issues/4644 */ }
+      <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
     </div>
   );
 };

@@ -4,9 +4,8 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 
+import contentItems from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
-
-import ContentItemHtmlDisplay from './content-item-html-display';
 
 type PassedProps = {
   // A denormalized ROOT item containing the content to be displayed on this slide.
@@ -16,6 +15,8 @@ type PassedProps = {
 };
 
 type Props = TranslatorProps & PassedProps;
+
+const ContentItemHtmlDisplay = contentItems.components.HtmlDisplay;
 
 const PureSlide = (props: Props): React.Node => {
   const { contentItemTreeRootItem, rootHeadingLevel } = props;

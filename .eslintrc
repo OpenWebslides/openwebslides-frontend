@@ -55,11 +55,11 @@
     // Allow programmer to decide which formatting is more readable on a case-by-case basis.
     "no-else-return": "off",
 
-    // Allow React props to go unused, so that all components can be based on a single template (that includes props).
+    // Allow some common React/Redux function arguments to go unused, to allow copy/pasting boilerplate code.
     "no-unused-vars": [
       "error",
       {
-        "argsIgnorePattern": "props"
+        "argsIgnorePattern": "props|state|dispatch|action"
       }
     ],
 
