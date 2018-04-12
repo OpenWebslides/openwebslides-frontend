@@ -39,6 +39,12 @@ class EditableTextContent extends React.Component<Props, State> {
     };
   }
 
+  componentWillReceiveProps = (props: Props): void => {
+    if (this.state.text !== props.initialText) {
+      this.setState({ text: props.initialText });
+    }
+  };
+
   componentDidUpdate = (): void => {
     if (this.state.isActive && this.fieldRef != null) {
       this.fieldRef.focus();
