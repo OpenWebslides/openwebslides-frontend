@@ -5,14 +5,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import _ from 'lodash';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import moment from 'moment';
 import { getTitleById } from 'modules/topics/selectors';
-import { GRAVATAR_SIZE_SMALL } from 'modules/users/constants';
 import users from 'modules/users';
-import md5 from 'blueimp-md5';
+import Gravatar from 'core-components/gravatar/Gravatar';
 
 import { Feed } from 'semantic-ui-react';
 
@@ -23,7 +21,7 @@ import { getById } from '../selectors';
 
 const getUserById = users.selectors.getById;
 const { User } = users.model;
-
+const { GRAVATAR_SIZE_SMALL } = users.constants;
 
 type PassedProps = {
   feedItemId: Identifier,
@@ -66,7 +64,6 @@ const PureFeedItem = (props: Props): React.Node => {
     default: predicate = 'acted on';
   }
 
-  const imageHash = md5(_.trim(user.email).toLowerCase());
   // construct full, displayed name of user
   const lastName = user.lastName == null ? '' : user.lastName;
   const displayName = `${user.firstName} ${lastName}`;
@@ -75,7 +72,7 @@ const PureFeedItem = (props: Props): React.Node => {
     <Feed.Event>
       <Feed.Label>
         <Link to={`/profile/${user.id}`}>
-          <img src={`https://www.gravatar.com/avatar/${imageHash}?s=${GRAVATAR_SIZE_SMALL}`} alt="profile" />
+          <Gravatar email={user.email} size={GRAVATAR_SIZE_SMALL} />
         </Link>
       </Feed.Label>
       <Feed.Content>
