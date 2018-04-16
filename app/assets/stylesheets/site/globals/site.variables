@@ -1,3 +1,12 @@
 /*******************************
      User Global Variables
 *******************************/
+
+@ows_pink: #D60B52;
+@ows_purple: #3E2153;
+@ows_blue: #29235C;
+
+@ows_primary_color: @ows_pink;
+
+@primaryColor: @ows_primary_color;
+
