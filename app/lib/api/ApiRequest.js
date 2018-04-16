@@ -53,6 +53,12 @@ const ApiRequest = (): Request => {
       return request;
     },
 
+    setBody: (body: string): Request => {
+      request.config.body = body;
+
+      return request;
+    },
+
     // Execute HTTP request
     execute: (): string => {
       let url: string = `${request.config.url}${request.config.endpoint}`;
