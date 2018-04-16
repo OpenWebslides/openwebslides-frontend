@@ -3,6 +3,10 @@
 *******************************/
 
 @ows_pink: #D60B52;
+@ows_purple: #3E2153;
+@ows_blue: #29235C;
 
-@primaryColor: @ows_pink;
+@ows_primaryColor: @ows_pink;
+
+@primaryColor: @ows_primaryColor;
 

@@ -12,7 +12,7 @@
 & { @import "../../custom/global"; }
 
 a, a:active, a:hover {
-  color: @ows_pink;
+  color: @ows_primaryColor;
 }
 
 a:hover {
