@@ -6,7 +6,7 @@
 @ows_purple: #3E2153;
 @ows_blue: #29235C;
 
-@ows_primaryColor: @ows_pink;
+@ows_primary_color: @ows_pink;
 
-@primaryColor: @ows_primaryColor;
+@primaryColor: @ows_primary_color;
 

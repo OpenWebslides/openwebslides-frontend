@@ -10,7 +10,7 @@
 & { @import "../../custom/navbar"; }
 
 a, a:active, a:hover {
-  color: @ows_primaryColor;
+  color: @ows_primary_color;
 }
 
 a:hover {
