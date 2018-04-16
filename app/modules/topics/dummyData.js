@@ -3,31 +3,31 @@
 import type { TopicsById } from './model';
 
 export const dummyTopicsById: TopicsById = {
-  10: {
+  '10': {
     id: '10',
     title: 'Test topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'w4lg2u0p1h',
   },
-  42: {
+  '42': {
     id: '42',
     title: 'Test topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'w4lg2u0p1h',
   },
-  8: {
+  '8': {
     id: '8',
     title: 'Test topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'w4lg2u0p1h',
   },
-  38: {
+  '38': {
     id: '38',
     title: 'Test topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'w4lg2u0p1h',
   },
-  47: {
+  '47': {
     id: '47',
     title: 'Test topic 1',
     description: 'Lorem ipsum dolor sit amet.',
