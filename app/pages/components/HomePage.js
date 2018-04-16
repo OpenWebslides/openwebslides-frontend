@@ -37,7 +37,6 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   };
 };
 
-
 const SocialFeed = feedItems.components.FeedCollection;
 
 const PureHomePage = (props: Props): React.Node => {

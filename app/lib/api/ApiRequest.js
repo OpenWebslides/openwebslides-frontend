@@ -64,8 +64,20 @@ const ApiRequest = (): Request => {
       return request;
     },
 
+    setMethod: (method: MethodType): Request => {
+      request.config.method = method;
+
+      return request;
+    },
+
     setBody: (body: string): Request => {
       request.config.body = body;
+
+      return request;
+    },
+
+    addParameter: (parameter: string, value: string): Request => {
+      request.config.parameters[parameter] = value;
 
       return request;
     },
