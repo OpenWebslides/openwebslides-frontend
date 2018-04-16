@@ -5,82 +5,77 @@ import { DEFAULT_URL } from './constants';
 import asyncFetch from './asyncFetch';
 import type {
   Request,
-  RequestConfig,
   MethodType,
 } from './model';
 
+import { methodTypes } from './model';
+
 const ApiRequest = (): Request => {
-  const request: Request = {};
+  const request: Request = {
+    config: {
+      // Request URL (base)
+      url: DEFAULT_URL,
 
-  /**
-   * Properties
-   *
-   * */
-  request.config = {
-    // Request URL (base)
-    url: DEFAULT_URL,
+      // Request endpoint
+      endpoint: '',
 
-    // Request endpoint
-    endpoint: '',
+      // Request headers
+      headers: {
+        'Content-Type': 'application/vnd.api+json',
+        Accept: 'application/vnd.api+json',
+        Authorization: '',
+      },
 
-    // Request headers
-    headers: {
-      'Content-Type': 'application/vnd.api+json',
-      Accept: 'application/vnd.api+json',
-      Authorization: null,
+      // Request parameters
+      parameters: {},
+
+      // Request HTTP method
+      method: 'GET',
+
+      // Request body
+      body: '',
+    },
+    setEndpoint: (endpoint: string): Request => {
+      request.config.endpoint = endpoint;
+
+      return request;
     },
 
-    // Request parameters
-    parameters: {},
+    setMethod: (method: MethodType): Request => {
+      request.config.method = method;
 
-    // Request HTTP method
-    method: 'GET',
+      return request;
+    },
 
-    // Request body
-    body: {},
-  };
+    addParameter: (parameter: string, value: string): Request => {
+      request.config.parameters[parameter] = value;
 
-  /**
-   * Methods
-   *
-   * */
-  request.setEndpoint = (endpoint: string): Request => {
-    request.config.endpoint = endpoint;
+      return request;
+    },
 
-    return request;
-  };
+    // Execute HTTP request
+    execute: (): string => {
+      let url: string = `${request.config.url}${request.config.endpoint}`;
 
-  request.setMethod = (method: MethodType): Request => {
-    request.config.method = method;
+      if (request.config.parameters) {
+        const query = Object.keys(request.config.parameters).map((k: string): string => {
+          return `${encodeURIComponent(k)}=${encodeURIComponent(request.config.parameters[k])}`;
+        }).join('&');
 
-    return request;
-  };
+        url += `?${query}`;
+      }
 
-  request.addParameter = (parameter: string, value: string): Request => {
-    request.config.parameters[parameter] = value;
+      const options: RequestOptions = {
+        method: request.config.method,
+        headers: request.config.headers,
+      };
 
-    return request;
-  };
+      if (request.config.body && request.config.method !== methodTypes.GET) {
+        options.body = request.config.body;
+      }
 
-  // Execute HTTP request
-  request.execute = async (): Promise<*> => {
-    let url: string = `${request.config.url}${request.config.endpoint}`;
-
-    if (request.config.parameters) {
-      const query = Object.keys(request.config.parameters).map((k: string): string => {
-        return `${encodeURIComponent(k)}=${encodeURIComponent(request.config.parameters[k])}`;
-      }).join('&');
-
-      url += `?${query}`;
-    }
-
-    const options: RequestConfig = {
-      method: request.config.method,
-      headers: request.config.headers,
-      body: request.config.body,
-    };
-
-    return asyncFetch(url, options);
+      return asyncFetch(url, options);
+    },
   };
 
   return request;

@@ -1,7 +1,7 @@
 // @flow
 
 import type { Error } from 'types/error';
-import type { PredicateType } from './model';
+import type { FeedItemType } from './model';
 
 export const ADD: 'feedItems/ADD' = 'feedItems/ADD';
 
@@ -11,22 +11,21 @@ export const FETCH_FEED: 'feed/FETCH_FEED' = 'feed/FETCH_FEED';
 export const FETCH_FEED_SUCCESS: 'feed/FETCH_FEED_SUCCESS' = 'feed/FETCH_FEED_SUCCESS';
 export const FETCH_FEED_FAILURE: 'feed/FETCH_FEED_FAILURE' = 'feed/FETCH_FEED_FAILURE';
 
-export type AddAction = {
-  type: typeof ADD,
-  payload: {
-    id: string,
-    userId: string,
-    topicId: string,
-    predicate: PredicateType,
-    timestamp: number,
-  },
+export type FetchAction = {
+  type: typeof FETCH_FEED,
 };
 
-export type AddErrorAction = {
-  type: typeof ADD_ERROR,
+export type FetchSuccessAction = {
+  type: typeof FETCH_FEED_SUCCESS,
+  data: Array<FeedItemType>,
+};
+
+export type FetchFailureAction = {
+  type: typeof FETCH_FEED_FAILURE,
   error: Error,
 };
 
 export type FeedAction =
-  | AddAction
-  | AddErrorAction;
+  | FetchAction
+  | FetchSuccessAction
+  | FetchFailureAction;

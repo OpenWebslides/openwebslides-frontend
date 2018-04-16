@@ -1,10 +1,11 @@
 // @flow
 
 // TODO: rewrite response error handling
-const asyncFetch = async (url: string, options: RequestOptions): Promise<*> => {
+const asyncFetch = async (url: string, options: RequestOptions): string => {
   const response = await fetch(url, options);
   const { status } = response;
-  const responseBody = await response.json();
+  const responseBody: string = await response.json();
+  // const responseBody: string = await response.json().then((res) => { return res; });
 
   switch (status) {
     case 400:

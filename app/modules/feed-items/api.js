@@ -6,7 +6,7 @@ import { methodTypes } from 'lib/api/model';
 
 import { ENDPOINT } from './constants';
 
-const fetch = async (): string => {
+const fetch = (): string => {
   const request = new ApiRequest();
 
   request
@@ -16,9 +16,7 @@ const fetch = async (): string => {
     .addParameter('page[limit]', '10')
     .addParameter('page[offset]', '0');
 
-  const response = await request.execute();
-
-  return response;
+  return request.execute();
 };
 
 const Api = {

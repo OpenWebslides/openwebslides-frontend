@@ -17,7 +17,11 @@ type StateProps = {
   feedItemIds: Array<Identifier>,
 };
 
-type Props = CustomTranslatorProps & StateProps;
+type DispatchProps = {
+  handleRequestFeed: () => void,
+};
+
+type Props = CustomTranslatorProps & StateProps & DispatchProps;
 
 const mapStateToProps = (state: State): StateProps => {
   return {
