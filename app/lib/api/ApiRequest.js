@@ -63,7 +63,7 @@ const ApiRequest = (): Request => {
     execute: (): string => {
       let url: string = `${request.config.url}${request.config.endpoint}`;
 
-      if (request.config.parameters) {
+      if (Object.keys(request.config.parameters).length !== 0) {
         const query = Object.keys(request.config.parameters).map((k: string): string => {
           return `${encodeURIComponent(k)}=${encodeURIComponent(request.config.parameters[k])}`;
         }).join('&');
