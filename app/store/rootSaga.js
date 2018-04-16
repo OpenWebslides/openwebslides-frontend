@@ -11,8 +11,8 @@ import feedItems from 'modules/feed-items';
 
 const rootSaga = function* (): Generator<*, *, *> {
   yield all([
-    ...feedItems.sagas,
     call(contentItems.saga),
+    call(feedItems.saga),
   ]);
 };
 

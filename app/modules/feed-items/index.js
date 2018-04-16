@@ -5,7 +5,7 @@ import * as model from './model';
 import * as selectors from './selectors';
 import components from './components';
 import reducer from './reducer';
-import sagas from './sagas';
+import saga from './saga';
 
 import type { FeedItemType, FeedItemsState } from './model';
 
@@ -14,8 +14,8 @@ const feedItems = {
   components,
   model,
   reducer,
+  saga,
   selectors,
-  sagas,
 };
 
 export type { FeedItemType, FeedItemsState };

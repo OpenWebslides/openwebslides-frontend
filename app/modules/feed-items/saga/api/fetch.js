@@ -2,9 +2,10 @@
 
 import { call, put } from 'redux-saga/effects';
 
-import { FETCH_FEED_SUCCESS, FETCH_FEED_FAILURE } from './actionTypes';
-import Api from './api';
-import { predicateTypes } from './model';
+import * as t from '../../actionTypes';
+
+import Api from '../../api';
+import { predicateTypes } from '../../model';
 
 // TODO: change this to topic once backend is deployed
 const mapEventTypeToPredicateType = {
@@ -12,7 +13,7 @@ const mapEventTypeToPredicateType = {
   'deck_updated': predicateTypes.UPDATE,
 };
 
-const fetch = function* (): Generator<*, *, *> {
+const fetchSaga = function* (action: t.FetchAction): Generator<*, *, *> {
   try {
     const response = yield call(Api.fetch);
 
@@ -27,13 +28,11 @@ const fetch = function* (): Generator<*, *, *> {
       };
     });
 
-    yield put({ type: FETCH_FEED_SUCCESS, data });
+    yield put({ type: t.FETCH_FEED_SUCCESS, data });
   }
   catch (error) {
-    yield put({ type: FETCH_FEED_FAILURE, error });
+    yield put({ type: t.FETCH_FEED_FAILURE, error });
   }
 };
 
-export {
-  fetch,
-};
+export default fetchSaga;
