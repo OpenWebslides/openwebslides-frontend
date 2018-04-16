@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
-import { Grid } from 'semantic-ui-react';
 import { translate } from 'react-i18next';
 import type { TranslatorProps } from 'react-i18next';
 import { CURRENT_USER } from 'modules/users/constants';
@@ -47,17 +46,11 @@ const PureProfilePage = (props: Props): React.Node => {
 
   return (
     <Page>
-      <Grid.Row>
-        <Grid padded="vertically">
-          <Grid.Column>
-            <h1>{t('pages:profile.title')}</h1>
-            <Switch>
-              <Route path={`${match.url}/:id`} component={UserProfile} t={t} />
-              <Route component={CurrentUserProfile} t={t} />
-            </Switch>
-          </Grid.Column>
-        </Grid>
-      </Grid.Row>
+      <h1>{t('pages:profile.title')}</h1>
+      <Switch>
+        <Route path={`${match.url}/:id`} component={UserProfile} t={t} />
+        <Route component={CurrentUserProfile} t={t} />
+      </Switch>
     </Page>
   );
 };
