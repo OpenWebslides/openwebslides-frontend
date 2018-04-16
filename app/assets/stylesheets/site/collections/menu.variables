@@ -2,4 +2,4 @@
     User Variable Overrides
 *******************************/
 
-@secondaryBackground: @ows_primaryColor;
+@secondaryBackground: @ows_purple;
