@@ -13,7 +13,7 @@ const common = {
     next: 'Next',
     add: 'Add',
     edit: 'Edit',
-    remove: 'Remove',
+    delete: 'Delete',
   },
   link: {
     topics: 'Topics',
