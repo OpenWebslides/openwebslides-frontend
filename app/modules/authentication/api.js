@@ -9,10 +9,20 @@ import { ENDPOINT } from './constants';
 const signinEmail = (email: string, password: string): string => {
   const request = new ApiRequest();
 
+  const body = JSON.stringify({
+    data: {
+      type: 'tokens',
+      attributes: {
+        email,
+        password,
+      },
+    },
+  });
+
   request
     .setEndpoint(ENDPOINT)
     .setMethod(methodTypes.POST)
-    .setBody(/* TODO */);
+    .setBody(body);
 
   return request.execute();
 };

@@ -13,7 +13,7 @@ const signinEmailSaga = function* (action: t.SigninEmailAction): Generator<*, *,
 
     const payload = {
       id: response.data.id,
-      email: response.data.attributes.email,
+      email,
       firstName: response.data.attributes.firstName,
       lastName: response.data.attributes.lastName,
     };
