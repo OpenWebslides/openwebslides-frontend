@@ -10,8 +10,9 @@ import logo from 'assets/images/logo_white.png';
 
 type Props = TranslatorProps;
 
-const Logo = (props: Props): React.Node => {
+const PureLogo = (props: Props): React.Node => {
   const { t } = props;
+
   return (
     <Menu.Item header={true} as={Link} to="/">
       <Grid columns={2}>
@@ -30,8 +31,11 @@ const Logo = (props: Props): React.Node => {
   );
 };
 
-const MenuActions = (props: Props): React.Node => {
+const Logo = translate()(PureLogo);
+
+const PureMenuActions = (props: Props): React.Node => {
   const { t } = props;
+
   return (
     <Menu.Menu position="right">
       <Menu.Item as={Link} to="/library">
@@ -55,17 +59,18 @@ const MenuActions = (props: Props): React.Node => {
   );
 };
 
-const NavigationBar = (props: Props): React.Node => {
-  const { t } = props;
+const MenuActions = translate()(PureMenuActions);
 
+const PureNavigationBar = (): React.Node => {
   return (
     <Menu secondary={true} attached="top">
-      <Logo t={t} />
-      <MenuActions t={t} />
+      <Logo />
+      <MenuActions />
     </Menu>
   );
 };
 
+const NavigationBar = PureNavigationBar;
 
-export { NavigationBar as PureNavigationBar };
-export default translate()(NavigationBar);
+export { PureNavigationBar };
+export default NavigationBar;
