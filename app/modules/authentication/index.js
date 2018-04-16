@@ -5,6 +5,7 @@ import * as model from './model';
 import * as selectors from './selectors';
 import components from './components';
 import reducer from './reducer';
+import saga from './saga';
 
 import type { Account, AuthState } from './model';
 
@@ -14,6 +15,7 @@ const authentication = {
   selectors,
   components,
   reducer,
+  saga,
 };
 
 export type { Account, AuthState };

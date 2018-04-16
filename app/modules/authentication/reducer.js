@@ -8,14 +8,14 @@ const initialState: AuthState = {
   account: null,
 };
 
-const signin = (state: AuthState, action: t.SigninEmailAction | t.SigninOAuthAction): AuthState => {
-  const { email } = action.payload;
+const signin = (state: AuthState, action: t.SigninSuccessAction): AuthState => {
+  const { id, email, firstName, lastName } = action.payload;
 
   const account: Account = {
-    id: 'markfrank1',
+    id,
     email,
-    firstName: 'John',
-    lastName: 'Doe',
+    firstName,
+    lastName,
   };
 
   return {
@@ -25,7 +25,7 @@ const signin = (state: AuthState, action: t.SigninEmailAction | t.SigninOAuthAct
   };
 };
 
-const signup = (state: AuthState, action: t.SignupAction): AuthState => {
+const signup = (state: AuthState, action: t.SignupSuccessAction): AuthState => {
   const { email, firstName, lastName } = action.payload;
 
   const account: Account = {
@@ -52,12 +52,12 @@ const signout = (state: AuthState): AuthState => {
 
 const reducer = (state: AuthState = initialState, action: t.AuthenticationAction): AuthState => {
   switch (action.type) {
-    case t.SIGNIN_EMAIL:
-    case t.SIGNIN_OAUTH:
+    case t.SIGNIN_EMAIL_SUCCESS:
+    case t.SIGNIN_OAUTH_SUCCESS:
       return signin(state, action);
-    case t.SIGNUP:
+    case t.SIGNUP_SUCCES:
       return signup(state, action);
-    case t.SIGNOUT:
+    case t.SIGNOUT_SUCCES:
       return signout(state);
     case t.SIGNIN_EMAIL_FAILURE:
     case t.SIGNIN_OAUTH_FAILURE:
