@@ -5,6 +5,7 @@ import { API_URL, MEDIA_TYPE } from './constants';
 import asyncFetch from './asyncFetch';
 import type {
   Request,
+  Response,
   MethodType,
 } from './model';
 
@@ -94,7 +95,7 @@ const ApiRequest = (): Request => {
     },
 
     // Execute HTTP request
-    execute: (): Promise<string> => {
+    execute: (): Promise<Response> => {
       return asyncFetch(request.getUrl(), request.getOptions());
     },
 

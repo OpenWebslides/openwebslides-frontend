@@ -20,6 +20,12 @@ export type RequestConfig = {
   body: string,
 };
 
+export type Response = {
+  +body: string,
+  +status: number,
+  +token: string,
+};
+
 export type Request = {
   +config: RequestConfig,
   +setEndpoint: (endpoint: string) => Request,
@@ -28,7 +34,7 @@ export type Request = {
   +setHeader: (header: string, value: string) => Request,
   +setBody: (body: string) => Request,
   +setToken: (token: ?string) => Request,
-  +execute: () => Promise<string>,
+  +execute: () => Promise<Response>,
 
   +getUrl: () => string,
   +getOptions: () => RequestOptions,

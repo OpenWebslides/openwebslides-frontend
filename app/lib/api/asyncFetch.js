@@ -7,13 +7,23 @@ import {
   ServerApiError,
 } from './errors';
 
+import type { Response } from './model';
+
 const asyncFetch = async (url: string, options: RequestOptions): Promise<string> => {
   const response = await fetch(url, options);
   const { status } = response;
 
   switch (true) {
     case (status < 400): {
-      return response.json();
+      const responseBody = response.json();
+
+      const apiResponse: Response = {
+        body: responseBody,
+        status,
+        token: response.headers.get('Authorization'),
+      };
+
+      return apiResponse;
     }
     case (status === 401):
       throw new UnauthorizedApiError();

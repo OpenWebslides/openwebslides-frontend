@@ -12,10 +12,10 @@ const signinEmailSaga = function* (action: t.SigninEmailAction): Generator<*, *,
     const response = yield call(Api.signinEmail, email, password);
 
     const payload = {
-      id: response.data.id,
+      id: response.body.data.id,
       email,
-      firstName: response.data.attributes.firstName,
-      lastName: response.data.attributes.lastName,
+      firstName: response.body.data.attributes.firstName,
+      lastName: response.body.data.attributes.lastName,
     };
 
     yield put({ type: t.SIGNIN_EMAIL_SUCCESS, payload });
