@@ -2,7 +2,7 @@
 
 import ApiRequest from './ApiRequest';
 
-import * as model from './model';
+import * as model from './model/index';
 
 const Api = {
   ApiRequest,
