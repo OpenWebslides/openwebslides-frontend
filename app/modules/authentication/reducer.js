@@ -50,6 +50,13 @@ const signout = (state: AuthState): AuthState => {
   };
 };
 
+const updateToken = (state: AuthState, action: t.UpdateTokenAction): AuthState => {
+  return {
+    ...state,
+    token: action.payload.token,
+  };
+};
+
 const reducer = (state: AuthState = initialState, action: t.AuthenticationAction): AuthState => {
   switch (action.type) {
     case t.SIGNIN_EMAIL_SUCCESS:
@@ -64,6 +71,8 @@ const reducer = (state: AuthState = initialState, action: t.AuthenticationAction
     case t.SIGNUP_FAILURE:
     case t.SIGNOUT_FAILURE:
       return state;
+    case t.UPDATE_TOKEN:
+      return updateToken(state, action);
     default:
       return state;
   }

@@ -19,6 +19,7 @@ const signinEmailSaga = function* (action: t.SigninEmailAction): Generator<*, *,
     };
 
     yield put({ type: t.SIGNIN_EMAIL_SUCCESS, payload });
+    yield put({ type: t.UPDATE_TOKEN, payload: { token: response.token } });
   }
   catch (error) {
     yield put({ type: t.SIGNIN_EMAIL_FAILURE, error });

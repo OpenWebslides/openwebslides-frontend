@@ -17,10 +17,11 @@ const asyncFetch = async (url: string, options: RequestOptions): Promise<string>
     case (status < 400): {
       const responseBody = response.json();
 
+      const authHeader = response.headers.get('Authorization');
       const apiResponse: Response = {
         body: responseBody,
         status,
-        token: response.headers.get('Authorization'),
+        token: authHeader ? authHeader.slice(7) : null,
       };
 
       return apiResponse;

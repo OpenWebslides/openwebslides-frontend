@@ -21,6 +21,8 @@ export const SIGNOUT_FAILURE: 'auth/SIGNOUT_FAILURE' = 'auth/SIGNOUT_FAILURE';
 export const RESET: 'auth/RESET' = 'auth/RESET';
 export const CONFIRM: 'auth/CONFIRM' = 'auth/CONFIRM';
 
+export const UPDATE_TOKEN: 'auth/UPDATE_TOKEN' = 'auth/UPDATE_TOKEN';
+
 export type SigninEmailAction = {
   type: typeof SIGNIN_EMAIL,
   payload: {
@@ -99,6 +101,13 @@ export type ConfirmAction = {
   type: typeof CONFIRM,
   payload: {
     email: string,
+  },
+};
+
+export type UpdateTokenAction = {
+  type: typeof UPDATE_TOKEN,
+  payload: {
+    token: string,
   },
 };
 

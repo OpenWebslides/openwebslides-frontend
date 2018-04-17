@@ -131,3 +131,14 @@ export const confirm = (
     },
   };
 };
+
+export const updateToken = (
+  token: string,
+): t.UpdateTokenAction => {
+  return {
+    type: t.UPDATE_TOKEN,
+    payload: {
+      token,
+    },
+  };
+};
