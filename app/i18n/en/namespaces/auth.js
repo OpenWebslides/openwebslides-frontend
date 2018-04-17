@@ -25,6 +25,10 @@ const auth = {
     title: 'Sign up',
     description: 'Sign up to continue to Open Webslides',
   },
+  reset: {
+    title: 'Reset account',
+    description: 'Enter your email to reset your password',
+  },
 };
 
 export default auth;
