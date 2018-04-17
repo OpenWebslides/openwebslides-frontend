@@ -21,7 +21,7 @@ export const add = (
     return {
       type: at.ADD_ERROR,
       error: { // TODO: figure out how to do i18n for these messages
-        message: 'First name cannot be empty',
+        message: 'First name cannot be empty.',
       },
     };
   }
@@ -29,7 +29,7 @@ export const add = (
     return {
       type: at.ADD_ERROR,
       error: {
-        message: 'Email cannot be empty',
+        message: 'Email cannot be empty.',
       },
     };
   }
@@ -38,7 +38,7 @@ export const add = (
     return {
       type: at.ADD_ERROR,
       error: {
-        message: 'Password cannot be empty',
+        message: 'Password cannot be empty.',
       },
     };
   }
