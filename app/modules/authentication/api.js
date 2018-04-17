@@ -1,8 +1,8 @@
 // @flow
 
-import ApiRequest from 'lib/api/ApiRequest';
+import ApiRequest from 'modules/api/ApiRequest';
 
-import { methodTypes } from 'lib/api/model';
+import { methodTypes } from 'modules/api/model';
 
 import { ENDPOINT } from './constants';
 
