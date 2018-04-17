@@ -19,9 +19,6 @@ import TempSlideTestPage from './components/TempSlideTestPage';
 
 import SigninPage from './components/authentication/SigninPage';
 import SignupPage from './components/authentication/SignupPage';
-// import ConfirmAccountPage from './components/authentication/ConfirmAccountPage';
-// import ResetAccountPage from './components/authentication/ResetAccountPage';
-// import OAuthCallbackPage from './components/authentication/OAuthCallbackPage';
 
 const routes = (
   <Switch>
