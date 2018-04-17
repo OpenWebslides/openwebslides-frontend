@@ -109,3 +109,14 @@ export const signout = (
     type: t.SIGNOUT,
   };
 };
+
+export const reset = (
+  email: string,
+): t.ResetAction => {
+  return {
+    type: t.RESET,
+    payload: {
+      email,
+    },
+  };
+};

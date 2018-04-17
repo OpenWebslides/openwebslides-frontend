@@ -18,6 +18,8 @@ export const SIGNOUT: 'auth/SIGNOUT' = 'auth/SIGNOUT';
 export const SIGNOUT_SUCCESS: 'auth/SIGNOUT_SUCCESS' = 'auth/SIGNOUT_SUCCESS';
 export const SIGNOUT_FAILURE: 'auth/SIGNOUT_FAILURE' = 'auth/SIGNOUT_FAILURE';
 
+export const RESET: 'auth/RESET' = 'auth/RESET';
+
 export type SigninEmailAction = {
   type: typeof SIGNIN_EMAIL,
   payload: {
@@ -83,6 +85,13 @@ export type SignupFailureAction = {
 export type SignoutFailureAction = {
   type: typeof SIGNOUT_FAILURE,
   error: Error,
+};
+
+export type ResetAction = {
+  type: typeof RESET,
+  payload: {
+    email: string,
+  },
 };
 
 export type SigninSuccessAction =
