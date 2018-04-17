@@ -1,10 +1,11 @@
 // @flow
 
-import ApiRequest from 'lib/api/ApiRequest';
-
-import { methodTypes } from 'lib/api/model';
+import Api from 'lib/api';
 
 import { ENDPOINT } from './constants';
+
+const { methodTypes } = Api.model;
+const { ApiRequest } = Api;
 
 const fetch = (): string => {
   const request = new ApiRequest();
@@ -19,8 +20,8 @@ const fetch = (): string => {
   return request.execute();
 };
 
-const Api = {
+const FeedApi = {
   fetch,
 };
 
-export default Api;
+export default FeedApi;
