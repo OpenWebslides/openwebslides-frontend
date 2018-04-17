@@ -9,7 +9,7 @@ describe(`actions`, (): void => {
     it(`returns a user ADD action, when parameters are valid, and user entered a last name`, (): void => {
       const firstName = 'Jan';
       const lastName = 'Jansen';
-      const email = 'jan.jansen@hotmail.com';
+      const email = 'jan.jansen@email.com';
       const password = 'janspaswoord';
       const expectedAction: t.AddAction = {
         type: t.ADD,
@@ -35,7 +35,7 @@ describe(`actions`, (): void => {
     it(`returns a user ADD action with lastName an empty string, when lastName parameter is NULL`, (): void => {
       const firstName = 'Jan';
       const lastName = null;
-      const email = 'jan.jansen@hotmail.com';
+      const email = 'jan.jansen@email.com';
       const password = 'janspaswoord';
       const expectedAction: t.AddAction = {
         type: t.ADD,
@@ -57,7 +57,7 @@ describe(`actions`, (): void => {
     it(`returns a user ADD_ERROR action, when firstName parameter is an empty string`, (): void => {
       const firstName = '';
       const lastName = 'Jansen';
-      const email = 'jan.jansen@hotmail.com';
+      const email = 'jan.jansen@email.com';
       const password = 'janspaswoord';
       const expectedAction: t.AddErrorAction = {
         type: t.ADD_ERROR,
@@ -87,7 +87,7 @@ describe(`actions`, (): void => {
     it(`returns a user ADD_ERROR action, when password parameter is an empty string`, (): void => {
       const firstName = 'Jan';
       const lastName = 'Jansen';
-      const email = 'jan.jansen@hotmail.com';
+      const email = 'jan.jansen@email.com';
       const password = '';
       const expectedAction: t.AddErrorAction = {
         type: t.ADD_ERROR,

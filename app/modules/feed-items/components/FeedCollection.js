@@ -13,7 +13,7 @@ type PassedProps = {
 
 type Props = PassedProps;
 
-const PureFeedCollection = (props: Props): React.Node => {
+const FeedCollection = (props: Props): React.Node => {
   const {
     feedItemIds,
   } = props;
@@ -27,7 +27,4 @@ const PureFeedCollection = (props: Props): React.Node => {
   );
 };
 
-const FeedCollection = PureFeedCollection;
-
-export { PureFeedCollection };
 export default FeedCollection;
