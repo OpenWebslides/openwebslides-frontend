@@ -17,6 +17,7 @@ const auth = {
     back: 'Back to sign in',
     reset: 'Reset account',
     forgot: 'Forgot password?',
+    confirm: 'Resend confirmation?',
   },
   signin: {
     title: 'Sign in',

@@ -20,6 +20,7 @@ import TempSlideTestPage from './components/TempSlideTestPage';
 import SigninPage from './components/authentication/SigninPage';
 import SignupPage from './components/authentication/SignupPage';
 import ResetPage from './components/authentication/ResetPage';
+import ConfirmPage from './components/authentication/ConfirmPage';
 
 const routes = (
   <Switch>
@@ -32,6 +33,7 @@ const routes = (
     <Route path="/auth/signin" exact={true} component={SigninPage} />
     <Route path="/auth/signup" exact={true} component={SignupPage} />
     <Route path="/auth/reset" exact={true} component={ResetPage} />
+    <Route path="/auth/confirm" exact={true} component={ConfirmPage} />
     <Route component={NotFoundPage} />
   </Switch>
 );

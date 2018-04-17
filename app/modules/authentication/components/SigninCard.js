@@ -31,6 +31,9 @@ const PureSigninCard = (props: Props): React.Node => {
         <Button secondary={true} fluid={true} as={Link} to="/auth/reset">
           {t('auth:button.forgot')}
         </Button>
+        <Button secondary={true} fluid={true} as={Link} to="/auth/confirm">
+          {t('auth:button.confirm')}
+        </Button>
       </Card.Content>
     </Card>
   );
