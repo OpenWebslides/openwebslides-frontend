@@ -119,7 +119,7 @@ const PureSignupForm = (props: Props): React.Node => {
         <Button primary={true} type="submit">
           {t('auth:button.create')}
         </Button>
-        <Button basic={true} as={Link} to="/auth/signin">
+        <Button secondary={true} as={Link} to="/auth/signin">
           {t('auth:button.back')}
         </Button>
       </Button.Group>
