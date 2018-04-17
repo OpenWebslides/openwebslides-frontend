@@ -28,7 +28,11 @@ const auth = {
   },
   reset: {
     title: 'Reset account',
-    description: 'Enter your email to reset your password',
+    description: 'Enter your email address to reset your password',
+  },
+  confirm: {
+    title: 'Confirm account',
+    description: 'Enter your email address to resend the confirmation email',
   },
 };
 
