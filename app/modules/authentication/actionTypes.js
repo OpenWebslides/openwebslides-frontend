@@ -19,6 +19,7 @@ export const SIGNOUT_SUCCESS: 'auth/SIGNOUT_SUCCESS' = 'auth/SIGNOUT_SUCCESS';
 export const SIGNOUT_FAILURE: 'auth/SIGNOUT_FAILURE' = 'auth/SIGNOUT_FAILURE';
 
 export const RESET: 'auth/RESET' = 'auth/RESET';
+export const CONFIRM: 'auth/CONFIRM' = 'auth/CONFIRM';
 
 export type SigninEmailAction = {
   type: typeof SIGNIN_EMAIL,
@@ -94,6 +95,13 @@ export type ResetAction = {
   },
 };
 
+export type ConfirmAction = {
+  type: typeof CONFIRM,
+  payload: {
+    email: string,
+  },
+};
+
 export type SigninSuccessAction =
   | SigninEmailSuccessAction
   | SigninOAuthSuccessAction;
@@ -114,4 +122,6 @@ export type AuthenticationAction =
   | SigninEmailFailureAction
   | SigninOAuthFailureAction
   | SignupFailureAction
-  | SignoutFailureAction;
+  | SignoutFailureAction
+  | ResetAction
+  | ConfirmAction;

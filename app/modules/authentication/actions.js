@@ -120,3 +120,14 @@ export const reset = (
     },
   };
 };
+
+export const confirm = (
+  email: string,
+): t.ConfirmAction => {
+  return {
+    type: t.CONFIRM,
+    payload: {
+      email,
+    },
+  };
+};
