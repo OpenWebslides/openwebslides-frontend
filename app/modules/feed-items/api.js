@@ -13,9 +13,9 @@ const fetch = (): string => {
   request
     .setEndpoint(ENDPOINT)
     .setMethod(methodTypes.GET)
-    .addParameter('sort', '-createdAt')
-    .addParameter('page[limit]', '10')
-    .addParameter('page[offset]', '0');
+    .setParameter('sort', '-createdAt')
+    .setParameter('page[limit]', '10')
+    .setParameter('page[offset]', '0');
 
   return request.execute();
 };

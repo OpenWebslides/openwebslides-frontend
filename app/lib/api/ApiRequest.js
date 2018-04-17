@@ -1,6 +1,6 @@
 // @flow
 
-import { DEFAULT_URL } from './constants';
+import { DEFAULT_URL, MEDIA_TYPE } from './constants';
 
 import asyncFetch from './asyncFetch';
 import type {
@@ -21,8 +21,8 @@ const ApiRequest = (): Request => {
 
       // Request headers
       headers: {
-        'Content-Type': 'application/vnd.api+json',
-        Accept: 'application/vnd.api+json',
+        'Content-Type': MEDIA_TYPE,
+        Accept: MEDIA_TYPE,
         Authorization: '',
       },
 
@@ -30,13 +30,18 @@ const ApiRequest = (): Request => {
       parameters: {},
 
       // Request HTTP method
-      method: 'GET',
+      method: methodTypes.GET,
 
       // Request body
       body: '',
     },
     setEndpoint: (endpoint: string): Request => {
-      request.config.endpoint = endpoint;
+      if (endpoint.startsWith('/')) {
+        request.config.endpoint = endpoint;
+      }
+      else {
+        request.config.endpoint = `/${endpoint}`;
+      }
 
       return request;
     },
@@ -47,8 +52,14 @@ const ApiRequest = (): Request => {
       return request;
     },
 
-    addParameter: (parameter: string, value: string): Request => {
+    setParameter: (parameter: string, value: string): Request => {
       request.config.parameters[parameter] = value;
+
+      return request;
+    },
+
+    setHeader: (header: string, value: string): Request => {
+      request.config.headers[header] = value;
 
       return request;
     },
@@ -61,6 +72,10 @@ const ApiRequest = (): Request => {
 
     // Execute HTTP request
     execute: (): string => {
+      return asyncFetch(request.getUrl(), request.getOptions());
+    },
+
+    getUrl: (): string => {
       let url: string = `${request.config.url}${request.config.endpoint}`;
 
       if (Object.keys(request.config.parameters).length !== 0) {
@@ -71,6 +86,10 @@ const ApiRequest = (): Request => {
         url += `?${query}`;
       }
 
+      return url;
+    },
+
+    getOptions: (): RequestOptions => {
       const options: RequestOptions = {
         method: request.config.method,
         headers: request.config.headers,
@@ -80,7 +99,7 @@ const ApiRequest = (): Request => {
         options.body = request.config.body;
       }
 
-      return asyncFetch(url, options);
+      return options;
     },
   };
 

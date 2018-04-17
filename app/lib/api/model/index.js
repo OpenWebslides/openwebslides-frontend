@@ -24,8 +24,13 @@ export type Request = {
   +config: RequestConfig,
   +setEndpoint: (endpoint: string) => Request,
   +setMethod: (method: MethodType) => Request,
-  +addParameter: (parameter: string, value: string) => Request,
+  +setParameter: (parameter: string, value: string) => Request,
+  +setHeader: (header: string, value: string) => Request,
+  +setBody: (body: string) => Request,
   +execute: () => string,
+
+  +getUrl: () => string,
+  +getOptions: () => RequestOptions,
 };
 
 export {
