@@ -4,6 +4,7 @@ import type { TopicsState } from 'modules/topics';
 import type { ContentItemsState } from 'modules/content-items';
 import type { FeedItemsState } from 'modules/feed-items';
 import type { UsersState } from 'modules/users';
+import type { AuthState } from 'modules/authentication';
 
 export type State = {
   +modules: {
@@ -11,6 +12,7 @@ export type State = {
     +feedItems: FeedItemsState,
     +contentItems: ContentItemsState,
     +users: UsersState,
+    +authentication: AuthState,
   },
   +form: {},
   +error: {},
