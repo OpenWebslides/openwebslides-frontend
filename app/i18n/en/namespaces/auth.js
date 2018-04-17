@@ -16,6 +16,7 @@ const auth = {
     create: 'Create account',
     back: 'Back to sign in',
     reset: 'Reset account',
+    forgot: 'Forgot password?',
   },
   signin: {
     title: 'Sign in',
