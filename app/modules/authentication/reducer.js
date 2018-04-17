@@ -59,15 +59,12 @@ const reducer = (state: AuthState = initialState, action: t.AuthenticationAction
       return signup(state, action);
     case t.SIGNOUT:
       return signout(state);
-    case t.SIGNIN_EMAIL_ERROR:
-    case t.SIGNIN_OAUTH_ERROR:
-    case t.SIGNUP_ERROR:
-    case t.SIGNOUT_ERROR:
+    case t.SIGNIN_EMAIL_FAILURE:
+    case t.SIGNIN_OAUTH_FAILURE:
+    case t.SIGNUP_FAILURE:
+    case t.SIGNOUT_FAILURE:
       return state;
     default:
-      // Type error when not all action.type cases are handled.
-      // eslint-disable-next-line no-unused-expressions
-      (action: empty);
       return state;
   }
 };

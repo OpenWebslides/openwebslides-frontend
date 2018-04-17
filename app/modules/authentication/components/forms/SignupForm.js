@@ -13,7 +13,7 @@ import type { State } from 'types/state';
 
 import { isAuthenticated, getAccount } from '../../selectors';
 import type { Account } from '../../model';
-import { signupEmail } from '../../actions';
+import { signup } from '../../actions';
 
 type PassedProps = {
 };
@@ -33,10 +33,12 @@ type Props = TranslatorProps & PassedProps & StateProps & DispatchProps;
 type ValuesType = {
   email: string,
   password: string,
+  firstName: string,
+  lastName: string,
 };
 
 const handleSignup = (values: ValuesType, dispatch: Dispatch<*>): void => {
-  dispatch(signupEmail(values.email, values.password));
+  dispatch(signup(values.email, values.password, values.firstName, values.lastName));
 };
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
@@ -56,7 +58,6 @@ const PureSignupForm = (props: Props): React.Node => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Field>
-        <label>{t('auth:input.email')}</label>
         <Field
           component={Input}
           name="email"
@@ -67,7 +68,6 @@ const PureSignupForm = (props: Props): React.Node => {
       </Form.Field>
       <Form.Group inline={false}>
         <Form.Field width={8}>
-          <label>{t('auth:input.firstname')}</label>
           <Field
             component={Input}
             name="firstname"
@@ -77,7 +77,6 @@ const PureSignupForm = (props: Props): React.Node => {
           />
         </Form.Field>
         <Form.Field width={8}>
-          <label>{t('auth:input.lastname')}</label>
           <Field
             component={Input}
             name="lastname"
@@ -88,7 +87,6 @@ const PureSignupForm = (props: Props): React.Node => {
         </Form.Field>
       </Form.Group>
       <Form.Field>
-        <label>{t('auth:input.password')}</label>
         <Field
           component={Input}
           name="password"
