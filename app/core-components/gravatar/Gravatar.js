@@ -13,13 +13,18 @@ type PassedProps = {
 
 type Props = PassedProps;
 
+const hash = (email: string): string => {
+  // toLowerCase because Gravatar says so
+  return md5(_.trim(email).toLowerCase());
+};
+
 const Gravatar = (props: Props): React.Node => {
   const {
     email,
     size,
   } = props;
 
-  const imageHash = md5(_.trim(email).toLowerCase());
+  const imageHash = hash(email);
 
   return (
     <React.Fragment>
@@ -28,4 +33,5 @@ const Gravatar = (props: Props): React.Node => {
   );
 };
 
+export { hash };
 export default Gravatar;
