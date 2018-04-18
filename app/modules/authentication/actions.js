@@ -7,12 +7,24 @@ import * as c from './constants';
 export const signinEmail = (
   email: string,
   password: string,
-): t.SigninEmailAction | t.SigninEmailFailureAction => {
-  if (email !== 'john.doe@example.com' && password !== 'abcd1234') {
+): t.SigninEmailAction | t.SigninEmailErrorAction => {
+  const newEmail = _.trim(email);
+  const newPassword = _.trim(password);
+
+  if (newEmail === '') {
     return {
-      type: t.SIGNIN_EMAIL_FAILURE,
+      type: t.SIGNIN_EMAIL_ERROR,
       error: {
-        message: 'Email or password is invalid',
+        message: 'Email cannot be empty.',
+      },
+    };
+  }
+
+  if (newPassword === '') {
+    return {
+      type: t.SIGNIN_EMAIL_ERROR,
+      error: {
+        message: 'Password cannot be empty.',
       },
     };
   }
@@ -20,20 +32,22 @@ export const signinEmail = (
   return {
     type: t.SIGNIN_EMAIL,
     payload: {
-      email,
-      password,
+      email: newEmail,
+      password: newPassword,
     },
   };
 };
 
 export const signinOAuth = (
   email: string,
-): t.SigninOAuthAction | t.SigninOAuthFailureAction => {
-  if (email !== 'john.doe@example.com') {
+): t.SigninOAuthAction | t.SigninOAuthErrorAction => {
+  const newEmail = _.trim(email);
+
+  if (newEmail === '') {
     return {
-      type: t.SIGNIN_OAUTH_FAILURE,
+      type: t.SIGNIN_OAUTH_ERROR,
       error: {
-        message: 'Email is invalid',
+        message: 'Email cannot be empty.',
       },
     };
   }
@@ -41,8 +55,15 @@ export const signinOAuth = (
   return {
     type: t.SIGNIN_OAUTH,
     payload: {
-      email,
+      email: newEmail,
     },
+  };
+};
+
+export const signout = (
+): t.SignoutAction | t.SignoutErrorAction => {
+  return {
+    type: t.SIGNOUT,
   };
 };
 
@@ -51,14 +72,14 @@ export const signup = (
   password: string,
   firstName: string,
   lastName: ?string,
-): t.SignupAction | t.SignupFailureAction => {
+): t.SignupAction | t.SignupErrorAction => {
   const newEmail = _.trim(email);
   const newPassword = _.trim(password);
   const newFirstName = _.trim(firstName);
 
   if (newEmail === '') {
     return {
-      type: t.SIGNUP_FAILURE,
+      type: t.SIGNUP_ERROR,
       error: {
         message: 'Email cannot be empty.',
       },
@@ -67,7 +88,7 @@ export const signup = (
 
   if (newPassword.length < c.MIN_PASSWORD_LENGTH) {
     return {
-      type: t.SIGNUP_FAILURE,
+      type: t.SIGNUP_ERROR,
       error: {
         message: `Password cannot be shorter than ${c.MIN_PASSWORD_LENGTH} characters.`,
       },
@@ -76,7 +97,7 @@ export const signup = (
 
   if (newPassword.length > c.MAX_PASSWORD_LENGTH) {
     return {
-      type: t.SIGNUP_FAILURE,
+      type: t.SIGNUP_ERROR,
       error: {
         message: `Password cannot be longer than ${c.MAX_PASSWORD_LENGTH} characters.`,
       },
@@ -85,7 +106,7 @@ export const signup = (
 
   if (newFirstName === '') {
     return {
-      type: t.SIGNUP_FAILURE,
+      type: t.SIGNUP_ERROR,
       error: {
         message: 'First name cannot be empty.',
       },
@@ -98,25 +119,29 @@ export const signup = (
       email: newEmail,
       password: newPassword,
       firstName: newFirstName,
-      lastName,
+      lastName: lastName || null,
     },
-  };
-};
-
-export const signout = (
-): t.SignoutAction | t.SignoutFailureAction => {
-  return {
-    type: t.SIGNOUT,
   };
 };
 
 export const reset = (
   email: string,
 ): t.ResetAction => {
+  const newEmail = _.trim(email);
+
+  if (newEmail === '') {
+    return {
+      type: t.RESET_ERROR,
+      error: {
+        message: 'Email cannot be empty.',
+      },
+    };
+  }
+
   return {
     type: t.RESET,
     payload: {
-      email,
+      email: newEmail,
     },
   };
 };
@@ -124,10 +149,21 @@ export const reset = (
 export const confirm = (
   email: string,
 ): t.ConfirmAction => {
+  const newEmail = _.trim(email);
+
+  if (newEmail === '') {
+    return {
+      type: t.CONFIRM_ERROR,
+      error: {
+        message: 'Email cannot be empty.',
+      },
+    };
+  }
+
   return {
     type: t.CONFIRM,
     payload: {
-      email,
+      email: newEmail,
     },
   };
 };
