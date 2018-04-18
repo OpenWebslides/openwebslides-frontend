@@ -252,7 +252,6 @@ describe(`EditableDisplay`, (): void => {
     const enzymeWrapper = mount(
       <Provider store={dummyStore}>
         <I18nextProvider i18n={i18nextConfig}>
-          { /* $FlowFixMe */ }
           <EditableDisplay
             contentItemId={dummyRoot1.id}
             baseClassName={dummyBaseClassName}
@@ -283,7 +282,6 @@ describe(`EditableDisplay`, (): void => {
     const enzymeWrapper = mount(
       <Provider store={dummyStore}>
         <I18nextProvider i18n={i18nextConfig}>
-          { /* $FlowFixMe */ }
           <EditableDisplay
             contentItemId={dummyRoot2.id}
             baseClassName={dummyBaseClassName}
@@ -300,7 +298,6 @@ describe(`EditableDisplay`, (): void => {
     const enzymeWrapper = mount(
       <Provider store={dummyStore}>
         <I18nextProvider i18n={i18nextConfig}>
-          { /* $FlowFixMe */ }
           <EditableDisplay
             contentItemId={dummyNestedParagraph1.id}
             baseClassName={dummyBaseClassName}

@@ -70,9 +70,10 @@
     "build": "webpack",
     "dev-server": "webpack-dev-server",
     "lint": "eslint .",
+    "flow-warn": "flow --include-warnings",
     "test": "jest",
     "test-report": "jest --verbose --coverage",
-    "check": "yarn run lint && yarn run flow && yarn run test",
+    "check": "yarn run lint && yarn run flow-warn && yarn run test",
     "precommit": "yarn run lint && yarn run flow",
     "prepush": "yarn run test"
   }
