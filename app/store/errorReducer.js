@@ -14,7 +14,8 @@ const initialState: ErrorState = {};
 const errorReducer = (state: ErrorState = initialState, action: ErrorAction): ErrorState => {
   if (action.error != null) {
     // #TODO stub
-    console.log(action.error.message);
+    console.error(action.error.message);
+    console.error(action.error);
   }
 
   return state;
