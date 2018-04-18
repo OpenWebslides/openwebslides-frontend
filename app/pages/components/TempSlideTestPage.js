@@ -9,7 +9,8 @@ import type { State } from 'types/state';
 import contentItems, { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
 import Slide from 'core-components/slides/Slide';
-import { TwitterPicker } from 'react-color';
+import color, { TwitterPicker } from 'react-color';
+import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
 
 import Page from '../Page';
 
@@ -53,6 +54,9 @@ const PureTempSlideTestPage = (props: Props): React.Node => {
   return (
     <Page>
       <TwitterPicker onChange={this.handleChange} />
+      <div id="voice" >
+        <VoicePlayer play={true} onEnd={(): void => {}} text="test" />
+      </div>
       <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
     </Page>
   );
