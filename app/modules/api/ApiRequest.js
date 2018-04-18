@@ -82,7 +82,7 @@ const ApiRequest = (): Request => {
     },
 
     // Execute HTTP request
-    execute: (): string => {
+    execute: (): Promise<string> => {
       return asyncFetch(request.getUrl(), request.getOptions());
     },
 

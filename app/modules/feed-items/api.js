@@ -7,7 +7,7 @@ import { ENDPOINT } from './constants';
 const { methodTypes } = Api.model;
 const { ApiRequest } = Api;
 
-const fetch = (): string => {
+const fetch = async (): Promise<string> => {
   const request = new ApiRequest();
 
   request
