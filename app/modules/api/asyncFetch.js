@@ -1,32 +1,32 @@
 // @flow
 
-// TODO: rewrite response error handling
-const asyncFetch = async (url: string, options: RequestOptions): string => {
+import {
+  UnauthorizedApiError,
+  ForbiddenApiError,
+  ClientApiError,
+  ServerApiError,
+} from './errors';
+
+const asyncFetch = async (url: string, options: RequestOptions): Promise<string> => {
   const response = await fetch(url, options);
   const { status } = response;
-  const responseBody: string = await response.json();
-  // const responseBody: string = await response.json().then((res) => { return res; });
 
-  switch (status) {
-    case 400:
-    case 401:
-    case 403:
-      // throw new ClientApiError(statusText, status);
-      return responseBody;
-    case 422:
-      // responseBody = await response.json();
-      // throw new ValidationError(statusText, status, responseBody.errors);
-      return responseBody;
-    case 500:
-    case 501:
-    case 502:
-    case 503:
-    case 504:
-    case 505:
-      // throw new ServerApiError(statusText, status);
-      return responseBody;
+  switch (true) {
+    case (status < 400): {
+      return response.json();
+    }
+    case (status === 401):
+      throw new UnauthorizedApiError();
+    case (status === 403):
+      throw new ForbiddenApiError();
+    case (status === 422): {
+      const responseBody = await response.json();
+      throw new ClientApiError(responseBody.errors);
+    }
+    case (status > 500):
+      throw new ServerApiError(response.statusText);
     default:
-      return responseBody;
+      throw new ClientApiError(response.statusText);
   }
 };
 
