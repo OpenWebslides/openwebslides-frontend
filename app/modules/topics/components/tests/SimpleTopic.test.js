@@ -2,11 +2,10 @@
 
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { dummyTranslatorProps } from 'config/tests';
 
-import { PureTopicCard } from '../TopicCard';
+import { PureSimpleTopic } from '../SimpleTopic';
 
-describe(`TopicCard`, (): void => {
+describe(`SimpleTopic`, (): void => {
 
   it(`renders without errors`, (): void => {
     const dummyTopic = {
@@ -18,11 +17,9 @@ describe(`TopicCard`, (): void => {
     };
 
     const enzymeWrapper = shallow(
-      <PureTopicCard
-        {...dummyTranslatorProps}
+      <PureSimpleTopic
         topicId="abcdefghij"
         topic={dummyTopic}
-        onRemoveButtonClick={(): void => {}}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
