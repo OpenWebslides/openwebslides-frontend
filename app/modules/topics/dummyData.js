@@ -5,30 +5,35 @@ import type { TopicsById } from './model';
 export const dummyTopicsById: TopicsById = {
   '10': {
     id: '10',
+    userId: 'markfrank1',
     title: 'Test topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'w4lg2u0p1h',
   },
   '42': {
     id: '42',
+    userId: 'markfrank1',
     title: 'Test topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'w4lg2u0p1h',
   },
   '8': {
     id: '8',
+    userId: 'markfrank1',
     title: 'Test topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'w4lg2u0p1h',
   },
   '38': {
     id: '38',
+    userId: 'markfrank1',
     title: 'Test topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'w4lg2u0p1h',
   },
   '47': {
     id: '47',
+    userId: 'markfrank1',
     title: 'Test topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'w4lg2u0p1h',

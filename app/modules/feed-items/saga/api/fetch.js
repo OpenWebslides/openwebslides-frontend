@@ -18,7 +18,8 @@ const fetchSaga = function* (action: t.FetchAction): Generator<*, *, *> {
   try {
     const response = yield call(Api.fetch);
 
-    const data = response.data.map((item: {}): Array<FeedItemType> => {
+    // eslint-disable-next-line flowtype/no-weak-types
+    const data = response.data.map((item: Object): FeedItemType => {
       return {
         id: item.id,
         userId: item.relationships.user.data.id,
