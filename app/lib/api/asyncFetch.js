@@ -15,16 +15,15 @@ const asyncFetch = async (url: string, options: RequestOptions): Promise<Respons
 
   switch (true) {
     case (status < 400): {
-      const responseBody = response.json();
-
       const authHeader = response.headers.get('Authorization');
-      const apiResponse: Response = {
-        body: responseBody,
-        status,
-        token: authHeader ? authHeader.slice(7) : null,
-      };
 
-      return apiResponse;
+      // eslint-disable-next-line flowtype/no-weak-types
+      return response.json().then((data: Object): Object => {
+        return {
+          token: (authHeader ? authHeader.slice(7) : null),
+          body: data,
+        };
+      }).catch((error) => error);
     }
     case (status === 401):
       throw new UnauthorizedApiError();
