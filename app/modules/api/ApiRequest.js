@@ -23,7 +23,6 @@ const ApiRequest = (): Request => {
       headers: {
         'Content-Type': MEDIA_TYPE,
         Accept: MEDIA_TYPE,
-        Authorization: '',
       },
 
       // Request parameters
@@ -35,6 +34,7 @@ const ApiRequest = (): Request => {
       // Request body
       body: '',
     },
+
     setEndpoint: (endpoint: string): Request => {
       if (endpoint.startsWith('/')) {
         request.config.endpoint = endpoint;
@@ -66,6 +66,17 @@ const ApiRequest = (): Request => {
 
     setBody: (body: string): Request => {
       request.config.body = body;
+
+      return request;
+    },
+
+    setToken: (token: ?string): Request => {
+      if (token && token.length !== 0) {
+        request.config.headers.Authorization = `Bearer ${token}`;
+      }
+      else {
+        delete request.config.headers.Authorization;
+      }
 
       return request;
     },

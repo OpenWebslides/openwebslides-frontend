@@ -9,7 +9,6 @@ import { methodTypes } from '../model';
 const defaultHeaders = {
   'Content-Type': MEDIA_TYPE,
   Accept: MEDIA_TYPE,
-  Authorization: '',
 };
 
 describe(`ApiRequest`, (): void => {
@@ -85,6 +84,32 @@ describe(`ApiRequest`, (): void => {
     });
   });
 
+  describe(`setToken`, (): void => {
+    it(`sets token`, (): void => {
+      expect(request.config.headers.Authorization).toEqual(undefined);
+
+      request.setToken('foobar');
+
+      expect(request.config.headers.Authorization).toEqual('Bearer foobar');
+    });
+
+    it(`unsets null token`, (): void => {
+      request.config.headers.Authorization = 'Bearer foobar';
+
+      request.setToken(null);
+
+      expect(request.config.headers.Authorization).toEqual(undefined);
+    });
+
+    it(`unsets empty token`, (): void => {
+      request.config.headers.Authorization = 'Bearer foobar';
+
+      request.setToken('');
+
+      expect(request.config.headers.Authorization).toEqual(undefined);
+    });
+  });
+
   describe(`getUrl`, (): void => {
     it(`generates correct url without parameters`, (): void => {
       request.setEndpoint('/endpoint');
@@ -112,7 +137,7 @@ describe(`ApiRequest`, (): void => {
     it(`generates correct options with POST request`, (): void => {
       request.setMethod(methodTypes.POST);
       request.setBody('foobar');
-      request.setHeader('User-Agent', 'jest')
+      request.setHeader('User-Agent', 'jest');
 
       expect(request.getOptions()).toEqual({
         method: methodTypes.POST,
@@ -125,7 +150,7 @@ describe(`ApiRequest`, (): void => {
     it(`generates correct options with GET request`, (): void => {
       request.setMethod(methodTypes.GET);
       request.setBody('foobar');
-      request.setHeader('User-Agent', 'jest')
+      request.setHeader('User-Agent', 'jest');
 
       // No body in GET requests
       expect(request.getOptions()).toEqual({

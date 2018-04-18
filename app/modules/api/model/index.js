@@ -27,6 +27,7 @@ export type Request = {
   +setParameter: (parameter: string, value: string) => Request,
   +setHeader: (header: string, value: string) => Request,
   +setBody: (body: string) => Request,
+  +setToken: (token: ?string) => Request,
   +execute: () => string,
 
   +getUrl: () => string,
