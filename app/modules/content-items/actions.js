@@ -5,7 +5,7 @@ import _ from 'lodash';
 import type { Identifier } from 'types/model';
 
 import * as t from './actionTypes';
-import { generateId } from './model';
+import generateId from './lib/generate-id';
 
 export const add = (
 
