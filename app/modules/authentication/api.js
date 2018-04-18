@@ -27,12 +27,13 @@ const signinEmail = (email: string, password: string): string => {
   return request.execute();
 };
 
-const signout = (): void => {
+const signout = (token: string): void => {
   const request = new ApiRequest();
 
   request
     .setEndpoint(ENDPOINT)
-    .setMethod(methodTypes.DELETE);
+    .setMethod(methodTypes.DELETE)
+    .setToken(token);
 
   return request.execute();
 };
