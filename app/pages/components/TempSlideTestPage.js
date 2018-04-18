@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 
 import type { State } from 'types/state';
 import contentItems, { contentItemTypes } from 'modules/content-items';
@@ -22,7 +22,7 @@ type StateProps = {
   contentItemTreeRootItem: DenormalizedRootContentItem,
 };
 
-type Props = TranslatorProps & StateProps & PassedProps;
+type Props = CustomTranslatorProps & StateProps & PassedProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const contentItemTreeRootItemId = 'qyrgv0bcd6'; // 'w4lg2u0p1h'; // #TODO stub

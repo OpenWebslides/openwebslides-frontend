@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 import { CURRENT_USER } from 'modules/users/constants';
 import users from 'modules/users';
 
@@ -14,7 +14,7 @@ type RouteProps = {
   match: Match,
 };
 
-type Props = TranslatorProps & RouteProps;
+type Props = CustomTranslatorProps & RouteProps;
 
 const { ProfileCard } = users.components;
 

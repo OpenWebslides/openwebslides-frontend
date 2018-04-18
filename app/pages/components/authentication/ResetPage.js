@@ -2,14 +2,14 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 import { Grid } from 'semantic-ui-react';
 
 import authentication from 'modules/authentication';
 
 import Page from 'pages/Page';
 
-type Props = TranslatorProps & { /* new props go here */ };
+type Props = CustomTranslatorProps & { /* new props go here */ };
 
 const { ResetCard } = authentication.components;
 

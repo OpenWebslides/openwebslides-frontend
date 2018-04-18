@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import type { FormProps } from 'redux-form';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 import { Link, withRouter } from 'react-router-dom';
 import { Form, Button } from 'semantic-ui-react';
 import { CURRENT_USER } from 'modules/users/constants';
@@ -17,7 +17,7 @@ type DispatchProps = {
   onAddButtonClick: (string, string, RouterHistory) => void,
 };
 
-type Props = TranslatorProps & DispatchProps & FormProps & RouterHistory;
+type Props = CustomTranslatorProps & DispatchProps & FormProps & RouterHistory;
 
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {

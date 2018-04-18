@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Header } from 'semantic-ui-react';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
@@ -20,7 +20,7 @@ type PassedProps = {
   userId: Identifier,
 };
 
-type Props = TranslatorProps & StateProps & PassedProps;
+type Props = CustomTranslatorProps & StateProps & PassedProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   return {

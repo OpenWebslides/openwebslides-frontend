@@ -2,11 +2,11 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 
 import Page from '../Page';
 
-type Props = TranslatorProps & { /* new props go here */ };
+type Props = CustomTranslatorProps & { /* new props go here */ };
 
 const PureNotFoundPage = (props: Props): React.Node => {
   const { t } = props;

@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 
 import { getById } from '../selectors';
 import type { Topic } from '../model';
@@ -26,7 +26,7 @@ type DispatchProps = {
   onRemoveButtonClick: (string) => void,
 };
 
-type Props = TranslatorProps & PassedProps & StateProps & DispatchProps;
+type Props = CustomTranslatorProps & PassedProps & StateProps & DispatchProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const topic = getById(state, { id: props.topicId });

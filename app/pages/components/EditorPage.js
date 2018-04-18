@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 import { Link, Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ type RouteProps = {
   match: Match,
 };
 
-type Props = TranslatorProps & RouteProps;
+type Props = CustomTranslatorProps & RouteProps;
 
 const TopicEditor = topics.components.Editor;
 

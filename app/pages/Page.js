@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 import { translate } from 'react-i18next';
 import { Grid } from 'semantic-ui-react';
 
@@ -11,7 +11,7 @@ type PassedProps = {
   children: React.Node,
 };
 
-type Props = TranslatorProps & PassedProps;
+type Props = CustomTranslatorProps & PassedProps;
 
 const Page = (props: Props): React.Node => {
   return (

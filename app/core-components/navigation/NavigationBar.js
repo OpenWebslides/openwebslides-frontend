@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 import { Link } from 'react-router-dom';
 import { Image, Menu, Grid } from 'semantic-ui-react';
 
@@ -10,7 +10,7 @@ import logo from 'assets/images/logo_white.png';
 
 import authentication from 'modules/authentication';
 
-type Props = TranslatorProps;
+type Props = CustomTranslatorProps;
 
 const { AccountMenu } = authentication.components;
 

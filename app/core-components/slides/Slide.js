@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 
 import contentItems from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
@@ -14,7 +14,7 @@ type PassedProps = {
   rootHeadingLevel: number,
 };
 
-type Props = TranslatorProps & PassedProps;
+type Props = CustomTranslatorProps & PassedProps;
 
 const ContentItemHtmlDisplay = contentItems.components.HtmlDisplay;
 
