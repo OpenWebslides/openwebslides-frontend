@@ -54,20 +54,24 @@ export type SignoutAction = {
 
 export type SigninEmailSuccessAction = {
   type: typeof SIGNIN_EMAIL_SUCCESS,
+  // eslint-disable-next-line flowtype/no-weak-types
+  payload: Object,
 };
 
 export type SigninOAuthSuccessAction = {
   type: typeof SIGNIN_OAUTH_SUCCESS,
+  // eslint-disable-next-line flowtype/no-weak-types
+  payload: Object,
 };
 
 export type SignupSuccessAction = {
   type: typeof SIGNUP_SUCCESS,
-  error: Error,
+  // eslint-disable-next-line flowtype/no-weak-types
+  payload: Object,
 };
 
 export type SignoutSuccessAction = {
   type: typeof SIGNOUT_SUCCESS,
-  error: Error,
 };
 
 export type SigninEmailFailureAction = {
@@ -133,4 +137,5 @@ export type AuthenticationAction =
   | SignupFailureAction
   | SignoutFailureAction
   | ResetAction
-  | ConfirmAction;
+  | ConfirmAction
+  | UpdateTokenAction;

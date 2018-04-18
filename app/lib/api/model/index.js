@@ -21,9 +21,10 @@ export type RequestConfig = {
 };
 
 export type Response = {
-  +body: string,
+  // eslint-disable-next-line flowtype/no-weak-types
+  +body: Object,
   +status: number,
-  +token: string,
+  +token: ?string,
 };
 
 export type Request = {

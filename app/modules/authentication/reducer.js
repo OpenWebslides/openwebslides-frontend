@@ -6,6 +6,7 @@ import type { Account, AuthState } from './model';
 const initialState: AuthState = {
   authenticated: false,
   account: null,
+  token: null,
 };
 
 const signin = (state: AuthState, action: t.SigninSuccessAction): AuthState => {
@@ -62,9 +63,9 @@ const reducer = (state: AuthState = initialState, action: t.AuthenticationAction
     case t.SIGNIN_EMAIL_SUCCESS:
     case t.SIGNIN_OAUTH_SUCCESS:
       return signin(state, action);
-    case t.SIGNUP_SUCCES:
+    case t.SIGNUP_SUCCESS:
       return signup(state, action);
-    case t.SIGNOUT_SUCCES:
+    case t.SIGNOUT_SUCCESS:
       return signout(state);
     case t.SIGNIN_EMAIL_FAILURE:
     case t.SIGNIN_OAUTH_FAILURE:

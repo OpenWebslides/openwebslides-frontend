@@ -1,12 +1,14 @@
 // @flow
 
-import ApiRequest from 'modules/api/ApiRequest';
-
-import { methodTypes } from 'modules/api/model';
+import Api from 'modules/api';
 
 import { ENDPOINT } from './constants';
 
-const signinEmail = (email: string, password: string): string => {
+const { methodTypes, Response } = Api.model;
+const { ApiRequest } = Api;
+
+
+const signinEmail = (email: string, password: string): Promise<Response> => {
   const request = new ApiRequest();
 
   const body = JSON.stringify({
@@ -27,7 +29,7 @@ const signinEmail = (email: string, password: string): string => {
   return request.execute();
 };
 
-const signout = (token: string): void => {
+const signout = (token: string): Promise<Response> => {
   const request = new ApiRequest();
 
   request
@@ -38,9 +40,9 @@ const signout = (token: string): void => {
   return request.execute();
 };
 
-const Api = {
+const AuthApi = {
   signinEmail,
   signout,
 };
 
-export default Api;
+export default AuthApi;

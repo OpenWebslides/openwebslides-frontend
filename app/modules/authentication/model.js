@@ -17,7 +17,7 @@ export type Account = {
 export type AuthState = {
   +authenticated: boolean,
   +account: ?Account,
-  +token: string,
+  +token: ?string,
 };
 
 export const generateId = (): string => {

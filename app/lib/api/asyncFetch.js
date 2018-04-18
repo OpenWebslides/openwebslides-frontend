@@ -9,7 +9,7 @@ import {
 
 import type { Response } from './model';
 
-const asyncFetch = async (url: string, options: RequestOptions): Promise<string> => {
+const asyncFetch = async (url: string, options: RequestOptions): Promise<Response> => {
   const response = await fetch(url, options);
   const { status } = response;
 

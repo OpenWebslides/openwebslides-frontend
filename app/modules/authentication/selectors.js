@@ -20,7 +20,7 @@ const getAccount = (state: State): ?Account => {
 const getToken = (state: State): ?string => {
   const module: AuthState = getModule(state);
   return module ? module.token : null;
-}
+};
 
 export {
   isAuthenticated,
