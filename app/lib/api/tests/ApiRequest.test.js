@@ -3,8 +3,8 @@
 import ApiRequest from '../ApiRequest';
 import { DEFAULT_URL, MEDIA_TYPE } from '../constants';
 
-import type { Request } from '../model';
-import { methodTypes } from '../model';
+import type { Request } from '../model/index';
+import { methodTypes } from '../model/index';
 
 const defaultHeaders = {
   'Content-Type': MEDIA_TYPE,
