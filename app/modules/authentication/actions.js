@@ -126,7 +126,7 @@ export const signup = (
 
 export const reset = (
   email: string,
-): t.ResetAction => {
+): t.ResetAction | t.ResetErrorAction => {
   const newEmail = _.trim(email);
 
   if (newEmail === '') {
@@ -148,7 +148,7 @@ export const reset = (
 
 export const confirm = (
   email: string,
-): t.ConfirmAction => {
+): t.ConfirmAction | t.ConfirmErrorAction => {
   const newEmail = _.trim(email);
 
   if (newEmail === '') {

@@ -1,6 +1,6 @@
 // @flow
 
-import Api from 'modules/api';
+import Api from 'lib/api';
 
 import { ENDPOINT } from './constants';
 

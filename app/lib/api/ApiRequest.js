@@ -47,12 +47,6 @@ const ApiRequest = (): Request => {
       return request;
     },
 
-    setMethod: (method: MethodType): Request => {
-      request.config.method = method;
-
-      return request;
-    },
-
     setParameter: (parameter: string, value: string): Request => {
       request.config.parameters[parameter] = value;
 

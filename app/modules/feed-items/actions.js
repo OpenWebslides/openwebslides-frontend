@@ -6,4 +6,4 @@ export const fetch = (): t.FetchAction => {
   return {
     type: t.FETCH_FEED,
   };
-}
+};
