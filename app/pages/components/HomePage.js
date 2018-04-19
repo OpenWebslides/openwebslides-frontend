@@ -9,8 +9,6 @@ import feedItems from 'modules/feed-items';
 import type { Identifier } from 'types/model';
 import type { State } from 'types/state';
 
-import { FETCH_FEED } from 'modules/feed-items/actionTypes';
-
 import Page from '../Page';
 
 type StateProps = {
@@ -32,9 +30,7 @@ const mapStateToProps = (state: State): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     handleRequestFeed: (): void => {
-      dispatch({
-        type: FETCH_FEED,
-      });
+      feedItems.actions.fetch();
     },
   };
 };
