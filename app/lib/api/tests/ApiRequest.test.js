@@ -71,8 +71,10 @@ describe(`ApiRequest`, (): void => {
     it(`adds header`, (): void => {
       request.setHeader('Host', 'localhost');
 
-      // $FlowFixMe: object literal does not contain all headers
-      expect(request.config.headers).toEqual(Object.assign({ Host: 'localhost' }, defaultHeaders));
+      expect(request.config.headers).toEqual({
+        ...defaultHeaders,
+        Host: 'localhost',
+      });
     });
   });
 
@@ -142,8 +144,10 @@ describe(`ApiRequest`, (): void => {
       expect(request.getOptions()).toEqual({
         method: methodTypes.POST,
         body: 'foobar',
-        // $FlowFixMe: object literal does not contain all headers
-        headers: Object.assign({ 'User-Agent': 'jest' }, defaultHeaders),
+        headers: {
+          ...defaultHeaders,
+          'User-Agent': 'jest',
+        },
       });
     });
 
@@ -155,8 +159,10 @@ describe(`ApiRequest`, (): void => {
       // No body in GET requests
       expect(request.getOptions()).toEqual({
         method: methodTypes.GET,
-        // $FlowFixMe: object literal does not contain all headers
-        headers: Object.assign({ 'User-Agent': 'jest' }, defaultHeaders),
+        headers: {
+          ...defaultHeaders,
+          'User-Agent': 'jest',
+        },
       });
     });
 
