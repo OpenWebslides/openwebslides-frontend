@@ -12,8 +12,15 @@ const initialState: ModalsState = {
 const showModal = (state: ModalsState, action: t.ShowModalAction): ModalsState => {
   console.log('A motherflippin modal should be shown!');
   console.log(`type=${action.payload.modalType} && id=${action.payload.id}`);
+
+  const {
+    id,
+    modalType,
+  } = action.payload;
+
   return {
-    ...state,
+    id,
+    modalType,
   };
 };
 

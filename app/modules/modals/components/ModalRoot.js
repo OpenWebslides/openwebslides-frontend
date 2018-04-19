@@ -2,22 +2,41 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import DeleteTopicModal from './DeleteTopicModal';
+import type { State } from 'types/state';
 
+import DeleteTopicModal from './DeleteTopicModal';
+import { getModal } from '../selectors';
+
+
+/*
 type PassedProps = {
   id: string,
   modalType: string,
 };
+*/
+type StateProps = {
+  id: string,
+  modalType: string,
+};
 
-type Props = PassedProps;
+type Props = StateProps;
 
 const MODAL_COMPONENTS = {
   DELETE_TOPIC: DeleteTopicModal,
   /* other modals */
 };
 
+const mapStateToProps = (state: State): StateProps => {
+  const modal = getModal(state);
+
+  return {
+    ...modal,
+  };
+};
+
 const ModalRoot = (props: Props): React.Node => {
   const {
+    id,
     modalType,
   } = props;
 
@@ -26,9 +45,7 @@ const ModalRoot = (props: Props): React.Node => {
   }
 
   const SpecificModal = MODAL_COMPONENTS[modalType];
-  return <SpecificModal {...props} />;
+  return <SpecificModal id={id} modalType={modalType} />;
 };
 
-export default connect(
-  (state) => state.modals,
-)(ModalRoot);
+export default connect(mapStateToProps)(ModalRoot);
