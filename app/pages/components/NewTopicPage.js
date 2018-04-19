@@ -2,14 +2,14 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
 
 import Page from '../Page';
 
 const CreateNewTopicCard = topics.components.NewTopicCard;
 
-type Props = TranslatorProps;
+type Props = CustomTranslatorProps;
 
 const PureNewTopicPage = (props: Props): React.Node => {
   const {

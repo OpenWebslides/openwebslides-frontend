@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 
 import { Icon } from 'semantic-ui-react';
 
@@ -12,7 +12,7 @@ type PassedProps = {
   baseClassName: string,
 };
 
-type Props = TranslatorProps & PassedProps;
+type Props = CustomTranslatorProps & PassedProps;
 
 const PureDisplayBlockWrapper = (props: Props): React.Node => {
   const { iconName, children, baseClassName } = props;

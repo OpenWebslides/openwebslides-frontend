@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ type StateProps = {
   topic: Topic,
 };
 
-type Props = TranslatorProps & PassedProps & StateProps;
+type Props = CustomTranslatorProps & PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const topic = getById(state, { id: props.topicId });

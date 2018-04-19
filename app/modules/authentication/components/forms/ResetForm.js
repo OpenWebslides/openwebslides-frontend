@@ -4,7 +4,7 @@ import * as React from 'react';
 import type { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 import { Field, reduxForm } from 'redux-form';
 import { Form, Input, Button } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
@@ -28,7 +28,7 @@ type DispatchProps = {
   handleSubmit: () => void,
 };
 
-type Props = TranslatorProps & PassedProps & StateProps & DispatchProps;
+type Props = CustomTranslatorProps & PassedProps & StateProps & DispatchProps;
 
 type ValuesType = {
   email: string,

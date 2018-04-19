@@ -1,18 +1,26 @@
-// flow-typed signature: bbf6df1b9be51b4e1e28c437a698b1f2
-// flow-typed version: 2f1ebf6999/react-i18next_v7.x.x/flow_>=v0.53.x
+// flow-typed signature: 65d42f62f8de603dcc631ea5a6b00580
+// flow-typed version: f3f13164e0/react-i18next_v7.x.x/flow_>=v0.64.x
 
 declare module "react-i18next" {
   declare type TFunction = (key?: ?string, data?: ?Object) => string;
 
-  declare type TranslatorProps = {
+  declare type TranslatorProps = {|
     t: TFunction,
     i18nLoadedAt: Date,
     i18n: Object
+  |};
+
+  declare type TranslatorPropsVoid = {
+    t: TFunction | void,
+    i18nLoadedAt: Date | void,
+    i18n: Object | void
   };
 
-  declare type Translator<OP, P> = (
-    component: React$ComponentType<P>
-  ) => Class<React$Component<OP, *>>;
+  declare type Translator<P: {}, Component: React$ComponentType<P>> = (
+    WrappedComponent: Component
+  ) => React$ComponentType<
+    $Diff<React$ElementConfig<Component>, TranslatorPropsVoid>
+  >;
 
   declare type TranslateOptions = $Shape<{
     wait: boolean,
@@ -25,10 +33,12 @@ declare module "react-i18next" {
     usePureComponent: boolean
   }>;
 
-  declare function translate<OP, P>(
-    namespaces?: string | Array<string> | ((OP) => string | Array<string>),
+  declare function translate<P: {}, Component: React$ComponentType<P>>(
+    namespaces?: | string
+    | Array<string>
+    | (($Diff<P, TranslatorPropsVoid>) => string | Array<string>),
     options?: TranslateOptions
-  ): Translator<OP, P>;
+  ): Translator<P, Component>;
 
   declare type I18nProps = {
     i18n?: Object,

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 import { Link } from 'react-router-dom';
 import { Dropdown, Menu, Icon } from 'semantic-ui-react';
 
@@ -22,7 +22,7 @@ type DispatchProps = {
   handleSignout: () => void,
 };
 
-type Props = TranslatorProps & StateProps & DispatchProps;
+type Props = CustomTranslatorProps & StateProps & DispatchProps;
 
 const mapStateToProps = (state: State): StateProps => {
   return {

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 import { connect } from 'react-redux';
 
 import type { State } from 'types/state';
@@ -18,7 +18,7 @@ type StateProps = {
   topicIds: Array<Identifier>,
 };
 
-type Props = TranslatorProps & StateProps;
+type Props = CustomTranslatorProps & StateProps;
 
 const mapStateToProps = (state: State): StateProps => {
   return {

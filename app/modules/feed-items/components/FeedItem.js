@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import { translate } from 'react-i18next';
-import type { TranslatorProps } from 'react-i18next';
+import type { CustomTranslatorProps } from 'types/translator';
 import moment from 'moment';
 import { getTitleById } from 'modules/topics/selectors';
 import users from 'modules/users';
@@ -33,7 +33,7 @@ type StateProps = {
   topicTitle: string,
 };
 
-type Props = TranslatorProps & PassedProps & StateProps;
+type Props = CustomTranslatorProps & PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const feedItem = getById(state, props.feedItemId);
