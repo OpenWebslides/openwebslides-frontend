@@ -83,16 +83,3 @@ export const remove = (
     },
   };
 };
-
-export const showModal = (
-  modalType: string,
-  id: Identifier,
-): t.ShowModalAction | t.ShowModalErrorAction => {
-  return {
-    type: t.SHOWMODAL,
-    payload: {
-      modalType,
-      id,
-    },
-  };
-};
