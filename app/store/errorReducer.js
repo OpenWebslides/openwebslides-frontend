@@ -1,13 +1,7 @@
 // @flow
 
-import type { Error } from 'types/error';
-
-type ErrorAction = {
-  type: string,
-  error: Error,
-};
-
-type ErrorState = {};
+import type { ErrorAction } from 'types/error';
+import type { ErrorState } from 'types/state';
 
 const initialState: ErrorState = {};
 
