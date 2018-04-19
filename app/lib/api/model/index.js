@@ -41,7 +41,3 @@ export {
 export type {
   MethodType,
 };
-
-export type ValidationErrors = {
-  +[name: string]: string,
-};
