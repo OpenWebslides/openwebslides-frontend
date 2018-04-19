@@ -46,9 +46,9 @@ const mapStateToProps = (state: State): StateProps => {
 
 const CurrentUserProfile = (props: StateProps): React.Node => {
   // TODO: use account from props in this function
-  // Still missing userId in account
+  const { account } = props;
 
-  const CURRENT_USER = 'johanjohan';
+  const CURRENT_USER = account != null ? account.id : 'markfrank1';
 
   return (
     <React.Fragment>

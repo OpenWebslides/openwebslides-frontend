@@ -12,7 +12,7 @@ const signin = (state: AuthState, action: t.SigninEmailAction | t.SigninOAuthAct
   const { email } = action.payload;
 
   const account: Account = {
-    id: 'baz',
+    id: 'johanjohan',
     email,
     firstName: 'John',
     lastName: 'Doe',
@@ -29,7 +29,7 @@ const signup = (state: AuthState, action: t.SignupAction): AuthState => {
   const { email, firstName, lastName } = action.payload;
 
   const account: Account = {
-    id: 'baz',
+    id: 'johanjohan',
     email,
     firstName,
     lastName,
