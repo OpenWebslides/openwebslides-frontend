@@ -6,7 +6,7 @@ import * as selectors from './selectors';
 import reducer from './reducer';
 import components from './components';
 
-import type { ModalsState } from './model';
+import type { Modal, ModalsState } from './model';
 
 const modals = {
   actions,
@@ -17,5 +17,5 @@ const modals = {
 };
 
 
-export type { ModalsState };
+export type { Modal, ModalsState };
 export default modals;

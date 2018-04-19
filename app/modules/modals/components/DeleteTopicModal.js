@@ -4,7 +4,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import type { Dispatch } from 'redux';
 import { Button } from 'semantic-ui-react';
+import topics from 'modules/topics';
+
 import { hideModal } from '../actions';
+
+const { remove } = topics.actions;
 
 type DispatchProps = {
   onConfirmButtonClick: (string, string) => void,
@@ -21,7 +25,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     onConfirmButtonClick: (id: string, modalType: string): void => {
       dispatch(
-        hideModal(modalType, id),
+        remove(id).then((): void => {
+          dispatch(hideModal(id, modalType));
+        }),
       );
     },
   };

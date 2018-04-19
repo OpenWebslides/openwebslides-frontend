@@ -16,6 +16,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin')
 
 // Path name constants
 const paths = {
@@ -43,6 +44,14 @@ const baseConfig = {
     // Automatically insert the webpack-generated app.bundle.js script into index.html
     new HtmlWebpackPlugin({
       template: path.join(paths.PUBLIC, 'index.html'),
+    }),
+    new CircularDependencyPlugin({
+      // exclude detection of files based on a RegExp
+      exclude: /a\.js|node_modules/,
+      // add errors to webpack instead of warnings
+      failOnError: false,
+      // set the current working directory for displaying module paths
+      cwd: process.cwd(),
     }),
   ],
 

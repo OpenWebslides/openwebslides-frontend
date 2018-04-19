@@ -53,6 +53,7 @@
   "dependencies": {
     "blueimp-md5": "^2.10.0",
     "i18next": "^11.2.3",
+    "circular-dependency-plugin": "^4.4.0",
     "lodash": "^4.17.5",
     "moment": "^2.22.1",
     "prop-types": "^15.6.1",
