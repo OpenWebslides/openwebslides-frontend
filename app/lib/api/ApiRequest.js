@@ -6,9 +6,9 @@ import asyncFetch from './asyncFetch';
 import type {
   Request,
   MethodType,
-} from './model/index';
+} from './model';
 
-import { methodTypes } from './model/index';
+import { methodTypes } from './model';
 
 const ApiRequest = (): Request => {
   const request: Request = {

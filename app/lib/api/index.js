@@ -2,7 +2,7 @@
 
 import ApiRequest from './ApiRequest';
 
-import * as model from './model/index';
+import * as model from './model';
 
 import type {
   MethodType,
