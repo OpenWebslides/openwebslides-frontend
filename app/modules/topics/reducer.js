@@ -62,6 +62,17 @@ const remove = (state: TopicsState, action: t.RemoveAction): TopicsState => {
   };
 };
 
+const showModal = (state: TopicsState, action: t.ShowModalAction): TopicsState => {
+  console.log('A motherflippin modal should be shown!');
+  console.log(`type=${action.payload.modalType} && id=${action.payload.id}`);
+  return {
+    ...state,
+    byId: {
+      ...state.byId,
+    },
+  };
+};
+
 const reducer = (state: TopicsState = initialState, action: t.TopicAction): TopicsState => {
   switch (action.type) {
     case t.ADD:
@@ -70,9 +81,12 @@ const reducer = (state: TopicsState = initialState, action: t.TopicAction): Topi
       return edit(state, action);
     case t.REMOVE:
       return remove(state, action);
+    case t.SHOWMODAL:
+      return showModal(state, action);
     case t.ADD_ERROR:
     case t.EDIT_ERROR:
     case t.REMOVE_ERROR:
+    case t.SHOWMODAL_ERROR:
       return state;
     default:
       // Type error when not all action.type cases are handled.

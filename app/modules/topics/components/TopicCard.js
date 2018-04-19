@@ -12,7 +12,8 @@ import type { CustomTranslatorProps } from 'types/translator';
 
 import { getById } from '../selectors';
 import type { Topic } from '../model';
-import { remove } from '../actions';
+// import { remove } from '../actions';
+import { showModal } from '../actions';
 
 type PassedProps = {
   topicId: Identifier,
@@ -44,7 +45,8 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     onRemoveButtonClick: (id: string): void => {
       dispatch(
-        remove(id),
+        // remove(id),
+        showModal('DELETE_TOPIC', id),
       );
     },
   };
