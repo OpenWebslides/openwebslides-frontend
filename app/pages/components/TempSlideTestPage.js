@@ -4,6 +4,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
+import type { TranslatorProps } from 'react-i18next';
+
 
 import type { State } from 'types/state';
 import contentItems, { contentItemTypes } from 'modules/content-items';
