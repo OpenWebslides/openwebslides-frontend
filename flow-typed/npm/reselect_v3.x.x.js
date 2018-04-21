@@ -1,8 +1,5 @@
-// flow-typed signature: 485c03a863fbe7fb3225ee7c5010f2d4
-// flow-typed version: 00301f0d29/reselect_v3.x.x/flow_>=v0.47.x
-
-// flow-typed signature: 0199525b667f385f2e61dbeae3215f21
-// flow-typed version: b43dff3e0e/reselect_v3.x.x/flow_>=v0.28.x
+// flow-typed signature: 2edb237794225741adeedad554db362f
+// flow-typed version: 1133e1a0c3/reselect_v3.x.x/flow_>=v0.47.x
 
 declare module "reselect" {
   declare type Selector<-TState, TProps, TResult> =
