@@ -31,18 +31,19 @@ class EditableTextContent extends React.Component<Props, State> {
     inputClassNameSuffix: '__input',
   };
 
-  constructor(props: Props): void {
-    super(props);
-    this.state = {
-      isActive: false,
-      text: props.initialText,
-    };
-  }
+  static getDerivedStateFromProps = (nextProps: Props, prevState: State): State => {
+    const nextState: State = { ...prevState };
 
-  componentWillReceiveProps = (props: Props): void => {
-    if (this.state.text !== props.initialText) {
-      this.setState({ text: props.initialText });
+    if (prevState.text !== nextProps.initialText) {
+      nextState.text = nextProps.initialText;
     }
+
+    return nextState;
+  };
+
+  state: State = {
+    isActive: false,
+    text: '',
   };
 
   componentDidUpdate = (): void => {
