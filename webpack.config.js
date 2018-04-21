@@ -8,7 +8,7 @@ const path = require('path');
 // Require plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // Path name constants
 const paths = {
@@ -47,8 +47,6 @@ const config = {
   plugins: [
     // Include hot reloading functionality
     new webpack.HotModuleReplacementPlugin(),
-    // More readable path names when using Hot Module Replacement
-    new webpack.NamedModulesPlugin(),
     // Automatically insert the webpack-generated app.bundle.js script into index.html
     new HtmlWebpackPlugin({
       template: path.join(paths.PUBLIC, 'index.html'),
@@ -56,8 +54,9 @@ const config = {
     // Minify output
     new UglifyJSPlugin(),
     // Extract CSS from the JS bundle into a separate file for parallel loading
-    new ExtractTextPlugin({
-      filename: '[name].[contenthash].css',
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css',
+      chunkFilename: '[id].[hash].css',
     }),
   ],
 
@@ -77,13 +76,11 @@ const config = {
       // Load LESS files
       {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            { loader: 'css-loader' },
-            { loader: 'less-loader' },
-          ],
-        }),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'less-loader',
+        ],
       },
       // Load font files using file-loader.
       // Note: this must be done before loading general SVG files, to allow the svg-url-loader rule
