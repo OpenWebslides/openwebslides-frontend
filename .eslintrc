@@ -15,7 +15,11 @@
   ],
   "settings": {
     // Enables eslint-plugin-import to check import paths using webpack resolver aliases.
-    "import/resolver": "webpack"
+    "import/resolver": {
+      "webpack": {
+        "config": "./webpack.resolver.dummy.config.js"
+      }
+    }
   },
   "rules": {
 
