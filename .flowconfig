@@ -1,5 +1,5 @@
 [ignore]
-.*/node_modules/.*
+<PROJECT_ROOT>/node_modules/.*
 
 [include]
 
@@ -8,11 +8,24 @@
 [lints]
 
 [options]
-# Use the app folder as an aditional root for imports.
-module.system.node.resolve_dirname=app
+# Allow importing directly from these folders.
+module.name_mapper='^assets' ->'<PROJECT_ROOT>/app/assets'
+module.name_mapper='^config' ->'<PROJECT_ROOT>/app/config'
+module.name_mapper='^core-components' ->'<PROJECT_ROOT>/app/core-components'
+module.name_mapper='^i18n' ->'<PROJECT_ROOT>/app/i18n'
+module.name_mapper='^lib' ->'<PROJECT_ROOT>/app/lib'
+module.name_mapper='^modules' ->'<PROJECT_ROOT>/app/modules'
+module.name_mapper='^pages' ->'<PROJECT_ROOT>/app/pages'
+module.name_mapper='^store' ->'<PROJECT_ROOT>/app/store'
+module.name_mapper='^types' ->'<PROJECT_ROOT>/app/types'
 
 # Stop flow from complaining about imported files with these extensions.
 # (Requires the 'empty' npm package to be installed.)
+module.file_ext=.js
+module.file_ext=.jsx
+module.file_ext=.json
+module.file_ext=.css
+module.file_ext=.less
 module.name_mapper='.*\(.css\)' -> 'empty/object'
 module.name_mapper='.*\(.less\)' -> 'empty/object'
 
