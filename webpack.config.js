@@ -1,63 +1,48 @@
-// @flow
+/* eslint-disable
+  flowtype/require-valid-file-annotation,
+  flowtype/require-parameter-type,
+  flowtype/require-return-type
+*/
 
 // Allows accessing built-in plugins
 const webpack = require('webpack');
+// Allows merging base / dev / prod configs together
+const merge = require('webpack-merge');
 // Use path package from Node.js
 const path = require('path');
 
 // Require plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 // Path name constants
 const paths = {
   NODE_MODULES: path.resolve(__dirname, 'node_modules'),
-  DIST: path.resolve(__dirname, 'dist'),
   APP: path.resolve(__dirname, 'app'),
   PUBLIC: path.resolve(__dirname, 'public'),
 };
 
-// Webpack configuration
-const config = {
+// Webpack base configuration
+const baseConfig = {
 
   entry: path.join(paths.APP, 'index.js'),
 
   output: {
-    // Output bundle path & filename
-    path: paths.DIST,
     filename: 'app.bundle.js',
-    // "Otherwise hot reloading won't work as expected for nested routes."
-    // See https://github.com/gaearon/react-hot-loader
     publicPath: '/',
   },
 
   devServer: {
     // Configure fallback URL; see https://redux.js.org/docs/advanced/UsageWithReactRouter.html
     historyApiFallback: true,
-    // Enable hot reloading
-    hot: true,
   },
 
-  // Specify which type of source map to use
-  // Note: source maps must be enabled to prevent the console from showing an error
-  // See https://github.com/webpack/webpack-dev-server/issues/1161
-  devtool: 'cheap-module-eval-source-map',
-
   plugins: [
-    // Include hot reloading functionality
-    new webpack.HotModuleReplacementPlugin(),
-    // More readable path names when using Hot Module Replacement
-    new webpack.NamedModulesPlugin(),
     // Automatically insert the webpack-generated app.bundle.js script into index.html
     new HtmlWebpackPlugin({
       template: path.join(paths.PUBLIC, 'index.html'),
-    }),
-    // Minify output
-    new UglifyJSPlugin(),
-    // Extract CSS from the JS bundle into a separate file for parallel loading
-    new ExtractTextPlugin({
-      filename: '[name].[contenthash].css',
     }),
   ],
 
@@ -68,22 +53,6 @@ const config = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader',
-      },
-      // Load CSS files
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      // Load LESS files
-      {
-        test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            { loader: 'css-loader' },
-            { loader: 'less-loader' },
-          ],
-        }),
       },
       // Load font files using file-loader.
       // Note: this must be done before loading general SVG files, to allow the svg-url-loader rule
@@ -140,4 +109,77 @@ const config = {
 
 };
 
-module.exports = config;
+// Webpack developemnt mode additional configuration
+const devConfig = {
+
+  devServer: {
+    // Enable hot reloading
+    hot: true,
+  },
+
+  plugins: [
+    // Include hot reloading functionality
+    new webpack.HotModuleReplacementPlugin(),
+  ],
+
+  module: {
+    rules: [
+      // Load LESS files
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'less-loader',
+        ],
+      },
+    ],
+  },
+
+};
+
+// Webpack production mode additional configuration
+const prodConfig = {
+
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+      }),
+      new OptimizeCssAssetsPlugin(),
+    ],
+  },
+
+  plugins: [
+    // Extract CSS from the JS bundle into a separate file for parallel loading
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css',
+      chunkFilename: '[id].[hash].css',
+    }),
+  ],
+
+  module: {
+    rules: [
+      // Load LESS files
+      {
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'less-loader',
+        ],
+      },
+    ],
+  },
+
+};
+
+module.exports = (env, argv) => {
+  if (argv.mode === 'development') {
+    return merge(baseConfig, devConfig);
+  }
+  else {
+    return merge(baseConfig, prodConfig);
+  }
+};
