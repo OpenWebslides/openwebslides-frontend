@@ -4,19 +4,19 @@ import { all, takeEvery } from 'redux-saga/effects';
 
 import * as t from '../../actionTypes';
 
-import createSaga from './create';
-import updatePlainTextSaga from './updatePlainText';
-import updateMediaSaga from './updateMedia';
+import addSaga from './add';
+import editPlainTextSaga from './editPlainText';
+import editMediaSaga from './editMedia';
 import moveSaga from './move';
-import destroySaga from './destroy';
+import removeSaga from './remove';
 
 const taskSaga = function* (): Generator<*, *, *> {
   yield all([
-    takeEvery(t.CREATE, createSaga),
-    takeEvery(t.UPDATE_PLAIN_TEXT, updatePlainTextSaga),
-    takeEvery(t.UPDATE_MEDIA, updateMediaSaga),
+    takeEvery(t.ADD, addSaga),
+    takeEvery(t.EDIT_PLAIN_TEXT, editPlainTextSaga),
+    takeEvery(t.EDIT_MEDIA, editMediaSaga),
     takeEvery(t.MOVE, moveSaga),
-    takeEvery(t.DESTROY, destroySaga),
+    takeEvery(t.REMOVE, removeSaga),
   ]);
 };
 

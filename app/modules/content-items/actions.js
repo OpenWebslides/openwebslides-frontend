@@ -5,27 +5,11 @@ import _ from 'lodash';
 import type { Identifier } from 'types/model';
 
 import * as t from './actionTypes';
-import generateId from './lib/generate-id';
 
-export const add = (
-
-): t.AddAction => {
-  const newId = generateId();
-
-  // #TODO stub
-
-  return {
-    type: t.ADD,
-    payload: {
-      id: newId,
-    },
-  };
-};
-
-export const editPlainText = (
+export const editPlainTextInState = (
   id: Identifier,
   text: ?string,
-): t.EditPlainTextAction => {
+): t.EditPlainTextInStateAction => {
   const newId = id;
   const newText = text != null ? _.trim(text) : text;
 
@@ -37,7 +21,7 @@ export const editPlainText = (
   }
 
   return {
-    type: t.EDIT_PLAIN_TEXT,
+    type: t.EDIT_PLAIN_TEXT_IN_STATE,
     payload: {
       id: newId,
       text: newText,
@@ -45,12 +29,12 @@ export const editPlainText = (
   };
 };
 
-export const editMedia = (
+export const editMediaInState = (
   id: Identifier,
   src: ?string,
   alt: ?string,
   caption: ?string,
-): t.EditMediaAction => {
+): t.EditMediaInStateAction => {
   const newId = id;
   const newSrc = src != null ? _.trim(src) : src;
   const newAlt = alt != null ? _.trim(alt) : alt;
@@ -70,7 +54,7 @@ export const editMedia = (
   }
 
   return {
-    type: t.EDIT_MEDIA,
+    type: t.EDIT_MEDIA_IN_STATE,
     payload: {
       id: newId,
       src: newSrc,
@@ -80,23 +64,12 @@ export const editMedia = (
   };
 };
 
-export const remove = (
-  id: Identifier,
-): t.RemoveAction => {
-  return {
-    type: t.REMOVE,
-    payload: {
-      id,
-    },
-  };
-};
-
-export const updatePlainText = (
+export const editPlainText = (
   id: Identifier,
   text: ?string,
-): t.UpdatePlainTextAction => {
+): t.EditPlainTextAction => {
   return {
-    type: t.UPDATE_PLAIN_TEXT,
+    type: t.EDIT_PLAIN_TEXT,
     payload: {
       id,
       text,
@@ -104,14 +77,14 @@ export const updatePlainText = (
   };
 };
 
-export const updateMedia = (
+export const editMedia = (
   id: Identifier,
   src: ?string,
   alt: ?string,
   caption: ?string,
-): t.UpdateMediaAction => {
+): t.EditMediaAction => {
   return {
-    type: t.UPDATE_MEDIA,
+    type: t.EDIT_MEDIA,
     payload: {
       id,
       src,

@@ -13,13 +13,13 @@ import EditableTextContent from '../EditableTextContent';
 
 type PassedProps = {
   contentItem: HeadingContentItem,
-  onUpdatePlainText: (id: Identifier, text: string) => void,
+  onEditPlainText: (id: Identifier, text: string) => void,
 };
 
 type Props = PassedProps;
 
 const PureHeading = (props: Props): React.Node => {
-  const { contentItem, onUpdatePlainText } = props;
+  const { contentItem, onEditPlainText } = props;
 
   return (
     <DisplayBlockWrapper
@@ -28,7 +28,7 @@ const PureHeading = (props: Props): React.Node => {
     >
       <EditableTextContent
         initialText={contentItem.text}
-        onDeactivate={(text: string) => onUpdatePlainText(contentItem.id, text)}
+        onDeactivate={(text: string) => onEditPlainText(contentItem.id, text)}
       />
     </DisplayBlockWrapper>
   );

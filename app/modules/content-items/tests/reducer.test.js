@@ -30,7 +30,7 @@ describe(`reducer`, (): void => {
 
   });
 
-  describe(`EDIT_PLAIN_TEXT`, (): void => {
+  describe(`EDIT_PLAIN_TEXT_IN_STATE`, (): void => {
 
     const dummyPlainTextContentItem: $Exact<PlainTextContentItem> = {
       id: 'abcdefghij',
@@ -49,8 +49,8 @@ describe(`reducer`, (): void => {
           [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
         },
       };
-      const editPlainTextAction: t.EditPlainTextAction = {
-        type: t.EDIT_PLAIN_TEXT,
+      const editPlainTextInStateAction: t.EditPlainTextInStateAction = {
+        type: t.EDIT_PLAIN_TEXT_IN_STATE,
         payload: {
           id: dummyPlainTextContentItem.id,
           text: editedText,
@@ -61,7 +61,7 @@ describe(`reducer`, (): void => {
           [dummyPlainTextContentItem.id]: editedPlainTextContentItem,
         },
       };
-      const resultState = reducer(prevState, editPlainTextAction);
+      const resultState = reducer(prevState, editPlainTextInStateAction);
 
       expect(resultState).toEqual(nextState);
       expect(resultState).not.toBe(prevState);
@@ -75,14 +75,14 @@ describe(`reducer`, (): void => {
           [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
         },
       };
-      const editPlainTextAction: t.EditPlainTextAction = {
-        type: t.EDIT_PLAIN_TEXT,
+      const editPlainTextInStateAction: t.EditPlainTextInStateAction = {
+        type: t.EDIT_PLAIN_TEXT_IN_STATE,
         payload: {
           id: dummyPlainTextContentItem.id,
           text: undefined,
         },
       };
-      const resultState = reducer(prevState, editPlainTextAction);
+      const resultState = reducer(prevState, editPlainTextInStateAction);
 
       expect(resultState).toBe(prevState);
       expect(resultState.byId).toBe(prevState.byId);
@@ -95,28 +95,28 @@ describe(`reducer`, (): void => {
           [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
         },
       };
-      const editPlainTextAction: t.EditPlainTextAction = {
-        type: t.EDIT_PLAIN_TEXT,
+      const editPlainTextInStateAction: t.EditPlainTextInStateAction = {
+        type: t.EDIT_PLAIN_TEXT_IN_STATE,
         payload: {
           id: dummyPlainTextContentItem.id,
           text: null,
         },
       };
-      expect((): any => reducer(prevState, editPlainTextAction)).toThrowError(`"text" prop cannot be NULL.`);
+      expect((): any => reducer(prevState, editPlainTextInStateAction)).toThrowError(`"text" prop cannot be NULL.`);
     });
 
     it(`throws an error, when the contentItem for the passed id cannot be found`, (): void => {
       const prevState: ContentItemsState = {
         byId: {},
       };
-      const editPlainTextAction: t.EditPlainTextAction = {
-        type: t.EDIT_PLAIN_TEXT,
+      const editPlainTextInStateAction: t.EditPlainTextInStateAction = {
+        type: t.EDIT_PLAIN_TEXT_IN_STATE,
         payload: {
           id: 'abcdefghij',
           text: undefined,
         },
       };
-      expect((): any => reducer(prevState, editPlainTextAction)).toThrowError(`ContentItem with id "abcdefghij" could not be found.`);
+      expect((): any => reducer(prevState, editPlainTextInStateAction)).toThrowError(`ContentItem with id "abcdefghij" could not be found.`);
     });
 
     it(`throws an error, when the contentItem for the passed id is not a plainText contentItem`, (): void => {
@@ -125,20 +125,20 @@ describe(`reducer`, (): void => {
           [dummyContentItemData.rootContentItem.id]: dummyContentItemData.rootContentItem,
         },
       };
-      const editPlainTextAction: t.EditPlainTextAction = {
-        type: t.EDIT_PLAIN_TEXT,
+      const editPlainTextInStateAction: t.EditPlainTextInStateAction = {
+        type: t.EDIT_PLAIN_TEXT_IN_STATE,
         payload: {
           id: dummyContentItemData.rootContentItem.id,
           text: undefined,
         },
       };
-      expect((): any => reducer(prevState, editPlainTextAction))
+      expect((): any => reducer(prevState, editPlainTextInStateAction))
         .toThrowError(`ContentItem with id "${dummyContentItemData.rootContentItem.id}" is not a plainText contentItem. Its type is "${dummyContentItemData.rootContentItem.type}".`);
     });
 
   });
 
-  describe(`EDIT_MEDIA`, (): void => {
+  describe(`EDIT_MEDIA_IN_STATE`, (): void => {
 
     const dummyMediaContentItem: $Exact<MediaContentItem> = {
       id: 'abcdefghij',
@@ -163,8 +163,8 @@ describe(`reducer`, (): void => {
           [dummyMediaContentItem.id]: dummyMediaContentItem,
         },
       };
-      const editMediaAction: t.EditMediaAction = {
-        type: t.EDIT_MEDIA,
+      const editMediaInStateAction: t.EditMediaInStateAction = {
+        type: t.EDIT_MEDIA_IN_STATE,
         payload: {
           id: dummyMediaContentItem.id,
           src: editedSrc,
@@ -177,7 +177,7 @@ describe(`reducer`, (): void => {
           [dummyMediaContentItem.id]: editedMediaContentItem,
         },
       };
-      const resultState = reducer(prevState, editMediaAction);
+      const resultState = reducer(prevState, editMediaInStateAction);
 
       expect(resultState).toEqual(nextState);
       expect(resultState).not.toBe(prevState);
@@ -191,8 +191,8 @@ describe(`reducer`, (): void => {
           [dummyMediaContentItem.id]: dummyMediaContentItem,
         },
       };
-      const editMediaAction: t.EditMediaAction = {
-        type: t.EDIT_MEDIA,
+      const editMediaInStateAction: t.EditMediaInStateAction = {
+        type: t.EDIT_MEDIA_IN_STATE,
         payload: {
           id: dummyMediaContentItem.id,
           src: undefined,
@@ -200,7 +200,7 @@ describe(`reducer`, (): void => {
           caption: undefined,
         },
       };
-      const resultState = reducer(prevState, editMediaAction);
+      const resultState = reducer(prevState, editMediaInStateAction);
 
       expect(resultState).toBe(prevState);
       expect(resultState.byId).toBe(prevState.byId);
@@ -213,8 +213,8 @@ describe(`reducer`, (): void => {
           [dummyMediaContentItem.id]: dummyMediaContentItem,
         },
       };
-      const editMediaAction: t.EditMediaAction = {
-        type: t.EDIT_MEDIA,
+      const editMediaInStateAction: t.EditMediaInStateAction = {
+        type: t.EDIT_MEDIA_IN_STATE,
         payload: {
           id: dummyMediaContentItem.id,
           src: null,
@@ -222,7 +222,7 @@ describe(`reducer`, (): void => {
           caption: undefined,
         },
       };
-      expect((): any => reducer(prevState, editMediaAction)).toThrowError(`"src" prop cannot be NULL.`);
+      expect((): any => reducer(prevState, editMediaInStateAction)).toThrowError(`"src" prop cannot be NULL.`);
     });
 
     it(`throws an error, when the passed alt prop is NULL`, (): void => {
@@ -231,8 +231,8 @@ describe(`reducer`, (): void => {
           [dummyMediaContentItem.id]: dummyMediaContentItem,
         },
       };
-      const editMediaAction: t.EditMediaAction = {
-        type: t.EDIT_MEDIA,
+      const editMediaInStateAction: t.EditMediaInStateAction = {
+        type: t.EDIT_MEDIA_IN_STATE,
         payload: {
           id: dummyMediaContentItem.id,
           src: undefined,
@@ -240,7 +240,7 @@ describe(`reducer`, (): void => {
           caption: undefined,
         },
       };
-      expect((): any => reducer(prevState, editMediaAction)).toThrowError(`"alt" prop cannot be NULL.`);
+      expect((): any => reducer(prevState, editMediaInStateAction)).toThrowError(`"alt" prop cannot be NULL.`);
     });
 
     it(`changes the media contentItem's caption prop to NULL, when the passed caption prop is NULL`, (): void => {
@@ -253,8 +253,8 @@ describe(`reducer`, (): void => {
           [dummyMediaContentItem.id]: dummyMediaContentItem,
         },
       };
-      const editMediaAction: t.EditMediaAction = {
-        type: t.EDIT_MEDIA,
+      const editMediaInStateAction: t.EditMediaInStateAction = {
+        type: t.EDIT_MEDIA_IN_STATE,
         payload: {
           id: dummyMediaContentItem.id,
           src: undefined,
@@ -267,7 +267,7 @@ describe(`reducer`, (): void => {
           [dummyMediaContentItem.id]: editedMediaContentItem,
         },
       };
-      const resultState = reducer(prevState, editMediaAction);
+      const resultState = reducer(prevState, editMediaInStateAction);
 
       expect(resultState).toEqual(nextState);
       expect(resultState).not.toBe(prevState);
@@ -279,8 +279,8 @@ describe(`reducer`, (): void => {
       const prevState: ContentItemsState = {
         byId: {},
       };
-      const editMediaAction: t.EditMediaAction = {
-        type: t.EDIT_MEDIA,
+      const editMediaInStateAction: t.EditMediaInStateAction = {
+        type: t.EDIT_MEDIA_IN_STATE,
         payload: {
           id: 'abcdefghij',
           src: undefined,
@@ -288,7 +288,7 @@ describe(`reducer`, (): void => {
           caption: undefined,
         },
       };
-      expect((): any => reducer(prevState, editMediaAction)).toThrowError(`ContentItem with id "abcdefghij" could not be found.`);
+      expect((): any => reducer(prevState, editMediaInStateAction)).toThrowError(`ContentItem with id "abcdefghij" could not be found.`);
     });
 
     it(`throws an error, when the contentItem for the passed id is not a media contentItem`, (): void => {
@@ -297,8 +297,8 @@ describe(`reducer`, (): void => {
           [dummyContentItemData.rootContentItem.id]: dummyContentItemData.rootContentItem,
         },
       };
-      const editMediaAction: t.EditMediaAction = {
-        type: t.EDIT_MEDIA,
+      const editMediaInStateAction: t.EditMediaInStateAction = {
+        type: t.EDIT_MEDIA_IN_STATE,
         payload: {
           id: dummyContentItemData.rootContentItem.id,
           src: undefined,
@@ -306,7 +306,7 @@ describe(`reducer`, (): void => {
           caption: undefined,
         },
       };
-      expect((): any => reducer(prevState, editMediaAction))
+      expect((): any => reducer(prevState, editMediaInStateAction))
         .toThrowError(`ContentItem with id "${dummyContentItemData.rootContentItem.id}" is not a media contentItem. Its type is "${dummyContentItemData.rootContentItem.type}".`);
     });
 
