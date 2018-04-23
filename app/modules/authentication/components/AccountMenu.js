@@ -70,7 +70,7 @@ const PureAccountMenu = (props: Props): React.Node => {
       <Dropdown text={displayName} pointing={true} className="item">
         <Dropdown.Menu>
           <Dropdown.Header>{t('navbar:account')}</Dropdown.Header>
-          <Dropdown.Item>{t('navbar:preferences')}</Dropdown.Item>
+          <Dropdown.Item as={Link} to="/profile">{t('navbar:preferences')}</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={handleSignout}>
             {t('navbar:signout')}

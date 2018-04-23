@@ -8,7 +8,7 @@ import type { Identifier } from 'types/model';
 import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 import moment from 'moment';
-import { getTitleById } from 'modules/topics/selectors';
+import topics from 'modules/topics';
 import users from 'modules/users';
 import Gravatar from 'core-components/gravatar/Gravatar';
 
@@ -23,6 +23,9 @@ const getUserById = users.selectors.getById;
 const { User } = users.model;
 const { GRAVATAR_SIZE_SMALL } = users.constants;
 
+const getTitleById = topics.selectors.getById;
+const { Topic } = topics.model;
+
 type PassedProps = {
   feedItemId: Identifier,
 };
@@ -30,19 +33,25 @@ type PassedProps = {
 type StateProps = {
   feedItem: FeedItemType,
   user: User,
-  topicTitle: string,
+  topic: Topic,
 };
 
 type Props = CustomTranslatorProps & PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const feedItem = getById(state, props.feedItemId);
+  const topic = getTitleById(state, { id: feedItem.topicId });
+
+  if (topic == null) {
+    throw new Error(`Topic with id "${feedItem.topicId}" could not be found.`);
+  }
+
   const user = getUserById(state, feedItem.userId);
-  const topicTitle = getTitleById(state, feedItem.topicId);
+
   return {
     feedItem,
     user,
-    topicTitle,
+    topic,
   };
 };
 
@@ -51,7 +60,7 @@ const PureFeedItem = (props: Props): React.Node => {
     t,
     feedItem,
     user,
-    topicTitle,
+    topic,
   } = props;
 
   let predicate:string = '';
@@ -84,7 +93,7 @@ const PureFeedItem = (props: Props): React.Node => {
           &nbsp;
           <strong>
             &quot;
-            {topicTitle}
+            {topic.title}
             &quot;
           </strong>
         </Feed.Summary>

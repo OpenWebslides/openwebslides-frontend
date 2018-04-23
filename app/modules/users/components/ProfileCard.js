@@ -4,11 +4,15 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'semantic-ui-react';
 import type { State } from 'types/state';
-import SimpleList from 'modules/topics/components/SimpleList';
 import Gravatar from 'core-components/gravatar/Gravatar';
+
+import topics from 'modules/topics';
+
 import type { User } from '../model';
 import { getById } from '../selectors';
 import { GRAVATAR_SIZE_LARGE } from '../constants';
+
+const { SimpleList } = topics.components;
 
 type PassedProps = {
   // TODO: change to identifier once fallback option for
@@ -23,10 +27,13 @@ type StateProps = {
 type Props = PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  const { userId } = props;
+
   return {
-    user: getById(state, props.userId),
+    user: getById(state, userId),
   };
 };
+
 
 const PureProfileCard = (props: Props): React.Node => {
   const { user } = props;

@@ -7,7 +7,7 @@ import topics from 'modules/topics';
 
 import Page from '../Page';
 
-const CreateNewTopicCard = topics.components.NewTopicCard;
+const { NewTopicCard } = topics.components;
 
 type Props = CustomTranslatorProps;
 
@@ -19,7 +19,7 @@ const PureNewTopicPage = (props: Props): React.Node => {
   return (
     <Page>
       <h1>{t('pages:topic_new.title')}</h1>
-      <CreateNewTopicCard />
+      <NewTopicCard />
     </Page>
   );
 };

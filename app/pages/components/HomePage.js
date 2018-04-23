@@ -11,6 +11,8 @@ import type { State } from 'types/state';
 
 import Page from '../Page';
 
+const { getAll } = feedItems.selectors;
+
 type StateProps = {
   feedItemIds: Array<Identifier>,
 };
@@ -23,7 +25,7 @@ type Props = CustomTranslatorProps & StateProps & DispatchProps;
 
 const mapStateToProps = (state: State): StateProps => {
   return {
-    feedItemIds: feedItems.selectors.getAll(state).map((feedItem) => feedItem.id),
+    feedItemIds: getAll(state).map((feedItem) => feedItem.id),
   };
 };
 

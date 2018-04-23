@@ -8,11 +8,14 @@ import { connect } from 'react-redux';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import topics from 'modules/topics';
-import { CURRENT_USER } from 'modules/users/constants';
+import users from 'modules/users';
 import { Button, Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import Page from '../Page';
+
+const { CURRENT_USER } = users.constants;
+const { getAllTopicIdsByUserId } = topics.selectors;
 
 type StateProps = {
   topicIds: Array<Identifier>,
@@ -22,7 +25,7 @@ type Props = CustomTranslatorProps & StateProps;
 
 const mapStateToProps = (state: State): StateProps => {
   return {
-    topicIds: topics.selectors.getAllTopicIdsByUserId(state, CURRENT_USER),
+    topicIds: getAllTopicIdsByUserId(state, CURRENT_USER),
   };
 };
 
