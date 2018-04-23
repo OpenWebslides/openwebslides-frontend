@@ -3,17 +3,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import type { State } from 'types/state';
-
+import modals from 'modules/modals';
 import DeleteTopicModal from './DeleteTopicModal';
-import { getModal } from '../selectors';
 
+const { getModal } = modals.selectors;
 
-/*
-type PassedProps = {
-  id: string,
-  modalType: string,
-};
-*/
 type StateProps = {
   id: string,
   modalType: string,

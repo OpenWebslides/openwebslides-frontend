@@ -17,6 +17,7 @@ import Page from '../Page';
 
 const { getAllTopicIdsByUserId } = topics.selectors;
 const { getAccount } = authentication.selectors;
+const { CardCollection } = topics.components;
 
 type StateProps = {
   topicIds: Array<Identifier>,
@@ -34,8 +35,6 @@ const mapStateToProps = (state: State): StateProps => {
     topicIds: getAllTopicIdsByUserId(state, CURRENT_USER),
   };
 };
-
-const TopicsCollection = topics.components.CardCollection;
 
 const PureLibraryPage = (props: Props): React.Node => {
   const {
@@ -59,7 +58,7 @@ const PureLibraryPage = (props: Props): React.Node => {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <TopicsCollection topicIds={topicIds} />
+          <CardCollection topicIds={topicIds} />
         </Grid.Row>
       </Grid>
     </Page>
