@@ -2,7 +2,15 @@
 
 import * as React from 'react';
 
-import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
+/* import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
+
+<div id="voice" >
+  <VoicePlayer
+    play={true}
+    onEnd={(): void => {}}
+    text={contentItem.text}
+  />
+</div> */
 
 import InlineMarkdown from 'core-components/inline-markdown';
 import type { DenormalizedParagraphContentItem } from '../../../model';
@@ -23,14 +31,6 @@ const PureParagraph = (props: Props): React.Node => {
     <div className={`${containerClassName} ${containerClassName}--paragraph`}>
       <p className={`${containerClassName}__item ows_paragraph`}>
         <InlineMarkdown text={contentItem.text} />
-
-        <div id="voice" >
-          <VoicePlayer
-            play={true}
-            onEnd={(): void => {}}
-            text={contentItem.text}
-          />
-        </div>
       </p>
       {children}
     </div>

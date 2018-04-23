@@ -41,7 +41,7 @@ describe(`Paragraph`, (): void => {
       />,
     );
     const paragraphTags = enzymeWrapper.find('p');
-    expect(paragraphTags).toHaveLength(2);
+    expect(paragraphTags).toHaveLength(1);
     expect(paragraphTags.first().text()).toEqual(dummyParagraph.text);
   });
 

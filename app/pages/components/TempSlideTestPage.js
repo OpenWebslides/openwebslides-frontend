@@ -14,6 +14,9 @@ import Slide from 'core-components/slides/Slide';
 import color, { TwitterPicker } from 'react-color';
 import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
 
+import Voiceplay from 'core-components/slides/voicePlayerComp';
+
+
 import Page from '../Page';
 
 type PassedProps = {};
@@ -49,17 +52,17 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const PureTempSlideTestPage = (props: Props): React.Node => {
   const { contentItemTreeRootItem } = props;
-  // handleChange = (color, event){
-  //   this.setState({background: color.hex});
-  // };
+  const handleChange = (Color: color): string => {
+    // alert(Color.hex);
+    // this.setState({ background: Color.hex });
+    return Color.hex;
+  };
 
   return (
     <Page>
-      <TwitterPicker onChange={this.handleChange} />
-      <div id="voice" >
-        <VoicePlayer play={true} onEnd={(): void => {}} text="test" />
-      </div>
+      <TwitterPicker onChange={handleChange} />
       <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
+      <Voiceplay />
     </Page>
   );
 };
