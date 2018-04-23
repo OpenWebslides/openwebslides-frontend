@@ -6,14 +6,13 @@ import { Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import type { State } from 'types/state';
-
+import type { Identifier } from 'types/model';
 import type { CustomTranslatorProps } from 'types/translator';
 
 import users from 'modules/users';
 import authentication from 'modules/authentication';
 
 import Page from '../Page';
-
 
 const { ProfileCard } = users.components;
 const { getAccount } = authentication.selectors;
@@ -24,10 +23,14 @@ type RouteProps = {
 };
 
 type StateProps = {
-  account: Account,
+  account: ?Account,
 };
 
-type Props = CustomTranslatorProps & RouteProps;
+type PassedProps = {
+  userId: Identifier,
+};
+
+type Props = CustomTranslatorProps & RouteProps & StateProps;
 
 const mapStateToProps = (state: State): StateProps => {
   const account = getAccount(state);
@@ -44,15 +47,13 @@ const mapStateToProps = (state: State): StateProps => {
   };
 };
 
-const CurrentUserProfile = (props: StateProps): React.Node => {
+const CurrentUserProfile = (props: PassedProps): React.Node => {
   // TODO: use account from props in this function
-  const { account } = props;
-
-  const CURRENT_USER = account != null ? account.id : 'markfrank1';
+  const { userId } = props;
 
   return (
     <React.Fragment>
-      <ProfileCard userId={CURRENT_USER} />
+      <ProfileCard userId={userId} />
     </React.Fragment>
   );
 };
@@ -73,14 +74,17 @@ const PureProfilePage = (props: Props): React.Node => {
   const {
     t,
     match,
+    account,
   } = props;
+
+  const CURRENT_USER = account != null ? account.id : 'jantje1234';
 
   return (
     <Page>
       <h1>{t('pages:profile.title')}</h1>
       <Switch>
-        <Route path={`${match.url}/:id`} component={UserProfile} t={t} />
-        <Route component={CurrentUserProfile} t={t} />
+        <Route path={`${match.url}/:id`} component={UserProfile} />
+        <Route render={() => <CurrentUserProfile userId={CURRENT_USER} />} />
       </Switch>
     </Page>
   );
