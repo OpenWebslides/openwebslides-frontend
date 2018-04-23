@@ -7,6 +7,10 @@ module.exports = {
   collectCoverageFrom: [
     'app/**/*.js',
   ],
+  coveragePathIgnorePatterns: [
+    'node_modules',
+    'app/index.js',
+  ],
   // Use the app folder as an additional root for imports, to match webpack's resolve.modules.
   moduleDirectories: [
     'node_modules',

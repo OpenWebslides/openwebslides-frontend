@@ -11,7 +11,7 @@ import { BrowserRouter } from 'react-router-dom';
 import i18nextConfig from 'config/i18next';
 import pageRoutes from 'pages/routes';
 
-const Application = (): React.Node => {
+const PureApplication = (): React.Node => {
   return (
     <I18nextProvider i18n={i18nextConfig}>
       <BrowserRouter>
@@ -21,4 +21,7 @@ const Application = (): React.Node => {
   );
 };
 
-export default hot(module)(Application);
+const Application = hot(module)(PureApplication);
+
+export { PureApplication };
+export default Application;
