@@ -1,6 +1,6 @@
 // @flow
 
-import { DEFAULT_URL, MEDIA_TYPE } from './constants';
+import { API_URL, MEDIA_TYPE } from './constants';
 
 import asyncFetch from './asyncFetch';
 import type {
@@ -14,7 +14,7 @@ const ApiRequest = (): Request => {
   const request: Request = {
     config: {
       // Request URL (base)
-      url: DEFAULT_URL,
+      url: API_URL,
 
       // Request endpoint
       endpoint: '',

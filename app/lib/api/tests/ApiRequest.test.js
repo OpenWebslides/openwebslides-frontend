@@ -1,7 +1,7 @@
 // @flow
 
 import ApiRequest from '../ApiRequest';
-import { DEFAULT_URL, MEDIA_TYPE } from '../constants';
+import { API_URL, MEDIA_TYPE } from '../constants';
 
 import type { Request } from '../model';
 import { methodTypes } from '../model';
@@ -20,7 +20,7 @@ describe(`ApiRequest`, (): void => {
 
   describe(`config`, (): void => {
     it(`has a default config`, (): void => {
-      expect(request.config.url).toEqual(DEFAULT_URL);
+      expect(request.config.url).toEqual(API_URL);
       expect(request.config.endpoint).toEqual('');
       expect(request.config.headers).toEqual(defaultHeaders);
       expect(request.config.parameters).toEqual({});
@@ -116,14 +116,14 @@ describe(`ApiRequest`, (): void => {
     it(`generates correct url without parameters`, (): void => {
       request.setEndpoint('/endpoint');
 
-      expect(request.getUrl()).toEqual(`${DEFAULT_URL}/endpoint`);
+      expect(request.getUrl()).toEqual(`${API_URL}/endpoint`);
     });
 
     it(`generates correct url with one parameter`, (): void => {
       request.setEndpoint('/endpoint');
       request.setParameter('param1', 'value1');
 
-      expect(request.getUrl()).toEqual(`${DEFAULT_URL}/endpoint?param1=value1`);
+      expect(request.getUrl()).toEqual(`${API_URL}/endpoint?param1=value1`);
     });
 
     it(`generates correct url with two parameters`, (): void => {
@@ -131,7 +131,7 @@ describe(`ApiRequest`, (): void => {
       request.setParameter('param1', 'value1');
       request.setParameter('param2', 'value2');
 
-      expect(request.getUrl()).toEqual(`${DEFAULT_URL}/endpoint?param1=value1&param2=value2`);
+      expect(request.getUrl()).toEqual(`${API_URL}/endpoint?param1=value1&param2=value2`);
     });
   });
 
