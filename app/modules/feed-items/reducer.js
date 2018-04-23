@@ -7,39 +7,26 @@ import type { FeedItemType, FeedItemsState } from './model';
 
 const initialState: FeedItemsState = dummyFeedItems;
 
-const add = (state: FeedItemsState, action: t.AddAction): FeedItemsState => {
-  const {
-    id,
-    userId,
-    topicId,
-    predicate,
-    timestamp,
-  } = action.payload;
+const fetch = (state: FeedItemsState, action: t.FetchSuccessAction): FeedItemsState => {
+  const newFeedItems = {};
 
-  const newFeedItem: FeedItemType = {
-    id,
-    userId,
-    topicId,
-    predicate,
-    timestamp,
-  };
+  action.data.forEach((item: FeedItemType): void => {
+    newFeedItems[item.id] = item;
+  });
 
   return {
     ...state,
-    [id]: newFeedItem,
+    ...newFeedItems,
   };
 };
 
 const reducer = (state: FeedItemsState = initialState, action: t.FeedAction): FeedItemsState => {
   switch (action.type) {
-    case t.ADD:
-      return add(state, action);
-    case t.ADD_ERROR:
+    case t.FETCH_FEED_SUCCESS:
+      return fetch(state, action);
+    case t.FETCH_FEED_FAILURE:
       return state;
     default:
-      // Type error when not all action.type cases are handled.
-      // eslint-disable-next-line no-unused-expressions
-      (action: empty);
       return state;
   }
 };
