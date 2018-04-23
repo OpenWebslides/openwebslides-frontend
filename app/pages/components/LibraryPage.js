@@ -7,15 +7,16 @@ import { connect } from 'react-redux';
 
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import topics from 'modules/topics';
-import users from 'modules/users';
 import { Button, Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
+import topics from 'modules/topics';
+import authentication from 'modules/authentication';
+
 import Page from '../Page';
 
-const { CURRENT_USER } = users.constants;
 const { getAllTopicIdsByUserId } = topics.selectors;
+const { getAccount } = authentication.selectors;
 
 type StateProps = {
   topicIds: Array<Identifier>,
@@ -24,6 +25,11 @@ type StateProps = {
 type Props = CustomTranslatorProps & StateProps;
 
 const mapStateToProps = (state: State): StateProps => {
+  const account = getAccount(state);
+
+  // TODO: does this need null checks or is it impossible to access when not logged in?
+  const CURRENT_USER = account != null ? account.id : 'jantje1234';
+
   return {
     topicIds: getAllTopicIdsByUserId(state, CURRENT_USER),
   };

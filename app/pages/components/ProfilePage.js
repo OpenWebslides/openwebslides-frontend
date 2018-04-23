@@ -48,7 +48,6 @@ const mapStateToProps = (state: State): StateProps => {
 };
 
 const CurrentUserProfile = (props: PassedProps): React.Node => {
-  // TODO: use account from props in this function
   const { userId } = props;
 
   return (
