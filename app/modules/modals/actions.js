@@ -19,13 +19,11 @@ export const showModal = (
 
 export const hideModal = (
   modalType: string,
-  id: Identifier,
 ): t.HideModalAction | t.HideModalErrorAction => {
   return {
     type: t.HIDEMODAL,
     payload: {
       modalType,
-      id,
     },
   };
 };

@@ -45,6 +45,7 @@ export type RemoveAction = {
   type: typeof REMOVE,
   payload: {
     id: Identifier,
+    modalType: string,
   },
 };
 
@@ -99,6 +100,8 @@ export type RemoveFromStateErrorAction = {
 
 
 export type TopicReducerAction =
+  | EditAction
+  | EditErrorAction
   | AddToStateAction
   | RemoveFromStateAction
   | AddToStateErrorAction
@@ -108,7 +111,5 @@ export type TopicReducerAction =
 export type TopicTaskSagaAction =
   | AddAction
   | RemoveAction
-  | EditAction
-  | AddAction
-  | EditErrorAction
+  | AddErrorAction
   | RemoveErrorAction;

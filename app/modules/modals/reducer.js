@@ -26,7 +26,9 @@ const showModal = (state: ModalsState, action: t.ShowModalAction): ModalsState =
 
 const hideModal = (state: ModalsState, action: t.HideModalAction): ModalsState => {
   console.log('A motherflippin modal should be hidden now!');
-  console.log(`type=${action.payload.modalType} && id=${action.payload.id}`);
+  console.log(`type=${action.payload.modalType}`);
+
+  // TODO: check if modalType is ever needed (in case of multiple modals i guess?)
   return {
     ...initialState,
   };

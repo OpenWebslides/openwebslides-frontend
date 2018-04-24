@@ -15,8 +15,7 @@ const addSaga = function* (action: t.AddAction): Generator<*, *, *> {
   } = action.payload;
 
   yield put(addToState(userId, title, description));
-  yield history.replace('/library');
-
+  history.replace('/library');
 };
 
 export default addSaga;

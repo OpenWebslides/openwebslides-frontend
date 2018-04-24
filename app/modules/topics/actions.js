@@ -79,11 +79,13 @@ export const edit = (
 
 export const remove = (
   id: Identifier,
+  modalType: string,
 ): t.RemoveAction | t.RemoveErrorAction => {
   return {
     type: t.REMOVE,
     payload: {
       id,
+      modalType,
     },
   };
 };

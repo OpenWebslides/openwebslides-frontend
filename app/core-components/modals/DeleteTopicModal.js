@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     onConfirmButtonClick: (id: string, modalType: string): void => {
       dispatch(
-        remove(id),
+        remove(id, modalType),
       );
     },
   };
@@ -39,7 +39,7 @@ const PureDeleteTopicModal = (props: Props): React.Node => {
 
   return (
     <Button color="green" inverted={true} onClick={() => onConfirmButtonClick(id, modalType)}>
-      CLOSE ZE MODAL
+      I am sure!
     </Button>
   );
 };

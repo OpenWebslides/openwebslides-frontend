@@ -13,7 +13,6 @@ import modals from 'modules/modals';
 
 import { getById } from '../selectors';
 import type { Topic } from '../model';
-// import { remove } from '../actions';
 
 const { showModal } = modals.actions;
 
