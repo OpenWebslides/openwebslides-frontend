@@ -82,30 +82,6 @@ export const RESET_ERROR: 'auth/RESET_ERROR' = 'auth/RESET_ERROR';
 export const CONFIRM: 'auth/CONFIRM' = 'auth/CONFIRM';
 export const CONFIRM_ERROR: 'auth/CONFIRM_ERROR' = 'auth/CONFIRM_ERROR';
 
-/* SIGNIN_OAUTH */
-export type SigninOAuthAction = {
-  type: typeof SIGNIN_OAUTH,
-  payload: {
-    email: string,
-  },
-};
-
-export type SigninOAuthErrorAction = {
-  type: typeof SIGNIN_OAUTH_ERROR,
-  error: Error,
-};
-
-export type SigninOAuthSuccessAction = {
-  type: typeof SIGNIN_OAUTH_SUCCESS,
-  // eslint-disable-next-line flowtype/no-weak-types
-  payload: Object,
-};
-
-export type SigninOAuthFailureAction = {
-  type: typeof SIGNIN_OAUTH_FAILURE,
-  error: Error,
-};
-
 /* SIGNUP */
 export type SignupAction = {
   type: typeof SIGNUP,
@@ -163,10 +139,6 @@ export type AuthenticationAction =
   | SetAccountAction
   | SetTokenAction
 
-  | SigninOAuthAction
-  | SigninOAuthErrorAction
-  | SigninOAuthSuccessAction
-  | SigninOAuthFailureAction
   | SignoutAction
   | SignupAction
   | SignupErrorAction
