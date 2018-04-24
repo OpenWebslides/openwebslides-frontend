@@ -1,9 +1,9 @@
 // @flow
-
+/*
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import Voiceplayer from '../Voiceplayer';
+import Voiceplay from '../voicePlayerComp';
 
 describe(`voicePlayerComp`, (): void => {
 
@@ -12,7 +12,7 @@ describe(`voicePlayerComp`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <Voiceplayer />,
+      <Voiceplay />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });

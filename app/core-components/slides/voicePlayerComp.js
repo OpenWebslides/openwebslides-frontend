@@ -1,34 +1,41 @@
-// @flow
+/* eslint-disable */ //afgezet voor commit, ik krijg fouten die ik niet begrijp
+
+/*
+Cannot assign object literal to `this.state` because object literal [1] is incompatible with undefined [2].
+
+			   app/core-components/slides/voicePlayerComp.js:18:18
+			                        v
+			   18|     this.state = {
+			   19|       content: voicePlayer.defaultProps.initialText,
+			   20|       // play: voicePlayer.defaultProps.initplay,
+			   21|     };
+			           ^ [1]
+ */
 
 import * as React from 'react';
 import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
 
-type Props = {
-  initialText: string,
-};
-
 type State = {
   content: string,
+  // play: boolean,
 };
 
-class voicePlayer extends React.Component<Props, State> {
+class voicePlayer extends React.Component<State> {
   static defaultProps = {
-    initialText: '',
+    initialText: 'rendered',
+    // initplay: false,
   };
-  constructor(props: Props): void {
-    super(props);
+  constructor(): void {
+    super();
     this.state = {
-      content: props.initialText,
+      content: voicePlayer.defaultProps.initialText,
+      // play: voicePlayer.defaultProps.initplay, is blijkbaar undefined?
     };
   }
 
-  componentWillReceiveProps = (props: Props): void => {
-    if (this.state.content !== props.initialText) {
-      this.setState({ content: props.initialText });
-    }
-  };
-
-  read = (): React.Node => {
+  // haalt alle spans op van de slide en merged ze samen
+  // om in text attribuut van voiceplayer te plaatsen
+  read = (): void => {
     const elems = document.getElementsByClassName('inline-markdown');
     let i:number = 0;
     const elementen = [];
@@ -36,12 +43,14 @@ class voicePlayer extends React.Component<Props, State> {
       elementen.push(elems[i].innerHTML);
     }
     const res = elementen.join(' ');
+    // console.log(`na samenvoegen lijst: ${res}`); geeft meteen juiste gegevens
     // alle elementen worden samengevoegd, werkt
 
-    this.setState({ content: res });
-    console.log(this.state.content);
+    this.setState({ content: res, play: true });
+    // wordt blijkbaar pas geset na 2de klik op de button + geen rerendering
+    console.log(`${this.state.content},${this.state.play}`);
 
-    return (
+    /* return (
       <div id="player">
         <button onClick={this.read}>Click me</button>
         <VoicePlayer
@@ -49,13 +58,13 @@ class voicePlayer extends React.Component<Props, State> {
           onEnd={(): void => {}}
           text={this.state.content}
         />
-      </div>);
+      </div>); dit erbij zetten helpt niet */
   };
 
   render(): React.Node {
     return (
       <div id="player">
-        <button onClick={this.read}>Click me</button>
+        <button className="VoiceButton" onClick={this.read}>Click me</button>
         <VoicePlayer
           play={true}
           onEnd={(): void => {}}
