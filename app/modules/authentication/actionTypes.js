@@ -16,9 +16,14 @@ export const SIGNIN_EMAIL_ERROR: 'auth/SIGNIN_EMAIL' = 'auth/SIGNIN_EMAIL';
 
 export const SIGNOUT: 'auth/SIGNOUT' = 'auth/SIGNOUT';
 
+export const SIGNUP: 'auth/SIGNUP' = 'auth/SIGNUP';
+export const SIGNUP_ERROR: 'auth/SIGNUP_ERROR' = 'auth/SIGNUP_ERROR';
+
 // API saga actions
 export const API_POST_TOKEN: 'auth/API_POST_TOKEN' = 'auth/API_POST_TOKEN';
 export const API_DELETE_TOKEN: 'auth/API_DELETE_TOKEN' = 'auth/API_DELETE_TOKEN';
+
+export const API_POST_USERS: 'auth/API_POST_USERS' = 'auth/API_POST_USERS';
 
 /* Action types */
 
@@ -56,6 +61,22 @@ export type SignoutAction = {
   type: typeof SIGNOUT,
 };
 
+export type SignupAction = {
+  type: typeof SIGNUP,
+  payload: {
+    email: string,
+    firstName: string,
+    lastName?: string,
+    password: string,
+    tosAccepted: boolean,
+  },
+};
+
+export type SignupErrorAction = {
+  type: typeof SIGNUP_ERROR,
+  error: Error,
+};
+
 // API saga actions
 export type ApiPostTokenAction = {
   type: typeof API_POST_TOKEN,
@@ -69,45 +90,23 @@ export type ApiDeleteTokenAction = {
   type: typeof API_DELETE_TOKEN,
 };
 
+export type ApiPostUsersAction = {
+  type: typeof API_POST_USERS,
+  payload: {
+    email: string,
+    firstName: string,
+    lastName: ?string,
+    password: string,
+    tosAccepted: boolean,
+  },
+};
 
-
-export const SIGNUP: 'auth/SIGNUP' = 'auth/SIGNUP';
-export const SIGNUP_ERROR: 'auth/SIGNUP_ERROR' = 'auth/SIGNUP_ERROR';
-export const SIGNUP_SUCCESS: 'auth/SIGNUP_SUCCESS' = 'auth/SIGNUP_SUCCESS';
-export const SIGNUP_FAILURE: 'auth/SIGNUP_FAILURE' = 'auth/SIGNUP_FAILURE';
 
 export const RESET: 'auth/RESET' = 'auth/RESET';
 export const RESET_ERROR: 'auth/RESET_ERROR' = 'auth/RESET_ERROR';
 
 export const CONFIRM: 'auth/CONFIRM' = 'auth/CONFIRM';
 export const CONFIRM_ERROR: 'auth/CONFIRM_ERROR' = 'auth/CONFIRM_ERROR';
-
-/* SIGNUP */
-export type SignupAction = {
-  type: typeof SIGNUP,
-  payload: {
-    email: string,
-    password: string,
-    firstName: string,
-    lastName: ?string,
-  },
-};
-
-export type SignupErrorAction = {
-  type: typeof SIGNUP_ERROR,
-  error: Error,
-};
-
-export type SignupSuccessAction = {
-  type: typeof SIGNUP_SUCCESS,
-  // eslint-disable-next-line flowtype/no-weak-types
-  payload: Object,
-};
-
-export type SignupFailureAction = {
-  type: typeof SIGNUP_FAILURE,
-  error: Error,
-};
 
 /* RESET */
 export type ResetAction = {
@@ -139,11 +138,6 @@ export type AuthenticationAction =
   | SetAccountAction
   | SetTokenAction
 
-  | SignoutAction
-  | SignupAction
-  | SignupErrorAction
-  | SignupSuccessAction
-  | SignupFailureAction
   | ResetAction
   | ResetErrorAction
   | ConfirmAction

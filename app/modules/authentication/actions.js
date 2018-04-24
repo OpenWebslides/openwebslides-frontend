@@ -72,39 +72,17 @@ export const signout = (
   };
 };
 
-// API saga actions
-export const apiPostToken = (
-  email: string,
-  password: string,
-): t.ApiPostTokenAction => {
-  return {
-    type: t.API_POST_TOKEN,
-    payload: {
-      email,
-      password,
-    },
-  };
-};
-
-export const apiDeleteToken = (
-): t.ApiDeleteTokenAction => {
-  return {
-    type: t.API_DELETE_TOKEN,
-  };
-};
-
-
-
-
 export const signup = (
   email: string,
-  password: string,
   firstName: string,
   lastName: ?string,
+  password: string,
+  tosAccepted: boolean,
 ): t.SignupAction | t.SignupErrorAction => {
   const newEmail = _.trim(email);
   const newPassword = _.trim(password);
   const newFirstName = _.trim(firstName);
+  const newLastName = _.trim(lastName);
 
   if (newEmail === '') {
     return {
@@ -142,16 +120,69 @@ export const signup = (
     };
   }
 
+  if (tosAccepted !== true) {
+    return {
+      type: t.SIGNUP_ERROR,
+      error: {
+        message: 'ToS must be accepted.',
+      },
+    };
+  }
+
   return {
     type: t.SIGNUP,
     payload: {
       email: newEmail,
       password: newPassword,
       firstName: newFirstName,
-      lastName: lastName || null,
+      lastName: newLastName,
+      tosAccepted,
     },
   };
 };
+
+// API saga actions
+export const apiPostToken = (
+  email: string,
+  password: string,
+): t.ApiPostTokenAction => {
+  return {
+    type: t.API_POST_TOKEN,
+    payload: {
+      email,
+      password,
+    },
+  };
+};
+
+export const apiDeleteToken = (
+): t.ApiDeleteTokenAction => {
+  return {
+    type: t.API_DELETE_TOKEN,
+  };
+};
+
+export const apiPostUsers = (
+  email: string,
+  firstName: string,
+  lastName: ?string,
+  password: string,
+  tosAccepted: boolean,
+): t.ApiPostUsersAction => {
+  return {
+    type: t.API_POST_USERS,
+    payload: {
+      email,
+      firstName,
+      lastName,
+      password,
+      tosAccepted,
+    },
+  };
+};
+
+
+
 
 export const reset = (
   email: string,
