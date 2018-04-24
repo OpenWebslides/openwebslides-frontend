@@ -73,6 +73,112 @@ describe(`actions`, (): void => {
         });
       });
     });
+
+    describe(`signup`, (): void => {
+      it(`returns signup action on correct params`, (): void => {
+        const action = actions.signup('foo@bar', 'Foo', 'Bar', 'barbar', true);
+
+        expect(action).toEqual({
+          type: t.SIGNUP,
+          payload: {
+            email: 'foo@bar',
+            password: 'barbar',
+            firstName: 'Foo',
+            lastName: 'Bar',
+            tosAccepted: true,
+          },
+        });
+      });
+
+      it(`returns signup action on correct params without lastName`, (): void => {
+        const action = actions.signup('foo@bar', 'Foo', '', 'barbar', true);
+
+        expect(action).toEqual({
+          type: t.SIGNUP,
+          payload: {
+            email: 'foo@bar',
+            password: 'barbar',
+            firstName: 'Foo',
+            lastName: '',
+            tosAccepted: true,
+          },
+        });
+      });
+
+      it(`returns signup error action on missing email`, (): void => {
+        const action = actions.signup('', 'Foo', 'Bar', 'barbar', true);
+
+        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      });
+
+      it(`returns signup error action on missing password`, (): void => {
+        const action = actions.signup('foo@bar', 'Foo', 'Bar', '', true);
+
+        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      });
+
+      it(`returns signup error action on too short password`, (): void => {
+        const action = actions.signup('foo@bar', 'Foo', 'Bar', 'bar', true);
+
+        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      });
+
+      it(`returns signup error action on too long password`, (): void => {
+        const action = actions.signup('foo@bar', 'Foo', 'Bar', 'barbarbarbarbarbarbarbar', true);
+
+        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      });
+
+      it(`returns signup error action on missing firstName`, (): void => {
+        const action = actions.signup('foo@bar', '', 'Bar', 'barbar', true);
+
+        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      });
+
+      it(`returns signup error action on false tosAccepted`, (): void => {
+        const action = actions.signup('foo@bar', 'Foo', 'Bar', 'barbar', false);
+
+        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      });
+    });
+
+    describe(`reset`, (): void => {
+      it(`returns reset action on correct params`, (): void => {
+        const action = actions.reset('foo');
+
+        expect(action).toEqual({
+          type: t.RESET,
+          payload: {
+            email: 'foo',
+          },
+        });
+      });
+
+      it(`returns reset error action on missing email`, (): void => {
+        const action = actions.reset('');
+
+        expect(action.type).toEqual(t.RESET_ERROR);
+      });
+    });
+
+    describe(`confirm`, (): void => {
+      it(`returns confirm action on correct params`, (): void => {
+        const action = actions.confirm('foo');
+
+        expect(action).toEqual({
+          type: t.CONFIRM,
+          payload: {
+            email: 'foo',
+          },
+        });
+      });
+
+      it(`returns confirm error action on missing email`, (): void => {
+        const action = actions.confirm('');
+
+        expect(action.type).toEqual(t.CONFIRM_ERROR);
+      });
+    });
   });
 
   describe(`API saga actions`, (): void => {
@@ -101,109 +207,46 @@ describe(`actions`, (): void => {
     });
   });
 
-  describe(`signup`, (): void => {
-    it(`returns signup action on correct params`, (): void => {
-      const action = actions.signup('foo@bar', 'Foo', 'Bar', 'barbar', true);
+  describe(`apiPostUsers`, (): void => {
+    it(`returns post users action`, (): void => {
+      const action = actions.apiPostUsers('email', 'firstName', 'lastName', 'password', true);
 
       expect(action).toEqual({
-        type: t.SIGNUP,
+        type: t.API_POST_USERS,
         payload: {
-          email: 'foo@bar',
-          password: 'barbar',
-          firstName: 'Foo',
-          lastName: 'Bar',
+          email: 'email',
+          firstName: 'firstName',
+          lastName: 'lastName',
+          password: 'password',
           tosAccepted: true,
         },
       });
     });
 
-    it(`returns signup action on correct params without lastName`, (): void => {
-      const action = actions.signup('foo@bar', 'Foo', '', 'barbar', true);
+    describe(`apiPostPassword`, (): void => {
+      it(`returns post password action`, (): void => {
+        const action = actions.apiPostPassword('foo@bar');
 
-      expect(action).toEqual({
-        type: t.SIGNUP,
-        payload: {
-          email: 'foo@bar',
-          password: 'barbar',
-          firstName: 'Foo',
-          lastName: '',
-          tosAccepted: true,
-        },
+        expect(action).toEqual({
+          type: t.API_POST_PASSWORD,
+          payload: {
+            email: 'foo@bar',
+          },
+        });
       });
-    });
 
-    it(`returns signup error action on missing email`, (): void => {
-      const action = actions.signup('', 'Foo', 'Bar', 'barbar', true);
+      describe(`apiPostConfirmation`, (): void => {
+        it(`returns post confirmation action`, (): void => {
+          const action = actions.apiPostConfirmation('foo@bar');
 
-      expect(action.type).toEqual(t.SIGNUP_ERROR);
-    });
-
-    it(`returns signup error action on missing password`, (): void => {
-      const action = actions.signup('foo@bar', 'Foo', 'Bar', '', true);
-
-      expect(action.type).toEqual(t.SIGNUP_ERROR);
-    });
-
-    it(`returns signup error action on too short password`, (): void => {
-      const action = actions.signup('foo@bar', 'Foo', 'Bar', 'bar', true);
-
-      expect(action.type).toEqual(t.SIGNUP_ERROR);
-    });
-
-    it(`returns signup error action on too long password`, (): void => {
-      const action = actions.signup('foo@bar', 'Foo', 'Bar', 'barbarbarbarbarbarbarbar', true);
-
-      expect(action.type).toEqual(t.SIGNUP_ERROR);
-    });
-
-    it(`returns signup error action on missing firstName`, (): void => {
-      const action = actions.signup('foo@bar', '', 'Bar', 'barbar', true);
-
-      expect(action.type).toEqual(t.SIGNUP_ERROR);
-    });
-
-    it(`returns signup error action on false tosAccepted`, (): void => {
-      const action = actions.signup('foo@bar', 'Foo', 'Bar', 'barbar', false);
-
-      expect(action.type).toEqual(t.SIGNUP_ERROR);
-    });
-  });
-
-  describe(`reset`, (): void => {
-    it(`returns reset action on correct params`, (): void => {
-      const action = actions.reset('foo');
-
-      expect(action).toEqual({
-        type: t.RESET,
-        payload: {
-          email: 'foo',
-        },
+          expect(action).toEqual({
+            type: t.API_POST_CONFIRMATION,
+            payload: {
+              email: 'foo@bar',
+            },
+          });
+        });
       });
-    });
-
-    it(`returns reset error action on missing email`, (): void => {
-      const action = actions.reset('');
-
-      expect(action.type).toEqual(t.RESET_ERROR);
-    });
-  });
-
-  describe(`confirm`, (): void => {
-    it(`returns confirm action on correct params`, (): void => {
-      const action = actions.confirm('foo');
-
-      expect(action).toEqual({
-        type: t.CONFIRM,
-        payload: {
-          email: 'foo',
-        },
-      });
-    });
-
-    it(`returns confirm error action on missing email`, (): void => {
-      const action = actions.confirm('');
-
-      expect(action.type).toEqual(t.CONFIRM_ERROR);
     });
   });
 });
