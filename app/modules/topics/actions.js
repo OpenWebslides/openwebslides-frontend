@@ -3,14 +3,17 @@
 import _ from 'lodash';
 
 import type { Identifier } from 'types/model';
+import type { RouterHistory } from 'react-router-dom';
 
 import * as t from './actionTypes';
 import { generateId } from './model';
+
 
 export const add = (
   userId: Identifier,
   title: string,
   description: ?string = null,
+  history: RouterHistory,
 ): t.AddAction | t.AddErrorAction => {
   const newId = generateId();
   const newTitle = _.trim(title);
@@ -33,6 +36,7 @@ export const add = (
       title: newTitle,
       description: newDescription,
       rootContentItemId: 'w4lg2u0p1h', // #TODO stub
+      history,
     },
   };
 };
@@ -80,6 +84,36 @@ export const remove = (
     type: t.REMOVE,
     payload: {
       id,
+    },
+  };
+};
+
+export const addToState = (
+  userId: Identifier,
+  title: string,
+  description: ?string = null,
+): t.AddToStateAction | t.AddToStateErrorAction => {
+  const newId = generateId();
+  const newTitle = _.trim(title);
+  const newDescription = (description != null) ? _.trim(description) : '';
+
+  if (newTitle === '') {
+    return {
+      type: t.ADD_TO_STATE_ERROR,
+      error: {
+        message: 'Title cannot be empty.',
+      },
+    };
+  }
+
+  return {
+    type: t.ADD_TO_STATE,
+    payload: {
+      id: newId,
+      userId,
+      title: newTitle,
+      description: newDescription,
+      rootContentItemId: 'w4lg2u0p1h', // #TODO stub
     },
   };
 };

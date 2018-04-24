@@ -8,23 +8,47 @@ import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 import { Link, withRouter } from 'react-router-dom';
 import { Form, Button } from 'semantic-ui-react';
-import { CURRENT_USER } from 'modules/users/constants';
 import type { RouterHistory } from 'react-router-dom';
+import authentication from 'modules/authentication';
 import { add } from '../actions';
 
+const { getAccount } = authentication.selectors;
 
 type DispatchProps = {
-  onAddButtonClick: (string, string, RouterHistory) => void,
+  onAddButtonClick: (Identifier, string, string, RouterHistory) => void,
+};
+
+type StateProps = {
+  userId: Identifier,
 };
 
 type Props = CustomTranslatorProps & DispatchProps & FormProps & RouterHistory;
 
+const mapStateToProps = (state: State): StateProps => {
+  const account = getAccount(state);
+
+  // TODO: does this need null checks or is it impossible to access when not logged in?
+  const CURRENT_USER = account != null ? account.id : 'markfrank1';
+
+  return {
+    userId: CURRENT_USER,
+  };
+};
+
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
-    onAddButtonClick: (title: string, description: string, history: RouterHistory): void => {
+    onAddButtonClick: (
+      userId: Identifier,
+      title: string,
+      description: string,
+      history: RouterHistory,
+    ): void => {
+      console.log('inside DispatchToProps');
+      console.log('history object:');
+      console.log(history);
       dispatch(
-        add(CURRENT_USER, title, description),
-      ).then(history.replace('/library'));
+        add(userId, title, description, history),
+      );
     },
   };
 };
@@ -81,12 +105,13 @@ const PureNewTopicCard = (props: Props): React.Node => {
   const {
     t,
     onAddButtonClick,
+    userId,
     history,
   } = props;
 
   // TODO: the flow type for values might be a bit dodgy
   const handleSubmit = (values: { +[values: * ]: string }): void => {
-    onAddButtonClick(values.title, values.description, history);
+    onAddButtonClick(userId, values.title, values.description, history);
   };
 
   return (
@@ -96,7 +121,8 @@ const PureNewTopicCard = (props: Props): React.Node => {
   );
 };
 
-const NewTopicCard = withRouter(connect(null, mapDispatchToProps)(translate()(PureNewTopicCard)));
+const TNewTopicCard = translate()(PureNewTopicCard);
+const NewTopicCard = withRouter(connect(mapStateToProps, mapDispatchToProps)(TNewTopicCard));
 
 export { PureNewTopicCard };
 export default NewTopicCard;
