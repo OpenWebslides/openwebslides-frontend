@@ -41,6 +41,6 @@ export const apiDeleteTokenSaga = function* (action: t.ApiDeleteTokenAction): Ge
     yield put(setTokenInState(null));
   }
   catch (error) {
-    // TODO
+    throw error;
   }
 };

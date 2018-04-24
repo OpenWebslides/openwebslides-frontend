@@ -19,6 +19,7 @@ describe(`reducer`, (): void => {
           id: '3',
           email: 'foo@bar',
           firstName: 'Foo',
+          lastName: 'Bar',
         },
       },
     };
@@ -29,6 +30,7 @@ describe(`reducer`, (): void => {
         id: '3',
         email: 'foo@bar',
         firstName: 'Foo',
+        lastName: 'Bar',
       },
       token: null,
     };
