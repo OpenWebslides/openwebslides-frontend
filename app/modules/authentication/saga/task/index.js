@@ -8,6 +8,7 @@ import signinEmailSaga from './signinEmail';
 import signoutSaga from './signout';
 import signupSaga from './signup';
 import resetSaga from './reset';
+import confirmSaga from './confirm';
 
 const taskSaga = function* (): Generator<*, *, *> {
   yield all([
@@ -15,6 +16,7 @@ const taskSaga = function* (): Generator<*, *, *> {
     takeEvery(t.SIGNOUT, signoutSaga),
     takeEvery(t.SIGNUP, signupSaga),
     takeEvery(t.RESET, resetSaga),
+    takeEvery(t.CONFIRM, confirmSaga),
   ]);
 };
 

@@ -22,6 +22,9 @@ export const SIGNUP_ERROR: 'auth/SIGNUP_ERROR' = 'auth/SIGNUP_ERROR';
 export const RESET: 'auth/RESET' = 'auth/RESET';
 export const RESET_ERROR: 'auth/RESET_ERROR' = 'auth/RESET_ERROR';
 
+export const CONFIRM: 'auth/CONFIRM' = 'auth/CONFIRM';
+export const CONFIRM_ERROR: 'auth/CONFIRM_ERROR' = 'auth/CONFIRM_ERROR';
+
 // API saga actions
 export const API_POST_TOKEN: 'auth/API_POST_TOKEN' = 'auth/API_POST_TOKEN';
 export const API_DELETE_TOKEN: 'auth/API_DELETE_TOKEN' = 'auth/API_DELETE_TOKEN';
@@ -29,6 +32,8 @@ export const API_DELETE_TOKEN: 'auth/API_DELETE_TOKEN' = 'auth/API_DELETE_TOKEN'
 export const API_POST_USERS: 'auth/API_POST_USERS' = 'auth/API_POST_USERS';
 
 export const API_POST_PASSWORD: 'auth/API_POST_PASSWORD' = 'auth/API_POST_PASSWORD';
+
+export const API_POST_CONFIRMATION: 'auth/API_POST_CONFIRMATION' = 'auth/API_POST_CONFIRMATION';
 
 /* Action types */
 
@@ -94,6 +99,18 @@ export type ResetErrorAction = {
   error: Error,
 };
 
+export type ConfirmAction = {
+  type: typeof CONFIRM,
+  payload: {
+    email: string,
+  },
+};
+
+export type ConfirmErrorAction = {
+  type: typeof CONFIRM_ERROR,
+  error: Error,
+};
+
 // API saga actions
 export type ApiPostTokenAction = {
   type: typeof API_POST_TOKEN,
@@ -125,25 +142,13 @@ export type ApiPostPasswordAction = {
   },
 };
 
-export const CONFIRM: 'auth/CONFIRM' = 'auth/CONFIRM';
-export const CONFIRM_ERROR: 'auth/CONFIRM_ERROR' = 'auth/CONFIRM_ERROR';
-
-/* CONFIRM */
-export type ConfirmAction = {
-  type: typeof CONFIRM,
+export type ApiPostConfirmationAction = {
+  type: typeof API_POST_CONFIRMATION,
   payload: {
     email: string,
   },
 };
 
-export type ConfirmErrorAction = {
-  type: typeof CONFIRM_ERROR,
-  error: Error,
-};
-
 export type AuthenticationAction =
   | SetAccountAction
-  | SetTokenAction
-
-  | ConfirmAction
-  | ConfirmErrorAction;
+  | SetTokenAction;

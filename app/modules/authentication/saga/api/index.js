@@ -11,6 +11,7 @@ import {
 
 import { apiPostUsersSaga } from './users';
 import { apiPostPasswordSaga } from './password';
+import { apiPostConfirmationSaga } from './confirmation';
 
 const apiSaga = function* (): Generator<*, *, *> {
   yield all([
@@ -18,6 +19,7 @@ const apiSaga = function* (): Generator<*, *, *> {
     takeLatest(t.API_DELETE_TOKEN, apiDeleteTokenSaga),
     takeLatest(t.API_POST_USERS, apiPostUsersSaga),
     takeLatest(t.API_POST_PASSWORD, apiPostPasswordSaga),
+    takeLatest(t.API_POST_CONFIRMATION, apiPostConfirmationSaga),
   ]);
 };
 

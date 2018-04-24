@@ -163,6 +163,28 @@ export const reset = (
   };
 };
 
+export const confirm = (
+  email: string,
+): t.ConfirmAction | t.ConfirmErrorAction => {
+  const newEmail = _.trim(email);
+
+  if (newEmail === '') {
+    return {
+      type: t.CONFIRM_ERROR,
+      error: {
+        message: 'Email cannot be empty.',
+      },
+    };
+  }
+
+  return {
+    type: t.CONFIRM,
+    payload: {
+      email: newEmail,
+    },
+  };
+};
+
 // API saga actions
 export const apiPostToken = (
   email: string,
@@ -214,25 +236,13 @@ export const apiPostPassword = (
   };
 };
 
-
-export const confirm = (
+export const apiPostConfirmation = (
   email: string,
-): t.ConfirmAction | t.ConfirmErrorAction => {
-  const newEmail = _.trim(email);
-
-  if (newEmail === '') {
-    return {
-      type: t.CONFIRM_ERROR,
-      error: {
-        message: 'Email cannot be empty.',
-      },
-    };
-  }
-
+): t.ApiPostConfirmationAction => {
   return {
-    type: t.CONFIRM,
+    type: t.API_POST_CONFIRMATION,
     payload: {
-      email: newEmail,
+      email,
     },
   };
 };

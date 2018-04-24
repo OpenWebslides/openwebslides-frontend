@@ -6,6 +6,7 @@ import {
   TOKEN_ENDPOINT,
   USERS_ENDPOINT,
   PASSWORD_ENDPOINT,
+  CONFIRMATION_ENDPOINT,
 } from './constants';
 
 const { methodTypes, Response } = Api.model;
@@ -95,11 +96,34 @@ const reset = (
   return request.execute();
 };
 
+const confirm = (
+  email: string,
+): Promise<Response> => {
+  const request = new ApiRequest();
+
+  const body = JSON.stringify({
+    data: {
+      type: 'confirmations',
+      attributes: {
+        email,
+      },
+    },
+  });
+
+  request
+    .setEndpoint(CONFIRMATION_ENDPOINT)
+    .setMethod(methodTypes.POST)
+    .setBody(body);
+
+  return request.execute();
+};
+
 const AuthApi = {
   signinEmail,
   signout,
   signup,
   reset,
+  confirm,
 };
 
 export default AuthApi;
