@@ -14,7 +14,6 @@ const setAccount = (state: AuthState, action: t.SetAccountAction): AuthState => 
 
   return {
     ...state,
-    authenticated: true,
     account,
   };
 };
@@ -24,7 +23,7 @@ const setToken = (state: AuthState, action: t.SetTokenAction): AuthState => {
 
   return {
     ...state,
-    authenticated: true,
+    authenticated: (token !== null),
     token,
   };
 };
@@ -46,14 +45,6 @@ const signup = (state: AuthState, action: t.SignupSuccessAction): AuthState => {
   };
 };
 
-const signout = (state: AuthState): AuthState => {
-  return {
-    ...state,
-    authenticated: false,
-    account: null,
-  };
-};
-
 const reducer = (state: AuthState = initialState, action: t.AuthenticationAction): AuthState => {
   switch (action.type) {
     case t.SET_ACCOUNT:
@@ -62,10 +53,7 @@ const reducer = (state: AuthState = initialState, action: t.AuthenticationAction
       return setToken(state, action);
     case t.SIGNUP_SUCCESS:
       return signup(state, action);
-    case t.SIGNOUT_SUCCESS:
-      return signout(state);
     case t.SIGNUP_FAILURE:
-    case t.SIGNOUT_FAILURE:
       return state;
     default:
       return state;

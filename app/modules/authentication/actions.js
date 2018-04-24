@@ -65,6 +65,13 @@ export const signinEmail = (
   };
 };
 
+export const signout = (
+): t.SignoutAction => {
+  return {
+    type: t.SIGNOUT,
+  };
+};
+
 // API saga actions
 export const apiPostToken = (
   email: string,
@@ -79,12 +86,15 @@ export const apiPostToken = (
   };
 };
 
-export const signout = (
-): t.SignoutAction | t.SignoutErrorAction => {
+export const apiDeleteToken = (
+): t.ApiDeleteTokenAction => {
   return {
-    type: t.SIGNOUT,
+    type: t.API_DELETE_TOKEN,
   };
 };
+
+
+
 
 export const signup = (
   email: string,

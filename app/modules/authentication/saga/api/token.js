@@ -1,13 +1,17 @@
 // @flow
 
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 
 import * as t from '../../actionTypes';
 
 import Api from '../../api';
-import { setAccountInState, setTokenInState } from '../../actions';
+import {
+  setAccountInState,
+  setTokenInState,
+} from '../../actions';
+import { getToken } from '../../selectors';
 
-const apiPostTokenSaga = function* (action: t.ApiPostTokenAction): Generator<*, *, *> {
+export const apiPostTokenSaga = function* (action: t.ApiPostTokenAction): Generator<*, *, *> {
   try {
     const { email, password } = action.payload;
     const response = yield call(Api.signinEmail, email, password);
@@ -27,4 +31,16 @@ const apiPostTokenSaga = function* (action: t.ApiPostTokenAction): Generator<*, 
   }
 };
 
-export default apiPostTokenSaga;
+export const apiDeleteTokenSaga = function* (action: t.ApiDeleteTokenAction): Generator<*, *, *> {
+  try {
+    const token = yield select(getToken);
+
+    yield call(Api.signout, token);
+
+    yield put(setAccountInState(null));
+    yield put(setTokenInState(null));
+  }
+  catch (error) {
+    // TODO
+  }
+};

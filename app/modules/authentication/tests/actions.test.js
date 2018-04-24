@@ -63,6 +63,16 @@ describe(`actions`, (): void => {
         expect(action.type).toEqual(t.SIGNIN_EMAIL_ERROR);
       });
     });
+
+    describe(`signout`, (): void => {
+      it(`returns signout action`, (): void => {
+        const action = actions.signout();
+
+        expect(action).toEqual({
+          type: t.SIGNOUT,
+        });
+      });
+    });
   });
 
   describe(`API saga actions`, (): void => {
@@ -79,14 +89,14 @@ describe(`actions`, (): void => {
         });
       });
     });
-  });
 
-  describe(`signout`, (): void => {
-    it(`returns signout action on correct params`, (): void => {
-      const action = actions.signout();
+    describe(`apiDeleteToken`, (): void => {
+      it(`returns delete token action`, (): void => {
+        const action = actions.apiDeleteToken();
 
-      expect(action).toEqual({
-        type: t.SIGNOUT,
+        expect(action).toEqual({
+          type: t.API_DELETE_TOKEN,
+        });
       });
     });
   });

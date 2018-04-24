@@ -14,8 +14,11 @@ export const SET_TOKEN: 'auth/SET_TOKEN' = 'auth/SET_TOKEN';
 export const SIGNIN_EMAIL: 'auth/SIGNIN_EMAIL' = 'auth/SIGNIN_EMAIL';
 export const SIGNIN_EMAIL_ERROR: 'auth/SIGNIN_EMAIL' = 'auth/SIGNIN_EMAIL';
 
+export const SIGNOUT: 'auth/SIGNOUT' = 'auth/SIGNOUT';
+
 // API saga actions
 export const API_POST_TOKEN: 'auth/API_POST_TOKEN' = 'auth/API_POST_TOKEN';
+export const API_DELETE_TOKEN: 'auth/API_DELETE_TOKEN' = 'auth/API_DELETE_TOKEN';
 
 /* Action types */
 
@@ -49,6 +52,10 @@ export type SigninEmailErrorAction = {
   error: Error,
 };
 
+export type SignoutAction = {
+  type: typeof SIGNOUT,
+};
+
 // API saga actions
 export type ApiPostTokenAction = {
   type: typeof API_POST_TOKEN,
@@ -58,12 +65,11 @@ export type ApiPostTokenAction = {
   },
 };
 
+export type ApiDeleteTokenAction = {
+  type: typeof API_DELETE_TOKEN,
+};
 
 
-export const SIGNOUT: 'auth/SIGNOUT' = 'auth/SIGNOUT';
-export const SIGNOUT_ERROR: 'auth/SIGNOUT_ERROR' = 'auth/SIGNOUT_ERROR';
-export const SIGNOUT_SUCCESS: 'auth/SIGNOUT_SUCCESS' = 'auth/SIGNOUT_SUCCESS';
-export const SIGNOUT_FAILURE: 'auth/SIGNOUT_FAILURE' = 'auth/SIGNOUT_FAILURE';
 
 export const SIGNUP: 'auth/SIGNUP' = 'auth/SIGNUP';
 export const SIGNUP_ERROR: 'auth/SIGNUP_ERROR' = 'auth/SIGNUP_ERROR';
@@ -97,25 +103,6 @@ export type SigninOAuthSuccessAction = {
 
 export type SigninOAuthFailureAction = {
   type: typeof SIGNIN_OAUTH_FAILURE,
-  error: Error,
-};
-
-/* SIGNOUT */
-export type SignoutAction = {
-  type: typeof SIGNOUT,
-};
-
-export type SignoutErrorAction = {
-  type: typeof SIGNOUT_ERROR,
-  error: Error,
-};
-
-export type SignoutSuccessAction = {
-  type: typeof SIGNOUT_SUCCESS,
-};
-
-export type SignoutFailureAction = {
-  type: typeof SIGNOUT_FAILURE,
   error: Error,
 };
 
@@ -181,9 +168,6 @@ export type AuthenticationAction =
   | SigninOAuthSuccessAction
   | SigninOAuthFailureAction
   | SignoutAction
-  | SignoutErrorAction
-  | SignoutSuccessAction
-  | SignoutFailureAction
   | SignupAction
   | SignupErrorAction
   | SignupSuccessAction
