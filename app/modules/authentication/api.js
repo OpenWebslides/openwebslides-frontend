@@ -5,6 +5,7 @@ import Api from 'lib/api';
 import {
   TOKEN_ENDPOINT,
   USERS_ENDPOINT,
+  PASSWORD_ENDPOINT,
 } from './constants';
 
 const { methodTypes, Response } = Api.model;
@@ -72,10 +73,33 @@ const signup = (
   return request.execute();
 };
 
+const reset = (
+  email: string,
+): Promise<Response> => {
+  const request = new ApiRequest();
+
+  const body = JSON.stringify({
+    data: {
+      type: 'passwords',
+      attributes: {
+        email,
+      },
+    },
+  });
+
+  request
+    .setEndpoint(PASSWORD_ENDPOINT)
+    .setMethod(methodTypes.POST)
+    .setBody(body);
+
+  return request.execute();
+};
+
 const AuthApi = {
   signinEmail,
   signout,
   signup,
+  reset,
 };
 
 export default AuthApi;

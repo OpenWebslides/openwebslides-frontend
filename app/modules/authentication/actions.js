@@ -141,6 +141,28 @@ export const signup = (
   };
 };
 
+export const reset = (
+  email: string,
+): t.ResetAction | t.ResetErrorAction => {
+  const newEmail = _.trim(email);
+
+  if (newEmail === '') {
+    return {
+      type: t.RESET_ERROR,
+      error: {
+        message: 'Email cannot be empty.',
+      },
+    };
+  }
+
+  return {
+    type: t.RESET,
+    payload: {
+      email: newEmail,
+    },
+  };
+};
+
 // API saga actions
 export const apiPostToken = (
   email: string,
@@ -181,30 +203,17 @@ export const apiPostUsers = (
   };
 };
 
-
-
-
-export const reset = (
+export const apiPostPassword = (
   email: string,
-): t.ResetAction | t.ResetErrorAction => {
-  const newEmail = _.trim(email);
-
-  if (newEmail === '') {
-    return {
-      type: t.RESET_ERROR,
-      error: {
-        message: 'Email cannot be empty.',
-      },
-    };
-  }
-
+): t.ApiPostPasswordAction => {
   return {
-    type: t.RESET,
+    type: t.API_POST_PASSWORD,
     payload: {
-      email: newEmail,
+      email,
     },
   };
 };
+
 
 export const confirm = (
   email: string,
