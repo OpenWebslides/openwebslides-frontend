@@ -3,31 +3,31 @@
 import { expectSaga } from 'redux-saga-test-plan';
 
 import taskSaga from '..';
-import createSaga from '../create';
-import updatePlainTextSaga from '../updatePlainText';
-import updateMediaSaga from '../updateMedia';
+import addSaga from '../add';
+import editPlainTextSaga from '../editPlainText';
+import editMediaSaga from '../editMedia';
 import moveSaga from '../move';
-import destroySaga from '../destroy';
+import removeSaga from '../remove';
 
 import * as t from '../../../actionTypes';
 
 describe(`taskSaga`, (): void => {
 
-  it(`takes every CREATE action and forks createSaga`, (): void => {
+  it(`takes every ADD action and forks addSaga`, (): void => {
     return expectSaga(taskSaga)
-      .take(t.CREATE, createSaga)
+      .take(t.ADD, addSaga)
       .silentRun();
   });
 
-  it(`takes every UPDATE_PLAIN_TEXT action and forks updatePlainTextSaga`, (): void => {
+  it(`takes every EDIT_PLAIN_TEXT action and forks editPlainTextSaga`, (): void => {
     return expectSaga(taskSaga)
-      .take(t.UPDATE_PLAIN_TEXT, updatePlainTextSaga)
+      .take(t.EDIT_PLAIN_TEXT, editPlainTextSaga)
       .silentRun();
   });
 
-  it(`takes every UPDATE_MEDIA action and forks updateMediaSaga`, (): void => {
+  it(`takes every EDIT_MEDIA action and forks editMediaSaga`, (): void => {
     return expectSaga(taskSaga)
-      .take(t.UPDATE_MEDIA, updateMediaSaga)
+      .take(t.EDIT_MEDIA, editMediaSaga)
       .silentRun();
   });
 
@@ -37,9 +37,9 @@ describe(`taskSaga`, (): void => {
       .silentRun();
   });
 
-  it(`takes every DESTROY action and forks destroySaga`, (): void => {
+  it(`takes every REMOVE action and forks removeSaga`, (): void => {
     return expectSaga(taskSaga)
-      .take(t.DESTROY, destroySaga)
+      .take(t.REMOVE, removeSaga)
       .silentRun();
   });
 

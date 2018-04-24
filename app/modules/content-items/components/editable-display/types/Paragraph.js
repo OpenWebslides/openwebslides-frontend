@@ -13,13 +13,13 @@ import EditableTextContent from '../EditableTextContent';
 
 type PassedProps = {
   contentItem: ParagraphContentItem,
-  onUpdatePlainText: (id: Identifier, text: string) => void,
+  onEditPlainText: (id: Identifier, text: string) => void,
 };
 
 type Props = PassedProps;
 
 const PureParagraph = (props: Props): React.Node => {
-  const { contentItem, onUpdatePlainText } = props;
+  const { contentItem, onEditPlainText } = props;
 
   return (
     <DisplayBlockWrapper
@@ -29,7 +29,7 @@ const PureParagraph = (props: Props): React.Node => {
       <EditableTextContent
         multiline={true}
         initialText={contentItem.text}
-        onDeactivate={(text: string) => onUpdatePlainText(contentItem.id, text)}
+        onDeactivate={(text: string) => onEditPlainText(contentItem.id, text)}
       />
     </DisplayBlockWrapper>
   );

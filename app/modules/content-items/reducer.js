@@ -19,14 +19,17 @@ const initialState: ContentItemsState = {
   byId: dummyContentItemsById,
 };
 
-const add = (state: ContentItemsState, action: t.AddAction): ContentItemsState => {
+const addToState = (
+  state: ContentItemsState,
+  action: t.AddToStateAction,
+): ContentItemsState => {
   // #TODO stub
   return state;
 };
 
-const editPlainText = (
+const editPlainTextInState = (
   state: ContentItemsState,
-  action: t.EditPlainTextAction,
+  action: t.EditPlainTextInStateAction,
 ): ContentItemsState => {
   const { id, text } = action.payload;
   // eslint-disable-next-line flowtype/no-weak-types
@@ -56,7 +59,10 @@ const editPlainText = (
   }
 };
 
-const editMedia = (state: ContentItemsState, action: t.EditMediaAction): ContentItemsState => {
+const editMediaInState = (
+  state: ContentItemsState,
+  action: t.EditMediaInStateAction,
+): ContentItemsState => {
   const { id, src, alt, caption } = action.payload;
   // eslint-disable-next-line flowtype/no-weak-types
   let editedContentItem: MediaContentItem = (state.byId[id]: any);
@@ -88,31 +94,47 @@ const editMedia = (state: ContentItemsState, action: t.EditMediaAction): Content
   }
 };
 
-const remove = (state: ContentItemsState, action: t.RemoveAction): ContentItemsState => {
+const removeFromState = (
+  state: ContentItemsState,
+  action: t.RemoveFromStateAction,
+): ContentItemsState => {
   // #TODO stub
   return state;
 };
 
-const set = (state: ContentItemsState, action: t.SetAction): ContentItemsState => {
+const setInState = (
+  state: ContentItemsState,
+  action: t.SetInStateAction,
+): ContentItemsState => {
+  // #TODO stub
+  return state;
+};
+
+const setMultipleInState = (
+  state: ContentItemsState,
+  action: t.SetMultipleInStateAction,
+): ContentItemsState => {
   // #TODO stub
   return state;
 };
 
 const reducer = (
   state: ContentItemsState = initialState,
-  action: t.ContentItemReducerAction,
+  action: t.ReducerAction,
 ): ContentItemsState => {
   switch (action.type) {
-    case t.ADD:
-      return add(state, action);
-    case t.EDIT_PLAIN_TEXT:
-      return editPlainText(state, action);
-    case t.EDIT_MEDIA:
-      return editMedia(state, action);
-    case t.REMOVE:
-      return remove(state, action);
-    case t.SET:
-      return set(state, action);
+    case t.ADD_TO_STATE:
+      return addToState(state, action);
+    case t.EDIT_PLAIN_TEXT_IN_STATE:
+      return editPlainTextInState(state, action);
+    case t.EDIT_MEDIA_IN_STATE:
+      return editMediaInState(state, action);
+    case t.REMOVE_FROM_STATE:
+      return removeFromState(state, action);
+    case t.SET_IN_STATE:
+      return setInState(state, action);
+    case t.SET_MULTIPLE_IN_STATE:
+      return setMultipleInState(state, action);
     default:
       // Type error when not all action.type cases are handled.
       // eslint-disable-next-line no-unused-expressions

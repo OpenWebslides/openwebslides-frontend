@@ -10,7 +10,7 @@ import type { Identifier } from 'types/model';
 import { contentItemTypes, subableContentItemTypes } from '../../model';
 import type { ContentItem, SubableContentItem } from '../../model';
 import { getById } from '../../selectors';
-import { updatePlainText } from '../../actions';
+import { editPlainText } from '../../actions';
 
 import Root from './types/Root';
 import Heading from './types/Heading';
@@ -47,7 +47,7 @@ type StateProps = {
 };
 
 type DispatchProps = {
-  onUpdatePlainText: (id: Identifier, text: string) => void,
+  onEditPlainText: (id: Identifier, text: string) => void,
 };
 
 type Props = PassedProps & StateProps & DispatchProps;
@@ -55,7 +55,7 @@ type Props = PassedProps & StateProps & DispatchProps;
 const passThroughProps = [
   'baseClassName',
   'subItemsClassNameSuffix',
-  'onUpdatePlainText',
+  'onEditPlainText',
 ];
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
@@ -72,9 +72,9 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
   return {
-    onUpdatePlainText: (id: Identifier, text: string): void => {
+    onEditPlainText: (id: Identifier, text: string): void => {
       dispatch(
-        updatePlainText(id, text),
+        editPlainText(id, text),
       );
     },
   };

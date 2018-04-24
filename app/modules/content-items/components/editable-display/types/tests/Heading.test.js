@@ -11,13 +11,13 @@ import { PureHeading } from '../Heading';
 
 describe(`Heading`, (): void => {
 
-  const dummyOnUpdatePlainText = (): void => {};
+  const dummyOnEditPlainText = (): void => {};
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureHeading
         contentItem={dummyContentItemData.headingContentItem}
-        onUpdatePlainText={dummyOnUpdatePlainText}
+        onEditPlainText={dummyOnEditPlainText}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -29,7 +29,7 @@ describe(`Heading`, (): void => {
         <PureHeading
           contentItem={dummyContentItemData.headingContentItem}
           baseClassName="BaseClassName"
-          onUpdatePlainText={dummyOnUpdatePlainText}
+          onEditPlainText={dummyOnEditPlainText}
         />
       </I18nextProvider>,
     );

@@ -3,10 +3,10 @@
 import { put } from 'redux-saga/effects';
 
 import * as t from '../../actionTypes';
-import { editPlainText } from '../../actions';
+import { editPlainTextInState } from '../../actions';
 
 // eslint-disable-next-line require-yield
-const updatePlainTextSaga = function* (action: t.UpdatePlainTextAction): Generator<*, *, *> {
+const editPlainTextSaga = function* (action: t.EditPlainTextAction): Generator<*, *, *> {
   const { id, text } = action.payload;
   const newId = id;
   let newText: ?string = text;
@@ -15,7 +15,7 @@ const updatePlainTextSaga = function* (action: t.UpdatePlainTextAction): Generat
     newText = `*\\[Empty contentItems should be automatically deleted; delete functionality to be implemented later.\\]*`;
   }
 
-  yield put(editPlainText(newId, newText));
+  yield put(editPlainTextInState(newId, newText));
 };
 
-export default updatePlainTextSaga;
+export default editPlainTextSaga;

@@ -11,13 +11,13 @@ import { PureParagraph } from '../Paragraph';
 
 describe(`Paragraph`, (): void => {
 
-  const dummyOnUpdatePlainText = (): void => {};
+  const dummyOnEditPlainText = (): void => {};
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureParagraph
         contentItem={dummyContentItemData.paragraphContentItem}
-        onUpdatePlainText={dummyOnUpdatePlainText}
+        onEditPlainText={dummyOnEditPlainText}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -28,7 +28,7 @@ describe(`Paragraph`, (): void => {
       <I18nextProvider i18n={i18nextConfig}>
         <PureParagraph
           contentItem={dummyContentItemData.paragraphContentItem}
-          onUpdatePlainText={dummyOnUpdatePlainText}
+          onEditPlainText={dummyOnEditPlainText}
           baseClassName="BaseClassName"
         />
       </I18nextProvider>,
