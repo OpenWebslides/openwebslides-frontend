@@ -43,9 +43,6 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
       description: string,
       history: RouterHistory,
     ): void => {
-      console.log('inside DispatchToProps');
-      console.log('history object:');
-      console.log(history);
       dispatch(
         add(userId, title, description, history),
       );

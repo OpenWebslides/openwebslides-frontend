@@ -7,7 +7,6 @@ import { addToState } from '../../actions';
 const addSaga = function* (action: t.AddAction): Generator<*, *, *> {
   console.log(`addSaga called with action ${JSON.stringify(action)}`);
 
-
   const {
     userId,
     title,
