@@ -23,12 +23,6 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     onConfirmButtonClick: (id: string, modalType: string): void => {
       dispatch(
-        // hideModal(modalType, id),
-        /*
-        remove(id).then((): void => {
-          dispatch(hideModal(id, modalType));
-        }),
-        */
         remove(id),
       );
     },

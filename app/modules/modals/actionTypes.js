@@ -9,6 +9,9 @@ export const HIDEMODAL: 'modals/HIDEMODAL' = 'modals/HIDEMODAL';
 export const SHOWMODAL_ERROR: 'modals/SHOWMODAL_ERROR' = 'modals/SHOWMODAL_ERROR';
 export const HIDEMODAL_ERROR: 'modals/HIDEMODAL_ERROR' = 'modals/HIDEMODAL_ERROR';
 
+export const DESTROY: 'modals/DESTROY' = 'modals/DESTROY';
+
+
 export type ShowModalAction = {
   type: typeof SHOWMODAL,
   payload: {
@@ -35,9 +38,18 @@ export type HideModalErrorAction = {
   error: Error,
 };
 
+export type RemoveAction = {
+  type: typeof REMOVE,
+  payload: {
+    id: Identifier,
+    // #TODO stub
+  };
+};
+
 
 export type ModalAction =
   | ShowModalAction
   | HideModalAction
   | ShowModalErrorAction
-  | HideModalErrorAction;
+  | HideModalErrorAction
+  | DestroyAction;

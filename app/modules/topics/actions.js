@@ -83,3 +83,14 @@ export const remove = (
     },
   };
 };
+
+export const removeFromState = (
+  id: Identifier,
+): t.RemoveFromStateAction | t.RemoveFromStateErrorAction => {
+  return {
+    type: t.REMOVE_FROM_STATE,
+    payload: {
+      id,
+    },
+  };
+};

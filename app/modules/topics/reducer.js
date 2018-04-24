@@ -53,7 +53,7 @@ const edit = (state: TopicsState, action: t.EditAction): TopicsState => {
   };
 };
 
-const remove = (state: TopicsState, action: t.RemoveAction): TopicsState => {
+const removeFromState = (state: TopicsState, action: t.RemoveFromStateAction): TopicsState => {
   const { id } = action.payload;
 
   return {
@@ -62,14 +62,14 @@ const remove = (state: TopicsState, action: t.RemoveAction): TopicsState => {
   };
 };
 
-const reducer = (state: TopicsState = initialState, action: t.TopicAction): TopicsState => {
+const reducer = (state: TopicsState = initialState, action: t.TopicReducerAction): TopicsState => {
   switch (action.type) {
     case t.ADD:
       return add(state, action);
     case t.EDIT:
       return edit(state, action);
-    case t.REMOVE:
-      return remove(state, action);
+    case t.REMOVE_FROM_STATE:
+      return removeFromState(state, action);
     case t.ADD_ERROR:
     case t.EDIT_ERROR:
     case t.REMOVE_ERROR:
