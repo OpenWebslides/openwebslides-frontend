@@ -4,48 +4,80 @@ import * as actions from '../actions';
 import * as t from '../actionTypes';
 
 describe(`actions`, (): void => {
-  describe(`signinEmail`, (): void => {
-    it(`returns signin email action on correct params`, (): void => {
-      const action = actions.signinEmail('foo', 'bar');
+  describe(`reducer actions`, (): void => {
+    describe(`setAccountInState`, (): void => {
+      it(`returns set account action`, (): void => {
+        const user = {
+          id: 'foo',
+          email: 'foo@bar',
+          firstName: 'Foo',
+        };
+        const action = actions.setAccountInState(user);
 
-      expect(action).toEqual({
-        type: t.SIGNIN_EMAIL,
-        payload: {
-          email: 'foo',
-          password: 'bar',
-        },
+        expect(action).toEqual({
+          type: t.SET_ACCOUNT,
+          payload: {
+            account: user,
+          },
+        });
       });
     });
 
-    it(`returns signin email error action on missing email`, (): void => {
-      const action = actions.signinEmail('', 'bar');
+    describe(`setTokenInState`, (): void => {
+      it(`returns set token action`, (): void => {
+        const action = actions.setTokenInState('foobar');
 
-      expect(action.type).toEqual(t.SIGNIN_EMAIL_ERROR);
-    });
-
-    it(`returns signin email error action on missing password`, (): void => {
-      const action = actions.signinEmail('foo', '');
-
-      expect(action.type).toEqual(t.SIGNIN_EMAIL_ERROR);
+        expect(action).toEqual({
+          type: t.SET_TOKEN,
+          payload: {
+            token: 'foobar',
+          },
+        });
+      });
     });
   });
 
-  describe(`signinOAuth`, (): void => {
-    it(`returns signin oauth action on correct params`, (): void => {
-      const action = actions.signinOAuth('foo');
+  describe(`task saga actions`, (): void => {
+    describe(`signinEmail`, (): void => {
+      it(`returns signin email action on correct params`, (): void => {
+        const action = actions.signinEmail('foo', 'bar');
 
-      expect(action).toEqual({
-        type: t.SIGNIN_OAUTH,
-        payload: {
-          email: 'foo',
-        },
+        expect(action).toEqual({
+          type: t.SIGNIN_EMAIL,
+          payload: {
+            email: 'foo',
+            password: 'bar',
+          },
+        });
+      });
+
+      it(`returns signin email error action on missing email`, (): void => {
+        const action = actions.signinEmail('', 'bar');
+
+        expect(action.type).toEqual(t.SIGNIN_EMAIL_ERROR);
+      });
+
+      it(`returns signin email error action on missing password`, (): void => {
+        const action = actions.signinEmail('foo', '');
+
+        expect(action.type).toEqual(t.SIGNIN_EMAIL_ERROR);
       });
     });
+  });
 
-    it(`returns signin oauth error action on missing email`, (): void => {
-      const action = actions.signinOAuth('');
+  describe(`API saga actions`, (): void => {
+    describe(`apiPostToken`, (): void => {
+      it(`returns post token action`, (): void => {
+        const action = actions.apiPostToken('email', 'password');
 
-      expect(action.type).toEqual(t.SIGNIN_OAUTH_ERROR);
+        expect(action).toEqual({
+          type: t.API_POST_TOKEN,
+          payload: {
+            email: 'email',
+            password: 'password',
+          },
+        });
+      });
     });
   });
 
@@ -154,19 +186,6 @@ describe(`actions`, (): void => {
       const action = actions.confirm('');
 
       expect(action.type).toEqual(t.CONFIRM_ERROR);
-    });
-  });
-
-  describe(`update token`, (): void => {
-    it(`returns update token action on correct params`, (): void => {
-      const action = actions.updateToken('foo');
-
-      expect(action).toEqual({
-        type: t.UPDATE_TOKEN,
-        payload: {
-          token: 'foo',
-        },
-      });
     });
   });
 });

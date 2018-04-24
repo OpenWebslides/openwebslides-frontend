@@ -1,16 +1,64 @@
 // @flow
 
+import type { User } from 'modules/users';
+
 import type { Error } from 'types/error';
 
-export const SIGNIN_EMAIL: 'auth/SIGNIN_EMAIL' = 'auth/SIGNIN_EMAIL';
-export const SIGNIN_EMAIL_ERROR: 'auth/SIGNIN_EMAIL_ERROR' = 'auth/SIGNIN_EMAIL_ERROR';
-export const SIGNIN_EMAIL_SUCCESS: 'auth/SIGNIN_EMAIL_SUCCESS' = 'auth/SIGNIN_EMAIL_SUCCESS';
-export const SIGNIN_EMAIL_FAILURE: 'auth/SIGNIN_EMAIL_FAILURE' = 'auth/SIGNIN_EMAIL_FAILURE';
+/* Action constants */
 
-export const SIGNIN_OAUTH: 'auth/SIGNIN_OAUTH' = 'auth/SIGNIN_OAUTH';
-export const SIGNIN_OAUTH_ERROR: 'auth/SIGNIN_OAUTH_ERROR' = 'auth/SIGNIN_OAUTH_ERROR';
-export const SIGNIN_OAUTH_SUCCESS: 'auth/SIGNIN_OAUTH_SUCCESS' = 'auth/SIGNIN_OAUTH_SUCCESS';
-export const SIGNIN_OAUTH_FAILURE: 'auth/SIGNIN_OAUTH_FAILURE' = 'auth/SIGNIN_OAUTH_FAILURE';
+// Reducer actions
+export const SET_ACCOUNT: 'auth/SET_ACCOUNT' = 'auth/SET_ACCOUNT';
+export const SET_TOKEN: 'auth/SET_TOKEN' = 'auth/SET_TOKEN';
+
+// Task saga actions
+export const SIGNIN_EMAIL: 'auth/SIGNIN_EMAIL' = 'auth/SIGNIN_EMAIL';
+export const SIGNIN_EMAIL_ERROR: 'auth/SIGNIN_EMAIL' = 'auth/SIGNIN_EMAIL';
+
+// API saga actions
+export const API_POST_TOKEN: 'auth/API_POST_TOKEN' = 'auth/API_POST_TOKEN';
+
+/* Action types */
+
+// Reducer actions
+export type SetAccountAction = {
+  type: typeof SET_ACCOUNT,
+  // eslint-disable-next-line flowtype/no-weak-types
+  payload: {
+    account: ?User,
+  },
+};
+
+export type SetTokenAction = {
+  type: typeof SET_TOKEN,
+  payload: {
+    token: ?string,
+  },
+};
+
+// Task saga actions
+export type SigninEmailAction = {
+  type: typeof SIGNIN_EMAIL,
+  payload: {
+    email: string,
+    password: string,
+  },
+};
+
+export type SigninEmailErrorAction = {
+  type: typeof SIGNIN_EMAIL_ERROR,
+  error: Error,
+};
+
+// API saga actions
+export type ApiPostTokenAction = {
+  type: typeof API_POST_TOKEN,
+  payload: {
+    email: string,
+    password: string,
+  },
+};
+
+
 
 export const SIGNOUT: 'auth/SIGNOUT' = 'auth/SIGNOUT';
 export const SIGNOUT_ERROR: 'auth/SIGNOUT_ERROR' = 'auth/SIGNOUT_ERROR';
@@ -27,33 +75,6 @@ export const RESET_ERROR: 'auth/RESET_ERROR' = 'auth/RESET_ERROR';
 
 export const CONFIRM: 'auth/CONFIRM' = 'auth/CONFIRM';
 export const CONFIRM_ERROR: 'auth/CONFIRM_ERROR' = 'auth/CONFIRM_ERROR';
-
-export const UPDATE_TOKEN: 'auth/UPDATE_TOKEN' = 'auth/UPDATE_TOKEN';
-
-/* SIGNIN_EMAIL */
-export type SigninEmailAction = {
-  type: typeof SIGNIN_EMAIL,
-  payload: {
-    email: string,
-    password: string,
-  },
-};
-
-export type SigninEmailErrorAction = {
-  type: typeof SIGNIN_EMAIL_ERROR,
-  error: Error,
-};
-
-export type SigninEmailSuccessAction = {
-  type: typeof SIGNIN_EMAIL_SUCCESS,
-  // eslint-disable-next-line flowtype/no-weak-types
-  payload: Object,
-};
-
-export type SigninEmailFailureAction = {
-  type: typeof SIGNIN_EMAIL_FAILURE,
-  error: Error,
-};
 
 /* SIGNIN_OAUTH */
 export type SigninOAuthAction = {
@@ -151,27 +172,10 @@ export type ConfirmErrorAction = {
   error: Error,
 };
 
-/* UPDATE_TOKEN */
-export type UpdateTokenAction = {
-  type: typeof UPDATE_TOKEN,
-  payload: {
-    token: string,
-  },
-};
-
-export type SigninSuccessAction =
-  | SigninEmailSuccessAction
-  | SigninOAuthSuccessAction;
-
-export type SigninErrorAction =
-  | SigninEmailErrorAction
-  | SigninOAuthErrorAction;
-
 export type AuthenticationAction =
-  | SigninEmailAction
-  | SigninEmailErrorAction
-  | SigninEmailSuccessAction
-  | SigninEmailFailureAction
+  | SetAccountAction
+  | SetTokenAction
+
   | SigninOAuthAction
   | SigninOAuthErrorAction
   | SigninOAuthSuccessAction
@@ -187,5 +191,4 @@ export type AuthenticationAction =
   | ResetAction
   | ResetErrorAction
   | ConfirmAction
-  | ConfirmErrorAction
-  | UpdateTokenAction;
+  | ConfirmErrorAction;

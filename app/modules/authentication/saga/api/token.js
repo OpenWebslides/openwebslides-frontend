@@ -5,25 +5,26 @@ import { call, put } from 'redux-saga/effects';
 import * as t from '../../actionTypes';
 
 import Api from '../../api';
+import { setAccountInState, setTokenInState } from '../../actions';
 
-const signinEmailSaga = function* (action: t.SigninEmailAction): Generator<*, *, *> {
+const apiPostTokenSaga = function* (action: t.ApiPostTokenAction): Generator<*, *, *> {
   try {
     const { email, password } = action.payload;
     const response = yield call(Api.signinEmail, email, password);
 
-    const payload = {
+    const account = {
       id: response.body.data.id,
       email,
       firstName: response.body.data.attributes.firstName,
       lastName: response.body.data.attributes.lastName,
     };
 
-    yield put({ type: t.SIGNIN_EMAIL_SUCCESS, payload });
-    yield put({ type: t.UPDATE_TOKEN, payload: { token: response.token } });
+    yield put(setAccountInState(account));
+    yield put(setTokenInState(response.token));
   }
   catch (error) {
-    yield put({ type: t.SIGNIN_EMAIL_FAILURE, error });
+    // TODO
   }
 };
 
-export default signinEmailSaga;
+export default apiPostTokenSaga;

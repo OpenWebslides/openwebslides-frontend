@@ -4,12 +4,12 @@ import { all, takeLatest, takeEvery } from 'redux-saga/effects';
 
 import * as t from '../../actionTypes';
 
-import signinEmailSaga from './signinEmail';
+import apiPostTokenSaga from './token';
 import signoutSaga from './signout';
 
 const apiSaga = function* (): Generator<*, *, *> {
   yield all([
-    takeLatest(t.SIGNIN_EMAIL, signinEmailSaga),
+    takeLatest(t.API_POST_TOKEN, apiPostTokenSaga),
     takeEvery(t.SIGNOUT, signoutSaga),
   ]);
 };

@@ -1,9 +1,36 @@
 // @flow
 
 import _ from 'lodash';
+
+import type { User } from 'modules/users';
+
 import * as t from './actionTypes';
 import * as c from './constants';
 
+// Reducer actions
+export const setAccountInState = (
+  account: ?User,
+): t.SetAccountAction => {
+  return {
+    type: t.SET_ACCOUNT,
+    payload: {
+      account,
+    },
+  };
+};
+
+export const setTokenInState = (
+  token: ?string,
+): t.SetTokenAction => {
+  return {
+    type: t.SET_TOKEN,
+    payload: {
+      token,
+    },
+  };
+};
+
+// Task saga actions
 export const signinEmail = (
   email: string,
   password: string,
@@ -38,24 +65,16 @@ export const signinEmail = (
   };
 };
 
-export const signinOAuth = (
+// API saga actions
+export const apiPostToken = (
   email: string,
-): t.SigninOAuthAction | t.SigninOAuthErrorAction => {
-  const newEmail = _.trim(email);
-
-  if (newEmail === '') {
-    return {
-      type: t.SIGNIN_OAUTH_ERROR,
-      error: {
-        message: 'Email cannot be empty.',
-      },
-    };
-  }
-
+  password: string,
+): t.ApiPostTokenAction => {
   return {
-    type: t.SIGNIN_OAUTH,
+    type: t.API_POST_TOKEN,
     payload: {
-      email: newEmail,
+      email,
+      password,
     },
   };
 };
@@ -164,17 +183,6 @@ export const confirm = (
     type: t.CONFIRM,
     payload: {
       email: newEmail,
-    },
-  };
-};
-
-export const updateToken = (
-  token: string,
-): t.UpdateTokenAction => {
-  return {
-    type: t.UPDATE_TOKEN,
-    payload: {
-      token,
     },
   };
 };

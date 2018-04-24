@@ -9,20 +9,23 @@ const initialState: AuthState = {
   token: null,
 };
 
-const signin = (state: AuthState, action: t.SigninSuccessAction): AuthState => {
-  const { id, email, firstName, lastName } = action.payload;
-
-  const account: Account = {
-    id,
-    email,
-    firstName,
-    lastName,
-  };
+const setAccount = (state: AuthState, action: t.SetAccountAction): AuthState => {
+  const { account } = action.payload;
 
   return {
     ...state,
     authenticated: true,
     account,
+  };
+};
+
+const setToken = (state: AuthState, action: t.SetTokenAction): AuthState => {
+  const { token } = action.payload;
+
+  return {
+    ...state,
+    authenticated: true,
+    token,
   };
 };
 
@@ -51,29 +54,19 @@ const signout = (state: AuthState): AuthState => {
   };
 };
 
-const updateToken = (state: AuthState, action: t.UpdateTokenAction): AuthState => {
-  return {
-    ...state,
-    token: action.payload.token,
-  };
-};
-
 const reducer = (state: AuthState = initialState, action: t.AuthenticationAction): AuthState => {
   switch (action.type) {
-    case t.SIGNIN_EMAIL_SUCCESS:
-    case t.SIGNIN_OAUTH_SUCCESS:
-      return signin(state, action);
+    case t.SET_ACCOUNT:
+      return setAccount(state, action);
+    case t.SET_TOKEN:
+      return setToken(state, action);
     case t.SIGNUP_SUCCESS:
       return signup(state, action);
     case t.SIGNOUT_SUCCESS:
       return signout(state);
-    case t.SIGNIN_EMAIL_FAILURE:
-    case t.SIGNIN_OAUTH_FAILURE:
     case t.SIGNUP_FAILURE:
     case t.SIGNOUT_FAILURE:
       return state;
-    case t.UPDATE_TOKEN:
-      return updateToken(state, action);
     default:
       return state;
   }
