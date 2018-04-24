@@ -40,6 +40,7 @@ describe(`token`, (): void => {
       });
     };
 
+    // $FlowFixMe
     selectors.getToken = (): string => {
       return 'foobartoken';
     };
