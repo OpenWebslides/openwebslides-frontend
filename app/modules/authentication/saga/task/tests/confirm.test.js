@@ -4,19 +4,19 @@ import { expectSaga } from 'redux-saga-test-plan';
 
 import * as t from '../../../actionTypes';
 import type { ApiPostConfirmationAction } from '../../../actionTypes';
-import resetSaga from '../reset';
+import confirmSaga from '../confirm';
 
 describe(`confirm`, (): void => {
   it(`puts an apiPostConfirmation action`, (): void => {
-    const dummyPostConfirmationAction: $Exact<ApiPostConfirmationAction> = {
+    const dummyPostConfirmationAction: ApiPostConfirmationAction = {
       type: t.API_POST_CONFIRMATION,
       payload: {
         email: 'foo',
       },
     };
 
-    return expectSaga(resetSaga, dummyPostConfirmationAction)
-      .put.like({ action: { type: t.API_POST_PASSWORD } })
+    return expectSaga(confirmSaga, dummyPostConfirmationAction)
+      .put.like({ action: { type: t.API_POST_CONFIRMATION } })
       .run();
   });
 });

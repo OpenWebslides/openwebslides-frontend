@@ -8,7 +8,7 @@ import resetSaga from '../reset';
 
 describe(`reset`, (): void => {
   it(`puts an apiPostPassword action`, (): void => {
-    const dummyPostPasswordAction: $Exact<ApiPostPasswordAction> = {
+    const dummyPostPasswordAction: ApiPostPasswordAction = {
       type: t.API_POST_PASSWORD,
       payload: {
         email: 'foo',

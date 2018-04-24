@@ -8,7 +8,7 @@ import signinEmailSaga from '../signinEmail';
 
 describe(`signinEmail`, (): void => {
   it(`puts an apiPostToken action`, (): void => {
-    const dummyPostTokenAction: $Exact<ApiPostTokenAction> = {
+    const dummyPostTokenAction: ApiPostTokenAction = {
       type: t.API_POST_TOKEN,
       payload: {
         email: 'foo',

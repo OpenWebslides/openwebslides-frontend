@@ -8,7 +8,7 @@ import signupSaga from '../signup';
 
 describe(`signupEmail`, (): void => {
   it(`puts an apiPostUsers action`, (): void => {
-    const dummyPostUsersAction: $Exact<ApiPostUsersAction> = {
+    const dummyPostUsersAction: ApiPostUsersAction = {
       type: t.API_POST_USERS,
       payload: {
         email: 'foo',

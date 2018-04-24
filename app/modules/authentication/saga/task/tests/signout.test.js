@@ -8,7 +8,7 @@ import signoutSaga from '../signout';
 
 describe(`signout`, (): void => {
   it(`puts an apiDeleteToken action`, (): void => {
-    const dummyDeleteTokenAction: $Exact<ApiDeleteTokenAction> = {
+    const dummyDeleteTokenAction: ApiDeleteTokenAction = {
       type: t.API_DELETE_TOKEN,
     };
 
