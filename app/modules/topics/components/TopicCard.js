@@ -9,10 +9,13 @@ import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
+import modals from 'modules/modals';
 
 import { getById } from '../selectors';
 import type { Topic } from '../model';
-import { remove } from '../actions';
+
+const { showModal } = modals.actions;
+const { DELETE_TOPIC } = modals.constants;
 
 type PassedProps = {
   topicId: Identifier,
@@ -44,7 +47,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     onRemoveButtonClick: (id: string): void => {
       dispatch(
-        remove(id),
+        showModal(DELETE_TOPIC, id),
       );
     },
   };

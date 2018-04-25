@@ -18,6 +18,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.24.1",
+    "circular-dependency-plugin": "^4.4.0",
     "coveralls": "^3.0.0",
     "css-loader": "^0.28.11",
     "empty": "^0.10.1",

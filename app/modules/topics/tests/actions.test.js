@@ -5,15 +5,15 @@ import * as t from '../actionTypes';
 
 describe(`actions`, (): void => {
 
-  describe(`add`, (): void => {
+  describe(`addToState`, (): void => {
 
-    it(`returns a topic ADD action, when parameters are valid`, (): void => {
+    it(`returns a topic ADD_TO_STATE action, when parameters are valid`, (): void => {
       const userId = 'testtest12';
       const title = 'Lorem ipsum';
       const description = 'Lorem ipsum dolor sit amet';
       const rootContentItemId = 'abcdefghij';
-      const expectedAction: t.AddAction = {
-        type: t.ADD,
+      const expectedAction: t.AddToStateAction = {
+        type: t.ADD_TO_STATE,
         payload: {
           id: '',
           userId,
@@ -23,7 +23,7 @@ describe(`actions`, (): void => {
         },
       };
       // eslint-disable-next-line
-      const generatedAction: t.AddAction = ((actions.add(userId, title, description): any): t.AddAction);
+      const generatedAction: t.AddToStateAction = ((actions.addToState(userId, title, description): any): t.AddToStateAction);
 
       expect(generatedAction.type).toEqual(expectedAction.type);
       expect(generatedAction.payload.id.length).toEqual(10);
@@ -35,26 +35,26 @@ describe(`actions`, (): void => {
       */
     });
 
-    it(`returns a topic ADD_ERROR action, when title parameter is an empty string`, (): void => {
+    it(`returns a topic ADD_TO_STATE_ERROR action, when title parameter is an empty string`, (): void => {
       const userId = 'testtest12';
       const title = '';
       const description = null;
-      const expectedAction: t.AddErrorAction = {
-        type: t.ADD_ERROR,
+      const expectedAction: t.AddToStateErrorAction = {
+        type: t.ADD_TO_STATE_ERROR,
         error: {
           message: 'Title cannot be empty.',
         },
       };
 
-      expect(actions.add(userId, title, description)).toEqual(expectedAction);
+      expect(actions.addToState(userId, title, description)).toEqual(expectedAction);
     });
 
-    it(`returns a topic ADD action with description an empty string, when description parameter is NULL`, (): void => {
+    it(`returns a topic ADD_TO_STATE action with description an empty string, when description parameter is NULL`, (): void => {
       const userId = 'testtest12';
       const title = 'Lorem ipsum';
       const description = null;
-      const expectedAction: t.AddAction = {
-        type: t.ADD,
+      const expectedAction: t.AddToStateAction = {
+        type: t.ADD_TO_STATE,
         payload: {
           id: '',
           userId,
@@ -64,7 +64,7 @@ describe(`actions`, (): void => {
         },
       };
       // eslint-disable-next-line
-      const generatedAction: t.AddAction = ((actions.add(userId, title, description): any): t.AddAction);
+      const generatedAction: t.AddToStateAction = ((actions.addToState(userId, title, description): any): t.AddToStateAction);
 
       expect(generatedAction.type).toEqual(expectedAction.type);
       expect(generatedAction.payload.description).toEqual(expectedAction.payload.description);
@@ -168,18 +168,18 @@ describe(`actions`, (): void => {
 
   });
 
-  describe(`remove`, (): void => {
+  describe(`removeFromState`, (): void => {
 
-    it(`returns a topic REMOVE action, when parameters are valid`, (): void => {
+    it(`returns a topic REMOVE_FROM_STATE action, when parameters are valid`, (): void => {
       const id = 'abcdefghij';
-      const expectedAction: t.RemoveAction = {
-        type: t.REMOVE,
+      const expectedAction: t.RemoveFromStateAction = {
+        type: t.REMOVE_FROM_STATE,
         payload: {
           id,
         },
       };
 
-      expect(actions.remove(id)).toEqual(expectedAction);
+      expect(actions.removeFromState(id)).toEqual(expectedAction);
     });
 
   });

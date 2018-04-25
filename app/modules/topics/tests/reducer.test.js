@@ -28,7 +28,7 @@ describe(`reducer`, (): void => {
 
   it(`returns the initial state, when state parameter is undefined`, (): void => {
     const dummyAction = {
-      type: t.ADD_ERROR,
+      type: t.ADD_TO_STATE_ERROR,
       error: {
         message: `Flow will complain if the passed action isn't some kind of valid TopicAction.`,
       },
@@ -37,14 +37,14 @@ describe(`reducer`, (): void => {
     expect(reducer(undefined, dummyAction)).toEqual(dummyInitialState);
   });
 
-  it(`handles topic ADD action`, (): void => {
+  it(`handles topic ADD_TO_STATE action`, (): void => {
     const prevState: TopicsState = {
       byId: {
         [dummyTopic1.id]: dummyTopic1,
       },
     };
-    const addAction: t.AddAction = {
-      type: t.ADD,
+    const addToStateAction: t.AddToStateAction = {
+      type: t.ADD_TO_STATE,
       payload: {
         id: 'klmnopqrst',
         userId: 'qsdfghjklm',
@@ -66,7 +66,7 @@ describe(`reducer`, (): void => {
       },
     };
 
-    expect(reducer(prevState, addAction)).toEqual(nextState);
+    expect(reducer(prevState, addToStateAction)).toEqual(nextState);
   });
 
   it(`handles topic EDIT action`, (): void => {
@@ -104,15 +104,15 @@ describe(`reducer`, (): void => {
     expect(reducer(prevState, editAction)).toEqual(nextState);
   });
 
-  it(`handles topic REMOVE action`, (): void => {
+  it(`handles topic REMOVE_FROM_STATE action`, (): void => {
     const prevState: TopicsState = {
       byId: {
         [dummyTopic1.id]: dummyTopic1,
         [dummyTopic2.id]: dummyTopic2,
       },
     };
-    const removeAction: t.RemoveAction = {
-      type: t.REMOVE,
+    const removeFromStateAction: t.RemoveFromStateAction = {
+      type: t.REMOVE_FROM_STATE,
       payload: {
         id: dummyTopic2.id,
       },
@@ -123,7 +123,7 @@ describe(`reducer`, (): void => {
       },
     };
 
-    expect(reducer(prevState, removeAction)).toEqual(nextState);
+    expect(reducer(prevState, removeFromStateAction)).toEqual(nextState);
   });
 
   // #TODO test edge cases

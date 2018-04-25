@@ -32,7 +32,7 @@ const mapStateToProps = (state: State): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     handleRequestFeed: (): void => {
-      feedItems.actions.fetch();
+      dispatch(feedItems.actions.fetch());
     },
   };
 };
