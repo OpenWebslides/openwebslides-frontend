@@ -45,14 +45,6 @@ const baseConfig = {
     new HtmlWebpackPlugin({
       template: path.join(paths.PUBLIC, 'index.html'),
     }),
-    new CircularDependencyPlugin({
-      // exclude detection of files based on a RegExp
-      exclude: /a\.js|node_modules/,
-      // add errors to webpack instead of warnings
-      failOnError: false,
-      // set the current working directory for displaying module paths
-      cwd: process.cwd(),
-    }),
   ],
 
   module: {
@@ -129,6 +121,14 @@ const devConfig = {
   plugins: [
     // Include hot reloading functionality
     new webpack.HotModuleReplacementPlugin(),
+    new CircularDependencyPlugin({
+      // exclude detection of files based on a RegExp
+      exclude: /node_modules|editable-display|html-display/,
+      // add errors to webpack instead of warnings
+      failOnError: false,
+      // set the current working directory for displaying module paths
+      cwd: process.cwd(),
+    }),
   ],
 
   module: {
