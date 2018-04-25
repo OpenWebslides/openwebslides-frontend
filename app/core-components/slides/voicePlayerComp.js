@@ -1,35 +1,26 @@
-/* eslint-disable */ //afgezet voor commit, ik krijg fouten die ik niet begrijp
+// @flow
 
-/*
-Cannot assign object literal to `this.state` because object literal [1] is incompatible with undefined [2].
-
-			   app/core-components/slides/voicePlayerComp.js:18:18
-			                        v
-			   18|     this.state = {
-			   19|       content: voicePlayer.defaultProps.initialText,
-			   20|       // play: voicePlayer.defaultProps.initplay,
-			   21|     };
-			           ^ [1]
- */
 
 import * as React from 'react';
 import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
 
+type Props = {};
+
 type State = {
   content: string,
-  // play: boolean,
+  play: boolean,
 };
 
-class voicePlayer extends React.Component<State> {
+class voicePlayer extends React.Component<Props, State> {
   static defaultProps = {
     initialText: 'rendered',
-    // initplay: false,
+    initplay: false,
   };
   constructor(): void {
     super();
     this.state = {
       content: voicePlayer.defaultProps.initialText,
-      // play: voicePlayer.defaultProps.initplay, is blijkbaar undefined?
+      play: voicePlayer.defaultProps.initplay,
     };
   }
 
@@ -48,7 +39,7 @@ class voicePlayer extends React.Component<State> {
 
     this.setState({ content: res, play: true });
     // wordt blijkbaar pas geset na 2de klik op de button + geen rerendering
-    console.log(`${this.state.content},${this.state.play}`);
+    console.log(`${this.state.content}`); // ,${this.state.play} gaf wel de waarde weer
 
     /* return (
       <div id="player">
@@ -66,7 +57,7 @@ class voicePlayer extends React.Component<State> {
       <div id="player">
         <button className="VoiceButton" onClick={this.read}>Click me</button>
         <VoicePlayer
-          play={true}
+          play={this.state.play}
           onEnd={(): void => {}}
           text={this.state.content}
         />
