@@ -14,6 +14,7 @@ export type Parameters = {
 export type RequestConfig = {
   url: string,
   endpoint: string,
+  resource: ?string,
   headers: Headers,
   parameters: Parameters,
   method: MethodType,
@@ -30,6 +31,7 @@ export type Response = {
 export type Request = {
   +config: RequestConfig,
   +setEndpoint: (endpoint: string) => Request,
+  +setResource: (endpoint: string) => Request,
   +setMethod: (method: MethodType) => Request,
   +setParameter: (parameter: string, value: string) => Request,
   +setHeader: (header: string, value: string) => Request,
