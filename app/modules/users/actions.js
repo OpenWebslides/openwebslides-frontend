@@ -1,56 +1,54 @@
 // @flow
 
-import _ from 'lodash';
+import type { Identifier } from 'types/model';
 
-import * as at from './actionTypes';
-import { generateId } from './model';
+import type { UserType } from './model';
 
-export const add = (
-  firstName: string,
-  lastName: ?string = null,
-  email: string,
-  password: string,
-): at.AddAction | at.AddErrorAction => {
-  const newId = generateId();
-  const newFirstName = _.trim(firstName);
-  const newLastName = (lastName == null) ? '' : _.trim(lastName);
-  const newEmail = _.trim(email);
-  const newPassword = _.trim(password);
+import * as t from './actionTypes';
 
-  if (newFirstName === '') {
-    return {
-      type: at.ADD_ERROR,
-      error: { // TODO: figure out how to do i18n for these messages
-        message: 'First name cannot be empty.',
-      },
-    };
-  }
-  if (newEmail === '') {
-    return {
-      type: at.ADD_ERROR,
-      error: {
-        message: 'Email cannot be empty.',
-      },
-    };
-  }
-
-  if (newPassword === '') {
-    return {
-      type: at.ADD_ERROR,
-      error: {
-        message: 'Password cannot be empty.',
-      },
-    };
-  }
-
+// Reducer actions
+export const setItemInState = (
+  item: ?UserType,
+): t.SetItemInStateAction => {
   return {
-    type: at.ADD,
+    type: t.SET_ITEM_IN_STATE,
     payload: {
-      id: newId,
-      firstName: newFirstName,
-      lastName: newLastName,
-      email: newEmail,
-      password: newPassword,
+      item,
+    },
+  };
+};
+
+export const setItemsInState = (
+  items: ?Array<UserType>,
+): t.SetItemsInStateAction => {
+  return {
+    type: t.SET_ITEMS_IN_STATE,
+    payload: {
+      items,
+    },
+  };
+};
+
+// Task saga actions
+export const get = (
+  id: Identifier,
+): t.GetAction => {
+  return {
+    type: t.GET,
+    payload: {
+      id,
+    },
+  };
+};
+
+// API saga actions
+export const apiGetUsers = (
+  id: Identifier,
+): t.ApiGetUsersAction => {
+  return {
+    type: t.API_GET_USERS,
+    payload: {
+      id,
     },
   };
 };
