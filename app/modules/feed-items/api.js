@@ -4,10 +4,10 @@ import Api from 'lib/api';
 
 import { ENDPOINT } from './constants';
 
-const { methodTypes } = Api.model;
+const { methodTypes, Response } = Api.model;
 const { ApiRequest } = Api;
 
-const fetch = async (): Promise<string> => {
+const fetch = async (): Promise<Response> => {
   const request = new ApiRequest();
 
   request

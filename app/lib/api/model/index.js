@@ -20,6 +20,13 @@ export type RequestConfig = {
   body: string,
 };
 
+export type Response = {
+  // eslint-disable-next-line flowtype/no-weak-types
+  +body: Object,
+  +status: number,
+  +token: ?string,
+};
+
 export type Request = {
   +config: RequestConfig,
   +setEndpoint: (endpoint: string) => Request,
@@ -28,7 +35,7 @@ export type Request = {
   +setHeader: (header: string, value: string) => Request,
   +setBody: (body: string) => Request,
   +setToken: (token: ?string) => Request,
-  +execute: () => Promise<string>,
+  +execute: () => Promise<Response>,
 
   +getUrl: () => string,
   +getOptions: () => RequestOptions,

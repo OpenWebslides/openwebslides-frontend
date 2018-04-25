@@ -35,10 +35,13 @@ type ValuesType = {
   password: string,
   firstName: string,
   lastName: string,
+  tosAccepted: boolean,
 };
 
 const handleSignup = (values: ValuesType, dispatch: Dispatch<*>): void => {
-  dispatch(signup(values.email, values.password, values.firstName, values.lastName));
+  const { email, password, firstName, lastName, tosAccepted } = values;
+
+  dispatch(signup(email, firstName, lastName, password, tosAccepted));
 };
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
@@ -46,6 +49,17 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
     authenticated: isAuthenticated(state),
     account: getAccount(state),
   };
+};
+
+// eslint-disable-next-line react/prop-types,flowtype/require-parameter-type
+const renderCheckBox = ({ input, label }): Field => {
+  return (
+    <Checkbox
+      label={label}
+      checked={!!input.value}
+      onChange={(e, { checked }) => input.onChange(checked)}
+    />
+  );
 };
 
 const PureSignupForm = (props: Props): React.Node => {
@@ -60,6 +74,7 @@ const PureSignupForm = (props: Props): React.Node => {
       <Form.Field>
         <Field
           component={Input}
+          type="text"
           name="email"
           placeholder={t('auth:input.email')}
           icon="at"
@@ -70,7 +85,8 @@ const PureSignupForm = (props: Props): React.Node => {
         <Form.Field width={8}>
           <Field
             component={Input}
-            name="firstname"
+            type="text"
+            name="firstName"
             placeholder={t('auth:input.firstname')}
             icon="user"
             iconPosition="left"
@@ -79,7 +95,8 @@ const PureSignupForm = (props: Props): React.Node => {
         <Form.Field width={8}>
           <Field
             component={Input}
-            name="lastname"
+            type="text"
+            name="lastName"
             placeholder={t('auth:input.lastname')}
             icon="user"
             iconPosition="left"
@@ -89,8 +106,8 @@ const PureSignupForm = (props: Props): React.Node => {
       <Form.Field>
         <Field
           component={Input}
-          name="password"
           type="password"
+          name="password"
           placeholder={t('auth:input.password')}
           icon="lock"
           iconPosition="left"
@@ -99,16 +116,17 @@ const PureSignupForm = (props: Props): React.Node => {
       <Form.Field>
         <Field
           component={Input}
-          name="repeatpassword"
           type="password"
+          name="repeatpassword"
           placeholder={t('auth:input.repeatpassword')}
           icon="lock"
           iconPosition="left"
         />
       </Form.Field>
       <Form.Field>
-        <Checkbox
-          name="tos"
+        <Field
+          component={renderCheckBox}
+          name="tosAccepted"
           label={t('auth:input.tos')}
         />
       </Form.Field>

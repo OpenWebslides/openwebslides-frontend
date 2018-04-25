@@ -28,7 +28,7 @@ describe(`asyncFetch`, (): void => {
 
     const response = asyncFetch('', {});
 
-    response.then((result: string): void => {
+    response.then((result: Object): void => {
       expect(result).toEqual({ foo: 'bar' });
     });
   });

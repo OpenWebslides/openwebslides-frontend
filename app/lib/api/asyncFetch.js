@@ -7,13 +7,23 @@ import {
   ServerApiError,
 } from './errors';
 
-const asyncFetch = async (url: string, options: RequestOptions): Promise<string> => {
+import type { Response } from './model';
+
+const asyncFetch = async (url: string, options: RequestOptions): Promise<Response> => {
   const response = await fetch(url, options);
   const { status } = response;
 
   switch (true) {
     case (status < 400): {
-      return response.json();
+      const authHeader = response.headers.get('Authorization');
+
+      // eslint-disable-next-line flowtype/no-weak-types
+      return response.json().then((data: Object): Object => {
+        return {
+          token: (authHeader ? authHeader.slice(7) : null),
+          body: data,
+        };
+      }).catch((error) => error);
     }
     case (status === 401):
       throw new UnauthorizedApiError();

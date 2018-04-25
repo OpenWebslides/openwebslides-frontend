@@ -17,7 +17,13 @@ const getAccount = (state: State): ?Account => {
   return module ? module.account : null;
 };
 
+const getToken = (state: State): ?string => {
+  const module: AuthState = getModule(state);
+  return module ? module.token : null;
+};
+
 export {
   isAuthenticated,
   getAccount,
+  getToken,
 };

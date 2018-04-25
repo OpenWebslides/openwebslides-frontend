@@ -5,6 +5,7 @@ import { API_URL, MEDIA_TYPE } from './constants';
 import asyncFetch from './asyncFetch';
 import type {
   Request,
+  Response,
   MethodType,
 } from './model';
 
@@ -46,12 +47,6 @@ const ApiRequest = (): Request => {
       return request;
     },
 
-    setMethod: (method: MethodType): Request => {
-      request.config.method = method;
-
-      return request;
-    },
-
     setParameter: (parameter: string, value: string): Request => {
       request.config.parameters[parameter] = value;
 
@@ -64,8 +59,20 @@ const ApiRequest = (): Request => {
       return request;
     },
 
+    setMethod: (method: MethodType): Request => {
+      request.config.method = method;
+
+      return request;
+    },
+
     setBody: (body: string): Request => {
       request.config.body = body;
+
+      return request;
+    },
+
+    addParameter: (parameter: string, value: string): Request => {
+      request.config.parameters[parameter] = value;
 
       return request;
     },
@@ -82,7 +89,7 @@ const ApiRequest = (): Request => {
     },
 
     // Execute HTTP request
-    execute: (): Promise<string> => {
+    execute: (): Promise<Response> => {
       return asyncFetch(request.getUrl(), request.getOptions());
     },
 
