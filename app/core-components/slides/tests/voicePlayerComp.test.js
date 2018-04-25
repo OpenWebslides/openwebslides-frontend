@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import Voiceplay from '../voicePlayerComp';
+import Voiceplayer from '../Voiceplayer';
 
 describe(`voicePlayerComp`, (): void => {
 
@@ -12,7 +12,7 @@ describe(`voicePlayerComp`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <Voiceplay />,
+      <Voiceplayer />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });
