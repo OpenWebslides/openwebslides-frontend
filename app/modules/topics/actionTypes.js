@@ -27,6 +27,7 @@ export const REMOVE_FROM_STATE_ERROR: 'topics/REMOVE_FROM_STATE_ERROR' = 'topics
 export const SET_TOPICS_IN_STATE_ERROR: 'topics/SET_TOPICS_IN_STATE_ERROR' = 'topics/SET_TOPICS_IN_STATE_ERROR';
 
 export const API_GET_TOPICS: 'topics/API_GET_TOPICS' = 'topics/API_GET_TOPICS';
+export const API_POST_TOPIC: 'topics/API_POST_TOPIC' = 'topics/API_POST_TOPIC';
 
 // TASK SAGAS
 
@@ -145,6 +146,15 @@ export type SetTopicsInStateErrorAction = {
 
 export type ApiGetTopicsAction = {
   type: typeof API_GET_TOPICS,
+};
+
+export type ApiPostTopicAction = {
+  type: typeof API_POST_TOPIC,
+  payload: {
+    userId: Identifier,
+    title: string,
+    description: ?string,
+  },
 };
 
 export type TopicReducerAction =
