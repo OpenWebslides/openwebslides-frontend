@@ -4,11 +4,11 @@ import { all, takeLatest } from 'redux-saga/effects';
 
 import * as t from '../../actionTypes';
 
-import fetchSaga from './fetch';
+import { apiGetNotificationsSaga } from './notifications';
 
 const apiSaga = function* (): Generator<*, *, *> {
   yield all([
-    takeLatest(t.FETCH_FEED, fetchSaga),
+    takeLatest(t.API_GET_NOTIFICATIONS, apiGetNotificationsSaga),
   ]);
 };
 
