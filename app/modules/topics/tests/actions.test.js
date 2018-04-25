@@ -74,12 +74,12 @@ describe(`actions`, (): void => {
 
   describe(`edit`, (): void => {
 
-    it(`returns a topic EDIT action, when parameters are valid`, (): void => {
+    it(`returns a topic EDIT_IN_STATE action, when parameters are valid`, (): void => {
       const id = 'abcdefghij';
       const title = 'Lorem ipsum';
       const description = 'Lorem ipsum dolor sit amet';
-      const expectedAction: t.EditAction = {
-        type: t.EDIT,
+      const expectedAction: t.EditInStateAction = {
+        type: t.EDIT_IN_STATE,
         payload: {
           id,
           title,
@@ -87,15 +87,15 @@ describe(`actions`, (): void => {
         },
       };
 
-      expect(actions.edit(id, title, description)).toEqual(expectedAction);
+      expect(actions.editInState(id, title, description)).toEqual(expectedAction);
     });
 
-    it(`returns a topic EDIT action with title set to NULL, when title parameter is NULL`, (): void => {
+    it(`returns a topic EDIT_IN_STATE action with title set to NULL, when title parameter is NULL`, (): void => {
       const id = 'abcdefghij';
       const title = null;
       const description = 'Lorem ipsum dolor sit amet';
-      const expectedAction: t.EditAction = {
-        type: t.EDIT,
+      const expectedAction: t.EditInStateAction = {
+        type: t.EDIT_IN_STATE,
         payload: {
           id,
           title,
@@ -103,29 +103,29 @@ describe(`actions`, (): void => {
         },
       };
 
-      expect(actions.edit(id, title, description)).toEqual(expectedAction);
+      expect(actions.editInState(id, title, description)).toEqual(expectedAction);
     });
 
-    it(`returns a topic EDIT_ERROR action, when title parameter is an empty string`, (): void => {
+    it(`returns a topic EDIT_IN_STATE_ERROR action, when title parameter is an empty string`, (): void => {
       const id = 'abcdefghij';
       const title = '';
       const description = null;
-      const expectedAction: t.EditErrorAction = {
-        type: t.EDIT_ERROR,
+      const expectedAction: t.EditInStateErrorAction = {
+        type: t.EDIT_IN_STATE_ERROR,
         error: {
           message: 'Title cannot be empty.',
         },
       };
 
-      expect(actions.edit(id, title, description)).toEqual(expectedAction);
+      expect(actions.editInState(id, title, description)).toEqual(expectedAction);
     });
 
-    it(`returns a topic EDIT action with description set to NULL, when description parameter is NULL`, (): void => {
+    it(`returns a topic EDIT_IN_STATE action with description set to NULL, when description parameter is NULL`, (): void => {
       const id = 'abcdefghij';
       const title = 'Lorem ipsum';
       const description = null;
-      const expectedAction: t.EditAction = {
-        type: t.EDIT,
+      const expectedAction: t.EditInStateAction = {
+        type: t.EDIT_IN_STATE,
         payload: {
           id,
           title,
@@ -133,15 +133,15 @@ describe(`actions`, (): void => {
         },
       };
 
-      expect(actions.edit(id, title, description)).toEqual(expectedAction);
+      expect(actions.editInState(id, title, description)).toEqual(expectedAction);
     });
 
-    it(`returns a topic EDIT action with description set to an empty string, when description parameter is an empty string`, (): void => {
+    it(`returns a topic EDIT_IN_STATE action with description set to an empty string, when description parameter is an empty string`, (): void => {
       const id = 'abcdefghij';
       const title = null;
       const description = '';
-      const expectedAction: t.EditAction = {
-        type: t.EDIT,
+      const expectedAction: t.EditInStateAction = {
+        type: t.EDIT_IN_STATE,
         payload: {
           id,
           title,
@@ -149,21 +149,21 @@ describe(`actions`, (): void => {
         },
       };
 
-      expect(actions.edit(id, title, description)).toEqual(expectedAction);
+      expect(actions.editInState(id, title, description)).toEqual(expectedAction);
     });
 
-    it(`returns a topic EDIT_ERROR action, when all editable properties are NULL`, (): void => {
+    it(`returns a topic EDIT_IN_STATE_ERROR action, when all editable properties are NULL`, (): void => {
       const id = 'abcdefghij';
       const title = null;
       const description = null;
-      const expectedAction: t.EditErrorAction = {
-        type: t.EDIT_ERROR,
+      const expectedAction: t.EditInStateErrorAction = {
+        type: t.EDIT_IN_STATE_ERROR,
         error: {
           message: 'Action must contain at least one edit.',
         },
       };
 
-      expect(actions.edit(id, title, description)).toEqual(expectedAction);
+      expect(actions.editInState(id, title, description)).toEqual(expectedAction);
     });
 
   });
