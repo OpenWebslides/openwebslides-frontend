@@ -3,16 +3,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
-import type { TranslatorProps } from 'react-i18next';
 
+import color, { TwitterPicker } from 'react-color';
+import type { CustomTranslatorProps } from 'types/translator';
 
 import type { State } from 'types/state';
 import contentItems, { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
 import Slide from 'core-components/slides/Slide';
-import color, { TwitterPicker } from 'react-color';
-import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
 
 import Voiceplayer from 'core-components/slides/Voiceplayer';
 
@@ -57,13 +55,13 @@ const PureTempSlideTestPage = (props: Props): React.Node => {
     // this.setState({ background: Color.hex });
     return Color.hex;
   };
-
   return (
     <Page>
       <TwitterPicker onChange={handleChange} />
       <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
       <Voiceplayer />
     </Page>
+
   );
 };
 
