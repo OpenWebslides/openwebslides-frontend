@@ -8,33 +8,32 @@ import Api from '../../api';
 import { predicateTypes } from '../../model';
 import type { FeedItemType } from '../../model';
 
+import { setFeedItemsInState } from '../../actions';
+
 // TODO: change this to topic once backend is deployed
 const mapEventTypeToPredicateType = {
-  deck_created: predicateTypes.CREATE,
-  deck_updated: predicateTypes.UPDATE,
+  topic_created: predicateTypes.CREATE,
+  topic_updated: predicateTypes.UPDATE,
 };
 
-const fetchSaga = function* (action: t.FetchAction): Generator<*, *, *> {
+export const apiGetNotificationsSaga = function* (action: t.FetchAction): Generator<*, *, *> {
   try {
     const response = yield call(Api.fetch);
 
     // eslint-disable-next-line flowtype/no-weak-types
-    const data = response.data.map((item: Object): FeedItemType => {
+    const data = response.body.data.map((item: Object): FeedItemType => {
       return {
         id: item.id,
         userId: item.relationships.user.data.id,
-        // TODO: change this to topic once backend is deployed
-        topicId: item.relationships.deck.data.id,
+        topicId: item.relationships.topic.data.id,
         predicate: mapEventTypeToPredicateType[item.attributes.eventType],
         timestamp: Number(item.meta.createdAt) * 1000,
       };
     });
 
-    yield put({ type: t.FETCH_FEED_SUCCESS, data });
+    yield put(setFeedItemsInState(data));
   }
   catch (error) {
-    yield put({ type: t.FETCH_FEED_FAILURE, error });
+    // TODO
   }
 };
-
-export default fetchSaga;
