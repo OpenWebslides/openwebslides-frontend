@@ -9,6 +9,8 @@ import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import type { CustomTranslatorProps } from 'types/translator';
 
+import type { User } from 'modules/users';
+
 import users from 'modules/users';
 import authentication from 'modules/authentication';
 
@@ -16,14 +18,13 @@ import Page from '../Page';
 
 const { ProfileCard } = users.components;
 const { getAccount } = authentication.selectors;
-type Account = authentication.model.Account;
 
 type RouteProps = {
   match: Match,
 };
 
 type StateProps = {
-  account: ?Account,
+  account: ?User,
 };
 
 type PassedProps = {
