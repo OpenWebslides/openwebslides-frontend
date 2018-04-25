@@ -15,6 +15,7 @@ import { getById } from '../selectors';
 import type { Topic } from '../model';
 
 const { showModal } = modals.actions;
+const { DELETE_TOPIC } = modals.constants;
 
 type PassedProps = {
   topicId: Identifier,
@@ -46,8 +47,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     onRemoveButtonClick: (id: string): void => {
       dispatch(
-        // remove(id),
-        showModal('DELETE_TOPIC', id),
+        showModal(DELETE_TOPIC, id),
       );
     },
   };

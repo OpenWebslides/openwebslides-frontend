@@ -10,9 +10,6 @@ const initialState: ModalsState = {
 
 
 const showModal = (state: ModalsState, action: t.ShowModalAction): ModalsState => {
-  console.log('A motherflippin modal should be shown!');
-  console.log(`type=${action.payload.modalType} && id=${action.payload.id}`);
-
   const {
     id,
     modalType,
@@ -25,9 +22,6 @@ const showModal = (state: ModalsState, action: t.ShowModalAction): ModalsState =
 };
 
 const hideModal = (state: ModalsState, action: t.HideModalAction): ModalsState => {
-  console.log('A motherflippin modal should be hidden now!');
-  console.log(`type=${action.payload.modalType}`);
-
   // TODO: check if modalType is ever needed (in case of multiple modals i guess?)
   return {
     ...initialState,
@@ -36,17 +30,14 @@ const hideModal = (state: ModalsState, action: t.HideModalAction): ModalsState =
 
 const reducer = (state: ModalsState = initialState, action: t.ModalAction): ModalsState => {
   switch (action.type) {
-    case t.SHOWMODAL:
+    case t.SHOW_MODAL:
       return showModal(state, action);
-    case t.HIDEMODAL:
+    case t.HIDE_MODAL:
       return hideModal(state, action);
-    case t.SHOWMODAL_ERROR:
-    case t.HIDEMODAL_ERROR:
+    case t.SHOW_MODAL_ERROR:
+    case t.HIDE_MODAL_ERROR:
       return state;
     default:
-      // Type error when not all action.type cases are handled.
-      // eslint-disable-next-line no-unused-expressions
-      (action: empty);
       return state;
   }
 };

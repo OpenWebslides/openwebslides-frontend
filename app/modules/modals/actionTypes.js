@@ -3,14 +3,14 @@
 import type { Error } from 'types/error';
 import type { Identifier } from 'types/model';
 
-export const SHOWMODAL: 'modals/SHOWMODAL' = 'modals/SHOWMODAL';
-export const HIDEMODAL: 'modals/HIDEMODAL' = 'modals/HIDEMODAL';
+export const SHOW_MODAL: 'modals/SHOW_MODAL' = 'modals/SHOW_MODAL';
+export const HIDE_MODAL: 'modals/HIDE_MODAL' = 'modals/HIDE_MODAL';
 
-export const SHOWMODAL_ERROR: 'modals/SHOWMODAL_ERROR' = 'modals/SHOWMODAL_ERROR';
-export const HIDEMODAL_ERROR: 'modals/HIDEMODAL_ERROR' = 'modals/HIDEMODAL_ERROR';
+export const SHOW_MODAL_ERROR: 'modals/SHOW_MODAL_ERROR' = 'modals/SHOW_MODAL_ERROR';
+export const HIDE_MODAL_ERROR: 'modals/HIDE_MODAL_ERROR' = 'modals/HIDE_MODAL_ERROR';
 
 export type ShowModalAction = {
-  type: typeof SHOWMODAL,
+  type: typeof SHOW_MODAL,
   payload: {
     modalType: string,
     id: Identifier,
@@ -18,19 +18,19 @@ export type ShowModalAction = {
 };
 
 export type HideModalAction = {
-  type: typeof HIDEMODAL,
+  type: typeof HIDE_MODAL,
   payload: {
     modalType: string,
   },
 };
 
 export type ShowModalErrorAction = {
-  type: typeof SHOWMODAL_ERROR,
+  type: typeof SHOW_MODAL_ERROR,
   error: Error,
 };
 
 export type HideModalErrorAction = {
-  type: typeof HIDEMODAL_ERROR,
+  type: typeof HIDE_MODAL_ERROR,
   error: Error,
 };
 

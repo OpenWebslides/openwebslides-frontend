@@ -9,7 +9,7 @@ export const showModal = (
   id: Identifier,
 ): t.ShowModalAction | t.ShowModalErrorAction => {
   return {
-    type: t.SHOWMODAL,
+    type: t.SHOW_MODAL,
     payload: {
       modalType,
       id,
@@ -21,7 +21,7 @@ export const hideModal = (
   modalType: string,
 ): t.HideModalAction | t.HideModalErrorAction => {
   return {
-    type: t.HIDEMODAL,
+    type: t.HIDE_MODAL,
     payload: {
       modalType,
     },

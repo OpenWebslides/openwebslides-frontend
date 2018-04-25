@@ -5,8 +5,6 @@ import { addToState } from '../../actions';
 
 // eslint-disable-next-line require-yield
 const addSaga = function* (action: t.AddAction): Generator<*, *, *> {
-  console.log(`addSaga called with action ${JSON.stringify(action)}`);
-
   const {
     userId,
     title,
