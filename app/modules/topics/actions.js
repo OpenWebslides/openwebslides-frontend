@@ -9,7 +9,6 @@ import type { Topic } from './model';
 import * as t from './actionTypes';
 import { generateId } from './model';
 
-
 export const add = (
   userId: Identifier,
   title: string,
@@ -190,5 +189,20 @@ export const apiGetTopics = (
 ): t.ApiGetTopicsAction => {
   return {
     type: t.API_GET_TOPICS,
+  };
+};
+
+export const apiPostTopic = (
+  userId: Identifier,
+  title: string,
+  description: ?string,
+): t.ApiPostTopicAction => {
+  return {
+    type: t.API_POST_TOPIC,
+    payload: {
+      userId,
+      title,
+      description,
+    },
   };
 };

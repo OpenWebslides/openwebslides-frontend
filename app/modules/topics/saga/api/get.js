@@ -30,11 +30,3 @@ export const apiGetTopicsSaga = function* (action: t.FetchAction): Generator<*, 
     // TODO
   }
 };
-
-/*
-+id: Identifier,
-  +userId: Identifier,
-  +title: string,
-  +description: string,
-  +rootContentItemId: Identifier,
- */
