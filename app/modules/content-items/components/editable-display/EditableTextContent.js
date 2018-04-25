@@ -31,8 +31,8 @@ class EditableTextContent extends React.Component<Props, State> {
     inputClassNameSuffix: '__input',
   };
 
-  static getDerivedStateFromProps = (nextProps: Props, prevState: State): State => {
-    const nextState: State = { ...prevState };
+  static getDerivedStateFromProps = (nextProps: Props, prevState: State): {} => {
+    const nextState = {};
 
     if (prevState.text !== nextProps.initialText) {
       nextState.text = nextProps.initialText;
