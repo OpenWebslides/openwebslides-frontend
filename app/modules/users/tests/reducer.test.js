@@ -4,12 +4,12 @@ import { dummyUsers } from '../dummyData';
 import reducer from '../reducer';
 import * as t from '../actionTypes';
 
-import type { User, UsersState } from '../model';
+import type { UserType, UsersState } from '../model';
 
 
 describe(`reducer`, (): void => {
 
-  const dummyUser1: $Exact<User> = {
+  const dummyUser1: $Exact<UserType> = {
     id: 'abcdefghij',
     firstName: 'Jan',
     lastName: 'Jansen',

@@ -20,7 +20,7 @@ import { predicateTypes } from '../model';
 import { getById } from '../selectors';
 
 const getUserById = users.selectors.getById;
-const { User } = users.model;
+const { UserType } = users.model;
 const { GRAVATAR_SIZE_SMALL } = users.constants;
 
 const getTitleById = topics.selectors.getById;
@@ -32,7 +32,7 @@ type PassedProps = {
 
 type StateProps = {
   feedItem: FeedItemType,
-  user: User,
+  user: UserType,
   topic: Topic,
 };
 

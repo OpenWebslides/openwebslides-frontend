@@ -1,6 +1,6 @@
 // @flow
 
-import type { User } from 'modules/users';
+import type { UserType } from 'modules/users';
 
 import type { Error } from 'types/error';
 
@@ -42,7 +42,7 @@ export type SetAccountAction = {
   type: typeof SET_ACCOUNT,
   // eslint-disable-next-line flowtype/no-weak-types
   payload: {
-    account: ?User,
+    account: ?UserType,
   },
 };
 

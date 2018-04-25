@@ -7,7 +7,7 @@ import * as constants from './constants';
 import components from './components';
 import reducer from './reducer';
 
-import type { User, UsersState } from './model';
+import type { UserType, UsersState } from './model';
 
 const users = {
   actions,
@@ -18,5 +18,5 @@ const users = {
   selectors,
 };
 
-export type { User, UsersState };
+export type { UserType, UsersState };
 export default users;

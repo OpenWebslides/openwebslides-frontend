@@ -39,7 +39,7 @@ const mapStateToProps = (state: State): StateProps => {
   // TODO: figure out what to do with /profile if no user is logged in
   /*
   if (account == null) {
-    throw new Error(`User is not logged in`);
+    throw new Error(`UserType is not logged in`);
   }
   */
 

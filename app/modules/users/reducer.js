@@ -2,7 +2,7 @@
 
 import { dummyUsers } from './dummyData';
 
-import type { User, UsersState } from './model';
+import type { UserType, UsersState } from './model';
 import * as at from './actionTypes';
 
 const initialState: UsersState = dummyUsers;
@@ -16,7 +16,7 @@ const add = (state: UsersState, action: at.AddAction): UsersState => {
     password,
   } = action.payload;
 
-  const newUser: User = {
+  const newUser: UserType = {
     id,
     firstName,
     lastName,

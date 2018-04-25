@@ -6,7 +6,7 @@ import generateRandomString from 'lib/generate-random-string';
 // #TODO optimal id length / generation method?
 const ID_LENGTH = 10;
 
-export type User = {
+export type UserType = {
   +id: Identifier,
   +firstName: string,
   +lastName?: ?string,
@@ -15,7 +15,7 @@ export type User = {
 };
 
 export type UsersState = {
-  +[userId: Identifier]: User,
+  +[userId: Identifier]: UserType,
 };
 
 export const generateId = (): Identifier => {
