@@ -7,7 +7,7 @@ import components from './components';
 import reducer from './reducer';
 import saga from './saga';
 
-import type { Account, AuthState } from './model';
+import type { AuthState } from './model';
 
 const authentication = {
   // actions,
@@ -18,5 +18,5 @@ const authentication = {
   saga,
 };
 
-export type { Account, AuthState };
+export type { AuthState };
 export default authentication;
