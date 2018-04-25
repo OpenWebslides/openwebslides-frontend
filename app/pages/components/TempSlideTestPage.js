@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
-import color, { TwitterPicker } from 'react-color';
+// import Color, { TwitterPicker } from 'react-color';
 import type { CustomTranslatorProps } from 'types/translator';
 
 import type { State } from 'types/state';
@@ -50,14 +50,14 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const PureTempSlideTestPage = (props: Props): React.Node => {
   const { contentItemTreeRootItem } = props;
-  const handleChange = (Color: color): string => {
+  /* const handleChange = (color: Color): void => {
     // alert(Color.hex);
     // this.setState({ background: Color.hex });
-    return Color.hex;
-  };
+    console.log(color.valueOf().hex);
+  }; */
+  // <TwitterPicker onChange={handleChange} />
   return (
     <Page>
-      <TwitterPicker onChange={handleChange} />
       <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
       <Voiceplayer />
     </Page>
