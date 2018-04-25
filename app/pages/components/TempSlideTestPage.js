@@ -14,7 +14,7 @@ import Slide from 'core-components/slides/Slide';
 import color, { TwitterPicker } from 'react-color';
 import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
 
-import Voiceplay from 'core-components/slides/voicePlayerComp';
+import Voiceplayer from 'core-components/slides/Voiceplayer';
 
 
 import Page from '../Page';
@@ -62,7 +62,7 @@ const PureTempSlideTestPage = (props: Props): React.Node => {
     <Page>
       <TwitterPicker onChange={handleChange} />
       <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
-      <Voiceplay />
+      <Voiceplayer />
     </Page>
   );
 };
