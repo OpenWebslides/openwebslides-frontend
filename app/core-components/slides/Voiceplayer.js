@@ -64,11 +64,17 @@ class voicePlayer extends React.Component<Props, State> {
 
   render(): React.Node {
     console.log(this.state.play);
-    const VoicePlayerNode = (<VoicePlayer
-      play={this.state.play}
-      onEnd={(): void => {}}
-      text={this.state.content}
-    />);
+    let VoicePlayerNode: VoicePlayer;
+    if (this.state.play) {
+      VoicePlayerNode = (<VoicePlayer
+        play={true}
+        onEnd={(): void => {}}
+        text={this.state.content}
+      />);
+    }
+    else {
+      VoicePlayerNode = null;
+    }
     return (
       <div id="player">
         <Segment compact={true}>
