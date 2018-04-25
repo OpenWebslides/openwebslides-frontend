@@ -1,31 +1,27 @@
 // @flow
 
-import { dummyFeedItems } from './dummyData';
-
 import * as t from './actionTypes';
 import type { FeedItemType, FeedItemsState } from './model';
 
-const initialState: FeedItemsState = dummyFeedItems;
+const initialState: FeedItemsState = {};
 
-const fetch = (state: FeedItemsState, action: t.FetchSuccessAction): FeedItemsState => {
+const setFeedItems = (state: FeedItemsState, action: t.SetFeedItemsAction): FeedItemsState => {
   const newFeedItems = {};
 
-  action.data.forEach((item: FeedItemType): void => {
-    newFeedItems[item.id] = item;
-  });
 
-  return {
-    ...state,
-    ...newFeedItems,
-  };
+  if (action.payload.items) {
+    action.payload.items.forEach((item: FeedItemType): void => {
+      newFeedItems[item.id] = item;
+    });
+  }
+
+  return newFeedItems;
 };
 
 const reducer = (state: FeedItemsState = initialState, action: t.FeedAction): FeedItemsState => {
   switch (action.type) {
-    case t.FETCH_FEED_SUCCESS:
-      return fetch(state, action);
-    case t.FETCH_FEED_FAILURE:
-      return state;
+    case t.SET_FEED_ITEMS:
+      return setFeedItems(state, action);
     default:
       return state;
   }
