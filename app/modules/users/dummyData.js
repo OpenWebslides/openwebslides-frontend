@@ -3,6 +3,13 @@
 import type { UsersState } from './model';
 
 export const dummyUsers: UsersState = {
+  '1': {
+    id: '1',
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@example.com',
+    password: 'abcd1234',
+  },
   '3': {
     id: '3',
     firstName: 'Mark F.',
