@@ -47,7 +47,7 @@ const baseConfig = {
     }),
     new CircularDependencyPlugin({
       // exclude detection of files based on a RegExp
-      exclude: /a\.js|node_modules/,
+      exclude: /node_modules|editable-display|html-display/,
       // add errors to webpack instead of warnings
       failOnError: false,
       // set the current working directory for displaying module paths
