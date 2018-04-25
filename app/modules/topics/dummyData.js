@@ -3,9 +3,9 @@
 import type { TopicsById } from './model';
 
 export const dummyTopicsById: TopicsById = {
-  '10': {
-    id: '10',
-    userId: 'markfrank1',
+  '1': {
+    id: '1',
+    userId: '1',
     title: 'Test topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'w4lg2u0p1h',
