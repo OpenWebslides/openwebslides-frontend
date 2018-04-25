@@ -120,6 +120,42 @@ export const addToState = (
   };
 };
 
+export const editInState = (
+  id: Identifier,
+  title: ?string = null,
+  description: ?string = null,
+): t.EditInStateAction | t.EditInStateErrorAction => {
+  const newTitle = (title != null) ? _.trim(title) : null;
+  const newDescription = (description != null) ? _.trim(description) : null;
+
+  if (newTitle === '') {
+    return {
+      type: t.EDIT_IN_STATE_ERROR,
+      error: {
+        message: 'Title cannot be empty.',
+      },
+    };
+  }
+
+  if (newTitle === null && newDescription === null) {
+    return {
+      type: t.EDIT_IN_STATE_ERROR,
+      error: {
+        message: 'Action must contain at least one edit.',
+      },
+    };
+  }
+
+  return {
+    type: t.EDIT_IN_STATE,
+    payload: {
+      id,
+      title: newTitle,
+      description: newDescription,
+    },
+  };
+};
+
 export const removeFromState = (
   id: Identifier,
 ): t.RemoveFromStateAction | t.RemoveFromStateErrorAction => {

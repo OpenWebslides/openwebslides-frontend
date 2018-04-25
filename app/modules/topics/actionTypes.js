@@ -9,9 +9,11 @@ export const EDIT: 'topics/EDIT' = 'topics/EDIT';
 export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
 
 export const ADD_TO_STATE: 'topics/ADD_TO_STATE' = 'topics/ADD_TO_STATE';
+export const EDIT_IN_STATE: 'topics/EDIT_IN_STATE' = 'topics/EDIT_IN_STATE';
 export const REMOVE_FROM_STATE: 'topics/REMOVE_FROM_STATE' = 'topics/REMOVE_FROM_STATE';
 
 export const ADD_TO_STATE_ERROR: 'topics/ADD_TO_STATE_ERROR' = 'topics/ADD_TO_STATE_ERROR';
+export const EDIT_IN_STATE_ERROR: 'topics/EDIT_IN_STATE_ERROR' = 'topics/EDIT_IN_STATE_ERROR';
 export const REMOVE_FROM_STATE_ERROR: 'topics/REMOVE_FROM_STATE_ERROR' = 'topics/REMOVE_FROM_STATE_ERROR';
 
 export const ADD_ERROR: 'topics/ADD_ERROR' = 'topics/ADD_ERROR';
@@ -79,6 +81,15 @@ export type AddToStateAction = {
   },
 };
 
+export type EditInStateAction = {
+  type: typeof EDIT_IN_STATE,
+  payload: {
+    id: Identifier,
+    title: ?string,
+    description: ?string,
+  },
+};
+
 export type RemoveFromStateAction = {
   type: typeof REMOVE_FROM_STATE,
   payload: {
@@ -93,6 +104,11 @@ export type AddToStateErrorAction = {
   error: Error,
 };
 
+export type EditInStateErrorAction = {
+  type: typeof EDIT_IN_STATE_ERROR,
+  error: Error,
+};
+
 export type RemoveFromStateErrorAction = {
   type: typeof REMOVE_FROM_STATE_ERROR,
   error: Error,
@@ -100,16 +116,18 @@ export type RemoveFromStateErrorAction = {
 
 
 export type TopicReducerAction =
-  | EditAction
-  | EditErrorAction
   | AddToStateAction
+  | EditInStateAction
   | RemoveFromStateAction
   | AddToStateErrorAction
+  | EditInStateErrorAction
   | RemoveFromStateErrorAction;
 
 
 export type TopicTaskSagaAction =
   | AddAction
+  | EditAction
   | RemoveAction
   | AddErrorAction
+  | EditErrorAction
   | RemoveErrorAction;

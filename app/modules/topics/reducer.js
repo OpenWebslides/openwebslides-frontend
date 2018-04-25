@@ -37,7 +37,7 @@ const addToState = (state: TopicsState, action: t.AddToStateAction): TopicsState
   };
 };
 
-const edit = (state: TopicsState, action: t.EditAction): TopicsState => {
+const editInState = (state: TopicsState, action: t.EditAction): TopicsState => {
   const { id, title, description } = action.payload;
   let editedTopic: Topic = state.byId[id];
 
@@ -66,12 +66,12 @@ const reducer = (state: TopicsState = initialState, action: t.TopicReducerAction
   switch (action.type) {
     case t.ADD_TO_STATE:
       return addToState(state, action);
-    case t.EDIT:
-      return edit(state, action);
+    case t.EDIT_IN_STATE:
+      return editInState(state, action);
     case t.REMOVE_FROM_STATE:
       return removeFromState(state, action);
     case t.ADD_TO_STATE_ERROR:
-    case t.EDIT_ERROR:
+    case t.EDIT_IN_STATE_ERROR:
     case t.REMOVE_FROM_STATE_ERROR:
       return state;
     default:
