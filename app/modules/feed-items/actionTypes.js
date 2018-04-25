@@ -1,31 +1,45 @@
 // @flow
 
 import type { Error } from 'types/error';
+
 import type { FeedItemType } from './model';
 
-export const ADD: 'feedItems/ADD' = 'feedItems/ADD';
+/* Action constants */
 
-export const ADD_ERROR: 'feedItems/ADD_ERROR' = 'feedItems/ADD_ERROR';
+// Reducer actions
+export const SET_FEED_ITEMS: 'feed/SET_FEED_ITEMS' = 'feed/SET_FEED_ITEMS';
 
-export const FETCH_FEED: 'feed/FETCH_FEED' = 'feed/FETCH_FEED';
-export const FETCH_FEED_SUCCESS: 'feed/FETCH_FEED_SUCCESS' = 'feed/FETCH_FEED_SUCCESS';
-export const FETCH_FEED_FAILURE: 'feed/FETCH_FEED_FAILURE' = 'feed/FETCH_FEED_FAILURE';
+// Task saga actions
+export const FETCH: 'feed/FETCH' = 'feed/FETCH';
+export const FETCH_ERROR: 'feed/FETCH_ERROR' = 'feed/FETCH_ERROR';
 
+// API saga actions
+export const API_GET_NOTIFICATIONS: 'feed/API_GET_NOTIFICATIONS' = 'feed/API_GET_NOTIFICATIONS';
+
+/* Action types */
+
+// Reducer actions
+export type SetFeedItemsAction = {
+  type: typeof SET_FEED_ITEMS,
+  payload: {
+    items: ?Array<FeedItemType>,
+  },
+};
+
+// Task saga actions
 export type FetchAction = {
-  type: typeof FETCH_FEED,
+  type: typeof FETCH,
 };
 
-export type FetchSuccessAction = {
-  type: typeof FETCH_FEED_SUCCESS,
-  data: Array<FeedItemType>,
-};
-
-export type FetchFailureAction = {
-  type: typeof FETCH_FEED_FAILURE,
+export type FetchErrorAction = {
+  type: typeof FETCH_ERROR,
   error: Error,
 };
 
+// API saga actions
+export type ApiGetNotificationsAction = {
+  type: typeof API_GET_NOTIFICATIONS,
+};
+
 export type FeedAction =
-  | FetchAction
-  | FetchSuccessAction
-  | FetchFailureAction;
+  | SetFeedItemsAction;
