@@ -8,7 +8,7 @@ import * as t from './actionTypes';
 
 // Reducer actions
 export const setItemInState = (
-  item: ?UserType,
+  item: UserType,
 ): t.SetItemInStateAction => {
   return {
     type: t.SET_ITEM_IN_STATE,
@@ -19,7 +19,7 @@ export const setItemInState = (
 };
 
 export const setItemsInState = (
-  items: ?Array<UserType>,
+  items: Array<UserType>,
 ): t.SetItemsInStateAction => {
   return {
     type: t.SET_ITEMS_IN_STATE,

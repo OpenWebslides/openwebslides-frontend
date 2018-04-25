@@ -23,14 +23,14 @@ export const API_GET_USERS: 'users/API_GET_USERS' = 'users/API_GET_USERS';
 export type SetItemInStateAction = {
   type: typeof SET_ITEM_IN_STATE,
   payload: {
-    item: ?UserType,
+    item: UserType,
   },
 };
 
 export type SetItemsInStateAction = {
   type: typeof SET_ITEMS_IN_STATE,
   payload: {
-    items: ?Array<UserType>,
+    items: Array<UserType>,
   },
 };
 
