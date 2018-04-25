@@ -39,7 +39,6 @@ class voicePlayer extends React.Component<Props, State> {
     play: false,
     toggle: false,
   };
-
   // haalt alle spans op van de slide en merged ze samen
   // om in text attribuut van voiceplayer te plaatsen
   read = (): void => {
@@ -58,12 +57,9 @@ class voicePlayer extends React.Component<Props, State> {
       const res = elementen.join(' ');
 
       this.setState({ content: res, play: true, toggle: true });
-      console.log(`${this.state.content}`);
     }
   };
-
   render(): React.Node {
-    console.log(this.state.play);
     let VoicePlayerNode: VoicePlayer;
     if (this.state.play) {
       VoicePlayerNode = (<VoicePlayer
