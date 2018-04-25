@@ -71,12 +71,6 @@ const ApiRequest = (): Request => {
       return request;
     },
 
-    addParameter: (parameter: string, value: string): Request => {
-      request.config.parameters[parameter] = value;
-
-      return request;
-    },
-
     setToken: (token: ?string): Request => {
       if (token && token.length !== 0) {
         request.config.headers.Authorization = `Bearer ${token}`;
