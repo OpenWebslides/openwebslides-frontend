@@ -1,7 +1,7 @@
 // @flow
 
 import type { State } from 'types/state';
-import type { User } from 'modules/users';
+import type { UserType } from 'modules/users';
 
 import type { AuthState } from './model';
 
@@ -14,7 +14,7 @@ const isAuthenticated = (state: State): boolean => {
   return module ? module.authenticated : false;
 };
 
-const getAccount = (state: State): ?User => {
+const getAccount = (state: State): ?UserType => {
   const module: AuthState = getModule(state);
   return module ? module.account : null;
 };

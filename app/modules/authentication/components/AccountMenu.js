@@ -8,14 +8,14 @@ import { Link } from 'react-router-dom';
 import { Dropdown, Menu, Icon } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
-import type { User } from 'modules/users';
+import type { UserType } from 'modules/users';
 
 import { isAuthenticated, getAccount } from '../selectors';
 import { signout } from '../actions';
 
 type StateProps = {
   authenticated: boolean,
-  account: ?User,
+  account: ?UserType,
 };
 
 type DispatchProps = {
