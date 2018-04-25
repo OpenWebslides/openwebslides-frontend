@@ -63,6 +63,11 @@ const PureFeedItem = (props: Props): React.Node => {
     topic,
   } = props;
 
+  // Prevent rendering when resources are still loading
+  if (!user) {
+    return null;
+  }
+
   let predicate:string = '';
   switch (feedItem.predicate) {
     case predicateTypes.COMMENT: predicate = 'COMMENT'; break;
