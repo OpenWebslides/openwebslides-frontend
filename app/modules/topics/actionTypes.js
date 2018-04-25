@@ -4,21 +4,29 @@ import type { Error } from 'types/error';
 import type { Identifier } from 'types/model';
 import type { RouterHistory } from 'react-router-dom';
 
+import type { Topic } from './model';
+
 export const ADD: 'topics/ADD' = 'topics/ADD';
 export const EDIT: 'topics/EDIT' = 'topics/EDIT';
+export const FETCH: 'topics/FETCH' = 'topics/FETCH';
 export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
+
+export const ADD_ERROR: 'topics/ADD_ERROR' = 'topics/ADD_ERROR';
+export const EDIT_ERROR: 'topics/EDIT_ERROR' = 'topics/EDIT_ERROR';
+export const FETCH_ERROR: 'topics/FETCH_ERROR' = 'topics/FETCH_ERROR';
+export const REMOVE_ERROR: 'topics/REMOVE_ERROR' = 'topics/REMOVE_ERROR';
 
 export const ADD_TO_STATE: 'topics/ADD_TO_STATE' = 'topics/ADD_TO_STATE';
 export const EDIT_IN_STATE: 'topics/EDIT_IN_STATE' = 'topics/EDIT_IN_STATE';
 export const REMOVE_FROM_STATE: 'topics/REMOVE_FROM_STATE' = 'topics/REMOVE_FROM_STATE';
+export const SET_TOPICS_IN_STATE: 'topics/SET_TOPICS_IN_STATE' = 'topics/SET_TOPICS_IN_STATE';
 
 export const ADD_TO_STATE_ERROR: 'topics/ADD_TO_STATE_ERROR' = 'topics/ADD_TO_STATE_ERROR';
 export const EDIT_IN_STATE_ERROR: 'topics/EDIT_IN_STATE_ERROR' = 'topics/EDIT_IN_STATE_ERROR';
 export const REMOVE_FROM_STATE_ERROR: 'topics/REMOVE_FROM_STATE_ERROR' = 'topics/REMOVE_FROM_STATE_ERROR';
+export const SET_TOPICS_IN_STATE_ERROR: 'topics/SET_TOPICS_IN_STATE_ERROR' = 'topics/SET_TOPICS_IN_STATE_ERROR';
 
-export const ADD_ERROR: 'topics/ADD_ERROR' = 'topics/ADD_ERROR';
-export const EDIT_ERROR: 'topics/EDIT_ERROR' = 'topics/EDIT_ERROR';
-export const REMOVE_ERROR: 'topics/REMOVE_ERROR' = 'topics/REMOVE_ERROR';
+export const API_GET_TOPICS: 'topics/API_GET_TOPICS' = 'topics/API_GET_TOPICS';
 
 // TASK SAGAS
 
@@ -43,6 +51,10 @@ export type EditAction = {
   },
 };
 
+export type FetchAction = {
+  type: typeof FETCH,
+};
+
 export type RemoveAction = {
   type: typeof REMOVE,
   payload: {
@@ -60,6 +72,11 @@ export type AddErrorAction = {
 
 export type EditErrorAction = {
   type: typeof EDIT_ERROR,
+  error: Error,
+};
+
+export type FetchErrorAction = {
+  type: typeof FETCH_ERROR,
   error: Error,
 };
 
@@ -97,6 +114,13 @@ export type RemoveFromStateAction = {
   },
 };
 
+export type SetTopicsInStateAction = {
+  type: typeof SET_TOPICS_IN_STATE,
+  payload: {
+    items: ?Array<Topic>,
+  },
+};
+
 // STATE ERROR
 
 export type AddToStateErrorAction = {
@@ -114,20 +138,32 @@ export type RemoveFromStateErrorAction = {
   error: Error,
 };
 
+export type SetTopicsInStateErrorAction = {
+  type: typeof SET_TOPICS_IN_STATE_ERROR,
+  error: Error,
+};
+
+export type ApiGetTopicsAction = {
+  type: typeof API_GET_TOPICS,
+};
 
 export type TopicReducerAction =
   | AddToStateAction
   | EditInStateAction
   | RemoveFromStateAction
+  | SetTopicsInStateAction
   | AddToStateErrorAction
   | EditInStateErrorAction
-  | RemoveFromStateErrorAction;
+  | RemoveFromStateErrorAction
+  | SetTopicsInStateErrorAction;
 
 
 export type TopicTaskSagaAction =
   | AddAction
   | EditAction
+  | FetchAction
   | RemoveAction
   | AddErrorAction
   | EditErrorAction
+  | FetchErrorAction
   | RemoveErrorAction;

@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import type { Identifier } from 'types/model';
 import type { RouterHistory } from 'react-router-dom';
+import type { Topic } from './model';
 
 import * as t from './actionTypes';
 import { generateId } from './model';
@@ -156,6 +157,13 @@ export const editInState = (
   };
 };
 
+export const fetch = (
+): t.FetchAction | t.FetchErrorAction => {
+  return {
+    type: t.FETCH,
+  };
+};
+
 export const removeFromState = (
   id: Identifier,
 ): t.RemoveFromStateAction | t.RemoveFromStateErrorAction => {
@@ -164,5 +172,23 @@ export const removeFromState = (
     payload: {
       id,
     },
+  };
+};
+
+export const setTopicsInState = (
+  items: ?Array<Topic>,
+): t.SetTopicsInStateAction => {
+  return {
+    type: t.SET_TOPICS_IN_STATE,
+    payload: {
+      items,
+    },
+  };
+};
+
+export const apiGetTopics = (
+): t.ApiGetTopicsAction => {
+  return {
+    type: t.API_GET_TOPICS,
   };
 };
