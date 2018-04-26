@@ -175,7 +175,7 @@ export const removeFromState = (
 };
 
 export const setItemsInState = (
-  items: ?Array<Topic>,
+  items: Array<Topic>,
 ): t.SetItemsInStateAction => {
   return {
     type: t.SET_ITEMS_IN_STATE,
