@@ -174,11 +174,11 @@ export const removeFromState = (
   };
 };
 
-export const setTopicsInState = (
+export const setItemsInState = (
   items: ?Array<Topic>,
-): t.SetTopicsInStateAction => {
+): t.SetItemsInStateAction => {
   return {
-    type: t.SET_TOPICS_IN_STATE,
+    type: t.SET_ITEMS_IN_STATE,
     payload: {
       items,
     },

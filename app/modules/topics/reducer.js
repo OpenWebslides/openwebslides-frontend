@@ -60,7 +60,7 @@ const removeFromState = (state: TopicsState, action: t.RemoveFromStateAction): T
   };
 };
 
-const setTopicsInState = (state: TopicsState, action: t.SetTopicsInStateAction): TopicsState => {
+const setItemsInState = (state: TopicsState, action: t.SetItemsInStateAction): TopicsState => {
   const newTopics = {};
 
 
@@ -83,12 +83,12 @@ const reducer = (state: TopicsState = initialState, action: t.TopicReducerAction
       return editInState(state, action);
     case t.REMOVE_FROM_STATE:
       return removeFromState(state, action);
-    case t.SET_TOPICS_IN_STATE:
-      return setTopicsInState(state, action);
+    case t.SET_ITEMS_IN_STATE:
+      return setItemsInState(state, action);
     case t.ADD_TO_STATE_ERROR:
     case t.EDIT_IN_STATE_ERROR:
     case t.REMOVE_FROM_STATE_ERROR:
-    case t.SET_TOPICS_IN_STATE_ERROR:
+    case t.SET_ITEMS_IN_STATE_ERROR:
       return state;
     default:
       return state;
