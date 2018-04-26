@@ -37,7 +37,7 @@ const addToState = (state: TopicsState, action: t.AddToStateAction): TopicsState
   };
 };
 
-const editInState = (state: TopicsState, action: t.EditAction): TopicsState => {
+const editInState = (state: TopicsState, action: t.EditInStateAction): TopicsState => {
   const { id, title, description } = action.payload;
   let editedTopic: Topic = state.byId[id];
 
