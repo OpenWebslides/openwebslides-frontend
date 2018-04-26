@@ -8,7 +8,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import configureStore from 'store/configureStore';
-// import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
 
 import 'assets/stylesheets/semantic.less';
 
@@ -29,13 +28,6 @@ if (appRootElement !== null) {
     </Provider>,
     appRootElement,
   );
-/*
-  const elems = document.getElementsByClassName('inline-markdown');
-  let i:number = 0;
-  for (i = 0; i < elems.length; i += 1) {
-    alert(`span ${i}`);
-  }
-  alert(`total ${i}`); */
 }
 else {
   console.error('React app root element not found.');

@@ -25,7 +25,6 @@ const PureSlide = (props: Props): React.Node => {
     <div className="ows_slide">
       <div className="ows_slide__size">
         <div className="ows_slide__content">
-
           <ContentItemHtmlDisplay
             contentItem={contentItemTreeRootItem}
             headingLevel={rootHeadingLevel}

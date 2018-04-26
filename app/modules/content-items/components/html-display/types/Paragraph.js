@@ -2,16 +2,6 @@
 
 import * as React from 'react';
 
-/* import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
-
-<div id="voice" >
-  <VoicePlayer
-    play={true}
-    onEnd={(): void => {}}
-    text={contentItem.text}
-  />
-</div> */
-
 import InlineMarkdown from 'core-components/inline-markdown';
 import type { DenormalizedParagraphContentItem } from '../../../model';
 
@@ -25,7 +15,6 @@ type Props = PassedProps;
 
 const PureParagraph = (props: Props): React.Node => {
   const { contentItem, children, containerClassName } = props;
-
 
   return (
     <div className={`${containerClassName} ${containerClassName}--paragraph`}>
