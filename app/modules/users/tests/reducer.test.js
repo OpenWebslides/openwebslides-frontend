@@ -1,62 +1,58 @@
 // @flow
 
-import { dummyUsers } from '../dummyData';
 import reducer from '../reducer';
 import * as t from '../actionTypes';
 
-import type { User, UsersState } from '../model';
-
+import type { UsersState } from '../model';
 
 describe(`reducer`, (): void => {
-
-  const dummyUser1: $Exact<User> = {
-    id: 'abcdefghij',
-    firstName: 'Jan',
-    lastName: 'Jansen',
-    email: 'jan.jansen@email.com',
-    password: 'janswachtwoord',
-  };
-
-  const dummyInitialState = dummyUsers;
-
-  it(`returns the initial state, when state parameter is undefined`, (): void => {
-    const dummyAction = {
-      type: t.ADD_ERROR,
-      error: {
-        message: `Flow will complain if the passed action isn't some kind of valid UserAction.`,
-      },
-    };
-
-    expect(reducer(undefined, dummyAction)).toEqual(dummyInitialState);
-  });
-
-  it(`handles user ADD action`, (): void => {
-    const prevState: UsersState = {
-      [dummyUser1.id]: dummyUser1,
-    };
-
-    const addAction: t.AddAction = {
-      type: t.ADD,
+  it(`handles SET_ITEM_IN_STATE action`, (): void => {
+    const setItemInStateAction: t.SetItemInStateAction = {
+      type: t.SET_ITEM_IN_STATE,
       payload: {
-        id: 'klmnopqrst',
-        firstName: 'Cucumber',
-        lastName: 'Tennismatch',
-        email: 'cucumber.tennismatch@email.com',
-        password: 'cucumberswachtwoord',
+        item: {
+          id: '1',
+          firstName: 'Foo',
+        },
       },
     };
 
     const nextState: UsersState = {
-      [dummyUser1.id]: dummyUser1,
-      klmnopqrst: {
-        id: 'klmnopqrst',
-        firstName: 'Cucumber',
-        lastName: 'Tennismatch',
-        email: 'cucumber.tennismatch@email.com',
-        password: 'cucumberswachtwoord',
+      '1': {
+        id: '1',
+        firstName: 'Foo',
       },
     };
 
-    expect(reducer(prevState, addAction)).toEqual(nextState);
+    expect(reducer({}, setItemInStateAction)).toEqual(nextState);
+  });
+
+  it(`handles SET_ITEMS_IN_STATE action`, (): void => {
+    const setItemsInStateAction: t.SetItemsInStateAction = {
+      type: t.SET_ITEMS_IN_STATE,
+      payload: {
+        items: [{
+          id: '1',
+          firstName: 'Foo',
+        },
+        {
+          id: '2',
+          firstName: 'Foo',
+        }],
+      },
+    };
+
+    const nextState: UsersState = {
+      '1': {
+        id: '1',
+        firstName: 'Foo',
+      },
+      '2': {
+        id: '2',
+        firstName: 'Foo',
+      },
+    };
+
+    expect(reducer({}, setItemsInStateAction)).toEqual(nextState);
   });
 });

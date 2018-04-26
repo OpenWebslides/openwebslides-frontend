@@ -1,45 +1,39 @@
 // @flow
 
-import { dummyUsers } from './dummyData';
+import type { UserType, UsersState } from './model';
+import * as t from './actionTypes';
 
-import type { User, UsersState } from './model';
-import * as at from './actionTypes';
+const initialState: UsersState = {};
 
-const initialState: UsersState = dummyUsers;
-
-const add = (state: UsersState, action: at.AddAction): UsersState => {
-  const {
-    id,
-    firstName,
-    lastName,
-    email,
-    password,
-  } = action.payload;
-
-  const newUser: User = {
-    id,
-    firstName,
-    lastName,
-    email,
-    password,
-  };
+const setItem = (state: UsersState, action: t.SetItemInStateAction): UsersState => {
+  const { id } = action.payload.item;
 
   return {
     ...state,
-    [id]: newUser,
+    [id]: action.payload.item,
   };
 };
 
-const reducer = (state: UsersState = initialState, action: at.UserAction): UsersState => {
+const setItems = (state: UsersState, action: t.SetItemsInStateAction): UsersState => {
+  const users = {};
+
+  action.payload.items.forEach((item: UserType): void => {
+    users[item.id] = item;
+  });
+
+  return {
+    ...state,
+    ...users,
+  };
+};
+
+const reducer = (state: UsersState = initialState, action: t.UsersAction): UsersState => {
   switch (action.type) {
-    case at.ADD:
-      return add(state, action);
-    case at.ADD_ERROR:
-      return state;
+    case t.SET_ITEM_IN_STATE:
+      return setItem(state, action);
+    case t.SET_ITEMS_IN_STATE:
+      return setItems(state, action);
     default:
-      // Type error when not all action.type cases are handled.
-      // eslint-disable-next-line no-unused-expressions
-      (action: empty);
       return state;
   }
 };

@@ -4,99 +4,71 @@ import * as actions from '../actions';
 import * as t from '../actionTypes';
 
 describe(`actions`, (): void => {
+  describe(`reducer actions`, (): void => {
+    describe(`setItemInState`, (): void => {
+      it(`returns set item action`, (): void => {
+        const item = {
+          id: '1',
+          firstName: 'foo',
+        };
 
-  describe(`add`, (): void => {
-    it(`returns a user ADD action, when parameters are valid, and user entered a last name`, (): void => {
-      const firstName = 'Jan';
-      const lastName = 'Jansen';
-      const email = 'jan.jansen@email.com';
-      const password = 'janspaswoord';
-      const expectedAction: t.AddAction = {
-        type: t.ADD,
-        payload: {
-          id: '',
-          firstName,
-          lastName,
-          email,
-          password,
-        },
-      };
+        const action = actions.setItemInState(item);
 
-      const generatedAction: t.AddAction = ((actions.add(firstName, lastName, email, password): any): t.AddAction);
-
-      expect(generatedAction.type).toEqual(expectedAction.type);
-      expect(generatedAction.payload.id.length).toEqual(10);
-      expect(generatedAction.payload.firstName).toEqual(expectedAction.payload.firstName);
-      expect(generatedAction.payload.lastName).toEqual(expectedAction.payload.lastName);
-      expect(generatedAction.payload.email).toEqual(expectedAction.payload.email);
-      expect(generatedAction.payload.password).toEqual(expectedAction.payload.password);
+        expect(action).toEqual({
+          type: t.SET_ITEM_IN_STATE,
+          payload: {
+            item,
+          },
+        });
+      });
     });
 
-    it(`returns a user ADD action with lastName an empty string, when lastName parameter is NULL`, (): void => {
-      const firstName = 'Jan';
-      const lastName = null;
-      const email = 'jan.jansen@email.com';
-      const password = 'janspaswoord';
-      const expectedAction: t.AddAction = {
-        type: t.ADD,
-        payload: {
-          id: '',
-          firstName,
-          lastName: '',
-          email,
-          password,
-        },
-      };
+    describe(`setItemsInState`, (): void => {
+      it(`returns set items action`, (): void => {
+        const items = [{
+          id: '1',
+          firstName: 'foo',
+        }];
 
-      const generatedAction: t.AddAction = ((actions.add(firstName, lastName, email, password): any): t.AddAction);
+        const action = actions.setItemsInState(items);
 
-      expect(generatedAction.type).toEqual(expectedAction.type);
-      expect(generatedAction.payload.lastName).toEqual(expectedAction.payload.lastName);
+        expect(action).toEqual({
+          type: t.SET_ITEMS_IN_STATE,
+          payload: {
+            items,
+          },
+        });
+      });
     });
+  });
 
-    it(`returns a user ADD_ERROR action, when firstName parameter is an empty string`, (): void => {
-      const firstName = '';
-      const lastName = 'Jansen';
-      const email = 'jan.jansen@email.com';
-      const password = 'janspaswoord';
-      const expectedAction: t.AddErrorAction = {
-        type: t.ADD_ERROR,
-        error: {
-          message: 'First name cannot be empty.',
-        },
-      };
+  describe(`task saga actions`, (): void => {
+    describe(`get`, (): void => {
+      it(`returns get action`, (): void => {
+        const action = actions.get('1');
 
-      expect(actions.add(firstName, lastName, email, password)).toEqual(expectedAction);
+        expect(action).toEqual({
+          type: t.GET,
+          payload: {
+            id: '1',
+          },
+        });
+      });
     });
+  });
 
-    it(`returns a user ADD_ERROR action, when email parameter is an empty string`, (): void => {
-      const firstName = 'Jan';
-      const lastName = 'Jansen';
-      const email = '';
-      const password = 'janspaswoord';
-      const expectedAction: t.AddErrorAction = {
-        type: t.ADD_ERROR,
-        error: {
-          message: 'Email cannot be empty.',
-        },
-      };
+  describe(`API saga actions`, (): void => {
+    describe(`apiGetUsers`, (): void => {
+      it(`returns get users action`, (): void => {
+        const action = actions.apiGetUsers('1');
 
-      expect(actions.add(firstName, lastName, email, password)).toEqual(expectedAction);
-    });
-
-    it(`returns a user ADD_ERROR action, when password parameter is an empty string`, (): void => {
-      const firstName = 'Jan';
-      const lastName = 'Jansen';
-      const email = 'jan.jansen@email.com';
-      const password = '';
-      const expectedAction: t.AddErrorAction = {
-        type: t.ADD_ERROR,
-        error: {
-          message: 'Password cannot be empty.',
-        },
-      };
-
-      expect(actions.add(firstName, lastName, email, password)).toEqual(expectedAction);
+        expect(action).toEqual({
+          type: t.API_GET_USERS,
+          payload: {
+            id: '1',
+          },
+        });
+      });
     });
   });
 });

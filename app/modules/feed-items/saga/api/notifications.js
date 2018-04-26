@@ -2,6 +2,9 @@
 
 import { call, put } from 'redux-saga/effects';
 
+import users from 'modules/users';
+import type { UserType } from 'modules/users';
+
 import * as t from '../../actionTypes';
 
 import Api from '../../api';
@@ -9,6 +12,8 @@ import { predicateTypes } from '../../model';
 import type { FeedItemType } from '../../model';
 
 import { setFeedItemsInState } from '../../actions';
+
+const { setItemInState } = users.actions;
 
 // TODO: change this to topic once backend is deployed
 const mapEventTypeToPredicateType = {
@@ -31,9 +36,18 @@ export const apiGetNotificationsSaga = function* (action: t.FetchAction): Genera
       };
     });
 
+    const user: UserType = {
+      id: response.body.included[0].id,
+      email: response.body.included[0].attributes.email,
+      firstName: response.body.included[0].attributes.firstName,
+      lastName: response.body.included[0].attributes.lastName,
+    };
+
     yield put(setFeedItemsInState(data));
+    yield put(setItemInState(user));
   }
   catch (error) {
     // TODO
+    throw error;
   }
 };

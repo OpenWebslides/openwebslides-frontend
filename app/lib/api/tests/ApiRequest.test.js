@@ -22,6 +22,7 @@ describe(`ApiRequest`, (): void => {
     it(`has a default config`, (): void => {
       expect(request.config.url).toEqual(API_URL);
       expect(request.config.endpoint).toEqual('');
+      expect(request.config.resource).toEqual(null);
       expect(request.config.headers).toEqual(defaultHeaders);
       expect(request.config.parameters).toEqual({});
       expect(request.config.method).toEqual(methodTypes.GET);
@@ -40,6 +41,14 @@ describe(`ApiRequest`, (): void => {
       request.setEndpoint('/foobar');
 
       expect(request.config.endpoint).toEqual('/foobar');
+    });
+  });
+
+  describe(`setResource`, (): void => {
+    it(`sets resource`, (): void => {
+      request.setResource('foobar');
+
+      expect(request.config.resource).toEqual('foobar');
     });
   });
 
@@ -132,6 +141,14 @@ describe(`ApiRequest`, (): void => {
       request.setParameter('param2', 'value2');
 
       expect(request.getUrl()).toEqual(`${API_URL}/endpoint?param1=value1&param2=value2`);
+    });
+
+    it(`generates correct url with resource`, (): void => {
+      request.setEndpoint('/endpoint');
+      request.setResource('1');
+      request.setParameter('param', 'value');
+
+      expect(request.getUrl()).toEqual(`${API_URL}/endpoint/1?param=value`);
     });
   });
 

@@ -1,23 +1,14 @@
 // @flow
 
 import type { Identifier } from 'types/model';
-import generateRandomString from 'lib/generate-random-string';
 
-// #TODO optimal id length / generation method?
-const ID_LENGTH = 10;
-
-export type User = {
+export type UserType = {
   +id: Identifier,
   +firstName: string,
   +lastName?: ?string,
-  +email: string,
-  +password?: string,
+  +email?: string,
 };
 
 export type UsersState = {
-  +[userId: Identifier]: User,
-};
-
-export const generateId = (): Identifier => {
-  return generateRandomString(ID_LENGTH);
+  +[userId: Identifier]: UserType,
 };

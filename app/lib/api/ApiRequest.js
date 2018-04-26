@@ -20,6 +20,9 @@ const ApiRequest = (): Request => {
       // Request endpoint
       endpoint: '',
 
+      // Request resource ID
+      resource: null,
+
       // Request headers
       headers: {
         'Content-Type': MEDIA_TYPE,
@@ -43,6 +46,12 @@ const ApiRequest = (): Request => {
       else {
         request.config.endpoint = `/${endpoint}`;
       }
+
+      return request;
+    },
+
+    setResource: (id: string): Request => {
+      request.config.resource = id;
 
       return request;
     },
@@ -71,12 +80,6 @@ const ApiRequest = (): Request => {
       return request;
     },
 
-    addParameter: (parameter: string, value: string): Request => {
-      request.config.parameters[parameter] = value;
-
-      return request;
-    },
-
     setToken: (token: ?string): Request => {
       if (token && token.length !== 0) {
         request.config.headers.Authorization = `Bearer ${token}`;
@@ -95,6 +98,10 @@ const ApiRequest = (): Request => {
 
     getUrl: (): string => {
       let url: string = `${request.config.url}${request.config.endpoint}`;
+
+      if (request.config.resource) {
+        url += `/${request.config.resource}`;
+      }
 
       if (Object.keys(request.config.parameters).length !== 0) {
         const query = Object.keys(request.config.parameters).map((k: string): string => {

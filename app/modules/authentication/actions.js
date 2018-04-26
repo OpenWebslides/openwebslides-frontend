@@ -2,14 +2,14 @@
 
 import _ from 'lodash';
 
-import type { User } from 'modules/users';
+import type { UserType } from 'modules/users';
 
 import * as t from './actionTypes';
 import * as c from './constants';
 
 // Reducer actions
 export const setAccountInState = (
-  account: ?User,
+  account: ?UserType,
 ): t.SetAccountAction => {
   return {
     type: t.SET_ACCOUNT,

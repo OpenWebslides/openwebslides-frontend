@@ -1,5 +1,7 @@
 // @flow
 
+import type { Identifier } from 'types/model';
+
 import Api from 'lib/api';
 
 import { ENDPOINT } from './constants';
@@ -7,22 +9,19 @@ import { ENDPOINT } from './constants';
 const { methodTypes, Response } = Api.model;
 const { ApiRequest } = Api;
 
-const fetch = async (): Promise<Response> => {
+const get = (id: Identifier): Promise<Response> => {
   const request = new ApiRequest();
 
   request
     .setEndpoint(ENDPOINT)
     .setMethod(methodTypes.GET)
-    .setParameter('sort', '-createdAt')
-    .setParameter('page[limit]', '10')
-    .setParameter('page[offset]', '0')
-    .setParameter('include', 'user');
+    .setResource(id);
 
   return request.execute();
 };
 
-const FeedApi = {
-  fetch,
+const UsersApi = {
+  get,
 };
 
-export default FeedApi;
+export default UsersApi;
