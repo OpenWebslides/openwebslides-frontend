@@ -1,4 +1,4 @@
-// flow-typed signature: a9d0afe221a5322d9a1b3a41b8099976
+// flow-typed signature: 2edb237794225741adeedad554db362f
 // flow-typed version: 1133e1a0c3/reselect_v3.x.x/flow_>=v0.47.x
 
 declare module "reselect" {
