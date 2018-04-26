@@ -41,11 +41,6 @@ type Props = CustomTranslatorProps & PassedProps & StateProps;
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const feedItem = getById(state, props.feedItemId);
   const topic = getTitleById(state, { id: feedItem.topicId });
-
-  if (topic == null) {
-    throw new Error(`Topic with id "${feedItem.topicId}" could not be found.`);
-  }
-
   const user = getUserById(state, feedItem.userId);
 
   return {
@@ -64,7 +59,7 @@ const PureFeedItem = (props: Props): React.Node => {
   } = props;
 
   // Prevent rendering when resources are still loading
-  if (!user) {
+  if (!user || !topic) {
     return null;
   }
 
