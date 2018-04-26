@@ -5,17 +5,17 @@ import authentication from 'modules/authentication';
 
 import * as t from '../../actionTypes';
 import Api from '../../api';
-import { addToState } from '../../actions';
+import { removeFromState } from '../../actions';
 
 const { getToken } = authentication.selectors;
 
-export const apiPostTopicSaga = function* (action: t.ApiPostTopicAction): Generator<*, *, *> {
+export const apiDeleteTopicSaga = function* (action: t.ApiDeleteTopicAction): Generator<*, *, *> {
   try {
-    const { userId, title, description } = action.payload;
+    const { id } = action.payload;
     const token = yield select(getToken);
 
-    yield call(Api.post, userId, title, description, token);
-    yield put(addToState(userId, title, description));
+    yield call(Api.destroy, id, token);
+    yield put(removeFromState(id));
   }
   catch (error) {
     // TODO

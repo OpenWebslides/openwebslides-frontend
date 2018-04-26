@@ -2,7 +2,7 @@
 import { put } from 'redux-saga/effects';
 import modals from 'modules/modals';
 import * as t from '../../actionTypes';
-import { removeFromState } from '../../actions';
+import { apiDeleteTopic } from '../../actions';
 
 const { hideModal } = modals.actions;
 
@@ -13,7 +13,7 @@ const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
     modalType,
   } = action.payload;
 
-  yield put(removeFromState(id));
+  yield put(apiDeleteTopic(id));
   yield put(hideModal(modalType));
 };
 

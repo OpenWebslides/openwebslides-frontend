@@ -26,6 +26,7 @@ export const EDIT_IN_STATE_ERROR: 'topics/EDIT_IN_STATE_ERROR' = 'topics/EDIT_IN
 export const REMOVE_FROM_STATE_ERROR: 'topics/REMOVE_FROM_STATE_ERROR' = 'topics/REMOVE_FROM_STATE_ERROR';
 export const SET_ITEMS_IN_STATE_ERROR: 'topics/SET_ITEMS_IN_STATE_ERROR' = 'topics/SET_ITEMS_IN_STATE_ERROR';
 
+export const API_DELETE_TOPIC: 'topics/API_DELETE_TOPIC' = 'topics/API_DELETE_TOPIC';
 export const API_GET_TOPICS: 'topics/API_GET_TOPICS' = 'topics/API_GET_TOPICS';
 export const API_POST_TOPIC: 'topics/API_POST_TOPIC' = 'topics/API_POST_TOPIC';
 
@@ -142,6 +143,13 @@ export type RemoveFromStateErrorAction = {
 export type SetItemsInStateErrorAction = {
   type: typeof SET_ITEMS_IN_STATE_ERROR,
   error: Error,
+};
+
+export type ApiDeleteTopicAction = {
+  type: typeof API_DELETE_TOPIC,
+  payload: {
+    id: Identifier,
+  },
 };
 
 export type ApiGetTopicsAction = {
