@@ -6,16 +6,9 @@ import type { RouterHistory } from 'react-router-dom';
 
 import type { Topic } from './model';
 
-export const ADD: 'topics/ADD' = 'topics/ADD';
-export const EDIT: 'topics/EDIT' = 'topics/EDIT';
-export const FETCH: 'topics/FETCH' = 'topics/FETCH';
-export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
+/* Action constants */
 
-export const ADD_ERROR: 'topics/ADD_ERROR' = 'topics/ADD_ERROR';
-export const EDIT_ERROR: 'topics/EDIT_ERROR' = 'topics/EDIT_ERROR';
-export const FETCH_ERROR: 'topics/FETCH_ERROR' = 'topics/FETCH_ERROR';
-export const REMOVE_ERROR: 'topics/REMOVE_ERROR' = 'topics/REMOVE_ERROR';
-
+// Reducer actions
 export const ADD_TO_STATE: 'topics/ADD_TO_STATE' = 'topics/ADD_TO_STATE';
 export const EDIT_IN_STATE: 'topics/EDIT_IN_STATE' = 'topics/EDIT_IN_STATE';
 export const REMOVE_FROM_STATE: 'topics/REMOVE_FROM_STATE' = 'topics/REMOVE_FROM_STATE';
@@ -26,69 +19,25 @@ export const EDIT_IN_STATE_ERROR: 'topics/EDIT_IN_STATE_ERROR' = 'topics/EDIT_IN
 export const REMOVE_FROM_STATE_ERROR: 'topics/REMOVE_FROM_STATE_ERROR' = 'topics/REMOVE_FROM_STATE_ERROR';
 export const SET_ITEMS_IN_STATE_ERROR: 'topics/SET_ITEMS_IN_STATE_ERROR' = 'topics/SET_ITEMS_IN_STATE_ERROR';
 
+// Task saga actions
+export const ADD: 'topics/ADD' = 'topics/ADD';
+export const EDIT: 'topics/EDIT' = 'topics/EDIT';
+export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
+export const FETCH: 'topics/FETCH' = 'topics/FETCH';
+
+export const ADD_ERROR: 'topics/ADD_ERROR' = 'topics/ADD_ERROR';
+export const EDIT_ERROR: 'topics/EDIT_ERROR' = 'topics/EDIT_ERROR';
+export const REMOVE_ERROR: 'topics/REMOVE_ERROR' = 'topics/REMOVE_ERROR';
+export const FETCH_ERROR: 'topics/FETCH_ERROR' = 'topics/FETCH_ERROR';
+
+// API saga actions
 export const API_DELETE_TOPIC: 'topics/API_DELETE_TOPIC' = 'topics/API_DELETE_TOPIC';
 export const API_GET_TOPICS: 'topics/API_GET_TOPICS' = 'topics/API_GET_TOPICS';
 export const API_POST_TOPIC: 'topics/API_POST_TOPIC' = 'topics/API_POST_TOPIC';
 
-// TASK SAGAS
+/* Action types */
 
-export type AddAction = {
-  type: typeof ADD,
-  payload: {
-    id: Identifier,
-    userId: Identifier,
-    title: string,
-    description: string,
-    rootContentItemId: Identifier,
-    history: RouterHistory,
-  },
-};
-
-export type EditAction = {
-  type: typeof EDIT,
-  payload: {
-    id: Identifier,
-    title: ?string,
-    description: ?string,
-  },
-};
-
-export type FetchAction = {
-  type: typeof FETCH,
-};
-
-export type RemoveAction = {
-  type: typeof REMOVE,
-  payload: {
-    id: Identifier,
-    modalType: string,
-  },
-};
-
-// TASK SAGA ERRORS
-
-export type AddErrorAction = {
-  type: typeof ADD_ERROR,
-  error: Error,
-};
-
-export type EditErrorAction = {
-  type: typeof EDIT_ERROR,
-  error: Error,
-};
-
-export type FetchErrorAction = {
-  type: typeof FETCH_ERROR,
-  error: Error,
-};
-
-export type RemoveErrorAction = {
-  type: typeof REMOVE_ERROR,
-  error: Error,
-};
-
-// STATE
-
+// Reducer actions
 export type AddToStateAction = {
   type: typeof ADD_TO_STATE,
   payload: {
@@ -123,8 +72,6 @@ export type SetItemsInStateAction = {
   },
 };
 
-// STATE ERROR
-
 export type AddToStateErrorAction = {
   type: typeof ADD_TO_STATE_ERROR,
   error: Error,
@@ -145,6 +92,61 @@ export type SetItemsInStateErrorAction = {
   error: Error,
 };
 
+// Task saga actions
+export type AddAction = {
+  type: typeof ADD,
+  payload: {
+    id: Identifier,
+    userId: Identifier,
+    title: string,
+    description: string,
+    rootContentItemId: Identifier,
+    history: RouterHistory,
+  },
+};
+
+export type EditAction = {
+  type: typeof EDIT,
+  payload: {
+    id: Identifier,
+    title: ?string,
+    description: ?string,
+  },
+};
+
+export type RemoveAction = {
+  type: typeof REMOVE,
+  payload: {
+    id: Identifier,
+    modalType: string,
+  },
+};
+
+export type FetchAction = {
+  type: typeof FETCH,
+};
+
+export type AddErrorAction = {
+  type: typeof ADD_ERROR,
+  error: Error,
+};
+
+export type EditErrorAction = {
+  type: typeof EDIT_ERROR,
+  error: Error,
+};
+
+export type RemoveErrorAction = {
+  type: typeof REMOVE_ERROR,
+  error: Error,
+};
+
+export type FetchErrorAction = {
+  type: typeof FETCH_ERROR,
+  error: Error,
+};
+
+// API saga actions
 export type ApiDeleteTopicAction = {
   type: typeof API_DELETE_TOPIC,
   payload: {
