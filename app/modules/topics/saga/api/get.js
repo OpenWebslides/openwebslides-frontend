@@ -7,7 +7,7 @@ import * as t from '../../actionTypes';
 import Api from '../../api';
 import type { Topic } from '../../model';
 
-import { setTopicsInState } from '../../actions';
+import { setItemsInState } from '../../actions';
 
 export const apiGetTopicsSaga = function* (action: t.FetchAction): Generator<*, *, *> {
   try {
@@ -24,7 +24,7 @@ export const apiGetTopicsSaga = function* (action: t.FetchAction): Generator<*, 
       };
     });
 
-    yield put(setTopicsInState(data));
+    yield put(setItemsInState(data));
   }
   catch (error) {
     // TODO
