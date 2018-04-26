@@ -36,15 +36,7 @@ export const apiGetNotificationsSaga = function* (action: t.FetchAction): Genera
       };
     });
 
-    const user: UserType = {
-      id: response.body.included[0].id,
-      email: response.body.included[0].attributes.email,
-      firstName: response.body.included[0].attributes.firstName,
-      lastName: response.body.included[0].attributes.lastName,
-    };
-
     yield put(setFeedItemsInState(data));
-    yield put(setItemInState(user));
   }
   catch (error) {
     // TODO
