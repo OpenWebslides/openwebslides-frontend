@@ -1,7 +1,7 @@
 // @flow
 
 import type { Identifier } from 'types/model';
-import type { ContentItem } from './model';
+import type { ContentItem, ContentItemType } from './model';
 
 // Reducer actions
 export const ADD_TO_STATE: 'contentItems/ADD_TO_STATE' = 'contentItems/ADD_TO_STATE';
@@ -32,7 +32,10 @@ export type AddToStateAction = {
   type: typeof ADD_TO_STATE,
   payload: {
     id: Identifier,
-    // #TODO stub
+    type: ContentItemType,
+    props: {
+      text?: string,
+    },
   },
 };
 
@@ -127,7 +130,10 @@ export type ApiDeleteAction = {
 export type AddAction = {
   type: typeof ADD,
   payload: {
-    // #TODO stub
+    type: ContentItemType,
+    props: {
+      text?: string,
+    },
   },
 };
 

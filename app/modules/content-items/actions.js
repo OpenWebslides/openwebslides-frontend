@@ -5,13 +5,52 @@ import _ from 'lodash';
 import type { Identifier } from 'types/model';
 
 import * as t from './actionTypes';
+import { plainTextContentItemTypes } from './model';
+import type { ContentItemType } from './model';
+
+export const addToState = (
+  id: Identifier,
+  type: ContentItemType,
+  props: {
+    text?: string,
+  },
+): t.AddToStateAction => {
+  const newId = id;
+  const newProps = {};
+
+  if (_.includes(plainTextContentItemTypes, type)) {
+    if (props.text == null) {
+      throw new Error(`"text" prop must be defined.`);
+    }
+
+    const newText = _.trim(props.text);
+
+    if (newText === '') {
+      throw new Error(`"text" prop cannot be an empty string.`);
+    }
+
+    newProps.text = newText;
+  }
+  else {
+    throw new Error(`contentItemType not yet supported`);
+  }
+
+  return {
+    type: t.ADD_TO_STATE,
+    payload: {
+      id: newId,
+      type,
+      props: newProps,
+    },
+  };
+};
 
 export const editPlainTextInState = (
   id: Identifier,
   text: ?string,
 ): t.EditPlainTextInStateAction => {
   const newId = id;
-  const newText = text != null ? _.trim(text) : text;
+  const newText = (text != null) ? _.trim(text) : text;
 
   if (newText === undefined) {
     throw new Error(`Attempted to create superfluous action.`);
@@ -38,7 +77,7 @@ export const editMediaInState = (
   const newId = id;
   const newSrc = src != null ? _.trim(src) : src;
   const newAlt = alt != null ? _.trim(alt) : alt;
-  let newCaption: ?string = caption != null ? _.trim(caption) : caption;
+  let newCaption: ?string = (caption != null) ? _.trim(caption) : caption;
 
   if (newSrc === undefined && newAlt === undefined && newCaption === undefined) {
     throw new Error(`Attempted to create superfluous action.`);
@@ -60,6 +99,21 @@ export const editMediaInState = (
       src: newSrc,
       alt: newAlt,
       caption: newCaption,
+    },
+  };
+};
+
+export const add = (
+  type: ContentItemType,
+  props: {
+    text?: string,
+  },
+): t.AddAction => {
+  return {
+    type: t.ADD,
+    payload: {
+      type,
+      props,
     },
   };
 };

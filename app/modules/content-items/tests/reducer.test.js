@@ -6,8 +6,11 @@ import reducer from '../reducer';
 import * as t from '../actionTypes';
 import { contentItemTypes } from '../model';
 import type {
+  BaseContentItem,
   PlainTextContentItem,
   MediaContentItem,
+  HeadingContentItem,
+  ParagraphContentItem,
   ContentItemsState,
 } from '../model';
 import * as dummyContentItemData from '../lib/test-resources/dummyContentItemData';
@@ -30,6 +33,93 @@ describe(`reducer`, (): void => {
 
   });
 
+  describe(`ADD_TO_STATE`, (): void => {
+
+    const dummyExistingContentItem: $Exact<BaseContentItem> = {
+      id: 'abcdefghij',
+      type: contentItemTypes.PARAGRAPH,
+    };
+    const dummyNewHeadingContentItem: $Exact<HeadingContentItem> = {
+      id: 'qflasjgtxr',
+      type: contentItemTypes.HEADING,
+      text: 'Lorem ipsum dolor sit amet',
+      metadata: {
+        tags: [],
+        visibilityOverrides: {},
+      },
+      subItemIds: [],
+    };
+    const dummyNewParagraphContentItem: $Exact<ParagraphContentItem> = {
+      id: 'w4lg2u0p1h',
+      type: contentItemTypes.PARAGRAPH,
+      text: 'Lorem ipsum dolor sit amet',
+      metadata: {
+        tags: [],
+        visibilityOverrides: {},
+      },
+      subItemIds: [],
+    };
+
+    it(`adds a HeadingContentItem to the state, when the type is HEADING and the passed props are valid`, (): void => {
+      const prevState: ContentItemsState = {
+        byId: {
+          [dummyExistingContentItem.id]: dummyExistingContentItem,
+        },
+      };
+      const addToStateAction: t.AddToStateAction = {
+        type: t.ADD_TO_STATE,
+        payload: {
+          id: dummyNewHeadingContentItem.id,
+          type: contentItemTypes.HEADING,
+          props: {
+            text: dummyNewHeadingContentItem.text,
+          },
+        },
+      };
+      const nextState: ContentItemsState = {
+        byId: {
+          [dummyExistingContentItem.id]: dummyExistingContentItem,
+          [dummyNewHeadingContentItem.id]: dummyNewHeadingContentItem,
+        },
+      };
+      const resultState: ContentItemsState = reducer(prevState, addToStateAction);
+
+      expect(resultState).toEqual(nextState);
+      expect(resultState).not.toBe(nextState);
+      expect(resultState.byId).not.toBe(prevState.byId);
+    });
+
+    it(`adds a ParagraphContentItem to the state, when the type is PARAGRAPH and the passed props are valid`, (): void => {
+      const prevState: ContentItemsState = {
+        byId: {
+          [dummyExistingContentItem.id]: dummyExistingContentItem,
+        },
+      };
+      const addToStateAction: t.AddToStateAction = {
+        type: t.ADD_TO_STATE,
+        payload: {
+          id: dummyNewParagraphContentItem.id,
+          type: contentItemTypes.PARAGRAPH,
+          props: {
+            text: dummyNewParagraphContentItem.text,
+          },
+        },
+      };
+      const nextState: ContentItemsState = {
+        byId: {
+          [dummyExistingContentItem.id]: dummyExistingContentItem,
+          [dummyNewParagraphContentItem.id]: dummyNewParagraphContentItem,
+        },
+      };
+      const resultState: ContentItemsState = reducer(prevState, addToStateAction);
+
+      expect(resultState).toEqual(nextState);
+      expect(resultState).not.toBe(nextState);
+      expect(resultState.byId).not.toBe(prevState.byId);
+    });
+
+  });
+
   describe(`EDIT_PLAIN_TEXT_IN_STATE`, (): void => {
 
     const dummyPlainTextContentItem: $Exact<PlainTextContentItem> = {
@@ -38,7 +128,7 @@ describe(`reducer`, (): void => {
       text: 'Lorem ipsum dolor sit amet',
     };
 
-    it(`changes the plainText contentItem's props, when the passed props are strings`, (): void => {
+    it(`changes the plainText contentItem's props, when the passed props are valid`, (): void => {
       const editedText = 'Consectetur adipiscing elit';
       const editedPlainTextContentItem: PlainTextContentItem = {
         ...dummyPlainTextContentItem,
@@ -148,7 +238,7 @@ describe(`reducer`, (): void => {
       caption: 'Caption goes here',
     };
 
-    it(`changes the media contentItem's props, when the passed props are strings`, (): void => {
+    it(`changes the media contentItem's props, when the passed props are valid`, (): void => {
       const editedSrc = 'https://wikipedia.org';
       const editedAlt = 'Edited alt text';
       const editedCaption = 'Edited caption';
