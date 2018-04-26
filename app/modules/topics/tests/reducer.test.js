@@ -1,7 +1,5 @@
 // @flow
 
-import { dummyTopicsById } from '../dummyData';
-
 import reducer from '../reducer';
 import * as t from '../actionTypes';
 import type { Topic, TopicsState } from '../model';
@@ -23,7 +21,7 @@ describe(`reducer`, (): void => {
     rootContentItemId: 'abcdefghij',
   };
   const dummyInitialState = {
-    byId: dummyTopicsById,
+    byId: {},
   };
 
   it(`returns the initial state, when state parameter is undefined`, (): void => {
