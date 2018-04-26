@@ -3,16 +3,16 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import Voiceplayer from '../Voiceplayer';
+import VoicePlayerToggle from '../VoicePlayerToggle';
 
-describe(`voicePlayerComp`, (): void => {
+describe(`VoicePlayerToggle`, (): void => {
 
   // const buttonSelector = `.${'VoiceButton'}`;
   // const dummyRead = jest.fn();
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <Voiceplayer />,
+      <VoicePlayerToggle />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });

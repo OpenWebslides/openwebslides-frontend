@@ -50,6 +50,10 @@ class VoicePlayer extends Component {
     this.setState({ started: false, playing: false })
   };
 
+  cancelSpeech = () => {
+    window.speechSynthesis.cancel();
+  };
+
   pause = () => {
     window.speechSynthesis.pause();
     this.setState({ playing: false })
@@ -97,7 +101,7 @@ class VoicePlayer extends Component {
   }
 
   componentWillUnmount () {
-    this.cancel()
+    this.cancelSpeech()
   }
 
   render () {

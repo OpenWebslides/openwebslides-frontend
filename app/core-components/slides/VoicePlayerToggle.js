@@ -17,7 +17,7 @@ type State = {
   toggle: boolean,
 };
 
-class voicePlayer extends React.Component<Props, State> {
+class VoicePlayerToggle extends React.Component<Props, State> {
   static defaultProps = {
     initContent: 'rendered',
     initPlay: false,
@@ -39,26 +39,7 @@ class voicePlayer extends React.Component<Props, State> {
     play: false,
     toggle: false,
   };
-  // haalt alle spans op van de slide en merged ze samen
-  // om in text attribuut van voiceplayer te plaatsen
-  read = (): void => {
-    if (this.state.toggle) {
-      this.setState({ toggle: false, play: false });
-      console.log('off');
-    }
-    else {
-      console.log('on');
-      const elems = document.getElementsByClassName('inline-markdown');
-      let i:number;
-      const elementen = [];
-      for (i = 0; i < elems.length; i += 1) {
-        elementen.push(elems[i].innerHTML);
-      }
-      const res = elementen.join(' ');
 
-      this.setState({ content: res, play: true, toggle: true });
-    }
-  };
   render(): React.Node {
     let VoicePlayerNode: VoicePlayer;
     if (this.state.play) {
@@ -71,10 +52,11 @@ class voicePlayer extends React.Component<Props, State> {
     else {
       VoicePlayerNode = null;
     }
+
     return (
       <div id="player">
         <Segment compact={true}>
-          <Checkbox slider={true} onClick={this.read} checked={this.state.toggle} />
+          <Checkbox slider={true} checked={this.state.toggle} />
         </Segment>
         {VoicePlayerNode}
 
@@ -82,4 +64,4 @@ class voicePlayer extends React.Component<Props, State> {
   }
 }
 
-export default voicePlayer;
+export default VoicePlayerToggle;

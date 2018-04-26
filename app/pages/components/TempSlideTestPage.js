@@ -12,7 +12,7 @@ import contentItems, { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
 import Slide from 'core-components/slides/Slide';
 
-import Voiceplayer from 'core-components/slides/Voiceplayer';
+// import VoicePlayerToggle from 'core-components/slides/VoicePlayerToggle';
 
 
 import Page from '../Page';
@@ -48,22 +48,35 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const PureTempSlideTestPage = (props: Props): React.Node => {
-  const { contentItemTreeRootItem } = props;
-  /* const handleChange = (color: Color): void => {
-    // alert(Color.hex);
-    // this.setState({ background: Color.hex });
-    console.log(color.valueOf().hex);
-  }; */
-  // <TwitterPicker onChange={handleChange} />
-  return (
-    <Page>
-      <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
-      <Voiceplayer />
-    </Page>
+class PureTempSlideTestPage extends React.Component<Props, State> {
+  constructor(props: Props): void {
+    super(props);
+    this.slideRef = React.createRef();
+  }
 
-  );
-};
+  componentDidMount = (): void => {
+    this.render();
+    console.log(this.slideRef.current);
+  };
+
+  handleClick = (): void => {
+    console.log(this.slideRef.current.innerText);
+  };
+
+  render = (): React.Node => {
+    const { contentItemTreeRootItem } = this.props;
+
+    return (
+      <Page>
+        <div ref={this.slideRef}>
+          <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
+        </div>
+        <button onClick={this.handleClick}>click</button>
+      </Page>
+    );
+    /* <VoicePlayerToggle /> */
+  }
+}
 
 const TempSlideTestPage = connect(mapStateToProps)(translate()(PureTempSlideTestPage));
 
