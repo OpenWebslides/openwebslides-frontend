@@ -15,8 +15,7 @@ const fetch = async (): Promise<Response> => {
     .setMethod(methodTypes.GET)
     .setParameter('sort', '-createdAt')
     .setParameter('page[limit]', '10')
-    .setParameter('page[offset]', '0')
-    .setParameter('include', 'user');
+    .setParameter('page[offset]', '0');
 
   return request.execute();
 };
