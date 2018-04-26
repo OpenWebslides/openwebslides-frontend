@@ -8,6 +8,21 @@ import { ENDPOINT } from './constants';
 const { methodTypes, Response } = Api.model;
 const { ApiRequest } = Api;
 
+const destroy = (
+  id: Identifier,
+  token: string,
+): Promise<Response> => {
+  const request = new ApiRequest();
+
+  request
+    .setEndpoint(ENDPOINT)
+    .setMethod(methodTypes.DELETE)
+    .setResource(id)
+    .setToken(token);
+
+  return request.execute();
+};
+
 const fetch = async (): Promise<Response> => {
   const request = new ApiRequest();
 
@@ -54,9 +69,10 @@ const post = (
   return request.execute();
 };
 
-const FeedApi = {
+const TopicApi = {
+  destroy,
   fetch,
   post,
 };
 
-export default FeedApi;
+export default TopicApi;

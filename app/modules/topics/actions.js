@@ -185,6 +185,18 @@ export const setItemsInState = (
   };
 };
 
+export const apiDeleteTopic = (
+  id: Identifier,
+): t.ApiDeleteTopicAction => {
+  return {
+    type: t.API_DELETE_TOPIC,
+    payload: {
+      id,
+    },
+  };
+};
+
+
 export const apiGetTopics = (
 ): t.ApiGetTopicsAction => {
   return {
