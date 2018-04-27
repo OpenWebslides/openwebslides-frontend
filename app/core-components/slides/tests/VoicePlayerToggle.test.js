@@ -12,7 +12,7 @@ describe(`VoicePlayerToggle`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <VoicePlayerToggle />,
+      <VoicePlayerToggle content="" />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });

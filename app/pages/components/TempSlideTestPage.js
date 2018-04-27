@@ -30,6 +30,11 @@ type StateProps = {
 
 type Props = CustomTranslatorProps & StateProps & PassedProps;
 
+type ComponentState = {
+  contentToBeRead: string,
+  toggle: boolean,
+};
+
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const contentItemTreeRootItemId = 'qyrgv0bcd6'; // 'w4lg2u0p1h'; // #TODO stub
   const contentItemTreeRootItem = contentItems.selectors.getDenormalizedById(
@@ -49,19 +54,22 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-class PureTempSlideTestPage extends React.Component<Props, State> {
+class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
   constructor(props: Props): void {
     super(props);
     this.slideRef = React.createRef();
   }
 
-  componentDidMount = (): void => {
-    this.render();
-    console.log(this.slideRef.current);
-    this.setState({ toggle: false, contentToBeRead: 'd' });
-    // console.log(`initieel ${this.state.toggle}`);
+  state: ComponentState = {
+    contentToBeRead: '',
+    toggle: false,
   };
 
+
+  componentDidMount = (): void => {
+    this.render();
+    // console.log(`initieel ${this.state.toggle}`);
+  };
   slideRef;
 
   toggleRead = (): void => {
@@ -75,14 +83,24 @@ class PureTempSlideTestPage extends React.Component<Props, State> {
 
   render = (): React.Node => {
     const { contentItemTreeRootItem } = this.props;
-    // console.log(`after ${this.state.toggle}, ${this.state.contentToBeRead}`);
+
+    let VoicePlayerToggleNode: typeof VoicePlayerToggle;
+    if (this.state.toggle) {
+      VoicePlayerToggleNode = (
+        <VoicePlayerToggle
+          content={this.state.contentToBeRead}
+        />);
+    }
+    else {
+      VoicePlayerToggleNode = null;
+    }
     return (
       <Page>
         <div ref={this.slideRef}>
           <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
         </div>
         <div className="Voice">
-          <VoicePlayerToggle content={this.state.contentToBeRead} play={this.state.toggle} />
+          {VoicePlayerToggleNode}
           <Segment compact={true}>
             <Checkbox slider={true} onClick={this.toggleRead} checked={this.state.toggle} />
           </Segment>

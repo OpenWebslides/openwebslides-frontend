@@ -2,62 +2,29 @@
 
 
 import * as React from 'react';
+import { translate } from 'react-i18next';
 import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
 
-type Props = {
-  initContent: string,
-  initPlay: boolean,
-};
 
-type State = {
+type PassedProps = {
+  // A denormalized ROOT item containing the content to be displayed on this slide.
   content: string,
-  play: boolean,
 };
 
-class VoicePlayerToggle extends React.Component<Props, State> {
-  static defaultProps = {
-    initContent: 'rendered',
-    initPlay: false,
-  };
+type Props = PassedProps;
 
-  static getDerivedStateFromProps = (nextProps: Props, prevState: State): State => {
-    const nextState: State = { ...prevState };
+const VoicePlayerToggleComp = (props: Props): React.Node => {
+  const { content } = props;
+  console.log(`render voiceplay,${content}`);
+  return (
+    <VoicePlayer
+      play={true}
+      onEnd={(): void => {}}
+      text={content}
+    />);
+};
 
-    if (prevState.content !== nextProps.initContent) {
-      nextState.content = nextProps.initContent;
-    }
-    if (prevState.play !== nextProps.initPlay) {
-      nextState.play = nextProps.initPlay;
-    }
+const VoicePlayerToggle = translate()(VoicePlayerToggleComp);
 
-    return nextState;
-  };
-
-  state: State = {
-    content: '',
-    play: false,
-  };
-
-  render(): React.Node {
-    // console.log(`render voiceplay, ${this.state.play}, ${this.state.content}`);
-    let VoicePlayerNode: VoicePlayer;
-    if (this.state.play) {
-      VoicePlayerNode = (<VoicePlayer
-        play={true}
-        onEnd={(): void => {}}
-        text={this.state.content}
-      />);
-    }
-    else {
-      VoicePlayerNode = null;
-    }
-
-    return (
-      <div id="player">
-        {VoicePlayerNode}
-
-      </div>);
-  }
-}
-
+export { VoicePlayerToggleComp };
 export default VoicePlayerToggle;
