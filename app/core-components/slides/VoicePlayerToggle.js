@@ -2,26 +2,22 @@
 
 
 import * as React from 'react';
-import { Checkbox, Segment } from 'semantic-ui-react';
 import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
 
 type Props = {
   initContent: string,
   initPlay: boolean,
-  initToggle: boolean,
 };
 
 type State = {
   content: string,
   play: boolean,
-  toggle: boolean,
 };
 
 class VoicePlayerToggle extends React.Component<Props, State> {
   static defaultProps = {
     initContent: 'rendered',
     initPlay: false,
-    initToggle: false,
   };
 
   static getDerivedStateFromProps = (nextProps: Props, prevState: State): State => {
@@ -30,6 +26,9 @@ class VoicePlayerToggle extends React.Component<Props, State> {
     if (prevState.content !== nextProps.initContent) {
       nextState.content = nextProps.initContent;
     }
+    if (prevState.play !== nextProps.initPlay) {
+      nextState.play = nextProps.initPlay;
+    }
 
     return nextState;
   };
@@ -37,10 +36,10 @@ class VoicePlayerToggle extends React.Component<Props, State> {
   state: State = {
     content: '',
     play: false,
-    toggle: false,
   };
 
   render(): React.Node {
+    // console.log(`render voiceplay, ${this.state.play}, ${this.state.content}`);
     let VoicePlayerNode: VoicePlayer;
     if (this.state.play) {
       VoicePlayerNode = (<VoicePlayer
@@ -55,9 +54,6 @@ class VoicePlayerToggle extends React.Component<Props, State> {
 
     return (
       <div id="player">
-        <Segment compact={true}>
-          <Checkbox slider={true} checked={this.state.toggle} />
-        </Segment>
         {VoicePlayerNode}
 
       </div>);
