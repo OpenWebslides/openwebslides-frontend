@@ -17,12 +17,12 @@ type Props = {
   inputClassNameSuffix: string,
 };
 
-type State = {
+type ComponentState = {
   isActive: boolean,
   text: string,
 };
 
-class EditableTextContent extends React.Component<Props, State> {
+class EditableTextContent extends React.Component<Props, ComponentState> {
   static defaultProps = {
     multiline: false,
     initialText: '',
@@ -31,8 +31,11 @@ class EditableTextContent extends React.Component<Props, State> {
     inputClassNameSuffix: '__input',
   };
 
-  static getDerivedStateFromProps = (nextProps: Props, prevState: State): {} => {
-    const nextState = {};
+  static getDerivedStateFromProps = (
+    nextProps: Props,
+    prevState: ComponentState,
+  ): $Shape<ComponentState> => {
+    const nextState: $Shape<ComponentState> = {};
 
     if (prevState.text !== nextProps.initialText) {
       nextState.text = nextProps.initialText;
@@ -41,7 +44,7 @@ class EditableTextContent extends React.Component<Props, State> {
     return nextState;
   };
 
-  state: State = {
+  state: ComponentState = {
     isActive: false,
     text: '',
   };
