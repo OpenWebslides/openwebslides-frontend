@@ -1,6 +1,4 @@
 // @flow
-
-
 import * as React from 'react';
 import { translate } from 'react-i18next';
 import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
@@ -15,7 +13,6 @@ type Props = PassedProps;
 
 const VoicePlayerToggleComp = (props: Props): React.Node => {
   const { content } = props;
-  console.log(`render voiceplay,${content}`);
   return (
     <VoicePlayer
       play={true}

@@ -77,6 +77,7 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
       this.setState({ toggle: false });
     }
     else {
+      // $FlowFixMe
       this.setState({ toggle: true, contentToBeRead: this.slideRef.current.innerText });
     }
   };
@@ -92,6 +93,7 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
         />);
     }
     else {
+      // $FlowFixMe
       VoicePlayerToggleNode = null;
     }
     return (
@@ -107,7 +109,6 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
         </div>
       </Page>
     );
-    /* <VoicePlayerToggle /> */
   }
 }
 
