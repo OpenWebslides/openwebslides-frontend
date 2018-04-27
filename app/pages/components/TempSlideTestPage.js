@@ -6,14 +6,13 @@ import { translate } from 'react-i18next';
 
 // import Color, { TwitterPicker } from 'react-color';
 import type { CustomTranslatorProps } from 'types/translator';
-import { Checkbox, Segment } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
 import contentItems, { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
 import Slide from 'core-components/slides/Slide';
 
-import VoicePlayerToggle from 'core-components/slides/VoicePlayerToggle';
+// import VoicePlayerToggle from 'core-components/slides/VoicePlayerToggle';
 
 
 import Page from '../Page';
@@ -56,37 +55,26 @@ class PureTempSlideTestPage extends React.Component<Props, State> {
   }
 
   componentDidMount = (): void => {
-    this.setState({ toggle: false, contentToBeRead: 'd' });
-    // console.log(`initieel ${this.state.toggle}`);
+    this.render();
+    console.log(this.slideRef.current);
   };
 
-  slideRef;
-
-  toggleRead = (): void => {
-    if (this.state.toggle) {
-      this.setState({ toggle: false });
-    }
-    else {
-      this.setState({ toggle: true, contentToBeRead: this.slideRef.current.innerText });
-    }
+  handleClick = (): void => {
+    console.log(this.slideRef.current.innerText);
   };
 
   render = (): React.Node => {
     const { contentItemTreeRootItem } = this.props;
-    // console.log(`after ${this.state.toggle}, ${this.state.contentToBeRead}`);
+
     return (
       <Page>
         <div ref={this.slideRef}>
           <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
         </div>
-        <div className="Voice">
-          <VoicePlayerToggle content={this.state.contentToBeRead} play={this.state.toggle} />
-          <Segment compact={true}>
-            <Checkbox slider={true} onClick={this.toggleRead} checked={this.state.toggle} />
-          </Segment>
-        </div>
+        <button onClick={this.handleClick}>click</button>
       </Page>
     );
+    /* <VoicePlayerToggle /> */
   }
 }
 
