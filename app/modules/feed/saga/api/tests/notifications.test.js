@@ -56,7 +56,7 @@ describe(` notifications`, (): void => {
 
       return expectSaga(apiGetNotificationsSaga, dummyGetNotificationsAction)
         .call(FeedApi.fetch)
-        .put.like({ action: { type: t.SET_FEED_ITEMS } })
+        .put.like({ action: { type: t.SET_EVENTS } })
         .run();
     });
   });

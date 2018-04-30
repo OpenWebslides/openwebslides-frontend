@@ -17,7 +17,7 @@ describe(`HomePage`, (): void => {
       <PureHomePage
         {...dummyTranslatorProps}
         {...dummyDispatchProps}
-        feedItemIds={[]}
+        eventIds={[]}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

@@ -5,26 +5,26 @@ import type { Identifier } from 'types/model';
 
 import { Feed } from 'semantic-ui-react';
 
-import FeedItem from './FeedItem';
+import Event from './Event';
 
 type PassedProps = {
-  feedItemIds: Array<Identifier>,
+  eventIds: Array<Identifier>,
 };
 
 type Props = PassedProps;
 
-const FeedCollection = (props: Props): React.Node => {
+const FeedWrapper = (props: Props): React.Node => {
   const {
-    feedItemIds,
+    eventIds,
   } = props;
 
   return (
     <Feed size="large">
-      {feedItemIds.map((feedItemId) => (
-        <FeedItem key={feedItemId} feedItemId={feedItemId} />
+      {eventIds.map((eventId) => (
+        <Event key={eventId} eventId={eventId} />
       ))}
     </Feed>
   );
 };
 
-export default FeedCollection;
+export default FeedWrapper;

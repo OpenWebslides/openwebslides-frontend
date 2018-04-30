@@ -5,16 +5,16 @@ import {
   getAllById,
   getAll,
 } from '../selectors';
-import { predicateTypes } from '../model';
+import { predicate } from '../model';
 
 const exampleState = {
   modules: {
-    feedItems: {
+    feed: {
       '1': {
         id: '1',
         userId: '1',
         topicId: '1',
-        predicate: predicateTypes.CREATE,
+        predicate: predicate.CREATE,
         timestamp: 1524490428,
       },
     },
@@ -23,13 +23,13 @@ const exampleState = {
 
 describe(`selectors`, (): void => {
   describe(`getById`, (): void => {
-    it(`gets feed item from the state`, (): void => {
+    it(`gets event from the state`, (): void => {
       // $FlowFixMe
       expect(getById(exampleState, '1')).toEqual({
         id: '1',
         userId: '1',
         topicId: '1',
-        predicate: predicateTypes.CREATE,
+        predicate: predicate.CREATE,
         timestamp: 1524490428,
       });
     });
@@ -41,14 +41,14 @@ describe(`selectors`, (): void => {
   });
 
   describe(`getAllById`, (): void => {
-    it(`gets all feed item from the state by id`, (): void => {
+    it(`gets all events from the state by id`, (): void => {
       // $FlowFixMe
       expect(getAllById(exampleState)).toEqual({
         '1': {
           id: '1',
           userId: '1',
           topicId: '1',
-          predicate: predicateTypes.CREATE,
+          predicate: predicate.CREATE,
           timestamp: 1524490428,
         },
       });
@@ -56,13 +56,13 @@ describe(`selectors`, (): void => {
   });
 
   describe(`getAll`, (): void => {
-    it(`gets all feed items from the state`, (): void => {
+    it(`gets all events from the state`, (): void => {
       // $FlowFixMe
       expect(getAll(exampleState)).toEqual([{
         id: '1',
         userId: '1',
         topicId: '1',
-        predicate: predicateTypes.CREATE,
+        predicate: predicate.CREATE,
         timestamp: 1524490428,
       }]);
     });

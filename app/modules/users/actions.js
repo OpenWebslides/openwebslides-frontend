@@ -2,7 +2,7 @@
 
 import type { Identifier } from 'types/model';
 
-import type { UserType } from './model';
+import type { User } from './model';
 
 import * as t from './actionTypes';
 
@@ -27,7 +27,7 @@ export const addToState = (
 };
 
 export const setItemInState = (
-  item: UserType,
+  item: User,
 ): t.SetItemInStateAction => {
   const {
     id,
@@ -54,7 +54,7 @@ export const setItemInState = (
 };
 
 export const setItemsInState = (
-  items: Array<UserType>,
+  items: Array<User>,
 ): t.SetItemsInStateAction => {
   return {
     type: t.SET_ITEMS_IN_STATE,

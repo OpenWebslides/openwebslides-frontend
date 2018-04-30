@@ -1,7 +1,7 @@
 // @flow
 
 const feed = {
-  feed_item: {
+  event: {
     action_COMMENT: 'commented on topic',
     action_CREATE: 'created the topic',
     action_DELETE: 'deleted the topic',
