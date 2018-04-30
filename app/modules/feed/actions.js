@@ -1,15 +1,15 @@
 // @flow
 
-import type { FeedItemType } from './model';
+import type { Event } from './model';
 
 import * as t from './actionTypes';
 
 // Reducer actions
-export const setFeedItemsInState = (
-  items: ?Array<FeedItemType>,
-): t.SetFeedItemsAction => {
+export const setEventsInState = (
+  items: ?Array<Event>,
+): t.SetEventsAction => {
   return {
-    type: t.SET_FEED_ITEMS,
+    type: t.SET_EVENTS,
     payload: {
       items,
     },

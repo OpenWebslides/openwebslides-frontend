@@ -1,6 +1,6 @@
 // @flow
 
-import type { UserType, UsersState } from './model';
+import type { User, UsersState } from './model';
 import * as t from './actionTypes';
 
 const initialState: UsersState = {};
@@ -26,7 +26,7 @@ const setItem = (state: UsersState, action: t.SetItemInStateAction): UsersState 
 const setItems = (state: UsersState, action: t.SetItemsInStateAction): UsersState => {
   const users = {};
 
-  action.payload.items.forEach((item: UserType): void => {
+  action.payload.items.forEach((item: User): void => {
     users[item.id] = item;
   });
 
