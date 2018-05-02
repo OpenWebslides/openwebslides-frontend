@@ -33,6 +33,19 @@ const fetch = async (): Promise<Response> => {
   return request.execute();
 };
 
+const get = async (
+  id: Identifier,
+): Promise<Response> => {
+  const request = new ApiRequest();
+
+  request
+    .setEndpoint(ENDPOINT)
+    .setMethod(methodTypes.GET)
+    .setResource(id);
+
+  return request.execute();
+};
+
 const post = (
   userId: Identifier,
   title: string,
@@ -72,6 +85,7 @@ const post = (
 const TopicApi = {
   destroy,
   fetch,
+  get,
   post,
 };
 

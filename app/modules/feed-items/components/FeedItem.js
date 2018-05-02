@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import type { State } from 'types/state';
@@ -19,12 +20,15 @@ import type { FeedItemType } from '../model';
 import { predicateTypes } from '../model';
 import { getById } from '../selectors';
 
+
 const getUserById = users.selectors.getById;
 const { UserType } = users.model;
 const { GRAVATAR_SIZE_SMALL } = users.constants;
+const getUserAction = users.actions.get;
 
 const getTitleById = topics.selectors.getById;
 const { Topic } = topics.model;
+const getTopicAction = topics.actions.get;
 
 type PassedProps = {
   feedItemId: Identifier,
@@ -36,7 +40,12 @@ type StateProps = {
   topic: Topic,
 };
 
-type Props = CustomTranslatorProps & PassedProps & StateProps;
+type DispatchProps = {
+  getTopic: (string) => void,
+  getUser: (string) => void,
+};
+
+type Props = CustomTranslatorProps & PassedProps & StateProps & DispatchProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const feedItem = getById(state, props.feedItemId);
@@ -50,16 +59,39 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
+const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+  return {
+    getTopic: (id: string): void => {
+      dispatch(
+        getTopicAction(id),
+      );
+    },
+    getUser: (id: string): void => {
+      dispatch(
+        getUserAction(id),
+      );
+    },
+  };
+};
+
 const PureFeedItem = (props: Props): React.Node => {
   const {
     t,
     feedItem,
     user,
     topic,
+    getTopic,
+    getUser,
   } = props;
 
   // Prevent rendering when resources are still loading
-  if (!user || !topic) {
+  if (topic == null) {
+    getTopic(feedItem.topicId);
+    return null;
+  }
+
+  if (user == null) {
+    getUser(feedItem.userId);
     return null;
   }
 
@@ -105,7 +137,7 @@ const PureFeedItem = (props: Props): React.Node => {
   );
 };
 
-const FeedItem = connect(mapStateToProps)(translate()(PureFeedItem));
+const FeedItem = connect(mapStateToProps, mapDispatchToProps)(translate()(PureFeedItem));
 
 export { PureFeedItem };
 export default FeedItem;

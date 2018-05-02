@@ -38,6 +38,8 @@ describe(`FeedItem`, (): void => {
         user={user}
         topic={dummyTopic}
         feedItem={feedItem}
+        getUser={(): void => {}}
+        getTopic={(): void => {}}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

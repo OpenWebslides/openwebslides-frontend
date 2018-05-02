@@ -7,6 +7,7 @@ import * as t from '../../actionTypes';
 import addSaga from './add';
 import editSaga from './edit';
 import fetchSaga from './fetch';
+import getSaga from './get';
 import removeSaga from './remove';
 
 const taskSaga = function* (): Generator<*, *, *> {
@@ -14,6 +15,7 @@ const taskSaga = function* (): Generator<*, *, *> {
     takeEvery(t.ADD, addSaga),
     takeEvery(t.EDIT, editSaga),
     takeEvery(t.FETCH, fetchSaga),
+    takeEvery(t.GET, getSaga),
     takeEvery(t.REMOVE, removeSaga),
   ]);
 };

@@ -8,6 +8,7 @@ describe(`actions`, (): void => {
   describe(`addToState`, (): void => {
 
     it(`returns a topic ADD_TO_STATE action, when parameters are valid`, (): void => {
+      const id = 'testuserid';
       const userId = 'testtest12';
       const title = 'Lorem ipsum';
       const description = 'Lorem ipsum dolor sit amet';
@@ -15,7 +16,7 @@ describe(`actions`, (): void => {
       const expectedAction: t.AddToStateAction = {
         type: t.ADD_TO_STATE,
         payload: {
-          id: '',
+          id,
           userId,
           title,
           description,
@@ -23,7 +24,7 @@ describe(`actions`, (): void => {
         },
       };
       // eslint-disable-next-line
-      const generatedAction: t.AddToStateAction = ((actions.addToState(userId, title, description): any): t.AddToStateAction);
+      const generatedAction: t.AddToStateAction = ((actions.addToState(id, userId, title, description, rootContentItemId): any): t.AddToStateAction);
 
       expect(generatedAction.type).toEqual(expectedAction.type);
       expect(generatedAction.payload.id.length).toEqual(10);
@@ -36,9 +37,11 @@ describe(`actions`, (): void => {
     });
 
     it(`returns a topic ADD_TO_STATE_ERROR action, when title parameter is an empty string`, (): void => {
+      const id = 'testuserid';
       const userId = 'testtest12';
       const title = '';
       const description = null;
+      const rootContentItemId = 'abcdefghij';
       const expectedAction: t.AddToStateErrorAction = {
         type: t.ADD_TO_STATE_ERROR,
         error: {
@@ -46,17 +49,19 @@ describe(`actions`, (): void => {
         },
       };
 
-      expect(actions.addToState(userId, title, description)).toEqual(expectedAction);
+      expect(actions.addToState(id, userId, title, description, rootContentItemId)).toEqual(expectedAction);
     });
 
     it(`returns a topic ADD_TO_STATE action with description an empty string, when description parameter is NULL`, (): void => {
+      const id = 'testuserid';
       const userId = 'testtest12';
       const title = 'Lorem ipsum';
       const description = null;
+      const rootContentItemId = 'abcdefghij';
       const expectedAction: t.AddToStateAction = {
         type: t.ADD_TO_STATE,
         payload: {
-          id: '',
+          id,
           userId,
           title,
           description: '',
@@ -64,7 +69,7 @@ describe(`actions`, (): void => {
         },
       };
       // eslint-disable-next-line
-      const generatedAction: t.AddToStateAction = ((actions.addToState(userId, title, description): any): t.AddToStateAction);
+      const generatedAction: t.AddToStateAction = ((actions.addToState(id, userId, title, description, rootContentItemId): any): t.AddToStateAction);
 
       expect(generatedAction.type).toEqual(expectedAction.type);
       expect(generatedAction.payload.description).toEqual(expectedAction.payload.description);

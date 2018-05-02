@@ -24,14 +24,17 @@ export const ADD: 'topics/ADD' = 'topics/ADD';
 export const EDIT: 'topics/EDIT' = 'topics/EDIT';
 export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
 export const FETCH: 'topics/FETCH' = 'topics/FETCH';
+export const GET: 'topics/GET' = 'topics/GET';
 
 export const ADD_ERROR: 'topics/ADD_ERROR' = 'topics/ADD_ERROR';
 export const EDIT_ERROR: 'topics/EDIT_ERROR' = 'topics/EDIT_ERROR';
 export const REMOVE_ERROR: 'topics/REMOVE_ERROR' = 'topics/REMOVE_ERROR';
 export const FETCH_ERROR: 'topics/FETCH_ERROR' = 'topics/FETCH_ERROR';
+export const GET_ERROR: 'topics/GET_ERROR' = 'topics/GET_ERROR';
 
 // API saga actions
 export const API_DELETE_TOPIC: 'topics/API_DELETE_TOPIC' = 'topics/API_DELETE_TOPIC';
+export const API_GET_TOPIC: 'topics/API_GET_TOPIC' = 'topics/API_GET_TOPIC';
 export const API_GET_TOPICS: 'topics/API_GET_TOPICS' = 'topics/API_GET_TOPICS';
 export const API_POST_TOPIC: 'topics/API_POST_TOPIC' = 'topics/API_POST_TOPIC';
 
@@ -126,6 +129,13 @@ export type FetchAction = {
   type: typeof FETCH,
 };
 
+export type GetAction = {
+  type: typeof GET,
+  payload: {
+    id: Identifier,
+  },
+};
+
 export type AddErrorAction = {
   type: typeof ADD_ERROR,
   error: Error,
@@ -146,6 +156,11 @@ export type FetchErrorAction = {
   error: Error,
 };
 
+export type GetErrorAction = {
+  type: typeof GET_ERROR,
+  error: Error,
+};
+
 // API saga actions
 export type ApiDeleteTopicAction = {
   type: typeof API_DELETE_TOPIC,
@@ -156,6 +171,13 @@ export type ApiDeleteTopicAction = {
 
 export type ApiGetTopicsAction = {
   type: typeof API_GET_TOPICS,
+};
+
+export type ApiGetTopicAction = {
+  type: typeof API_GET_TOPIC,
+  payload: {
+    id: Identifier,
+  },
 };
 
 export type ApiPostTopicAction = {
@@ -182,8 +204,10 @@ export type TopicTaskSagaAction =
   | AddAction
   | EditAction
   | FetchAction
+  | GetAction
   | RemoveAction
   | AddErrorAction
   | EditErrorAction
   | FetchErrorAction
+  | GetErrorAction
   | RemoveErrorAction;

@@ -7,7 +7,26 @@ import * as t from '../../actionTypes';
 import Api from '../../api';
 import type { Topic } from '../../model';
 
-import { setItemsInState } from '../../actions';
+import { addToState, setItemsInState } from '../../actions';
+
+export const apiGetTopicSaga = function* (action: t.GetAction): Generator<*, *, *> {
+  try {
+    const response = yield call(Api.get, action.payload.id);
+
+    const item = response.body.data;
+
+    yield put(addToState(
+      item.id,
+      '1',
+      item.attributes.title,
+      item.attributes.description,
+      'w4lg2u0p1h', // TODO: can't find in api call response
+    ));
+  }
+  catch (error) {
+    // TODO
+  }
+};
 
 export const apiGetTopicsSaga = function* (action: t.FetchAction): Generator<*, *, *> {
   try {
