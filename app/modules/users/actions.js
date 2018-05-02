@@ -10,10 +10,26 @@ import * as t from './actionTypes';
 export const setItemInState = (
   item: UserType,
 ): t.SetItemInStateAction => {
+  const {
+    id,
+    email,
+    firstName,
+    lastName,
+  } = item;
+
+  const newEmail = email != null ? email : '';
+
+  const newItem = {
+    id,
+    newEmail,
+    firstName,
+    lastName,
+  };
+
   return {
     type: t.SET_ITEM_IN_STATE,
     payload: {
-      item,
+      item: newItem,
     },
   };
 };
@@ -42,11 +58,11 @@ export const get = (
 };
 
 // API saga actions
-export const apiGetUsers = (
+export const apiGetUser = (
   id: Identifier,
-): t.ApiGetUsersAction => {
+): t.ApiGetUserAction => {
   return {
-    type: t.API_GET_USERS,
+    type: t.API_GET_USER,
     payload: {
       id,
     },

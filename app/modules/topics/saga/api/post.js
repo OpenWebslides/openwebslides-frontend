@@ -14,8 +14,8 @@ export const apiPostTopicSaga = function* (action: t.ApiPostTopicAction): Genera
     const { userId, title, description } = action.payload;
     const token = yield select(getToken);
 
-    yield call(Api.post, userId, title, description, token);
-    yield put(addToState(userId, title, description));
+    yield call(Api.post, userId, title, description, token); // TODO: add rootContentItemId later
+    yield put(addToState('testtestID', userId, title, description, 'w4lg2u0p1h'));
   }
   catch (error) {
     // TODO

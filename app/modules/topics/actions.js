@@ -11,11 +11,12 @@ import { generateId } from './model';
 
 // Reducer actions
 export const addToState = (
+  id: Identifier,
   userId: Identifier,
   title: string,
   description: ?string = null,
+  rootContentItemId: Identifier,
 ): t.AddToStateAction | t.AddToStateErrorAction => {
-  const newId = generateId();
   const newTitle = _.trim(title);
   const newDescription = (description != null) ? _.trim(description) : '';
 
@@ -31,11 +32,11 @@ export const addToState = (
   return {
     type: t.ADD_TO_STATE,
     payload: {
-      id: newId,
+      id,
       userId,
       title: newTitle,
       description: newDescription,
-      rootContentItemId: 'w4lg2u0p1h', // #TODO stub
+      rootContentItemId,
     },
   };
 };
@@ -187,6 +188,17 @@ export const fetch = (
   };
 };
 
+export const get = (
+  id: Identifier,
+): t.GetAction | t.GetErrorAction => {
+  return {
+    type: t.GET,
+    payload: {
+      id,
+    },
+  };
+};
+
 // API saga actions
 export const apiDeleteTopic = (
   id: Identifier,
@@ -204,6 +216,17 @@ export const apiGetTopics = (
 ): t.ApiGetTopicsAction => {
   return {
     type: t.API_GET_TOPICS,
+  };
+};
+
+export const apiGetTopic = (
+  id: Identifier,
+): t.ApiGetTopicAction => {
+  return {
+    type: t.API_GET_TOPIC,
+    payload: {
+      id,
+    },
   };
 };
 

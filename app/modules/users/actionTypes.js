@@ -15,7 +15,7 @@ export const GET: 'users/GET' = 'users/GET';
 export const GET_ERROR: 'users/GET_ERROR' = 'users/GET_ERROR';
 
 // API saga actions
-export const API_GET_USERS: 'users/API_GET_USERS' = 'users/API_GET_USERS';
+export const API_GET_USER: 'users/API_GET_USER' = 'users/API_GET_USER';
 
 /* Action types */
 
@@ -48,8 +48,8 @@ export type GetErrorAction = {
 };
 
 // API saga actions
-export type ApiGetUsersAction = {
-  type: typeof API_GET_USERS,
+export type ApiGetUserAction = {
+  type: typeof API_GET_USER,
   payload: {
     id: Identifier,
   },

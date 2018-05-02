@@ -12,25 +12,13 @@ const initialState: TopicsState = {
 const addToState = (state: TopicsState, action: t.AddToStateAction): TopicsState => {
   const {
     id,
-    userId,
-    title,
-    description,
-    rootContentItemId,
   } = action.payload;
-
-  const newTopic: Topic = {
-    id,
-    userId,
-    title,
-    description,
-    rootContentItemId,
-  };
 
   return {
     ...state,
     byId: {
       ...state.byId,
-      [id]: newTopic,
+      [id]: action.payload,
     },
   };
 };

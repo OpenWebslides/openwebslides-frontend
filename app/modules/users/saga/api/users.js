@@ -8,16 +8,17 @@ import Api from '../../api';
 import { setItemInState } from '../../actions';
 import type { UserType } from '../../model';
 
-export const apiGetUsersSaga = function* (action: t.ApiGetUsersAction): Generator<*, *, *> {
+export const apiGetUserSaga = function* (action: t.ApiGetUserAction): Generator<*, *, *> {
   try {
     const { id } = action.payload;
     const response = yield call(Api.get, id);
+    const { attributes } = response.body.data;
 
     const user: UserType = {
       id,
-      email: response.body.data.attributes.email,
-      firstName: response.body.data.attributes.firstName,
-      lastName: response.body.data.attributes.lastName,
+      email: attributes.email,
+      firstName: attributes.firstName,
+      lastName: attributes.lastName,
     };
 
     yield put(setItemInState(user));
