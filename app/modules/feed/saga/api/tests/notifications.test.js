@@ -4,8 +4,6 @@ import { expectSaga } from 'redux-saga-test-plan';
 
 import Api from 'lib/api';
 
-import users from 'modules/users';
-
 import * as t from '../../../actionTypes';
 import { apiGetNotificationsSaga } from '../notifications';
 
@@ -43,13 +41,6 @@ describe(` notifications`, (): void => {
               },
             },
           ],
-          included: [{
-            id: '1',
-            attributes: {
-              id: '1',
-              firstName: 'Foo',
-            },
-          }],
         },
         token: 'foobartoken',
         status: 200,
@@ -58,19 +49,14 @@ describe(` notifications`, (): void => {
   });
 
   describe(`apiGetNotificationsSaga`, (): void => {
-    it(`calls AuthApi.fetch and puts two action`, (): void => {
+    it(`calls AuthApi.fetch and puts SET_FEED_ITEMS action`, (): void => {
       const dummyGetNotificationsAction: t.ApiGetNotificationsAction = {
         type: t.API_GET_NOTIFICATIONS,
       };
 
       return expectSaga(apiGetNotificationsSaga, dummyGetNotificationsAction)
         .call(FeedApi.fetch)
-        .put.like({ action: { type: t.SET_FEED_ITEMS } })
-        .put.like({ action: users.actions.setItemInState({
-          id: '1',
-          firstName: 'Foo',
-        }),
-        })
+        .put.like({ action: { type: t.SET_EVENTS } })
         .run();
     });
   });

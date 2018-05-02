@@ -2,7 +2,7 @@
 
 import type { Identifier } from 'types/model';
 
-export type UserType = {
+export type User = {
   +id: Identifier,
   +firstName: string,
   +lastName?: ?string,
@@ -10,5 +10,5 @@ export type UserType = {
 };
 
 export type UsersState = {
-  +[userId: Identifier]: UserType,
+  +[userId: Identifier]: User,
 };

@@ -18,12 +18,18 @@ import Page from '../Page';
 const { getAllTopicIdsByUserId } = topics.selectors;
 const { getAccount } = authentication.selectors;
 const { CardCollection } = topics.components;
+const { getAll } = topics.actions;
 
 type StateProps = {
   topicIds: Array<Identifier>,
+  userId: Identifier,
 };
 
-type Props = CustomTranslatorProps & StateProps;
+type DispatchProps = {
+  handleRequestTopics: (userId: Identifier) => void,
+};
+
+type Props = CustomTranslatorProps & StateProps & DispatchProps;
 
 const mapStateToProps = (state: State): StateProps => {
   const account = getAccount(state);
@@ -33,39 +39,54 @@ const mapStateToProps = (state: State): StateProps => {
 
   return {
     topicIds: getAllTopicIdsByUserId(state, CURRENT_USER),
+    userId: CURRENT_USER,
   };
 };
 
-const PureLibraryPage = (props: Props): React.Node => {
-  const {
-    t,
-    topicIds,
-  } = props;
-
-  return (
-    <Page>
-      <Grid>
-        <Grid.Row>
-          <Grid.Column width={3}>
-            <h1>{t('pages:library.title')}</h1>
-          </Grid.Column>
-          <Grid.Column floated="right" width={3}>
-            <Link to="/topics/new">
-              <Button as="span">
-                {t('common:link.newtopic')}
-              </Button>
-            </Link>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <CardCollection topicIds={topicIds} />
-        </Grid.Row>
-      </Grid>
-    </Page>
-  );
+const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+  return {
+    handleRequestTopics: (userId: Identifier): void => {
+      dispatch(getAll(userId));
+    },
+  };
 };
 
-const LibraryPage = connect(mapStateToProps)(translate()(PureLibraryPage));
+class PureLibraryPage extends React.Component<Props, State> {
+  componentDidMount = (): void => {
+    this.props.handleRequestTopics(this.props.userId);
+  }
+
+  render = (): React.Node => {
+    const {
+      t,
+      topicIds,
+    } = this.props;
+
+    return (
+      <Page>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column width={3}>
+              <h1>{t('pages:library.title')}</h1>
+            </Grid.Column>
+            <Grid.Column floated="right" width={3}>
+              <Link to="/topics/new">
+                <Button as="span">
+                  {t('common:link.newtopic')}
+                </Button>
+              </Link>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <CardCollection topicIds={topicIds} />
+          </Grid.Row>
+        </Grid>
+      </Page>
+    );
+  }
+}
+
+const LibraryPage = connect(mapStateToProps, mapDispatchToProps)(translate()(PureLibraryPage));
 
 export { PureLibraryPage };
 export default LibraryPage;

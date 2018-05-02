@@ -1,14 +1,14 @@
 // @flow
 
-import { all, takeLatest } from 'redux-saga/effects';
+import { all, takeEvery } from 'redux-saga/effects';
 
 import * as t from '../../actionTypes';
 
-import { apiGetUsersSaga } from './users';
+import { apiGetUserSaga } from './users';
 
 const apiSaga = function* (): Generator<*, *, *> {
   yield all([
-    takeLatest(t.API_GET_USERS, apiGetUsersSaga),
+    takeEvery(t.API_GET_USER, apiGetUserSaga),
   ]);
 };
 

@@ -5,7 +5,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import Api from 'lib/api';
 
 import * as t from '../../../actionTypes';
-import { apiGetUsersSaga } from '../users';
+import { apiGetUserSaga } from '../users';
 
 import UsersApi from '../../../api';
 
@@ -34,14 +34,14 @@ describe(`users`, (): void => {
 
   describe(`apiGetUsersSaga`, (): void => {
     it(`calls UsersApi.get`, (): void => {
-      const dummyGetUsersAction: t.ApiGetUsersAction = {
-        type: t.API_GET_USERS,
+      const dummyGetUsersAction: t.ApiGetUserAction = {
+        type: t.API_GET_USER,
         payload: {
           id: '0',
         },
       };
 
-      return expectSaga(apiGetUsersSaga, dummyGetUsersAction)
+      return expectSaga(apiGetUserSaga, dummyGetUsersAction)
         .call(UsersApi.get, '0')
         .run();
     });

@@ -2,24 +2,59 @@
 
 import type { Identifier } from 'types/model';
 
-import type { UserType } from './model';
+import type { User } from './model';
 
 import * as t from './actionTypes';
 
 // Reducer actions
+export const addToState = (
+  id: Identifier,
+  firstName: string,
+  lastName: ?string,
+  email: ?string,
+): t.AddToStateAction => {
+  const newEmail = email != null ? email : '';
+
+  return {
+    type: t.ADD_TO_STATE,
+    payload: {
+      id,
+      firstName,
+      lastName,
+      email: newEmail,
+    },
+  };
+};
+
 export const setItemInState = (
-  item: UserType,
+  item: User,
 ): t.SetItemInStateAction => {
+  const {
+    id,
+    email,
+    firstName,
+    lastName,
+  } = item;
+
+  const newEmail = email != null ? email : '';
+
+  const newItem = {
+    id,
+    newEmail,
+    firstName,
+    lastName,
+  };
+
   return {
     type: t.SET_ITEM_IN_STATE,
     payload: {
-      item,
+      item: newItem,
     },
   };
 };
 
 export const setItemsInState = (
-  items: Array<UserType>,
+  items: Array<User>,
 ): t.SetItemsInStateAction => {
   return {
     type: t.SET_ITEMS_IN_STATE,
@@ -42,11 +77,11 @@ export const get = (
 };
 
 // API saga actions
-export const apiGetUsers = (
+export const apiGetUser = (
   id: Identifier,
-): t.ApiGetUsersAction => {
+): t.ApiGetUserAction => {
   return {
-    type: t.API_GET_USERS,
+    type: t.API_GET_USER,
     payload: {
       id,
     },

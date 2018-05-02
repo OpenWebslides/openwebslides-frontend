@@ -3,14 +3,14 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import FeedCollection from '../FeedCollection';
+import FeedWrapper from '../Feed';
 
-describe(`FeedCollection`, (): void => {
+describe(`Feed`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <FeedCollection
-        feedItemIds={[]}
+      <FeedWrapper
+        eventIds={[]}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

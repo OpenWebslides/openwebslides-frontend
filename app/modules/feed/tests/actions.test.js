@@ -3,26 +3,26 @@
 import * as actions from '../actions';
 import * as t from '../actionTypes';
 
-import { predicateTypes } from '../model';
+import { predicate } from '../model';
 
 describe(`actions`, (): void => {
   describe(`reducer actions`, (): void => {
-    describe(`setFeedItemsInState`, (): void => {
-      it(`returns set feed items action`, (): void => {
+    describe(`setEventsInState`, (): void => {
+      it(`returns set events action`, (): void => {
         const items = [
           {
             id: '1',
             userId: '1',
             topicId: '1',
-            predicate: predicateTypes.CREATE,
+            predicate: predicate.CREATE,
             timestamp: 1524490428,
           },
         ];
 
-        const action = actions.setFeedItemsInState(items);
+        const action = actions.setEventsInState(items);
 
         expect(action).toEqual({
-          type: t.SET_FEED_ITEMS,
+          type: t.SET_EVENTS,
           payload: {
             items,
           },

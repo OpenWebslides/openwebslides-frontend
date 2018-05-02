@@ -2,12 +2,12 @@
 
 import type { Error } from 'types/error';
 
-import type { FeedItemType } from './model';
+import type { Event } from './model';
 
 /* Action constants */
 
 // Reducer actions
-export const SET_FEED_ITEMS: 'feed/SET_FEED_ITEMS' = 'feed/SET_FEED_ITEMS';
+export const SET_EVENTS: 'feed/SET_EVENTS' = 'feed/SET_EVENTS';
 
 // Task saga actions
 export const FETCH: 'feed/FETCH' = 'feed/FETCH';
@@ -19,10 +19,10 @@ export const API_GET_NOTIFICATIONS: 'feed/API_GET_NOTIFICATIONS' = 'feed/API_GET
 /* Action types */
 
 // Reducer actions
-export type SetFeedItemsAction = {
-  type: typeof SET_FEED_ITEMS,
+export type SetEventsAction = {
+  type: typeof SET_EVENTS,
   payload: {
-    items: ?Array<FeedItemType>,
+    items: ?Array<Event>,
   },
 };
 
@@ -42,4 +42,4 @@ export type ApiGetNotificationsAction = {
 };
 
 export type FeedAction =
-  | SetFeedItemsAction;
+  | SetEventsAction;
