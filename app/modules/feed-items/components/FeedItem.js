@@ -36,8 +36,8 @@ type PassedProps = {
 
 type StateProps = {
   feedItem: FeedItemType,
-  user: UserType,
-  topic: Topic,
+  user: ?UserType,
+  topic: ?Topic,
 };
 
 type DispatchProps = {
