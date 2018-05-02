@@ -18,7 +18,7 @@ import Page from '../Page';
 const { getAllTopicIdsByUserId } = topics.selectors;
 const { getAccount } = authentication.selectors;
 const { CardCollection } = topics.components;
-const { fetch } = topics.actions;
+const { getAll } = topics.actions;
 
 type StateProps = {
   topicIds: Array<Identifier>,
@@ -44,7 +44,7 @@ const mapStateToProps = (state: State): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     handleRequestTopics: (): void => {
-      dispatch(fetch());
+      dispatch(getAll());
     },
   };
 };
