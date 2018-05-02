@@ -28,7 +28,7 @@ export const apiGetTopicSaga = function* (action: t.GetAction): Generator<*, *, 
   }
 };
 
-export const apiGetTopicsSaga = function* (action: t.FetchAction): Generator<*, *, *> {
+export const apiGetAllTopicsSaga = function* (action: t.GetAllAction): Generator<*, *, *> {
   try {
     const response = yield call(Api.fetch);
 

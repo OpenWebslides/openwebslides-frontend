@@ -181,13 +181,6 @@ export const remove = (
   };
 };
 
-export const fetch = (
-): t.FetchAction | t.FetchErrorAction => {
-  return {
-    type: t.FETCH,
-  };
-};
-
 export const get = (
   id: Identifier,
 ): t.GetAction | t.GetErrorAction => {
@@ -196,6 +189,13 @@ export const get = (
     payload: {
       id,
     },
+  };
+};
+
+export const getAll = (
+): t.GetAllAction | t.GetAllErrorAction => {
+  return {
+    type: t.GET_ALL,
   };
 };
 
@@ -212,10 +212,10 @@ export const apiDeleteTopic = (
 };
 
 
-export const apiGetTopics = (
+export const apiGetAllTopics = (
 ): t.ApiGetTopicsAction => {
   return {
-    type: t.API_GET_TOPICS,
+    type: t.API_GET_ALL_TOPICS,
   };
 };
 
