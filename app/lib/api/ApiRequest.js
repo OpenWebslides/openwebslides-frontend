@@ -23,6 +23,12 @@ const ApiRequest = (): Request => {
       // Request resource ID
       resource: null,
 
+      // Request nested endpoint
+      subEndpoint: null,
+
+      // Request nested endpoint resource ID
+      subResource: null,
+
       // Request headers
       headers: {
         'Content-Type': MEDIA_TYPE,
@@ -52,6 +58,23 @@ const ApiRequest = (): Request => {
 
     setResource: (id: string): Request => {
       request.config.resource = id;
+
+      return request;
+    },
+
+    setSubEndpoint: (subEndpoint: string): Request => {
+      if (subEndpoint.startsWith('/')) {
+        request.config.subEndpoint = subEndpoint;
+      }
+      else {
+        request.config.subEndpoint = `/${subEndpoint}`;
+      }
+
+      return request;
+    },
+
+    setSubResource: (id: string): Request => {
+      request.config.subResource = id;
 
       return request;
     },
@@ -101,6 +124,14 @@ const ApiRequest = (): Request => {
 
       if (request.config.resource) {
         url += `/${request.config.resource}`;
+
+        if (request.config.subEndpoint) {
+          url += `${request.config.subEndpoint}`;
+
+          if (request.config.subResource) {
+            url += `/${request.config.subResource}`;
+          }
+        }
       }
 
       if (Object.keys(request.config.parameters).length !== 0) {
