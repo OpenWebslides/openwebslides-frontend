@@ -11,13 +11,15 @@ import { addToState, setItemsInState } from '../../actions';
 
 export const apiGetTopicSaga = function* (action: t.GetAction): Generator<*, *, *> {
   try {
-    const response = yield call(Api.get, action.payload.id);
+    const responseTopic = yield call(Api.get, action.payload.id);
+    const responseUser = yield call(Api.getUserId, action.payload.id);
 
-    const item = response.body.data;
+    const item = responseTopic.body.data;
+    const userId = responseUser.body.data.id;
 
     yield put(addToState(
       item.id,
-      '1',
+      userId,
       item.attributes.title,
       item.attributes.description,
       'w4lg2u0p1h', // TODO: can't find in api call response
@@ -30,13 +32,13 @@ export const apiGetTopicSaga = function* (action: t.GetAction): Generator<*, *, 
 
 export const apiGetAllTopicsSaga = function* (action: t.GetAllAction): Generator<*, *, *> {
   try {
-    const response = yield call(Api.fetch);
+    const response = yield call(Api.getAll, action.payload.userId);
 
     // eslint-disable-next-line flowtype/no-weak-types
     const data = response.body.data.map((item: Object): Topic => {
       return {
         id: item.id,
-        userId: '1', // TODO: can't find in API call response
+        userId: action.payload.userId,
         title: item.attributes.title,
         description: item.attributes.description,
         rootContentItemId: 'w4lg2u0p1h', // TODO: can't find in api call response

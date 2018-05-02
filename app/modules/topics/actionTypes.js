@@ -134,6 +134,9 @@ export type GetAction = {
 
 export type GetAllAction = {
   type: typeof GET_ALL,
+  payload: {
+    userId: Identifier,
+  },
 };
 
 export type AddErrorAction = {
@@ -169,14 +172,17 @@ export type ApiDeleteTopicAction = {
   },
 };
 
-export type ApiGetTopicsAction = {
-  type: typeof API_GET_ALL_TOPICS,
-};
-
 export type ApiGetTopicAction = {
   type: typeof API_GET_TOPIC,
   payload: {
     id: Identifier,
+  },
+};
+
+export type ApiGetAllTopicsAction = {
+  type: typeof API_GET_ALL_TOPICS,
+  payload: {
+    userId: Identifier,
   },
 };
 

@@ -22,10 +22,11 @@ const { getAll } = topics.actions;
 
 type StateProps = {
   topicIds: Array<Identifier>,
+  userId: Identifier,
 };
 
 type DispatchProps = {
-  handleRequestTopics: () => void,
+  handleRequestTopics: (userId: Identifier) => void,
 };
 
 type Props = CustomTranslatorProps & StateProps & DispatchProps;
@@ -38,20 +39,21 @@ const mapStateToProps = (state: State): StateProps => {
 
   return {
     topicIds: getAllTopicIdsByUserId(state, CURRENT_USER),
+    userId: CURRENT_USER,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
-    handleRequestTopics: (): void => {
-      dispatch(getAll());
+    handleRequestTopics: (userId: Identifier): void => {
+      dispatch(getAll(userId));
     },
   };
 };
 
 class PureLibraryPage extends React.Component<Props, State> {
   componentDidMount = (): void => {
-    this.props.handleRequestTopics();
+    this.props.handleRequestTopics(this.props.userId);
   }
 
   render = (): React.Node => {
