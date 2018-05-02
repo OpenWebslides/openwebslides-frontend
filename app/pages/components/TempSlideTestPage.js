@@ -67,7 +67,6 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
 
 
   componentDidMount = (): void => {
-    this.render();
     // console.log(`initieel ${this.state.toggle}`);
   };
   slideRef;
@@ -77,8 +76,29 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
       this.setState({ toggle: false });
     }
     else {
+      // const contentBlocks: [] =
+      // this.slideRef.current.getElementsByClassName('ows_container--heading');
+
+      /* const currentHeader: string = this.state.lastReadTitle;
+      let text: string = '';
+      // Look if the header is different */
+      /* for (let i: number = 0; i < contentBlocks.length; i += 1) {
+      // hieruit header halen en tekst
+        if (contentBlocks[i].classList.contains('ows_heading')
+        && this.state.lastReadTitle !== contentBlocks[i].innerText) {
+          console.log(`header, ${contentBlocks[i].innerText}`);
+          this.state.lastReadTitle = contentBlocks[i].innerText;
+          text += contentBlocks[i].innerText;
+        }
+        console.log(contentBlocks[i]);
+      } */
       // $FlowFixMe
-      this.setState({ toggle: true, contentToBeRead: this.slideRef.current.innerText });
+      this.setState(
+        { toggle: true,
+          // $FlowFixMe
+          contentToBeRead: this.slideRef.current.innerText,
+        },
+      );
     }
   };
 
