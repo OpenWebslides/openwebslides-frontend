@@ -18,6 +18,7 @@ describe(`LibraryPage`, (): void => {
         {...dummyTranslatorProps}
         {...dummyDispatchProps}
         topicIds={[]}
+        userId="abcdefghij"
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

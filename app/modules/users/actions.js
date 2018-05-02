@@ -7,6 +7,25 @@ import type { UserType } from './model';
 import * as t from './actionTypes';
 
 // Reducer actions
+export const addToState = (
+  id: Identifier,
+  firstName: string,
+  lastName: ?string,
+  email: ?string,
+): t.AddToStateAction => {
+  const newEmail = email != null ? email : '';
+
+  return {
+    type: t.ADD_TO_STATE,
+    payload: {
+      id,
+      firstName,
+      lastName,
+      email: newEmail,
+    },
+  };
+};
+
 export const setItemInState = (
   item: UserType,
 ): t.SetItemInStateAction => {

@@ -193,9 +193,13 @@ export const get = (
 };
 
 export const getAll = (
+  userId: Identifier,
 ): t.GetAllAction | t.GetAllErrorAction => {
   return {
     type: t.GET_ALL,
+    payload: {
+      userId,
+    },
   };
 };
 
@@ -213,9 +217,13 @@ export const apiDeleteTopic = (
 
 
 export const apiGetAllTopics = (
-): t.ApiGetTopicsAction => {
+  userId: Identifier,
+): t.ApiGetAllTopicsAction => {
   return {
     type: t.API_GET_ALL_TOPICS,
+    payload: {
+      userId,
+    },
   };
 };
 

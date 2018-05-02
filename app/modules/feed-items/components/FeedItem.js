@@ -51,6 +51,19 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const feedItem = getById(state, props.feedItemId);
   const topic = getTitleById(state, { id: feedItem.topicId });
   const user = getUserById(state, feedItem.userId);
+  /*
+  console.log("/// mapStateToProps called");
+  console.log("feedItem:");
+  console.log(feedItem.id);
+  console.log("topic:");
+  console.log(feedItem.topicId);
+  console.log(topic);
+  console.log("---")
+  console.log("user:");
+  console.log(feedItem.userId);
+  console.log(user);
+  console.log("///")
+  */
 
   return {
     feedItem,
@@ -74,68 +87,101 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   };
 };
 
-const PureFeedItem = (props: Props): React.Node => {
-  const {
-    t,
-    feedItem,
-    user,
-    topic,
-    getTopic,
-    getUser,
-  } = props;
+class PureFeedItem extends React.Component<Props, State> {
+  componentDidMount = (): void => {
+    const {
+      feedItem,
+      user,
+      topic,
+      getTopic,
+      getUser,
+    } = this.props;
 
-  // Prevent rendering when resources are still loading
-  if (topic == null) {
-    getTopic(feedItem.topicId);
-    return null;
-  }
+    // Request missing data from API
+    if (topic == null) {
+      getTopic(feedItem.topicId);
+    }
 
-  if (user == null) {
-    getUser(feedItem.userId);
-    return null;
-  }
+    if (user == null) {
+      getUser(feedItem.userId);
+    }
+  };
 
-  let predicate:string = '';
-  switch (feedItem.predicate) {
-    case predicateTypes.COMMENT: predicate = 'COMMENT'; break;
-    case predicateTypes.CREATE: predicate = 'CREATE'; break;
-    case predicateTypes.FORK: predicate = 'FORK'; break;
-    case predicateTypes.DELETE: predicate = 'DELETE'; break;
-    case predicateTypes.UPDATE: predicate = 'UPDATE'; break;
-    default: predicate = 'acted on';
-  }
+  render = (): React.Node => {
+    const {
+      t,
+      feedItem,
+      user,
+      topic,
+    } = this.props;
 
-  // construct full, displayed name of user
-  const lastName = user.lastName == null ? '' : user.lastName;
-  const displayName = `${user.firstName} ${lastName}`;
+    // Prevent rendering when resources are still loading
+    if (topic == null) {
+      return null;
+    }
 
-  return (
-    <Feed.Event>
-      <Feed.Label>
-        <Link to={`/profile/${user.id}`}>
-          <Gravatar email={user.email} size={GRAVATAR_SIZE_SMALL} />
-        </Link>
-      </Feed.Label>
-      <Feed.Content>
-        <Feed.Summary>
-          <Link as="Feed.User" to={`/profile/${user.id}`}>
-            {displayName}&nbsp;
+    if (user == null) {
+      return null;
+    }
+
+    let predicate: string = '';
+    switch (feedItem.predicate) {
+      case predicateTypes.COMMENT:
+        predicate = 'COMMENT';
+        break;
+      case predicateTypes.CREATE:
+        predicate = 'CREATE';
+        break;
+      case predicateTypes.FORK:
+        predicate = 'FORK';
+        break;
+      case predicateTypes.DELETE:
+        predicate = 'DELETE';
+        break;
+      case predicateTypes.UPDATE:
+        predicate = 'UPDATE';
+        break;
+      default:
+        predicate = 'acted on';
+    }
+
+    // construct full, displayed name of user
+    const lastName = user.lastName == null ? '' : user.lastName;
+    const displayName = `${user.firstName} ${lastName}`;
+
+    return (
+      <Feed.Event>
+        <Feed.Label>
+          <Link to={`/profile/${user.id}`}>
+            <Gravatar email={user.email} size={GRAVATAR_SIZE_SMALL} />
           </Link>
-          {t('feed:feed_item.action', { context: `${predicate}` })}
-          &nbsp;
-          <strong>
-            &quot;
-            {topic.title}
-            &quot;
-          </strong>
-        </Feed.Summary>
-        <Feed.Meta>
-          <Feed.Date>{moment(feedItem.timestamp).fromNow()}</Feed.Date>
-        </Feed.Meta>
-      </Feed.Content>
-    </Feed.Event>
-  );
-};
+        </Feed.Label>
+        <Feed.Content>
+          <Feed.Summary>
+            <Link as="Feed.User" to={`/profile/${user.id}`}>
+              {displayName}&nbsp;
+            </Link>
+            {t('feed:feed_item.action', { context: `${predicate}` })}
+            &nbsp;
+            <strong>
+              &quot;
+              {topic.title}
+              &quot;
+            </strong>
+          </Feed.Summary>
+          <Feed.Meta>
+            <Feed.Date>
+              {
+                moment(feedItem.timestamp)
+                .fromNow()
+              }
+            </Feed.Date>
+          </Feed.Meta>
+        </Feed.Content>
+      </Feed.Event>
+    );
+  };
+}
 
 const FeedItem = connect(mapStateToProps, mapDispatchToProps)(translate()(PureFeedItem));
 

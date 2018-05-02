@@ -7,6 +7,7 @@ import type { UserType } from './model';
 /* Action constants */
 
 // Reducer actions
+export const ADD_TO_STATE: 'users/ADD_TO_STATE' = 'users/ADD_TO_STATE';
 export const SET_ITEM_IN_STATE: 'users/SET_ITEM_IN_STATE' = 'users/SET_ITEM_IN_STATE';
 export const SET_ITEMS_IN_STATE: 'users/SET_ITEMS_IN_STATE' = 'users/SET_ITEMS_IN_STATE';
 
@@ -20,6 +21,16 @@ export const API_GET_USER: 'users/API_GET_USER' = 'users/API_GET_USER';
 /* Action types */
 
 // Reducer actions
+export type AddToStateAction = {
+  type: typeof ADD_TO_STATE,
+  payload: {
+    id: Identifier,
+    firstName: string,
+    lastName: ?string,
+    email: ?string,
+  },
+};
+
 export type SetItemInStateAction = {
   type: typeof SET_ITEM_IN_STATE,
   payload: {
@@ -56,5 +67,6 @@ export type ApiGetUserAction = {
 };
 
 export type UsersAction =
+  | AddToStateAction
   | SetItemInStateAction
   | SetItemsInStateAction;

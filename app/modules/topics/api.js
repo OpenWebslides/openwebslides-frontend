@@ -3,7 +3,7 @@
 import Api from 'lib/api';
 import type { Identifier } from 'types/model';
 
-import { ENDPOINT } from './constants';
+import { USERS_ENDPOINT, TOPICS_SUB_ENDPOINT, ENDPOINT, USER_SUB_ENDPOINT } from './constants';
 
 const { methodTypes, Response } = Api.model;
 const { ApiRequest } = Api;
@@ -23,16 +23,6 @@ const destroy = (
   return request.execute();
 };
 
-const fetch = async (): Promise<Response> => {
-  const request = new ApiRequest();
-
-  request
-    .setEndpoint(ENDPOINT)
-    .setMethod(methodTypes.GET);
-
-  return request.execute();
-};
-
 const get = async (
   id: Identifier,
 ): Promise<Response> => {
@@ -42,6 +32,34 @@ const get = async (
     .setEndpoint(ENDPOINT)
     .setMethod(methodTypes.GET)
     .setResource(id);
+
+  return request.execute();
+};
+
+const getUserId = async (
+  id: Identifier,
+): Promise<Response> => {
+  const request = new ApiRequest();
+
+  request
+    .setEndpoint(ENDPOINT)
+    .setResource(id)
+    .setSubEndpoint(USER_SUB_ENDPOINT)
+    .setMethod(methodTypes.GET);
+
+  return request.execute();
+};
+
+const getAll = async (
+  userId: Identifier,
+): Promise<Response> => {
+  const request = new ApiRequest();
+
+  request
+    .setEndpoint(USERS_ENDPOINT)
+    .setResource(userId)
+    .setSubEndpoint(TOPICS_SUB_ENDPOINT)
+    .setMethod(methodTypes.GET);
 
   return request.execute();
 };
@@ -84,8 +102,9 @@ const post = (
 
 const TopicApi = {
   destroy,
-  fetch,
   get,
+  getAll,
+  getUserId,
   post,
 };
 
