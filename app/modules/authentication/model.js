@@ -1,9 +1,9 @@
 // @flow
 
-import type { UserType } from 'modules/users';
+import type { User } from 'modules/users';
 
 export type AuthState = {
   +authenticated: boolean,
-  +account: ?UserType,
+  +account: ?User,
   +token: ?string,
 };

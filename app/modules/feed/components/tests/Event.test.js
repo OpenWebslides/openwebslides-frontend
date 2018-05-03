@@ -4,13 +4,13 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { dummyTranslatorProps } from 'config/tests';
 
-import { PureFeedItem } from '../FeedItem';
-import { predicateTypes } from '../../model';
+import { PureEventWrapper } from '../Event';
+import { predicate } from '../../model';
 
-describe(`FeedItem`, (): void => {
+describe(`Event`, (): void => {
 
   it(`renders without errors`, (): void => {
-    const user = {
+    const dummyUser = {
       id: 'abcdefghij',
       firstName: 'Jan',
       lastName: 'Jansen',
@@ -24,20 +24,20 @@ describe(`FeedItem`, (): void => {
       description: '',
       rootContentItemId: 'abcdefghij',
     };
-    const feedItem = {
+    const dummyEvent = {
       id: 'zzzzzzzzzz',
       userId: 'xxxxxxxxxx',
       topicId: 'yyyyyyyyyy',
-      predicate: predicateTypes.CREATE,
+      predicate: predicate.CREATE,
       timestamp: 1511622599112,
     };
     const enzymeWrapper = shallow(
-      <PureFeedItem
+      <PureEventWrapper
         {...dummyTranslatorProps}
-        feedItemId="zzzzzzzzzz"
-        user={user}
+        eventId="zzzzzzzzzz"
+        user={dummyUser}
         topic={dummyTopic}
-        feedItem={feedItem}
+        event={dummyEvent}
         getUser={(): void => {}}
         getTopic={(): void => {}}
       />,

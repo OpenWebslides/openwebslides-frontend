@@ -8,7 +8,7 @@ import Gravatar from 'core-components/gravatar/Gravatar';
 
 import topics from 'modules/topics';
 
-import type { UserType } from '../model';
+import type { User } from '../model';
 import { getById } from '../selectors';
 import { GRAVATAR_SIZE_LARGE } from '../constants';
 
@@ -21,7 +21,7 @@ type PassedProps = {
 };
 
 type StateProps = {
-  user: UserType,
+  user: User,
 };
 
 type Props = PassedProps & StateProps;

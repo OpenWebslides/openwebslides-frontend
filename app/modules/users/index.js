@@ -8,7 +8,7 @@ import components from './components';
 import reducer from './reducer';
 import saga from './saga';
 
-import type { UserType, UsersState } from './model';
+import type { User, UsersState } from './model';
 
 const users = {
   actions,
@@ -20,5 +20,5 @@ const users = {
   saga,
 };
 
-export type { UserType, UsersState };
+export type { User, UsersState };
 export default users;

@@ -10,7 +10,7 @@ import { Form, Input, Button, Checkbox } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 
 import type { State } from 'types/state';
-import type { UserType } from 'modules/users';
+import type { User } from 'modules/users';
 
 import { isAuthenticated, getAccount } from '../../selectors';
 import { signup } from '../../actions';
@@ -21,7 +21,7 @@ type PassedProps = {
 
 type StateProps = {
   authenticated: boolean,
-  account: ?UserType,
+  account: ?User,
 };
 
 type DispatchProps = {

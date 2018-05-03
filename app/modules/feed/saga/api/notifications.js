@@ -5,15 +5,15 @@ import { call, put } from 'redux-saga/effects';
 import * as t from '../../actionTypes';
 
 import Api from '../../api';
-import { predicateTypes } from '../../model';
-import type { FeedItemType } from '../../model';
+import { predicate } from '../../model';
+import type { Event } from '../../model';
 
-import { setFeedItemsInState } from '../../actions';
+import { setEventsInState } from '../../actions';
 
 // TODO: change this to topic once backend is deployed
 const mapEventTypeToPredicateType = {
-  topic_created: predicateTypes.CREATE,
-  topic_updated: predicateTypes.UPDATE,
+  topic_created: predicate.CREATE,
+  topic_updated: predicate.UPDATE,
 };
 
 export const apiGetNotificationsSaga = function* (action: t.FetchAction): Generator<*, *, *> {
@@ -21,7 +21,7 @@ export const apiGetNotificationsSaga = function* (action: t.FetchAction): Genera
     const response = yield call(Api.fetch);
 
     // eslint-disable-next-line flowtype/no-weak-types
-    const data = response.body.data.map((item: Object): FeedItemType => {
+    const data = response.body.data.map((item: Object): Event => {
       return {
         id: item.id,
         userId: item.relationships.user.data.id,
@@ -31,7 +31,7 @@ export const apiGetNotificationsSaga = function* (action: t.FetchAction): Genera
       };
     });
 
-    yield put(setFeedItemsInState(data));
+    yield put(setEventsInState(data));
   }
   catch (error) {
     // TODO

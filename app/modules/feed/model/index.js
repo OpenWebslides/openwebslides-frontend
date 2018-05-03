@@ -4,12 +4,12 @@ import type { Identifier } from 'types/model';
 import generateRandomString from 'lib/generate-random-string';
 
 import {
-  predicateTypes,
-} from './predicateTypes';
+  predicate,
+} from './predicate';
 
 import type {
-  PredicateType,
-} from './predicateTypes';
+  Predicate,
+} from './predicate';
 
 // #TODO optimal id length / generation method?
 const ID_LENGTH = 10;
@@ -18,23 +18,23 @@ export const generateId = (): Identifier => {
   return generateRandomString(ID_LENGTH);
 };
 
-export type FeedItemType = {
+export type Event = {
   +id: Identifier,
   +userId: Identifier,
   +topicId: Identifier,
-  +predicate: PredicateType,
+  +predicate: Predicate,
   +timestamp: number,
 };
 
-export type FeedItemsState = {
-  +[feedItemId: string]: FeedItemType,
+export type FeedState = {
+  +[eventId: string]: Event,
 };
 
 export {
-  predicateTypes,
+  predicate,
 };
 
 export type {
-  PredicateType,
+  Predicate,
 };
 

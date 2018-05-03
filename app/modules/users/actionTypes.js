@@ -2,7 +2,7 @@
 
 import type { Error } from 'types/error';
 import type { Identifier } from 'types/model';
-import type { UserType } from './model';
+import type { User } from './model';
 
 /* Action constants */
 
@@ -34,14 +34,14 @@ export type AddToStateAction = {
 export type SetItemInStateAction = {
   type: typeof SET_ITEM_IN_STATE,
   payload: {
-    item: UserType,
+    item: User,
   },
 };
 
 export type SetItemsInStateAction = {
   type: typeof SET_ITEMS_IN_STATE,
   payload: {
-    items: Array<UserType>,
+    items: Array<User>,
   },
 };
 

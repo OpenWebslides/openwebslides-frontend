@@ -15,13 +15,12 @@ import Gravatar from 'core-components/gravatar/Gravatar';
 
 import { Feed } from 'semantic-ui-react';
 
-import type { FeedItemType } from '../model';
+import type { Event } from '../model';
 
 import { getById } from '../selectors';
 
-
 const getUserById = users.selectors.getById;
-const { UserType } = users.model;
+const { User } = users.model;
 const { GRAVATAR_SIZE_SMALL } = users.constants;
 const getUserAction = users.actions.get;
 
@@ -30,12 +29,12 @@ const { Topic } = topics.model;
 const getTopicAction = topics.actions.get;
 
 type PassedProps = {
-  feedItemId: Identifier,
+  eventId: Identifier,
 };
 
 type StateProps = {
-  feedItem: FeedItemType,
-  user: ?UserType,
+  event: Event,
+  user: ?User,
   topic: ?Topic,
 };
 
@@ -47,12 +46,12 @@ type DispatchProps = {
 type Props = CustomTranslatorProps & PassedProps & StateProps & DispatchProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const feedItem = getById(state, props.feedItemId);
-  const topic = getTitleById(state, { id: feedItem.topicId });
-  const user = getUserById(state, feedItem.userId);
+  const event = getById(state, props.eventId);
+  const topic = getTitleById(state, { id: event.topicId });
+  const user = getUserById(state, event.userId);
 
   return {
-    feedItem,
+    event,
     user,
     topic,
   };
@@ -73,10 +72,10 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   };
 };
 
-class PureFeedItem extends React.Component<Props, State> {
+class PureEventWrapper extends React.Component<Props, State> {
   componentDidMount = (): void => {
     const {
-      feedItem,
+      event,
       user,
       topic,
       getTopic,
@@ -85,18 +84,18 @@ class PureFeedItem extends React.Component<Props, State> {
 
     // Request missing data from API
     if (topic == null) {
-      getTopic(feedItem.topicId);
+      getTopic(event.topicId);
     }
 
     if (user == null) {
-      getUser(feedItem.userId);
+      getUser(event.userId);
     }
   };
 
   render = (): React.Node => {
     const {
       t,
-      feedItem,
+      event,
       user,
       topic,
     } = this.props;
@@ -122,7 +121,7 @@ class PureFeedItem extends React.Component<Props, State> {
             <Link as="Feed.User" to={`/profile/${user.id}`}>
               {displayName}&nbsp;
             </Link>
-            {t('feed:feed_item.action', { context: `${feedItem.predicate}` })}
+            {t('feed:event.action', { context: `${event.predicate}` })}
             &nbsp;
             <strong>
               &quot;
@@ -133,7 +132,7 @@ class PureFeedItem extends React.Component<Props, State> {
           <Feed.Meta>
             <Feed.Date>
               {
-                moment(feedItem.timestamp)
+                moment(event.timestamp)
                 .fromNow()
               }
             </Feed.Date>
@@ -144,7 +143,7 @@ class PureFeedItem extends React.Component<Props, State> {
   };
 }
 
-const FeedItem = connect(mapStateToProps, mapDispatchToProps)(translate()(PureFeedItem));
+const EventWrapper = connect(mapStateToProps, mapDispatchToProps)(translate()(PureEventWrapper));
 
-export { PureFeedItem };
-export default FeedItem;
+export { PureEventWrapper };
+export default EventWrapper;

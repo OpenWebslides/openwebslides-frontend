@@ -7,7 +7,7 @@ import components from './components';
 import reducer from './reducer';
 import saga from './saga';
 
-import type { FeedItemType, FeedItemsState } from './model';
+import type { Event, FeedState } from './model';
 
 const feedItems = {
   actions,
@@ -18,5 +18,5 @@ const feedItems = {
   selectors,
 };
 
-export type { FeedItemType, FeedItemsState };
+export type { Event, FeedState };
 export default feedItems;
