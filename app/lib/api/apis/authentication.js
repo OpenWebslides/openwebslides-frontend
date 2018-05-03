@@ -1,7 +1,5 @@
 // @flow
 
-import Api from 'lib/api';
-
 import {
   TOKEN_ENDPOINT,
   USERS_ENDPOINT,
@@ -9,8 +7,10 @@ import {
   CONFIRMATION_ENDPOINT,
 } from './constants';
 
-const { methodTypes, Response } = Api.model;
-const { ApiRequest } = Api;
+import { methodTypes } from '../model';
+import type { Response } from '../model';
+
+import ApiRequest from '../ApiRequest';
 
 const signinEmail = (email: string, password: string): Promise<Response> => {
   const request = new ApiRequest();
@@ -118,7 +118,7 @@ const confirm = (
   return request.execute();
 };
 
-const AuthApi = {
+const AuthenticationApi = {
   signinEmail,
   signout,
   signup,
@@ -126,4 +126,4 @@ const AuthApi = {
   confirm,
 };
 
-export default AuthApi;
+export default AuthenticationApi;
