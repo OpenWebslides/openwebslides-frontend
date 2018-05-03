@@ -2,18 +2,18 @@
 
 import type { Identifier } from 'types/model';
 
-import Api from 'lib/api';
+import { methodTypes } from '../model';
+import type { Response } from '../model';
 
-import { ENDPOINT } from './constants';
+import ApiRequest from '../ApiRequest';
 
-const { methodTypes, Response } = Api.model;
-const { ApiRequest } = Api;
+import { USERS_ENDPOINT } from './constants';
 
 const get = (id: Identifier): Promise<Response> => {
   const request = new ApiRequest();
 
   request
-    .setEndpoint(ENDPOINT)
+    .setEndpoint(USERS_ENDPOINT)
     .setMethod(methodTypes.GET)
     .setResource(id);
 
