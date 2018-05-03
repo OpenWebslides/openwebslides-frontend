@@ -38,6 +38,9 @@ const reducer = (state: ModalsState = initialState, action: t.ModalAction): Moda
     case t.HIDE_MODAL_ERROR:
       return state;
     default:
+      // Make sure a flow type error is thrown when not all action.type cases are handled
+      // eslint-disable-next-line no-unused-expressions
+      (action: empty);
       return state;
   }
 };

@@ -136,7 +136,7 @@ const reducer = (
     case t.SET_MULTIPLE_IN_STATE:
       return setMultipleInState(state, action);
     default:
-      // Type error when not all action.type cases are handled.
+      // Make sure a flow type error is thrown when not all action.type cases are handled
       // eslint-disable-next-line no-unused-expressions
       (action: empty);
       return state;
