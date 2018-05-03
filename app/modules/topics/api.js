@@ -37,7 +37,7 @@ const get = async (
   return request.execute();
 };
 
-const getAll = async (
+const getAllByUserId = async (
   userId: Identifier,
 ): Promise<Response> => {
   const request = new ApiRequest();
@@ -90,7 +90,7 @@ const post = (
 const TopicApi = {
   destroy,
   get,
-  getAll,
+  getAllByUserId,
   post,
 };
 

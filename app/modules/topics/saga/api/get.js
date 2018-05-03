@@ -29,9 +29,10 @@ export const apiGetTopicSaga = function* (action: t.GetAction): Generator<*, *, 
   }
 };
 
-export const apiGetAllTopicsSaga = function* (action: t.GetAllByUserIdAction): Generator<*, *, *> {
+// eslint-disable-next-line max-len
+export const apiGetAllTopicsByUserIdSaga = function* (action: t.GetAllByUserIdAction): Generator<*, *, *> {
   try {
-    const response = yield call(Api.getAll, action.payload.userId);
+    const response = yield call(Api.getAllByUserId, action.payload.userId);
 
     // eslint-disable-next-line flowtype/no-weak-types
     const data = response.body.data.map((item: Object): Topic => {

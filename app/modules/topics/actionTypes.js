@@ -35,7 +35,7 @@ export const GET_ALL_BY_USERID_ERROR: 'topics/GET_ALL_BY_USERID_ERROR' = 'topics
 // API saga actions
 export const API_DELETE_TOPIC: 'topics/API_DELETE_TOPIC' = 'topics/API_DELETE_TOPIC';
 export const API_GET_TOPIC: 'topics/API_GET_TOPIC' = 'topics/API_GET_TOPIC';
-export const API_GET_ALL_TOPICS: 'topics/API_GET_ALL_TOPICS' = 'topics/API_GET_ALL_TOPICS';
+export const API_GET_ALL_TOPICS_BY_USERID: 'topics/API_GET_ALL_TOPICS_BY_USERID' = 'topics/API_GET_ALL_TOPICS_BY_USERID';
 export const API_POST_TOPIC: 'topics/API_POST_TOPIC' = 'topics/API_POST_TOPIC';
 
 /* Action types */
@@ -179,8 +179,8 @@ export type ApiGetTopicAction = {
   },
 };
 
-export type ApiGetAllTopicsAction = {
-  type: typeof API_GET_ALL_TOPICS,
+export type ApiGetAllTopicsByUserIdAction = {
+  type: typeof API_GET_ALL_TOPICS_BY_USERID,
   payload: {
     userId: Identifier,
   },

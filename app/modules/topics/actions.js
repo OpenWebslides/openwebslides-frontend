@@ -218,9 +218,9 @@ export const apiDeleteTopic = (
 
 export const apiGetAllTopics = (
   userId: Identifier,
-): t.ApiGetAllTopicsAction => {
+): t.ApiGetAllTopicsByUserIdAction => {
   return {
-    type: t.API_GET_ALL_TOPICS,
+    type: t.API_GET_ALL_TOPICS_BY_USERID,
     payload: {
       userId,
     },

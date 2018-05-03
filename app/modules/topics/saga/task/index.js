@@ -1,6 +1,6 @@
 // @flow
 
-import { all, takeEvery } from 'redux-saga/effects';
+import { all, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import * as t from '../../actionTypes';
 
@@ -16,7 +16,7 @@ const taskSaga = function* (): Generator<*, *, *> {
     takeEvery(t.EDIT, editSaga),
     takeEvery(t.GET, getSaga),
     takeEvery(t.GET_ALL_BY_USERID, getAllSaga),
-    takeEvery(t.REMOVE, removeSaga),
+    takeLatest(t.REMOVE, removeSaga),
   ]);
 };
 

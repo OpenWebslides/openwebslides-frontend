@@ -51,7 +51,6 @@ const removeFromState = (state: TopicsState, action: t.RemoveFromStateAction): T
 const setItemsInState = (state: TopicsState, action: t.SetItemsInStateAction): TopicsState => {
   const newTopics = {};
 
-
   if (action.payload.items) {
     action.payload.items.forEach((item: Topic): void => {
       newTopics[item.id] = item;
