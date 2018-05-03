@@ -6,9 +6,6 @@ import { translate } from 'react-i18next';
 import { Grid } from 'semantic-ui-react';
 
 import NavigationBar from 'core-components/navigation/NavigationBar';
-import modals from 'core-components/modals';
-
-const { ModalRoot } = modals;
 
 type PassedProps = {
   children: React.Node,
@@ -29,7 +26,6 @@ const Page = (props: Props): React.Node => {
           </Grid.Column>
         </Grid>
       </div>
-      <ModalRoot />
     </React.Fragment>
   );
 };
