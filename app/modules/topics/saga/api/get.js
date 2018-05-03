@@ -11,11 +11,10 @@ import { addToState, setItemsInState } from '../../actions';
 
 export const apiGetTopicSaga = function* (action: t.GetAction): Generator<*, *, *> {
   try {
-    const responseTopic = yield call(Api.get, action.payload.id);
-    const responseUser = yield call(Api.getUserId, action.payload.id);
+    const response = yield call(Api.get, action.payload.id);
 
-    const item = responseTopic.body.data;
-    const userId = responseUser.body.data.id;
+    const item = response.body.data;
+    const userId = response.body.included[0].id;
 
     yield put(addToState(
       item.id,
@@ -30,7 +29,7 @@ export const apiGetTopicSaga = function* (action: t.GetAction): Generator<*, *, 
   }
 };
 
-export const apiGetAllTopicsSaga = function* (action: t.GetAllAction): Generator<*, *, *> {
+export const apiGetAllTopicsSaga = function* (action: t.GetAllByUserIdAction): Generator<*, *, *> {
   try {
     const response = yield call(Api.getAll, action.payload.userId);
 

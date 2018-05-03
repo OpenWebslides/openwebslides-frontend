@@ -24,13 +24,13 @@ export const ADD: 'topics/ADD' = 'topics/ADD';
 export const EDIT: 'topics/EDIT' = 'topics/EDIT';
 export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
 export const GET: 'topics/GET' = 'topics/GET';
-export const GET_ALL: 'topics/GET_ALL' = 'topics/GET_ALL';
+export const GET_ALL_BY_USERID: 'topics/GET_ALL_BY_USERID' = 'topics/GET_ALL_BY_USERID';
 
 export const ADD_ERROR: 'topics/ADD_ERROR' = 'topics/ADD_ERROR';
 export const EDIT_ERROR: 'topics/EDIT_ERROR' = 'topics/EDIT_ERROR';
 export const REMOVE_ERROR: 'topics/REMOVE_ERROR' = 'topics/REMOVE_ERROR';
 export const GET_ERROR: 'topics/GET_ERROR' = 'topics/GET_ERROR';
-export const GET_ALL_ERROR: 'topics/GET_ALL_ERROR' = 'topics/GET_ALL_ERROR';
+export const GET_ALL_BY_USERID_ERROR: 'topics/GET_ALL_BY_USERID_ERROR' = 'topics/GET_ALL_BY_USERID_ERROR';
 
 // API saga actions
 export const API_DELETE_TOPIC: 'topics/API_DELETE_TOPIC' = 'topics/API_DELETE_TOPIC';
@@ -132,8 +132,8 @@ export type GetAction = {
   },
 };
 
-export type GetAllAction = {
-  type: typeof GET_ALL,
+export type GetAllByUserIdAction = {
+  type: typeof GET_ALL_BY_USERID,
   payload: {
     userId: Identifier,
   },
@@ -159,8 +159,8 @@ export type GetErrorAction = {
   error: Error,
 };
 
-export type GetAllErrorAction = {
-  type: typeof GET_ALL_ERROR,
+export type GetAllByUserIdErrorAction = {
+  type: typeof GET_ALL_BY_USERID_ERROR,
   error: Error,
 };
 
@@ -210,10 +210,10 @@ export type TopicTaskSagaAction =
   | AddAction
   | EditAction
   | GetAction
-  | GetAllAction
+  | GetAllByUserIdAction
   | RemoveAction
   | AddErrorAction
   | EditErrorAction
   | GetErrorAction
-  | GetAllErrorAction
+  | GetAllByUserIdErrorAction
   | RemoveErrorAction;

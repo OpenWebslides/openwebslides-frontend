@@ -192,11 +192,11 @@ export const get = (
   };
 };
 
-export const getAll = (
+export const getAllByUserId = (
   userId: Identifier,
-): t.GetAllAction | t.GetAllErrorAction => {
+): t.GetAllByUserIdAction | t.GetAllByUserIdErrorAction => {
   return {
-    type: t.GET_ALL,
+    type: t.GET_ALL_BY_USERID,
     payload: {
       userId,
     },

@@ -17,7 +17,6 @@ import { Feed } from 'semantic-ui-react';
 
 import type { FeedItemType } from '../model';
 
-import { predicateTypes } from '../model';
 import { getById } from '../selectors';
 
 
@@ -51,19 +50,6 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const feedItem = getById(state, props.feedItemId);
   const topic = getTitleById(state, { id: feedItem.topicId });
   const user = getUserById(state, feedItem.userId);
-  /*
-  console.log("/// mapStateToProps called");
-  console.log("feedItem:");
-  console.log(feedItem.id);
-  console.log("topic:");
-  console.log(feedItem.topicId);
-  console.log(topic);
-  console.log("---")
-  console.log("user:");
-  console.log(feedItem.userId);
-  console.log(user);
-  console.log("///")
-  */
 
   return {
     feedItem,
@@ -116,33 +102,8 @@ class PureFeedItem extends React.Component<Props, State> {
     } = this.props;
 
     // Prevent rendering when resources are still loading
-    if (topic == null) {
+    if (topic == null || user == null) {
       return null;
-    }
-
-    if (user == null) {
-      return null;
-    }
-
-    let predicate: string = '';
-    switch (feedItem.predicate) {
-      case predicateTypes.COMMENT:
-        predicate = 'COMMENT';
-        break;
-      case predicateTypes.CREATE:
-        predicate = 'CREATE';
-        break;
-      case predicateTypes.FORK:
-        predicate = 'FORK';
-        break;
-      case predicateTypes.DELETE:
-        predicate = 'DELETE';
-        break;
-      case predicateTypes.UPDATE:
-        predicate = 'UPDATE';
-        break;
-      default:
-        predicate = 'acted on';
     }
 
     // construct full, displayed name of user
@@ -161,7 +122,7 @@ class PureFeedItem extends React.Component<Props, State> {
             <Link as="Feed.User" to={`/profile/${user.id}`}>
               {displayName}&nbsp;
             </Link>
-            {t('feed:feed_item.action', { context: `${predicate}` })}
+            {t('feed:feed_item.action', { context: `${feedItem.predicate}` })}
             &nbsp;
             <strong>
               &quot;

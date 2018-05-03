@@ -3,7 +3,7 @@
 import Api from 'lib/api';
 import type { Identifier } from 'types/model';
 
-import { USERS_ENDPOINT, TOPICS_SUB_ENDPOINT, ENDPOINT, USER_SUB_ENDPOINT } from './constants';
+import { USERS_ENDPOINT, TOPICS_SUB_ENDPOINT, ENDPOINT, INCLUDE, USER } from './constants';
 
 const { methodTypes, Response } = Api.model;
 const { ApiRequest } = Api;
@@ -31,21 +31,8 @@ const get = async (
   request
     .setEndpoint(ENDPOINT)
     .setMethod(methodTypes.GET)
-    .setResource(id);
-
-  return request.execute();
-};
-
-const getUserId = async (
-  id: Identifier,
-): Promise<Response> => {
-  const request = new ApiRequest();
-
-  request
-    .setEndpoint(ENDPOINT)
     .setResource(id)
-    .setSubEndpoint(USER_SUB_ENDPOINT)
-    .setMethod(methodTypes.GET);
+    .setParameter(INCLUDE, USER);
 
   return request.execute();
 };
@@ -77,7 +64,7 @@ const post = (
       type: 'topics',
       attributes: {
         title,
-        state: 'public_access',
+        state: 'public_access', // TODO: change when private topics can be created
         description,
       },
       relationships: {
@@ -104,7 +91,6 @@ const TopicApi = {
   destroy,
   get,
   getAll,
-  getUserId,
   post,
 };
 
