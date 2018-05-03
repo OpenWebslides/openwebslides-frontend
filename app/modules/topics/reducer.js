@@ -75,7 +75,7 @@ const reducer = (state: TopicsState = initialState, action: t.TopicReducerAction
     case t.REMOVE_FROM_STATE_ERROR:
       return state;
     default:
-      // Type error when not all action.type cases are handled.
+      // Make sure a flow type error is thrown when not all action.type cases are handled
       // eslint-disable-next-line no-unused-expressions
       (action: empty);
       return state;
