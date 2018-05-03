@@ -26,10 +26,10 @@ const PureSigninCard = (props: Props): React.Node => {
 
       <Card.Content>
         <Card.Header>
-          {t('auth:signin.title')}
+          {t('authentication:signin.title')}
         </Card.Header>
         <Card.Description>
-          {t('auth:signin.description')}
+          {t('authentication:signin.description')}
         </Card.Description>
       </Card.Content>
       <Card.Content>
@@ -37,10 +37,10 @@ const PureSigninCard = (props: Props): React.Node => {
       </Card.Content>
       <Card.Content>
         <Button secondary={true} fluid={true} as={Link} to="/auth/reset">
-          {t('auth:button.forgot')}
+          {t('authentication:button.forgot')}
         </Button>
         <Button secondary={true} fluid={true} as={Link} to="/auth/confirm">
-          {t('auth:button.confirm')}
+          {t('authentication:button.confirm')}
         </Button>
       </Card.Content>
     </Card>

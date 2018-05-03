@@ -36,7 +36,7 @@ const PureSimpleList = (props: Props): React.Node => {
 
   return (
     <div>
-      <Header size="small">{t('profile:card.topics')}:</Header>
+      <Header size="small">{t('global:topics.self')}:</Header>
       {topicIds.map((topicId) => (
         <SimpleTopic key={topicId} topicId={topicId} />
       ))}

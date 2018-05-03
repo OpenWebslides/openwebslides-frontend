@@ -48,10 +48,10 @@ const PureAccountMenu = (props: Props): React.Node => {
     return (
       <React.Fragment>
         <Menu.Item as={Link} to="/auth/signin">
-          {t('auth:button.signin')}
+          {t('authentication:button.signin')}
         </Menu.Item>
         <Menu.Item as={Link} to="/auth/signup">
-          {t('auth:button.signup')}
+          {t('authentication:button.signup')}
         </Menu.Item>
       </React.Fragment>
     );
@@ -60,7 +60,7 @@ const PureAccountMenu = (props: Props): React.Node => {
   return (
     <React.Fragment>
       <Menu.Item as={Link} to="/library">
-        {t('navbar:library')}
+        {t('global:library.self')}
       </Menu.Item>
 
       <Menu.Item as={Link} to="#">
@@ -69,11 +69,11 @@ const PureAccountMenu = (props: Props): React.Node => {
 
       <Dropdown text={displayName} pointing={true} className="item">
         <Dropdown.Menu>
-          <Dropdown.Header>{t('navbar:account')}</Dropdown.Header>
-          <Dropdown.Item as={Link} to="/profile">{t('navbar:preferences')}</Dropdown.Item>
+          <Dropdown.Header>{t('global:account.self')}</Dropdown.Header>
+          <Dropdown.Item as={Link} to="/profile">{t('global:users.profile')}</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={handleSignout}>
-            {t('navbar:signout')}
+            {t('authentication:button.signout')}
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>

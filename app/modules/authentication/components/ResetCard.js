@@ -17,10 +17,10 @@ const PureResetCard = (props: Props): React.Node => {
     <Card fluid={true}>
       <Card.Content>
         <Card.Header>
-          {t('auth:reset.title')}
+          {t('authentication:reset.title')}
         </Card.Header>
         <Card.Description>
-          {t('auth:reset.description')}
+          {t('authentication:reset.description')}
         </Card.Description>
       </Card.Content>
       <Card.Content>

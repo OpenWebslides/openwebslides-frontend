@@ -16,7 +16,7 @@ const { SimpleList } = topics.components;
 
 type PassedProps = {
   // TODO: change to identifier once fallback option for
-  // erroneous input in /profile/:id is implemented
+  // erroneous input in /users/:id is implemented
   userId: string,
 };
 

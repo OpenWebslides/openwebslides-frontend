@@ -1,33 +1,29 @@
 // @flow
 
 import app from './namespaces/app';
-import auth from './namespaces/auth';
+import authentication from './namespaces/authentication';
 import common from './namespaces/common';
 import errors from './namespaces/errors';
-import model from './namespaces/model';
 import editor from './namespaces/editor';
-import pages from './namespaces/pages';
+import global from './namespaces/global';
 import feed from './namespaces/feed';
 import flash from './namespaces/flash';
-import profile from './namespaces/profile';
+import users from './namespaces/users';
 import actions from './namespaces/actions';
 import topics from './namespaces/topics';
-import navbar from './namespaces/navbar';
 
 const index = {
   app,
-  auth,
+  authentication,
   common,
   errors,
-  model,
   editor,
-  pages,
+  global,
   feed,
   flash,
-  profile,
+  users,
   actions,
   topics,
-  navbar,
 };
 
 export default index;
