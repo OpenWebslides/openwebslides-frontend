@@ -29,8 +29,9 @@ export const apiGetTopicSaga = function* (action: t.GetAction): Generator<*, *, 
   }
 };
 
-// eslint-disable-next-line max-len
-export const apiGetAllTopicsByUserIdSaga = function* (action: t.GetAllByUserIdAction): Generator<*, *, *> {
+export const apiGetAllTopicsByUserIdSaga = function* (
+  action: t.GetAllByUserIdAction,
+): Generator<*, *, *> {
   try {
     const response = yield call(Api.getAllByUserId, action.payload.userId);
 

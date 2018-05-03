@@ -3,7 +3,7 @@
 import Api from 'lib/api';
 import type { Identifier } from 'types/model';
 
-import { USERS_ENDPOINT, TOPICS_SUB_ENDPOINT, ENDPOINT, INCLUDE, USER } from './constants';
+import { USERS_ENDPOINT, ENDPOINT } from './constants';
 
 const { methodTypes, Response } = Api.model;
 const { ApiRequest } = Api;
@@ -32,7 +32,7 @@ const get = async (
     .setEndpoint(ENDPOINT)
     .setMethod(methodTypes.GET)
     .setResource(id)
-    .setParameter(INCLUDE, USER);
+    .setParameter('include', 'user');
 
   return request.execute();
 };
@@ -45,7 +45,7 @@ const getAllByUserId = async (
   request
     .setEndpoint(USERS_ENDPOINT)
     .setResource(userId)
-    .setSubEndpoint(TOPICS_SUB_ENDPOINT)
+    .setSubEndpoint(ENDPOINT)
     .setMethod(methodTypes.GET);
 
   return request.execute();
