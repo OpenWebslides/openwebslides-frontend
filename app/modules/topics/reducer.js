@@ -2,42 +2,28 @@
 
 import _ from 'lodash';
 
-import { dummyTopicsById } from './dummyData';
-
 import * as t from './actionTypes';
 import type { Topic, TopicsState } from './model';
 
 const initialState: TopicsState = {
-  byId: dummyTopicsById,
+  byId: {},
 };
 
 const addToState = (state: TopicsState, action: t.AddToStateAction): TopicsState => {
   const {
     id,
-    userId,
-    title,
-    description,
-    rootContentItemId,
   } = action.payload;
-
-  const newTopic: Topic = {
-    id,
-    userId,
-    title,
-    description,
-    rootContentItemId,
-  };
 
   return {
     ...state,
     byId: {
       ...state.byId,
-      [id]: newTopic,
+      [id]: action.payload,
     },
   };
 };
 
-const edit = (state: TopicsState, action: t.EditAction): TopicsState => {
+const editInState = (state: TopicsState, action: t.EditInStateAction): TopicsState => {
   const { id, title, description } = action.payload;
   let editedTopic: Topic = state.byId[id];
 
@@ -62,17 +48,34 @@ const removeFromState = (state: TopicsState, action: t.RemoveFromStateAction): T
   };
 };
 
+const setItemsInState = (state: TopicsState, action: t.SetItemsInStateAction): TopicsState => {
+  const newTopics = {};
+
+  if (action.payload.items) {
+    action.payload.items.forEach((item: Topic): void => {
+      newTopics[item.id] = item;
+    });
+  }
+
+  return {
+    byId: newTopics,
+  };
+};
+
 const reducer = (state: TopicsState = initialState, action: t.TopicReducerAction): TopicsState => {
   switch (action.type) {
     case t.ADD_TO_STATE:
       return addToState(state, action);
-    case t.EDIT:
-      return edit(state, action);
+    case t.EDIT_IN_STATE:
+      return editInState(state, action);
     case t.REMOVE_FROM_STATE:
       return removeFromState(state, action);
+    case t.SET_ITEMS_IN_STATE:
+      return setItemsInState(state, action);
     case t.ADD_TO_STATE_ERROR:
-    case t.EDIT_ERROR:
+    case t.EDIT_IN_STATE_ERROR:
     case t.REMOVE_FROM_STATE_ERROR:
+    case t.SET_ITEMS_IN_STATE_ERROR:
       return state;
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled

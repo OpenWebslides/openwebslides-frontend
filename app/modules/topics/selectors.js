@@ -21,7 +21,7 @@ export const getAll = createSelector(
   },
 );
 
-export const getById = (state: State, props: { id: Identifier }): ?Topic => {
+export const getById = (state: State, props: { id: Identifier }): Topic => {
   return _.get(getAllById(state), props.id, null);
 };
 

@@ -11,6 +11,8 @@ describe(`CardCollection`, (): void => {
     const enzymeWrapper = shallow(
       <PureCardCollection
         topicIds={[]}
+        userId="abcdefghij"
+        handleRequestTopics={(): void => {}}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

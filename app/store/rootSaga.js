@@ -6,6 +6,7 @@ import contentItems from 'modules/content-items';
 import feedItems from 'modules/feed-items';
 import authentication from 'modules/authentication';
 import topics from 'modules/topics';
+import users from 'modules/users';
 
 /**
  * Sets up the root saga.
@@ -17,6 +18,7 @@ const rootSaga = function* (): Generator<*, *, *> {
     call(feedItems.saga),
     call(authentication.saga),
     call(topics.saga),
+    call(users.saga),
   ]);
 };
 

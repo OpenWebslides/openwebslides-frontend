@@ -5,7 +5,6 @@
 const CREATE: 'predicateTypes/CREATE' = 'predicateTypes/CREATE';
 const FORK: 'predicateTypes/FORK' = 'predicateTypes/FORK';
 const COMMENT: 'predicateTypes/COMMENT' = 'predicateTypes/COMMENT';
-const DELETE: 'predicateTypes/DELETE' = 'predicateTypes/DELETE';
 const UPDATE: 'predicateTypes/UPDATE' = 'predicateTypes/UPDATE';
 
 // Group all predicateTypes.
@@ -13,7 +12,6 @@ export const predicateTypes = {
   CREATE,
   FORK,
   COMMENT,
-  DELETE,
   UPDATE,
 };
 

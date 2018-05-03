@@ -5,6 +5,15 @@ import * as t from './actionTypes';
 
 const initialState: UsersState = {};
 
+const addItem = (state: UsersState, action: t.AddToStateAction): UsersState => {
+  const { id } = action.payload;
+
+  return {
+    ...state,
+    [id]: action.payload,
+  };
+};
+
 const setItem = (state: UsersState, action: t.SetItemInStateAction): UsersState => {
   const { id } = action.payload.item;
 
@@ -29,6 +38,8 @@ const setItems = (state: UsersState, action: t.SetItemsInStateAction): UsersStat
 
 const reducer = (state: UsersState = initialState, action: t.UsersAction): UsersState => {
   switch (action.type) {
+    case t.ADD_TO_STATE:
+      return addItem(state, action);
     case t.SET_ITEM_IN_STATE:
       return setItem(state, action);
     case t.SET_ITEMS_IN_STATE:
