@@ -2,20 +2,18 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import Api from 'lib/api';
+import { AuthenticationApi } from 'lib/api';
+import type { Response } from 'lib/api';
 
 import * as t from '../../../actionTypes';
 import { apiPostTokenSaga, apiDeleteTokenSaga } from '../token';
 
-import AuthApi from '../../../api';
 import * as selectors from '../../../selectors';
-
-const { Response } = Api.model;
 
 describe(`token`, (): void => {
   beforeAll((): void => {
     // Mock API calls
-    AuthApi.signinEmail = (): Promise<Response> => {
+    AuthenticationApi.signinEmail = (): Promise<Response> => {
       return Promise.resolve({
         body: {
           data: {
@@ -32,7 +30,7 @@ describe(`token`, (): void => {
       });
     };
 
-    AuthApi.signout = (): Promise<Response> => {
+    AuthenticationApi.signout = (): Promise<Response> => {
       return Promise.resolve({
         body: {},
         token: null,
@@ -57,7 +55,7 @@ describe(`token`, (): void => {
       };
 
       return expectSaga(apiPostTokenSaga, dummyPostTokenAction)
-        .call(AuthApi.signinEmail, 'foo@bar', 'foobar')
+        .call(AuthenticationApi.signinEmail, 'foo@bar', 'foobar')
         .put.like({ action: { type: t.SET_ACCOUNT } })
         .put.like({ action: { type: t.SET_TOKEN } })
         .run();
@@ -75,7 +73,7 @@ describe(`token`, (): void => {
       };
 
       return expectSaga(apiDeleteTokenSaga, dummyDeleteTokenAction)
-        .call(AuthApi.signout, 'foobartoken')
+        .call(AuthenticationApi.signout, 'foobartoken')
         .put.like({ action: { type: t.SET_ACCOUNT } })
         .put.like({ action: { type: t.SET_TOKEN } })
         .run();

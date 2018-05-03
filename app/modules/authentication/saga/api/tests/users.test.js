@@ -2,19 +2,16 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import Api from 'lib/api';
+import { AuthenticationApi } from 'lib/api';
+import type { Response } from 'lib/api';
 
 import * as t from '../../../actionTypes';
 import { apiPostUsersSaga } from '../users';
 
-import AuthApi from '../../../api';
-
-const { Response } = Api.model;
-
 describe(`users`, (): void => {
   beforeAll((): void => {
     // Mock API calls
-    AuthApi.signup = (): Promise<Response> => {
+    AuthenticationApi.signup = (): Promise<Response> => {
       return Promise.resolve({
         body: {},
         token: null,
@@ -37,7 +34,7 @@ describe(`users`, (): void => {
       };
 
       return expectSaga(apiPostUsersSaga, dummyPostUsersAction)
-        .call(AuthApi.signup, 'foo@bar', 'Foo', 'Bar', 'foobar', true)
+        .call(AuthenticationApi.signup, 'foo@bar', 'Foo', 'Bar', 'foobar', true)
         .run();
     });
   });

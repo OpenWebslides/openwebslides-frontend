@@ -2,9 +2,10 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
+import { AuthenticationApi } from 'lib/api';
+
 import * as t from '../../../actionTypes';
 import { apiPostConfirmationSaga } from '../confirmation';
-import Api from '../../../api';
 
 describe(`confirmation`, (): void => {
   it(`calls Api.confirm`, (): void => {
@@ -16,7 +17,7 @@ describe(`confirmation`, (): void => {
     };
 
     return expectSaga(apiPostConfirmationSaga, dummyPostConfirmationAction)
-      .call(Api.confirm, 'foo@bar')
+      .call(AuthenticationApi.confirm, 'foo@bar')
       .run();
   });
 });
