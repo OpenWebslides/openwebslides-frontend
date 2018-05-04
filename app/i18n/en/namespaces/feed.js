@@ -1,13 +1,11 @@
 // @flow
 
 const feed = {
-  feed_item: {
-    action_COMMENT: 'commented on topic',
-    action_CREATE: 'created the topic',
-    action_DELETE: 'deleted the topic',
-    action_FORK: 'forked the topic',
-    action_UPDATE: 'updated the topic',
-
+  event: {
+    'action_predicate/COMMENT': 'commented on topic',
+    'action_predicate/CREATE': 'created the topic',
+    'action_predicate/UPDATE': 'made an update to the topic',
+    'action_predicate/FORK': 'forked the topic',
   },
 };
 

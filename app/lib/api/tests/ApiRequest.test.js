@@ -52,6 +52,28 @@ describe(`ApiRequest`, (): void => {
     });
   });
 
+  describe(`setSubEndpoint`, (): void => {
+    it(`sets subEndpoint without slash`, (): void => {
+      request.setSubEndpoint('foobar');
+
+      expect(request.config.subEndpoint).toEqual('/foobar');
+    });
+
+    it(`sets subEndpoint with slash`, (): void => {
+      request.setSubEndpoint('/foobar');
+
+      expect(request.config.subEndpoint).toEqual('/foobar');
+    });
+  });
+
+  describe(`setSubResource`, (): void => {
+    it(`sets subResource`, (): void => {
+      request.setSubResource('foobar');
+
+      expect(request.config.subResource).toEqual('foobar');
+    });
+  });
+
   describe(`setMethod`, (): void => {
     it(`sets method`, (): void => {
       request.setMethod(methodTypes.DELETE);
@@ -149,6 +171,42 @@ describe(`ApiRequest`, (): void => {
       request.setParameter('param', 'value');
 
       expect(request.getUrl()).toEqual(`${API_URL}/endpoint/1?param=value`);
+    });
+
+    it(`generates correct url with resource and subEndpoint`, (): void => {
+      request.setEndpoint('/endpoint');
+      request.setResource('1');
+      request.setSubEndpoint('/subendpoint');
+      request.setParameter('param', 'value');
+
+      expect(request.getUrl()).toEqual(`${API_URL}/endpoint/1/subendpoint?param=value`);
+    });
+
+    it(`generates correct url with resource, subEndpoint and subResource`, (): void => {
+      request.setEndpoint('/endpoint');
+      request.setResource('1');
+      request.setSubEndpoint('/subendpoint');
+      request.setSubResource('2');
+      request.setParameter('param', 'value');
+
+      expect(request.getUrl()).toEqual(`${API_URL}/endpoint/1/subendpoint/2?param=value`);
+    });
+
+    it(`generates correct url with resource and subResource`, (): void => {
+      request.setEndpoint('/endpoint');
+      request.setResource('1');
+      request.setSubResource('2');
+      request.setParameter('param', 'value');
+
+      expect(request.getUrl()).toEqual(`${API_URL}/endpoint/1?param=value`);
+    });
+
+    it(`generates correct url with subEndpoint and subResource`, (): void => {
+      request.setSubEndpoint('/subendpoint');
+      request.setSubResource('2');
+      request.setParameter('param', 'value');
+
+      expect(request.getUrl()).toEqual(`${API_URL}?param=value`);
     });
   });
 

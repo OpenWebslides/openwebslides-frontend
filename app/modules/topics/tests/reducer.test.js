@@ -1,7 +1,5 @@
 // @flow
 
-import { dummyTopicsById } from '../dummyData';
-
 import reducer from '../reducer';
 import * as t from '../actionTypes';
 import type { Topic, TopicsState } from '../model';
@@ -23,7 +21,7 @@ describe(`reducer`, (): void => {
     rootContentItemId: 'abcdefghij',
   };
   const dummyInitialState = {
-    byId: dummyTopicsById,
+    byId: {},
   };
 
   it(`returns the initial state, when state parameter is undefined`, (): void => {
@@ -69,7 +67,7 @@ describe(`reducer`, (): void => {
     expect(reducer(prevState, addToStateAction)).toEqual(nextState);
   });
 
-  it(`handles topic EDIT action`, (): void => {
+  it(`handles topic EDIT_IN_STATE action`, (): void => {
     const prevState: TopicsState = {
       byId: {
         abcdefghij: {
@@ -81,8 +79,8 @@ describe(`reducer`, (): void => {
         },
       },
     };
-    const editAction: t.EditAction = {
-      type: t.EDIT,
+    const editAction: t.EditInStateAction = {
+      type: t.EDIT_IN_STATE,
       payload: {
         id: 'abcdefghij',
         title: 'Edited test topic',
