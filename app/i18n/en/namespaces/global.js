@@ -4,24 +4,14 @@ const global = {
   home: {
     recentActivity: 'Recent activity',
   },
-  library: {
-    self: 'Library',
-  },
-  createNewTopic: {
-    self: 'Create new topic',
-  },
-  profile: {
-    self: 'Profile',
-  },
+  library: 'Library',
+  createNewTopic: 'Create new topic',
+  profile: 'Profile',
   users: {
     profile: 'Preferences',
   },
-  account: {
-    self: 'Account',
-  },
-  topics: {
-    self: 'Topics',
-  },
+  account: 'Account',
+  topics: 'Topics',
 };
 
 export default global;

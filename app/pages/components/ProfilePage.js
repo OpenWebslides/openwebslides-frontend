@@ -81,7 +81,7 @@ const PureProfilePage = (props: Props): React.Node => {
 
   return (
     <Page>
-      <h1>{t('global:profile.self')}</h1>
+      <h1>{t('global:profile')}</h1>
       <Switch>
         <Route path={`${match.url}/:id`} component={UserProfile} />
         <Route render={() => <CurrentUserProfile userId={CURRENT_USER} />} />
