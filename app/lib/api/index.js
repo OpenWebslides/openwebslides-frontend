@@ -4,6 +4,7 @@ import {
   AuthenticationApi,
   NotificationsApi,
   UsersApi,
+  TopicsApi,
 } from './apis';
 
 import type {
@@ -14,6 +15,7 @@ export {
   AuthenticationApi,
   NotificationsApi,
   UsersApi,
+  TopicsApi,
 };
 
 export type {

@@ -3,8 +3,9 @@
 import { call, select } from 'redux-saga/effects';
 import authentication from 'modules/authentication';
 
+import { TopicsApi } from 'lib/api';
+
 import * as t from '../../actionTypes';
-import Api from '../../api';
 
 const { getToken } = authentication.selectors;
 
@@ -13,7 +14,8 @@ export const apiPostTopicSaga = function* (action: t.ApiPostTopicAction): Genera
     const { userId, title, description } = action.payload;
     const token = yield select(getToken);
 
-    yield call(Api.post, userId, title, description, token); // TODO: add rootContentItemId later
+    // TODO: add rootContentItemId later
+    yield call(TopicsApi.post, userId, title, description, token);
   }
   catch (error) {
     // TODO
