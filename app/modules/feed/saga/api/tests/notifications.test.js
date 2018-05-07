@@ -2,19 +2,16 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import Api from 'lib/api';
+import { NotificationsApi } from 'lib/api';
+import type { Response } from 'lib/api';
 
 import * as t from '../../../actionTypes';
 import { apiGetNotificationsSaga } from '../notifications';
 
-import FeedApi from '../../../api';
-
-const { Response } = Api.model;
-
 describe(` notifications`, (): void => {
   beforeAll((): void => {
     // Mock API calls
-    FeedApi.fetch = (): Promise<Response> => {
+    NotificationsApi.getAll = (): Promise<Response> => {
       return Promise.resolve({
         body: {
           data: [
@@ -49,13 +46,13 @@ describe(` notifications`, (): void => {
   });
 
   describe(`apiGetNotificationsSaga`, (): void => {
-    it(`calls AuthApi.fetch and puts SET_FEED_ITEMS action`, (): void => {
+    it(`calls AuthApi.getAll and puts SET_FEED_ITEMS action`, (): void => {
       const dummyGetNotificationsAction: t.ApiGetNotificationsAction = {
         type: t.API_GET_NOTIFICATIONS,
       };
 
       return expectSaga(apiGetNotificationsSaga, dummyGetNotificationsAction)
-        .call(FeedApi.fetch)
+        .call(NotificationsApi.getAll)
         .put.like({ action: { type: t.SET_EVENTS } })
         .run();
     });
