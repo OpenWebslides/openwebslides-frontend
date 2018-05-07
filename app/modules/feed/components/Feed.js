@@ -1,30 +1,64 @@
 // @flow
 
 import * as React from 'react';
+import { connect } from 'react-redux';
 import type { Identifier } from 'types/model';
+import type { State } from 'types/state';
 
 import { Feed } from 'semantic-ui-react';
 
+import { getAll } from '../selectors';
+import { fetch } from '../actions';
+
 import Event from './Event';
 
-type PassedProps = {
+type StateProps = {
   eventIds: Array<Identifier>,
 };
 
-type Props = PassedProps;
-
-const FeedWrapper = (props: Props): React.Node => {
-  const {
-    eventIds,
-  } = props;
-
-  return (
-    <Feed size="large">
-      {eventIds.map((eventId) => (
-        <Event key={eventId} eventId={eventId} />
-      ))}
-    </Feed>
-  );
+type DispatchProps = {
+  handleRequestFeed: () => void,
 };
+
+
+type Props = DispatchProps & StateProps;
+
+const mapStateToProps = (state: State): StateProps => {
+  return {
+    eventIds: getAll(state).map((event) => event.id),
+  };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+  return {
+    handleRequestFeed: (): void => {
+      dispatch(fetch());
+    },
+  };
+};
+
+class PureFeedWrapper extends React.Component<Props, State> {
+  componentDidMount = (): void => {
+    this.props.handleRequestFeed();
+  }
+
+  render = (): React.Node => {
+    const {
+      eventIds,
+    } = this.props;
+
+    return (
+      <Feed size="large">
+        {eventIds.map((eventId) => (
+          <Event key={eventId} eventId={eventId} />
+        ))}
+      </Feed>
+    );
+  }
+}
+
+const FeedWrapper = connect(mapStateToProps, mapDispatchToProps)(PureFeedWrapper);
+
+export { PureFeedWrapper };
 
 export default FeedWrapper;
