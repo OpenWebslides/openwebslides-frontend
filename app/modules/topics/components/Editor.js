@@ -17,10 +17,11 @@ import type { Identifier } from 'types/model';
 
 import type { Topic } from '../model';
 import { getById } from '../selectors';
-import { save } from '../actions';
+import { save, load } from '../actions';
 
 type DispatchProps = {
   onSaveButtonClick: (Identifier) => void,
+  onLoadButtonClick: (Identifier) => void,
 };
 
 type PassedProps = {
@@ -50,6 +51,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
     onSaveButtonClick: (id: Identifier): void => {
       dispatch(save(id));
     },
+    onLoadButtonClick: (id: Identifier): void => {
+      dispatch(load(id));
+    },
   };
 };
 
@@ -60,6 +64,7 @@ const PureEditor = (props: Props): React.Node => {
     t,
     topic,
     onSaveButtonClick,
+    onLoadButtonClick,
   } = props;
 
   return (
@@ -69,6 +74,9 @@ const PureEditor = (props: Props): React.Node => {
       <p>
         <Button primary={true} onClick={() => onSaveButtonClick(topic.id)}>
           {t('common:button.save')}
+        </Button>
+        <Button onClick={() => onLoadButtonClick(topic.id)}>
+          Load
         </Button>
       </p>
 
