@@ -207,9 +207,9 @@ export const getAllByUserId = (
 
 export const save = (
   id: Identifier,
-): t.SaveAction | t.SaveErrorAction => {
+): t.SaveContentAction | t.SaveContentErrorAction => {
   return {
-    type: t.SAVE,
+    type: t.SAVE_CONTENT,
     payload: {
       id,
     },

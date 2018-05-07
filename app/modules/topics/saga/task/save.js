@@ -10,7 +10,7 @@ import type { Topic } from '../../model';
 
 const { getDenormalizedById } = contentItems.selectors;
 
-const saveSaga = function* (action: t.SaveAction): Generator<*, *, *> {
+const saveSaga = function* (action: t.SaveContentAction): Generator<*, *, *> {
   const {
     id,
   } = action.payload;
