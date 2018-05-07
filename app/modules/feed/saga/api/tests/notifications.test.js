@@ -2,8 +2,6 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import users from 'modules/users';
-
 import { NotificationsApi } from 'lib/api';
 import type { Response } from 'lib/api';
 
@@ -56,11 +54,6 @@ describe(` notifications`, (): void => {
       return expectSaga(apiGetNotificationsSaga, dummyGetNotificationsAction)
         .call(NotificationsApi.fetch)
         .put.like({ action: { type: t.SET_EVENTS } })
-        .put.like({ action: users.actions.setItemInState({
-          id: '1',
-          firstName: 'Foo',
-        }),
-        })
         .run();
     });
   });
