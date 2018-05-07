@@ -38,6 +38,12 @@ type StateProps = {
 
 type Props = CustomTranslatorProps & PassedProps & StateProps;
 
+type LocalState = {
+  editorWidth: number,
+  collapsibleWidth: number,
+  collapsibleIsCollapsed: boolean,
+};
+
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const topic = getById(state, { id: props.topicId });
 
@@ -66,40 +72,70 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const ContentItemEditableDisplay = contentItems.components.EditableDisplay;
 
-const PureEditor = (props: Props): React.Node => {
-  const {
-    topic,
-    contentItemTreeRootItem,
-  } = props;
+class PureEditor extends React.Component<Props, LocalState> {
+  // TODO
+  // eslint-disable-next-line flowtype/require-return-type
+  constructor(props: Props) {
+    super(props);
 
-  return (
-    <React.Fragment>
-      <Header as="h1">{topic.title}</Header>
-      <Link to="/tempslidetest">Temp slide test page</Link>
-      { /* $FlowFixMe See: https://github.com/facebook/flow/issues/4644 */ }
-      <Grid>
-        <Grid.Row>
-          <Grid.Column width={8}>
-            <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
-          </Grid.Column>
-          <Grid.Column width={6}>
-            <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
-          </Grid.Column>
-          <Grid.Column width={2}>
-            <Sidebar>
-              <Button>
-                <Icon name="image" />
-                Slide
-              </Button>
-              <Button>Test 1</Button>
-              <Button>Test 2</Button>
-            </Sidebar>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </React.Fragment>
-  );
-};
+    this.state = {
+      editorWidth: 15,
+      collapsibleWidth: 0,
+      collapsibleIsCollapsed: true,
+    };
+  }
+
+  toggleCollapsible = (): void => {
+    if (this.state.collapsibleIsCollapsed) {
+      this.setState({ editorWidth: 9 });
+      this.setState({ collapsibleWidth: 6 });
+    }
+    else {
+      this.setState({ editorWidth: 15 });
+      this.setState({ collapsibleWidth: 0 });
+    }
+
+    this.setState({ collapsibleIsCollapsed: !this.state.collapsibleIsCollapsed });
+  };
+
+  render = (): React.Node => {
+    const {
+      topic,
+      contentItemTreeRootItem,
+    } = this.props;
+
+    return (
+      <React.Fragment>
+        <Header as="h1">{topic.title}</Header>
+        <Link to="/tempslidetest">Temp slide test page</Link>
+        {/* $FlowFixMe See: https://github.com/facebook/flow/issues/4644 */}
+        <Grid>
+          <Grid.Row>
+            <Grid.Column width={this.state.editorWidth}>
+              <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
+            </Grid.Column>
+            { !this.state.collapsibleIsCollapsed &&
+              <Grid.Column className="editor__sidebar" width={this.state.collapsibleWidth}>
+                <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
+              </Grid.Column>
+            }
+            <Grid.Column className="editor__sidemenu" width={1} >
+              <Sidebar>
+                <Button
+                  as="span"
+                  primary={true}
+                  onClick={this.toggleCollapsible}
+                >
+                  <Icon name="image" className="editor__sidemenu__icon" />
+                </Button>
+              </Sidebar>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </React.Fragment>
+    );
+  }
+}
 
 const Editor = connect(mapStateToProps)(translate()(PureEditor));
 

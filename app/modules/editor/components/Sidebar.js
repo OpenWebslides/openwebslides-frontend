@@ -10,9 +10,9 @@ type Props = PassedProps;
 
 const PureSidebar = (props: Props): React.Node => {
   return (
-    <div>
+    <React.Fragment>
       { props.children }
-    </div>
+    </React.Fragment>
   );
 };
 
