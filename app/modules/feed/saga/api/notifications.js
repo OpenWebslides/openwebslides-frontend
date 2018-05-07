@@ -19,7 +19,7 @@ const mapEventTypeToPredicateType = {
 
 export const apiGetNotificationsSaga = function* (action: t.FetchAction): Generator<*, *, *> {
   try {
-    const response = yield call(NotificationsApi.fetch);
+    const response = yield call(NotificationsApi.getAll);
 
     // eslint-disable-next-line flowtype/no-weak-types
     const data = response.body.data.map((item: Object): Event => {

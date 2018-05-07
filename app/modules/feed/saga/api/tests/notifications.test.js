@@ -11,7 +11,7 @@ import { apiGetNotificationsSaga } from '../notifications';
 describe(` notifications`, (): void => {
   beforeAll((): void => {
     // Mock API calls
-    NotificationsApi.fetch = (): Promise<Response> => {
+    NotificationsApi.getAll = (): Promise<Response> => {
       return Promise.resolve({
         body: {
           data: [
@@ -46,13 +46,13 @@ describe(` notifications`, (): void => {
   });
 
   describe(`apiGetNotificationsSaga`, (): void => {
-    it(`calls AuthApi.fetch and puts SET_FEED_ITEMS action`, (): void => {
+    it(`calls AuthApi.getAll and puts SET_FEED_ITEMS action`, (): void => {
       const dummyGetNotificationsAction: t.ApiGetNotificationsAction = {
         type: t.API_GET_NOTIFICATIONS,
       };
 
       return expectSaga(apiGetNotificationsSaga, dummyGetNotificationsAction)
-        .call(NotificationsApi.fetch)
+        .call(NotificationsApi.getAll)
         .put.like({ action: { type: t.SET_EVENTS } })
         .run();
     });

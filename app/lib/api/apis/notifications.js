@@ -7,7 +7,7 @@ import type { Response } from '../model';
 
 import ApiRequest from '../ApiRequest';
 
-const fetch = async (): Promise<Response> => {
+const getAll = async (): Promise<Response> => {
   const request = new ApiRequest();
 
   request
@@ -22,7 +22,7 @@ const fetch = async (): Promise<Response> => {
 };
 
 const NotificationsApi = {
-  fetch,
+  getAll,
 };
 
 export default NotificationsApi;
