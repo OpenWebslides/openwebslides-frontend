@@ -2,12 +2,16 @@
 
 import _ from 'lodash';
 
+import contentItems from 'modules/content-items';
+
 import type { Identifier } from 'types/model';
 import type { RouterHistory } from 'react-router-dom';
 import type { Topic } from './model';
 
 import * as t from './actionTypes';
 import { generateId } from './model';
+
+const { DenormalizedRootContentItem } = contentItems.model;
 
 // Reducer actions
 export const addToState = (
@@ -258,6 +262,19 @@ export const apiPostTopic = (
       userId,
       title,
       description,
+    },
+  };
+};
+
+export const apiPatchTopicContent = (
+  id: Identifier,
+  denormalizedRootContentItem: DenormalizedRootContentItem,
+): t.ApiPatchTopicContentAction => {
+  return {
+    type: t.API_PATCH_TOPIC_CONTENT,
+    payload: {
+      id,
+      denormalizedRootContentItem,
     },
   };
 };

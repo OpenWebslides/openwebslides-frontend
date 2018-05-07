@@ -1,10 +1,14 @@
 // @flow
 
+import contentItems from 'modules/content-items';
+
 import type { Error } from 'types/error';
 import type { Identifier } from 'types/model';
 import type { RouterHistory } from 'react-router-dom';
 
 import type { Topic } from './model';
+
+const { DenormalizedRootContentItem } = contentItems.model;
 
 /* Action constants */
 
@@ -39,6 +43,7 @@ export const API_DELETE_TOPIC: 'topics/API_DELETE_TOPIC' = 'topics/API_DELETE_TO
 export const API_GET_TOPIC: 'topics/API_GET_TOPIC' = 'topics/API_GET_TOPIC';
 export const API_GET_ALL_TOPICS_BY_USERID: 'topics/API_GET_ALL_TOPICS_BY_USERID' = 'topics/API_GET_ALL_TOPICS_BY_USERID';
 export const API_POST_TOPIC: 'topics/API_POST_TOPIC' = 'topics/API_POST_TOPIC';
+export const API_PATCH_TOPIC_CONTENT: 'topics/API_PATCH_TOPIC_CONTENT' = 'topics/API_PATCH_TOPIC_CONTENT';
 
 /* Action types */
 
@@ -205,6 +210,14 @@ export type ApiPostTopicAction = {
     userId: Identifier,
     title: string,
     description: ?string,
+  },
+};
+
+export type ApiPatchTopicContentAction = {
+  type: typeof API_PATCH_TOPIC_CONTENT,
+  payload: {
+    topicId: Identifier,
+    denormalizedRootContentItem: DenormalizedRootContentItem,
   },
 };
 
