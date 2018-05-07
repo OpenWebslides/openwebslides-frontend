@@ -9,7 +9,6 @@ import global from './namespaces/global';
 import feed from './namespaces/feed';
 import flash from './namespaces/flash';
 import users from './namespaces/users';
-import actions from './namespaces/actions';
 import topics from './namespaces/topics';
 
 const index = {
@@ -22,7 +21,6 @@ const index = {
   feed,
   flash,
   users,
-  actions,
   topics,
 };
 
