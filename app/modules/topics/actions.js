@@ -289,3 +289,14 @@ export const apiPatchTopicContent = (
     },
   };
 };
+
+export const apiGetTopicContent = (
+  id: Identifier,
+): t.ApiGetTopicContentAction => {
+  return {
+    type: t.API_GET_TOPIC_CONTENT,
+    payload: {
+      id,
+    },
+  };
+};

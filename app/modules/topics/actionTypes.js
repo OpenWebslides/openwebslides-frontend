@@ -46,6 +46,7 @@ export const API_GET_TOPIC: 'topics/API_GET_TOPIC' = 'topics/API_GET_TOPIC';
 export const API_GET_ALL_TOPICS_BY_USERID: 'topics/API_GET_ALL_TOPICS_BY_USERID' = 'topics/API_GET_ALL_TOPICS_BY_USERID';
 export const API_POST_TOPIC: 'topics/API_POST_TOPIC' = 'topics/API_POST_TOPIC';
 export const API_PATCH_TOPIC_CONTENT: 'topics/API_PATCH_TOPIC_CONTENT' = 'topics/API_PATCH_TOPIC_CONTENT';
+export const API_GET_TOPIC_CONTENT: 'topics/API_GET_TOPIC_CONTENT' = 'topics/API_GET_TOPIC_CONTENT';
 
 /* Action types */
 
@@ -232,6 +233,13 @@ export type ApiPatchTopicContentAction = {
   payload: {
     topicId: Identifier,
     denormalizedRootContentItem: DenormalizedRootContentItem,
+  },
+};
+
+export type ApiGetTopicContentAction = {
+  type: typeof API_GET_TOPIC_CONTENT,
+  payload: {
+    topicId: Identifier,
   },
 };
 
