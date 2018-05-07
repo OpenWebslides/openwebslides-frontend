@@ -21,7 +21,7 @@ const saveSaga = function* (action: t.SaveAction): Generator<*, *, *> {
     id: topic.rootContentItemId,
   });
 
-  yield put(apiPatchTopicContent(topic, denormalizedContentItems));
+  yield put(apiPatchTopicContent(id, denormalizedContentItems));
 };
 
 export default saveSaga;

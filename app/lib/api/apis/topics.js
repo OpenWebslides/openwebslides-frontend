@@ -1,13 +1,20 @@
 // @flow
 
 import type { Identifier } from 'types/model';
+import contentItems from 'modules/content-items';
 
-import { USERS_ENDPOINT, TOPICS_ENDPOINT } from './constants';
+import {
+  USERS_ENDPOINT,
+  TOPICS_ENDPOINT,
+  TOPICS_CONTENT_ENDPOINT,
+} from './constants';
 
 import { methodTypes } from '../model';
 import type { Response, Token } from '../model';
 
 import ApiRequest from '../ApiRequest';
+
+const { DenormalizedRootContentItem } = contentItems.model;
 
 const destroy = (
   id: Identifier,
@@ -88,11 +95,39 @@ const post = (
   return request.execute();
 };
 
+const patchContent = (
+  topicId: Identifier,
+  denormalizedRootContentItem: DenormalizedRootContentItem,
+  token: string,
+): Promise<Response> => {
+  const request = new ApiRequest();
+
+  const body = JSON.stringify({
+    data: {
+      type: 'contents',
+      attributes: {
+        content: denormalizedRootContentItem,
+      },
+    },
+  });
+
+  request
+    .setEndpoint(TOPICS_ENDPOINT)
+    .setResource(topicId)
+    .setSubEndpoint(TOPICS_CONTENT_ENDPOINT)
+    .setMethod(methodTypes.PATCH)
+    .setBody(body)
+    .setToken(token);
+
+  return request.execute();
+};
+
 const TopicsApi = {
   destroy,
   get,
   getAllByUserId,
   post,
+  patchContent,
 };
 
 export default TopicsApi;

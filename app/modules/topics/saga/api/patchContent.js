@@ -10,7 +10,7 @@ import * as t from '../../actionTypes';
 const { getToken } = authentication.selectors;
 
 export const apiPatchTopicContentSaga = function* (
-  action: t.ApiPatchTopicContentAction
+  action: t.ApiPatchTopicContentAction,
 ): Generator<*, *, *> {
   try {
     const { id, denormalizedRootContentItem } = action.payload;
@@ -19,6 +19,6 @@ export const apiPatchTopicContentSaga = function* (
     yield call(TopicsApi.patchContent, id, denormalizedRootContentItem, token);
   }
   catch (error) {
-    // TODO
+    throw error;
   }
 };
