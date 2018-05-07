@@ -122,12 +122,29 @@ const patchContent = (
   return request.execute();
 };
 
+const getContent = (
+  topicId: Identifier,
+  token: string,
+): Promise<Response> => {
+  const request = new ApiRequest();
+
+  request
+    .setEndpoint(TOPICS_ENDPOINT)
+    .setResource(topicId)
+    .setSubEndpoint(TOPICS_CONTENT_ENDPOINT)
+    .setMethod(methodTypes.GET)
+    .setToken(token);
+
+  return request.execute();
+};
+
 const TopicsApi = {
   destroy,
   get,
   getAllByUserId,
   post,
   patchContent,
+  getContent,
 };
 
 export default TopicsApi;
