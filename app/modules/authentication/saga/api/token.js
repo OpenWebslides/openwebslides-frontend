@@ -1,6 +1,6 @@
 // @flow
 
-import { AuthenticationApi } from 'lib/api';
+import { TokenApi } from 'lib/api';
 
 import { call, put, select } from 'redux-saga/effects';
 
@@ -15,7 +15,7 @@ import { getToken } from '../../selectors';
 export const apiPostTokenSaga = function* (action: t.ApiPostTokenAction): Generator<*, *, *> {
   try {
     const { email, password } = action.payload;
-    const response = yield call(AuthenticationApi.signinEmail, email, password);
+    const response = yield call(TokenApi.post, email, password);
 
     const account = {
       id: response.body.data.id,
@@ -36,7 +36,7 @@ export const apiDeleteTokenSaga = function* (action: t.ApiDeleteTokenAction): Ge
   try {
     const token = yield select(getToken);
 
-    yield call(AuthenticationApi.signout, token);
+    yield call(TokenApi.destroy, token);
 
     yield put(setAccountInState(null));
     yield put(setTokenInState(null));

@@ -2,7 +2,7 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import { AuthenticationApi } from 'lib/api';
+import { PasswordApi } from 'lib/api';
 
 import * as t from '../../../actionTypes';
 import { apiPostPasswordSaga } from '../password';
@@ -17,7 +17,7 @@ describe(`reset`, (): void => {
     };
 
     return expectSaga(apiPostPasswordSaga, dummyPostPasswordAction)
-      .call(AuthenticationApi.reset, 'foo@bar')
+      .call(PasswordApi.post, 'foo@bar')
       .run();
   });
 });

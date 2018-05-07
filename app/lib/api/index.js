@@ -1,10 +1,12 @@
 // @flow
 
 import {
-  AuthenticationApi,
   NotificationsApi,
   UsersApi,
   TopicsApi,
+  TokenApi,
+  PasswordApi,
+  ConfirmationApi,
 } from './apis';
 
 import type {
@@ -12,10 +14,12 @@ import type {
 } from './model';
 
 export {
-  AuthenticationApi,
   NotificationsApi,
   UsersApi,
   TopicsApi,
+  TokenApi,
+  PasswordApi,
+  ConfirmationApi,
 };
 
 export type {

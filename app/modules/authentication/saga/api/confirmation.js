@@ -1,6 +1,6 @@
 // @flow
 
-import { AuthenticationApi } from 'lib/api';
+import { ConfirmationApi } from 'lib/api';
 
 import { call } from 'redux-saga/effects';
 
@@ -11,7 +11,7 @@ export const apiPostConfirmationSaga = function* (
 ): Generator<*, *, *> {
   try {
     const { email } = action.payload;
-    yield call(AuthenticationApi.confirm, email);
+    yield call(ConfirmationApi.post, email);
   }
   catch (error) {
     // TODO

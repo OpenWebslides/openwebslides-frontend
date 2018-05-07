@@ -20,8 +20,39 @@ const get = (id: Identifier): Promise<Response> => {
   return request.execute();
 };
 
+const post = (
+  email: string,
+  firstName: string,
+  lastName: ?string,
+  password: string,
+  tosAccepted: boolean,
+): Promise<Response> => {
+  const request = new ApiRequest();
+
+  const body = JSON.stringify({
+    data: {
+      type: 'users',
+      attributes: {
+        email,
+        firstName,
+        lastName,
+        password,
+        tosAccepted,
+      },
+    },
+  });
+
+  request
+    .setEndpoint(USERS_ENDPOINT)
+    .setMethod(methodTypes.POST)
+    .setBody(body);
+
+  return request.execute();
+};
+
 const UsersApi = {
   get,
+  post,
 };
 
 export default UsersApi;
