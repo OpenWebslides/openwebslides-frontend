@@ -201,6 +201,17 @@ export const getAllByUserId = (
   };
 };
 
+export const save = (
+  id: Identifier,
+): t.SaveAction | t.SaveErrorAction => {
+  return {
+    type: t.SAVE,
+    payload: {
+      id,
+    },
+  };
+};
+
 // API saga actions
 export const apiDeleteTopic = (
   id: Identifier,

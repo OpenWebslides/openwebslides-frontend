@@ -6,7 +6,7 @@ import type { CustomTranslatorProps } from 'types/translator';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { Header } from 'semantic-ui-react';
+import { Button, Header } from 'semantic-ui-react';
 
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
@@ -17,6 +17,11 @@ import type { Identifier } from 'types/model';
 
 import type { Topic } from '../model';
 import { getById } from '../selectors';
+import { save } from '../actions';
+
+type DispatchProps = {
+  onSaveButtonClick: (Identifier) => void,
+};
 
 type PassedProps = {
   topicId: Identifier,
@@ -26,7 +31,7 @@ type StateProps = {
   topic: Topic,
 };
 
-type Props = CustomTranslatorProps & PassedProps & StateProps;
+type Props = CustomTranslatorProps & DispatchProps & PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const topic = getById(state, { id: props.topicId });
@@ -40,14 +45,33 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
+const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+  return {
+    onSaveButtonClick: (id: Identifier): void => {
+      dispatch(save(id));
+    },
+  };
+};
+
 const ContentItemEditableDisplay = contentItems.components.EditableDisplay;
 
 const PureEditor = (props: Props): React.Node => {
-  const { topic } = props;
+  const {
+    t,
+    topic,
+    onSaveButtonClick,
+  } = props;
 
   return (
     <div>
       <Header as="h1">{topic.title}</Header>
+
+      <p>
+        <Button primary={true} onClick={() => onSaveButtonClick(topic.id)}>
+          {t('common:button.save')}
+        </Button>
+      </p>
+
       <Link to="/tempslidetest">Temp slide test page</Link>
       { /* $FlowFixMe See: https://github.com/facebook/flow/issues/4644 */ }
       <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
@@ -55,7 +79,7 @@ const PureEditor = (props: Props): React.Node => {
   );
 };
 
-const Editor = connect(mapStateToProps)(translate()(PureEditor));
+const Editor = connect(mapStateToProps, mapDispatchToProps)(translate()(PureEditor));
 
 export { PureEditor };
 export default Editor;
