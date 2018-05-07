@@ -216,6 +216,17 @@ export const save = (
   };
 };
 
+export const load = (
+  id: Identifier,
+): t.LoadContentAction | t.LoadContentErrorAction => {
+  return {
+    type: t.LOAD_CONTENT,
+    payload: {
+      id,
+    },
+  };
+};
+
 // API saga actions
 export const apiDeleteTopic = (
   id: Identifier,

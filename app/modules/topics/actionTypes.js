@@ -30,6 +30,7 @@ export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
 export const GET: 'topics/GET' = 'topics/GET';
 export const GET_ALL_BY_USERID: 'topics/GET_ALL_BY_USERID' = 'topics/GET_ALL_BY_USERID';
 export const SAVE_CONTENT: 'topics/SAVE_CONTENT' = 'topics/SAVE_CONTENT';
+export const LOAD_CONTENT: 'topics/LOAD_CONTENT' = 'topics/LOAD_CONTENT';
 
 export const ADD_ERROR: 'topics/ADD_ERROR' = 'topics/ADD_ERROR';
 export const EDIT_ERROR: 'topics/EDIT_ERROR' = 'topics/EDIT_ERROR';
@@ -37,6 +38,7 @@ export const REMOVE_ERROR: 'topics/REMOVE_ERROR' = 'topics/REMOVE_ERROR';
 export const GET_ERROR: 'topics/GET_ERROR' = 'topics/GET_ERROR';
 export const GET_ALL_BY_USERID_ERROR: 'topics/GET_ALL_BY_USERID_ERROR' = 'topics/GET_ALL_BY_USERID_ERROR';
 export const SAVE_CONTENT_ERROR: 'topics/SAVE_CONTENT_ERROR' = 'topics/SAVE_CONTENT_ERROR';
+export const LOAD_CONTENT_ERROR: 'topics/LOAD_CONTENT_ERROR' = 'topics/LOAD_CONTENT_ERROR';
 
 // API saga actions
 export const API_DELETE_TOPIC: 'topics/API_DELETE_TOPIC' = 'topics/API_DELETE_TOPIC';
@@ -152,6 +154,13 @@ export type SaveContentAction = {
   },
 };
 
+export type LoadContentAction = {
+  type: typeof LOAD_CONTENT,
+  payload: {
+    id: Identifier,
+  },
+};
+
 export type AddErrorAction = {
   type: typeof ADD_ERROR,
   error: Error,
@@ -179,6 +188,11 @@ export type GetAllByUserIdErrorAction = {
 
 export type SaveContentErrorAction = {
   type: typeof SAVE_CONTENT_ERROR,
+  error: Error,
+};
+
+export type LoadContentErrorAction = {
+  type: typeof LOAD_CONTENT_ERROR,
   error: Error,
 };
 
