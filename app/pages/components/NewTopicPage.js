@@ -5,7 +5,7 @@ import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
 
-import Page from '../Page';
+import AuthenticatedPage from '../AuthenticatedPage';
 
 const { NewTopicCard } = topics.components;
 
@@ -17,10 +17,10 @@ const PureNewTopicPage = (props: Props): React.Node => {
   } = props;
 
   return (
-    <Page>
+    <AuthenticatedPage>
       <h1>{t('pages:topic_new.title')}</h1>
       <NewTopicCard />
-    </Page>
+    </AuthenticatedPage>
   );
 };
 
