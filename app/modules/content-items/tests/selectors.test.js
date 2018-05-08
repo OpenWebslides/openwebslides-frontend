@@ -1,12 +1,13 @@
 // @flow
 
-import { getById, getAllById, getAll, getDenormalizedById } from '../selectors';
+import { getById, getAllById, getAll, getDenormalizedById, getNormalizedById } from '../selectors';
 import { contentItemTypes } from '../model';
 import type {
   RootContentItem,
   DenormalizedRootContentItem,
   HeadingContentItem,
   DenormalizedHeadingContentItem,
+  ParagraphContentItem,
   ContentItemsById,
   ContentItemsState,
 } from '../model';
@@ -36,10 +37,49 @@ describe(`selectors`, (): void => {
     isEditing: false,
     childItemIds: [],
   };
+  const dummyRoot3: $Exact<RootContentItem> = {
+    id: 'e85loehjc6',
+    type: contentItemTypes.ROOT,
+    childItemIds: ['kd92mj5bch', 'fs04f2lvgt'],
+  };
+  const dummyHeading2: $Exact<HeadingContentItem> = {
+    id: 'kd92mj5bch',
+    type: contentItemTypes.HEADING,
+    text: 'Lorem ipsum',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: ['j210fj450f'],
+  };
+  const dummyParagraph1: $Exact<ParagraphContentItem> = {
+    id: 'fs04f2lvgt',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Lorem ipsum',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  };
+  const dummyParagraph2: $Exact<ParagraphContentItem> = {
+    id: 'j210fj450f',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Lorem ipsum',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  };
   const dummyContentItemsById: ContentItemsById = {
     [dummyRoot1.id]: dummyRoot1,
     [dummyRoot2.id]: dummyRoot2,
+    [dummyRoot3.id]: dummyRoot3,
     [dummyHeading1.id]: dummyHeading1,
+    [dummyHeading2.id]: dummyHeading2,
+    [dummyParagraph1.id]: dummyParagraph1,
+    [dummyParagraph2.id]: dummyParagraph2,
   };
   const dummyContentItemsState: ContentItemsState = {
     byId: dummyContentItemsById,
@@ -118,6 +158,27 @@ describe(`selectors`, (): void => {
     it(`returns NULL, when the given id is invalid`, (): void => {
       const denormalizedContentItem = getDenormalizedById(dummyState, { id: 'jihgfedcba' });
       expect(denormalizedContentItem).toBeNull();
+    });
+
+  });
+
+  describe(`getNormalizedById`, (): void => {
+
+    it(`returns the correct normalized contentItems for the given id, when the given id is valid`, (): void => {
+      const normalizedContentItem = getNormalizedById(dummyState, { id: dummyRoot3.id });
+      const expectedResult: Array<RootContentItem> = [
+        dummyRoot3,
+        dummyHeading2,
+        dummyParagraph2,
+        dummyParagraph1,
+      ];
+
+      expect(normalizedContentItem).toEqual(expectedResult);
+    });
+
+    it(`returns NULL, when the given id is invalid`, (): void => {
+      const normalizedContentItem = getNormalizedById(dummyState, { id: 'k92jkdh29d' });
+      expect(normalizedContentItem).toBeNull();
     });
 
   });
