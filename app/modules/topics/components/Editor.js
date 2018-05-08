@@ -108,10 +108,10 @@ class PureEditor extends React.Component<Props, LocalState> {
       <React.Fragment>
         <Header as="h1">{topic.title}</Header>
         <Link to="/tempslidetest">Temp slide test page</Link>
-        {/* $FlowFixMe See: https://github.com/facebook/flow/issues/4644 */}
         <Grid>
           <Grid.Row>
             <Grid.Column width={this.state.editorWidth}>
+              {/* $FlowFixMe See: https://github.com/facebook/flow/issues/4644 */}
               <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
             </Grid.Column>
             { !this.state.collapsibleIsCollapsed &&
