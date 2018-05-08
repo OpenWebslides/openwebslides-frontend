@@ -5,6 +5,8 @@ import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 import { Grid } from 'semantic-ui-react';
 
+import FlashMessages from 'core-components/flash/FlashMessages';
+
 import authentication from 'modules/authentication';
 
 import Page from 'pages/Page';
@@ -18,6 +20,8 @@ const PureSigninPage = (props: Props): React.Node => {
     <Page>
       <Grid centered={true} verticalAlign="middle">
         <Grid.Column width={6}>
+          <FlashMessages />
+
           <SigninCard />
         </Grid.Column>
       </Grid>
