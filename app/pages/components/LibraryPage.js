@@ -9,9 +9,7 @@ import { Link } from 'react-router-dom';
 
 import topics from 'modules/topics';
 
-
-import Page from '../Page';
-
+import AuthenticatedPage from '../AuthenticatedPage';
 
 const { CardCollection } = topics.components;
 
@@ -23,7 +21,7 @@ const PureLibraryPage = (props: Props): React.Node => {
   } = props;
 
   return (
-    <Page>
+    <AuthenticatedPage>
       <Grid>
         <Grid.Row>
           <Grid.Column width={3}>
@@ -41,7 +39,7 @@ const PureLibraryPage = (props: Props): React.Node => {
           <CardCollection />
         </Grid.Row>
       </Grid>
-    </Page>
+    </AuthenticatedPage>
   );
 };
 
