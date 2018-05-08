@@ -9,7 +9,7 @@ import type { DenormalizedRootContentItem } from 'modules/content-items';
 
 import { PureEditor } from '../Editor';
 
-describe(`List`, (): void => {
+describe(`Editor`, (): void => {
 
   it(`renders without errors`, (): void => {
     const dummyTopic = {
