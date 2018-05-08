@@ -8,7 +8,7 @@ import { apiPatchTopicContent } from '../../actions';
 import { getById } from '../../selectors';
 import type { Topic } from '../../model';
 
-const { getDenormalizedById } = contentItems.selectors;
+const { getNormalizedById } = contentItems.selectors;
 
 const saveSaga = function* (action: t.SaveContentAction): Generator<*, *, *> {
   const {
@@ -16,12 +16,11 @@ const saveSaga = function* (action: t.SaveContentAction): Generator<*, *, *> {
   } = action.payload;
 
   const topic: Topic = yield select(getById, { id });
-  // TODO: selector for normalized content items per topic
-  const denormalizedContentItems = yield select(getDenormalizedById, {
+  const normalizedContentItems = yield select(getNormalizedById, {
     id: topic.rootContentItemId,
   });
 
-  yield put(apiPatchTopicContent(id, denormalizedContentItems));
+  yield put(apiPatchTopicContent(id, normalizedContentItems));
 };
 
 export default saveSaga;

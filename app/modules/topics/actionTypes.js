@@ -1,14 +1,10 @@
 // @flow
 
-import contentItems from 'modules/content-items';
-
 import type { Error } from 'types/error';
 import type { Identifier } from 'types/model';
 import type { RouterHistory } from 'react-router-dom';
 
 import type { Topic } from './model';
-
-const { DenormalizedRootContentItem } = contentItems.model;
 
 /* Action constants */
 
@@ -232,7 +228,7 @@ export type ApiPatchTopicContentAction = {
   type: typeof API_PATCH_TOPIC_CONTENT,
   payload: {
     topicId: Identifier,
-    denormalizedRootContentItem: DenormalizedRootContentItem,
+    contentItems: Array<ContentItem>,
   },
 };
 

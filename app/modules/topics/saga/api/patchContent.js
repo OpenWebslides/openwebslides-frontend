@@ -13,12 +13,12 @@ export const apiPatchTopicContentSaga = function* (
   action: t.ApiPatchTopicContentAction,
 ): Generator<*, *, *> {
   try {
-    const { id, denormalizedRootContentItem } = action.payload;
+    const { id, contentItems } = action.payload;
     const token = yield select(getToken);
 
-    yield call(TopicsApi.patchContent, id, denormalizedRootContentItem, token);
+    yield call(TopicsApi.patchContent, id, contentItems, token);
   }
   catch (error) {
-    throw error;
+    // TODO
   }
 };
