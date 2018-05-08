@@ -1,4 +1,4 @@
-// flow-typed signature: 5e9539d4109d0ede465b30c206ed8902
+// flow-typed signature: e06ce5ad25aa91ebcb174fb6d0c39a30
 // flow-typed version: <<STUB>>/babel-core_v^6.26.0/flow_v0.70.0
 
 /**
@@ -75,6 +75,10 @@ declare module 'babel-core/lib/transformation/file/index' {
 }
 
 declare module 'babel-core/lib/transformation/file/logger' {
+  declare module.exports: any;
+}
+
+declare module 'babel-core/lib/transformation/file/merge-map' {
   declare module.exports: any;
 }
 
@@ -182,6 +186,9 @@ declare module 'babel-core/lib/transformation/file/index.js' {
 }
 declare module 'babel-core/lib/transformation/file/logger.js' {
   declare module.exports: $Exports<'babel-core/lib/transformation/file/logger'>;
+}
+declare module 'babel-core/lib/transformation/file/merge-map.js' {
+  declare module.exports: $Exports<'babel-core/lib/transformation/file/merge-map'>;
 }
 declare module 'babel-core/lib/transformation/file/metadata.js' {
   declare module.exports: $Exports<'babel-core/lib/transformation/file/metadata'>;

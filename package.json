@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "blueimp-md5": "^2.10.0",
+    "flow-typed": "^2.4.0",
     "i18next": "^11.2.3",
     "lodash": "^4.17.5",
     "moment": "^2.22.1",
@@ -66,6 +67,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "redux": "^4.0.0",
+    "redux-flash": "^2.0.0",
     "redux-form": "^7.3.0",
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
