@@ -1,7 +1,7 @@
 // @flow
 
 const global = {
-  siteID: 'Open Webslides',
+  openwebslides: 'Open Webslides',
   home: {
     recentActivity: 'Recent activity',
   },

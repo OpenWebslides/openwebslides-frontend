@@ -15,10 +15,6 @@ const common = {
     edit: 'Edit',
     delete: 'Delete',
   },
-  form: {
-    title: 'Title',
-    description: 'Description',
-  },
 };
 
 export default common;
