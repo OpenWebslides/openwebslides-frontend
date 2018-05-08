@@ -1,10 +1,14 @@
 // @flow
 
+import contentItemsModule from 'modules/content-items';
+
 import type { Error } from 'types/error';
 import type { Identifier } from 'types/model';
 import type { RouterHistory } from 'react-router-dom';
 
 import type { Topic } from './model';
+
+const { ContentItem } = contentItemsModule.model;
 
 /* Action constants */
 

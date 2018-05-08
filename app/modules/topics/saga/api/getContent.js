@@ -13,10 +13,10 @@ export const apiGetTopicContentSaga = function* (
   action: t.ApiGetTopicContentAction,
 ): Generator<*, *, *> {
   try {
-    const { id } = action.payload;
+    const { topicId } = action.payload;
     const token = yield select(getToken);
 
-    yield call(TopicsApi.getContent, id, token);
+    yield call(TopicsApi.getContent, topicId, token);
   }
   catch (error) {
     throw error;

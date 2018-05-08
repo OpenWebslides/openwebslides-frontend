@@ -1,6 +1,7 @@
 // @flow
 
 import _ from 'lodash';
+
 import type { Identifier } from 'types/model';
 
 import type {
@@ -8,21 +9,31 @@ import type {
   ContentItemsById,
 } from '../../model';
 
+
+import {
+  subableContentItemTypes,
+  containerContentItemTypes,
+} from '../../model';
+
 const getDescendants = (
-  contentItem: ?ContentItem,
+  contentItem: ContentItem,
   contentItemsById: ContentItemsById,
 ): Array<ContentItem> => {
   // Create list of contentItems
   let contentItems: Array<ContentItem> = [contentItem];
 
-  if (contentItem.childItemIds) {
+  if (_.includes(containerContentItemTypes, contentItem.type)) {
+    // Iterate over children
+    // $FlowFixMe
     contentItem.childItemIds.forEach((childId: Identifier): void => {
       const childItem = contentItemsById[childId];
       contentItems = contentItems.concat(getDescendants(childItem, contentItemsById));
     });
   }
 
-  if (contentItem.subItemIds) {
+  if (_.includes(subableContentItemTypes, contentItem.type)) {
+    // Iterate over subitems
+    // $FlowFixMe
     contentItem.subItemIds.forEach((childId: Identifier): void => {
       const childItem = contentItemsById[childId];
       contentItems = contentItems.concat(getDescendants(childItem, contentItemsById));
@@ -35,9 +46,9 @@ const getDescendants = (
 const normalize = (
   contentItem: ?ContentItem,
   contentItemsById: ContentItemsById,
-): ?ContentItem => {
+): Array<ContentItem> => {
   if (contentItem == null) {
-    return null;
+    return [];
   }
   else {
     return getDescendants(contentItem, contentItemsById);

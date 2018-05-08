@@ -1,5 +1,6 @@
 // @flow
 
+import contentItemsModule from 'modules/content-items';
 import { getById, getAllById, getAll, getDenormalizedById, getNormalizedById } from '../selectors';
 import { contentItemTypes } from '../model';
 import type {
@@ -11,6 +12,8 @@ import type {
   ContentItemsById,
   ContentItemsState,
 } from '../model';
+
+const { ContentItem } = contentItemsModule.model;
 
 describe(`selectors`, (): void => {
 
@@ -129,7 +132,15 @@ describe(`selectors`, (): void => {
 
     it(`returns an array containing all contentItems, when there are one or more contentItems in the state`, (): void => {
       const contentItems = getAll(dummyState);
-      expect(contentItems).toEqual([dummyRoot1, dummyRoot2, dummyHeading1]);
+      expect(contentItems).toEqual([
+        dummyRoot1,
+        dummyRoot2,
+        dummyRoot3,
+        dummyHeading1,
+        dummyHeading2,
+        dummyParagraph1,
+        dummyParagraph2,
+      ]);
     });
 
     it(`returns an empty array, when there are no contentItems in the state`, (): void => {
@@ -166,7 +177,7 @@ describe(`selectors`, (): void => {
 
     it(`returns the correct normalized contentItems for the given id, when the given id is valid`, (): void => {
       const normalizedContentItem = getNormalizedById(dummyState, { id: dummyRoot3.id });
-      const expectedResult: Array<RootContentItem> = [
+      const expectedResult: Array<ContentItem> = [
         dummyRoot3,
         dummyHeading2,
         dummyParagraph2,
@@ -176,9 +187,9 @@ describe(`selectors`, (): void => {
       expect(normalizedContentItem).toEqual(expectedResult);
     });
 
-    it(`returns NULL, when the given id is invalid`, (): void => {
+    it(`returns an empty array, when the given id is invalid`, (): void => {
       const normalizedContentItem = getNormalizedById(dummyState, { id: 'k92jkdh29d' });
-      expect(normalizedContentItem).toBeNull();
+      expect(normalizedContentItem).toEqual([]);
     });
 
   });

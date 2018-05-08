@@ -2,6 +2,8 @@
 
 import type { Identifier } from 'types/model';
 
+import contentItemsModule from 'modules/content-items';
+
 import {
   USERS_ENDPOINT,
   TOPICS_ENDPOINT,
@@ -12,6 +14,8 @@ import { methodTypes } from '../model';
 import type { Response, Token } from '../model';
 
 import ApiRequest from '../ApiRequest';
+
+const { ContentItem } = contentItemsModule.model;
 
 const destroy = (
   id: Identifier,
