@@ -6,6 +6,9 @@
 import { createStore, applyMiddleware } from 'redux';
 import type { Store } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import _ from 'lodash';
+import { saveState, loadState } from 'lib/localStorage';
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -13,10 +16,23 @@ import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
 
 const configureStore = (): Store<*, *> => {
+  const persistedState = loadState();
   const sagaMiddleware = createSagaMiddleware();
-  const store = createStore(rootReducer, composeWithDevTools(
+  const store = createStore(rootReducer, persistedState, composeWithDevTools(
     applyMiddleware(sagaMiddleware),
   ));
+
+  // Persists state to localStorage
+  store.subscribe(
+    _.throttle((): void => {
+      saveState({
+        modules: {
+          authentication: store.getState().modules.authentication,
+        },
+      });
+    }, 1000),
+  );
+
   sagaMiddleware.run(rootSaga);
 
   return store;
