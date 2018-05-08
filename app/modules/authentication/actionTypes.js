@@ -1,5 +1,7 @@
 // @flow
 
+import type { Token } from 'lib/api';
+
 import type { User } from 'modules/users';
 
 import type { Error } from 'types/error';
@@ -49,7 +51,7 @@ export type SetAccountAction = {
 export type SetTokenAction = {
   type: typeof SET_TOKEN,
   payload: {
-    token: ?string,
+    token: ?Token,
   },
 };
 

@@ -5,13 +5,13 @@ import type { Identifier } from 'types/model';
 import { USERS_ENDPOINT, TOPICS_ENDPOINT } from './constants';
 
 import { methodTypes } from '../model';
-import type { Response } from '../model';
+import type { Response, Token } from '../model';
 
 import ApiRequest from '../ApiRequest';
 
 const destroy = (
   id: Identifier,
-  token: string,
+  token: Token,
 ): Promise<Response> => {
   const request = new ApiRequest();
 
@@ -56,7 +56,7 @@ const post = (
   userId: Identifier,
   title: string,
   description: ?string,
-  token: string,
+  token: Token,
 ): Promise<Response> => {
   const request = new ApiRequest();
 
