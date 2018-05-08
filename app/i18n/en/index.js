@@ -1,6 +1,5 @@
 // @flow
 
-import app from './namespaces/app';
 import authentication from './namespaces/authentication';
 import common from './namespaces/common';
 import errors from './namespaces/errors';
@@ -12,7 +11,6 @@ import users from './namespaces/users';
 import topics from './namespaces/topics';
 
 const index = {
-  app,
   authentication,
   common,
   errors,

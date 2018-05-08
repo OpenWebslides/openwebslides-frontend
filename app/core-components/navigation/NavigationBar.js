@@ -26,7 +26,7 @@ const PureLogo = (props: Props): React.Node => {
           </Grid.Column>
           <Grid.Column width={12} verticalAlign="middle">
             <Menu.Item>
-              <strong>{t('app:title')}</strong>
+              <strong>{t('global:siteID')}</strong>
             </Menu.Item>
           </Grid.Column>
         </Grid.Row>
