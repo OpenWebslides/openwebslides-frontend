@@ -7,6 +7,7 @@ import type {
   Request,
   Response,
   MethodType,
+  Token,
 } from './model';
 
 import { methodTypes } from './model';
@@ -103,7 +104,7 @@ const ApiRequest = (): Request => {
       return request;
     },
 
-    setToken: (token: ?string): Request => {
+    setToken: (token: ?Token): Request => {
       if (token && token.length !== 0) {
         request.config.headers.Authorization = `Bearer ${token}`;
       }
