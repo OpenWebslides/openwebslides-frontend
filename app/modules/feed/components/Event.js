@@ -87,7 +87,7 @@ class PureEventWrapper extends React.Component<Props, State> {
       getTopic(event.topicId);
     }
 
-    if (user == null) {
+    if (user == null || user.email === '') {
       getUser(event.userId);
     }
   };

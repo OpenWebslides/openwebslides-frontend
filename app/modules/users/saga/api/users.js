@@ -1,17 +1,20 @@
 // @flow
 
-import { call, put } from 'redux-saga/effects';
-
+import { call, put, select } from 'redux-saga/effects';
 import { UsersApi } from 'lib/api';
 
 import * as t from '../../actionTypes';
 
 import { addToState } from '../../actions';
 
+import { getToken } from '../../../authentication/selectors';
+
 export const apiGetUserSaga = function* (action: t.ApiGetUserAction): Generator<*, *, *> {
   try {
     const { id } = action.payload;
-    const response = yield call(UsersApi.get, id);
+    const token = yield select(getToken);
+
+    const response = yield call(UsersApi.get, id, token);
     const { attributes } = response.body.data;
 
     yield put(addToState(

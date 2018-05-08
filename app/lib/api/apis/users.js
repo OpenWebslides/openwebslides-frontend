@@ -9,13 +9,14 @@ import ApiRequest from '../ApiRequest';
 
 import { USERS_ENDPOINT } from './constants';
 
-const get = (id: Identifier): Promise<Response> => {
+const get = (id: Identifier, token: ?string): Promise<Response> => {
   const request = new ApiRequest();
 
   request
     .setEndpoint(USERS_ENDPOINT)
     .setMethod(methodTypes.GET)
-    .setResource(id);
+    .setResource(id)
+    .setToken(token);
 
   return request.execute();
 };
