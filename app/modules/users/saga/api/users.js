@@ -22,6 +22,7 @@ export const apiGetUserSaga = function* (action: t.ApiGetUserAction): Generator<
     ));
   }
   catch (error) {
-    // TODO
+    // TODO: fix saga error handling
+    throw error;
   }
 };

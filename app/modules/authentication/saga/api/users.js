@@ -12,6 +12,7 @@ export const apiPostUsersSaga = function* (action: t.ApiPostUsersAction): Genera
     yield call(UsersApi.post, email, firstName, lastName, password, tosAccepted);
   }
   catch (error) {
-    // TODO
+    // TODO: fix saga error handling
+    throw error;
   }
 };

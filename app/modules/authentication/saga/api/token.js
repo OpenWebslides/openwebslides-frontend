@@ -28,7 +28,8 @@ export const apiPostTokenSaga = function* (action: t.ApiPostTokenAction): Genera
     yield put(setTokenInState(response.token));
   }
   catch (error) {
-    // TODO
+    // TODO: fix saga error handling
+    throw error;
   }
 };
 
@@ -42,6 +43,7 @@ export const apiDeleteTokenSaga = function* (action: t.ApiDeleteTokenAction): Ge
     yield put(setTokenInState(null));
   }
   catch (error) {
-    // TODO
+    // TODO: fix saga error handling
+    throw error;
   }
 };
