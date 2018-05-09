@@ -15,3 +15,7 @@
   transform-origin: center !important;
   transition: all ease 1s;
 }
+
+.ui.modal .actions > .button {
+    margin-left: 1.5em;
+}
