@@ -1,20 +1,35 @@
 // @flow
 
 import type { Identifier } from 'types/model';
+import type { ContentItemType } from 'modules/content-items';
 
 import * as t from './actionTypes';
 
-export const editTitleColorInState = (
-  rootContentItemId: Identifier,
-  color: string,
-): t.editTitleColorAction => {
-  const newColor = color;
-  const newID = rootContentItemId;
+// add custom theme
+export const addToState = (
+  id: Identifier,
+  userId: Identifier,
+): t.AddToStateAction => {
   return {
-    type: t.EDIT_TITLE_COLOR_IN_STATE,
+    type: t.ADD_TO_STATE,
     payload: {
-      rootContentItemId: newID,
-      color: newColor,
+      id,
+      userId,
+    },
+  };
+};
+
+export const editContentTypeColorInState = (
+  id: Identifier,
+  contentItemType: ContentItemType,
+  newColor: string,
+): t.EditContentTypeColorAction => {
+  return {
+    type: t.EDIT_CONTENTTYPE_COLOR_IN_STATE,
+    payload: {
+      id,
+      contentItemType,
+      newColor,
     },
   };
 };

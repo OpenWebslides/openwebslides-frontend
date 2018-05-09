@@ -1,16 +1,26 @@
 // @flow
 
 import type { Identifier } from 'types/model';
-// import type { ContentItem } from '../content-items/model';
+import type { ContentItemType } from 'modules/content-items';
 
-export const EDIT_TITLE_COLOR_IN_STATE: 'slideStyling/EDIT_TITLE_COLOR_IN_STATE' = 'slideStyling/EDIT_TITLE_COLOR_IN_STATE';
+export const ADD_TO_STATE: 'slideStyling/ADD_TO_STATE' = 'slideStyling/ADD_TO_STATE';
+export const EDIT_CONTENTTYPE_COLOR_IN_STATE: 'slideStyling/EDIT_CONTENTTYPE_COLOR_IN_STATE' = 'slideStyling/EDIT_CONTENTTYPE_COLOR_IN_STATE';
 export const EDIT_BACKGROUND_COLOR: 'slideStyling/EDIT_BACKGROUND_COLOR' = 'slideStyling/EDIT_BACKGROUND_COLOR';
 
-export type editTitleColorAction = {
-  type: typeof EDIT_TITLE_COLOR_IN_STATE,
+export type AddToStateAction = {
+  type: typeof ADD_TO_STATE,
   payload: {
-    rootContentItemId: Identifier,
-    color: string,
+    id: Identifier,
+    userId: Identifier,
+  },
+};
+
+export type EditContentTypeColorAction = {
+  type: typeof EDIT_CONTENTTYPE_COLOR_IN_STATE,
+  payload: {
+    id: Identifier,
+    contentItemType: ContentItemType,
+    newColor: string,
   },
 };
 
@@ -22,3 +32,7 @@ export type editBackgroundColorAction = {
     // #TODO stub
   },
 };
+
+export type SlideStylingReducerAction =
+  | AddToStateAction
+  | EditContentTypeColorAction;

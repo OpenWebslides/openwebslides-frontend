@@ -92,7 +92,6 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
         }
         console.log(contentBlocks[i]);
       } */
-      // $FlowFixMe
       this.setState(
         { toggle: true,
           // $FlowFixMe
