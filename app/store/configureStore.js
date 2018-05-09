@@ -7,6 +7,8 @@ import { createStore, applyMiddleware } from 'redux';
 import type { Store } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import _ from 'lodash';
+import { middleware as flashMiddleware } from 'redux-flash';
+
 import { saveState, loadState } from 'lib/localStorage';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -20,6 +22,7 @@ const configureStore = (): Store<*, *> => {
   const sagaMiddleware = createSagaMiddleware();
   const store = createStore(rootReducer, persistedState, composeWithDevTools(
     applyMiddleware(sagaMiddleware),
+    applyMiddleware(flashMiddleware()),
   ));
 
   // Persists state to localStorage

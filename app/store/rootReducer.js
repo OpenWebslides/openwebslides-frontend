@@ -6,6 +6,8 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 
+import { reducer as flashReducer } from 'redux-flash';
+
 import modulesReducer from './modulesReducer';
 import errorReducer from './errorReducer';
 
@@ -14,6 +16,7 @@ import errorReducer from './errorReducer';
 const rootReducer = combineReducers({
   modules: modulesReducer,
   form: formReducer,
+  flash: flashReducer,
   error: errorReducer,
 });
 
