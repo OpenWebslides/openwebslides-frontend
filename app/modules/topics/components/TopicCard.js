@@ -84,8 +84,7 @@ class PureTopicCard extends React.Component<Props, LocalState> {
     return (
       <React.Fragment>
         <Card raised={true}>
-          <Card.Content header={topic.title} />
-          <Card.Content description={topic.description || `(${t('topics:noDescription')})`} />
+          <Card.Content header={topic.title} description={topic.description || `(${t('topics:noDescription')})`} />
           <Card.Content>
             <Link to={{
               pathname: `/editor/${topicId}`,
