@@ -2,11 +2,13 @@
 
 import _ from 'lodash';
 
+import { dummyTopicsById } from './dummyData';
+
 import * as t from './actionTypes';
 import type { Topic, TopicsState } from './model';
 
 const initialState: TopicsState = {
-  byId: {},
+  byId: dummyTopicsById,
 };
 
 const addToState = (state: TopicsState, action: t.AddToStateAction): TopicsState => {
