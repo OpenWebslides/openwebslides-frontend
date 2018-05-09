@@ -2,14 +2,11 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import Api from 'lib/api';
+import { UsersApi } from 'lib/api';
+import type { Response } from 'lib/api';
 
 import * as t from '../../../actionTypes';
 import { apiGetUserSaga } from '../users';
-
-import UsersApi from '../../../api';
-
-const { Response } = Api.model;
 
 describe(`users`, (): void => {
   beforeAll((): void => {

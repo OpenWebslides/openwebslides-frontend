@@ -2,16 +2,16 @@
 
 import { call, put } from 'redux-saga/effects';
 
-import * as t from '../../actionTypes';
+import { UsersApi } from 'lib/api';
 
-import Api from '../../api';
+import * as t from '../../actionTypes';
 
 import { addToState } from '../../actions';
 
 export const apiGetUserSaga = function* (action: t.ApiGetUserAction): Generator<*, *, *> {
   try {
     const { id } = action.payload;
-    const response = yield call(Api.get, id);
+    const response = yield call(UsersApi.get, id);
     const { attributes } = response.body.data;
 
     yield put(addToState(

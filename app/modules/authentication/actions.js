@@ -2,6 +2,8 @@
 
 import _ from 'lodash';
 
+import type { Token } from 'lib/api';
+
 import type { User } from 'modules/users';
 
 import * as t from './actionTypes';
@@ -20,7 +22,7 @@ export const setAccountInState = (
 };
 
 export const setTokenInState = (
-  token: ?string,
+  token: ?Token,
 ): t.SetTokenAction => {
   return {
     type: t.SET_TOKEN,
