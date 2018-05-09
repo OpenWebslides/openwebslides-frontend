@@ -124,7 +124,7 @@ class PureEventWrapper extends React.Component<Props, State> {
             &nbsp;
             {t('feed:event.action', { context: `${event.predicate}` })}
             &nbsp;
-            <Link to={`/editor/${topic.id}`}>
+            <Link className="secondaryLink" to={`/editor/${topic.id}`}>
               {topic.title}
             </Link>
           </Feed.Summary>
