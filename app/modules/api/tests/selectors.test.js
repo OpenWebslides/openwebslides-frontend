@@ -2,7 +2,7 @@
 
 import { isPending, isSuccess, isFailure, getError } from '../selectors';
 import { statusTypes } from '../model';
-import type { RequestStatus, ApiState } from '../model';
+import type { RequestStatus } from '../model';
 
 describe(`selectors`, (): void => {
   const dummyRequest1: $Exact<RequestStatus> = {
