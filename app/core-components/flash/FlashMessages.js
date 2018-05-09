@@ -34,13 +34,13 @@ const PureFlashMessages = (props: Props): React.Node => {
   let flashTitle: string = flash.isError ? t('flash:title.error') : t('flash:title.success');
 
   if (flash.props.title) {
-    flashTitle = flash.props.title;
+    flashTitle = t(flash.props.title);
   }
 
   return (
     <Message positive={!flash.isError} negative={flash.isError}>
       <Message.Header>{flashTitle}</Message.Header>
-      <p>{flash.message}</p>
+      <p>{t(flash.message)}</p>
     </Message>
   );
 };
