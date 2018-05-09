@@ -18,7 +18,7 @@ type StateProps = {
 
 type Props = PassedProps & StateProps;
 
-const mapStateToProps = (state: State, props: Props): StateProps => {
+const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   return {
     active: isPending(state, props.request),
   };

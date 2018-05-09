@@ -1,6 +1,9 @@
 // @flow
 
+import { flashErrorMessage } from 'redux-flash';
+
 import { TokenApi } from 'lib/api';
+import api from 'modules/api';
 
 import { call, put, select } from 'redux-saga/effects';
 
@@ -12,7 +15,12 @@ import {
 } from '../../actions';
 import { getToken } from '../../selectors';
 
+const { setStatusInState } = api.actions;
+const { statusTypes } = api.model;
+
 export const apiPostTokenSaga = function* (action: t.ApiPostTokenAction): Generator<*, *, *> {
+  yield put(setStatusInState(t.API_POST_TOKEN, statusTypes.PENDING));
+
   try {
     const { email, password } = action.payload;
     const response = yield call(TokenApi.post, email, password);
@@ -26,10 +34,11 @@ export const apiPostTokenSaga = function* (action: t.ApiPostTokenAction): Genera
 
     yield put(setAccountInState(account));
     yield put(setTokenInState(response.token));
+    yield put(setStatusInState(t.API_POST_TOKEN, statusTypes.SUCCESS));
   }
   catch (error) {
-    // TODO: fix saga error handling
-    throw error;
+    yield put(setStatusInState(t.API_POST_TOKEN, statusTypes.FAILURE));
+    yield put(flashErrorMessage('auth:signin.failure'));
   }
 };
 
