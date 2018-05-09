@@ -3,7 +3,7 @@
 import { TOKEN_ENDPOINT } from './constants';
 
 import { methodTypes } from '../model';
-import type { Response } from '../model';
+import type { Response, Token } from '../model';
 
 import ApiRequest from '../ApiRequest';
 
@@ -28,7 +28,7 @@ const post = (email: string, password: string): Promise<Response> => {
   return request.execute();
 };
 
-const destroy = (token: string): Promise<Response> => {
+const destroy = (token: Token): Promise<Response> => {
   const request = new ApiRequest();
 
   request

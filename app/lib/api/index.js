@@ -11,6 +11,7 @@ import {
 
 import type {
   Response,
+  Token,
 } from './model';
 
 export {
@@ -24,4 +25,5 @@ export {
 
 export type {
   Response,
+  Token,
 };
