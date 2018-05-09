@@ -7,6 +7,7 @@ import contentItems from 'modules/content-items';
 import feed from 'modules/feed';
 import users from 'modules/users';
 import authentication from 'modules/authentication';
+import api from 'modules/api';
 
 // Don't forget to edit types/state.js when a new state part is added here.
 const modulesReducer = combineReducers({
@@ -15,6 +16,7 @@ const modulesReducer = combineReducers({
   users: users.reducer,
   contentItems: contentItems.reducer,
   authentication: authentication.reducer,
+  api: api.reducer,
 });
 
 export default modulesReducer;
