@@ -4,6 +4,7 @@ import type { Identifier } from 'types/model';
 import type { ContentItemType } from 'modules/content-items';
 
 import * as t from './actionTypes';
+import { contentItemTypes } from '../content-items/model';
 
 // add custom theme
 export const addToState = (
@@ -15,6 +16,11 @@ export const addToState = (
     payload: {
       id,
       userId,
+      rules: {
+        [contentItemTypes.HEADING]: {
+          color: '#000000',
+        },
+      },
     },
   };
 };

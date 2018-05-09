@@ -2,9 +2,10 @@
 
 import * as t from './actionTypes';
 import type { SlideStyling, SlideStylingState } from './model';
+import { dummySlideStylingById } from './dummyData';
 
 const initialState: SlideStylingState = {
-  byId: {},
+  byId: dummySlideStylingById,
 };
 
 const addToState = (state: SlideStylingState, action: t.AddToStateAction): SlideStylingState => {

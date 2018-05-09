@@ -5,7 +5,7 @@ import type { ContentItemType } from 'modules/content-items';
 import generateRandomString from 'lib/generate-random-string';
 
 // #TODO optimal id length / generation method?
-const ID_LENGTH = 10;
+const ID_LENGTH = 20;
 
 export type SlideStylingProperties = {
   +color: string,
