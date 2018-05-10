@@ -11,12 +11,10 @@ import type { ContentItemType } from './model';
 export const addToState = (
   id: Identifier,
   type: ContentItemType,
-  props: {
-    text?: string,
-  },
+  props: t.ActionPayloadProps,
 ): t.AddToStateAction => {
   const newId = id;
-  const newProps = {};
+  const newProps: t.ActionPayloadProps = {};
 
   if (_.includes(plainTextContentItemTypes, type)) {
     if (props.text == null) {
@@ -45,69 +43,50 @@ export const addToState = (
   };
 };
 
-export const editPlainTextInState = (
+export const editInState = (
   id: Identifier,
-  text: ?string,
-): t.EditPlainTextInStateAction => {
+  type: ContentItemType,
+  props: t.ActionPayloadProps,
+): t.EditInStateAction => {
   const newId = id;
-  const newText = (text != null) ? _.trim(text) : text;
+  let propsToProcess: t.ActionPayloadProps = { ...props };
+  const newProps: t.ActionPayloadProps = {};
 
-  if (newText === undefined) {
-    throw new Error(`Attempted to create superfluous action.`);
+  if (_.includes(plainTextContentItemTypes, type)) {
+    if (props.text != null) {
+      const newText = _.trim(props.text);
+
+      if (newText === '') {
+        throw new Error(`"text" prop cannot be an empty string.`);
+      }
+
+      newProps.text = newText;
+    }
+    propsToProcess = _.omit(propsToProcess, 'text');
   }
-  if (newText === '') {
-    throw new Error(`"text" prop cannot be an empty string.`);
+  // #TODO other contentItemTypes
+
+  if (!_.isEmpty(propsToProcess)) {
+    throw new Error(`"props" object contains invalid props for this contentItem type. Type was: "${type}". Invalid props were: "${JSON.stringify(propsToProcess)}"`);
+  }
+
+  if (_.isEmpty(newProps)) {
+    throw new Error(`Attempted to create superfluous action. This is probably a developer error.`);
   }
 
   return {
-    type: t.EDIT_PLAIN_TEXT_IN_STATE,
+    type: t.EDIT_IN_STATE,
     payload: {
       id: newId,
-      text: newText,
-    },
-  };
-};
-
-export const editMediaInState = (
-  id: Identifier,
-  src: ?string,
-  alt: ?string,
-  caption: ?string,
-): t.EditMediaInStateAction => {
-  const newId = id;
-  const newSrc = src != null ? _.trim(src) : src;
-  const newAlt = alt != null ? _.trim(alt) : alt;
-  let newCaption: ?string = (caption != null) ? _.trim(caption) : caption;
-
-  if (newSrc === undefined && newAlt === undefined && newCaption === undefined) {
-    throw new Error(`Attempted to create superfluous action.`);
-  }
-  if (newSrc === '') {
-    throw new Error(`"src" prop cannot be an empty string.`);
-  }
-  if (newAlt === '') {
-    throw new Error(`"alt" prop cannot be an empty string.`);
-  }
-  if (newCaption === '') {
-    newCaption = null;
-  }
-
-  return {
-    type: t.EDIT_MEDIA_IN_STATE,
-    payload: {
-      id: newId,
-      src: newSrc,
-      alt: newAlt,
-      caption: newCaption,
+      type,
+      props: newProps,
     },
   };
 };
 
 export const add = (
   type: ContentItemType,
-  props: {
-    text?: string,
-  },
+  props: t.ActionPayloadProps,
 ): t.AddAction => {
   return {
     type: t.ADD,
@@ -118,32 +97,17 @@ export const add = (
   };
 };
 
-export const editPlainText = (
+export const edit = (
   id: Identifier,
-  text: ?string,
-): t.EditPlainTextAction => {
+  type: ContentItemType,
+  props: t.ActionPayloadProps,
+): t.EditAction => {
   return {
-    type: t.EDIT_PLAIN_TEXT,
+    type: t.EDIT,
     payload: {
       id,
-      text,
-    },
-  };
-};
-
-export const editMedia = (
-  id: Identifier,
-  src: ?string,
-  alt: ?string,
-  caption: ?string,
-): t.EditMediaAction => {
-  return {
-    type: t.EDIT_MEDIA,
-    payload: {
-      id,
-      src,
-      alt,
-      caption,
+      type,
+      props,
     },
   };
 };

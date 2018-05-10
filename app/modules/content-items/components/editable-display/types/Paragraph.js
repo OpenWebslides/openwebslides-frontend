@@ -5,7 +5,8 @@ import * as React from 'react';
 
 import type { Identifier } from 'types/model';
 
-import type { ParagraphContentItem } from '../../../model';
+import { contentItemTypes } from '../../../model';
+import type { ParagraphContentItem, ContentItemType } from '../../../model';
 
 import { passThroughProps } from '..';
 import DisplayBlockWrapper from '../DisplayBlockWrapper';
@@ -13,7 +14,7 @@ import EditableTextContent from '../EditableTextContent';
 
 type PassedProps = {
   contentItem: ParagraphContentItem,
-  onEditPlainText: (id: Identifier, text: string) => void,
+  onEditPlainText: (id: Identifier, type: ContentItemType, text: string) => void,
 };
 
 type Props = PassedProps;
@@ -29,7 +30,11 @@ const PureParagraph = (props: Props): React.Node => {
       <EditableTextContent
         multiline={true}
         initialText={contentItem.text}
-        onDeactivate={(text: string) => onEditPlainText(contentItem.id, text)}
+        onDeactivate={(text: string) => onEditPlainText(
+          contentItem.id,
+          contentItemTypes.PARAGRAPH,
+          text,
+        )}
       />
     </DisplayBlockWrapper>
   );

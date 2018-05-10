@@ -5,8 +5,7 @@ import type { ContentItem, ContentItemType } from './model';
 
 // Reducer actions
 export const ADD_TO_STATE: 'contentItems/ADD_TO_STATE' = 'contentItems/ADD_TO_STATE';
-export const EDIT_PLAIN_TEXT_IN_STATE: 'contentItems/EDIT_PLAIN_TEXT_IN_STATE' = 'contentItems/EDIT_PLAIN_TEXT_IN_STATE';
-export const EDIT_MEDIA_IN_STATE: 'contentItems/EDIT_MEDIA_IN_STATE' = 'contentItems/EDIT_MEDIA_IN_STATE';
+export const EDIT_IN_STATE: 'contentItems/EDIT_IN_STATE' = 'contentItems/EDIT_IN_STATE';
 // #TODO add actions for editing subItemIds, etc.
 export const REMOVE_FROM_STATE: 'contentItems/REMOVE_FROM_STATE' = 'contentItems/REMOVE_FROM_STATE';
 export const SET_IN_STATE: 'contentItems/SET_IN_STATE' = 'contentItems/SET_IN_STATE';
@@ -22,10 +21,15 @@ export const API_DELETE: 'contentItems/API_DELETE' = 'contentItems/API_DELETE';
 
 // Task saga actions
 export const ADD: 'contentItems/ADD' = 'contentItems/ADD';
-export const EDIT_PLAIN_TEXT: 'contentItems/EDIT_PLAIN_TEXT' = 'contentItems/EDIT_PLAIN_TEXT';
-export const EDIT_MEDIA: 'contentItems/EDIT_MEDIA' = 'contentItems/EDIT_MEDIA';
+export const EDIT: 'contentItems/EDIT' = 'contentItems/EDIT';
 export const MOVE: 'contentItems/MOVE' = 'contentItems/MOVE';
 export const REMOVE: 'contentItems/REMOVE' = 'contentItems/REMOVE';
+
+
+export type ActionPayloadProps = {
+  text?: string,
+  // #TODO support other contentItemTypes / props
+};
 
 
 export type AddToStateAction = {
@@ -33,27 +37,16 @@ export type AddToStateAction = {
   payload: {
     id: Identifier,
     type: ContentItemType,
-    props: {
-      text?: string,
-    },
+    props: ActionPayloadProps,
   },
 };
 
-export type EditPlainTextInStateAction = {
-  type: typeof EDIT_PLAIN_TEXT_IN_STATE,
+export type EditInStateAction = {
+  type: typeof EDIT_IN_STATE,
   payload: {
     id: Identifier,
-    text: ?string,
-  },
-};
-
-export type EditMediaInStateAction = {
-  type: typeof EDIT_MEDIA_IN_STATE,
-  payload: {
-    id: Identifier,
-    src: ?string,
-    alt: ?string,
-    caption: ?string,
+    type: ContentItemType,
+    props: ActionPayloadProps,
   },
 };
 
@@ -131,27 +124,16 @@ export type AddAction = {
   type: typeof ADD,
   payload: {
     type: ContentItemType,
-    props: {
-      text?: string,
-    },
+    props: ActionPayloadProps,
   },
 };
 
-export type EditPlainTextAction = {
-  type: typeof EDIT_PLAIN_TEXT,
+export type EditAction = {
+  type: typeof EDIT,
   payload: {
     id: Identifier,
-    text: ?string,
-  },
-};
-
-export type EditMediaAction = {
-  type: typeof EDIT_MEDIA,
-  payload: {
-    id: Identifier,
-    src: ?string,
-    alt: ?string,
-    caption: ?string,
+    type: ContentItemType,
+    props: ActionPayloadProps,
   },
 };
 
@@ -172,8 +154,7 @@ export type RemoveAction = {
 
 export type ReducerAction =
   | AddToStateAction
-  | EditPlainTextInStateAction
-  | EditMediaInStateAction
+  | EditInStateAction
   | RemoveFromStateAction
   | SetInStateAction
   | SetMultipleInStateAction;
@@ -188,7 +169,6 @@ export type ApiSagaAction =
 
 export type TaskSagaAction =
   | AddAction
-  | EditPlainTextAction
-  | EditMediaAction
+  | EditAction
   | MoveAction
   | RemoveAction;

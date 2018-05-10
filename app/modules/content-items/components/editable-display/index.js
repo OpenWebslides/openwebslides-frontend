@@ -8,9 +8,9 @@ import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
 import { contentItemTypes, subableContentItemTypes } from '../../model';
-import type { ContentItem, SubableContentItem } from '../../model';
+import type { ContentItem, SubableContentItem, ContentItemType } from '../../model';
 import { getById } from '../../selectors';
-import { editPlainText } from '../../actions';
+import { edit } from '../../actions';
 
 import Root from './types/Root';
 import Heading from './types/Heading';
@@ -47,7 +47,7 @@ type StateProps = {
 };
 
 type DispatchProps = {
-  onEditPlainText: (id: Identifier, text: string) => void,
+  onEditPlainText: (id: Identifier, type: ContentItemType, text: string) => void,
 };
 
 type Props = PassedProps & StateProps & DispatchProps;
@@ -72,9 +72,9 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
   return {
-    onEditPlainText: (id: Identifier, text: string): void => {
+    onEditPlainText: (id: Identifier, type: ContentItemType, text: string): void => {
       dispatch(
-        editPlainText(id, text),
+        edit(id, type, { text }),
       );
     },
   };

@@ -9,14 +9,12 @@ import * as t from './actionTypes';
 import {
   contentItemTypes,
   plainTextContentItemTypes,
-  mediaContentItemTypes,
   taggableContentItemTypes,
   subableContentItemTypes,
   containerContentItemTypes,
 } from './model';
 import type {
   BaseContentItem,
-  MediaContentItem,
   PlainTextContentItem,
   TaggableContentItem,
   SubableContentItem,
@@ -89,60 +87,28 @@ const addToState = (
   };
 };
 
-const editPlainTextInState = (
+const editInState = (
   state: ContentItemsState,
-  action: t.EditPlainTextInStateAction,
+  action: t.EditInStateAction,
 ): ContentItemsState => {
-  const { id, text } = action.payload;
-  // eslint-disable-next-line flowtype/no-weak-types
-  let editedContentItem: PlainTextContentItem = (state.byId[id]: any);
+  const { id, type, props } = action.payload;
+  const contentItemToEdit = state.byId[id];
 
-  if (editedContentItem == null) {
+  if (contentItemToEdit == null) {
     throw new Error(`ContentItem with id "${id}" could not be found.`);
   }
-  else if (!_.includes(plainTextContentItemTypes, editedContentItem.type)) {
-    throw new Error(`ContentItem with id "${id}" is not a plainText contentItem. Its type is "${editedContentItem.type}".`);
+
+  if (contentItemToEdit.type !== type) {
+    throw new Error(`The contentItem's type does not match the type passed in the action. The contentItem's type was: "${contentItemToEdit.type}". The type passed in the action was: "${type}".`);
   }
 
-  if (text === null) throw new Error(`"text" prop cannot be NULL.`);
-  else if (text !== undefined) editedContentItem = { ...editedContentItem, text };
+  const editedContentItem: any = { ...contentItemToEdit };
 
-  if (editedContentItem === state.byId[id]) {
-    return state;
-  }
-  else {
-    return {
-      ...state,
-      byId: {
-        ...state.byId,
-        [id]: editedContentItem,
-      },
-    };
-  }
-};
-
-const editMediaInState = (
-  state: ContentItemsState,
-  action: t.EditMediaInStateAction,
-): ContentItemsState => {
-  const { id, src, alt, caption } = action.payload;
-  // eslint-disable-next-line flowtype/no-weak-types
-  let editedContentItem: MediaContentItem = (state.byId[id]: any);
-
-  if (editedContentItem == null) {
-    throw new Error(`ContentItem with id "${id}" could not be found.`);
-  }
-  else if (!_.includes(mediaContentItemTypes, editedContentItem.type)) {
-    throw new Error(`ContentItem with id "${id}" is not a media contentItem. Its type is "${editedContentItem.type}".`);
+  if (_.includes(plainTextContentItemTypes, type)) {
+    if (props.text != null) (editedContentItem: PlainTextContentItem).text = props.text;
   }
 
-  if (src === null) throw new Error(`"src" prop cannot be NULL.`);
-  else if (src !== undefined) editedContentItem = { ...editedContentItem, src };
-  if (alt === null) throw new Error(`"alt" prop cannot be NULL.`);
-  else if (alt !== undefined) editedContentItem = { ...editedContentItem, alt };
-  if (caption !== undefined) editedContentItem = { ...editedContentItem, caption };
-
-  if (editedContentItem === state.byId[id]) {
+  if (_.isEqual(editedContentItem, contentItemToEdit)) {
     return state;
   }
   else {
@@ -187,10 +153,8 @@ const reducer = (
   switch (action.type) {
     case t.ADD_TO_STATE:
       return addToState(state, action);
-    case t.EDIT_PLAIN_TEXT_IN_STATE:
-      return editPlainTextInState(state, action);
-    case t.EDIT_MEDIA_IN_STATE:
-      return editMediaInState(state, action);
+    case t.EDIT_IN_STATE:
+      return editInState(state, action);
     case t.REMOVE_FROM_STATE:
       return removeFromState(state, action);
     case t.SET_IN_STATE:

@@ -4,8 +4,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 
 import taskSaga from '..';
 import addSaga from '../add';
-import editPlainTextSaga from '../editPlainText';
-import editMediaSaga from '../editMedia';
+import editSaga from '../edit';
 import moveSaga from '../move';
 import removeSaga from '../remove';
 
@@ -19,15 +18,9 @@ describe(`taskSaga`, (): void => {
       .silentRun();
   });
 
-  it(`takes every EDIT_PLAIN_TEXT action and forks editPlainTextSaga`, (): void => {
+  it(`takes every EDITaction and forks editSaga`, (): void => {
     return expectSaga(taskSaga)
-      .take(t.EDIT_PLAIN_TEXT, editPlainTextSaga)
-      .silentRun();
-  });
-
-  it(`takes every EDIT_MEDIA action and forks editMediaSaga`, (): void => {
-    return expectSaga(taskSaga)
-      .take(t.EDIT_MEDIA, editMediaSaga)
+      .take(t.EDIT, editSaga)
       .silentRun();
   });
 
