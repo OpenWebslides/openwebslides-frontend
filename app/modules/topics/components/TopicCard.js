@@ -8,6 +8,7 @@ import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
+import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import { getById } from '../selectors';
 import type { Topic } from '../model';
@@ -35,7 +36,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const topic = getById(state, { id: props.topicId });
 
   if (topic == null) {
-    throw new Error(`Topic with id "${props.topicId}" could not be found.`);
+    throw new ObjectNotFoundError('topics:topic', props.topicId);
   }
 
   return {
