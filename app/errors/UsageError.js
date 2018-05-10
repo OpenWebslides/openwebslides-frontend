@@ -3,7 +3,7 @@
  * An error caused by a user taking an invalid action.
  */
 
-import CustomError from '../CustomError';
+import CustomError from './CustomError';
 
 class UsageError extends CustomError {
   constructor(message: string): void {
