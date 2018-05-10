@@ -1,5 +1,5 @@
-// flow-typed signature: a56215e90c2cb9a5f9e106edd857208f
-// flow-typed version: 057d3e81b5/moment_v2.3.x/flow_>=v0.34.x
+// flow-typed signature: 5b8275c24b6fbd6b0d7c78bb212b0202
+// flow-typed version: 886cf7c002/moment_v2.3.x/flow_>=v0.63.x
 
 type moment$MomentOptions = {
   y?: number | string,
@@ -263,7 +263,9 @@ declare class moment$Moment {
   toDate(): Date,
   toArray(): Array<number>,
   toJSON(): string,
-  toISOString(): string,
+  toISOString(
+    keepOffset?: boolean
+  ): string,
   toObject(): moment$MomentObject,
   isBefore(
     date?: moment$Moment | string | number | Date | Array<number>,

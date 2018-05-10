@@ -1,4 +1,4 @@
-// flow-typed signature: 377c73166b75ba211a2289a41436c193
+// flow-typed signature: 8fea2b616894851fce2d31390fb0656d
 // flow-typed version: 2132a22c83/react-color_v2.x.x/flow_>=v0.56.x
 
 declare module "react-color" {
