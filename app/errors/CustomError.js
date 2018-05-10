@@ -6,16 +6,20 @@
  * subfolder, since that makes it easier for future developers to understand the error hierarchy.)
  */
 
+import i18next from 'config/i18next';
+
 class CustomError extends Error {
   /**
-   * TRUE if the passed error message is a translator key;
-   * FALSE if the passed error message contains the literal error text.
+   * @param message         The error message
+   * @param isTranslatable  TRUE if `message` is a translator key, FALSE if not.
    */
-  isTranslatable: boolean;
-
   constructor(message: string, isTranslatable: boolean): void {
-    super(message);
-    this.isTranslatable = isTranslatable;
+    let newMessage: string;
+
+    if (isTranslatable) newMessage = i18next.t(message);
+    else newMessage = message;
+
+    super(newMessage);
   }
 }
 
