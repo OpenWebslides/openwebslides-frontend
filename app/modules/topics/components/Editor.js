@@ -6,6 +6,8 @@ import type { CustomTranslatorProps } from 'types/translator';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import FlashMessages from 'core-components/flash/FlashMessages';
+
 import { Button, Header } from 'semantic-ui-react';
 
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
@@ -70,6 +72,8 @@ const PureEditor = (props: Props): React.Node => {
   return (
     <div>
       <Header as="h1">{topic.title}</Header>
+
+      <FlashMessages />
 
       <p>
         <Button primary={true} onClick={() => onSaveButtonClick(topic.id)}>
