@@ -70,6 +70,10 @@
     // `max-len` already takes care of too many object props on a single line.
     "object-curly-newline": "off",
 
+    // Flow currently does not support typing destructured objects.
+    // See https://github.com/facebook/flow/issues/235 #TODO
+    "prefer-destructuring": "off",
+
     // Require quotes around numbers used as props,
     // for compatibility with external libraries which may not support unquoted numbers (e.g. i18next).
     "quote-props": [

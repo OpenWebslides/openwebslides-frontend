@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import { Segment } from 'semantic-ui-react';
@@ -23,7 +24,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const topic = getById(state, { id: props.topicId });
 
   if (topic == null) {
-    throw new Error(`Topic with id "${props.topicId}" could not be found.`);
+    throw new ObjectNotFoundError('topics:topic', props.topicId);
   }
 
   return {
