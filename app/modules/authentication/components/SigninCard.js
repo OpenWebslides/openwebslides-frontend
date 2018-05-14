@@ -16,7 +16,7 @@ const PureSigninCard = (props: Props): React.Node => {
 
   return (
     <Card fluid={true}>
-      <Card.Content extra={true}>
+      <Card.Content>
         <Card.Header>
           {t('auth:signin.title')}
         </Card.Header>
@@ -27,7 +27,7 @@ const PureSigninCard = (props: Props): React.Node => {
       <Card.Content>
         <SigninForm />
       </Card.Content>
-      <Card.Content extra={true}>
+      <Card.Content>
         <Button secondary={true} fluid={true} as={Link} to="/auth/reset">
           {t('auth:button.forgot')}
         </Button>

@@ -84,9 +84,8 @@ class PureTopicCard extends React.Component<Props, LocalState> {
     return (
       <React.Fragment>
         <Card raised={true}>
-          <Card.Content header={topic.title} />
-          <Card.Content description={topic.description || `(${t('topics:noDescription')})`} />
-          <Card.Content>
+          <Card.Content header={topic.title} description={topic.description || `(${t('topics:noDescription')})`} />
+          <Card.Content extra={true}>
             <Link to={{
               pathname: `/editor/${topicId}`,
             }}
@@ -114,10 +113,10 @@ class PureTopicCard extends React.Component<Props, LocalState> {
             <p>Are you sure you want to delete this topic?</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button negative={true} onClick={this.no}>
-            No
+            <Button primary={true} onClick={this.no}>
+            Cancel
             </Button>
-            <Button positive={true} icon="checkmark" labelPosition="right" content="Yes" onClick={() => this.yes(topicId)} />
+            <Button secondary={true} icon="trash" labelPosition="left" content="Delete" onClick={() => this.yes(topicId)} />
           </Modal.Actions>
         </Modal>
       </React.Fragment>

@@ -36,7 +36,9 @@ const PureLibraryPage = (props: Props): React.Node => {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <CardCollection />
+          <Grid.Column width={16}>
+            <CardCollection />
+          </Grid.Column>
         </Grid.Row>
       </Grid>
     </AuthenticatedPage>
