@@ -11,7 +11,7 @@ import { isPending } from '../selectors';
 
 type PassedProps = {
   children?: React.Node,
-  request: string,
+  request: string | Array<string>,
 };
 
 type StateProps = {
@@ -21,8 +21,14 @@ type StateProps = {
 type Props = CustomTranslatorProps & PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  let active: boolean = false;
+
+  [].concat(props.request).forEach((req: string): void => {
+    active = active || isPending(state, { request: req });
+  });
+
   return {
-    active: isPending(state, { request: props.request }),
+    active,
   };
 };
 
