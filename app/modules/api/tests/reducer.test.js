@@ -7,11 +7,8 @@ import { statusTypes } from '../model';
 describe(`reducer`, (): void => {
 
   it(`returns the initial state, when state parameter is undefined`, (): void => {
-    const dummyAction = {
-      type: t.SET_STATUS_IN_STATE_ERROR,
-      error: {
-        message: `Flow will complain if the passed action isn't some kind of valid ApiAction.`,
-      },
+    const dummyAction: any = {
+      type: 'DUMMY_ACTION',
     };
 
     expect(reducer(undefined, dummyAction)).toEqual({});

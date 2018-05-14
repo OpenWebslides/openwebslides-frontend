@@ -2,6 +2,8 @@
 
 import _ from 'lodash';
 
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+
 import * as t from './actionTypes';
 
 import type { StatusType } from './model';
@@ -11,16 +13,11 @@ export const setStatusInState = (
   request: string,
   status: StatusType,
   error?: Error,
-): t.SetStatusInStateAction | t.SetStatusInStateErrorAction => {
+): t.SetStatusInStateAction => {
   const newRequest = _.trim(request);
 
   if (newRequest === '') {
-    return {
-      type: t.SET_STATUS_IN_STATE_ERROR,
-      error: {
-        message: 'Request cannot be empty.',
-      },
-    };
+    throw new InvalidArgumentError(`Request cannot be empty`);
   }
 
   return {

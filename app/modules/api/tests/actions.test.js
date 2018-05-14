@@ -21,10 +21,8 @@ describe(`actions`, (): void => {
       });
     });
 
-    it(`returns a SET_STATUS_ERROR action, when no request given`, (): void => {
-      const generatedAction: t.ApiAction = actions.setStatusInState('', statusTypes.FAILURE);
-
-      expect(generatedAction.type).toEqual(t.SET_STATUS_IN_STATE_ERROR);
+    it(`throws an error, when no request given`, (): void => {
+      expect(() => actions.setStatusInState('', statusTypes.FAILURE)).toThrow();
     });
 
   });

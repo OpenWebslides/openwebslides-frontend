@@ -21,8 +21,6 @@ const reducer = (state: ApiState = initialState, action: t.ApiAction): ApiState 
   switch (action.type) {
     case t.SET_STATUS_IN_STATE:
       return setStatus(state, action);
-    case t.SET_STATUS_IN_STATE_ERROR:
-      return state;
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled
       // eslint-disable-next-line no-unused-expressions

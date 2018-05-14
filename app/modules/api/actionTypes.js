@@ -8,7 +8,6 @@ import type { StatusType } from './model';
 
 // Reducer actions
 export const SET_STATUS_IN_STATE: 'api/SET_STATUS_IN_STATE_IN_STATE' = 'api/SET_STATUS_IN_STATE_IN_STATE';
-export const SET_STATUS_IN_STATE_ERROR: 'api/SET_STATUS_IN_STATE_ERROR' = 'api/SET_STATUS_IN_STATE_ERROR';
 
 /* Action types */
 
@@ -22,11 +21,5 @@ export type SetStatusInStateAction = {
   },
 };
 
-export type SetStatusInStateErrorAction = {
-  type: typeof SET_STATUS_IN_STATE_ERROR,
-  error: Error,
-};
-
 export type ApiAction =
-  | SetStatusInStateAction
-  | SetStatusInStateErrorAction;
+  | SetStatusInStateAction;
