@@ -7,7 +7,7 @@ import type { StatusType } from './model';
 /* Action constants */
 
 // Reducer actions
-export const SET_STATUS_IN_STATE: 'api/SET_STATUS_IN_STATE_IN_STATE' = 'api/SET_STATUS_IN_STATE_IN_STATE';
+export const SET_STATUS_IN_STATE: 'api/SET_STATUS_IN_STATE' = 'api/SET_STATUS_IN_STATE';
 
 /* Action types */
 
