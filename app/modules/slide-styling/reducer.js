@@ -37,8 +37,8 @@ const editContentTypeColorInState = (
   if (editedSlideStyling == null) {
     throw new Error(`ContentItem with id "${id}" could not be found.`);
   }
-
-  let { rules }: SlideStylingRules = state.byId[id].rules;
+  // eslint-disable-next-line prefer-destructuring
+  let rules: SlideStylingRules = state.byId[id].rules;
 
   if (newColor != null) {
     rules = { ...rules, [contentItemType]: { color: newColor } };

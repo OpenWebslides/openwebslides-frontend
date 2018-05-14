@@ -46,6 +46,14 @@ describe('reducer', (): void => {
         payload: {
           id: dummyId,
           userId: dummyUserId,
+          rules: {
+            [contentItemTypes.HEADING]: {
+              color: '#000000',
+            },
+            [contentItemTypes.PARAGRAPH]: {
+              color: '#000000',
+            },
+          },
         },
       };
       const nextState: SlideStylingState = {
