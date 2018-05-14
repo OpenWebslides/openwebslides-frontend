@@ -6,7 +6,8 @@
     margin: 1.5em 0 !important;
 }
 
-.ui.card > .content:last-child {
+.ui.card > .content.cardAccent {
     background-color: #e2e2e2;
     flex-grow: unset;
 }
+
