@@ -18,7 +18,7 @@ const PureNewTopicPage = (props: Props): React.Node => {
 
   return (
     <AuthenticatedPage>
-      <h1>{t('global:createNewTopic')}</h1>
+      <h1>{t('global:title.createNewTopic')}</h1>
       <NewTopicCard />
     </AuthenticatedPage>
   );

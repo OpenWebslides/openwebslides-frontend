@@ -7,18 +7,16 @@ import editor from './namespaces/editor';
 import global from './namespaces/global';
 import feed from './namespaces/feed';
 import flash from './namespaces/flash';
-import users from './namespaces/users';
 import topics from './namespaces/topics';
 
 const index = {
   authentication,
   common,
-  errors,
   editor,
-  global,
+  errors,
   feed,
   flash,
-  users,
+  global,
   topics,
 };
 

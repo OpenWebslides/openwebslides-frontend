@@ -60,7 +60,7 @@ const PureAccountMenu = (props: Props): React.Node => {
   return (
     <React.Fragment>
       <Menu.Item as={Link} to="/library">
-        {t('global:library')}
+        {t('global:title.library')}
       </Menu.Item>
 
       <Menu.Item as={Link} to="#">
@@ -69,8 +69,8 @@ const PureAccountMenu = (props: Props): React.Node => {
 
       <Dropdown text={displayName} pointing={true} className="item">
         <Dropdown.Menu>
-          <Dropdown.Header>{t('global:account')}</Dropdown.Header>
-          <Dropdown.Item as={Link} to="/profile">{t('global:users.profile')}</Dropdown.Item>
+          <Dropdown.Header>{t('global:navbar.account')}</Dropdown.Header>
+          <Dropdown.Item as={Link} to="/profile">{t('global:navbar.preferences')}</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={handleSignout}>
             {t('authentication:button.signout')}

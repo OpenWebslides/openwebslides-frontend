@@ -22,7 +22,7 @@ const PureHomePage = (props: Props): React.Node => {
       <Grid.Row>
         <Grid padded="vertically">
           <Grid.Column>
-            <h1>{t('global:home.recentActivity')}</h1>
+            <h1>{t('global:title.recentActivity')}</h1>
             <SocialFeed />
           </Grid.Column>
         </Grid>

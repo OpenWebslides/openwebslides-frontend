@@ -1,7 +1,7 @@
 // @flow
 /**
- * Defines routes for the various global of the app.
- * Note: global & other components can define their own sub-routes, which are not included here.
+ * Defines routes for the various pages of the app.
+ * Note: pages & other components can define their own sub-routes, which are not included here.
  *
  * Docs: https://reacttraining.com/react-router/web/guides/basic-components
  */

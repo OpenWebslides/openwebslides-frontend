@@ -2,17 +2,17 @@
 
 const global = {
   openwebslides: 'Open Webslides',
-  home: {
+  navbar: {
+    account: 'Account',
+    preferences: 'Preferences',
+  },
+  title: {
+    library: 'Library',
+    createNewTopic: 'Create new topic',
+    profile: 'Profile',
+    topics: 'Topics',
     recentActivity: 'Recent activity',
   },
-  library: 'Library',
-  createNewTopic: 'Create new topic',
-  profile: 'Profile',
-  users: {
-    profile: 'Preferences',
-  },
-  account: 'Account',
-  topics: 'Topics',
 };
 
 export default global;
