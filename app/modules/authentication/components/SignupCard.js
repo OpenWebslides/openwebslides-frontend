@@ -15,7 +15,7 @@ const PureSignupCard = (props: Props): React.Node => {
 
   return (
     <Card fluid={true}>
-      <Card.Content extra={true}>
+      <Card.Content>
         <Card.Header>
           {t('auth:signup.title')}
         </Card.Header>

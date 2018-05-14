@@ -15,7 +15,7 @@ const PureConfirmCard = (props: Props): React.Node => {
 
   return (
     <Card fluid={true}>
-      <Card.Content extra={true}>
+      <Card.Content>
         <Card.Header>
           {t('auth:confirm.title')}
         </Card.Header>

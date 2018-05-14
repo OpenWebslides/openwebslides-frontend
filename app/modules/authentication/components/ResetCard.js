@@ -15,7 +15,7 @@ const PureResetCard = (props: Props): React.Node => {
 
   return (
     <Card fluid={true}>
-      <Card.Content extra={true}>
+      <Card.Content>
         <Card.Header>
           {t('auth:reset.title')}
         </Card.Header>
