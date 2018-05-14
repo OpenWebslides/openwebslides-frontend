@@ -10,12 +10,12 @@ const getModule = (state: State): ApiState => {
   return state.modules.api;
 };
 
-const getRequest = (state: State, request: string): RequestStatus => {
-  return getModule(state)[request];
+const getRequest = (state: State, props: { request: string }): RequestStatus => {
+  return getModule(state)[props.request];
 };
 
-export const isPending = (state: State, request: string): boolean => {
-  const req = getRequest(state, request);
+export const isPending = (state: State, props: { request: string }): boolean => {
+  const req = getRequest(state, props);
 
   if (!req) {
     return false;
@@ -24,8 +24,8 @@ export const isPending = (state: State, request: string): boolean => {
   return req.status === statusTypes.PENDING;
 };
 
-export const isSuccess = (state: State, request: string): boolean => {
-  const req = getRequest(state, request);
+export const isSuccess = (state: State, props: { request: string }): boolean => {
+  const req = getRequest(state, props);
 
   if (!req) {
     return false;
@@ -34,8 +34,8 @@ export const isSuccess = (state: State, request: string): boolean => {
   return req.status === statusTypes.SUCCESS;
 };
 
-export const isFailure = (state: State, request: string): boolean => {
-  const req = getRequest(state, request);
+export const isFailure = (state: State, props: { request: string }): boolean => {
+  const req = getRequest(state, props);
 
   if (!req) {
     return false;
@@ -44,8 +44,8 @@ export const isFailure = (state: State, request: string): boolean => {
   return req.status === statusTypes.FAILURE;
 };
 
-export const getError = (state: State, request: string): ?Error => {
-  const req = getRequest(state, request);
+export const getError = (state: State, props: { request: string }): ?Error => {
+  const req = getRequest(state, props);
 
   if (!req) {
     return null;

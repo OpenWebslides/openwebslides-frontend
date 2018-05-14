@@ -20,7 +20,7 @@ type Props = PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   return {
-    active: isPending(state, props.request),
+    active: isPending(state, { request: props.request }),
   };
 };
 const PureApiDimmer = (props: Props): React.Node => {

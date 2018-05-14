@@ -34,62 +34,62 @@ describe(`selectors`, (): void => {
 
   describe(`isPending`, (): void => {
     it(`returns true on pending request`, (): void => {
-      expect(isPending(dummyState, 'dummy1')).toEqual(true);
+      expect(isPending(dummyState, { request: 'dummy1' })).toEqual(true);
     });
 
     it(`returns false on finished request`, (): void => {
-      expect(isPending(dummyState, 'dummy2')).toEqual(false);
-      expect(isPending(dummyState, 'dummy3')).toEqual(false);
+      expect(isPending(dummyState, { request: 'dummy2' })).toEqual(false);
+      expect(isPending(dummyState, { request: 'dummy3' })).toEqual(false);
     });
 
     it(`returns false on non-existant request`, (): void => {
-      expect(isPending(dummyState, 'dummy0')).toEqual(false);
+      expect(isPending(dummyState, { request: 'dummy0' })).toEqual(false);
     });
   });
 
   describe(`isSuccess`, (): void => {
     it(`returns true on success request`, (): void => {
-      expect(isSuccess(dummyState, 'dummy2')).toEqual(true);
+      expect(isSuccess(dummyState, { request: 'dummy2' })).toEqual(true);
     });
 
     it(`returns false on failure or pending request`, (): void => {
-      expect(isSuccess(dummyState, 'dummy1')).toEqual(false);
-      expect(isSuccess(dummyState, 'dummy3')).toEqual(false);
+      expect(isSuccess(dummyState, { request: 'dummy1' })).toEqual(false);
+      expect(isSuccess(dummyState, { request: 'dummy3' })).toEqual(false);
     });
 
     it(`returns false on non-existant request`, (): void => {
-      expect(isSuccess(dummyState, 'dummy0')).toEqual(false);
+      expect(isSuccess(dummyState, { request: 'dummy0' })).toEqual(false);
     });
   });
 
   describe(`isFailure`, (): void => {
     it(`returns true on failure request`, (): void => {
-      expect(isFailure(dummyState, 'dummy3')).toEqual(true);
+      expect(isFailure(dummyState, { request: 'dummy3' })).toEqual(true);
     });
 
     it(`returns false on success or pending request`, (): void => {
-      expect(isFailure(dummyState, 'dummy1')).toEqual(false);
-      expect(isFailure(dummyState, 'dummy2')).toEqual(false);
+      expect(isFailure(dummyState, { request: 'dummy1' })).toEqual(false);
+      expect(isFailure(dummyState, { request: 'dummy2' })).toEqual(false);
     });
 
     it(`returns false on non-existant request`, (): void => {
-      expect(isFailure(dummyState, 'dummy0')).toEqual(false);
+      expect(isFailure(dummyState, { request: 'dummy0' })).toEqual(false);
     });
   });
 
   describe(`getError`, (): void => {
     it(`returns error on error request`, (): void => {
-      expect(getError(dummyState, 'dummy4')).toEqual({ message: 'errormessage' });
+      expect(getError(dummyState, { request: 'dummy4' })).toEqual({ message: 'errormessage' });
     });
 
     it(`returns null on other request`, (): void => {
-      expect(getError(dummyState, 'dummy1')).toEqual(null);
-      expect(getError(dummyState, 'dummy2')).toEqual(null);
-      expect(getError(dummyState, 'dummy3')).toEqual(null);
+      expect(getError(dummyState, { request: 'dummy1' })).toEqual(null);
+      expect(getError(dummyState, { request: 'dummy2' })).toEqual(null);
+      expect(getError(dummyState, { request: 'dummy3' })).toEqual(null);
     });
 
     it(`returns null on non-existant request`, (): void => {
-      expect(getError(dummyState, 'dummy0')).toEqual(null);
+      expect(getError(dummyState, { request: 'dummy0' })).toEqual(null);
     });
   });
 });
