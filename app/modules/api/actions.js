@@ -11,12 +11,12 @@ export const setStatusInState = (
   request: string,
   status: StatusType,
   error?: Error,
-): t.SetStatusAction | t.SetStatusErrorAction => {
+): t.SetStatusInStateAction | t.SetStatusInStateErrorAction => {
   const newRequest = _.trim(request);
 
   if (newRequest === '') {
     return {
-      type: t.SET_STATUS_ERROR,
+      type: t.SET_STATUS_IN_STATE_ERROR,
       error: {
         message: 'Request cannot be empty.',
       },
@@ -24,7 +24,7 @@ export const setStatusInState = (
   }
 
   return {
-    type: t.SET_STATUS,
+    type: t.SET_STATUS_IN_STATE,
     payload: {
       request,
       status,

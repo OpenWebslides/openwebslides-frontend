@@ -5,7 +5,7 @@ import * as t from './actionTypes';
 
 const initialState: ApiState = {};
 
-const setStatus = (state: ApiState, action: t.SetStatusAction): ApiState => {
+const setStatus = (state: ApiState, action: t.SetStatusInStateAction): ApiState => {
   const { request, status, error } = action.payload;
 
   return {
@@ -19,9 +19,9 @@ const setStatus = (state: ApiState, action: t.SetStatusAction): ApiState => {
 
 const reducer = (state: ApiState = initialState, action: t.ApiAction): ApiState => {
   switch (action.type) {
-    case t.SET_STATUS:
+    case t.SET_STATUS_IN_STATE:
       return setStatus(state, action);
-    case t.SET_STATUS_ERROR:
+    case t.SET_STATUS_IN_STATE_ERROR:
       return state;
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled

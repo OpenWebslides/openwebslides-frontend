@@ -8,7 +8,7 @@ describe(`reducer`, (): void => {
 
   it(`returns the initial state, when state parameter is undefined`, (): void => {
     const dummyAction = {
-      type: t.SET_STATUS_ERROR,
+      type: t.SET_STATUS_IN_STATE_ERROR,
       error: {
         message: `Flow will complain if the passed action isn't some kind of valid ApiAction.`,
       },
@@ -21,7 +21,7 @@ describe(`reducer`, (): void => {
     const prevState = {};
 
     const setStatusAction = {
-      type: t.SET_STATUS,
+      type: t.SET_STATUS_IN_STATE,
       payload: {
         request: 'foobar',
         status: statusTypes.SUCCESS,
@@ -45,7 +45,7 @@ describe(`reducer`, (): void => {
     };
 
     const setStatusAction = {
-      type: t.SET_STATUS,
+      type: t.SET_STATUS_IN_STATE,
       payload: {
         request: 'foobar',
         status: statusTypes.SUCCESS,

@@ -13,7 +13,7 @@ describe(`actions`, (): void => {
       const generatedAction: t.ApiAction = actions.setStatusInState('foobar', statusTypes.FAILURE);
 
       expect(generatedAction).toEqual({
-        type: t.SET_STATUS,
+        type: t.SET_STATUS_IN_STATE,
         payload: {
           request: 'foobar',
           status: statusTypes.FAILURE,
@@ -24,7 +24,7 @@ describe(`actions`, (): void => {
     it(`returns a SET_STATUS_ERROR action, when no request given`, (): void => {
       const generatedAction: t.ApiAction = actions.setStatusInState('', statusTypes.FAILURE);
 
-      expect(generatedAction.type).toEqual(t.SET_STATUS_ERROR);
+      expect(generatedAction.type).toEqual(t.SET_STATUS_IN_STATE_ERROR);
     });
 
   });
