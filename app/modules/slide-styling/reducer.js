@@ -1,8 +1,9 @@
 // @flow
 
 import * as t from './actionTypes';
-import type { SlideStyling, SlideStylingState } from './model';
+import type { SlideStyling, SlideStylingRules, SlideStylingState } from './model';
 import { dummySlideStylingById } from './dummyData';
+import { contentItemTypes } from '../content-items/model';
 
 const initialState: SlideStylingState = {
   byId: dummySlideStylingById,
@@ -13,24 +14,35 @@ const addToState = (state: SlideStylingState, action: t.AddToStateAction): Slide
     id,
   } = action.payload;
 
+  let newSlideStyling: SlideStyling = action.payload;
+
+  newSlideStyling = {
+    ...newSlideStyling, rules: { [contentItemTypes.HEADING]: { color: '#000000' }, [contentItemTypes.PARAGRAPH]: { color: '#000000' } },
+  };
   return {
     ...state,
     byId: {
       ...state.byId,
-      [id]: action.payload,
+      [id]: newSlideStyling,
     },
   };
 };
 
-const editInState = (
+const editContentTypeColorInState = (
   state: SlideStylingState,
   action: t.EditContentTypeColorAction): SlideStylingState => {
   const { id, contentItemType, newColor } = action.payload;
   let editedSlideStyling: SlideStyling = state.byId[id];
+
+  if (editedSlideStyling == null) {
+    throw new Error(`ContentItem with id "${id}" could not be found.`);
+  }
+
+  let { rules }: SlideStylingRules = state.byId[id].rules;
+
   if (newColor != null) {
-    editedSlideStyling = {
-      ...editedSlideStyling, rules: { [contentItemType]: { color: newColor } },
-    };
+    rules = { ...rules, [contentItemType]: { color: newColor } };
+    editedSlideStyling = { ...editedSlideStyling, rules };
   }
   return {
     ...state,
@@ -48,7 +60,7 @@ const reducer = (
     case t.ADD_TO_STATE:
       return addToState(state, action);
     case t.EDIT_CONTENTTYPE_COLOR_IN_STATE:
-      return editInState(state, action);
+      return editContentTypeColorInState(state, action);
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled
       // eslint-disable-next-line no-unused-expressions

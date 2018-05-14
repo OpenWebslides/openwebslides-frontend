@@ -2,10 +2,32 @@
 
 import { contentItemTypes } from 'modules/content-items';
 import * as t from '../actionTypes';
-import { editContentTypeColorInState } from '../actions';
+import { editContentTypeColorInState, addToState } from '../actions';
 
 
 describe('actions', (): void => {
+
+  describe('addToState', (): void => {
+    const dummyId = 'hijklmnopq';
+    const dummyUserID = 'qs1ds3qsz4';
+
+    const expectedAction: t.AddToStateAction = {
+      type: t.ADD_TO_STATE,
+      payload: {
+        id: dummyId,
+        userId: dummyUserID,
+        rules: {
+          [contentItemTypes.HEADING]: {
+            color: '#000000',
+          },
+          [contentItemTypes.PARAGRAPH]: {
+            color: '#000000',
+          },
+        },
+      },
+    };
+    expect(addToState(dummyId, dummyUserID)).toEqual(expectedAction);
+  });
 
   describe('editContentTypeColorInState', (): void => {
     const dummyId = 'hijklmnopq';

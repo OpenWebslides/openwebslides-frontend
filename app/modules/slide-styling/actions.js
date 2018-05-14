@@ -20,6 +20,9 @@ export const addToState = (
         [contentItemTypes.HEADING]: {
           color: '#000000',
         },
+        [contentItemTypes.PARAGRAPH]: {
+          color: '#000000',
+        },
       },
     },
   };

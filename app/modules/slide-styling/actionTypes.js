@@ -2,6 +2,7 @@
 
 import type { Identifier } from 'types/model';
 import type { ContentItemType } from 'modules/content-items';
+import type { SlideStylingRules } from './model';
 
 export const ADD_TO_STATE: 'slideStyling/ADD_TO_STATE' = 'slideStyling/ADD_TO_STATE';
 export const EDIT_CONTENTTYPE_COLOR_IN_STATE: 'slideStyling/EDIT_CONTENTTYPE_COLOR_IN_STATE' = 'slideStyling/EDIT_CONTENTTYPE_COLOR_IN_STATE';
@@ -12,6 +13,7 @@ export type AddToStateAction = {
   payload: {
     id: Identifier,
     userId: Identifier,
+    rules: SlideStylingRules,
   },
 };
 
