@@ -31,7 +31,9 @@ describe(`reducer`, (): void => {
       },
     };
 
-    expect(reducer(prevState, setStatusAction)).toEqual(nextState);
+    const resultState = reducer(prevState, setStatusAction);
+    expect(resultState).toEqual(nextState);
+    expect(resultState).not.toBe(prevState);
   });
 
   it(`handles api SET_STATUS action on existing state`, (): void => {
@@ -55,7 +57,9 @@ describe(`reducer`, (): void => {
       },
     };
 
-    expect(reducer(prevState, setStatusAction)).toEqual(nextState);
+    const resultState = reducer(prevState, setStatusAction);
+    expect(resultState).toEqual(nextState);
+    expect(resultState).not.toBe(prevState);
   });
 
 });
