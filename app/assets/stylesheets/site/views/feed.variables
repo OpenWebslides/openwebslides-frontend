@@ -1,3 +1,5 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+@eventBorderColor: rgba(0,0,0,0.2);

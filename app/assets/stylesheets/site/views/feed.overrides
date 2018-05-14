@@ -6,7 +6,7 @@
     margin: 1em 0;
     padding: 0.5em 0;
     width: 45%;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid @eventBorderColor;
 }
 
 .ui.feed > .event > .label + .content {
@@ -44,7 +44,7 @@
 }
 
 a.secondaryLink {
-    color: #737373;
+    color: @ows_secondary_color;
     margin-left: 5px;
 }
 
