@@ -1,6 +1,8 @@
 // @flow
 
-import type { UserType } from 'modules/users';
+import type { Token } from 'lib/api';
+
+import type { User } from 'modules/users';
 
 import type { Error } from 'types/error';
 
@@ -42,14 +44,14 @@ export type SetAccountAction = {
   type: typeof SET_ACCOUNT,
   // eslint-disable-next-line flowtype/no-weak-types
   payload: {
-    account: ?UserType,
+    account: ?User,
   },
 };
 
 export type SetTokenAction = {
   type: typeof SET_TOKEN,
   payload: {
-    token: ?string,
+    token: ?Token,
   },
 };
 

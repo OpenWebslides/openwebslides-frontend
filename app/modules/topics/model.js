@@ -10,7 +10,7 @@ export type Topic = {
   +id: Identifier,
   +userId: Identifier,
   +title: string,
-  +description: string,
+  +description: ?string,
   +rootContentItemId: Identifier,
 };
 

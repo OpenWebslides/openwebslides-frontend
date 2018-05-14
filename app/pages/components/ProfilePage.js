@@ -9,7 +9,7 @@ import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import type { CustomTranslatorProps } from 'types/translator';
 
-import type { UserType } from 'modules/users';
+import type { User } from 'modules/users';
 
 import users from 'modules/users';
 import authentication from 'modules/authentication';
@@ -24,7 +24,7 @@ type RouteProps = {
 };
 
 type StateProps = {
-  account: ?UserType,
+  account: ?User,
 };
 
 type PassedProps = {
@@ -39,7 +39,7 @@ const mapStateToProps = (state: State): StateProps => {
   // TODO: figure out what to do with /profile if no user is logged in
   /*
   if (account == null) {
-    throw new Error(`UserType is not logged in`);
+    throw new Error(`User is not logged in`);
   }
   */
 

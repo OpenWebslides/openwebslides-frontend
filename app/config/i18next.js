@@ -7,6 +7,7 @@
  * features such as automatic language detection can be added later.
  */
 
+import _ from 'lodash';
 import i18next from 'i18next';
 
 import en from 'i18n/en';
@@ -28,6 +29,18 @@ i18next.init({
   // Include translation files
   resources: {
     en,
+  },
+
+  interpolation: {
+    // Add custom formatting functions that can be used inside translator keys
+    // See https://www.i18next.com/translation-function/formatting
+    // eslint-disable-next-line no-unused-vars
+    format: (value: string, format: string, lng: string): string => {
+      if (format === 'uppercase') return value.toUpperCase();
+      if (format === 'lowercase') return value.toLowerCase();
+      if (format === 'upperFirst') return _.upperFirst(value);
+      return value;
+    },
   },
 });
 

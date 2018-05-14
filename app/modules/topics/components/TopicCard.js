@@ -2,20 +2,17 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import type { Dispatch } from 'redux';
-import { Card, Button } from 'semantic-ui-react';
+import { Card, Button, Modal } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
-import modals from 'modules/modals';
+import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import { getById } from '../selectors';
 import type { Topic } from '../model';
-
-const { showModal } = modals.actions;
-const { DELETE_TOPIC } = modals.constants;
+import { remove } from '../actions';
 
 type PassedProps = {
   topicId: Identifier,
@@ -29,13 +26,17 @@ type DispatchProps = {
   onRemoveButtonClick: (string) => void,
 };
 
+type LocalState = {
+  open: boolean,
+};
+
 type Props = CustomTranslatorProps & PassedProps & StateProps & DispatchProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const topic = getById(state, { id: props.topicId });
 
   if (topic == null) {
-    throw new Error(`Topic with id "${props.topicId}" could not be found.`);
+    throw new ObjectNotFoundError('topics:topic', props.topicId);
   }
 
   return {
@@ -47,42 +48,82 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     onRemoveButtonClick: (id: string): void => {
       dispatch(
-        showModal(DELETE_TOPIC, id),
+        remove(id),
       );
     },
   };
 };
 
-const PureTopicCard = (props: Props): React.Node => {
-  const {
-    t,
-    topic,
-    onRemoveButtonClick,
-  } = props;
+class PureTopicCard extends React.Component<Props, LocalState> {
+  state: LocalState = {
+    open: false,
+  };
 
-  const topicId = topic.id;
+  show = (): void => {
+    this.setState({ open: true });
+  };
 
-  return (
-    <Card raised={true}>
-      <Card.Content header={topic.title} />
-      <Card.Content description={topic.description || `(${t('topics:noDescription')})`} />
-      <Card.Content>
-        <Link to={{
-          pathname: `/editor/${topicId}`,
-        }}
-        >
-          <Button as="span" primary={true}>
-            Edit
-          </Button>
-        </Link>
+  no = (): void => {
+    this.setState({ open: false });
+  };
 
-        <Button as="span" secondary={true} floated="right" onClick={() => onRemoveButtonClick(topicId)}>
-          {t('common:button.delete')}
-        </Button>
-      </Card.Content>
-    </Card>
-  );
-};
+  yes = (topicId: Identifier): void => {
+    this.setState({ open: false });
+    this.props.onRemoveButtonClick(topicId);
+  };
+
+  render = (): React.Node => {
+    const { open } = this.state;
+    const {
+      t,
+      topic,
+    } = this.props;
+
+    const topicId = topic.id;
+
+    return (
+      <React.Fragment>
+        <Card raised={true}>
+          <Card.Content header={topic.title} />
+          <Card.Content description={topic.description || `(${t('topics:noDescription')})`} />
+          <Card.Content>
+            <Link to={{
+              pathname: `/editor/${topicId}`,
+            }}
+            >
+              <Button as="span" primary={true}>
+                Edit
+              </Button>
+            </Link>
+
+            <Button
+              as="span"
+              secondary={true}
+              floated="right"
+              onClick={this.show}
+            >
+              {t('common:button.delete')}
+            </Button>
+          </Card.Content>
+        </Card>
+        <Modal size="tiny" open={open} onClose={this.no}>
+          <Modal.Header>
+            Delete this topic
+          </Modal.Header>
+          <Modal.Content>
+            <p>Are you sure you want to delete this topic?</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button negative={true} onClick={this.no}>
+            No
+            </Button>
+            <Button positive={true} icon="checkmark" labelPosition="right" content="Yes" onClick={() => this.yes(topicId)} />
+          </Modal.Actions>
+        </Modal>
+      </React.Fragment>
+    );
+  };
+}
 
 const TopicCard = connect(mapStateToProps, mapDispatchToProps)(translate()(PureTopicCard));
 

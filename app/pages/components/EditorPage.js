@@ -8,7 +8,7 @@ import type { Match } from 'react-router-dom';
 
 import topics from 'modules/topics';
 
-import Page from '../Page';
+import AuthenticatedPage from '../AuthenticatedPage';
 
 type RouteProps = {
   match: Match,
@@ -49,12 +49,12 @@ const DummyContent = (props: RouteProps): React.Node => {
 
 const PureEditorPage = (props: Props): React.Node => {
   return (
-    <Page>
+    <AuthenticatedPage>
       <Switch>
         <Route path={`${props.match.url}/:id`} component={TopicEditorForId} />
         <Route component={DummyContent} />
       </Switch>
-    </Page>
+    </AuthenticatedPage>
   );
 };
 

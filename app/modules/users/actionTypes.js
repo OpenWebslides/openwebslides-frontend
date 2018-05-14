@@ -2,11 +2,12 @@
 
 import type { Error } from 'types/error';
 import type { Identifier } from 'types/model';
-import type { UserType } from './model';
+import type { User } from './model';
 
 /* Action constants */
 
 // Reducer actions
+export const ADD_TO_STATE: 'users/ADD_TO_STATE' = 'users/ADD_TO_STATE';
 export const SET_ITEM_IN_STATE: 'users/SET_ITEM_IN_STATE' = 'users/SET_ITEM_IN_STATE';
 export const SET_ITEMS_IN_STATE: 'users/SET_ITEMS_IN_STATE' = 'users/SET_ITEMS_IN_STATE';
 
@@ -15,22 +16,32 @@ export const GET: 'users/GET' = 'users/GET';
 export const GET_ERROR: 'users/GET_ERROR' = 'users/GET_ERROR';
 
 // API saga actions
-export const API_GET_USERS: 'users/API_GET_USERS' = 'users/API_GET_USERS';
+export const API_GET_USER: 'users/API_GET_USER' = 'users/API_GET_USER';
 
 /* Action types */
 
 // Reducer actions
+export type AddToStateAction = {
+  type: typeof ADD_TO_STATE,
+  payload: {
+    id: Identifier,
+    firstName: string,
+    lastName: ?string,
+    email: ?string,
+  },
+};
+
 export type SetItemInStateAction = {
   type: typeof SET_ITEM_IN_STATE,
   payload: {
-    item: UserType,
+    item: User,
   },
 };
 
 export type SetItemsInStateAction = {
   type: typeof SET_ITEMS_IN_STATE,
   payload: {
-    items: Array<UserType>,
+    items: Array<User>,
   },
 };
 
@@ -48,13 +59,14 @@ export type GetErrorAction = {
 };
 
 // API saga actions
-export type ApiGetUsersAction = {
-  type: typeof API_GET_USERS,
+export type ApiGetUserAction = {
+  type: typeof API_GET_USER,
   payload: {
     id: Identifier,
   },
 };
 
 export type UsersAction =
+  | AddToStateAction
   | SetItemInStateAction
   | SetItemsInStateAction;

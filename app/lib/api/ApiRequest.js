@@ -7,6 +7,7 @@ import type {
   Request,
   Response,
   MethodType,
+  Token,
 } from './model';
 
 import { methodTypes } from './model';
@@ -22,6 +23,12 @@ const ApiRequest = (): Request => {
 
       // Request resource ID
       resource: null,
+
+      // Request nested endpoint
+      subEndpoint: null,
+
+      // Request nested endpoint resource ID
+      subResource: null,
 
       // Request headers
       headers: {
@@ -56,6 +63,23 @@ const ApiRequest = (): Request => {
       return request;
     },
 
+    setSubEndpoint: (subEndpoint: string): Request => {
+      if (subEndpoint.startsWith('/')) {
+        request.config.subEndpoint = subEndpoint;
+      }
+      else {
+        request.config.subEndpoint = `/${subEndpoint}`;
+      }
+
+      return request;
+    },
+
+    setSubResource: (id: string): Request => {
+      request.config.subResource = id;
+
+      return request;
+    },
+
     setParameter: (parameter: string, value: string): Request => {
       request.config.parameters[parameter] = value;
 
@@ -80,7 +104,7 @@ const ApiRequest = (): Request => {
       return request;
     },
 
-    setToken: (token: ?string): Request => {
+    setToken: (token: ?Token): Request => {
       if (token && token.length !== 0) {
         request.config.headers.Authorization = `Bearer ${token}`;
       }
@@ -101,6 +125,14 @@ const ApiRequest = (): Request => {
 
       if (request.config.resource) {
         url += `/${request.config.resource}`;
+
+        if (request.config.subEndpoint) {
+          url += `${request.config.subEndpoint}`;
+
+          if (request.config.subResource) {
+            url += `/${request.config.subResource}`;
+          }
+        }
       }
 
       if (Object.keys(request.config.parameters).length !== 0) {

@@ -5,24 +5,6 @@ import * as t from '../actionTypes';
 
 describe(`actions`, (): void => {
   describe(`reducer actions`, (): void => {
-    describe(`setItemInState`, (): void => {
-      it(`returns set item action`, (): void => {
-        const item = {
-          id: '1',
-          firstName: 'foo',
-        };
-
-        const action = actions.setItemInState(item);
-
-        expect(action).toEqual({
-          type: t.SET_ITEM_IN_STATE,
-          payload: {
-            item,
-          },
-        });
-      });
-    });
-
     describe(`setItemsInState`, (): void => {
       it(`returns set items action`, (): void => {
         const items = [{
@@ -60,10 +42,10 @@ describe(`actions`, (): void => {
   describe(`API saga actions`, (): void => {
     describe(`apiGetUsers`, (): void => {
       it(`returns get users action`, (): void => {
-        const action = actions.apiGetUsers('1');
+        const action = actions.apiGetUser('1');
 
         expect(action).toEqual({
-          type: t.API_GET_USERS,
+          type: t.API_GET_USER,
           payload: {
             id: '1',
           },

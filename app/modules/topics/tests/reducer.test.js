@@ -69,7 +69,7 @@ describe(`reducer`, (): void => {
     expect(reducer(prevState, addToStateAction)).toEqual(nextState);
   });
 
-  it(`handles topic EDIT action`, (): void => {
+  it(`handles topic EDIT_IN_STATE action`, (): void => {
     const prevState: TopicsState = {
       byId: {
         abcdefghij: {
@@ -81,8 +81,8 @@ describe(`reducer`, (): void => {
         },
       },
     };
-    const editAction: t.EditAction = {
-      type: t.EDIT,
+    const editAction: t.EditInStateAction = {
+      type: t.EDIT_IN_STATE,
       payload: {
         id: 'abcdefghij',
         title: 'Edited test topic',

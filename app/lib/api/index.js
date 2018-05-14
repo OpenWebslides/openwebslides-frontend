@@ -1,28 +1,29 @@
 // @flow
 
-import ApiRequest from './ApiRequest';
-
-import * as model from './model';
+import {
+  NotificationsApi,
+  UsersApi,
+  TopicsApi,
+  TokenApi,
+  PasswordApi,
+  ConfirmationApi,
+} from './apis';
 
 import type {
-  MethodType,
-  Headers,
-  Parameters,
-  RequestConfig,
-  Request,
+  Response,
+  Token,
 } from './model';
 
-const Api = {
-  ApiRequest,
-  model,
+export {
+  NotificationsApi,
+  UsersApi,
+  TopicsApi,
+  TokenApi,
+  PasswordApi,
+  ConfirmationApi,
 };
 
 export type {
-  MethodType,
-  Headers,
-  Parameters,
-  RequestConfig,
-  Request,
+  Response,
+  Token,
 };
-
-export default Api;
