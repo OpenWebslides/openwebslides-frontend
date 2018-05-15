@@ -1,18 +1,22 @@
 // @flow
 
 import * as React from 'react';
-import { Button, Icon } from 'semantic-ui-react';
+import { Rail, Icon } from 'semantic-ui-react';
 
 const PureSidebarMenu = (): React.Node => {
   return (
-    <React.Fragment>
-      <Button
-        as="span"
-        primary={true}
-      >
-        <Icon name="image" className="editor__sidemenu__icon" />
-      </Button>
-    </React.Fragment>
+    <Rail position="right" attached={true} className="editor__sidebarmenu">
+      <div className="editor__sidebarmenu__item">
+        <div className="editor__sidebarmenu__button">
+          <Icon name="info" className="editor__sidebarmenu__icon" />
+        </div>
+      </div>
+      <div className="editor__sidebarmenu__item">
+        <div className="editor__sidebarmenu__button">
+          <Icon name="image" className="editor__sidebarmenu__icon" />
+        </div>
+      </div>
+    </Rail>
   );
 };
 

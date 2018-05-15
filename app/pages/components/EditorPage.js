@@ -26,17 +26,20 @@ const TopicEditorForId = (props: RouteProps): React.Node => {
   const topicId = match.params.id;
 
   return (
-    <Grid>
-      <Grid.Column width={9}>
-        <TopicEditor topicId={topicId} />
-      </Grid.Column>
-      <Grid.Column className="editor__sidebar" width={6}>
-        <SidebarWrapper />
-      </Grid.Column>
-      <Grid.Column className="editor__sidemenu" width={1} >
-        <SidebarMenu />
-      </Grid.Column>
-    </Grid>
+    <React.Fragment>
+      <Grid>
+        <Grid.Column width={6}>
+          <TopicEditor topicId={topicId} />
+        </Grid.Column>
+        <Grid.Column className="editor__sidebar" width={5}>
+          <SidebarWrapper />
+        </Grid.Column>
+        <Grid.Column className="editor__sidebar" width={5}>
+          <SidebarWrapper />
+        </Grid.Column>
+      </Grid>
+      <SidebarMenu />
+    </React.Fragment>
   );
 };
 
