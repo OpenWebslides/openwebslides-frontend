@@ -65,7 +65,6 @@ export type SetInStateAction = {
   type: typeof SET_IN_STATE,
   payload: {
     contentItem: ContentItem,
-    // #TODO stub
   },
 };
 
@@ -73,10 +72,8 @@ export type SetMultipleInStateAction = {
   type: typeof SET_MULTIPLE_IN_STATE,
   payload: {
     contentItems: Array<ContentItem>,
-    // #TODO stub
   },
 };
-
 
 export type AddAction = {
   type: typeof ADD,
