@@ -6,12 +6,13 @@ import type { CustomTranslatorProps } from 'types/translator';
 import { Link, Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
-import SidebarMenu from 'core-components/sidebar/SidebarMenu';
-import SidebarWrapper from 'core-components/sidebar/SidebarWrapper';
+import sidebar from 'modules/sidebar';
 
 import topics from 'modules/topics';
 
 import AuthenticatedPage from '../AuthenticatedPage';
+
+const { SidebarMenu, SidebarWrapper } = sidebar.components;
 
 type RouteProps = {
   match: Match,

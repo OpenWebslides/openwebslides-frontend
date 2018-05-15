@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import SlideSidebar from 'core-components/sidebar/sidebars/SlideSidebar';
+import SlideSidebar from './sidebars/SlideSidebar';
 
 const PureSidebarWrapper = (): React.Node => {
   return (
