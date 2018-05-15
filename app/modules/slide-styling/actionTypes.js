@@ -29,7 +29,7 @@ export type EditContentTypeColorAction = {
 export type editBackgroundColorAction = {
   type: typeof EDIT_BACKGROUND_COLOR,
   payload: {
-    rootContentItemId: Identifier,
+    id: Identifier,
     color: string,
     // #TODO stub
   },

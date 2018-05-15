@@ -21,7 +21,6 @@ export const getAll = createSelector(
   },
 );
 
-// get color of components out of the object
 export const getById = (state: State, props: { id: Identifier }): SlideStyling => {
   return _.get(getAllById(state), props.id, null);
 };
@@ -29,7 +28,6 @@ export const getById = (state: State, props: { id: Identifier }): SlideStyling =
 export const getAllSlideStylingIdsByUserId = (
   state: State, userId: Identifier): Array<Identifier> => {
   const slideStylingById = getAllById(state);
-
   return (
     Object
       .keys(slideStylingById)

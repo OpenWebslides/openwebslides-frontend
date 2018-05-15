@@ -1,9 +1,10 @@
 // @flow
 
+import { contentItemTypes } from '../content-items/model';
 import * as t from './actionTypes';
 import type { SlideStyling, SlideStylingRules, SlideStylingState } from './model';
 import { dummySlideStylingById } from './dummyData';
-import { contentItemTypes } from '../content-items/model';
+
 
 const initialState: SlideStylingState = {
   byId: dummySlideStylingById,

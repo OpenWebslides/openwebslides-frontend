@@ -11,6 +11,7 @@ import type { CustomTranslatorProps } from 'types/translator';
 import type { State } from 'types/state';
 import contentItems, { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
+import slideStyling from 'modules/slide-styling';
 import Slide from 'core-components/slides/Slide';
 
 import VoicePlayerToggle from 'core-components/slides/VoicePlayerToggle';
@@ -53,6 +54,8 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
     contentItemTreeRootItem,
   };
 };
+
+const EditColorComponent = slideStyling.components.EditColorComponent;
 
 class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
   constructor(props: Props): void {
@@ -105,6 +108,7 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
     const { contentItemTreeRootItem } = this.props;
 
     let VoicePlayerToggleNode: typeof VoicePlayerToggle;
+
     if (this.state.toggle) {
       VoicePlayerToggleNode = (
         <VoicePlayerToggle
@@ -126,6 +130,7 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
             <Checkbox slider={true} onClick={this.toggleRead} checked={this.state.toggle} />
           </Segment>
         </div>
+        <EditColorComponent />
       </Page>
     );
   }
