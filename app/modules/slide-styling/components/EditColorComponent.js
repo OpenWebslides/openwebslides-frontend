@@ -21,6 +21,7 @@ type PassedProps = {
 type StateProps = {
   userId: Identifier,
   slideStyling: SlideStyling,
+  slideStylingId: Identifier,
 };
 
 type DispatchProps = {
@@ -34,18 +35,18 @@ const mapStateToProps = (state: State): StateProps => {
   const account = getAccount(state);
 
   const currentUser = account != null ? account.id : 'adkqmq5ds5';
-  console.log(`${currentUser}`);
 
   const slideStylingIds: Array<Identifier> = getAllSlideStylingIdsByUserId(state, currentUser);
 
   const slideStyling: SlideStyling = getById(state, { id: slideStylingIds[0] });
-  console.log(slideStyling.rules[contentItemTypes.HEADING]);
+  console.log(slideStylingIds[0]);
   if (slideStyling == null) {
     throw new Error(`ContentItem with id "${slideStylingIds[0]}" could not be found.`);
   }
   return {
     slideStyling,
     userId: currentUser,
+    slideStylingId: slideStylingIds[0],
   };
 };
 
@@ -61,28 +62,33 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
 };
 
 
-const PureColorPicker = (props: Props): React.Node => {
+const PureColorPicker = (props: Props, state: State): React.Node => {
+  const {
+    onEditContentTypeColorInState,
+    slideStyling,
+  } = props;
   // eslint-disable-next-line flowtype/require-parameter-type
   const editColorHeading = (color): void => {
     console.log(`${color.hex}`);
-    editContentTypeColorInState(props.slideStyling.id, contentItemTypes.HEADING, color.hex);
+    onEditContentTypeColorInState(slideStyling.id, contentItemTypes.HEADING, color.hex);
 
     console.log('na setten heading');
-    console.log(props.slideStyling);
+    console.log(slideStyling);
   };
   // eslint-disable-next-line flowtype/require-parameter-type
   const editColorParagraph = (color): void => {
     console.log(`${color.hex}`);
-    editContentTypeColorInState(props.slideStyling.id, contentItemTypes.PARAGRAPH, color.hex);
+    onEditContentTypeColorInState(slideStyling.id, contentItemTypes.PARAGRAPH, color.hex);
 
+    const newSlideStyling: SlideStyling = getById(state, { id: slideStyling.id });
     console.log('na setten paragraph');
-    console.log(props.slideStyling);
+    console.log(newSlideStyling);
   };
   const colors: Array<string> = ['#000000', '#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'];
   return (
     <div className="colorPicker">
-      <div className="ColorPickerHeading">
-        <text>Change heading color</text>
+      <div id="ColorPickerHeading">
+        <h6>Change heading color</h6>
         <TwitterPicker
           triangle="hide"
           colors={colors}
@@ -91,7 +97,7 @@ const PureColorPicker = (props: Props): React.Node => {
         />
       </div>
       <div className="ColorPickerParagraph">
-        <text>Change heading color</text>
+        <h6>Change heading color</h6>
         <TwitterPicker
           triangle="hide"
           colors={colors}

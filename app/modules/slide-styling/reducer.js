@@ -34,7 +34,6 @@ const editContentTypeColorInState = (
   action: t.EditContentTypeColorAction): SlideStylingState => {
   const { id, contentItemType, newColor } = action.payload;
   let editedSlideStyling: SlideStyling = state.byId[id];
-
   if (editedSlideStyling == null) {
     throw new Error(`ContentItem with id "${id}" could not be found.`);
   }
