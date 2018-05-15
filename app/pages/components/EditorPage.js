@@ -5,6 +5,9 @@ import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 import { Link, Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
+import { Grid } from 'semantic-ui-react';
+import SidebarMenu from 'core-components/sidebar/SidebarMenu';
+import SidebarWrapper from 'core-components/sidebar/SidebarWrapper';
 
 import topics from 'modules/topics';
 
@@ -22,14 +25,19 @@ const TopicEditorForId = (props: RouteProps): React.Node => {
   const { match } = props;
   const topicId = match.params.id;
 
-  if (topicId != null) {
-    return (
-      <TopicEditor topicId={topicId} />
-    );
-  }
-  else {
-    return null;
-  }
+  return (
+    <Grid>
+      <Grid.Column width={9}>
+        <TopicEditor topicId={topicId} />
+      </Grid.Column>
+      <Grid.Column className="editor__sidebar" width={6}>
+        <SidebarWrapper />
+      </Grid.Column>
+      <Grid.Column className="editor__sidemenu" width={1} >
+        <SidebarMenu />
+      </Grid.Column>
+    </Grid>
+  );
 };
 
 
