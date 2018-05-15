@@ -11,6 +11,7 @@ import { dummyContentItemsById } from '../dummyData';
 
 import addToState from './addToState';
 import editInState from './editInState';
+import setMultipleInState from './setMultipleInState';
 
 const initialState: ContentItemsState = {
   byId: dummyContentItemsById,
@@ -27,8 +28,9 @@ const reducer = (
       return editInState(state, action);
     case t.REMOVE_FROM_STATE:
     case t.SET_IN_STATE:
-    case t.SET_MULTIPLE_IN_STATE:
       throw new NotYetImplementedError();
+    case t.SET_MULTIPLE_IN_STATE:
+      return setMultipleInState(state, action);
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled
       // eslint-disable-next-line no-unused-expressions
