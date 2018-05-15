@@ -33,7 +33,6 @@ export const editContentTypeColorInState = (
   contentItemType: ContentItemType,
   newColor: string,
 ): t.EditContentTypeColorAction => {
-  console.log('editaction');
   return {
     type: t.EDIT_CONTENTTYPE_COLOR_IN_STATE,
     payload: {

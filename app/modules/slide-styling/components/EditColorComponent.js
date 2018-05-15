@@ -9,7 +9,7 @@ import authentication from 'modules/authentication';
 import type { ContentItemType } from 'modules/content-items';
 import { getAllSlideStylingIdsByUserId, getById } from '../selectors';
 import type { SlideStyling } from '../model';
-import { editContentTypeColorInState } from '../actions';
+import { editContentTypeColorInState, addToState } from '../actions';
 import { contentItemTypes } from '../../content-items/model';
 
 
@@ -25,6 +25,9 @@ type StateProps = {
 };
 
 type DispatchProps = {
+  onAddToState: (
+    id: Identifier, userId: Identifier
+  ) => void,
   onEditContentTypeColorInState: (
     id: Identifier, contentItemType: ContentItemType, newColor: string
   ) => void,
@@ -37,9 +40,8 @@ const mapStateToProps = (state: State): StateProps => {
   const currentUser = account != null ? account.id : 'adkqmq5ds5';
 
   const slideStylingIds: Array<Identifier> = getAllSlideStylingIdsByUserId(state, currentUser);
-
+  // todo: als er geen thema is gevonden voor de gebruiker een nieuw thema aanmaken
   const slideStyling: SlideStyling = getById(state, { id: slideStylingIds[0] });
-  console.log(slideStylingIds[0]);
   if (slideStyling == null) {
     throw new Error(`ContentItem with id "${slideStylingIds[0]}" could not be found.`);
   }
@@ -58,6 +60,12 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
         editContentTypeColorInState(id, contentItemType, newColor),
       );
     },
+    onAddToState: (
+      id: Identifier, userId: Identifier): void => {
+      dispatch(
+        addToState(id, userId),
+      );
+    },
   };
 };
 
@@ -69,20 +77,11 @@ const PureColorPicker = (props: Props, state: State): React.Node => {
   } = props;
   // eslint-disable-next-line flowtype/require-parameter-type
   const editColorHeading = (color): void => {
-    console.log(`${color.hex}`);
     onEditContentTypeColorInState(slideStyling.id, contentItemTypes.HEADING, color.hex);
-
-    console.log('na setten heading');
-    console.log(slideStyling);
   };
   // eslint-disable-next-line flowtype/require-parameter-type
   const editColorParagraph = (color): void => {
-    console.log(`${color.hex}`);
     onEditContentTypeColorInState(slideStyling.id, contentItemTypes.PARAGRAPH, color.hex);
-
-    const newSlideStyling: SlideStyling = getById(state, { id: slideStyling.id });
-    console.log('na setten paragraph');
-    console.log(newSlideStyling);
   };
   const colors: Array<string> = ['#000000', '#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'];
   return (
@@ -92,7 +91,7 @@ const PureColorPicker = (props: Props, state: State): React.Node => {
         <TwitterPicker
           triangle="hide"
           colors={colors}
-          color={props.slideStyling.rules[contentItemTypes.HEADING].color}
+          color={slideStyling.rules[contentItemTypes.HEADING].color}
           onChangeComplete={editColorHeading}
         />
       </div>
@@ -101,7 +100,7 @@ const PureColorPicker = (props: Props, state: State): React.Node => {
         <TwitterPicker
           triangle="hide"
           colors={colors}
-          color={props.slideStyling.rules[contentItemTypes.PARAGRAPH].color}
+          color={slideStyling.rules[contentItemTypes.PARAGRAPH].color}
           onChange={editColorParagraph}
         />
       </div>
