@@ -175,7 +175,7 @@ export const dummyContentItemsById: ContentItemsById = {
       tags: [],
       visibilityOverrides: {},
     },
-    subItemIds: ['kdo4lbvn5l', 'lhjdki4hvi'],
+    subItemIds: ['vl4jfkdj4l', 'kdo4lbvn5l', 'lhjdki4hvi', 'dk3j5cl34k'],
   },
   kdo4lbvn5l: {
     id: 'kdo4lbvn5l',
@@ -197,6 +197,16 @@ export const dummyContentItemsById: ContentItemsById = {
     },
     subItemIds: [],
   }: ParagraphContentItem),
+  vl4jfkdj4l: ({
+    id: 'vl4jfkdj4l',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Introduction to the *Open Webslides **Slide Rendering** for noobs*',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
   lhjdki4hvi: {
     id: 'lhjdki4hvi',
     type: contentItemTypes.HEADING,
@@ -207,8 +217,18 @@ export const dummyContentItemsById: ContentItemsById = {
     },
     subItemIds: ['kdloeijdj3'],
   },
+  dk3j5cl34k: ({
+    id: 'dk3j5cl34k',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*.',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
   kdloeijdj3: ({
-    id: 'kdl3l4jkvd',
+    id: 'kdloeijdj3',
     type: contentItemTypes.PARAGRAPH,
     text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*. Mauris *accumsan* pretium sem, in volutpat nibh sodales a. **Nulla blandit** posuere ex, et [facilisis](https://www.lipsum.com) dui volutpat in.',
     metadata: {
