@@ -56,8 +56,10 @@ const recursiveSplit = (
         arr: Array<DenormalizedContentItem>,
         item: DenormalizedContentItem,
       ): Array<DenormalizedContentItem> => {
-        if (item.type === contentItemTypes.HEADING) {
+        if (item.type === contentItemTypes.HEADING && arr[arr.length - 1].subItems.length !== 0) {
           // If child is a heading, create and push a new top-level heading
+          // Except if the previous top-level heading has no children (which means that
+          // the current subheading is a direct child of the top-level heading)
           arr.push(createHeading());
         }
 

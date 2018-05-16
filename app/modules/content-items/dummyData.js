@@ -175,7 +175,7 @@ export const dummyContentItemsById: ContentItemsById = {
       tags: [],
       visibilityOverrides: {},
     },
-    subItemIds: ['vl4jfkdj4l', 'kdo4lbvn5l', 'lhjdki4hvi', 'dk3j5cl34k'],
+    subItemIds: ['vl4jfkdj4l', 'kdo4lbvn5l', 'lhjdki4hvi', 'dk3j5cl34k', 'dlidlf3ejk'],
   },
   kdo4lbvn5l: {
     id: 'kdo4lbvn5l',
@@ -237,6 +237,16 @@ export const dummyContentItemsById: ContentItemsById = {
     },
     subItemIds: [],
   }: ParagraphContentItem),
+  dlidlf3ejk: {
+    id: 'dlidlf3ejk',
+    type: contentItemTypes.HEADING,
+    text: 'Subheading 3',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  },
   kchwki48cd: {
     id: 'kchwki48cd',
     type: contentItemTypes.HEADING,
@@ -245,8 +255,28 @@ export const dummyContentItemsById: ContentItemsById = {
       tags: [],
       visibilityOverrides: {},
     },
-    subItemIds: [],
+    subItemIds: ['kweoi4kivf'],
   },
+  kweoi4kivf: {
+    id: 'kweoi4kivf',
+    type: contentItemTypes.HEADING,
+    text: 'Yep, super boring here',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: ['focej3icjd'],
+  },
+  focej3icjd: ({
+    id: 'focej3icjd',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*. Mauris *accumsan* pretium sem, in volutpat nibh sodales a. **Nulla blandit** posuere ex, et [facilisis](https://www.lipsum.com) dui volutpat in.',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
   ck2k4kvcj4: {
     id: 'ck2k4kvcj4',
     type: contentItemTypes.HEADING,
