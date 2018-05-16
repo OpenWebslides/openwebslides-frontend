@@ -32,10 +32,7 @@ const TopicEditorForId = (props: RouteProps): React.Node => {
         <Grid.Column width={6}>
           <TopicEditor topicId={topicId} />
         </Grid.Column>
-        <Grid.Column className="editor__sidebar" width={5}>
-          <SidebarWrapper />
-        </Grid.Column>
-        <Grid.Column className="editor__sidebar" width={5}>
+        <Grid.Column className="editor__sidebar" width={10}>
           <SidebarWrapper />
         </Grid.Column>
       </Grid>

@@ -7,7 +7,7 @@ export const TOGGLE_ERROR: 'sidebar/TOGGLE_ERROR' = 'sidebar/TOGGLE_ERROR';
 export type ToggleAction = {
   type: typeof TOGGLE,
   payload: {
-    id: string,
+    sidebarName: string,
   },
 };
 

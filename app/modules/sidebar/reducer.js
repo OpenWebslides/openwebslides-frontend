@@ -3,36 +3,40 @@
 import _ from 'lodash';
 
 import * as t from './actionTypes';
-import type { Sidebar, SidebarsState } from './model';
+import type { Sidebar, SidebarsByName, SidebarsState } from './model';
 
-const initialState: SidebarsState = {};
+const initialState: SidebarsState = { byName: [] };
 
-const addToState = (state: SidebarsState, action: t.AddAction): SidebarsState => {
+const toggleSidebar = (state: SidebarsState, action: t.ToggleAction): SidebarsState => {
   const {
-    id,
+    sidebarName,
   } = action.payload;
+
+  let newByName: SidebarsByName;
+
+  if (_.indexOf(state.byName, sidebarName) >= 0) {
+    console.log("sidebar in state!");
+    newByName = _.without(state.byName, sidebarName);
+  }
+  else {
+    console.log("put that MAFK in tha state, y'all!");
+    newByName = _.concat(state.byName, sidebarName);
+  }
 
   return {
     ...state,
-    byId: {
-      ...state.byId,
-      [id]: action.payload,
-    },
+    byName: [
+      ...newByName,
+    ],
   };
-};
-
-const removeFromState = (state: SidebarsState, action: t.RemoveAction): SidebarsState => {
-  const { id } = action.payload;
-
-  return _.omit(state, id);
 };
 
 const reducer = (state: SidebarsState = initialState, action: t.SidebarAction): SidebarsState => {
   switch (action.type) {
-    case t.ADD:
-      return addSidebar(state, action);
-    case t.REMOVE:
-      return removeSidebar(state, action);
+    case t.TOGGLE:
+      return toggleSidebar(state, action);
+    case t.TOGGLE_ERROR:
+      return state;
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled
       // eslint-disable-next-line no-unused-expressions

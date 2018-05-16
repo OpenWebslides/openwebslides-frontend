@@ -1,20 +1,11 @@
 // @flow
 
 export type Sidebar = {
-  +id: string,
+  +sidebarName: string,
 };
 
-export type SidebarsByName = {
-  +[topicId: Identifier]: Sidebar,
-};
-
-/*
-export type SidebarsState = {
-  +byName: SidebarsById,
-};
-*/
+export type SidebarsByName = Array<Sidebar>;
 
 export type SidebarsState = {
-  +size: number,
-  +[position: number]: Sidebar,
+  +byName: SidebarsByName,
 };
