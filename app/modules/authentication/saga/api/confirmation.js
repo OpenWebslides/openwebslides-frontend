@@ -14,6 +14,7 @@ export const apiPostConfirmationSaga = function* (
     yield call(ConfirmationApi.post, email);
   }
   catch (error) {
-    // TODO
+    // TODO: fix saga error handling
+    throw error;
   }
 };

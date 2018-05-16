@@ -19,6 +19,7 @@ export const apiDeleteTopicSaga = function* (action: t.ApiDeleteTopicAction): Ge
     yield put(removeFromState(id));
   }
   catch (error) {
-    // TODO
+    // TODO: fix saga error handling
+    throw error;
   }
 };

@@ -18,6 +18,7 @@ export const apiPostTopicSaga = function* (action: t.ApiPostTopicAction): Genera
     yield call(TopicsApi.post, userId, title, description, token);
   }
   catch (error) {
-    // TODO
+    // TODO: fix saga error handling
+    throw error;
   }
 };

@@ -22,6 +22,8 @@ const auth = {
   signin: {
     title: 'Sign in',
     description: 'Sign in to continue to Open Webslides',
+    loading: 'Signing in...',
+    failure: 'Invalid username or password',
   },
   signup: {
     title: 'Sign up',

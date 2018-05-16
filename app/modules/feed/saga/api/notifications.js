@@ -35,7 +35,7 @@ export const apiGetNotificationsSaga = function* (action: t.FetchAction): Genera
     yield put(setEventsInState(data));
   }
   catch (error) {
-    // TODO
+    // TODO: fix saga error handling
     throw error;
   }
 };
