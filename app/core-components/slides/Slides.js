@@ -27,11 +27,13 @@ const PureSlides = (props: Props): React.Node => {
 
   return (
     <div className="ows_slides">
-      {
-        contentItems.map((contentItem) => (
-          <Slide key={contentItem.id} contentItem={contentItem} />
-        ))
-      }
+      <div className="ows_slides__container">
+        {
+          contentItems.map((contentItem) => (
+            <Slide key={contentItem.id} contentItem={contentItem} />
+          ))
+        }
+      </div>
     </div>
   );
 };
