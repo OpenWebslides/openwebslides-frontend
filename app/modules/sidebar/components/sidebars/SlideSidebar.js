@@ -4,6 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import type { Identifier } from 'types/model';
 import type { State } from 'types/state';
+
 import Slide from 'core-components/slides/Slide';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
@@ -11,6 +12,7 @@ import topics from 'modules/topics';
 
 import contentItems, { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
+import Sidebar from './Sidebar';
 
 const { getById } = topics.selectors;
 
@@ -61,9 +63,9 @@ const PureSlideSidebar = (props: Props): React.Node => {
   } = props;
 
   return (
-    <React.Fragment>
+    <Sidebar>
       <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
-    </React.Fragment>
+    </Sidebar>
   );
 };
 

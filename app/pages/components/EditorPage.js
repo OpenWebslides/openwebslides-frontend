@@ -60,7 +60,7 @@ const PureTopicEditorForId = (props: Props): React.Node => {
           <TopicEditor topicId={topicId} />
         </Grid.Column>
         { sidebarWrapperWidth > 0 &&
-          <Grid.Column className="editor__sidebar" width={sidebarWrapperWidth}>
+          <Grid.Column className="editor__sidebarwrapper" width={sidebarWrapperWidth}>
             <SidebarWrapper topicId={topicId} />
           </Grid.Column>
         }
