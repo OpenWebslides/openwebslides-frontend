@@ -3,24 +3,29 @@
 import type {
   DenormalizedContentItem,
   DenormalizedRootContentItem,
-  DenormalizedHeadingContentItem,
 } from 'modules/content-items';
 
 import { contentItemTypes } from 'modules/content-items';
 
 const recursiveSplit = (
   contentItem: DenormalizedContentItem,
-  heading: ?DenormalizedHeadingContentItem,
 ): Array<DenormalizedContentItem> => {
   switch (contentItem.type) {
     case contentItemTypes.ROOT:
       console.log(`ROOT: splitting recursively into ${contentItem.childItems.length}`);
       // ROOT content item: split into childItems and recurse
       return contentItem.childItems
-        .map((c: DenormalizedContentItem): DenormalizedContentItem => {
-          return recursiveSplit(c, heading);
+        .map((
+          c: DenormalizedContentItem,
+        ): Array<DenormalizedContentItem> => {
+          return recursiveSplit(c);
         })
-        .reduce((arr, c) => arr.concat(c));
+        .reduce((
+          arr: Array<DenormalizedContentItem>,
+          c: DenormalizedContentItem,
+        ): Array<DenormalizedContentItem> => {
+          return arr.concat(c);
+        }, []);
     case contentItemTypes.HEADING: {
       console.log(`HEADING: splitting into ${contentItem.subItems.length}`);
       /**
@@ -45,14 +50,16 @@ const recursiveSplit = (
        */
 
       // Return a copy of the top-level heading
-      const createHeading = (): DenormalizedHeadingContentItem => {
+      const createHeading = (): DenormalizedContentItem => {
         return {
           ...contentItem,
           subItems: [],
         };
       };
 
-      const out = contentItem.subItems.reduce((
+      // Loop over top-level heading's children, splitting and
+      // duplicating the top-level heading where necessary.
+      return contentItem.subItems.reduce((
         arr: Array<DenormalizedContentItem>,
         item: DenormalizedContentItem,
       ): Array<DenormalizedContentItem> => {
@@ -68,8 +75,6 @@ const recursiveSplit = (
         return arr;
       },
       [createHeading()]);
-
-      return out;
     }
     default:
       console.log(`UNKNOWN: not splitting any further`);
@@ -82,7 +87,7 @@ const recursiveSplit = (
  * Also known as automatic slide splitting algorithm
  */
 const split = (rootContentItem: DenormalizedRootContentItem): Array<DenormalizedContentItem> => {
-  return recursiveSplit(rootContentItem, null);
+  return recursiveSplit(rootContentItem);
 };
 
 export default split;
