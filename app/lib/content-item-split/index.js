@@ -12,7 +12,7 @@ const {
  * Also known as automatic slide splitting algorithm
  */
 const split = (rootContentItem: DenormalizedRootContentItem): Array<DenormalizedContentItem> => {
-  return [rootContentItem];
+  return rootContentItem.childItems;
 };
 
 export default split;
