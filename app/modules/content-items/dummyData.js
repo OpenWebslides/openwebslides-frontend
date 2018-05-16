@@ -175,8 +175,48 @@ export const dummyContentItemsById: ContentItemsById = {
       tags: [],
       visibilityOverrides: {},
     },
-    subItemIds: [],
+    subItemIds: ['kdo4lbvn5l', 'lhjdki4hvi'],
   },
+  kdo4lbvn5l: {
+    id: 'kdo4lbvn5l',
+    type: contentItemTypes.HEADING,
+    text: 'Subheading 1',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: ['kdl3l4jkvd'],
+  },
+  kdl3l4jkvd: ({
+    id: 'kdl3l4jkvd',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*. Mauris *accumsan* pretium sem, in volutpat nibh sodales a. **Nulla blandit** posuere ex, et [facilisis](https://www.lipsum.com) dui volutpat in.',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
+  lhjdki4hvi: {
+    id: 'lhjdki4hvi',
+    type: contentItemTypes.HEADING,
+    text: 'Subheading 2',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: ['kdloeijdj3'],
+  },
+  kdloeijdj3: ({
+    id: 'kdl3l4jkvd',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*. Mauris *accumsan* pretium sem, in volutpat nibh sodales a. **Nulla blandit** posuere ex, et [facilisis](https://www.lipsum.com) dui volutpat in.',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
   kchwki48cd: {
     id: 'kchwki48cd',
     type: contentItemTypes.HEADING,
