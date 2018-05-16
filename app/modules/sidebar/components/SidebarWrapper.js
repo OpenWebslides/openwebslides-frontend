@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
+import type { SidebarsByName } from '../model';
 import { sidebarMapping } from '../model/sidebarName';
 import { getAllByName } from '../selectors';
 
@@ -18,7 +19,7 @@ type StateProps = {
 
 type Props = PassedProps & StateProps;
 
-const mapStateToProps = (state: State, props: Props): StateProps => {
+const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const sidebars = getAllByName(state);
 
   return {
@@ -34,14 +35,14 @@ const PureSidebarWrapper = (props: Props): React.Node => {
 
   const widthPerSidebar = Math.floor(16 / sidebars.length);
 
-  const columns: Array<Sidebar> = [];
+  const columns: Array<React.Node> = [];
 
   for (let i:number = 0; i < sidebars.length; i += 1) {
-    const Sidebar = sidebarMapping[sidebars[i]];
+    const SidebarComponent = sidebarMapping[sidebars[i]];
 
     columns.push(
       <Grid.Column key={sidebars[i]} width={widthPerSidebar}>
-        <Sidebar topicId={topicId} />
+        <SidebarComponent topicId={topicId} />
       </Grid.Column>,
     );
   }

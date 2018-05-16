@@ -15,6 +15,6 @@ export const sidebar = {
 export const sidebarMapping = {
   'SidebarName/INFO': InfoSidebar,
   'SidebarName/SLIDE': SlideSidebar,
-}
+};
 
 export type SidebarName = $Values<typeof sidebar>;

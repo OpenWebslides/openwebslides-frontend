@@ -6,8 +6,6 @@ import { Icon } from 'semantic-ui-react';
 import { Dispatch } from 'redux';
 
 import { toggle as toggleAction } from '../actions';
-import type { Sidebar } from '../model';
-import { getByName } from '../selectors';
 
 type PassedProps = {
   icon: string,
@@ -39,9 +37,9 @@ const PureSidebarMenuItem = (props: Props): React.Node => {
 
   return (
     <div className="editor__sidebarmenu__item">
-      <div className="editor__sidebarmenu__button" onClick={() => toggle(sidebarName)}>
+      <button className="editor__sidebarmenu__button" onClick={() => toggle(sidebarName)}>
         <Icon name={icon} className="editor__sidebarmenu__icon" />
-      </div>
+      </button>
     </div>
   );
 };

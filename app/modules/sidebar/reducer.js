@@ -3,7 +3,7 @@
 import _ from 'lodash';
 
 import * as t from './actionTypes';
-import type { Sidebar, SidebarsByName, SidebarsState } from './model';
+import type { SidebarsByName, SidebarsState } from './model';
 
 const initialState: SidebarsState = { byName: [] };
 

@@ -23,16 +23,16 @@ type RouteProps = {
 };
 
 type StateProps = {
-  amount: ?number, // undefined if state is not yet initialized
+  amountOfSidebars: ?number, // undefined if state is not yet initialized
 };
 
 type Props = CustomTranslatorProps & RouteProps & StateProps;
 
-const mapStateToProps = (state: State, props: Props): StateProps => {
-  const amount = getAmountOfSidebars(state);
+const mapStateToProps = (state: State): StateProps => {
+  const amountOfSidebars = getAmountOfSidebars(state);
 
   return {
-    amount,
+    amountOfSidebars,
   };
 };
 
@@ -41,10 +41,14 @@ const TopicEditor = topics.components.Editor;
 const PureTopicEditorForId = (props: Props): React.Node => {
   const {
     match,
-    amount,
+    amountOfSidebars,
   } = props;
 
   const topicId = match.params.id;
+  if (topicId == null) { // Null check necessary for flow
+    return null;
+  }
+  const amount = amountOfSidebars != null ? amountOfSidebars : 0;
 
   const sidebarWrapperWidth = SIDEBAR_LENGTH * amount;
   const editorWidth = AMOUNT_OF_COLS_IN_GRID - sidebarWrapperWidth;

@@ -1,8 +1,6 @@
 // @flow
 
-export type Sidebar = {
-  +sidebarName: string,
-};
+export type Sidebar = string;
 
 export type SidebarsByName = Array<Sidebar>;
 

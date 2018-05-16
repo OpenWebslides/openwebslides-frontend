@@ -17,7 +17,5 @@ export const getByName = (state: State, props: { sidebarName: string }): Sidebar
 };
 
 export const getAmountOfSidebars = (state: State): number => {
-  const amount = getAllByName(state).length;
-
-  return amount != null ? amount : 0;
+  return getAllByName(state).length;
 };

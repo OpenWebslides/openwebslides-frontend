@@ -13,6 +13,7 @@ describe(`EditorPage`, (): void => {
       <PureEditorPage
         {...dummyTranslatorProps}
         {...dummyRouterMatchProps}
+        amountOfSidebars={0}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
