@@ -26,12 +26,21 @@ describe(`addToState`, (): void => {
     expect(addToState(dummyId, dummyPlainTextType, dummyPlainTextProps)).toEqual(expectedAction);
   });
 
-  it(`throws an InvalidArgumentError, when the passed type is a plainText type and the passed props don't match this type`, (): void => {
+  it(`throws an InvalidArgumentError, when the passed type is a plainText type and the passed props don't include all necessary plainText information`, (): void => {
+    expect((): any => addToState(
+      dummyId,
+      dummyPlainTextType,
+      {},
+    )).toThrow(InvalidArgumentError);
+  });
+
+  it(`throws an InvalidArgumentError, when the passed props contain invalid keys for the given contentItemType`, (): void => {
     expect((): any => addToState(
       dummyId,
       dummyPlainTextType,
       {
-        definitelyNotAPlainTextProp: 'abcde',
+        ...dummyPlainTextProps,
+        definitelyNotAValidProp: 'abcde',
       },
     )).toThrow(InvalidArgumentError);
   });
