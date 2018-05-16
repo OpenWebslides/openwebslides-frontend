@@ -15,6 +15,7 @@ const common = {
     edit: 'Edit',
     delete: 'Delete',
   },
+  loading: 'Loading...',
 };
 
 export default common;
