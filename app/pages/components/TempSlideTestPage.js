@@ -13,11 +13,17 @@ import contentItems, { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
 import slideStyling from 'modules/slide-styling';
 import Slide from 'core-components/slides/Slide';
+import authentication from 'modules/authentication';
+import type { Identifier } from 'types/model';
 
 import VoicePlayerToggle from 'core-components/slides/VoicePlayerToggle';
 
 
 import Page from '../Page';
+import { getAllSlideStylingIdsByUserId, getById } from '../../modules/slide-styling/selectors';
+import type { SlideStyling } from '../../modules/slide-styling/model';
+
+const { getAccount } = authentication.selectors;
 
 type PassedProps = {};
 
@@ -27,6 +33,8 @@ type StateProps = {
   // (for example, by splitting up sections and inserting repeated headers if a section is longer
   // than a single slide) and the contentItem tree can't just be extracted from the state directly.
   contentItemTreeRootItem: DenormalizedRootContentItem,
+
+  slideStylingItem: SlideStyling,
 };
 
 type Props = CustomTranslatorProps & StateProps & PassedProps;
@@ -50,8 +58,20 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
     throw new Error('Not a ROOT contentItem.');
   }
 
+  const account = getAccount(state);
+
+  const currentUser = account != null ? account.id : 'adkqmq5ds5';
+
+  const slideStylingIds: Array<Identifier> = getAllSlideStylingIdsByUserId(state, currentUser);
+  // todo: als er geen thema is gevonden voor de gebruiker een nieuw thema aanmaken
+  const slideStylingItem: SlideStyling = getById(state, { id: slideStylingIds[0] });
+  if (slideStyling === undefined || slideStyling == null) {
+    throw new Error(`ContentItem with id "${slideStylingIds[0]}" could not be found.`);
+  }
+
   return {
     contentItemTreeRootItem,
+    slideStylingItem,
   };
 };
 
@@ -105,7 +125,7 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
   };
 
   render = (): React.Node => {
-    const { contentItemTreeRootItem } = this.props;
+    const { contentItemTreeRootItem, slideStylingItem } = this.props;
 
     let VoicePlayerToggleNode: typeof VoicePlayerToggle;
 
@@ -122,7 +142,10 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
     return (
       <Page>
         <div ref={this.slideRef}>
-          <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
+          <Slide
+            contentItemTreeRootItem={contentItemTreeRootItem}
+            slideStyling={slideStylingItem}
+          />
         </div>
         <div className="Voice">
           {VoicePlayerToggleNode}

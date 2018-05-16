@@ -17,6 +17,7 @@ import type {
 import Root from './types/Root';
 import Heading from './types/Heading';
 import Paragraph from './types/Paragraph';
+import type { SlideStyling } from '../../../slide-styling/model';
 
 const DummyDisplayComponent = (): React.Node => (
   <p>Not implemented yet.</p>
@@ -47,6 +48,7 @@ type PassedProps = {
   containerClassName: string,
   // Used to make sub-items selectable in tests. Defaults to '__sub-items'.
   subItemsClassNameSuffix: string,
+  slideStyling: SlideStyling,
 };
 
 type Props = PassedProps;
@@ -55,10 +57,16 @@ const passThroughProps = [
   'headingLevel',
   'containerClassName',
   'subItemsClassNameSuffix',
+  'slideStyling',
 ];
 
 const SubItemsHtmlDisplay = (props: Props): React.Node => {
-  const { contentItem, headingLevel, containerClassName, subItemsClassNameSuffix } = props;
+  const {
+    contentItem,
+    headingLevel,
+    containerClassName,
+    subItemsClassNameSuffix,
+    slideStyling } = props;
 
   if (!_.includes(subableContentItemTypes, contentItem.type)) {
     return null;
@@ -84,6 +92,7 @@ const SubItemsHtmlDisplay = (props: Props): React.Node => {
                 key={subItem.id}
                 contentItem={subItem}
                 headingLevel={subItemsHeadingLevel}
+                slideStyling={slideStyling}
               />
             ),
           )}

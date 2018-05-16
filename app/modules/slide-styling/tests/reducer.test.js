@@ -124,5 +124,20 @@ describe('reducer', (): void => {
       expect(resultState.byId).not.toBe(prevState.byId);
       expect(resultState.byId[dummySlideStyling.id]).not.toBe(prevState.byId[dummySlideStyling.id]);
     });
+
+    it(`throws an error, when the slideStyling for the passed id cannot be found`, (): void => {
+      const prevState: SlideStylingState = {
+        byId: {},
+      };
+      const editContentTypeColorInStateAction: t.EditContentTypeColorAction = {
+        type: t.EDIT_CONTENTTYPE_COLOR_IN_STATE,
+        payload: {
+          id: 'zdq3dz5e67',
+          contentItemType: contentItemTypes.HEADING,
+          newColor: '#124796',
+        },
+      };
+      expect((): any => reducer(prevState, editContentTypeColorInStateAction)).toThrowError('ContentItem with id "zdq3dz5e67" could not be found.');
+    });
   });
 });

@@ -3,6 +3,8 @@
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
+import type { SlideStyling } from 'modules/slide-styling/model';
+
 import { contentItemTypes } from '../../../../model';
 import type {
   DenormalizedRootContentItem,
@@ -12,6 +14,19 @@ import type {
 import { PureRoot } from '../Root';
 
 describe(`Root`, (): void => {
+
+  const dummySlideStyling: $Exact<SlideStyling> = {
+    id: 'azd15dsqz1',
+    userId: 'adkqmq5ds5',
+    rules: {
+      [contentItemTypes.PARAGRAPH]: {
+        color: '#000000',
+      },
+      [contentItemTypes.HEADING]: {
+        color: '#000000',
+      },
+    },
+  };
 
   const dummyHeading2Text = 'Dolor sit amet';
   const dummyHeading1Text = 'Lorem ipsum';
@@ -46,6 +61,7 @@ describe(`Root`, (): void => {
       <PureRoot
         contentItem={dummyRoot}
         headingLevel={1}
+        slideStyling={dummySlideStyling}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -56,6 +72,7 @@ describe(`Root`, (): void => {
       <PureRoot
         contentItem={dummyRoot}
         headingLevel={1}
+        slideStyling={dummySlideStyling}
       />,
     );
     expect(enzymeWrapper.text()).toContain(dummyHeading1Text);

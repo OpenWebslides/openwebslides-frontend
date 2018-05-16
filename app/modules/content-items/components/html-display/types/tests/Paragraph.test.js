@@ -3,6 +3,8 @@
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
+import type { SlideStyling } from 'modules/slide-styling/model';
+
 import { contentItemTypes } from '../../../../model';
 import type { DenormalizedParagraphContentItem } from '../../../../model';
 
@@ -21,12 +23,26 @@ describe(`Paragraph`, (): void => {
     subItems: [],
   };
 
+  const dummySlideStyling: $Exact<SlideStyling> = {
+    id: 'azd15dsqz1',
+    userId: 'adkqmq5ds5',
+    rules: {
+      [contentItemTypes.PARAGRAPH]: {
+        color: '#000000',
+      },
+      [contentItemTypes.HEADING]: {
+        color: '#000000',
+      },
+    },
+  };
+
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureParagraph
         contentItem={dummyParagraph}
         headingLevel={1}
         containerClassName="ows_container"
+        slideStyling={dummySlideStyling}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -38,6 +54,7 @@ describe(`Paragraph`, (): void => {
         contentItem={dummyParagraph}
         headingLevel={1}
         containerClassName="ows_container"
+        slideStyling={dummySlideStyling}
       />,
     );
     const paragraphTags = enzymeWrapper.find('p');

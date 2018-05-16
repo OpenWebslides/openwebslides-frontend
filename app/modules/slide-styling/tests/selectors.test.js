@@ -2,7 +2,7 @@
 
 import { contentItemTypes } from 'modules/content-items';
 import type { SlideStyling, SlideStylingById, SlideStylingState } from '../model';
-import { getAll, getAllById, getById } from '../selectors';
+import { getAll, getAllById, getById, getAllSlideStylingIdsByUserId } from '../selectors';
 
 describe('selectors', (): void => {
 
@@ -68,6 +68,21 @@ describe('selectors', (): void => {
   it('returns an empty array, when there are no slideStylings in the state', (): void => {
     const slideStylings = getAll(dummyEmptyState);
     expect(slideStylings).toEqual([]);
+  });
+
+  describe('getAllByUserId', (): void => {
+    it('returns an array containing all slideStylingsIds for userId', (): void => {
+      const dummyUserId = 'efghijklmn';
+      const slideStylings = getAllSlideStylingIdsByUserId(dummyState, dummyUserId);
+
+      expect(slideStylings).toEqual([dummySlideStyling.id]);
+    });
+    it('returns an array containing all slideStylingsIds for userId', (): void => {
+      const dummyUserId = 'lqkjdizmqp';
+      const slideStylings = getAllSlideStylingIdsByUserId(dummyState, dummyUserId);
+
+      expect(slideStylings).toEqual([]);
+    });
   });
 
 });

@@ -3,6 +3,8 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
+import type { SlideStyling } from 'modules/slide-styling/model';
+
 import { contentItemTypes } from '../../../model';
 import type {
   DenormalizedRootContentItem,
@@ -69,11 +71,25 @@ describe(`HtmlDisplay`, (): void => {
     childItems: [dummyLevel1Heading],
   };
 
+  const dummySlideStyling: $Exact<SlideStyling> = {
+    id: 'azd15dsqz1',
+    userId: 'adkqmq5ds5',
+    rules: {
+      [contentItemTypes.PARAGRAPH]: {
+        color: '#000000',
+      },
+      [contentItemTypes.HEADING]: {
+        color: '#000000',
+      },
+    },
+  };
+
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureHtmlDisplay
         contentItem={dummyRoot1}
         headingLevel={1}
+        slideStyling={dummySlideStyling}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -86,6 +102,7 @@ describe(`HtmlDisplay`, (): void => {
         headingLevel={1}
         containerClassName={containerClassName}
         subItemsClassNameSuffix={subItemsClassNameSuffix}
+        slideStyling={dummySlideStyling}
       />,
     );
 
@@ -113,6 +130,7 @@ describe(`HtmlDisplay`, (): void => {
         headingLevel={1}
         containerClassName={containerClassName}
         subItemsClassNameSuffix={subItemsClassNameSuffix}
+        slideStyling={dummySlideStyling}
       />,
     );
     const subItemsTags = enzymeWrapper.find(`.${subItemsClassName}`).hostNodes();
@@ -126,6 +144,7 @@ describe(`HtmlDisplay`, (): void => {
         headingLevel={1}
         containerClassName={containerClassName}
         subItemsClassNameSuffix={subItemsClassNameSuffix}
+        slideStyling={dummySlideStyling}
       />,
     );
     const subItemsTags = enzymeWrapper.find(`.${subItemsClassName}`).hostNodes();
@@ -137,6 +156,7 @@ describe(`HtmlDisplay`, (): void => {
       <PureHtmlDisplay
         contentItem={dummyRoot1}
         headingLevel={1}
+        slideStyling={dummySlideStyling}
       />,
     );
     const sectionTag = enzymeWrapper.find('h1').parents('section').hostNodes();
@@ -149,6 +169,7 @@ describe(`HtmlDisplay`, (): void => {
       <PureHtmlDisplay
         contentItem={dummyRoot1}
         headingLevel={1}
+        slideStyling={dummySlideStyling}
       />,
     );
     const h1Tags = enzymeWrapper.find('h1').hostNodes();
@@ -168,6 +189,7 @@ describe(`HtmlDisplay`, (): void => {
         headingLevel={1}
         containerClassName={dummyContainerClassName}
         subItemsClassNameSuffix={dummySubItemsClassNameSuffix}
+        slideStyling={dummySlideStyling}
       />,
     );
     const containerTags = enzymeWrapper.find(`.${dummyContainerClassName}`).hostNodes();

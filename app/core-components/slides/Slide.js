@@ -6,12 +6,15 @@ import type { CustomTranslatorProps } from 'types/translator';
 
 import contentItems from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
+import type { SlideStyling } from 'modules/slide-styling/model';
 
 type PassedProps = {
   // A denormalized ROOT item containing the content to be displayed on this slide.
   contentItemTreeRootItem: DenormalizedRootContentItem,
   // The heading level of the top level headings on the slide. Defaults to 1.
   rootHeadingLevel: number,
+
+  slideStyling: SlideStyling,
 };
 
 type Props = CustomTranslatorProps & PassedProps;
@@ -19,7 +22,7 @@ type Props = CustomTranslatorProps & PassedProps;
 const ContentItemHtmlDisplay = contentItems.components.HtmlDisplay;
 
 const PureSlide = (props: Props): React.Node => {
-  const { contentItemTreeRootItem, rootHeadingLevel } = props;
+  const { contentItemTreeRootItem, rootHeadingLevel, slideStyling } = props;
 
   return (
     <div className="ows_slide">
@@ -28,6 +31,7 @@ const PureSlide = (props: Props): React.Node => {
           <ContentItemHtmlDisplay
             contentItem={contentItemTreeRootItem}
             headingLevel={rootHeadingLevel}
+            slideStyling={slideStyling}
           />
         </div>
       </div>

@@ -3,8 +3,11 @@
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
+import type { SlideStyling } from 'modules/slide-styling/model';
+
 import { contentItemTypes } from '../../../../model';
 import type { DenormalizedHeadingContentItem } from '../../../../model';
+
 
 import { PureHeading } from '../Heading';
 
@@ -21,12 +24,26 @@ describe(`Heading`, (): void => {
     subItems: [],
   };
 
+  const dummySlideStyling: $Exact<SlideStyling> = {
+    id: 'azd15dsqz1',
+    userId: 'adkqmq5ds5',
+    rules: {
+      [contentItemTypes.PARAGRAPH]: {
+        color: '#000000',
+      },
+      [contentItemTypes.HEADING]: {
+        color: '#000000',
+      },
+    },
+  };
+
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureHeading
         contentItem={dummyHeading}
         headingLevel={1}
         containerClassName="ows_container"
+        slideStyling={dummySlideStyling}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -38,6 +55,7 @@ describe(`Heading`, (): void => {
         contentItem={dummyHeading}
         headingLevel={1}
         containerClassName="ows_container"
+        slideStyling={dummySlideStyling}
       />,
     );
     const enzymeWrapperLevel2 = render(
@@ -45,6 +63,7 @@ describe(`Heading`, (): void => {
         contentItem={dummyHeading}
         headingLevel={2}
         containerClassName="ows_container"
+        slideStyling={dummySlideStyling}
       />,
     );
     const enzymeWrapperLevel3 = render(
@@ -52,6 +71,7 @@ describe(`Heading`, (): void => {
         contentItem={dummyHeading}
         headingLevel={3}
         containerClassName="ows_container"
+        slideStyling={dummySlideStyling}
       />,
     );
     const enzymeWrapperLevel4 = render(
@@ -59,6 +79,7 @@ describe(`Heading`, (): void => {
         contentItem={dummyHeading}
         headingLevel={4}
         containerClassName="ows_container"
+        slideStyling={dummySlideStyling}
       />,
     );
     const enzymeWrapperLevel5 = render(
@@ -66,6 +87,7 @@ describe(`Heading`, (): void => {
         contentItem={dummyHeading}
         headingLevel={5}
         containerClassName="ows_container"
+        slideStyling={dummySlideStyling}
       />,
     );
     const enzymeWrapperLevel6 = render(
@@ -73,6 +95,7 @@ describe(`Heading`, (): void => {
         contentItem={dummyHeading}
         headingLevel={6}
         containerClassName="ows_container"
+        slideStyling={dummySlideStyling}
       />,
     );
     const h1Tags = enzymeWrapperLevel1.find('h1');
@@ -101,6 +124,7 @@ describe(`Heading`, (): void => {
         contentItem={dummyHeading}
         headingLevel={7}
         containerClassName="ows_container"
+        slideStyling={dummySlideStyling}
       />,
     );
     expect(enzymeWrapper.find('h6')).toHaveLength(1);

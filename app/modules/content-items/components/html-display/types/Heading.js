@@ -3,25 +3,35 @@
 import * as React from 'react';
 
 import InlineMarkdown from 'core-components/inline-markdown';
+import type { State } from 'types/state';
+
 import type { DenormalizedHeadingContentItem } from '../../../model';
+
+import type { SlideStyling } from '../../../../slide-styling/model';
+import { contentItemTypes } from '../../../model';
+
 
 type PassedProps = {
   contentItem: DenormalizedHeadingContentItem,
   children?: React.Node,
   headingLevel: number,
   containerClassName: string,
+  slideStyling: SlideStyling,
 };
 
 type Props = PassedProps;
 
-const PureHeading = (props: Props): React.Node => {
-  const { contentItem, children, headingLevel, containerClassName } = props;
-  const HeadingTag = `h${Math.min(headingLevel, 6)}`;
+const PureHeading = (props: Props, state: State): React.Node => {
+  const { contentItem, children, headingLevel, containerClassName, slideStyling } = props;
 
+  const HeadingTag = `h${Math.min(headingLevel, 6)}`;
+  const styling = { color: slideStyling.rules[contentItemTypes.HEADING].color };
   return (
     <section className={`${containerClassName} ${containerClassName}--heading`}>
       <HeadingTag className={`${containerClassName}__item ows_heading`}>
-        <InlineMarkdown text={contentItem.text} />
+        <span style={styling}>
+          <InlineMarkdown text={contentItem.text} />
+        </span>
       </HeadingTag>
       {children}
     </section>
@@ -31,7 +41,6 @@ const PureHeading = (props: Props): React.Node => {
 PureHeading.defaultProps = {
   children: null,
 };
-
 const Heading = PureHeading;
 
 export { PureHeading };

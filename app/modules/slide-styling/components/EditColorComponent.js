@@ -21,7 +21,6 @@ type PassedProps = {
 type StateProps = {
   userId: Identifier,
   slideStyling: SlideStyling,
-  slideStylingId: Identifier,
 };
 
 type DispatchProps = {
@@ -42,13 +41,12 @@ const mapStateToProps = (state: State): StateProps => {
   const slideStylingIds: Array<Identifier> = getAllSlideStylingIdsByUserId(state, currentUser);
   // todo: als er geen thema is gevonden voor de gebruiker een nieuw thema aanmaken
   const slideStyling: SlideStyling = getById(state, { id: slideStylingIds[0] });
-  if (slideStyling == null) {
+  if (slideStyling === undefined || slideStyling == null) {
     throw new Error(`ContentItem with id "${slideStylingIds[0]}" could not be found.`);
   }
   return {
     slideStyling,
     userId: currentUser,
-    slideStylingId: slideStylingIds[0],
   };
 };
 
@@ -70,7 +68,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
 };
 
 
-const PureColorPicker = (props: Props, state: State): React.Node => {
+const PureEditColorComponent = (props: Props, state: State): React.Node => {
   const {
     onEditContentTypeColorInState,
     slideStyling,
@@ -108,8 +106,9 @@ const PureColorPicker = (props: Props, state: State): React.Node => {
   );
 };
 
-const EditColorComponent = connect(mapStateToProps, mapDispatchToProps)(PureColorPicker);
+const EditColorComponent =
+  connect(mapStateToProps, mapDispatchToProps)(PureEditColorComponent);
 
-export { PureColorPicker };
+export { PureEditColorComponent };
 export default EditColorComponent;
 
