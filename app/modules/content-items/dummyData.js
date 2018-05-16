@@ -45,7 +45,7 @@ export const dummyContentItemsById: ContentItemsById = {
   qyrgv0bcd6: {
     id: 'qyrgv0bcd6',
     type: contentItemTypes.ROOT,
-    childItemIds: ['j0vcu0y7vk', 'ua32xchh7q'],
+    childItemIds: ['ivks4jgtxr', 'j0vcu0y7vk', 'ua32xchh7q', 'kcosdhj38v', 'kchwki48cd', 'ck2k4kvcj4', 'ldicl3j4jk'],
   },
   j0vcu0y7vk: {
     id: 'j0vcu0y7vk',
@@ -137,4 +137,74 @@ export const dummyContentItemsById: ContentItemsById = {
     },
     subItemIds: [],
   }: ParagraphContentItem),
+  ivks4jgtxr: {
+    id: 'ivks4jgtxr',
+    type: contentItemTypes.HEADING,
+    text: 'This is a heading',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: ['oswmjc09be', 'jbv2ju5jc6'],
+  },
+  oswmjc09be: ({
+    id: 'oswmjc09be',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*.',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
+  jbv2ju5jc6: ({
+    id: 'jbv2ju5jc6',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Mauris accumsan pretium sem, in volutpat nibh sodales a. Nulla blandit posuere ex, et facilisis dui volutpat in. Fusce tincidunt sed ipsum quis varius. Quisque vitae laoreet sem.',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
+  kcosdhj38v: {
+    id: 'kcosdhj38v',
+    type: contentItemTypes.HEADING,
+    text: 'Open Webslides slide rendering',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  },
+  kchwki48cd: {
+    id: 'kchwki48cd',
+    type: contentItemTypes.HEADING,
+    text: 'Yet Another Heading That Is Boring',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  },
+  ck2k4kvcj4: {
+    id: 'ck2k4kvcj4',
+    type: contentItemTypes.HEADING,
+    text: '10 Reasons Why You Should Read This',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  },
+  ldicl3j4jk: {
+    id: 'ldicl3j4jk',
+    type: contentItemTypes.HEADING,
+    text: 'Welcome to the presentation',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  },
 };
