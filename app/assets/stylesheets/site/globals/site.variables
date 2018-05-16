@@ -7,6 +7,7 @@
 @ows_blue: #29235C;
 
 @ows_primary_color: @ows_pink;
+@ows_secondary_color: #737373;
 
 @primaryColor: @ows_primary_color;
 

@@ -1,3 +1,53 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+.ui.feed > .event {
+    margin: 1em 0;
+    padding: 0.5em 0;
+    width: 45%;
+    border-bottom: 1px solid @eventBorderColor;
+}
+
+.ui.feed > .event > .label + .content {
+    margin-top: 0em;
+}
+
+.ui.feed > .event:first-child {
+    padding-top: 0.5em;
+}
+
+.ui.feed > .event:last-child {
+    border: none;
+}
+
+.ui.feed > .event > .content a {
+    padding: 0.2em 0;
+    font-weight: bold;
+}
+.ui.feed > .event > .content a:first-child {
+    margin-right: 5px;
+}
+
+
+.ui.feed > .event > .content a:hover {
+    text-decoration: none;
+    border-bottom: 2px solid @ows_pink;
+}
+
+.ui.feed > .event > .content .meta {
+    margin: 1em 0 0.5em 0;
+}
+
+.ui.feed > .event > .content .summary {
+    font-weight: normal;
+}
+
+a.secondaryLink {
+    color: @ows_secondary_color;
+    margin-left: 5px;
+}
+
+a.secondaryLink:hover {
+    color: @ows_pink;
+}

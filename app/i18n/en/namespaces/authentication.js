@@ -1,6 +1,6 @@
 // @flow
 
-const auth = {
+const authentication = {
   input: {
     email: 'Email',
     firstname: 'First name',
@@ -22,6 +22,8 @@ const auth = {
   signin: {
     title: 'Sign in',
     description: 'Sign in to continue to Open Webslides',
+    loading: 'Signing in...',
+    failure: 'Invalid username or password',
   },
   signup: {
     title: 'Sign up',
@@ -37,4 +39,4 @@ const auth = {
   },
 };
 
-export default auth;
+export default authentication;

@@ -14,3 +14,11 @@
     color: @lightBlack;
 }
 
+.ui.labeled.icon.button {
+    padding-left: 2.5em !important;
+}
+
+.ui.labeled.icon.button > .icon {
+    background-color: inherit;
+}
+

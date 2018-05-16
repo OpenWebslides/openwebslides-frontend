@@ -59,7 +59,7 @@ const PureConfirmForm = (props: Props): React.Node => {
         <Field
           component={Input}
           name="email"
-          placeholder={t('auth:input.email')}
+          placeholder={t('authentication:input.email')}
           icon="at"
           iconPosition="left"
         />
@@ -67,10 +67,10 @@ const PureConfirmForm = (props: Props): React.Node => {
 
       <Button.Group fluid={true}>
         <Button primary={true} type="submit">
-          {t('auth:button.reset')}
+          {t('authentication:button.reset')}
         </Button>
         <Button secondary={true} as={Link} to="/auth/signin">
-          {t('auth:button.back')}
+          {t('authentication:button.back')}
         </Button>
       </Button.Group>
     </Form>

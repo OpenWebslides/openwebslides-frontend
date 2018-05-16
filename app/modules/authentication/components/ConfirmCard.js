@@ -15,12 +15,12 @@ const PureConfirmCard = (props: Props): React.Node => {
 
   return (
     <Card fluid={true}>
-      <Card.Content extra={true}>
+      <Card.Content>
         <Card.Header>
-          {t('auth:confirm.title')}
+          {t('authentication:confirm.title')}
         </Card.Header>
         <Card.Description>
-          {t('auth:confirm.description')}
+          {t('authentication:confirm.description')}
         </Card.Description>
       </Card.Content>
       <Card.Content>

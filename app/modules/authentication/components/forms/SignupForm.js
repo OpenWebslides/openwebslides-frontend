@@ -76,7 +76,7 @@ const PureSignupForm = (props: Props): React.Node => {
           component={Input}
           type="text"
           name="email"
-          placeholder={t('auth:input.email')}
+          placeholder={t('authentication:input.email')}
           icon="at"
           iconPosition="left"
         />
@@ -87,7 +87,7 @@ const PureSignupForm = (props: Props): React.Node => {
             component={Input}
             type="text"
             name="firstName"
-            placeholder={t('auth:input.firstname')}
+            placeholder={t('authentication:input.firstname')}
             icon="user"
             iconPosition="left"
           />
@@ -97,7 +97,7 @@ const PureSignupForm = (props: Props): React.Node => {
             component={Input}
             type="text"
             name="lastName"
-            placeholder={t('auth:input.lastname')}
+            placeholder={t('authentication:input.lastname')}
             icon="user"
             iconPosition="left"
           />
@@ -108,7 +108,7 @@ const PureSignupForm = (props: Props): React.Node => {
           component={Input}
           type="password"
           name="password"
-          placeholder={t('auth:input.password')}
+          placeholder={t('authentication:input.password')}
           icon="lock"
           iconPosition="left"
         />
@@ -118,7 +118,7 @@ const PureSignupForm = (props: Props): React.Node => {
           component={Input}
           type="password"
           name="repeatpassword"
-          placeholder={t('auth:input.repeatpassword')}
+          placeholder={t('authentication:input.repeatpassword')}
           icon="lock"
           iconPosition="left"
         />
@@ -127,16 +127,16 @@ const PureSignupForm = (props: Props): React.Node => {
         <Field
           component={renderCheckBox}
           name="tosAccepted"
-          label={t('auth:input.tos')}
+          label={t('authentication:input.tos')}
         />
       </Form.Field>
 
       <Button.Group fluid={true} vertical={true}>
         <Button primary={true} type="submit">
-          {t('auth:button.create')}
+          {t('authentication:button.create')}
         </Button>
         <Button secondary={true} as={Link} to="/auth/signin">
-          {t('auth:button.back')}
+          {t('authentication:button.back')}
         </Button>
       </Button.Group>
     </Form>

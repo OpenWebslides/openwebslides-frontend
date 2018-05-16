@@ -1,5 +1,7 @@
 // @flow
 
+import api from 'modules/api';
+
 import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
@@ -9,6 +11,10 @@ import { Link } from 'react-router-dom';
 
 import SigninForm from './forms/SigninForm';
 
+import { API_POST_TOKEN } from '../actionTypes';
+
+const { ApiDimmer } = api.components;
+
 type Props = CustomTranslatorProps;
 
 const PureSigninCard = (props: Props): React.Node => {
@@ -16,23 +22,25 @@ const PureSigninCard = (props: Props): React.Node => {
 
   return (
     <Card fluid={true}>
-      <Card.Content extra={true}>
+      <ApiDimmer request={API_POST_TOKEN} />
+
+      <Card.Content>
         <Card.Header>
-          {t('auth:signin.title')}
+          {t('authentication:signin.title')}
         </Card.Header>
         <Card.Description>
-          {t('auth:signin.description')}
+          {t('authentication:signin.description')}
         </Card.Description>
       </Card.Content>
       <Card.Content>
         <SigninForm />
       </Card.Content>
-      <Card.Content extra={true}>
+      <Card.Content>
         <Button secondary={true} fluid={true} as={Link} to="/auth/reset">
-          {t('auth:button.forgot')}
+          {t('authentication:button.forgot')}
         </Button>
         <Button secondary={true} fluid={true} as={Link} to="/auth/confirm">
-          {t('auth:button.confirm')}
+          {t('authentication:button.confirm')}
         </Button>
       </Card.Content>
     </Card>

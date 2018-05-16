@@ -1,3 +1,5 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+@cardExtraBackgroundColor: #e2e2e2;

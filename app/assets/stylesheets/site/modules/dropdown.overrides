@@ -1,3 +1,7 @@
 /*******************************
         User Overrides
 *******************************/
+
+.ui.dropdown > .text, i.dropdown.icon {
+    color: white;
+}

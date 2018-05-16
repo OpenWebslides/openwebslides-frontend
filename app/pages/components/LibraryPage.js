@@ -25,18 +25,20 @@ const PureLibraryPage = (props: Props): React.Node => {
       <Grid>
         <Grid.Row>
           <Grid.Column width={3}>
-            <h1>{t('pages:library.title')}</h1>
+            <h1>{t('global:title.library')}</h1>
           </Grid.Column>
           <Grid.Column floated="right" width={3}>
             <Link to="/topics/new">
               <Button as="span">
-                {t('common:link.newtopic')}
+                {t('global:title.createNewTopic')}
               </Button>
             </Link>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <CardCollection />
+          <Grid.Column width={16}>
+            <CardCollection />
+          </Grid.Column>
         </Grid.Row>
       </Grid>
     </AuthenticatedPage>

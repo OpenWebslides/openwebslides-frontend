@@ -6,6 +6,7 @@ import type { FeedState } from 'modules/feed';
 import type { UsersState } from 'modules/users';
 import type { AuthState } from 'modules/authentication';
 import type { SlideStylingState } from 'modules/slide-styling';
+import type { ApiState } from 'modules/api';
 
 export type ErrorState = {
 
@@ -19,6 +20,7 @@ export type State = {
     +users: UsersState,
     +authentication: AuthState,
     +slideStyling: SlideStylingState,
+    +api: ApiState,
   },
   +form: {},
   +error: {},

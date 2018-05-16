@@ -25,7 +25,8 @@ export const apiGetTopicSaga = function* (action: t.GetAction): Generator<*, *, 
     ));
   }
   catch (error) {
-    // TODO
+    // TODO: fix saga error handling
+    throw error;
   }
 };
 
@@ -49,6 +50,7 @@ export const apiGetAllTopicsByUserIdSaga = function* (
     yield put(setItemsInState(data));
   }
   catch (error) {
-    // TODO
+    // TODO: fix saga error handling
+    throw error;
   }
 };

@@ -9,7 +9,7 @@ import FlashMessages from 'core-components/flash/FlashMessages';
 
 import authentication from 'modules/authentication';
 
-import Page from 'pages/Page';
+import Page from '../../Page';
 
 type Props = CustomTranslatorProps & { /* new props go here */ };
 
