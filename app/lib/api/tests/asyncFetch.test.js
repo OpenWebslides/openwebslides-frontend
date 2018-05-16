@@ -1,13 +1,12 @@
 // @flow
 
-import asyncFetch from '../asyncFetch';
+import UnauthorizedError from 'errors/api-errors/UnauthorizedError';
+import ForbiddenError from 'errors/api-errors/ForbiddenError';
+import ValidationError from 'errors/api-errors/ValidationError';
+import ServerError from 'errors/api-errors/ServerError';
+import ApiError from 'errors/ApiError';
 
-import {
-  UnauthorizedApiError,
-  ForbiddenApiError,
-  ClientApiError,
-  ServerApiError,
-} from '../errors';
+import asyncFetch from '../asyncFetch';
 
 const mockFetch = (response: Object): void => {
   global.fetch = jest.fn().mockImplementation((): Promise<Object> => {
@@ -33,50 +32,50 @@ describe(`asyncFetch`, (): void => {
     });
   });
 
-  it(`throws UnauthorizedApiError on 401`, async (): Promise<void> => {
+  it(`throws UnauthorizedError on 401`, async (): Promise<void> => {
     mockFetch({ status: 401 });
 
     await expect(asyncFetch('', {}))
       .rejects
-      .toThrow(new UnauthorizedApiError());
+      .toThrow(new UnauthorizedError());
   });
 
-  it(`throws ForbiddenApiError on 403`, async (): Promise<void> => {
+  it(`throws ForbiddenError on 403`, async (): Promise<void> => {
     mockFetch({ status: 403 });
 
     await expect(asyncFetch('', {}))
       .rejects
-      .toThrow(new ForbiddenApiError());
+      .toThrow(new ForbiddenError());
   });
 
-  it(`throws ClientApiError on 422`, async (): Promise<void> => {
+  it(`throws ClientError on 422`, async (): Promise<void> => {
     mockFetch({
       status: 422,
       json: (): Object => {
         return {
-          errors: { foo: 'bar' },
+          errors: 'foo',
         };
       },
     });
 
     await expect(asyncFetch('', {}))
       .rejects
-      .toThrow(new ClientApiError({ foo: 'bar' }));
+      .toThrow(new ValidationError('foo'));
   });
 
-  it(`throws ServerApiError on > 500`, async (): Promise<void> => {
+  it(`throws ServerError on > 500`, async (): Promise<void> => {
     mockFetch({ status: 503, statusText: 'Service Unavailable' });
 
     await expect(asyncFetch('', {}))
       .rejects
-      .toThrow(new ServerApiError('Service Unavailable'));
+      .toThrow(new ServerError('Service Unavailable'));
   });
 
-  it(`throws ServerApiError on other 4xx errors`, async (): Promise<void> => {
+  it(`throws ServerError on other 4xx errors`, async (): Promise<void> => {
     mockFetch({ status: 418, statusText: 'I\'m a teapot' });
 
     await expect(asyncFetch('', {}))
       .rejects
-      .toThrow(new ClientApiError('I\'m a teapot'));
+      .toThrow(new ApiError('I\'m a teapot'));
   });
 });
