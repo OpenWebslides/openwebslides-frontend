@@ -15,11 +15,9 @@ const toggleSidebar = (state: SidebarsState, action: t.ToggleAction): SidebarsSt
   let newByName: SidebarsByName;
 
   if (_.indexOf(state.byName, sidebarName) >= 0) {
-    console.log("sidebar in state!");
     newByName = _.without(state.byName, sidebarName);
   }
   else {
-    console.log("put that MAFK in tha state, y'all!");
     newByName = _.concat(state.byName, sidebarName);
   }
 

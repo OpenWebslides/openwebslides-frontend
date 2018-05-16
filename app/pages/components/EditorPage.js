@@ -16,13 +16,14 @@ import AuthenticatedPage from '../AuthenticatedPage';
 
 const { SidebarMenu, SidebarWrapper } = sidebar.components;
 const { getAmountOfSidebars } = sidebar.selectors;
+const { SIDEBAR_LENGTH, AMOUNT_OF_COLS_IN_GRID } = sidebar.constants;
 
 type RouteProps = {
   match: Match,
 };
 
 type StateProps = {
-  amount: number,
+  amount: ?number, // undefined if state is not yet initialized
 };
 
 type Props = CustomTranslatorProps & RouteProps & StateProps;
@@ -45,8 +46,8 @@ const PureTopicEditorForId = (props: Props): React.Node => {
 
   const topicId = match.params.id;
 
-  const sidebarWrapperWidth = 5 * amount;
-  const editorWidth = 16 - sidebarWrapperWidth;
+  const sidebarWrapperWidth = SIDEBAR_LENGTH * amount;
+  const editorWidth = AMOUNT_OF_COLS_IN_GRID - sidebarWrapperWidth;
 
   return (
     <React.Fragment>
@@ -54,9 +55,11 @@ const PureTopicEditorForId = (props: Props): React.Node => {
         <Grid.Column width={editorWidth}>
           <TopicEditor topicId={topicId} />
         </Grid.Column>
-        <Grid.Column className="editor__sidebar" width={sidebarWrapperWidth}>
-          <SidebarWrapper />
-        </Grid.Column>
+        { sidebarWrapperWidth > 0 &&
+          <Grid.Column className="editor__sidebar" width={sidebarWrapperWidth}>
+            <SidebarWrapper topicId={topicId} />
+          </Grid.Column>
+        }
       </Grid>
       <SidebarMenu />
     </React.Fragment>

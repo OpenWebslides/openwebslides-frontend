@@ -4,8 +4,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Slide from 'core-components/slides/Slide';
 
+import topics from 'modules/topics';
+
 import contentItems, { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
+
+const { getById } = topics.selectors;
 
 type StateProps = {
   // Slide takes a denormalized root contentItem instead of a root contentItem id, because in a
@@ -16,13 +20,21 @@ type StateProps = {
 };
 
 type PassedProps = {
-  contentItemTreeRootItemId: Identifier,
+  topicId: Identifier,
 };
 
 type Props = StateProps & PassedProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const { contentItemTreeRootItemId } = props;
+  const { topicId } = props;
+  const topic = getById(state, { id: topicId });
+
+  if (topic == null) {
+    throw new Error(`Topic with id "${topicId}" could not be found.`);
+  }
+
+  const contentItemTreeRootItemId = topic.rootContentItemId;
+
   const contentItemTreeRootItem = contentItems.selectors.getDenormalizedById(
     state,
     { id: contentItemTreeRootItemId },
