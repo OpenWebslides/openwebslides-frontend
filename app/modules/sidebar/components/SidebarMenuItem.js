@@ -1,30 +1,52 @@
 // @flow
 
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Icon } from 'semantic-ui-react';
+import { Dispatch } from 'redux';
+
+import { toggle as toggleAction } from '../actions';
 
 type PassedProps = {
   icon: string,
-  sidebarType: string,
+  sidebarName: string,
 };
 
-type Props = PassedProps;
+type DispatchProps = {
+  toggle: (string) => void,
+};
+
+type Props = PassedProps & DispatchProps;
+
+const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+  return {
+    toggle: (sidebarName: string): void => {
+      dispatch(
+        toggleAction(sidebarName),
+      );
+    },
+  };
+};
 
 const PureSidebarMenuItem = (props: Props): React.Node => {
   const {
+    toggle,
+    sidebarName,
     icon,
   } = props;
 
+  console.log(sidebarName);
+
   return (
     <div className="editor__sidebarmenu__item">
-      <div className="editor__sidebarmenu__button">
+      <div className="editor__sidebarmenu__button" onClick={() => toggle(sidebarName)}>
         <Icon name={icon} className="editor__sidebarmenu__icon" />
       </div>
     </div>
   );
 };
 
-const SidebarMenuItem = PureSidebarMenuItem;
+const SidebarMenuItem = connect(null, mapDispatchToProps)(PureSidebarMenuItem);
 
 export { PureSidebarMenuItem };
 export default SidebarMenuItem;

@@ -2,25 +2,13 @@
 
 import * as t from './actionTypes';
 
-export const addSidebar = (
-  id: string,
-): t.AddAction | t.AddErrorAction => {
+export const toggle = (
+  sidebarName: string,
+): t.ToggleAction | t.ToggleErrorAction => {
   return {
-    type: t.ADD,
+    type: t.TOGGLE,
     payload: {
-      id,
+      sidebarName,
     },
   };
 };
-
-export const removeSidebar = (
-  id: string,
-): t.RemoveAction | t.RemoveErrorAction => {
-  return {
-    type: t.REMOVE,
-    payload: {
-      id,
-    },
-  };
-};
-
