@@ -59,7 +59,7 @@ const PureSigninForm = (props: Props): React.Node => {
         <Field
           component={Input}
           name="email"
-          placeholder={t('auth:input.email')}
+          placeholder={t('authentication:input.email')}
           icon="at"
           iconPosition="left"
         />
@@ -69,7 +69,7 @@ const PureSigninForm = (props: Props): React.Node => {
           component={Input}
           name="password"
           type="password"
-          placeholder={t('auth:input.password')}
+          placeholder={t('authentication:input.password')}
           icon="lock"
           iconPosition="left"
         />
@@ -77,10 +77,10 @@ const PureSigninForm = (props: Props): React.Node => {
 
       <Button.Group fluid={true}>
         <Button primary={true} type="submit">
-          {t('auth:button.signin')}
+          {t('authentication:button.signin')}
         </Button>
         <Button secondary={true} as={Link} to="/auth/signup">
-          {t('auth:button.signup')}
+          {t('authentication:button.signup')}
         </Button>
       </Button.Group>
     </Form>

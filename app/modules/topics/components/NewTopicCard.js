@@ -62,24 +62,24 @@ const NewTopicCardForm = (props: Props): React.Node => {
     <Form onSubmit={handleSubmit} size="large">
       <Form.Field width="6">
         <label htmlFor="title" control={Form.Input}>
-          {t('common:form.title')}
+          {t('topics:form.title')}
           <Field
             id="title"
             component={Form.Input}
             name="title"
-            placeholder={t('common:form.title')}
+            placeholder={t('topics:form.title')}
           />
         </label>
       </Form.Field>
 
       <Form.Field width="6">
         <label htmlFor="description" control="textarea">
-          {t('common:form.description')}
+          {t('topics:form.description')}
           <Field
             id="description"
             component="textarea"
             name="description"
-            placeholder={t('common:form.description')}
+            placeholder={t('topics:form.description')}
           />
         </label>
       </Form.Field>

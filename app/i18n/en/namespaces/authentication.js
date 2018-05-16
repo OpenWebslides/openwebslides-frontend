@@ -1,6 +1,6 @@
 // @flow
 
-const auth = {
+const authentication = {
   input: {
     email: 'Email',
     firstname: 'First name',
@@ -39,4 +39,4 @@ const auth = {
   },
 };
 
-export default auth;
+export default authentication;

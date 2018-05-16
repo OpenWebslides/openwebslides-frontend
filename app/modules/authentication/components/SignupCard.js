@@ -17,10 +17,10 @@ const PureSignupCard = (props: Props): React.Node => {
     <Card fluid={true}>
       <Card.Content>
         <Card.Header>
-          {t('auth:signup.title')}
+          {t('authentication:signup.title')}
         </Card.Header>
         <Card.Description>
-          {t('auth:signup.description')}
+          {t('authentication:signup.description')}
         </Card.Description>
       </Card.Content>
       <Card.Content>

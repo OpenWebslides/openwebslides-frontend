@@ -36,7 +36,7 @@ type Props = CustomTranslatorProps & RouteProps & StateProps;
 const mapStateToProps = (state: State): StateProps => {
   const account = getAccount(state);
 
-  // TODO: figure out what to do with /profile if no user is logged in
+  // TODO: figure out what to do with /users if no user is logged in
   /*
   if (account == null) {
     throw new Error(`User is not logged in`);
@@ -81,7 +81,7 @@ const PureProfilePage = (props: Props): React.Node => {
 
   return (
     <Page>
-      <h1>{t('pages:profile.title')}</h1>
+      <h1>{t('global:title.profile')}</h1>
       <Switch>
         <Route path={`${match.url}/:id`} component={UserProfile} />
         <Route render={() => <CurrentUserProfile userId={CURRENT_USER} />} />
