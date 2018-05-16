@@ -11,23 +11,23 @@ import type { ContentItemType } from '../model';
 const addToState = (
   id: Identifier,
   type: ContentItemType,
-  props: t.ActionPayloadProps,
+  propsForType: t.ActionPayloadPropsForType,
 ): t.AddToStateAction => {
   const newId = id;
-  const newProps: t.ActionPayloadProps = {};
+  const newPropsForType: t.ActionPayloadPropsForType = {};
 
   if (_.includes(plainTextContentItemTypes, type)) {
-    if (props.text == null) {
+    if (propsForType.text == null) {
       throw new InvalidArgumentError(`"text" prop must be defined.`);
     }
 
-    const newText = _.trim(props.text);
+    const newText = _.trim(propsForType.text);
 
     if (newText === '') {
       throw new InvalidArgumentError(`"text" prop cannot be an empty string.`);
     }
 
-    newProps.text = newText;
+    newPropsForType.text = newText;
   }
   else {
     throw new NotYetImplementedError(`ContentItemType not yet supported`);
@@ -38,7 +38,7 @@ const addToState = (
     payload: {
       id: newId,
       type,
-      props: newProps,
+      propsForType: newPropsForType,
     },
   };
 };

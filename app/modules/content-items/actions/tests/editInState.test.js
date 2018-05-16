@@ -21,7 +21,7 @@ describe(`editInState`, (): void => {
       payload: {
         id: dummyId,
         type: dummyPlainTextType,
-        props: dummyPlainTextProps,
+        propsForType: dummyPlainTextProps,
       },
     };
     expect(editInState(dummyId, dummyPlainTextType, dummyPlainTextProps)).toEqual(expectedAction);
@@ -52,7 +52,7 @@ describe(`editInState`, (): void => {
       payload: {
         id: dummyId,
         type: dummyPlainTextType,
-        props: dummyPlainTextProps,
+        propsForType: dummyPlainTextProps,
       },
     };
     expect(editInState(

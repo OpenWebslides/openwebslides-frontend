@@ -16,7 +16,7 @@ describe(`add`, (): void => {
       type: t.ADD,
       payload: {
         type: dummyType,
-        props: dummyProps,
+        propsForType: dummyProps,
       },
     };
     expect(add(dummyType, dummyProps)).toEqual(expectedAction);

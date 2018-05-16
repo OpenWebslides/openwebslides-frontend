@@ -7,14 +7,14 @@ import type { ContentItemType } from '../model';
 const edit = (
   id: Identifier,
   type: ContentItemType,
-  props: t.ActionPayloadProps,
+  propsForType: t.ActionPayloadPropsForType,
 ): t.EditAction => {
   return {
     type: t.EDIT,
     payload: {
       id,
       type,
-      props,
+      propsForType,
     },
   };
 };

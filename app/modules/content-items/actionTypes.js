@@ -26,7 +26,7 @@ export const MOVE: 'contentItems/MOVE' = 'contentItems/MOVE';
 export const REMOVE: 'contentItems/REMOVE' = 'contentItems/REMOVE';
 
 
-export type ActionPayloadProps = {
+export type ActionPayloadPropsForType = {
   text?: string,
   // #TODO support other contentItemTypes / props
 };
@@ -37,7 +37,7 @@ export type AddToStateAction = {
   payload: {
     id: Identifier,
     type: ContentItemType,
-    props: ActionPayloadProps,
+    propsForType: ActionPayloadPropsForType,
   },
 };
 
@@ -46,7 +46,7 @@ export type EditInStateAction = {
   payload: {
     id: Identifier,
     type: ContentItemType,
-    props: ActionPayloadProps,
+    propsForType: ActionPayloadPropsForType,
   },
 };
 
@@ -124,7 +124,7 @@ export type AddAction = {
   type: typeof ADD,
   payload: {
     type: ContentItemType,
-    props: ActionPayloadProps,
+    propsForType: ActionPayloadPropsForType,
   },
 };
 
@@ -133,7 +133,7 @@ export type EditAction = {
   payload: {
     id: Identifier,
     type: ContentItemType,
-    props: ActionPayloadProps,
+    propsForType: ActionPayloadPropsForType,
   },
 };
 

@@ -17,7 +17,7 @@ const editInState = (
   state: ContentItemsState,
   action: t.EditInStateAction,
 ): ContentItemsState => {
-  const { id, type, props } = action.payload;
+  const { id, type, propsForType } = action.payload;
   const contentItemToEdit = state.byId[id];
 
   if (contentItemToEdit == null) {
@@ -31,7 +31,9 @@ const editInState = (
   const editedContentItem: any = { ...contentItemToEdit };
 
   if (_.includes(plainTextContentItemTypes, type)) {
-    if (props.text != null) (editedContentItem: PlainTextContentItem).text = props.text;
+    if (propsForType.text != null) {
+      (editedContentItem: PlainTextContentItem).text = propsForType.text;
+    }
   }
 
   if (_.isEqual(editedContentItem, contentItemToEdit)) {

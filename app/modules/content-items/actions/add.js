@@ -5,13 +5,13 @@ import type { ContentItemType } from '../model';
 
 const add = (
   type: ContentItemType,
-  props: t.ActionPayloadProps,
+  propsForType: t.ActionPayloadPropsForType,
 ): t.AddAction => {
   return {
     type: t.ADD,
     payload: {
       type,
-      props,
+      propsForType,
     },
   };
 };

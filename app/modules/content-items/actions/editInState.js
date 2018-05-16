@@ -12,33 +12,33 @@ import type { ContentItemType } from '../model';
 const editInState = (
   id: Identifier,
   type: ContentItemType,
-  props: t.ActionPayloadProps,
+  propsForType: t.ActionPayloadPropsForType,
 ): t.EditInStateAction => {
   const newId = id;
-  let propsToProcess: t.ActionPayloadProps = { ...props };
-  const newProps: t.ActionPayloadProps = {};
+  let unprocessedPropsForType: t.ActionPayloadPropsForType = { ...propsForType };
+  const newPropsForType: t.ActionPayloadPropsForType = {};
 
   if (_.includes(plainTextContentItemTypes, type)) {
-    if (props.text != null) {
-      const newText = _.trim(props.text);
+    if (propsForType.text != null) {
+      const newText = _.trim(propsForType.text);
 
       if (newText === '') {
         throw new InvalidArgumentError(`"text" prop cannot be an empty string.`);
       }
 
-      newProps.text = newText;
+      newPropsForType.text = newText;
     }
-    propsToProcess = _.omit(propsToProcess, 'text');
+    unprocessedPropsForType = _.omit(unprocessedPropsForType, 'text');
   }
   else {
     throw new NotYetImplementedError(`ContentItemType not yet supported`);
   }
 
-  if (!_.isEmpty(propsToProcess)) {
-    throw new InvalidArgumentError(`"props" object contains invalid props for this contentItem type. Type was: "${type}". Invalid props were: "${JSON.stringify(propsToProcess)}"`);
+  if (!_.isEmpty(unprocessedPropsForType)) {
+    throw new InvalidArgumentError(`"props" object contains invalid props for this contentItem type. Type was: "${type}". Invalid props were: "${JSON.stringify(unprocessedPropsForType)}"`);
   }
 
-  if (_.isEmpty(newProps)) {
+  if (_.isEmpty(newPropsForType)) {
     throw new UnsupportedOperationError(`Attempted to create superfluous action. This is probably a developer error.`);
   }
 
@@ -47,7 +47,7 @@ const editInState = (
     payload: {
       id: newId,
       type,
-      props: newProps,
+      propsForType: newPropsForType,
     },
   };
 };

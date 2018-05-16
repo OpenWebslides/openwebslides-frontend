@@ -8,7 +8,7 @@ describe(`edit`, (): void => {
 
   const dummyId = 'abcdefghij';
   const dummyType = contentItemTypes.HEADING;
-  const dummyProps = {
+  const dummyTextProps = {
     text: 'Lorem ipsum dolor sit amet.',
   };
 
@@ -18,10 +18,10 @@ describe(`edit`, (): void => {
       payload: {
         id: dummyId,
         type: dummyType,
-        props: dummyProps,
+        propsForType: dummyTextProps,
       },
     };
-    expect(edit(dummyId, dummyType, dummyProps)).toEqual(expectedAction);
+    expect(edit(dummyId, dummyType, dummyTextProps)).toEqual(expectedAction);
   });
 
 });

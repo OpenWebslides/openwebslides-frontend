@@ -27,14 +27,14 @@ const addToState = (
   state: ContentItemsState,
   action: t.AddToStateAction,
 ): ContentItemsState => {
-  const { id, type, props } = action.payload;
+  const { id, type, propsForType } = action.payload;
   const newContentItem: BaseContentItem = {
     id,
     type,
   };
 
   if (_.includes(plainTextContentItemTypes, type)) {
-    ((newContentItem: any): PlainTextContentItem).text = (props: Object).text;
+    ((newContentItem: any): PlainTextContentItem).text = (propsForType: Object).text;
   }
 
   if (_.includes(taggableContentItemTypes, type)) {

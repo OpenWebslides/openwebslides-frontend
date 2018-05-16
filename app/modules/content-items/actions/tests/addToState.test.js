@@ -20,7 +20,7 @@ describe(`addToState`, (): void => {
       payload: {
         id: dummyId,
         type: dummyPlainTextType,
-        props: dummyPlainTextProps,
+        propsForType: dummyPlainTextProps,
       },
     };
     expect(addToState(dummyId, dummyPlainTextType, dummyPlainTextProps)).toEqual(expectedAction);
@@ -42,7 +42,7 @@ describe(`addToState`, (): void => {
       payload: {
         id: dummyId,
         type: dummyPlainTextType,
-        props: dummyPlainTextProps,
+        propsForType: dummyPlainTextProps,
       },
     };
     expect(addToState(

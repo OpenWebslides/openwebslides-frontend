@@ -15,7 +15,7 @@ describe(`editSaga`, (): void => {
       payload: {
         id: 'abcdefghij',
         type: contentItemTypes.HEADING,
-        props: {
+        propsForType: {
           text: 'Lorem ipsum dolor sit amet.',
         },
       },
@@ -31,7 +31,7 @@ describe(`editSaga`, (): void => {
       payload: {
         id: 'abcdefghij',
         type: contentItemTypes.HEADING,
-        props: {
+        propsForType: {
           text: '',
         },
       },
@@ -41,7 +41,7 @@ describe(`editSaga`, (): void => {
         action: {
           type: t.EDIT_IN_STATE,
           payload: {
-            props: {
+            propsForType: {
               text: `*\\[Empty contentItems should be automatically deleted; delete functionality to be implemented later.\\]*`,
             },
           },

@@ -48,7 +48,7 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: dummyNewHeadingContentItem.id,
         type: contentItemTypes.HEADING,
-        props: {
+        propsForType: {
           text: dummyNewHeadingContentItem.text,
         },
       },
@@ -77,7 +77,7 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: dummyNewParagraphContentItem.id,
         type: contentItemTypes.PARAGRAPH,
-        props: {
+        propsForType: {
           text: dummyNewParagraphContentItem.text,
         },
       },

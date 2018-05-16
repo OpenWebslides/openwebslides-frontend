@@ -36,7 +36,7 @@ describe(`EDIT_IN_STATE`, (): void => {
       payload: {
         id: dummyPlainTextContentItem.id,
         type: dummyPlainTextContentItem.type,
-        props: {
+        propsForType: {
           text: editedText,
         },
       },
@@ -65,7 +65,7 @@ describe(`EDIT_IN_STATE`, (): void => {
       payload: {
         id: dummyPlainTextContentItem.id,
         type: dummyPlainTextContentItem.type,
-        props: {
+        propsForType: {
           text: dummyPlainTextContentItem.text,
         },
       },
@@ -87,7 +87,7 @@ describe(`EDIT_IN_STATE`, (): void => {
       payload: {
         id: dummyInvalidId,
         type: contentItemTypes.HEADING,
-        props: {
+        propsForType: {
           text: 'Lorem ipsum',
         },
       },
@@ -109,7 +109,7 @@ describe(`EDIT_IN_STATE`, (): void => {
       payload: {
         id: dummyContentItemData.rootContentItem.id,
         type: contentItemTypes.HEADING,
-        props: {
+        propsForType: {
           text: 'Lorem ipsum',
         },
       },
