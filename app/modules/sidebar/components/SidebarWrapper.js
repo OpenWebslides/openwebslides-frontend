@@ -3,8 +3,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
+import type { State } from 'types/state';
 import SlideSidebar from './sidebars/SlideSidebar';
 import { getAllByName } from '../selectors';
+
 
 type StateProps = {
   sidebars: SidebarsByName,
@@ -24,14 +26,6 @@ const PureSidebarWrapper = (props: Props): React.Node => {
   const {
     sidebars,
   } = props;
-
-  /*
-  console.log("sidebars in wrapper render:");
-  console.log(sidebars);
-
-  console.log("amount of sidebars is:");
-  console.log(sidebars.length);
-  */
 
   const widthPerSidebar = Math.floor(16 / sidebars.length);
 

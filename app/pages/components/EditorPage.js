@@ -1,11 +1,13 @@
 // @flow
 
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 import { Link, Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
+import type { State } from 'types/state';
 import sidebar from 'modules/sidebar';
 
 import topics from 'modules/topics';
@@ -13,26 +15,46 @@ import topics from 'modules/topics';
 import AuthenticatedPage from '../AuthenticatedPage';
 
 const { SidebarMenu, SidebarWrapper } = sidebar.components;
+const { getAmountOfSidebars } = sidebar.selectors;
 
 type RouteProps = {
   match: Match,
 };
 
-type Props = CustomTranslatorProps & RouteProps;
+type StateProps = {
+  amount: number,
+};
+
+type Props = CustomTranslatorProps & RouteProps & StateProps;
+
+const mapStateToProps = (state: State, props: Props): StateProps => {
+  const amount = getAmountOfSidebars(state);
+
+  return {
+    amount,
+  };
+};
 
 const TopicEditor = topics.components.Editor;
 
-const TopicEditorForId = (props: RouteProps): React.Node => {
-  const { match } = props;
+const PureTopicEditorForId = (props: Props): React.Node => {
+  const {
+    match,
+    amount,
+  } = props;
+
   const topicId = match.params.id;
+
+  const sidebarWrapperWidth = 5 * amount;
+  const editorWidth = 16 - sidebarWrapperWidth;
 
   return (
     <React.Fragment>
       <Grid>
-        <Grid.Column width={6}>
+        <Grid.Column width={editorWidth}>
           <TopicEditor topicId={topicId} />
         </Grid.Column>
-        <Grid.Column className="editor__sidebar" width={10}>
+        <Grid.Column className="editor__sidebar" width={sidebarWrapperWidth}>
           <SidebarWrapper />
         </Grid.Column>
       </Grid>
@@ -40,6 +62,8 @@ const TopicEditorForId = (props: RouteProps): React.Node => {
     </React.Fragment>
   );
 };
+
+const TopicEditorForId = connect(mapStateToProps)(PureTopicEditorForId);
 
 
 const DummyContent = (props: RouteProps): React.Node => {

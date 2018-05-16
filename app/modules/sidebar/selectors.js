@@ -9,12 +9,15 @@ const getModule = (state: State): SidebarsState => {
 };
 
 export const getAllByName = (state: State): SidebarsByName => {
-  console.log("byName:");
-  console.log(getModule(state).byName);
-
   return getModule(state).byName;
 };
 
 export const getByName = (state: State, props: { sidebarName: string }): Sidebar => {
   return _.get(getAllByName(state), props.sidebarName, null);
+};
+
+export const getAmountOfSidebars = (state: State): number => {
+  const amount = getAllByName(state).length;
+
+  return amount != null ? amount : 0;
 };
