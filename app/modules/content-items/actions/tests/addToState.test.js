@@ -1,5 +1,7 @@
 // @flow
 
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+
 import * as t from '../../actionTypes';
 import { addToState } from '../../actions';
 import { contentItemTypes } from '../../model';
@@ -24,14 +26,14 @@ describe(`addToState`, (): void => {
     expect(addToState(dummyId, dummyPlainTextType, dummyPlainTextProps)).toEqual(expectedAction);
   });
 
-  it(`throws an error, when the passed type is a plainText type and the passed props don't match this type`, (): void => {
+  it(`throws an InvalidArgumentError, when the passed type is a plainText type and the passed props don't match this type`, (): void => {
     expect((): any => addToState(
       dummyId,
       dummyPlainTextType,
       {
         definitelyNotAPlainTextProp: 'abcde',
       },
-    )).toThrowError(`"text" prop must be defined.`);
+    )).toThrow(InvalidArgumentError);
   });
 
   it(`trims all passed plainText string props, when the passed string props contain unnecessary whitespace`, (): void => {
@@ -52,14 +54,14 @@ describe(`addToState`, (): void => {
     )).toEqual(expectedAction);
   });
 
-  it(`throws an error, when a non-nullable plainText string prop is an empty string`, (): void => {
+  it(`throws an InvalidArgumentError, when a non-nullable plainText string prop is an empty string`, (): void => {
     expect((): any => addToState(
       dummyId,
       dummyPlainTextType,
       {
         text: '   ',
       },
-    )).toThrowError(`"text" prop cannot be an empty string.`);
+    )).toThrow(InvalidArgumentError);
   });
 
 });

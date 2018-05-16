@@ -1,6 +1,8 @@
 // @flow
 
 import _ from 'lodash';
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
 import type { Identifier } from 'types/model';
 import * as t from '../actionTypes';
 import { plainTextContentItemTypes } from '../model';
@@ -16,19 +18,19 @@ const addToState = (
 
   if (_.includes(plainTextContentItemTypes, type)) {
     if (props.text == null) {
-      throw new Error(`"text" prop must be defined.`);
+      throw new InvalidArgumentError(`"text" prop must be defined.`);
     }
 
     const newText = _.trim(props.text);
 
     if (newText === '') {
-      throw new Error(`"text" prop cannot be an empty string.`);
+      throw new InvalidArgumentError(`"text" prop cannot be an empty string.`);
     }
 
     newProps.text = newText;
   }
   else {
-    throw new Error(`contentItemType not yet supported`);
+    throw new NotYetImplementedError(`ContentItemType not yet supported`);
   }
 
   return {

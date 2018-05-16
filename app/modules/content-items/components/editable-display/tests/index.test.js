@@ -1,5 +1,7 @@
 // @flow
 
+import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+
 import * as React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -234,7 +236,7 @@ describe(`EditableDisplay`, (): void => {
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
   });
 
-  it(`throws an error, when the passed contentItemId is invalid`, (): void => {
+  it(`throws an ObjectNotFoundError, when the passed contentItemId is invalid`, (): void => {
     const dummyInvalidId = 'abcdefghij';
     expect((): void => {
       shallow(
@@ -245,7 +247,7 @@ describe(`EditableDisplay`, (): void => {
           subItemsClassNameSuffix={dummySubItemsClassNameSuffix}
         />,
       );
-    }).toThrowError(`ContentItem with id "${dummyInvalidId}" could not be found.`);
+    }).toThrow(ObjectNotFoundError);
   });
 
   it(`renders all of the contentItem's sub items, when the contentItem is subable and has sub items`, (): void => {

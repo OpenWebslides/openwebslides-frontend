@@ -2,6 +2,8 @@
 /* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import * as t from '../actionTypes';
 import {
   plainTextContentItemTypes,
@@ -19,11 +21,11 @@ const editInState = (
   const contentItemToEdit = state.byId[id];
 
   if (contentItemToEdit == null) {
-    throw new Error(`ContentItem with id "${id}" could not be found.`);
+    throw new ObjectNotFoundError('contentItems:contentItem', id);
   }
 
   if (contentItemToEdit.type !== type) {
-    throw new Error(`The contentItem's type does not match the type passed in the action. The contentItem's type was: "${contentItemToEdit.type}". The type passed in the action was: "${type}".`);
+    throw new InvalidArgumentError(`The contentItem's type does not match the type passed in the action. The contentItem's type was: "${contentItemToEdit.type}". The type passed in the action was: "${type}".`);
   }
 
   const editedContentItem: any = { ...contentItemToEdit };

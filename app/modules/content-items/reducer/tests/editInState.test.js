@@ -1,5 +1,8 @@
 // @flow
 
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+
 import reducer from '../../reducer';
 import * as t from '../../actionTypes';
 import { contentItemTypes } from '../../model';
@@ -74,7 +77,7 @@ describe(`EDIT_IN_STATE`, (): void => {
     expect(resultState.byId[dummyPlainTextContentItem.id]).toBe(prevState.byId[dummyPlainTextContentItem.id]);
   });
 
-  it(`throws an error, when the contentItem for the passed id cannot be found`, (): void => {
+  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, (): void => {
     const dummyInvalidId = 'ExtremelyUnlikelyIdX';
     const prevState: ContentItemsState = {
       byId: {},
@@ -92,10 +95,10 @@ describe(`EDIT_IN_STATE`, (): void => {
     expect((): any => reducer(
       prevState,
       editPlainTextInStateAction,
-    )).toThrowError();
+    )).toThrow(ObjectNotFoundError);
   });
 
-  it(`throws an error, when the contentItem for the passed id does not match the action's type prop`, (): void => {
+  it(`throws an InvalidArgumentError, when the contentItem for the passed id does not match the action's type prop`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
         [dummyContentItemData.rootContentItem.id]: dummyContentItemData.rootContentItem,
@@ -114,7 +117,7 @@ describe(`EDIT_IN_STATE`, (): void => {
     expect((): any => reducer(
       prevState,
       editPlainTextInStateAction,
-    )).toThrowError();
+    )).toThrow(InvalidArgumentError);
   });
 
 });

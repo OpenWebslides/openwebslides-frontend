@@ -2,6 +2,10 @@
 /* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';
+
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
+
 import * as t from '../actionTypes';
 import {
   contentItemTypes,
@@ -66,9 +70,9 @@ const addToState = (
     case contentItemTypes.IFRAME:
     case contentItemTypes.SLIDE_BREAK:
     case contentItemTypes.COURSE_BREAK:
-      throw new Error(`ContentItem type not supported yet.`);
+      throw new NotYetImplementedError(`ContentItem type not supported yet.`);
     default:
-      throw new Error(`Invalid contentItem type. Type was: "${type}"`);
+      throw new InvalidArgumentError(`Invalid contentItem type. Type was: "${type}"`);
   }
 
   return {

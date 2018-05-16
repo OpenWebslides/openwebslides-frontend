@@ -1,5 +1,8 @@
 // @flow
 
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
+
 import * as t from '../../actionTypes';
 import { editInState } from '../../actions';
 import { contentItemTypes } from '../../model';
@@ -24,7 +27,7 @@ describe(`editInState`, (): void => {
     expect(editInState(dummyId, dummyPlainTextType, dummyPlainTextProps)).toEqual(expectedAction);
   });
 
-  it(`throws an error, when the passed props contain invalid keys for the given contentItemType`, (): void => {
+  it(`throws an InvalidArgumentError, when the passed props contain invalid keys for the given contentItemType`, (): void => {
     expect((): any => editInState(
       dummyId,
       dummyPlainTextType,
@@ -32,15 +35,15 @@ describe(`editInState`, (): void => {
         ...dummyPlainTextProps,
         definitelyNotAValidProp: 'abcde',
       },
-    )).toThrowError();
+    )).toThrow(InvalidArgumentError);
   });
 
-  it(`throws an error, when all passed props are undefined`, (): void => {
+  it(`throws an UnsupportedOperationError, when all passed props are undefined`, (): void => {
     expect((): any => editInState(
       dummyId,
       dummyPlainTextType,
       {},
-    )).toThrowError();
+    )).toThrow(UnsupportedOperationError);
   });
 
   it(`trims all passed plainText string props, when the passed string props contain unnecessary whitespace`, (): void => {
@@ -61,14 +64,14 @@ describe(`editInState`, (): void => {
     )).toEqual(expectedAction);
   });
 
-  it(`throws an error, when a non-nullable plainText string prop is an empty string`, (): void => {
+  it(`throws an InvalidArgumentError, when a non-nullable plainText string prop is an empty string`, (): void => {
     expect((): any => editInState(
       dummyId,
       dummyPlainTextType,
       {
         text: '   ',
       },
-    )).toThrowError();
+    )).toThrow(InvalidArgumentError);
   });
 
 });

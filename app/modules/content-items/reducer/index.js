@@ -1,5 +1,7 @@
 // @flow
 
+import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
+
 import * as t from '../actionTypes';
 import type {
   ContentItemsState,
@@ -24,14 +26,11 @@ const reducer = (
     case t.EDIT_IN_STATE:
       return editInState(state, action);
     case t.REMOVE_FROM_STATE:
-      // #TODO stub
-      return state;
+      throw new NotYetImplementedError();
     case t.SET_IN_STATE:
-      // #TODO stub
-      return state;
+      throw new NotYetImplementedError();
     case t.SET_MULTIPLE_IN_STATE:
-      // #TODO stub
-      return state;
+      throw new NotYetImplementedError();
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled
       // eslint-disable-next-line no-unused-expressions

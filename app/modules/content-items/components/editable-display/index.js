@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
-
+import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
@@ -62,7 +62,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const contentItem = getById(state, { id: props.contentItemId });
 
   if (contentItem == null) {
-    throw new Error(`ContentItem with id "${props.contentItemId}" could not be found.`);
+    throw new ObjectNotFoundError('contentItems:contentItem', props.contentItemId);
   }
 
   return {
