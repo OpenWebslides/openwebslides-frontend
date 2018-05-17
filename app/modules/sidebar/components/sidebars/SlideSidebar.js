@@ -11,7 +11,7 @@ import topics from 'modules/topics';
 import contentItems, { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
 
-type Topic = topics.model;
+type Topic = topics.model.Topic;
 
 type StateProps = {
   // Slide takes a denormalized root contentItem instead of a root contentItem id, because in a

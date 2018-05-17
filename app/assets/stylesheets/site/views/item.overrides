@@ -1,3 +1,11 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+.ui.items > .item {
+    margin: 2em 0;
+}
+
+.ui.items > .item > .content > .description {
+    margin-left: 1em;
+}

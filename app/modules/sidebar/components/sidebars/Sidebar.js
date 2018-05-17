@@ -9,7 +9,7 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import { sidebarMapping } from '../../model/sidebarName';
 import type { Sidebar as SidebarType } from '../../model';
 
-type Topic = topics.model;
+type Topic = topics.model.Topic;
 const { getById } = topics.selectors;
 
 type PassedProps = {
@@ -49,7 +49,6 @@ const PureSidebar = (props: Props): React.Node => {
       <SidebarComponent topic={topic} />
     </div>
   );
-
 };
 
 const Sidebar = connect(mapStateToProps)(PureSidebar);
