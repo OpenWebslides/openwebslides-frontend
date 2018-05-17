@@ -10,6 +10,14 @@ class ApiError extends CustomError {
   // translator keys.
   constructor(message: string, isTranslatable: boolean = false): void {
     super(message, isTranslatable);
+
+    // Temporary workaround for https://github.com/istanbuljs/babel-plugin-istanbul/issues/143 #TODO
+    /* eslint-disable no-proto */
+    // $FlowFixMe
+    this.constructor = ApiError;
+    // $FlowFixMe
+    this.__proto__ = ApiError.prototype;
+    /* eslint-enable */
   }
 }
 

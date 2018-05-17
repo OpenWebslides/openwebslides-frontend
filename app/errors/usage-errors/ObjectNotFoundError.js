@@ -18,6 +18,14 @@ class ObjectNotFoundError extends UsageError {
     const objectName = i18next.t(objectNameKey);
     const message = i18next.t('errors:usage.notFound', { objectName, objectId });
     super(message, false);
+
+    // Temporary workaround for https://github.com/istanbuljs/babel-plugin-istanbul/issues/143 #TODO
+    /* eslint-disable no-proto */
+    // $FlowFixMe
+    this.constructor = ObjectNotFoundError;
+    // $FlowFixMe
+    this.__proto__ = ObjectNotFoundError.prototype;
+    /* eslint-enable */
   }
 }
 

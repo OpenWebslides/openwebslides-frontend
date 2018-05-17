@@ -20,6 +20,14 @@ class NotYetImplementedError extends ImplementationError {
     }
 
     super(newMessage, newIsTranslatable);
+
+    // Temporary workaround for https://github.com/istanbuljs/babel-plugin-istanbul/issues/143 #TODO
+    /* eslint-disable no-proto */
+    // $FlowFixMe
+    this.constructor = NotYetImplementedError;
+    // $FlowFixMe
+    this.__proto__ = NotYetImplementedError.prototype;
+    /* eslint-enable */
   }
 }
 

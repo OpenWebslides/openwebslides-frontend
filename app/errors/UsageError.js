@@ -10,6 +10,14 @@ class UsageError extends CustomError {
   // However, subclasses might use custom translation logic and then set the default to FALSE.
   constructor(message: string, isTranslatable: boolean = true): void {
     super(message, isTranslatable);
+
+    // Temporary workaround for https://github.com/istanbuljs/babel-plugin-istanbul/issues/143 #TODO
+    /* eslint-disable no-proto */
+    // $FlowFixMe
+    this.constructor = UsageError;
+    // $FlowFixMe
+    this.__proto__ = UsageError.prototype;
+    /* eslint-enable */
   }
 }
 
