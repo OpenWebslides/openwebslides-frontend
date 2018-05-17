@@ -72,9 +72,9 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
   return {
-    onEditPlainText: (id: Identifier, type: ContentItemType, text: string): void => {
+    onEditPlainText: (id: Identifier, text: string): void => {
       dispatch(
-        edit(id, type, { text }),
+        edit(id, { text }),
       );
     },
   };

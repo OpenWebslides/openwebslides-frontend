@@ -132,7 +132,6 @@ export type EditAction = {
   type: typeof EDIT,
   payload: {
     id: Identifier,
-    type: ContentItemType,
     propsForType: ActionPayloadPropsForType,
   },
 };
