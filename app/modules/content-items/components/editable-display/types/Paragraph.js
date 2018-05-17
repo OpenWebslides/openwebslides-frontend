@@ -29,7 +29,7 @@ const PureParagraph = (props: Props): React.Node => {
       <EditableTextContent
         multiline={true}
         initialText={contentItem.text}
-        onDeactivate={(text: string) => onEditPlainText(contentItem.id, text)}
+        onInput={(text: string) => onEditPlainText(contentItem.id, text)}
       />
     </DisplayBlockWrapper>
   );
