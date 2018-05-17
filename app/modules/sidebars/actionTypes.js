@@ -1,5 +1,7 @@
 // @flow
 
+import type { Error } from 'types/error';
+
 export const TOGGLE: 'sidebar/TOGGLE' = 'sidebar/TOGGLE';
 
 export const TOGGLE_ERROR: 'sidebar/TOGGLE_ERROR' = 'sidebar/TOGGLE_ERROR';

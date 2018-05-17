@@ -8,28 +8,30 @@ import { Link, Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import type { State } from 'types/state';
-import sidebar from 'modules/sidebar';
+import sidebars from 'modules/sidebars';
 
 import topics from 'modules/topics';
 
 import AuthenticatedPage from '../AuthenticatedPage';
 
-const { SidebarMenu, SidebarWrapper } = sidebar.components;
-const { getAmountOfSidebars } = sidebar.selectors;
-const { SIDEBAR_LENGTH, AMOUNT_OF_COLS_IN_GRID } = sidebar.constants;
+const { SidebarMenu, SidebarWrapper } = sidebars.components;
+const { getAllByName } = sidebars.selectors;
+const { SIDEBAR_LENGTH, AMOUNT_OF_COLS_IN_GRID } = sidebars.constants;
 
 type RouteProps = {
   match: Match,
 };
 
 type StateProps = {
-  amountOfSidebars: ?number, // undefined if state is not yet initialized
+  amountOfSidebars: number,
 };
 
 type Props = CustomTranslatorProps & RouteProps & StateProps;
 
 const mapStateToProps = (state: State): StateProps => {
-  const amountOfSidebars = getAmountOfSidebars(state);
+  const sidebarsByName = getAllByName(state);
+
+  const amountOfSidebars = sidebarsByName != null ? sidebarsByName.length : 0;
 
   return {
     amountOfSidebars,
@@ -48,9 +50,8 @@ const PureTopicEditorForId = (props: Props): React.Node => {
   if (topicId == null) { // Null check necessary for flow
     return null;
   }
-  const amount = amountOfSidebars != null ? amountOfSidebars : 0;
 
-  const sidebarWrapperWidth = SIDEBAR_LENGTH * amount;
+  const sidebarWrapperWidth = SIDEBAR_LENGTH * amountOfSidebars;
   const editorWidth = AMOUNT_OF_COLS_IN_GRID - sidebarWrapperWidth;
 
   return (
@@ -87,7 +88,7 @@ const DummyContent = (props: RouteProps): React.Node => {
   );
 };
 
-const PureEditorPage = (props: Props): React.Node => {
+const PureEditorPage = (props: RouteProps): React.Node => {
   return (
     <AuthenticatedPage>
       <Switch>

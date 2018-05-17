@@ -2,7 +2,7 @@
 
 import type { TopicsState } from 'modules/topics';
 import type { ContentItemsState } from 'modules/content-items';
-import type { SidebarsState } from 'modules/sidebar';
+import type { SidebarsState } from 'modules/sidebars';
 import type { FeedState } from 'modules/feed';
 import type { UsersState } from 'modules/users';
 import type { AuthState } from 'modules/authentication';
@@ -16,7 +16,7 @@ export type State = {
   +modules: {
     +topics: TopicsState,
     +feed: FeedState,
-    +sidebar: SidebarsState,
+    +sidebars: SidebarsState,
     +contentItems: ContentItemsState,
     +users: UsersState,
     +authentication: AuthState,
