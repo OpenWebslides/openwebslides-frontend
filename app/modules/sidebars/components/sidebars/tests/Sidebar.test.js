@@ -4,6 +4,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import { PureSidebar } from '../Sidebar';
+import { sidebar } from '../../../model/sidebarName';
 
 describe(`Sidebar`, (): void => {
 
@@ -15,12 +16,13 @@ describe(`Sidebar`, (): void => {
       description: '',
       rootContentItemId: 'abcdefghij',
     };
+    const dummySidebar = sidebar.SLIDE;
 
     const enzymeWrapper = shallow(
       <PureSidebar
         topicId="abcdefghij"
         topic={dummyTopic}
-        sidebarName="SidebarName/SLIDE"
+        sidebarName={dummySidebar}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

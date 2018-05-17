@@ -3,10 +3,13 @@
 import reducer from '../reducer';
 import * as t from '../actionTypes';
 import type { SidebarsState } from '../model';
+import { sidebar } from '../model/sidebarName';
 
 describe(`reducer`, (): void => {
-  const dummySidebarsByName = ['SidebarName/SLIDE'];
-  const dummySidebar = 'SidebarName/SLIDE';
+  const dummySidebar1 = sidebar.SLIDE;
+  const dummySidebar2 = sidebar.INFO;
+
+  const dummySidebarsByName = [dummySidebar1];
 
   const dummyInitialState = {
     byName: [],
@@ -30,11 +33,11 @@ describe(`reducer`, (): void => {
     const toggleAction: t.ToggleAction = {
       type: t.TOGGLE,
       payload: {
-        sidebarName: 'SidebarName/INFO',
+        sidebarName: dummySidebar2,
       },
     };
     const nextState: SidebarsState = {
-      byName: [dummySidebar, 'SidebarName/INFO'],
+      byName: [dummySidebar1, dummySidebar2],
     };
 
     expect(reducer(prevState, toggleAction)).toEqual(nextState);
@@ -47,7 +50,7 @@ describe(`reducer`, (): void => {
     const toggleAction: t.ToggleAction = {
       type: t.TOGGLE,
       payload: {
-        sidebarName: dummySidebar,
+        sidebarName: dummySidebar1,
       },
     };
     const nextState: SidebarsState = {

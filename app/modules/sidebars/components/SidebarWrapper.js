@@ -9,6 +9,7 @@ import type { SidebarsByName } from '../model';
 
 import { getAllByName } from '../selectors';
 import Sidebar from './sidebars/Sidebar';
+import { AMOUNT_OF_COLS_IN_GRID } from '../constants';
 
 type PassedProps = {
   topicId: Identifier,
@@ -34,7 +35,7 @@ const PureSidebarWrapper = (props: Props): React.Node => {
     topicId,
   } = props;
 
-  const widthPerSidebar = Math.floor(16 / sidebars.length);
+  const widthPerSidebar = Math.floor(AMOUNT_OF_COLS_IN_GRID / sidebars.length);
 
   const columns: Array<React.Node> = [];
 
