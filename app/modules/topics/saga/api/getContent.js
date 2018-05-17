@@ -3,7 +3,7 @@
 import { call, put, select } from 'redux-saga/effects';
 import { flashMessage, flashErrorMessage } from 'redux-flash';
 
-import ServerError from 'errors/ServerError';
+import ServerError from 'errors/api-errors/ServerError';
 
 import authentication from 'modules/authentication';
 import contentItems from 'modules/content-items';
