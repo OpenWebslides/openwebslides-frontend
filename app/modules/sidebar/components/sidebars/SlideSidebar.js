@@ -2,19 +2,16 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import type { Identifier } from 'types/model';
 import type { State } from 'types/state';
 
 import Slide from 'core-components/slides/Slide';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import topics from 'modules/topics';
 
 import contentItems, { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
-import Sidebar from './Sidebar';
 
-const { getById } = topics.selectors;
+type Topic = topics.model;
 
 type StateProps = {
   // Slide takes a denormalized root contentItem instead of a root contentItem id, because in a
@@ -25,18 +22,13 @@ type StateProps = {
 };
 
 type PassedProps = {
-  topicId: Identifier,
+  topic: Topic,
 };
 
 type Props = StateProps & PassedProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const { topicId } = props;
-  const topic = getById(state, { id: topicId });
-
-  if (topic == null) {
-    throw new ObjectNotFoundError('topics:topic', props.topicId);
-  }
+  const { topic } = props;
 
   const contentItemTreeRootItemId = topic.rootContentItemId;
 
@@ -63,9 +55,9 @@ const PureSlideSidebar = (props: Props): React.Node => {
   } = props;
 
   return (
-    <Sidebar>
+    <React.Fragment>
       <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
-    </Sidebar>
+    </React.Fragment>
   );
 };
 

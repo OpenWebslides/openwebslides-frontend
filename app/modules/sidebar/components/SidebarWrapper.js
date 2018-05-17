@@ -6,8 +6,9 @@ import { Grid } from 'semantic-ui-react';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import type { SidebarsByName } from '../model';
-import { sidebarMapping } from '../model/sidebarName';
+
 import { getAllByName } from '../selectors';
+import Sidebar from './sidebars/Sidebar';
 
 type PassedProps = {
   topicId: Identifier,
@@ -38,11 +39,9 @@ const PureSidebarWrapper = (props: Props): React.Node => {
   const columns: Array<React.Node> = [];
 
   for (let i:number = 0; i < sidebars.length; i += 1) {
-    const SidebarComponent = sidebarMapping[sidebars[i]];
-
     columns.push(
-      <Grid.Column key={sidebars[i]} width={widthPerSidebar}>
-        <SidebarComponent topicId={topicId} />
+      <Grid.Column key={sidebars[i]} className="editor__sidebar__column" width={widthPerSidebar}>
+        <Sidebar sidebarName={sidebars[i]} topicId={topicId} />
       </Grid.Column>,
     );
   }

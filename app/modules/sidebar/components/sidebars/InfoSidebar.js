@@ -4,22 +4,23 @@ import * as React from 'react';
 
 import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
+import { Header } from 'semantic-ui-react';
 
-import Sidebar from './Sidebar';
+type PassedProps = {
+  topic: Topic,
+};
 
-type Props = CustomTranslatorProps;
+type Props = CustomTranslatorProps & PassedProps;
 
 const PureInfoSidebar = (props: Props): React.Node => {
-  /*
   const {
     t,
   } = props;
-  */
 
   return (
-    <Sidebar>
-      <h1>This is some general info of this topic!</h1>
-    </Sidebar>
+    <React.Fragment>
+      <Header>{t('sidebar:info.header')}</Header>
+    </React.Fragment>
   );
 };
 
