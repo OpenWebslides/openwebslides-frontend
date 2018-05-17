@@ -9,7 +9,8 @@
 @ows_primary_color: @ows_pink;
 @ows_secondary_color: #737373;
 
-@veryLightGray: #ececec;
+@lightGray: #edeeee;
+@mediumGray: #a7a7a7;
 @darkGray: #4f4f4f;
 
 @primaryColor: @ows_primary_color;
