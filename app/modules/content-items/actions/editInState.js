@@ -27,7 +27,7 @@ const editInState = (
     const validatedPlainTextStringArgs = validateActionStringArgs(
       propsForType,
       validPropsForPlainTextTypes,
-      { throwOnEmpty: true, throwOnUndefined: false, trim: true },
+      { throwOnEmpty: true, throwOnUndefined: false, trim: false },
     );
     newPropsForType = { ...newPropsForType, ...validatedPlainTextStringArgs };
     unprocessedPropsForType = _.omit(unprocessedPropsForType, validPropsForPlainTextTypes);

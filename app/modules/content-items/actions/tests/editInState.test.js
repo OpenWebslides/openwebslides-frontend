@@ -46,30 +46,12 @@ describe(`editInState`, (): void => {
     )).toThrow(UnsupportedOperationError);
   });
 
-  it(`trims all passed plainText string props, when the passed string props contain unnecessary whitespace`, (): void => {
-    const expectedAction: t.EditInStateAction = {
-      type: t.EDIT_IN_STATE,
-      payload: {
-        id: dummyId,
-        type: dummyPlainTextType,
-        propsForType: dummyPlainTextProps,
-      },
-    };
-    expect(editInState(
-      dummyId,
-      dummyPlainTextType,
-      {
-        text: `   ${dummyPlainTextProps.text}   `,
-      },
-    )).toEqual(expectedAction);
-  });
-
   it(`throws an InvalidArgumentError, when a non-nullable plainText string prop is an empty string`, (): void => {
     expect((): any => editInState(
       dummyId,
       dummyPlainTextType,
       {
-        text: '   ',
+        text: '',
       },
     )).toThrow(InvalidArgumentError);
   });
