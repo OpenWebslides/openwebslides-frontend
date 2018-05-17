@@ -46,10 +46,6 @@ type Props = CustomTranslatorProps & DispatchProps & PassedProps & StateProps;
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const topic = getById(state, { id: props.topicId });
 
-  if (topic == null) {
-    throw new ObjectNotFoundError('topics:topic', props.topicId);
-  }
-
   return {
     topic,
   };
@@ -71,10 +67,21 @@ const ContentItemEditableDisplay = contentItems.components.EditableDisplay;
 const PureEditor = (props: Props): React.Node => {
   const {
     t,
+    topicId,
     topic,
     onSaveButtonClick,
     onLoadButtonClick,
   } = props;
+
+  if (!topic) {
+    onLoadButtonClick(topicId);
+
+    return (
+      <div>
+        <ApiDimmer request={API_GET_TOPIC_CONTENT}>{t('editor:api.load.pending')}</ApiDimmer>
+      </div>
+    );
+  }
 
   return (
     <div>
