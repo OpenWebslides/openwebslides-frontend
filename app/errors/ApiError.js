@@ -1,6 +1,9 @@
 // @flow
 /**
  * An error that was thrown by a remote server.
+ *
+ * This error is thrown on a HTTP 4xx status code response
+ *
  */
 
 import CustomError from './CustomError';
