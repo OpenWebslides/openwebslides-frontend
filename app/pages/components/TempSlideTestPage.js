@@ -17,11 +17,14 @@ import authentication from 'modules/authentication';
 import type { Identifier } from 'types/model';
 
 import VoicePlayerToggle from 'core-components/slides/VoicePlayerToggle';
+import { addToState } from 'modules/slide-styling/actions';
+import { generateId } from 'modules/slide-styling//model';
 
 
 import Page from '../Page';
 import { getAllSlideStylingIdsByUserId, getById } from '../../modules/slide-styling/selectors';
 import type { SlideStyling } from '../../modules/slide-styling/model';
+
 
 const { getAccount } = authentication.selectors;
 
@@ -35,9 +38,17 @@ type StateProps = {
   contentItemTreeRootItem: DenormalizedRootContentItem,
 
   slideStylingItem: SlideStyling,
+  userId: Identifier,
+  slideStylingId: Identifier,
 };
 
-type Props = CustomTranslatorProps & StateProps & PassedProps;
+type DispatchProps = {
+  onAddToState: (
+    id: Identifier, userId: Identifier
+  ) => void,
+};
+
+type Props = CustomTranslatorProps & StateProps & PassedProps & DispatchProps;
 
 type ComponentState = {
   contentToBeRead: string,
@@ -60,18 +71,32 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
   const account = getAccount(state);
 
-  const currentUser = account != null ? account.id : 'adkqmq5ds5';
+  const currentUser = account != null ? account.id : 'akqmq5ds5';
 
   const slideStylingIds: Array<Identifier> = getAllSlideStylingIdsByUserId(state, currentUser);
   // todo: als er geen thema is gevonden voor de gebruiker een nieuw thema aanmaken
   const slideStylingItem: SlideStyling = getById(state, { id: slideStylingIds[0] });
-  if (slideStyling === undefined || slideStyling == null) {
-    throw new Error(`ContentItem with id "${slideStylingIds[0]}" could not be found.`);
+  let slideStylingId: Identifier = slideStylingIds[0];
+  if (slideStylingItem == null) {
+    slideStylingId = generateId();
   }
 
   return {
     contentItemTreeRootItem,
     slideStylingItem,
+    userId: currentUser,
+    slideStylingId,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+  return {
+    onAddToState: (
+      id: Identifier, userId: Identifier): void => {
+      dispatch(
+        addToState(id, userId),
+      );
+    },
   };
 };
 
@@ -88,10 +113,18 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
     toggle: false,
   };
 
+  componentWillMount = (): void => {
+    const {
+      slideStylingItem,
+      onAddToState,
+      slideStylingId,
+      userId } = this.props;
 
-  componentDidMount = (): void => {
-    // console.log(`initieel ${this.state.toggle}`);
+    if (slideStylingItem == null) {
+      onAddToState(slideStylingId, userId);
+    }
   };
+
   slideRef;
 
   toggleRead = (): void => {
@@ -125,8 +158,10 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
   };
 
   render = (): React.Node => {
-    const { contentItemTreeRootItem, slideStylingItem } = this.props;
-
+    const {
+      contentItemTreeRootItem,
+      slideStylingItem,
+      userId } = this.props;
     let VoicePlayerToggleNode: typeof VoicePlayerToggle;
 
     if (this.state.toggle) {
@@ -153,13 +188,17 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
             <Checkbox slider={true} onClick={this.toggleRead} checked={this.state.toggle} />
           </Segment>
         </div>
-        <EditColorComponent />
+        <EditColorComponent
+          userId={userId}
+          slideStyling={slideStylingItem}
+        />
       </Page>
     );
   }
 }
 
-const TempSlideTestPage = connect(mapStateToProps)(translate()(PureTempSlideTestPage));
+const TempSlideTestPage =
+  connect(mapStateToProps, mapDispatchToProps)(translate()(PureTempSlideTestPage));
 
 export { PureTempSlideTestPage };
 export default TempSlideTestPage;

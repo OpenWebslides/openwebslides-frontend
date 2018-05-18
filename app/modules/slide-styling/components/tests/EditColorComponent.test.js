@@ -7,7 +7,6 @@ import { PureEditColorComponent } from '../EditColorComponent';
 
 describe('EditColorComponent', (): void => {
   const dummyOnEditContentTypeColorInState = (): void => {};
-  const dummyOnAddToState = (): void => {};
   it('renders without errors', (): void => {
     const enzymeWrapper = shallow(
       <PureEditColorComponent
@@ -25,7 +24,6 @@ describe('EditColorComponent', (): void => {
           },
         }}
         onEditContentTypeColorInState={dummyOnEditContentTypeColorInState}
-        onAddToState={dummyOnAddToState}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
