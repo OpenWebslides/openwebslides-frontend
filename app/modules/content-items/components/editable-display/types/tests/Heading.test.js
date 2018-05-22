@@ -47,7 +47,23 @@ describe(`Heading`, (): void => {
         />,
       );
       enzymeWrapper.instance().onEditableTextContentInput(dummyText);
-      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id, dummyText);
+      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id, dummyText, true);
+    });
+
+  });
+
+  describe(`onEditableTextContentDeactivate`, (): void => {
+
+    it(`calls the passed onEditPlainText function`, (): void => {
+      const dummyText = 'Lorem ipsum';
+      const enzymeWrapper = shallow(
+        <PureHeading
+          contentItem={dummyContentItemData.headingContentItem}
+          onEditPlainText={dummyOnEditPlainText}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentDeactivate(dummyText);
+      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id, dummyText, false);
     });
 
   });

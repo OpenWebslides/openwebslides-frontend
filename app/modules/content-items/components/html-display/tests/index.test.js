@@ -18,6 +18,7 @@ describe(`HtmlDisplay`, (): void => {
   const dummyNestedNestedParagraph1: $Exact<DenormalizedParagraphContentItem> = {
     id: 'wiwj9xqnf3',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Proin faucibus tellus eros, quis ultricies est fermentum eu',
     metadata: emptyMetadata,
     subItems: [],
@@ -25,6 +26,7 @@ describe(`HtmlDisplay`, (): void => {
   const dummyNestedParagraph2: $Exact<DenormalizedParagraphContentItem> = {
     id: 'cpi389s1e3',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Sed ut neque tristique, venenatis purus a, consequat orci. Aenean sed lectus et ante aliquet maximus.',
     metadata: emptyMetadata,
     subItems: [dummyNestedNestedParagraph1],
@@ -32,6 +34,7 @@ describe(`HtmlDisplay`, (): void => {
   const dummyNestedParagraph1: $Exact<DenormalizedParagraphContentItem> = {
     id: 'vrci6v35s7',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Sed hendrerit eget metus nec elementum. Aenean commodo semper sapien, nec porta leo.',
     metadata: emptyMetadata,
     subItems: [],
@@ -39,6 +42,7 @@ describe(`HtmlDisplay`, (): void => {
   const dummyLevel2Heading: $Exact<DenormalizedHeadingContentItem> = {
     id: 'qbpm9mgn6b',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Level 2 heading',
     metadata: emptyMetadata,
     subItems: [dummyNestedParagraph1, dummyNestedParagraph2],
@@ -46,6 +50,7 @@ describe(`HtmlDisplay`, (): void => {
   const dummyLevel1Heading: $Exact<DenormalizedHeadingContentItem> = {
     id: '6o6qy5dz0a',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Level 1 heading',
     metadata: emptyMetadata,
     subItems: [dummyLevel2Heading],
@@ -53,6 +58,7 @@ describe(`HtmlDisplay`, (): void => {
   const dummyRoot: $Exact<DenormalizedRootContentItem> = {
     id: 'jptgampe2x',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItems: [dummyLevel1Heading],
   };
 

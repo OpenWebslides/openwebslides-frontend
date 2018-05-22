@@ -16,6 +16,7 @@ describe(`addSaga`, (): void => {
       payload: {
         id: 'abcdefghijklmnopqrst',
         type: contentItemTypes.ROOT,
+        isEditing: false,
         propsForType: {},
       },
     };

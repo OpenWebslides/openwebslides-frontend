@@ -37,6 +37,7 @@ export type AddToStateAction = {
   payload: {
     id: Identifier,
     type: ContentItemType,
+    isEditing: boolean,
     propsForType: ActionPayloadPropsForType,
   },
 };
@@ -46,6 +47,7 @@ export type EditInStateAction = {
   payload: {
     id: Identifier,
     type: ContentItemType,
+    isEditing: boolean,
     propsForType: ActionPayloadPropsForType,
   },
 };
@@ -124,6 +126,7 @@ export type AddAction = {
   type: typeof ADD,
   payload: {
     type: ContentItemType,
+    isEditing: boolean,
     propsForType: ActionPayloadPropsForType,
   },
 };
@@ -132,6 +135,7 @@ export type EditAction = {
   type: typeof EDIT,
   payload: {
     id: Identifier,
+    isEditing: boolean,
     propsForType: ActionPayloadPropsForType,
   },
 };

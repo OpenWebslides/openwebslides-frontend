@@ -39,11 +39,13 @@ describe(`EditableDisplay`, (): void => {
   const dummyRoot2: $Exact<RootContentItem> = {
     id: 'ua32xchh7q',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItemIds: [],
   };
   const dummyNestedParagraph2: $Exact<ParagraphContentItem> = {
     id: 'cpi389s1e3',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Sed ut neque tristique, venenatis purus a, consequat orci. Aenean sed lectus et ante aliquet maximus.',
     metadata: dummyContentItemData.emptyMetadata,
     subItemIds: [],
@@ -51,6 +53,7 @@ describe(`EditableDisplay`, (): void => {
   const dummyNestedParagraph1: $Exact<ParagraphContentItem> = {
     id: 'vrci6v35s7',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Sed hendrerit eget metus nec elementum. Aenean commodo semper sapien, nec porta leo.',
     metadata: dummyContentItemData.emptyMetadata,
     subItemIds: [],
@@ -58,6 +61,7 @@ describe(`EditableDisplay`, (): void => {
   const dummyLevel2Heading: $Exact<HeadingContentItem> = {
     id: 'qbpm9mgn6b',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Level 2 heading',
     metadata: dummyContentItemData.emptyMetadata,
     subItemIds: [dummyNestedParagraph1.id, dummyNestedParagraph2.id],
@@ -65,6 +69,7 @@ describe(`EditableDisplay`, (): void => {
   const dummyLevel1Heading: $Exact<HeadingContentItem> = {
     id: '6o6qy5dz0a',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Level 1 heading',
     metadata: dummyContentItemData.emptyMetadata,
     subItemIds: [dummyLevel2Heading.id],
@@ -72,6 +77,7 @@ describe(`EditableDisplay`, (): void => {
   const dummyRoot1: $Exact<RootContentItem> = {
     id: 'jptgampe2x',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItemIds: [dummyLevel1Heading.id],
   };
   const dummyContentItemsById: ContentItemsById = {
@@ -100,7 +106,7 @@ describe(`EditableDisplay`, (): void => {
       <PureEditableDisplay
         {...dummyTranslatorProps}
         contentItemId="abcdefghij"
-        contentItem={{ id: 'abcdefghij', type: contentItemTypes.ROOT, childItemIds: [] }}
+        contentItem={{ id: 'abcdefghij', type: contentItemTypes.ROOT, isEditing: false, childItemIds: [] }}
         onEditPlainText={dummyOnEditPlainText}
       />,
     );
@@ -321,10 +327,11 @@ describe(`EditableDisplay`, (): void => {
 
     it(`dispatches the correct EDIT action, when onEditPlainText is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
+      const dummyIsEditing = true;
       const dummyText = 'Lorem ipsum';
       const dummyDispatch = jest.fn();
-      mapDispatchToProps(dummyDispatch, ({}: any)).onEditPlainText(dummyId, dummyText);
-      expect(dummyDispatch).toHaveBeenCalledWith(edit(dummyId, { text: dummyText }));
+      mapDispatchToProps(dummyDispatch, ({}: any)).onEditPlainText(dummyId, dummyText, dummyIsEditing);
+      expect(dummyDispatch).toHaveBeenCalledWith(edit(dummyId, { text: dummyText }, dummyIsEditing));
     });
 
   });

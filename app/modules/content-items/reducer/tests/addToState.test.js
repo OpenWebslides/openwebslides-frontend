@@ -18,10 +18,12 @@ describe(`ADD_TO_STATE`, (): void => {
   const dummyExistingContentItem: $Exact<BaseContentItem> = {
     id: 'abcdefghij',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
   };
   const dummyNewHeadingContentItem: $Exact<HeadingContentItem> = {
     id: 'qflasjgtxr',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Lorem ipsum dolor sit amet',
     metadata: {
       tags: [],
@@ -32,6 +34,7 @@ describe(`ADD_TO_STATE`, (): void => {
   const dummyNewParagraphContentItem: $Exact<ParagraphContentItem> = {
     id: 'w4lg2u0p1h',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Lorem ipsum dolor sit amet',
     metadata: {
       tags: [],
@@ -51,6 +54,7 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: dummyNewHeadingContentItem.id,
         type: contentItemTypes.HEADING,
+        isEditing: false,
         propsForType: {
           text: dummyNewHeadingContentItem.text,
         },
@@ -80,6 +84,7 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: dummyNewParagraphContentItem.id,
         type: contentItemTypes.PARAGRAPH,
+        isEditing: false,
         propsForType: {
           text: dummyNewParagraphContentItem.text,
         },
@@ -109,6 +114,7 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: 'abcdefghijklmnopqrst',
         type: 'DEFINITELY_NOT_A_VALID_TYPE',
+        isEditing: false,
         propsForType: {},
       },
     };
@@ -128,6 +134,7 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: 'abcdefghijklmnopqrst',
         type: contentItemTypes.ROOT,
+        isEditing: false,
         propsForType: {},
       },
     };

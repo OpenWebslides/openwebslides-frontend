@@ -13,6 +13,7 @@ describe(`Paragraph`, (): void => {
   const dummyParagraph: $Exact<DenormalizedParagraphContentItem> = {
     id: 'plqfm799be',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Lorem ipsum dolor sit amet.',
     metadata: {
       tags: [],

@@ -24,6 +24,7 @@ describe(`editSaga`, (): void => {
   const dummyParagraph2: $Exact<ParagraphContentItem> = {
     id: 'cpi389s1e3cpi389s1e3',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Sed ut neque tristique, venenatis purus a, consequat orci. Aenean sed lectus et ante aliquet maximus.',
     metadata: dummyContentItemData.emptyMetadata,
     subItemIds: [],
@@ -31,6 +32,7 @@ describe(`editSaga`, (): void => {
   const dummyParagraph1: $Exact<ParagraphContentItem> = {
     id: 'vrci6v35s7vrci6v35s7',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Sed hendrerit eget metus nec elementum. Aenean commodo semper sapien, nec porta leo.',
     metadata: dummyContentItemData.emptyMetadata,
     subItemIds: [],
@@ -38,6 +40,7 @@ describe(`editSaga`, (): void => {
   const dummyHeading1: $Exact<HeadingContentItem> = {
     id: '6o6qy5dz0a6o6qy5dz0a',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Lorem ipsum',
     metadata: dummyContentItemData.emptyMetadata,
     subItemIds: [dummyParagraph1.id, dummyParagraph2.id],
@@ -45,6 +48,7 @@ describe(`editSaga`, (): void => {
   const dummyRoot1: $Exact<RootContentItem> = {
     id: 'ua32xchh7qua32xchh7q',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItemIds: [dummyHeading1.id],
   };
   const dummyContentItemsById: ContentItemsById = {
@@ -67,6 +71,7 @@ describe(`editSaga`, (): void => {
       type: t.EDIT,
       payload: {
         id: dummyParagraph1.id,
+        isEditing: false,
         propsForType: {
           text: 'Lorem ipsum dolor sit amet.',
         },
@@ -80,6 +85,7 @@ describe(`editSaga`, (): void => {
           payload: {
             id: dummyParagraph1.id,
             type: dummyParagraph1.type,
+            isEditing: false,
             propsForType: {
               text: dummyEditAction.payload.propsForType.text,
             },
@@ -95,6 +101,7 @@ describe(`editSaga`, (): void => {
       type: t.EDIT,
       payload: {
         id: dummyInvalidId,
+        isEditing: false,
         propsForType: {
           text: 'Lorem ipsum dolor sit amet.',
         },
@@ -113,6 +120,7 @@ describe(`editSaga`, (): void => {
       type: t.EDIT,
       payload: {
         id: dummyRoot1.id,
+        isEditing: false,
         propsForType: {},
       },
     };
@@ -129,6 +137,7 @@ describe(`editSaga`, (): void => {
       type: t.EDIT,
       payload: {
         id: dummyParagraph1.id,
+        isEditing: false,
         propsForType: {
           text: '',
         },

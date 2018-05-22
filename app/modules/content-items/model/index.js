@@ -32,6 +32,9 @@ export type BaseContentItem = {
   +id: Identifier,
   // Type of the contentItem.
   +type: ContentItemType,
+  // TRUE if the contentItem is currently being edited, FALSE if not.
+  // Has consequences for validation - e.g. empty text is ok while editing, but not otherwise.
+  +isEditing: boolean,
 };
 
 // Additional props for 'symbol' contentItems.

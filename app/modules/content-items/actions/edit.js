@@ -6,11 +6,13 @@ import * as t from '../actionTypes';
 const edit = (
   id: Identifier,
   propsForType: t.ActionPayloadPropsForType,
+  isEditing: boolean = false,
 ): t.EditAction => {
   return {
     type: t.EDIT,
     payload: {
       id,
+      isEditing,
       propsForType,
     },
   };

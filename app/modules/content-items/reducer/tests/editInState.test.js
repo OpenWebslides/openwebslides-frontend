@@ -18,6 +18,7 @@ describe(`EDIT_IN_STATE`, (): void => {
   const dummyPlainTextContentItem: $Exact<PlainTextContentItem> = {
     id: 'abcdefghij',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Lorem ipsum dolor sit amet',
   };
 
@@ -37,6 +38,7 @@ describe(`EDIT_IN_STATE`, (): void => {
       payload: {
         id: dummyPlainTextContentItem.id,
         type: dummyPlainTextContentItem.type,
+        isEditing: false,
         propsForType: {
           text: editedText,
         },
@@ -66,6 +68,7 @@ describe(`EDIT_IN_STATE`, (): void => {
       payload: {
         id: dummyPlainTextContentItem.id,
         type: dummyPlainTextContentItem.type,
+        isEditing: false,
         propsForType: {},
       },
     };
@@ -87,6 +90,7 @@ describe(`EDIT_IN_STATE`, (): void => {
       payload: {
         id: dummyPlainTextContentItem.id,
         type: dummyPlainTextContentItem.type,
+        isEditing: false,
         propsForType: {
           text: dummyPlainTextContentItem.text,
         },
@@ -109,6 +113,7 @@ describe(`EDIT_IN_STATE`, (): void => {
       payload: {
         id: dummyInvalidId,
         type: contentItemTypes.HEADING,
+        isEditing: false,
         propsForType: {
           text: 'Lorem ipsum',
         },
@@ -131,6 +136,7 @@ describe(`EDIT_IN_STATE`, (): void => {
       payload: {
         id: dummyContentItemData.rootContentItem.id,
         type: contentItemTypes.HEADING,
+        isEditing: false,
         propsForType: {
           text: 'Lorem ipsum',
         },
@@ -153,6 +159,7 @@ describe(`EDIT_IN_STATE`, (): void => {
       payload: {
         id: dummyContentItemData.rootContentItem.id,
         type: dummyContentItemData.rootContentItem.type,
+        isEditing: false,
         propsForType: {},
       },
     };

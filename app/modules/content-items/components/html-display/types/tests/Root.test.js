@@ -18,6 +18,7 @@ describe(`Root`, (): void => {
   const dummyHeading2: $Exact<DenormalizedHeadingContentItem> = {
     id: 'vqj12bqawx',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: dummyHeading2Text,
     metadata: {
       tags: [],
@@ -28,6 +29,7 @@ describe(`Root`, (): void => {
   const dummyHeading1: $Exact<DenormalizedHeadingContentItem> = {
     id: 'o365j96prm',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: dummyHeading1Text,
     metadata: {
       tags: [],
@@ -38,6 +40,7 @@ describe(`Root`, (): void => {
   const dummyRoot: $Exact<DenormalizedRootContentItem> = {
     id: 'jptgampe2x',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItems: [dummyHeading1, dummyHeading2],
   };
 

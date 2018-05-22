@@ -10,11 +10,13 @@ export const dummyContentItemsById: ContentItemsById = {
   w4lg2u0p1h: {
     id: 'w4lg2u0p1h',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItemIds: ['qflasjgtxr'],
   },
   qflasjgtxr: {
     id: 'qflasjgtxr',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Lorem ipsum',
     metadata: {
       tags: [],
@@ -25,6 +27,7 @@ export const dummyContentItemsById: ContentItemsById = {
   plqfm799be: ({
     id: 'plqfm799be',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*.',
     metadata: {
       tags: [],
@@ -35,6 +38,7 @@ export const dummyContentItemsById: ContentItemsById = {
   a8ntqiiho1: ({
     id: 'a8ntqiiho1',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Mauris accumsan pretium sem, in volutpat nibh sodales a. Nulla blandit posuere ex, et facilisis dui volutpat in. Fusce tincidunt sed ipsum quis varius. Quisque vitae laoreet sem.',
     metadata: {
       tags: [],
@@ -45,11 +49,13 @@ export const dummyContentItemsById: ContentItemsById = {
   qyrgv0bcd6: {
     id: 'qyrgv0bcd6',
     type: contentItemTypes.ROOT,
-    childItemIds: ['ivks4jgtxr', 'j0vcu0y7vk', 'ua32xchh7q', 'kcosdhj38v', 'kchwki48cd', 'ck2k4kvcj4', 'ldicl3j4jk'],
+    isEditing: false,
+    childItemIds: ['ivks4jgtxr', 'j0vcu0y7vk', 'ua32xchh7q'],
   },
   j0vcu0y7vk: {
     id: 'j0vcu0y7vk',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Nam malesuada fermentum',
     metadata: {
       tags: [],
@@ -60,6 +66,7 @@ export const dummyContentItemsById: ContentItemsById = {
   yp8bumunth: ({
     id: 'yp8bumunth',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Nullam ultrices rhoncus quam vulputate bibendum. Aliquam vehicula augue quis nibh iaculis semper.',
     metadata: {
       tags: [],
@@ -70,6 +77,7 @@ export const dummyContentItemsById: ContentItemsById = {
   uieqlbgnxb: ({
     id: 'uieqlbgnxb',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Morbi sed felis quis mi luctus malesuada at eu neque. Integer auctor lorem leo, ut semper massa dignissim et. Nulla dictum ullamcorper mattis. Suspendisse suscipit porttitor gravida. Aliquam porttitor tortor augue, sit amet lacinia ligula sodales sit amet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vitae purus sed odio pulvinar sagittis egestas non est. Aliquam nisi urna, faucibus in tellus in, tristique suscipit justo. Etiam rutrum nisl sit amet venenatis euismod. Nullam dictum imperdiet libero, et ornare est semper eu. Aenean dui ligula, vulputate et nisi eu, bibendum tempus arcu. In ornare sem et nunc volutpat, eu elementum neque vestibulum. Nullam dictum ipsum in viverra blandit. Suspendisse potenti.',
     metadata: {
       tags: [],
@@ -80,6 +88,7 @@ export const dummyContentItemsById: ContentItemsById = {
   u9niafk733: ({
     id: 'u9niafk733',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'In sapien erat, venenatis iaculis volutpat in, pulvinar eu augue. Vestibulum porta euismod urna ac tempus. Praesent malesuada, ligula sed venenatis dictum, nulla ante finibus sem, nec suscipit felis lacus at urna. Vestibulum nec gravida sem. Pellentesque magna tortor, hendrerit ac nulla vitae, placerat gravida tortor.',
     metadata: {
       tags: [],
@@ -90,6 +99,7 @@ export const dummyContentItemsById: ContentItemsById = {
   vrci6v35s7: ({
     id: 'vrci6v35s7',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Sed hendrerit eget metus nec elementum. Aenean commodo semper sapien, nec porta leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla blandit elit et metus tincidunt semper. Sed ac tellus odio. Sed placerat faucibus leo a convallis. Pellentesque eget libero at lacus rutrum pretium.',
     metadata: {
       tags: [],
@@ -100,6 +110,7 @@ export const dummyContentItemsById: ContentItemsById = {
   cpi389s1e3: ({
     id: 'cpi389s1e3',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Sed ut neque tristique, venenatis purus a, consequat orci. Aenean sed lectus et ante aliquet maximus. Integer hendrerit odio volutpat tincidunt consectetur. Cras venenatis, nibh a dignissim consectetur, augue tortor viverra nisi, quis euismod urna ligula ac turpis. Pellentesque eget faucibus urna, id sodales odio. Quisque ipsum ante, fringilla elementum mauris vel, tincidunt rhoncus augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     metadata: {
       tags: [],
@@ -110,6 +121,7 @@ export const dummyContentItemsById: ContentItemsById = {
   ua32xchh7q: {
     id: 'ua32xchh7q',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Phasellus posuere tincidunt enim',
     metadata: {
       tags: [],
@@ -120,6 +132,7 @@ export const dummyContentItemsById: ContentItemsById = {
   rnnvciso5i: ({
     id: 'rnnvciso5i',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Etiam euismod sed erat vel tincidunt. Ut at dui non orci tincidunt ultricies. Sed aliquam ligula ultrices pretium laoreet.',
     metadata: {
       tags: [],
@@ -130,6 +143,7 @@ export const dummyContentItemsById: ContentItemsById = {
   bz807z2zha: ({
     id: 'bz807z2zha',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Nullam pharetra malesuada nibh, nec gravida turpis pharetra nec. Donec nec semper dolor.',
     metadata: {
       tags: [],

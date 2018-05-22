@@ -13,7 +13,7 @@ import {
 } from '../../model';
 
 const editSaga = function* (action: t.EditAction): Generator<*, *, *> {
-  const { id, propsForType } = action.payload;
+  const { id, propsForType, isEditing } = action.payload;
   const newPropsForType = { ...propsForType };
 
   const contentItemToEdit = yield select(getById, { id });
@@ -31,7 +31,7 @@ const editSaga = function* (action: t.EditAction): Generator<*, *, *> {
     throw new NotYetImplementedError(`ContentItemType not yet supported`);
   }
 
-  yield put(editInState(id, contentItemToEdit.type, newPropsForType));
+  yield put(editInState(id, contentItemToEdit.type, newPropsForType, isEditing));
 };
 
 export default editSaga;

@@ -16,6 +16,7 @@ describe(`selectors`, (): void => {
   const dummyHeading1: $Exact<HeadingContentItem> = {
     id: 'qflasjgtxr',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Lorem ipsum',
     metadata: {
       tags: [],
@@ -26,11 +27,13 @@ describe(`selectors`, (): void => {
   const dummyRoot2: $Exact<RootContentItem> = {
     id: 'w4lg2u0p1h',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItemIds: ['qflasjgtxr'],
   };
   const dummyRoot1: $Exact<RootContentItem> = {
     id: 'qyrgv0bcd6',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItemIds: [],
   };
   const dummyContentItemsById: ContentItemsById = {

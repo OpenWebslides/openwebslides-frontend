@@ -15,6 +15,7 @@ describe(`TempSlideTestPage`, (): void => {
     const dummyDenormalizedContentItem: $Exact<DenormalizedRootContentItem> = {
       id: 'abcdefghij',
       type: contentItemTypes.ROOT,
+      isEditing: false,
       childItems: [],
     };
     const enzymeWrapper = shallow(

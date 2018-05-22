@@ -12,14 +12,18 @@ import EditableTextContent from '../EditableTextContent';
 
 type PassedProps = {
   contentItem: HeadingContentItem,
-  onEditPlainText: (id: Identifier, text: string) => void,
+  onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
 };
 
 type Props = PassedProps;
 
 class PureHeading extends React.Component<Props> {
   onEditableTextContentInput = (text: string): void => {
-    this.props.onEditPlainText(this.props.contentItem.id, text);
+    this.props.onEditPlainText(this.props.contentItem.id, text, true);
+  };
+
+  onEditableTextContentDeactivate = (text: string): void => {
+    this.props.onEditPlainText(this.props.contentItem.id, text, false);
   };
 
   render = (): React.Node => {
@@ -33,6 +37,7 @@ class PureHeading extends React.Component<Props> {
         <EditableTextContent
           initialText={contentItem.text}
           onInput={this.onEditableTextContentInput}
+          onDeactivate={this.onEditableTextContentDeactivate}
         />
       </DisplayBlockWrapper>
     );

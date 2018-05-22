@@ -47,7 +47,7 @@ type StateProps = {
 };
 
 type DispatchProps = {
-  onEditPlainText: (id: Identifier, text: string) => void,
+  onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
 };
 
 type Props = PassedProps & StateProps & DispatchProps;
@@ -72,8 +72,8 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
   return {
-    onEditPlainText: (id: Identifier, text: string): void => {
-      dispatch(edit(id, { text }));
+    onEditPlainText: (id: Identifier, text: string, isEditing: boolean): void => {
+      dispatch(edit(id, { text }, isEditing));
     },
   };
 };

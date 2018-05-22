@@ -25,6 +25,7 @@ describe(`denormalize`, (): void => {
   const dummyHeading2: $Exact<HeadingContentItem> = {
     id: 'ua32xchh7q',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Phasellus posuere tincidunt enim',
     metadata: {
       tags: [],
@@ -35,11 +36,13 @@ describe(`denormalize`, (): void => {
   const dummyRoot2: $Exact<RootContentItem> = {
     id: 'w4lg2u0p1h',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItemIds: [dummyHeading2.id],
   };
   const dummyNestedParagraph3: $Exact<ParagraphContentItem> = {
     id: 'cpi389s1e3',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Sed ut neque tristique, venenatis purus a, consequat orci. Aenean sed lectus et ante aliquet maximus. Integer hendrerit odio volutpat tincidunt consectetur. Cras venenatis, nibh a dignissim consectetur, augue tortor viverra nisi, quis euismod urna ligula ac turpis. Pellentesque eget faucibus urna, id sodales odio. Quisque ipsum ante, fringilla elementum mauris vel, tincidunt rhoncus augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     metadata: {
       tags: [],
@@ -50,6 +53,7 @@ describe(`denormalize`, (): void => {
   const dummyNestedParagraph2: $Exact<ParagraphContentItem> = {
     id: 'vrci6v35s7',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Sed hendrerit eget metus nec elementum. Aenean commodo semper sapien, nec porta leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla blandit elit et metus tincidunt semper. Sed ac tellus odio. Sed placerat faucibus leo a convallis. Pellentesque eget libero at lacus rutrum pretium.',
     metadata: {
       tags: [],
@@ -60,6 +64,7 @@ describe(`denormalize`, (): void => {
   const dummyListItem2: $Exact<ListItemContentItem> = {
     id: 'rqwnagv4ky',
     type: contentItemTypes.LIST_ITEM,
+    isEditing: false,
     text: 'This is a list item.',
     metadata: {
       tags: [],
@@ -69,6 +74,7 @@ describe(`denormalize`, (): void => {
   const dummyListItem1: $Exact<ListItemContentItem> = {
     id: 'dnwy65sy7q',
     type: contentItemTypes.LIST_ITEM,
+    isEditing: false,
     text: 'This is a list item.',
     metadata: {
       tags: [],
@@ -78,6 +84,7 @@ describe(`denormalize`, (): void => {
   const dummyList1: $Exact<ListContentItem> = {
     id: 'g09fzfwsnp',
     type: contentItemTypes.LIST,
+    isEditing: false,
     metadata: {
       tags: [],
       visibilityOverrides: {},
@@ -89,6 +96,7 @@ describe(`denormalize`, (): void => {
   const dummyNestedParagraph1: $Exact<ParagraphContentItem> = {
     id: 'uieqlbgnxb',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Morbi sed felis quis mi luctus malesuada at eu neque. Integer auctor lorem leo, ut semper massa dignissim et. Nulla dictum ullamcorper mattis. Suspendisse suscipit porttitor gravida. Aliquam porttitor tortor augue, sit amet lacinia ligula sodales sit amet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vitae purus sed odio pulvinar sagittis egestas non est. Aliquam nisi urna, faucibus in tellus in, tristique suscipit justo. Etiam rutrum nisl sit amet venenatis euismod. Nullam dictum imperdiet libero, et ornare est semper eu. Aenean dui ligula, vulputate et nisi eu, bibendum tempus arcu. In ornare sem et nunc volutpat, eu elementum neque vestibulum. Nullam dictum ipsum in viverra blandit. Suspendisse potenti.',
     metadata: {
       tags: [],
@@ -99,6 +107,7 @@ describe(`denormalize`, (): void => {
   const dummyParagraph1: $Exact<ParagraphContentItem> = {
     id: 'yp8bumunth',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Nullam ultrices rhoncus quam vulputate bibendum. Aliquam vehicula augue quis nibh iaculis semper.',
     metadata: {
       tags: [],
@@ -109,6 +118,7 @@ describe(`denormalize`, (): void => {
   const dummyHeading1: $Exact<HeadingContentItem> = {
     id: 'j0vcu0y7vk',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Nam malesuada fermentum',
     metadata: {
       tags: [],
@@ -119,6 +129,7 @@ describe(`denormalize`, (): void => {
   const dummyRoot1: $Exact<RootContentItem> = {
     id: 'qyrgv0bcd6',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItemIds: [dummyHeading1.id],
   };
   const dummyContentItemsById: ContentItemsById = {
