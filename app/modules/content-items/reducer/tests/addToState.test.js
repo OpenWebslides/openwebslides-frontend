@@ -1,5 +1,8 @@
 // @flow
 
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
+
 import reducer from '../../reducer';
 import * as t from '../../actionTypes';
 import { contentItemTypes } from '../../model';
@@ -93,6 +96,44 @@ describe(`ADD_TO_STATE`, (): void => {
     expect(resultState).toEqual(nextState);
     expect(resultState).not.toBe(nextState);
     expect(resultState.byId).not.toBe(prevState.byId);
+  });
+
+  it(`throws an InvalidArgumentError, when the type is not a valid contentItemType`, (): void => {
+    const prevState: ContentItemsState = {
+      byId: {
+        [dummyExistingContentItem.id]: dummyExistingContentItem,
+      },
+    };
+    const addToStateAction: any = {
+      type: t.ADD_TO_STATE,
+      payload: {
+        id: 'abcdefghijklmnopqrst',
+        type: 'DEFINITELY_NOT_A_VALID_TYPE',
+        propsForType: {},
+      },
+    };
+    expect((): void => {
+      reducer(prevState, addToStateAction);
+    }).toThrow(InvalidArgumentError);
+  });
+
+  it(`temporarily throws a NotYetImplementedError, when the type is anything other than HEADING or PARAGRAPH`, (): void => {
+    const prevState: ContentItemsState = {
+      byId: {
+        [dummyExistingContentItem.id]: dummyExistingContentItem,
+      },
+    };
+    const addToStateAction: t.AddToStateAction = {
+      type: t.ADD_TO_STATE,
+      payload: {
+        id: 'abcdefghijklmnopqrst',
+        type: contentItemTypes.ROOT,
+        propsForType: {},
+      },
+    };
+    expect((): void => {
+      reducer(prevState, addToStateAction);
+    }).toThrow(NotYetImplementedError);
   });
 
 });

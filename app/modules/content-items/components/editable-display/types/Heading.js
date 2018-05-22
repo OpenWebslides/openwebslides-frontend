@@ -17,21 +17,27 @@ type PassedProps = {
 
 type Props = PassedProps;
 
-const PureHeading = (props: Props): React.Node => {
-  const { contentItem, onEditPlainText } = props;
+class PureHeading extends React.Component<Props> {
+  onEditableTextContentInput = (text: string): void => {
+    this.props.onEditPlainText(this.props.contentItem.id, text);
+  };
 
-  return (
-    <DisplayBlockWrapper
-      {..._.pick(props, passThroughProps)}
-      iconName="header"
-    >
-      <EditableTextContent
-        initialText={contentItem.text}
-        onInput={(text: string) => onEditPlainText(contentItem.id, text)}
-      />
-    </DisplayBlockWrapper>
-  );
-};
+  render = (): React.Node => {
+    const { contentItem } = this.props;
+
+    return (
+      <DisplayBlockWrapper
+        {..._.pick(this.props, passThroughProps)}
+        iconName="header"
+      >
+        <EditableTextContent
+          initialText={contentItem.text}
+          onInput={this.onEditableTextContentInput}
+        />
+      </DisplayBlockWrapper>
+    );
+  };
+}
 
 const Heading = PureHeading;
 

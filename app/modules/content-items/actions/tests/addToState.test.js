@@ -1,6 +1,7 @@
 // @flow
 
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
 
 import * as t from '../../actionTypes';
 import { addToState } from '../../actions';
@@ -71,6 +72,14 @@ describe(`addToState`, (): void => {
         text: '   ',
       },
     )).toThrow(InvalidArgumentError);
+  });
+
+  it(`temporarily throws a NotYetImplementedError, when attempting to add a type other than plainText`, (): void => {
+    expect((): any => addToState(
+      dummyId,
+      contentItemTypes.IMAGE,
+      {},
+    )).toThrow(NotYetImplementedError);
   });
 
 });

@@ -10,8 +10,13 @@ import i18nextConfig from 'config/i18next';
 import { mount, shallow } from 'enzyme';
 import { dummyTranslatorProps } from 'config/tests';
 
-import EditableDisplay, { PureEditableDisplay } from '..';
+import EditableDisplay, {
+  PureEditableDisplay,
+  mapDispatchToProps,
+  DummyDisplayComponent,
+} from '..';
 
+import { edit } from '../../../actions';
 import { contentItemTypes } from '../../../model';
 import type {
   RootContentItem,
@@ -310,6 +315,29 @@ describe(`EditableDisplay`, (): void => {
     );
     const subItemsTags = enzymeWrapper.find(subItemsSelector).hostNodes();
     expect(subItemsTags).toHaveLength(0);
+  });
+
+  describe(`mapDispatchToProps`, (): void => {
+
+    it(`dispatches the correct EDIT action, when onEditPlainText is called`, (): void => {
+      const dummyId = 'abcdefghijklmnopqrst';
+      const dummyText = 'Lorem ipsum';
+      const dummyDispatch = jest.fn();
+      mapDispatchToProps(dummyDispatch, ({}: any)).onEditPlainText(dummyId, dummyText);
+      expect(dummyDispatch).toHaveBeenCalledWith(edit(dummyId, { text: dummyText }));
+    });
+
+  });
+
+  describe(`DummyDisplayComponent`, (): void => {
+
+    it(`renders without errors`, (): void => {
+      const enzymeWrapper = shallow(
+        <DummyDisplayComponent />,
+      );
+      expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    });
+
   });
 
 });

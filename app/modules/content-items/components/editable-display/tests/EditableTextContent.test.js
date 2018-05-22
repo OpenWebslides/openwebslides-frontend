@@ -45,9 +45,6 @@ describe(`EditableTextContent`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         initialText={dummyText}
-        onInput={dummyInput}
-        onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
         inputClassNameSuffix={dummyInputClassNameSuffix}
@@ -61,9 +58,6 @@ describe(`EditableTextContent`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         initialText={dummyText}
-        onInput={dummyInput}
-        onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
         inputClassNameSuffix={dummyInputClassNameSuffix}
@@ -78,9 +72,6 @@ describe(`EditableTextContent`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         initialText={dummyText}
-        onInput={dummyInput}
-        onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
         inputClassNameSuffix={dummyInputClassNameSuffix}
@@ -95,9 +86,6 @@ describe(`EditableTextContent`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         initialText={dummyText}
-        onInput={dummyInput}
-        onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
         inputClassNameSuffix={dummyInputClassNameSuffix}
@@ -114,9 +102,6 @@ describe(`EditableTextContent`, (): void => {
       <EditableTextContent
         multiline={true}
         initialText={dummyText}
-        onInput={dummyInput}
-        onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
         inputClassNameSuffix={dummyInputClassNameSuffix}
@@ -126,6 +111,22 @@ describe(`EditableTextContent`, (): void => {
     enzymeWrapper.find(inputSelector).hostNodes().simulate('blur');
     expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(1);
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
+  });
+
+  it(`rerenders itself, when it is in input mode and receives an input event`, (): void => {
+    const enzymeWrapper = mount(
+      <EditableTextContent
+        initialText={dummyText}
+        className={dummyClassName}
+        textClassNameSuffix={dummyTextClassNameSuffix}
+        inputClassNameSuffix={dummyInputClassNameSuffix}
+      />,
+    );
+    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
+
+    const renderSpy = jest.spyOn(enzymeWrapper.instance(), 'render');
+    enzymeWrapper.find(inputSelector).hostNodes().simulate('input');
+    expect(renderSpy).toHaveBeenCalledTimes(1);
   });
 
   it(`calls the passed onActivate function, when it is in text mode and receives a click event`, (): void => {
@@ -192,6 +193,51 @@ describe(`EditableTextContent`, (): void => {
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('input');
     expect(dummyInput).toHaveBeenCalledWith(dummyText);
+  });
+
+  describe(`getDerivedStateFromProps`, (): void => {
+
+    it(`returns an object containing the new initialText, when the new initialText prop is different from the previous text state`, (): void => {
+      const dummyNewText = `${dummyText}${dummyText}`;
+      const dummyPrevState = {
+        isActive: false,
+        text: dummyText,
+      };
+      const dummyNextProps = {
+        multiline: false,
+        initialText: dummyNewText,
+        onInput: dummyInput,
+        onActivate: dummyActivate,
+        onDeactivate: dummyDeactivate,
+        className: dummyClassName,
+        textClassNameSuffix: dummyTextClassNameSuffix,
+        inputClassNameSuffix: dummyInputClassNameSuffix,
+      };
+      const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
+      expect(result).toEqual({
+        text: dummyNewText,
+      });
+    });
+
+    it(`returns an empty object, when the new initialText prop is the same as the previous text state`, (): void => {
+      const dummyPrevState = {
+        isActive: false,
+        text: dummyText,
+      };
+      const dummyNextProps = {
+        multiline: false,
+        initialText: dummyText,
+        onInput: dummyInput,
+        onActivate: dummyActivate,
+        onDeactivate: dummyDeactivate,
+        className: dummyClassName,
+        textClassNameSuffix: dummyTextClassNameSuffix,
+        inputClassNameSuffix: dummyInputClassNameSuffix,
+      };
+      const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
+      expect(result).toEqual({});
+    });
+
   });
 
 });

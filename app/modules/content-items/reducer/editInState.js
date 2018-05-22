@@ -3,6 +3,7 @@
 
 import _ from 'lodash';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import * as t from '../actionTypes';
 import {
@@ -34,6 +35,9 @@ const editInState = (
     if (propsForType.text != null) {
       (editedContentItem: PlainTextContentItem).text = propsForType.text;
     }
+  }
+  else {
+    throw new NotYetImplementedError(`ContentItem type not supported yet.`);
   }
 
   if (_.isEqual(editedContentItem, contentItemToEdit)) {

@@ -1,6 +1,8 @@
 // @flow
 
-import { expectSaga } from 'redux-saga-test-plan';
+import { expectSaga, testSaga } from 'redux-saga-test-plan';
+import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
+import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../../actionTypes';
 import type { EditAction } from '../../../actionTypes';
@@ -12,6 +14,7 @@ import type {
   ContentItemsById,
   ContentItemsState,
 } from '../../../model';
+import { getById } from '../../../selectors';
 import * as dummyContentItemData from '../../../lib/test-resources/dummyContentItemData';
 
 import editSaga from '../edit';
@@ -84,6 +87,41 @@ describe(`editSaga`, (): void => {
         },
       })
       .run();
+  });
+
+  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, (): void => {
+    const dummyInvalidId = 'ExtremelyUnlikelyIdX';
+    const dummyEditAction: $Exact<EditAction> = {
+      type: t.EDIT,
+      payload: {
+        id: dummyInvalidId,
+        propsForType: {
+          text: 'Lorem ipsum dolor sit amet.',
+        },
+      },
+    };
+    expect((): void => {
+      testSaga(editSaga, dummyEditAction)
+        .next()
+        .select(getById, { id: dummyInvalidId })
+        .next(null);
+    }).toThrow(ObjectNotFoundError);
+  });
+
+  it(`temporarily throws a NotYetImplementedError, when the contentItem's type is not a plainTextContentItemType`, (): void => {
+    const dummyEditAction: $Exact<EditAction> = {
+      type: t.EDIT,
+      payload: {
+        id: dummyRoot1.id,
+        propsForType: {},
+      },
+    };
+    expect((): void => {
+      testSaga(editSaga, dummyEditAction)
+        .next()
+        .select(getById, { id: dummyRoot1.id })
+        .next(dummyRoot1);
+    }).toThrow(NotYetImplementedError);
   });
 
   it(`temporarily replaces empty text props with a delete placeholder`, (): void => {

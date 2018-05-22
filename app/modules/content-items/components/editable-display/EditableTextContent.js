@@ -63,7 +63,9 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
 
   handleInput = (event: SyntheticInputEvent<HTMLInputElement>): void => {
     this.setState({ text: event.currentTarget.value });
-    if (this.props.onInput) this.props.onInput(event.currentTarget.value);
+    if (this.props.onInput) {
+      this.props.onInput(event.currentTarget.value);
+    }
   };
 
   handleActivate = (): void => {

@@ -115,5 +115,5 @@ PureHtmlDisplay.defaultProps = {
 
 const HtmlDisplay = PureHtmlDisplay;
 
-export { PureHtmlDisplay, passThroughProps };
+export { PureHtmlDisplay, passThroughProps, DummyDisplayComponent };
 export default HtmlDisplay;

@@ -9,61 +9,48 @@ import type {
   DenormalizedHeadingContentItem,
   DenormalizedParagraphContentItem,
 } from '../../../model';
+import { emptyMetadata } from '../../../lib/test-resources/dummyContentItemData';
 
-import { PureHtmlDisplay } from '..';
+import { PureHtmlDisplay, DummyDisplayComponent } from '..';
 
 describe(`HtmlDisplay`, (): void => {
 
-  const containerClassName = 'ows_container';
-  const subItemsClassNameSuffix = '__sub-items';
-  const subItemsClassName = `${containerClassName}${subItemsClassNameSuffix}`;
-
-  const dummyRoot2: $Exact<DenormalizedRootContentItem> = {
-    id: 'ua32xchh7q',
-    type: contentItemTypes.ROOT,
-    childItems: [],
+  const dummyNestedNestedParagraph1: $Exact<DenormalizedParagraphContentItem> = {
+    id: 'wiwj9xqnf3',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Proin faucibus tellus eros, quis ultricies est fermentum eu',
+    metadata: emptyMetadata,
+    subItems: [],
   };
   const dummyNestedParagraph2: $Exact<DenormalizedParagraphContentItem> = {
     id: 'cpi389s1e3',
     type: contentItemTypes.PARAGRAPH,
     text: 'Sed ut neque tristique, venenatis purus a, consequat orci. Aenean sed lectus et ante aliquet maximus.',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-    subItems: [],
+    metadata: emptyMetadata,
+    subItems: [dummyNestedNestedParagraph1],
   };
   const dummyNestedParagraph1: $Exact<DenormalizedParagraphContentItem> = {
     id: 'vrci6v35s7',
     type: contentItemTypes.PARAGRAPH,
     text: 'Sed hendrerit eget metus nec elementum. Aenean commodo semper sapien, nec porta leo.',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
+    metadata: emptyMetadata,
     subItems: [],
   };
   const dummyLevel2Heading: $Exact<DenormalizedHeadingContentItem> = {
     id: 'qbpm9mgn6b',
     type: contentItemTypes.HEADING,
     text: 'Level 2 heading',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
+    metadata: emptyMetadata,
     subItems: [dummyNestedParagraph1, dummyNestedParagraph2],
   };
   const dummyLevel1Heading: $Exact<DenormalizedHeadingContentItem> = {
     id: '6o6qy5dz0a',
     type: contentItemTypes.HEADING,
     text: 'Level 1 heading',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
+    metadata: emptyMetadata,
     subItems: [dummyLevel2Heading],
   };
-  const dummyRoot1: $Exact<DenormalizedRootContentItem> = {
+  const dummyRoot: $Exact<DenormalizedRootContentItem> = {
     id: 'jptgampe2x',
     type: contentItemTypes.ROOT,
     childItems: [dummyLevel1Heading],
@@ -72,7 +59,7 @@ describe(`HtmlDisplay`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureHtmlDisplay
-        contentItem={dummyRoot1}
+        contentItem={dummyRoot}
         headingLevel={1}
       />,
     );
@@ -82,60 +69,54 @@ describe(`HtmlDisplay`, (): void => {
   it(`renders all of the contentItem's sub items, when the contentItem is subable and has sub items`, (): void => {
     const enzymeWrapper = mount(
       <PureHtmlDisplay
-        contentItem={dummyRoot1}
+        contentItem={dummyRoot}
         headingLevel={1}
-        containerClassName={containerClassName}
-        subItemsClassNameSuffix={subItemsClassNameSuffix}
       />,
     );
 
-    const subItemsTags = enzymeWrapper.find(`.${subItemsClassName}`).hostNodes();
-    expect(subItemsTags).toHaveLength(2);
+    const root = enzymeWrapper.find('PureRoot');
+    expect(root).toHaveLength(1);
 
-    const level1SubItemsTag = subItemsTags.first();
-    expect(level1SubItemsTag.text()).toContain(dummyLevel2Heading.text);
-    expect(level1SubItemsTag.text()).toContain(dummyNestedParagraph1.text);
-    expect(level1SubItemsTag.text()).toContain(dummyNestedParagraph2.text);
+    const headings = root.find('PureHeading');
+    expect(headings).toHaveLength(2);
 
-    const level2SubItemsTags = level1SubItemsTag.children().find(`.${subItemsClassName}`).hostNodes();
-    expect(level2SubItemsTags).toHaveLength(1);
+    const level1Heading = headings.at(0);
+    const level2Heading = level1Heading.find('SubItemsHtmlDisplay').find('PureHeading');
+    expect(level2Heading).toHaveLength(1);
 
-    const level2SubItemsTag = level2SubItemsTags.first();
-    expect(level2SubItemsTag.text()).not.toContain(dummyLevel2Heading.text);
-    expect(level2SubItemsTag.text()).toContain(dummyNestedParagraph1.text);
-    expect(level2SubItemsTag.text()).toContain(dummyNestedParagraph2.text);
+    const level2Paragraphs = level2Heading.find('PureParagraph');
+    expect(level2Paragraphs).toHaveLength(3);
+
+    const level3Paragraph = level2Paragraphs.at(1).find('SubItemsHtmlDisplay').find('PureParagraph');
+    expect(level3Paragraph).toHaveLength(1);
   });
 
-  it(`does not render an empty sub items container, when the contentItem is not subable`, (): void => {
-    const enzymeWrapper = mount(
+  it(`does not render any sub items, when the contentItem is not subable`, (): void => {
+    const enzymeWrapper = shallow(
       <PureHtmlDisplay
-        contentItem={dummyRoot2}
+        contentItem={dummyRoot}
         headingLevel={1}
-        containerClassName={containerClassName}
-        subItemsClassNameSuffix={subItemsClassNameSuffix}
       />,
     );
-    const subItemsTags = enzymeWrapper.find(`.${subItemsClassName}`).hostNodes();
-    expect(subItemsTags).toHaveLength(0);
+    const subItemsHtmlDisplayWrapper = enzymeWrapper.find('SubItemsHtmlDisplay').dive();
+    expect(subItemsHtmlDisplayWrapper.instance()).toEqual(null);
   });
 
   it(`does not render an empty sub items container, when the contentItem is subable but does not contain any sub items`, (): void => {
-    const enzymeWrapper = mount(
+    const enzymeWrapper = shallow(
       <PureHtmlDisplay
         contentItem={dummyNestedParagraph1}
         headingLevel={1}
-        containerClassName={containerClassName}
-        subItemsClassNameSuffix={subItemsClassNameSuffix}
       />,
     );
-    const subItemsTags = enzymeWrapper.find(`.${subItemsClassName}`).hostNodes();
-    expect(subItemsTags).toHaveLength(0);
+    const subItemsHtmlDisplayWrapper = enzymeWrapper.find('SubItemsHtmlDisplay').dive();
+    expect(subItemsHtmlDisplayWrapper.instance()).toEqual(null);
   });
 
   it(`renders a heading and its sub items wrapped inside a section`, (): void => {
     const enzymeWrapper = mount(
       <PureHtmlDisplay
-        contentItem={dummyRoot1}
+        contentItem={dummyRoot}
         headingLevel={1}
       />,
     );
@@ -147,7 +128,7 @@ describe(`HtmlDisplay`, (): void => {
   it(`renders nested headings with increasing heading levels`, (): void => {
     const enzymeWrapper = mount(
       <PureHtmlDisplay
-        contentItem={dummyRoot1}
+        contentItem={dummyRoot}
         headingLevel={1}
       />,
     );
@@ -164,16 +145,27 @@ describe(`HtmlDisplay`, (): void => {
     const dummySubItemsClassNameSuffix = 'fkioojkpge';
     const enzymeWrapper = mount(
       <PureHtmlDisplay
-        contentItem={dummyRoot1}
+        contentItem={dummyRoot}
         headingLevel={1}
         containerClassName={dummyContainerClassName}
         subItemsClassNameSuffix={dummySubItemsClassNameSuffix}
       />,
     );
     const containerTags = enzymeWrapper.find(`.${dummyContainerClassName}`).hostNodes();
-    expect(containerTags).toHaveLength(4);
+    expect(containerTags).toHaveLength(5);
     const subItemsTags = enzymeWrapper.find(`.${dummyContainerClassName}${dummySubItemsClassNameSuffix}`).hostNodes();
-    expect(subItemsTags).toHaveLength(2);
+    expect(subItemsTags).toHaveLength(3);
+  });
+
+  describe(`DummyDisplayComponent`, (): void => {
+
+    it(`renders without errors`, (): void => {
+      const enzymeWrapper = shallow(
+        <DummyDisplayComponent />,
+      );
+      expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    });
+
   });
 
 });

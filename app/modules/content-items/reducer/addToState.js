@@ -12,14 +12,12 @@ import {
   plainTextContentItemTypes,
   taggableContentItemTypes,
   subableContentItemTypes,
-  containerContentItemTypes,
 } from '../model';
 import type {
   BaseContentItem,
   PlainTextContentItem,
   TaggableContentItem,
   SubableContentItem,
-  ContainerContentItem,
   ContentItemsState,
 } from '../model';
 
@@ -48,9 +46,9 @@ const addToState = (
     ((newContentItem: any): SubableContentItem).subItemIds = [];
   }
 
-  if (_.includes(containerContentItemTypes, type)) {
+  /* if (_.includes(containerContentItemTypes, type)) {
     ((newContentItem: any): ContainerContentItem).childItemIds = [];
-  }
+  } */
 
   switch (type) {
     case contentItemTypes.HEADING:

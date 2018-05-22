@@ -8,7 +8,7 @@ import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
 import { contentItemTypes, subableContentItemTypes } from '../../model';
-import type { ContentItem, SubableContentItem, ContentItemType } from '../../model';
+import type { ContentItem, SubableContentItem } from '../../model';
 import { getById } from '../../selectors';
 import { edit } from '../../actions';
 
@@ -47,7 +47,7 @@ type StateProps = {
 };
 
 type DispatchProps = {
-  onEditPlainText: (id: Identifier, type: ContentItemType, text: string) => void,
+  onEditPlainText: (id: Identifier, text: string) => void,
 };
 
 type Props = PassedProps & StateProps & DispatchProps;
@@ -73,9 +73,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
   return {
     onEditPlainText: (id: Identifier, text: string): void => {
-      dispatch(
-        edit(id, { text }),
-      );
+      dispatch(edit(id, { text }));
     },
   };
 };
@@ -134,5 +132,5 @@ PureEditableDisplay.defaultProps = {
 
 const EditableDisplay = connect(mapStateToProps, mapDispatchToProps)(PureEditableDisplay);
 
-export { PureEditableDisplay, passThroughProps };
+export { PureEditableDisplay, passThroughProps, mapDispatchToProps, DummyDisplayComponent };
 export default EditableDisplay;

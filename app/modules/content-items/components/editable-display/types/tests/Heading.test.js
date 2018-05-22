@@ -11,7 +11,7 @@ import { PureHeading } from '../Heading';
 
 describe(`Heading`, (): void => {
 
-  const dummyOnEditPlainText = (): void => {};
+  const dummyOnEditPlainText = jest.fn();
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
@@ -34,6 +34,22 @@ describe(`Heading`, (): void => {
       </I18nextProvider>,
     );
     expect(enzymeWrapper.text()).toContain(dummyContentItemData.headingContentItem.text);
+  });
+
+  describe(`onEditableTextContentInput`, (): void => {
+
+    it(`calls the passed onEditPlainText function`, (): void => {
+      const dummyText = 'Lorem ipsum';
+      const enzymeWrapper = shallow(
+        <PureHeading
+          contentItem={dummyContentItemData.headingContentItem}
+          onEditPlainText={dummyOnEditPlainText}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentInput(dummyText);
+      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id, dummyText);
+    });
+
   });
 
 });

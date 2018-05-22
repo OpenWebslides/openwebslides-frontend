@@ -1,5 +1,8 @@
 // @flow
 
+import _ from 'lodash';
+import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
+
 import denormalize from '..';
 
 import { contentItemTypes } from '../../../model';
@@ -236,6 +239,13 @@ describe(`denormalize`, (): void => {
       ],
     };
     expect(denormalizedContentItem).toEqual(expectedResult);
+  });
+
+  it(`throws a CorruptedInternalStateError, when the passed contentItemsById structure is corrupted`, (): void => {
+    const corruptedDummyContentItemsById = _.omit(dummyContentItemsById, dummyNestedParagraph3.id);
+    expect((): void => {
+      denormalize(dummyRoot1, corruptedDummyContentItemsById);
+    }).toThrow(CorruptedInternalStateError);
   });
 
 });

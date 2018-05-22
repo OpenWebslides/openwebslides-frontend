@@ -1,6 +1,7 @@
 // @flow
 
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import reducer from '../../reducer';
@@ -52,6 +53,27 @@ describe(`EDIT_IN_STATE`, (): void => {
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyPlainTextContentItem.id]).not.toBe(prevState.byId[dummyPlainTextContentItem.id]);
+  });
+
+  it(`leaves the state unchanged, when all propsForType are undefined`, (): void => {
+    const prevState: ContentItemsState = {
+      byId: {
+        [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
+      },
+    };
+    const editPlainTextInStateAction: t.EditInStateAction = {
+      type: t.EDIT_IN_STATE,
+      payload: {
+        id: dummyPlainTextContentItem.id,
+        type: dummyPlainTextContentItem.type,
+        propsForType: {},
+      },
+    };
+    const resultState = reducer(prevState, editPlainTextInStateAction);
+
+    expect(resultState).toBe(prevState);
+    expect(resultState.byId).toBe(prevState.byId);
+    expect(resultState.byId[dummyPlainTextContentItem.id]).toBe(prevState.byId[dummyPlainTextContentItem.id]);
   });
 
   it(`leaves the state unchanged, when the action contains no meaninful changes`, (): void => {
@@ -118,6 +140,26 @@ describe(`EDIT_IN_STATE`, (): void => {
       prevState,
       editPlainTextInStateAction,
     )).toThrow(InvalidArgumentError);
+  });
+
+  it(`temporarily throws a NotYetImplementedError, when the contentItem's type is not a plainTextContentItemType`, (): void => {
+    const prevState: ContentItemsState = {
+      byId: {
+        [dummyContentItemData.rootContentItem.id]: dummyContentItemData.rootContentItem,
+      },
+    };
+    const editPlainTextInStateAction: t.EditInStateAction = {
+      type: t.EDIT_IN_STATE,
+      payload: {
+        id: dummyContentItemData.rootContentItem.id,
+        type: dummyContentItemData.rootContentItem.type,
+        propsForType: {},
+      },
+    };
+    expect((): any => reducer(
+      prevState,
+      editPlainTextInStateAction,
+    )).toThrow(NotYetImplementedError);
   });
 
 });
