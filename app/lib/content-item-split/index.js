@@ -57,6 +57,7 @@ const split = (
       const createHeading = (): DenormalizedContentItem => {
         return {
           ...contentItem,
+          subItemIds: [],
           subItems: [],
         };
       };
@@ -75,6 +76,7 @@ const split = (
         }
 
         // Add the child to the last top-level heading
+        arr[arr.length - 1].subItemIds.push(item.id);
         arr[arr.length - 1].subItems.push(item);
         return arr;
       },
