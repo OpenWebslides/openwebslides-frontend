@@ -98,7 +98,9 @@ const PurePage = (props: Props): React.Node => {
   }
 
   const sidebarWrapperWidth = SIDEBAR_LENGTH * amountOfSidebars;
-  const contentWidth = AMOUNT_OF_COLS_IN_GRID - sidebarWrapperWidth;
+  // TODO: find better solution (also change sidebar width constant back to 5)
+  // -1 for better padding between columns
+  const contentWidth = AMOUNT_OF_COLS_IN_GRID - sidebarWrapperWidth - 1;
 
   return (
     <React.Fragment>
