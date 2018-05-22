@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import type { SidebarsByName } from '../model';
 
-import { getAllByName } from '../selectors';
+import type { SidebarName } from '../model';
+import { getAllActiveSidebars } from '../selectors';
 import Sidebar from './sidebars/Sidebar';
 import { AMOUNT_OF_COLS_IN_GRID } from '../constants';
 
@@ -16,13 +16,13 @@ type PassedProps = {
 };
 
 type StateProps = {
-  sidebars: SidebarsByName,
+  sidebars: Array<SidebarName>,
 };
 
 type Props = PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const sidebars = getAllByName(state);
+  const sidebars = getAllActiveSidebars(state);
 
   return {
     sidebars,

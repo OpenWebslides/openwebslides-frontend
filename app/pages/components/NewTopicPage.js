@@ -18,8 +18,10 @@ const PureNewTopicPage = (props: Props): React.Node => {
 
   return (
     <Page needsAuth={true}>
-      <h1>{t('global:title.createNewTopic')}</h1>
-      <NewTopicCard />
+      <React.Fragment>
+        <h1>{t('global:title.createNewTopic')}</h1>
+        <NewTopicCard />
+      </React.Fragment>
     </Page>
   );
 };

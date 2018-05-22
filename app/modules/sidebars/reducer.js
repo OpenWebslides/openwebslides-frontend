@@ -3,28 +3,28 @@
 import _ from 'lodash';
 
 import * as t from './actionTypes';
-import type { SidebarsByName, SidebarsState } from './model';
+import type { SidebarName, SidebarsState } from './model';
 
-const initialState: SidebarsState = { byName: [] };
+const initialState: SidebarsState = { activeSidebars: [] };
 
 const toggleSidebar = (state: SidebarsState, action: t.ToggleAction): SidebarsState => {
   const {
     sidebarName,
   } = action.payload;
 
-  let newByName: SidebarsByName;
+  let newActiveSidebars: Array<SidebarName>;
 
-  if (_.indexOf(state.byName, sidebarName) >= 0) {
-    newByName = _.without(state.byName, sidebarName);
+  if (_.indexOf(state.activeSidebars, sidebarName) >= 0) {
+    newActiveSidebars = _.without(state.activeSidebars, sidebarName);
   }
   else {
-    newByName = _.concat(state.byName, sidebarName);
+    newActiveSidebars = _.concat(state.activeSidebars, sidebarName);
   }
 
   return {
     ...state,
-    byName: [
-      ...newByName,
+    activeSidebars: [
+      ...newActiveSidebars,
     ],
   };
 };
@@ -33,8 +33,6 @@ const reducer = (state: SidebarsState = initialState, action: t.SidebarAction): 
   switch (action.type) {
     case t.TOGGLE:
       return toggleSidebar(state, action);
-    case t.TOGGLE_ERROR:
-      return state;
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled
       // eslint-disable-next-line no-unused-expressions

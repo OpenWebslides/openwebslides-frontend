@@ -5,26 +5,28 @@ import { connect } from 'react-redux';
 import { Icon, Button } from 'semantic-ui-react';
 import { Dispatch } from 'redux';
 
+import type { SidebarName } from '../model';
+
 import { toggle as toggleAction } from '../actions';
 
 type PassedProps = {
   icon: string,
-  sidebarName: string,
+  sidebarName: SidebarName,
 };
 
 type DispatchProps = {
-  dispatchToggle: (string) => void,
+  dispatchToggle: (SidebarName) => void,
 };
 
 type LocalState = {
-  open: boolean,
+  active: boolean,
 };
 
 type Props = PassedProps & DispatchProps;
 
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
-    dispatchToggle: (sidebarName: string): void => {
+    dispatchToggle: (sidebarName: SidebarName): void => {
       dispatch(
         toggleAction(sidebarName),
       );
@@ -37,8 +39,8 @@ class PureSidebarMenuItem extends React.Component<Props, LocalState> {
     active: false,
   };
 
-  toggle = (sidebarName: string): void => {
-    this.setState({ active: !this.state.active });
+  toggle = (sidebarName: SidebarName, active: boolean): void => {
+    this.setState({ active: !active });
     this.props.dispatchToggle(sidebarName);
   };
 
@@ -50,7 +52,12 @@ class PureSidebarMenuItem extends React.Component<Props, LocalState> {
 
     return (
       <div className="sidebarMenu__item">
-        <Button className="sidebarMenu__button" toggle={true} active={this.state.active} onClick={() => this.toggle(sidebarName)}>
+        <Button
+          className="sidebarMenu__button"
+          toggle={true}
+          active={this.state.active}
+          onClick={() => this.toggle(sidebarName, this.state.active)}
+        >
           <Icon name={icon} className="sidebarMenu__icon" />
         </Button>
       </div>

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import { PureSidebar } from '../Sidebar';
-import { sidebar } from '../../../model/sidebarName';
+import { sidebar } from '../../../model';
 
 describe(`Sidebar`, (): void => {
 

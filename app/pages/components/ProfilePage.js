@@ -81,11 +81,13 @@ const PureProfilePage = (props: Props): React.Node => {
 
   return (
     <Page>
-      <h1>{t('global:title.profile')}</h1>
-      <Switch>
-        <Route path={`${match.url}/:id`} component={UserProfile} />
-        <Route render={() => <CurrentUserProfile userId={CURRENT_USER} />} />
-      </Switch>
+      <React.Fragment>
+        <h1>{t('global:title.profile')}</h1>
+        <Switch>
+          <Route path={`${match.url}/:id`} component={UserProfile} />
+          <Route render={() => <CurrentUserProfile userId={CURRENT_USER} />} />
+        </Switch>
+      </React.Fragment>
     </Page>
   );
 };

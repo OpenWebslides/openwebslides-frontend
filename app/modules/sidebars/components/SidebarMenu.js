@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Rail } from 'semantic-ui-react';
 import SidebarMenuItem from './SidebarMenuItem';
-import { sidebar } from '../model/sidebarName';
+import { sidebar } from '../model';
 
 const PureSidebarMenu = (): React.Node => {
   return (

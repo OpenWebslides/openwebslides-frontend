@@ -1,23 +1,15 @@
 // @flow
 
-import type { Error } from 'types/error';
+import type { SidebarName } from './model';
 
 export const TOGGLE: 'sidebar/TOGGLE' = 'sidebar/TOGGLE';
-
-export const TOGGLE_ERROR: 'sidebar/TOGGLE_ERROR' = 'sidebar/TOGGLE_ERROR';
 
 export type ToggleAction = {
   type: typeof TOGGLE,
   payload: {
-    sidebarName: string,
+    sidebarName: SidebarName,
   },
 };
 
-export type ToggleErrorAction = {
-  type: typeof TOGGLE_ERROR,
-  error: Error,
-};
-
 export type SidebarAction =
-  | ToggleAction
-  | ToggleErrorAction;
+  | ToggleAction;

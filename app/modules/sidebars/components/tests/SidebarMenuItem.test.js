@@ -4,7 +4,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import { PureSidebarMenuItem } from '../SidebarMenuItem';
-import { sidebar } from '../../model/sidebarName';
+import { sidebar } from '../../model';
 
 describe(`SidebarMenuItem`, (): void => {
   const dummySidebar = sidebar.SLIDE;
@@ -14,7 +14,7 @@ describe(`SidebarMenuItem`, (): void => {
       <PureSidebarMenuItem
         icon="image"
         sidebarName={dummySidebar}
-        toggle={(): void => {}}
+        dispatchToggle={(): void => {}}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

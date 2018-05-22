@@ -6,13 +6,13 @@ import type { Identifier } from 'types/model';
 import type { State } from 'types/state';
 import topics from 'modules/topics';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
-import { sidebarMapping } from '../../model/sidebarName';
-import type { Sidebar as SidebarType } from '../../model';
+import { sidebarMapping } from '../../model';
+import type { SidebarName } from '../../model';
 
 type Topic = topics.model.Topic;
 
 type PassedProps = {
-  sidebarName: SidebarType,
+  sidebarName: SidebarName,
   topicId: Identifier,
 };
 

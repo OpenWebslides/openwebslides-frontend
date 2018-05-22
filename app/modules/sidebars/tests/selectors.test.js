@@ -1,16 +1,17 @@
 // @flow
 
-import { getAllByName } from '../selectors';
-import type { SidebarsByName, SidebarsState } from '../model';
+import { getAllActiveSidebars } from '../selectors';
+import type { SidebarName, SidebarsState } from '../model';
+import { sidebar } from '../model';
 
 describe(`selectors`, (): void => {
 
-  const dummySidebarName1: string = 'SidebarName/SLIDE';
-  const dummySidebarName2: string = 'SidebarName/INFO';
+  const dummySidebarName1: SidebarName = sidebar.SLIDE;
+  const dummySidebarName2: SidebarName = sidebar.INFO;
 
-  const dummySidebarsByName: SidebarsByName = [dummySidebarName1, dummySidebarName2];
+  const dummyActiveSidebars: Array<SidebarName> = [dummySidebarName1, dummySidebarName2];
   const dummySidebarsState: SidebarsState = {
-    byName: dummySidebarsByName,
+    activeSidebars: dummyActiveSidebars,
   };
   const dummyState: any = {
     modules: {
@@ -20,7 +21,7 @@ describe(`selectors`, (): void => {
   const dummyEmptyState: any = {
     modules: {
       sidebars: {
-        byName: [],
+        activeSidebars: [],
       },
     },
   };
@@ -28,12 +29,12 @@ describe(`selectors`, (): void => {
   describe(`getAllByName`, (): void => {
 
     it(`returns an array of all Sidebars, when there are one or more sidebars in the state`, (): void => {
-      const sidebarsByName = getAllByName(dummyState);
-      expect(sidebarsByName).toBe(dummySidebarsByName);
+      const sidebarsByName = getAllActiveSidebars(dummyState);
+      expect(sidebarsByName).toBe(dummyActiveSidebars);
     });
 
     it(`returns an empty array, when there are no sidebars in the state`, (): void => {
-      const sidebarsByName = getAllByName(dummyEmptyState);
+      const sidebarsByName = getAllActiveSidebars(dummyEmptyState);
       expect(sidebarsByName).toEqual([]);
     });
 

@@ -16,12 +16,8 @@ import sidebars from 'modules/sidebars';
 const { isAuthenticated } = authentication.selectors;
 
 const { SidebarMenu, SidebarWrapper } = sidebars.components;
-const { getAllByName } = sidebars.selectors;
+const { getAllActiveSidebars } = sidebars.selectors;
 const { SIDEBAR_LENGTH, AMOUNT_OF_COLS_IN_GRID } = sidebars.constants;
-
-type RouteProps = {
-  match: Match,
-};
 
 type StateProps = {
   authenticated: boolean,
@@ -29,19 +25,20 @@ type StateProps = {
 };
 
 type PassedProps = {
+  needsAuth: boolean,
+  needsSidebar: boolean,
   children: React.Node,
-  needsAuth?: boolean,
-  needsSidebar?: boolean,
 };
 
 type SidebarProps = {
-  match: ?Match,
-  width: number,
+  match: Match,
+  amountOfCols: number,
 };
 
-type Props = CustomTranslatorProps & PassedProps & StateProps & RouteProps;
+type Props = CustomTranslatorProps & PassedProps & StateProps & SidebarProps;
 
-
+// TODO: some flowTyped error from ContextRouter in react-router-dom package
+// $FlowFixMe
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const {
     needsAuth,
@@ -51,8 +48,8 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   let amountOfSidebars:number = 0;
 
   if (needsSidebar) {
-    const sidebarsByName = getAllByName(state);
-    amountOfSidebars = sidebarsByName != null ? sidebarsByName.length : 0;
+    const activeSidebars = getAllActiveSidebars(state);
+    amountOfSidebars = activeSidebars != null ? activeSidebars.length : 0;
   }
 
   return {
@@ -65,7 +62,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 const SidebarComponent = (props: SidebarProps): React.Node => {
   const {
     match,
-    width,
+    amountOfCols,
   } = props;
 
   const topicId = match.params.id;
@@ -76,8 +73,8 @@ const SidebarComponent = (props: SidebarProps): React.Node => {
 
   return (
     <React.Fragment>
-      { width > 0 &&
-        <Grid.Column className="sidebarWrapper" width={width}>
+      { amountOfCols > 0 &&
+        <Grid.Column className="sidebarWrapper" width={amountOfCols}>
           <SidebarWrapper topicId={topicId} />
         </Grid.Column>
       }
@@ -97,17 +94,17 @@ const PurePage = (props: Props): React.Node => {
     return <Redirect to="/auth/signin" />;
   }
 
-  const sidebarWrapperWidth = SIDEBAR_LENGTH * amountOfSidebars;
+  const sidebarWrapperCols = SIDEBAR_LENGTH * amountOfSidebars;
   // TODO: find better solution (also change sidebar width constant back to 5)
   // -1 for better padding between columns
-  const contentWidth = AMOUNT_OF_COLS_IN_GRID - sidebarWrapperWidth - 1;
+  const contentCols = AMOUNT_OF_COLS_IN_GRID - sidebarWrapperCols - 1;
 
   return (
     <React.Fragment>
       <NavigationBar />
       <div className="page-layout__grid">
         <Grid stretched={true}>
-          <Grid.Column width={contentWidth}>
+          <Grid.Column width={contentCols}>
             <div>
               {props.children}
             </div>
@@ -115,7 +112,7 @@ const PurePage = (props: Props): React.Node => {
           <Route
             path={`${props.match.url}/:id`}
             render={(sidebarProps) => (
-              <SidebarComponent {...sidebarProps} width={sidebarWrapperWidth} />
+              <SidebarComponent {...sidebarProps} amountOfCols={sidebarWrapperCols} />
             )}
           />
         </Grid>
@@ -127,7 +124,8 @@ const PurePage = (props: Props): React.Node => {
   );
 };
 
-const Page = withRouter(connect(mapStateToProps)(translate()(PurePage)));
+const connectedPage = connect(mapStateToProps)(translate()(PurePage));
+const Page = withRouter(connectedPage);
 
 export { PurePage };
 export default Page;

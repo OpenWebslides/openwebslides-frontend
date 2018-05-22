@@ -55,9 +55,9 @@ const PureSlideSidebar = (props: Props): React.Node => {
   } = props;
 
   return (
-    <React.Fragment>
+    <div className="sidebar__slide">
       <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
-    </React.Fragment>
+    </div>
   );
 };
 

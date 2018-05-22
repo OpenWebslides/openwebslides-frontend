@@ -7,7 +7,7 @@ import * as constants from './constants';
 import reducer from './reducer';
 import components from './components';
 
-import type { Sidebar, SidebarsState } from './model';
+import type { SidebarName, SidebarsState } from './model';
 
 const sidebars = {
   actions,
@@ -18,5 +18,5 @@ const sidebars = {
   selectors,
 };
 
-export type { Sidebar, SidebarsState };
+export type { SidebarName, SidebarsState };
 export default sidebars;
