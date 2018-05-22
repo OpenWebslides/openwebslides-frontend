@@ -10,7 +10,6 @@ import { sidebarMapping } from '../../model/sidebarName';
 import type { Sidebar as SidebarType } from '../../model';
 
 type Topic = topics.model.Topic;
-const { getById } = topics.selectors;
 
 type PassedProps = {
   sidebarName: SidebarType,
@@ -25,7 +24,7 @@ type Props = PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;
-  const topic = getById(state, { id: topicId });
+  const topic = topics.selectors.getById(state, { id: topicId });
 
   if (topic == null) {
     throw new ObjectNotFoundError('topics:topic', props.topicId);
@@ -45,7 +44,7 @@ const PureSidebar = (props: Props): React.Node => {
   const SidebarComponent = sidebarMapping[sidebarName];
 
   return (
-    <div className="editor__sidebar">
+    <div className="sidebar">
       <SidebarComponent topic={topic} />
     </div>
   );

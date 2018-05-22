@@ -8,7 +8,7 @@
 & { @import "../../custom/content-item-editable-display"; }
 & { @import "../../custom/page-layout"; }
 & { @import "../../custom/navbar"; }
-& { @import "../../custom/editor"; }
+& { @import "../../custom/sidebar"; }
 
 a, a:active, a:hover {
   color: @ows_primary_color;

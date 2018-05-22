@@ -7,7 +7,7 @@ import { sidebar } from '../model/sidebarName';
 
 const PureSidebarMenu = (): React.Node => {
   return (
-    <Rail position="right" attached={true} className="editor__sidebarmenu">
+    <Rail position="right" attached={true} className="sidebarMenu">
       <SidebarMenuItem sidebarName={sidebar.INFO} icon="info" />
       <SidebarMenuItem sidebarName={sidebar.SLIDE} icon="image" />
     </Rail>

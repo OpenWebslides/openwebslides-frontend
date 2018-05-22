@@ -15,3 +15,5 @@
 
 @primaryColor: @ows_primary_color;
 
+@positiveColor: @ows_primary_color;
+
