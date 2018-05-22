@@ -56,8 +56,8 @@ const PureEditColorComponent = (props: Props, state: State): React.Node => {
   const colors: Array<string> = ['#000000', '#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'];
   return (
     <div className="colorPicker">
-      <div id="ColorPickerHeading">
-        <h6>Change heading color</h6>
+      <div id="ColorPickerHeading"><br />
+        <h5>Change heading color</h5>
         <TwitterPicker
           triangle="hide"
           colors={colors}
@@ -65,8 +65,8 @@ const PureEditColorComponent = (props: Props, state: State): React.Node => {
           onChangeComplete={editColorHeading}
         />
       </div>
-      <div className="ColorPickerParagraph">
-        <h6>Change heading color</h6>
+      <div className="ColorPickerParagraph"><br />
+        <h5>Change paragraph color</h5>
         <TwitterPicker
           triangle="hide"
           colors={colors}

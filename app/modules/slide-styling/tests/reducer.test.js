@@ -117,8 +117,6 @@ describe('reducer', (): void => {
       };
       const resultState = reducer(prevState, editContentTypeColorInStateAction);
 
-      console.log(resultState);
-
       expect(resultState).toEqual(nextState);
       expect(resultState).not.toBe(prevState);
       expect(resultState.byId).not.toBe(prevState.byId);

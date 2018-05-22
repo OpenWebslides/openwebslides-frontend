@@ -10,6 +10,8 @@ describe(`VoicePlayerToggle`, (): void => {
     const enzymeWrapper = shallow(
       <VoicePlayerToggleComp
         content=""
+        startPlay={true}
+        pausePlay={false}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

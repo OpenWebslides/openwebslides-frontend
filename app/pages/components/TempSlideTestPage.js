@@ -53,6 +53,8 @@ type Props = CustomTranslatorProps & StateProps & PassedProps & DispatchProps;
 type ComponentState = {
   contentToBeRead: string,
   toggle: boolean,
+  startPlay: boolean,
+  pausePlay: boolean,
 };
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
@@ -111,6 +113,8 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     contentToBeRead: '',
     toggle: false,
+    startPlay: true,
+    pausePlay: false,
   };
 
   componentWillMount = (): void => {
@@ -129,7 +133,11 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
 
   toggleRead = (): void => {
     if (this.state.toggle) {
-      this.setState({ toggle: false });
+      this.setState({
+        toggle: false,
+        startPlay: true,
+        pausePlay: false,
+      });
     }
     else {
       // const contentBlocks: [] =
@@ -157,18 +165,51 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
     }
   };
 
+  pauseReading = (): void => {
+    if (this.state.startPlay) {
+      this.setState(
+        { toggle: true,
+          // $FlowFixMe
+          contentToBeRead: this.slideRef.current.innerText,
+          startPlay: false,
+          pausePlay: true,
+        },
+      );
+    }
+    else {
+      this.setState(
+        { toggle: true,
+          // $FlowFixMe
+          contentToBeRead: this.slideRef.current.innerText,
+          startPlay: true,
+          pausePlay: false,
+        },
+      );
+    }
+  };
+
   render = (): React.Node => {
     const {
       contentItemTreeRootItem,
       slideStylingItem,
       userId } = this.props;
     let VoicePlayerToggleNode: typeof VoicePlayerToggle;
+    let PauseCheckbox: typeof Checkbox;
 
     if (this.state.toggle) {
       VoicePlayerToggleNode = (
         <VoicePlayerToggle
           content={this.state.contentToBeRead}
-        />);
+          startPlay={this.state.startPlay}
+          pausePlay={this.state.pausePlay}
+        />
+      );
+      PauseCheckbox = (
+        <div>
+          <h5>Click to pause</h5>
+          <Checkbox onClick={this.pauseReading} checked={this.state.pausePlay} />
+        </div>
+      );
     }
     else {
       // $FlowFixMe
@@ -184,9 +225,11 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
         </div>
         <div className="Voice">
           {VoicePlayerToggleNode}
+          <h5>Toggle to read slide</h5>
           <Segment compact={true}>
-            <Checkbox slider={true} onClick={this.toggleRead} checked={this.state.toggle} />
+            <Checkbox toggle={true} onClick={this.toggleRead} checked={this.state.toggle} />
           </Segment>
+          {PauseCheckbox}
         </div>
         <EditColorComponent
           userId={userId}
