@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable flowtype/no-weak-types */
 
 import type {
   DenormalizedContentItem,
@@ -26,7 +27,7 @@ const split = (
         })
         .reduce((
           arr: Array<DenormalizedContentItem>,
-          c: DenormalizedContentItem,
+          c: Array<DenormalizedContentItem>,
         ): Array<DenormalizedContentItem> => {
           return arr.concat(c);
         }, []);
@@ -45,6 +46,9 @@ const split = (
        * To
        *
        * Main Heading
+       *    └─ Paragraph A
+       *
+       * Main Heading
        *    ├─ Paragraph A
        *    └─ Subheading 1
        *          └─ Paragraph B
@@ -54,7 +58,7 @@ const split = (
        */
 
       // Return a copy of the top-level heading
-      const createHeading = (): DenormalizedContentItem => {
+      const createHeading = (): any => {
         return {
           ...contentItem,
           subItemIds: [],
@@ -65,7 +69,7 @@ const split = (
       // Loop over top-level heading's children, splitting and
       // duplicating the top-level heading where necessary.
       return contentItem.subItems.reduce((
-        arr: Array<DenormalizedContentItem>,
+        arr: Array<any>,
         item: DenormalizedContentItem,
       ): Array<DenormalizedContentItem> => {
         if (item.type === contentItemTypes.HEADING && arr[arr.length - 1].subItems.length !== 0) {
