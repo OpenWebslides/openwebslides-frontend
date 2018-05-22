@@ -26,14 +26,12 @@ const PureSlides = (props: Props): React.Node => {
   const contentItems: Array<DenormalizedContentItem> = split(contentItemTreeRootItem);
 
   return (
-    <div className="ows_slides">
-      <div className="ows_slides__container">
-        {
-          contentItems.map((contentItem) => (
-            <Slide key={contentItem.id} contentItem={contentItem} />
-          ))
-        }
-      </div>
+    <div className="ows_slides_container">
+      {
+        contentItems.map((contentItem) => (
+          <Slide key={contentItem.id} contentItem={contentItem} />
+        ))
+      }
     </div>
   );
 };
