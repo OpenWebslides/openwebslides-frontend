@@ -28,10 +28,10 @@ export const apiGetTopicContentSaga = function* (
   yield put(setStatusInState(t.API_GET_TOPIC_CONTENT, statusTypes.PENDING));
 
   try {
-    const { topicId } = action.payload;
+    const { id } = action.payload;
     const token = yield select(getToken);
 
-    const response = yield call(TopicsApi.getContent, topicId, token);
+    const response = yield call(TopicsApi.getContent, id, token);
 
     // TODO: validate response
     const items: Array<ContentItem> = response.body.data.attributes.content;

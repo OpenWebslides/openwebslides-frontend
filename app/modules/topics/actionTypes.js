@@ -231,7 +231,7 @@ export type ApiPostTopicAction = {
 export type ApiPatchTopicContentAction = {
   type: typeof API_PATCH_TOPIC_CONTENT,
   payload: {
-    topicId: Identifier,
+    id: Identifier,
     contentItems: Array<ContentItem>,
   },
 };
@@ -239,7 +239,7 @@ export type ApiPatchTopicContentAction = {
 export type ApiGetTopicContentAction = {
   type: typeof API_GET_TOPIC_CONTENT,
   payload: {
-    topicId: Identifier,
+    id: Identifier,
   },
 };
 

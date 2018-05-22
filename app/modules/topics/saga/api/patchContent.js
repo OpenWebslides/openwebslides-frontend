@@ -22,10 +22,10 @@ export const apiPatchTopicContentSaga = function* (
   yield put(setStatusInState(t.API_PATCH_TOPIC_CONTENT, statusTypes.PENDING));
 
   try {
-    const { topicId, contentItems } = action.payload;
+    const { id, contentItems } = action.payload;
     const token = yield select(getToken);
 
-    const response = yield call(TopicsApi.patchContent, topicId, contentItems, token);
+    const response = yield call(TopicsApi.patchContent, id, contentItems, token);
 
     yield put(setTokenInState(response.token));
     yield put(setStatusInState(t.API_PATCH_TOPIC_CONTENT, statusTypes.SUCCESS));

@@ -278,25 +278,25 @@ export const apiPostTopic = (
 };
 
 export const apiPatchTopicContent = (
-  topicId: Identifier,
+  id: Identifier,
   contentItems: Array<ContentItem>,
 ): t.ApiPatchTopicContentAction => {
   return {
     type: t.API_PATCH_TOPIC_CONTENT,
     payload: {
-      topicId,
+      id,
       contentItems,
     },
   };
 };
 
 export const apiGetTopicContent = (
-  topicId: Identifier,
+  id: Identifier,
 ): t.ApiGetTopicContentAction => {
   return {
     type: t.API_GET_TOPIC_CONTENT,
     payload: {
-      topicId,
+      id,
     },
   };
 };

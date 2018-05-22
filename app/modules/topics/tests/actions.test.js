@@ -189,4 +189,62 @@ describe(`actions`, (): void => {
 
   });
 
+  describe(`save`, (): void => {
+    it(`returns a SAVE_CONTENT action`, (): void => {
+      const id = 'abcdefghij';
+      const expectedAction: t.SaveContentAction = {
+        type: t.SAVE_CONTENT,
+        payload: {
+          id,
+        },
+      };
+
+      expect(actions.save(id)).toEqual(expectedAction);
+    });
+  });
+
+  describe(`load`, (): void => {
+    it(`returns a LOAD_CONTENT action`, (): void => {
+      const id = 'abcdefghij';
+      const expectedAction: t.LoadContentAction = {
+        type: t.LOAD_CONTENT,
+        payload: {
+          id,
+        },
+      };
+
+      expect(actions.load(id)).toEqual(expectedAction);
+    });
+  });
+
+  describe(`apiPatchTopicContent`, (): void => {
+    it(`returns a API_PATCH_TOPIC_CONTENT action`, (): void => {
+      const id = 'abcdefghij';
+      const contentItems = [];
+      const expectedAction: t.ApiPatchTopicContentAction = {
+        type: t.API_PATCH_TOPIC_CONTENT,
+        payload: {
+          id,
+          contentItems,
+        },
+      };
+
+      expect(actions.apiPatchTopicContent(id, contentItems)).toEqual(expectedAction);
+    });
+  });
+
+  describe(`apiGetTopicContent`, (): void => {
+    it(`returns a API_GET_TOPIC_CONTENT action`, (): void => {
+      const id = 'abcdefghij';
+      const expectedAction: t.ApiGetTopicContentAction = {
+        type: t.API_GET_TOPIC_CONTENT,
+        payload: {
+          id,
+        },
+      };
+
+      expect(actions.apiGetTopicContent(id)).toEqual(expectedAction);
+    });
+  });
+
 });
