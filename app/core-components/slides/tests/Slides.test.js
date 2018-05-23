@@ -15,8 +15,18 @@ describe(`Slides`, (): void => {
       id: 'abcdefghij',
       type: contentItems.contentItemTypes.ROOT,
       isEditing: false,
-      childItemIds: [],
-      childItems: [],
+      childItemIds: ['hd83riji8c'],
+      childItems: [{
+        id: 'hd83riji8c',
+        type: contentItems.contentItemTypes.HEADING,
+        isEditing: false,
+        text: 'Heading',
+        metadata: {
+          tags: [],
+          visibilityOverrides: {},
+        },
+        subItems: [],
+      }],
     };
 
     const enzymeWrapper = shallow(

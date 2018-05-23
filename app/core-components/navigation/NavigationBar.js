@@ -51,5 +51,5 @@ const PureNavigationBar = (): React.Node => {
 
 const NavigationBar = PureNavigationBar;
 
-export { PureNavigationBar };
+export { PureNavigationBar, PureLogo };
 export default NavigationBar;
