@@ -1,7 +1,5 @@
 // @flow
 
-import { dummyTopicsById } from '../dummyData';
-
 import reducer from '../reducer';
 import * as t from '../actionTypes';
 import type { Topic, TopicsState } from '../model';
@@ -22,20 +20,6 @@ describe(`reducer`, (): void => {
     description: '',
     rootContentItemId: 'abcdefghij',
   };
-  const dummyInitialState = {
-    byId: dummyTopicsById,
-  };
-
-  it(`returns the initial state, when state parameter is undefined`, (): void => {
-    const dummyAction = {
-      type: t.ADD_TO_STATE_ERROR,
-      error: {
-        message: `Flow will complain if the passed action isn't some kind of valid TopicAction.`,
-      },
-    };
-
-    expect(reducer(undefined, dummyAction)).toEqual(dummyInitialState);
-  });
 
   it(`handles topic ADD_TO_STATE action`, (): void => {
     const prevState: TopicsState = {

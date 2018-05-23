@@ -20,17 +20,12 @@ export const addToState = (
   title: string,
   description: ?string = null,
   rootContentItemId: Identifier,
-): t.AddToStateAction | t.AddToStateErrorAction => {
+): t.AddToStateAction => {
   const newTitle = _.trim(title);
   const newDescription = (description != null) ? _.trim(description) : '';
 
   if (newTitle === '') {
-    return {
-      type: t.ADD_TO_STATE_ERROR,
-      error: {
-        message: 'Title cannot be empty.',
-      },
-    };
+    throw new Error(`"title" prop cannot be an empty string`);
   }
 
   return {
@@ -49,26 +44,16 @@ export const editInState = (
   id: Identifier,
   title: ?string = null,
   description: ?string = null,
-): t.EditInStateAction | t.EditInStateErrorAction => {
+): t.EditInStateAction => {
   const newTitle = (title != null) ? _.trim(title) : null;
   const newDescription = (description != null) ? _.trim(description) : null;
 
   if (newTitle === '') {
-    return {
-      type: t.EDIT_IN_STATE_ERROR,
-      error: {
-        message: 'Title cannot be empty.',
-      },
-    };
+    throw new Error(`"title" prop cannot be an empty string`);
   }
 
   if (newTitle === null && newDescription === null) {
-    return {
-      type: t.EDIT_IN_STATE_ERROR,
-      error: {
-        message: 'Action must contain at least one edit.',
-      },
-    };
+    throw new Error(`Action must contain at least one edit`);
   }
 
   return {
@@ -83,7 +68,7 @@ export const editInState = (
 
 export const removeFromState = (
   id: Identifier,
-): t.RemoveFromStateAction | t.RemoveFromStateErrorAction => {
+): t.RemoveFromStateAction => {
   return {
     type: t.REMOVE_FROM_STATE,
     payload: {
@@ -109,18 +94,13 @@ export const add = (
   title: string,
   description: ?string = null,
   history: RouterHistory,
-): t.AddAction | t.AddErrorAction => {
+): t.AddAction => {
   const newId = generateId();
   const newTitle = _.trim(title);
   const newDescription = (description != null) ? _.trim(description) : '';
 
   if (newTitle === '') {
-    return {
-      type: t.ADD_ERROR,
-      error: {
-        message: 'Title cannot be empty.',
-      },
-    };
+    throw new Error(`"title" prop cannot be an empty string`);
   }
 
   return {
@@ -140,26 +120,16 @@ export const edit = (
   id: Identifier,
   title: ?string = null,
   description: ?string = null,
-): t.EditAction | t.EditErrorAction => {
+): t.EditAction => {
   const newTitle = (title != null) ? _.trim(title) : null;
   const newDescription = (description != null) ? _.trim(description) : null;
 
   if (newTitle === '') {
-    return {
-      type: t.EDIT_ERROR,
-      error: {
-        message: 'Title cannot be empty.',
-      },
-    };
+    throw new Error(`"title" prop cannot be an empty string`);
   }
 
   if (newTitle === null && newDescription === null) {
-    return {
-      type: t.EDIT_ERROR,
-      error: {
-        message: 'Action must contain at least one edit.',
-      },
-    };
+    throw new Error(`Action must contain at least one edit`);
   }
 
   return {
@@ -174,7 +144,7 @@ export const edit = (
 
 export const remove = (
   id: Identifier,
-): t.RemoveAction | t.RemoveErrorAction => {
+): t.RemoveAction => {
   return {
     type: t.REMOVE,
     payload: {
@@ -185,7 +155,7 @@ export const remove = (
 
 export const get = (
   id: Identifier,
-): t.GetAction | t.GetErrorAction => {
+): t.GetAction => {
   return {
     type: t.GET,
     payload: {
@@ -196,7 +166,7 @@ export const get = (
 
 export const getAllByUserId = (
   userId: Identifier,
-): t.GetAllByUserIdAction | t.GetAllByUserIdErrorAction => {
+): t.GetAllByUserIdAction => {
   return {
     type: t.GET_ALL_BY_USERID,
     payload: {
@@ -207,7 +177,7 @@ export const getAllByUserId = (
 
 export const save = (
   id: Identifier,
-): t.SaveContentAction | t.SaveContentErrorAction => {
+): t.SaveContentAction => {
   return {
     type: t.SAVE,
     payload: {
@@ -218,7 +188,7 @@ export const save = (
 
 export const load = (
   id: Identifier,
-): t.LoadContentAction | t.LoadContentErrorAction => {
+): t.LoadContentAction => {
   return {
     type: t.LOAD,
     payload: {
