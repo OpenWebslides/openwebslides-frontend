@@ -17,7 +17,6 @@ const split = (
 ): Array<DenormalizedContentItem> => {
   switch (contentItem.type) {
     case contentItemTypes.ROOT:
-      console.log(`ROOT: splitting recursively into ${contentItem.childItems.length}`);
       // ROOT content item: split into childItems and recurse
       return contentItem.childItems
         .map((
@@ -32,7 +31,6 @@ const split = (
           return arr.concat(c);
         }, []);
     case contentItemTypes.HEADING: {
-      console.log(`HEADING: splitting into ${contentItem.subItems.length}`);
       /**
        * Algorithm for splitting subheadings, while duplicating the top-level heading
        *
@@ -87,7 +85,6 @@ const split = (
       [createHeading()]);
     }
     default:
-      console.log(`UNKNOWN: not splitting any further`);
       return [contentItem];
   }
 };
