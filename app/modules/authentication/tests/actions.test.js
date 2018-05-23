@@ -51,16 +51,16 @@ describe(`actions`, (): void => {
         });
       });
 
-      it(`returns signin email error action on missing email`, (): void => {
-        const action = actions.signinEmail('', 'bar');
-
-        expect(action.type).toEqual(t.SIGNIN_EMAIL_ERROR);
+      it(`throws error on missing email`, (): void => {
+        expect((): void => {
+          actions.signinEmail('', 'bar');
+        }).toThrow();
       });
 
-      it(`returns signin email error action on missing password`, (): void => {
-        const action = actions.signinEmail('foo', '');
-
-        expect(action.type).toEqual(t.SIGNIN_EMAIL_ERROR);
+      it(`throws error on missing password`, (): void => {
+        expect((): void => {
+          actions.signinEmail('foo', '');
+        }).toThrow();
       });
     });
 
@@ -105,40 +105,40 @@ describe(`actions`, (): void => {
         });
       });
 
-      it(`returns signup error action on missing email`, (): void => {
-        const action = actions.signup('', 'Foo', 'Bar', 'barbar', true);
-
-        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      it(`throws error on missing email`, (): void => {
+        expect((): void => {
+          actions.signup('', 'Foo', 'Bar', 'barbar', true);
+        }).toThrow();
       });
 
-      it(`returns signup error action on missing password`, (): void => {
-        const action = actions.signup('foo@bar', 'Foo', 'Bar', '', true);
-
-        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      it(`throws error on missing password`, (): void => {
+        expect((): void => {
+          actions.signup('foo@bar', 'Foo', 'Bar', '', true);
+        }).toThrow();
       });
 
-      it(`returns signup error action on too short password`, (): void => {
-        const action = actions.signup('foo@bar', 'Foo', 'Bar', 'bar', true);
-
-        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      it(`throws error on too short password`, (): void => {
+        expect((): void => {
+          actions.signup('', 'Foo', 'Bar', 'bar', true);
+        }).toThrow();
       });
 
-      it(`returns signup error action on too long password`, (): void => {
-        const action = actions.signup('foo@bar', 'Foo', 'Bar', 'barbarbarbarbarbarbarbar', true);
-
-        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      it(`throws error on too long password`, (): void => {
+        expect((): void => {
+          actions.signup('', 'Foo', 'Bar', 'barbarbarbarbarbarbarbar', true);
+        }).toThrow();
       });
 
-      it(`returns signup error action on missing firstName`, (): void => {
-        const action = actions.signup('foo@bar', '', 'Bar', 'barbar', true);
-
-        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      it(`throws error on missing firstName`, (): void => {
+        expect((): void => {
+          actions.signup('foo@bar', '', 'Bar', 'bar', true);
+        }).toThrow();
       });
 
-      it(`returns signup error action on false tosAccepted`, (): void => {
-        const action = actions.signup('foo@bar', 'Foo', 'Bar', 'barbar', false);
-
-        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      it(`throws error on tos not accepted`, (): void => {
+        expect((): void => {
+          actions.signup('foo@bar', 'Foo', 'Bar', 'barbar', false);
+        }).toThrow();
       });
     });
 
@@ -154,10 +154,10 @@ describe(`actions`, (): void => {
         });
       });
 
-      it(`returns reset error action on missing email`, (): void => {
-        const action = actions.reset('');
-
-        expect(action.type).toEqual(t.RESET_ERROR);
+      it(`throws error on missing email`, (): void => {
+        expect((): void => {
+          actions.reset('');
+        }).toThrow();
       });
     });
 
@@ -173,10 +173,10 @@ describe(`actions`, (): void => {
         });
       });
 
-      it(`returns confirm error action on missing email`, (): void => {
-        const action = actions.confirm('');
-
-        expect(action.type).toEqual(t.CONFIRM_ERROR);
+      it(`throws error on missing email`, (): void => {
+        expect((): void => {
+          actions.confirm('');
+        }).toThrow();
       });
     });
   });
