@@ -14,7 +14,8 @@ describe(`SidebarMenuItem`, (): void => {
       <PureSidebarMenuItem
         icon="image"
         sidebarName={dummySidebar}
-        dispatchToggle={(): void => {}}
+        menuItemActive={false}
+        toggle={(): void => {}}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

@@ -12,6 +12,7 @@ describe(`SidebarWrapper`, (): void => {
       <PureSidebarWrapper
         topicId="abcdefghij"
         sidebars={[]}
+        toggle={(): void => {}}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

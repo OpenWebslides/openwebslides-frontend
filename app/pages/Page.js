@@ -19,6 +19,10 @@ const { SidebarMenu, SidebarWrapper } = sidebars.components;
 const { getAllActiveSidebars } = sidebars.selectors;
 const { SIDEBAR_LENGTH, AMOUNT_OF_COLS_IN_GRID } = sidebars.constants;
 
+type RouterProps = {
+  match: Match,
+};
+
 type StateProps = {
   authenticated: boolean,
   amountOfSidebars: number,
@@ -35,7 +39,7 @@ type SidebarProps = {
   amountOfCols: number,
 };
 
-type Props = CustomTranslatorProps & PassedProps & StateProps & SidebarProps;
+type Props = CustomTranslatorProps & PassedProps & StateProps & RouterProps;
 
 // TODO: some flowTyped error from ContextRouter in react-router-dom package
 // $FlowFixMe

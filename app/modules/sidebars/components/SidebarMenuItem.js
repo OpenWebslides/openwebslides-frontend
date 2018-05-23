@@ -1,6 +1,8 @@
 // @flow
 
 import * as React from 'react';
+import _ from 'lodash';
+import type { State } from 'types/state';
 import { connect } from 'react-redux';
 import { Icon, Button } from 'semantic-ui-react';
 import { Dispatch } from 'redux';
@@ -8,6 +10,7 @@ import { Dispatch } from 'redux';
 import type { SidebarName } from '../model';
 
 import { toggle as toggleAction } from '../actions';
+import { getAllActiveSidebars } from '../selectors';
 
 type PassedProps = {
   icon: string,
@@ -15,18 +18,28 @@ type PassedProps = {
 };
 
 type DispatchProps = {
-  dispatchToggle: (SidebarName) => void,
+  toggle: (SidebarName) => void,
 };
 
-type LocalState = {
-  active: boolean,
+type StateProps = {
+  menuItemActive: boolean,
 };
 
-type Props = PassedProps & DispatchProps;
+type Props = PassedProps & DispatchProps & StateProps;
+
+const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  const sidebars = getAllActiveSidebars(state);
+
+  const menuItemActive = _.indexOf(sidebars, props.sidebarName) !== -1;
+
+  return {
+    menuItemActive,
+  };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
-    dispatchToggle: (sidebarName: SidebarName): void => {
+    toggle: (sidebarName: SidebarName): void => {
       dispatch(
         toggleAction(sidebarName),
       );
@@ -34,38 +47,29 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   };
 };
 
-class PureSidebarMenuItem extends React.Component<Props, LocalState> {
-  state: LocalState = {
-    active: false,
-  };
+const PureSidebarMenuItem = (props: Props): React.Node => {
+  const {
+    sidebarName,
+    icon,
+    menuItemActive,
+    toggle,
+  } = props;
 
-  toggle = (sidebarName: SidebarName, active: boolean): void => {
-    this.setState({ active: !active });
-    this.props.dispatchToggle(sidebarName);
-  };
+  return (
+    <div className="sidebar-menu__item">
+      <Button
+        className="sidebar-menu__button"
+        toggle={true}
+        active={menuItemActive}
+        onClick={() => toggle(sidebarName)}
+      >
+        <Icon name={icon} className="sidebar-menu__icon" />
+      </Button>
+    </div>
+  );
+};
 
-  render = (): React.Node => {
-    const {
-      sidebarName,
-      icon,
-    } = this.props;
-
-    return (
-      <div className="sidebar-menu__item">
-        <Button
-          className="sidebar-menu__button"
-          toggle={true}
-          active={this.state.active}
-          onClick={() => this.toggle(sidebarName, this.state.active)}
-        >
-          <Icon name={icon} className="sidebar-menu__icon" />
-        </Button>
-      </div>
-    );
-  };
-}
-
-const SidebarMenuItem = connect(null, mapDispatchToProps)(PureSidebarMenuItem);
+const SidebarMenuItem = connect(mapStateToProps, mapDispatchToProps)(PureSidebarMenuItem);
 
 export { PureSidebarMenuItem };
 export default SidebarMenuItem;
