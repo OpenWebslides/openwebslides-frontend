@@ -13,7 +13,6 @@ export const SET_ITEMS_IN_STATE: 'users/SET_ITEMS_IN_STATE' = 'users/SET_ITEMS_I
 
 // Task saga actions
 export const GET: 'users/GET' = 'users/GET';
-export const GET_ERROR: 'users/GET_ERROR' = 'users/GET_ERROR';
 
 // API saga actions
 export const API_GET_USER: 'users/API_GET_USER' = 'users/API_GET_USER';
@@ -51,11 +50,6 @@ export type GetAction = {
   payload: {
     id: Identifier,
   },
-};
-
-export type GetErrorAction = {
-  type: typeof GET_ERROR,
-  error: Error,
 };
 
 // API saga actions
