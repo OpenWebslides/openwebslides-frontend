@@ -30,7 +30,7 @@ export const apiGetSaga = function* (action: t.GetAction): Generator<*, *, *> {
   }
 };
 
-export const apiGetAllByUserIdByUserIdSaga = function* (
+export const apiGetAllByUserIdSaga = function* (
   action: t.GetAllByUserIdAction,
 ): Generator<*, *, *> {
   try {
