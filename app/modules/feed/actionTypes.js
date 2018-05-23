@@ -1,7 +1,5 @@
 // @flow
 
-import type { Error } from 'types/error';
-
 import type { Event } from './model';
 
 /* Action constants */
@@ -11,7 +9,6 @@ export const SET_EVENTS: 'feed/SET_EVENTS' = 'feed/SET_EVENTS';
 
 // Task saga actions
 export const FETCH: 'feed/FETCH' = 'feed/FETCH';
-export const FETCH_ERROR: 'feed/FETCH_ERROR' = 'feed/FETCH_ERROR';
 
 // API saga actions
 export const API_GET_NOTIFICATIONS: 'feed/API_GET_NOTIFICATIONS' = 'feed/API_GET_NOTIFICATIONS';
@@ -29,11 +26,6 @@ export type SetEventsAction = {
 // Task saga actions
 export type FetchAction = {
   type: typeof FETCH,
-};
-
-export type FetchErrorAction = {
-  type: typeof FETCH_ERROR,
-  error: Error,
 };
 
 // API saga actions

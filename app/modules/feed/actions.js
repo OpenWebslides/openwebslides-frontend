@@ -18,7 +18,7 @@ export const setEventsInState = (
 
 // Task saga actions
 export const fetch = (
-): t.FetchAction | t.FetchErrorAction => {
+): t.FetchAction => {
   return {
     type: t.FETCH,
   };
