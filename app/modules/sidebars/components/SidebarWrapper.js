@@ -41,7 +41,7 @@ const PureSidebarWrapper = (props: Props): React.Node => {
 
   for (let i:number = 0; i < sidebars.length; i += 1) {
     columns.push(
-      <Grid.Column key={sidebars[i]} className="sidebarColumn" width={widthPerSidebar}>
+      <Grid.Column key={sidebars[i]} className="sidebar-column" width={widthPerSidebar}>
         <Sidebar sidebarName={sidebars[i]} topicId={topicId} />
       </Grid.Column>,
     );

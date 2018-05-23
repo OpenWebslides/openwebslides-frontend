@@ -51,14 +51,14 @@ class PureSidebarMenuItem extends React.Component<Props, LocalState> {
     } = this.props;
 
     return (
-      <div className="sidebarMenu__item">
+      <div className="sidebar-menu__item">
         <Button
-          className="sidebarMenu__button"
+          className="sidebar-menu__button"
           toggle={true}
           active={this.state.active}
           onClick={() => this.toggle(sidebarName, this.state.active)}
         >
-          <Icon name={icon} className="sidebarMenu__icon" />
+          <Icon name={icon} className="sidebar-menu__icon" />
         </Button>
       </div>
     );

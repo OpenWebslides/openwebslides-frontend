@@ -74,7 +74,7 @@ const SidebarComponent = (props: SidebarProps): React.Node => {
   return (
     <React.Fragment>
       { amountOfCols > 0 &&
-        <Grid.Column className="sidebarWrapper" width={amountOfCols}>
+        <Grid.Column className="sidebar-column-wrapper" width={amountOfCols}>
           <SidebarWrapper topicId={topicId} />
         </Grid.Column>
       }
