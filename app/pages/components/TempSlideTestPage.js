@@ -8,7 +8,7 @@ import type { CustomTranslatorProps } from 'types/translator';
 import type { State } from 'types/state';
 import contentItems, { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
-import Slide from 'core-components/slides/Slide';
+import Slides from 'core-components/slides/Slides';
 
 import Page from '../Page';
 
@@ -48,7 +48,7 @@ const PureTempSlideTestPage = (props: Props): React.Node => {
 
   return (
     <Page>
-      <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
+      <Slides contentItemTreeRootItem={contentItemTreeRootItem} />
     </Page>
   );
 };

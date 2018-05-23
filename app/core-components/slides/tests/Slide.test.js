@@ -4,24 +4,30 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { dummyTranslatorProps } from 'config/tests';
 
-import * as contentItems from 'modules/content-items';
+import contentItems from 'modules/content-items';
 
 import { PureSlide } from '../Slide';
+
+const { contentItemTypes } = contentItems.model;
 
 describe(`Slide`, (): void => {
 
   it(`renders without errors`, (): void => {
-    const dummyContentItemTreeRoot = {
+    const dummyContentItem = {
       id: 'abcdefghij',
-      type: contentItems.contentItemTypes.ROOT,
-      childItemIds: [],
-      childItems: [],
+      type: contentItemTypes.HEADING,
+      text: 'Heading',
+      metadata: {
+        tags: [],
+        visibilityOverrides: {},
+      },
+      subItems: [],
     };
 
     const enzymeWrapper = shallow(
       <PureSlide
         {...dummyTranslatorProps}
-        contentItemTreeRootItem={dummyContentItemTreeRoot}
+        contentItem={dummyContentItem}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

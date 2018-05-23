@@ -45,7 +45,7 @@ export const dummyContentItemsById: ContentItemsById = {
   qyrgv0bcd6: {
     id: 'qyrgv0bcd6',
     type: contentItemTypes.ROOT,
-    childItemIds: ['j0vcu0y7vk', 'ua32xchh7q'],
+    childItemIds: ['ivks4jgtxr', 'j0vcu0y7vk', 'ua32xchh7q', 'kcosdhj38v', 'kchwki48cd', 'ck2k4kvcj4', 'ldicl3j4jk'],
   },
   j0vcu0y7vk: {
     id: 'j0vcu0y7vk',
@@ -137,4 +137,164 @@ export const dummyContentItemsById: ContentItemsById = {
     },
     subItemIds: [],
   }: ParagraphContentItem),
+  ivks4jgtxr: {
+    id: 'ivks4jgtxr',
+    type: contentItemTypes.HEADING,
+    text: 'This is a heading',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: ['oswmjc09be', 'jbv2ju5jc6'],
+  },
+  oswmjc09be: ({
+    id: 'oswmjc09be',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*.',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
+  jbv2ju5jc6: ({
+    id: 'jbv2ju5jc6',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Mauris accumsan pretium sem, in volutpat nibh sodales a. Nulla blandit posuere ex, et facilisis dui volutpat in. Fusce tincidunt sed ipsum quis varius. Quisque vitae laoreet sem.',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
+  kcosdhj38v: {
+    id: 'kcosdhj38v',
+    type: contentItemTypes.HEADING,
+    text: 'Open Webslides slide rendering',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: ['vl4jfkdj4l', 'kdo4lbvn5l', 'lhjdki4hvi', 'dk3j5cl34k', 'dlidlf3ejk'],
+  },
+  kdo4lbvn5l: {
+    id: 'kdo4lbvn5l',
+    type: contentItemTypes.HEADING,
+    text: 'Subheading 1',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: ['kdl3l4jkvd'],
+  },
+  kdl3l4jkvd: ({
+    id: 'kdl3l4jkvd',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*. Mauris *accumsan* pretium sem, in volutpat nibh sodales a. **Nulla blandit** posuere ex, et [facilisis](https://www.lipsum.com) dui volutpat in.',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
+  vl4jfkdj4l: ({
+    id: 'vl4jfkdj4l',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Introduction to the *Open Webslides **Slide Rendering** for noobs*',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
+  lhjdki4hvi: {
+    id: 'lhjdki4hvi',
+    type: contentItemTypes.HEADING,
+    text: 'Subheading 2',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: ['kdloeijdj3'],
+  },
+  dk3j5cl34k: ({
+    id: 'dk3j5cl34k',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*.',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
+  kdloeijdj3: ({
+    id: 'kdloeijdj3',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*. Mauris *accumsan* pretium sem, in volutpat nibh sodales a. **Nulla blandit** posuere ex, et [facilisis](https://www.lipsum.com) dui volutpat in.',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
+  dlidlf3ejk: {
+    id: 'dlidlf3ejk',
+    type: contentItemTypes.HEADING,
+    text: 'Subheading 3',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  },
+  kchwki48cd: {
+    id: 'kchwki48cd',
+    type: contentItemTypes.HEADING,
+    text: 'Yet Another Heading That Is Boring',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: ['kweoi4kivf'],
+  },
+  kweoi4kivf: {
+    id: 'kweoi4kivf',
+    type: contentItemTypes.HEADING,
+    text: 'Yep, super boring here',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: ['focej3icjd'],
+  },
+  focej3icjd: ({
+    id: 'focej3icjd',
+    type: contentItemTypes.PARAGRAPH,
+    text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*. Mauris *accumsan* pretium sem, in volutpat nibh sodales a. **Nulla blandit** posuere ex, et [facilisis](https://www.lipsum.com) dui volutpat in.',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  }: ParagraphContentItem),
+  ck2k4kvcj4: {
+    id: 'ck2k4kvcj4',
+    type: contentItemTypes.HEADING,
+    text: '10 Reasons Why You Should Read This',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  },
+  ldicl3j4jk: {
+    id: 'ldicl3j4jk',
+    type: contentItemTypes.HEADING,
+    text: 'Welcome to the presentation',
+    metadata: {
+      tags: [],
+      visibilityOverrides: {},
+    },
+    subItemIds: [],
+  },
 };
