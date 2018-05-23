@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import type { State } from 'types/state';
 
-import Slide from 'core-components/slides/Slide';
+import Slides from 'core-components/slides/Slides';
 
 import topics from 'modules/topics';
 
@@ -56,7 +56,7 @@ const PureSlideSidebar = (props: Props): React.Node => {
 
   return (
     <div className="sidebar__slide">
-      <Slide contentItemTreeRootItem={contentItemTreeRootItem} />
+      <Slides contentItemTreeRootItem={contentItemTreeRootItem} />
     </div>
   );
 };
