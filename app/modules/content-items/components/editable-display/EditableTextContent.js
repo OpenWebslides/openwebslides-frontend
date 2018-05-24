@@ -12,6 +12,7 @@ type Props = {
   onInput?: (text: string) => void,
   onActivate?: () => void,
   onDeactivate?: (text: string) => void,
+  onKeyDown?: (key: string, ctrlKey: boolean, shiftKey: boolean, altKey: boolean) => void,
   className: string,
   textClassNameSuffix: string,
   inputClassNameSuffix: string,
@@ -78,6 +79,12 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     if (this.props.onDeactivate) this.props.onDeactivate(event.currentTarget.value);
   };
 
+  handleKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
+    if (this.props.onKeyDown) {
+      this.props.onKeyDown(event.key, event.ctrlKey, event.shiftKey, event.altKey);
+    }
+  };
+
   renderAsInput = (): React.Node => {
     return (
       <Form>
@@ -90,6 +97,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
                 value={this.state.text}
                 onInput={this.handleInput}
                 onBlur={this.handleDeactivate}
+                onKeyDown={this.handleKeyDown}
                 ref={this.handleRef}
               />
             )
@@ -100,6 +108,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
                 value={this.state.text}
                 onInput={this.handleInput}
                 onBlur={this.handleDeactivate}
+                onKeyDown={this.handleKeyDown}
                 ref={this.handleRef}
               />
             )
