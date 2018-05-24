@@ -5,6 +5,7 @@ import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
+import findParentOrSuperItem from './lib/findParentOrSuperItem';
 import denormalize from './lib/denormalize';
 import getAllDescendants from './lib/get-all-descendants';
 import type {
@@ -32,6 +33,15 @@ export const getAll = createSelector(
 export const getById = (state: State, props: { id: Identifier }): ?ContentItem => {
   return _.get(getAllById(state), props.id, null);
 };
+
+export const getParentOrSuperById = createCachedSelector(
+  [getById, getAllById],
+  (contentItem: ?ContentItem, contentItemsById: ContentItemsById): ?ContentItem => {
+    return findParentOrSuperItem(contentItem, contentItemsById);
+  },
+)(
+  (state: State, props: { id: Identifier }) => props.id,
+);
 
 export const getDenormalizedById = createCachedSelector(
   [getById, getAllById],
