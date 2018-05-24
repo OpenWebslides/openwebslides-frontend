@@ -20,6 +20,7 @@ describe(`SlideSidebar`, (): void => {
       childItems: [],
       id: 'qyrgv0bcd6',
       type: 'contentItemTypes/ROOT',
+      isEditing: false,
     };
 
     const enzymeWrapper = shallow(

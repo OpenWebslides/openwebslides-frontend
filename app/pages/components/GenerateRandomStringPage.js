@@ -18,20 +18,22 @@ const PureGenerateRandomStringPage = (props: Props): React.Node => {
   const randomStringLength = lengthParam || 20;
   return (
     <Page>
-      <h1>
-        Randomly generated strings of length { randomStringLength }:
-      </h1>
-      <div style={{ fontFamily: 'monospace' }}>
-        <p>{ generateRandomString(randomStringLength) }</p>
-        <p>{ generateRandomString(randomStringLength) }</p>
-        <p>{ generateRandomString(randomStringLength) }</p>
-        <p>{ generateRandomString(randomStringLength) }</p>
-        <p>{ generateRandomString(randomStringLength) }</p>
-        <p>{ generateRandomString(randomStringLength) }</p>
-        <p>{ generateRandomString(randomStringLength) }</p>
-        <p>{ generateRandomString(randomStringLength) }</p>
-        <p>{ generateRandomString(randomStringLength) }</p>
-        <p>{ generateRandomString(randomStringLength) }</p>
+      <div>
+        <h1>
+          Randomly generated strings of length { randomStringLength }:
+        </h1>
+        <div style={{ fontFamily: 'monospace' }}>
+          <p>{ generateRandomString(randomStringLength) }</p>
+          <p>{ generateRandomString(randomStringLength) }</p>
+          <p>{ generateRandomString(randomStringLength) }</p>
+          <p>{ generateRandomString(randomStringLength) }</p>
+          <p>{ generateRandomString(randomStringLength) }</p>
+          <p>{ generateRandomString(randomStringLength) }</p>
+          <p>{ generateRandomString(randomStringLength) }</p>
+          <p>{ generateRandomString(randomStringLength) }</p>
+          <p>{ generateRandomString(randomStringLength) }</p>
+          <p>{ generateRandomString(randomStringLength) }</p>
+        </div>
       </div>
     </Page>
   );
