@@ -28,8 +28,6 @@ type StateProps = {
   amountOfSidebars: number,
 };
 
-import history from 'modules/history';
-
 type PassedProps = {
   needsAuth: boolean,
   needsSidebar: boolean,
