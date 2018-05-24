@@ -9,6 +9,7 @@ import sidebars from 'modules/sidebars';
 import users from 'modules/users';
 import authentication from 'modules/authentication';
 import api from 'modules/api';
+import history from 'modules/history';
 
 // Don't forget to edit types/state.js when a new state part is added here.
 const modulesReducer = combineReducers({
@@ -19,6 +20,7 @@ const modulesReducer = combineReducers({
   contentItems: contentItems.reducer,
   authentication: authentication.reducer,
   api: api.reducer,
+  history: history.reducer,
 });
 
 export default modulesReducer;
