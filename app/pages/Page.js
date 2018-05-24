@@ -30,8 +30,6 @@ type StateProps = {
 
 import history from 'modules/history';
 
-const { History } = history.components;
-
 type PassedProps = {
   needsAuth: boolean,
   needsSidebar: boolean,
@@ -106,8 +104,6 @@ const PurePage = (props: Props): React.Node => {
 
   return (
     <React.Fragment>
-      <History />
-
       <NavigationBar />
       <div className="page-layout__grid">
         <Grid stretched={true}>

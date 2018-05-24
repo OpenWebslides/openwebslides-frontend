@@ -9,6 +9,8 @@ import saga from './saga';
 
 import type { HistoryState } from './model';
 
+const History = components.History;
+
 const history = {
   actions,
   components,
@@ -18,6 +20,7 @@ const history = {
   saga,
 };
 
+export { History };
 export type { HistoryState };
 
 export default history;
