@@ -6,6 +6,7 @@ import type { ContentItemType } from '../model';
 const add = (
   type: ContentItemType,
   propsForType: t.ActionPayloadPropsForType,
+  context: ?t.ActionPayloadSagaContext,
   isEditing: boolean = false,
 ): t.AddAction => {
   return {
@@ -13,6 +14,7 @@ const add = (
     payload: {
       type,
       isEditing,
+      context,
       propsForType,
     },
   };

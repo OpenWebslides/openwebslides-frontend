@@ -6,7 +6,10 @@ import NotYetImplementedError from 'errors/implementation-errors/NotYetImplement
 import validateActionStringArgs from 'lib/validation/action-arguments/string';
 import type { Identifier } from 'types/model';
 import * as t from '../actionTypes';
-import { plainTextContentItemTypes } from '../model';
+import {
+  contentItemTypes,
+  plainTextContentItemTypes,
+} from '../model';
 import type { ContentItemType } from '../model';
 
 const validPropsForPlainTextTypes = [
@@ -17,6 +20,7 @@ const addToState = (
   id: Identifier,
   type: ContentItemType,
   propsForType: t.ActionPayloadPropsForType,
+  context: ?t.ActionPayloadReducerContext,
   isEditing: boolean = false,
 ): t.AddToStateAction => {
   const newId = id;
@@ -32,6 +36,9 @@ const addToState = (
     newPropsForType = { ...newPropsForType, ...validatedPlainTextStringArgs };
     unprocessedPropsForType = _.omit(unprocessedPropsForType, validPropsForPlainTextTypes);
   }
+  else if (type === contentItemTypes.ROOT) {
+    // ROOT doesn't have any propsForType to validate
+  }
   else {
     throw new NotYetImplementedError(`ContentItemType not yet supported`);
   }
@@ -45,6 +52,7 @@ const addToState = (
     payload: {
       id: newId,
       type,
+      context,
       isEditing,
       propsForType: newPropsForType,
     },

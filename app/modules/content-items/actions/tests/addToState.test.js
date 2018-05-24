@@ -12,6 +12,10 @@ describe(`addToState`, (): void => {
   const dummyId = 'abcdefghij';
   const dummyPlainTextType = contentItemTypes.HEADING;
   const dummyIsEditing = false;
+  const dummyContext: t.ActionPayloadReducerContext = {
+    contextType: t.actionPayloadReducerContextTypes.PARENT,
+    contextItemId: 'uvwxyzabcdefghijklmn',
+  };
   const dummyPlainTextProps = {
     text: 'Lorem ipsum dolor sit amet.',
   };
@@ -23,10 +27,18 @@ describe(`addToState`, (): void => {
         id: dummyId,
         type: dummyPlainTextType,
         isEditing: dummyIsEditing,
+        context: dummyContext,
         propsForType: dummyPlainTextProps,
       },
     };
-    expect(addToState(dummyId, dummyPlainTextType, dummyPlainTextProps, dummyIsEditing)).toEqual(expectedAction);
+    const resultAction = addToState(
+      dummyId,
+      dummyPlainTextType,
+      dummyPlainTextProps,
+      dummyContext,
+      dummyIsEditing,
+    );
+    expect(resultAction).toEqual(expectedAction);
   });
 
   it(`throws an InvalidArgumentError, when the passed type is a plainText type and the passed props don't include all necessary plainText information`, (): void => {
@@ -34,6 +46,7 @@ describe(`addToState`, (): void => {
       dummyId,
       dummyPlainTextType,
       {},
+      dummyContext,
     )).toThrow(InvalidArgumentError);
   });
 
@@ -45,6 +58,7 @@ describe(`addToState`, (): void => {
         ...dummyPlainTextProps,
         definitelyNotAValidProp: 'abcde',
       },
+      dummyContext,
     )).toThrow(InvalidArgumentError);
   });
 
@@ -55,17 +69,20 @@ describe(`addToState`, (): void => {
         id: dummyId,
         type: dummyPlainTextType,
         isEditing: dummyIsEditing,
+        context: dummyContext,
         propsForType: dummyPlainTextProps,
       },
     };
-    expect(addToState(
+    const resultAction = addToState(
       dummyId,
       dummyPlainTextType,
       {
         text: `   ${dummyPlainTextProps.text}   `,
       },
+      dummyContext,
       dummyIsEditing,
-    )).toEqual(expectedAction);
+    );
+    expect(resultAction).toEqual(expectedAction);
   });
 
   it(`throws an InvalidArgumentError, when isEditing is FALSE and a non-nullable plainText string prop is an empty string`, (): void => {
@@ -75,6 +92,7 @@ describe(`addToState`, (): void => {
       {
         text: '   ',
       },
+      dummyContext,
       false,
     )).toThrow(InvalidArgumentError);
   });
@@ -86,6 +104,7 @@ describe(`addToState`, (): void => {
         id: dummyId,
         type: dummyPlainTextType,
         isEditing: true,
+        context: dummyContext,
         propsForType: {
           text: '',
         },
@@ -97,6 +116,7 @@ describe(`addToState`, (): void => {
       {
         text: '',
       },
+      dummyContext,
       true,
     );
     expect(resultAction).toEqual(expectedAction);
@@ -107,6 +127,7 @@ describe(`addToState`, (): void => {
       dummyId,
       contentItemTypes.IMAGE,
       {},
+      dummyContext,
     )).toThrow(NotYetImplementedError);
   });
 
