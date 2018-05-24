@@ -19,9 +19,11 @@ export const addToState = (
       rules: {
         [contentItemTypes.HEADING]: {
           color: '#000000',
+          font: 'Verdana',
         },
         [contentItemTypes.PARAGRAPH]: {
           color: '#000000',
+          font: 'Verdana',
         },
       },
     },
@@ -32,6 +34,7 @@ export const editContentTypeColorInState = (
   id: Identifier,
   contentItemType: ContentItemType,
   newColor: string,
+  font: string,
 ): t.EditContentTypeColorAction => {
   return {
     type: t.EDIT_CONTENTTYPE_COLOR_IN_STATE,
@@ -39,6 +42,24 @@ export const editContentTypeColorInState = (
       id,
       contentItemType,
       newColor,
+      font,
+    },
+  };
+};
+
+export const editFontInState = (
+  id: Identifier,
+  newFont: string,
+  colorHeading: string,
+  colorParagraph: string,
+): t.EditFontAction => {
+  return {
+    type: t.EDIT_FONT_IN_STATE,
+    payload: {
+      id,
+      newFont,
+      colorHeading,
+      colorParagraph,
     },
   };
 };

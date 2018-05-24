@@ -3,13 +3,13 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { contentItemTypes } from 'modules/content-items/model';
-import { PureEditColorComponent } from '../EditColorComponent';
+import { PureEditFontComponent } from '../EditFontComponent';
 
-describe('EditColorComponent', (): void => {
-  const dummyOnEditContentTypeColorInState = (): void => {};
+describe('EditFontComponent', (): void => {
+  const dummyOnEditFontInState = (): void => {};
   it('renders without errors', (): void => {
     const enzymeWrapper = shallow(
-      <PureEditColorComponent
+      <PureEditFontComponent
         userId="adkqmq5ds5"
         slideStyling={{
           id: 'azd15dsqz1',
@@ -25,7 +25,7 @@ describe('EditColorComponent', (): void => {
             },
           },
         }}
-        onEditContentTypeColorInState={dummyOnEditContentTypeColorInState}
+        onEditFontInState={dummyOnEditFontInState}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

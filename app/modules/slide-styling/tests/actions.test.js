@@ -2,7 +2,7 @@
 
 import { contentItemTypes } from 'modules/content-items';
 import * as t from '../actionTypes';
-import { editContentTypeColorInState, addToState } from '../actions';
+import { editContentTypeColorInState, addToState, editFontInState } from '../actions';
 
 
 describe('actions', (): void => {
@@ -19,20 +19,24 @@ describe('actions', (): void => {
         rules: {
           [contentItemTypes.HEADING]: {
             color: '#000000',
+            font: 'Verdana',
           },
           [contentItemTypes.PARAGRAPH]: {
             color: '#000000',
+            font: 'Verdana',
           },
         },
       },
     };
-    expect(addToState(dummyId, dummyUserID)).toEqual(expectedAction);
+    expect(addToState(dummyId, dummyUserID))
+      .toEqual(expectedAction);
   });
 
   describe('editContentTypeColorInState', (): void => {
     const dummyId = 'hijklmnopq';
     const dummyColor = '#564894';
     const dummyContentItemType = contentItemTypes.HEADING;
+    const dummyFont = 'Verdana';
 
     it('returns a slideStyling EDIT_CONTENTTYPE_COLOR_IN_STATE action containing the passed props', (): void => {
       const expectedAction: t.EditContentTypeColorAction = {
@@ -41,9 +45,31 @@ describe('actions', (): void => {
           id: dummyId,
           contentItemType: dummyContentItemType,
           newColor: dummyColor,
+          font: dummyFont,
         },
       };
-      expect(editContentTypeColorInState(dummyId, dummyContentItemType, dummyColor)).toEqual(expectedAction);
+      expect(editContentTypeColorInState(dummyId, dummyContentItemType, dummyColor, dummyFont))
+        .toEqual(expectedAction);
+    });
+  });
+  describe('editFontInState', (): void => {
+    const dummyId = 'hijklmnopq';
+    const dummyColorHeading = '#564894';
+    const dummyColorParagraph = '#000000';
+    const dummyFont = 'Times New Roman';
+
+    it('returns a slideStyling EDIT_CONTENTTYPE_COLOR_IN_STATE action containing the passed props', (): void => {
+      const expectedAction: t.EditFontAction = {
+        type: t.EDIT_FONT_IN_STATE,
+        payload: {
+          id: dummyId,
+          newFont: dummyFont,
+          colorHeading: dummyColorHeading,
+          colorParagraph: dummyColorParagraph,
+        },
+      };
+      expect(editFontInState(dummyId, dummyFont, dummyColorHeading, dummyColorParagraph))
+        .toEqual(expectedAction);
     });
 
   });

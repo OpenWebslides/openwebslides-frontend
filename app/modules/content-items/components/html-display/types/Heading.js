@@ -25,7 +25,9 @@ const PureHeading = (props: Props, state: State): React.Node => {
   const { contentItem, children, headingLevel, containerClassName, slideStyling } = props;
 
   const HeadingTag = `h${Math.min(headingLevel, 6)}`;
-  const styling = { color: slideStyling.rules[contentItemTypes.HEADING].color };
+  // eslint-disable-next-line flowtype/require-variable-type
+  let styling = { color: slideStyling.rules[contentItemTypes.HEADING].color };
+  styling = { ...styling, fontFamily: slideStyling.rules[contentItemTypes.HEADING].font };
   return (
     <section className={`${containerClassName} ${containerClassName}--heading`}>
       <HeadingTag className={`${containerClassName}__item ows_heading`}>

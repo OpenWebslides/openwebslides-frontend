@@ -26,9 +26,11 @@ describe(`Slide`, (): void => {
       rules: {
         [contentItemTypes.PARAGRAPH]: {
           color: '#000000',
+          font: 'Verdana',
         },
         [contentItemTypes.HEADING]: {
           color: '#000000',
+          font: 'Verdana',
         },
       },
     };

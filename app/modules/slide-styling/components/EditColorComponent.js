@@ -19,7 +19,7 @@ type StateProps = {};
 
 type DispatchProps = {
   onEditContentTypeColorInState: (
-    id: Identifier, contentItemType: ContentItemType, newColor: string
+    id: Identifier, contentItemType: ContentItemType, newColor: string, font: string
   ) => void,
 };
 type Props = DispatchProps & PassedProps;
@@ -31,9 +31,9 @@ const mapStateToProps = (state: State): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     onEditContentTypeColorInState: (
-      id: Identifier, contentItemType: ContentItemType, newColor: string): void => {
+      id: Identifier, contentItemType: ContentItemType, newColor: string, font: string): void => {
       dispatch(
-        editContentTypeColorInState(id, contentItemType, newColor),
+        editContentTypeColorInState(id, contentItemType, newColor, font),
       );
     },
   };
@@ -47,15 +47,21 @@ const PureEditColorComponent = (props: Props, state: State): React.Node => {
   } = props;
   // eslint-disable-next-line flowtype/require-parameter-type
   const editColorHeading = (color): void => {
-    onEditContentTypeColorInState(slideStyling.id, contentItemTypes.HEADING, color.hex);
+    onEditContentTypeColorInState(
+      slideStyling.id,
+      contentItemTypes.HEADING,
+      color.hex, slideStyling.rules[contentItemTypes.HEADING].font);
   };
   // eslint-disable-next-line flowtype/require-parameter-type
   const editColorParagraph = (color): void => {
-    onEditContentTypeColorInState(slideStyling.id, contentItemTypes.PARAGRAPH, color.hex);
+    onEditContentTypeColorInState(
+      slideStyling.id,
+      contentItemTypes.PARAGRAPH,
+      color.hex, slideStyling.rules[contentItemTypes.PARAGRAPH].font);
   };
   const colors: Array<string> = ['#000000', '#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'];
   return (
-    <div className="colorPicker">
+    <div className="colorPicker ui grid">
       <div id="ColorPickerHeading"><br />
         <h5>Change heading color</h5>
         <TwitterPicker

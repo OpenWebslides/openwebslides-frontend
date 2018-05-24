@@ -8,6 +8,7 @@ const ID_LENGTH = 20;
 
 export type SlideStylingProperties = {
   +color: string,
+  +font: string,
 };
 
 export type SlideStylingRules = {

@@ -18,7 +18,8 @@ type Props = PassedProps;
 
 const PureParagraph = (props: Props): React.Node => {
   const { contentItem, children, containerClassName, slideStyling } = props;
-  const styling = { color: slideStyling.rules[contentItemTypes.PARAGRAPH].color };
+  const styling = { color: slideStyling.rules[contentItemTypes.PARAGRAPH].color,
+    fontFamily: slideStyling.rules[contentItemTypes.PARAGRAPH].font };
 
   return (
     <div className={`${containerClassName} ${containerClassName}--paragraph`}>

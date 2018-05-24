@@ -10,9 +10,11 @@ export const dummySlideStylingById: SlideStylingById = {
     rules: {
       [contentItemTypes.PARAGRAPH]: {
         color: '#000000',
+        font: 'Verdana',
       },
       [contentItemTypes.HEADING]: {
         color: '#000000',
+        font: 'Verdana',
       },
     },
   },

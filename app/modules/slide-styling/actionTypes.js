@@ -7,6 +7,7 @@ import type { SlideStylingRules } from './model';
 export const ADD_TO_STATE: 'slideStyling/ADD_TO_STATE' = 'slideStyling/ADD_TO_STATE';
 export const EDIT_CONTENTTYPE_COLOR_IN_STATE: 'slideStyling/EDIT_CONTENTTYPE_COLOR_IN_STATE' = 'slideStyling/EDIT_CONTENTTYPE_COLOR_IN_STATE';
 export const EDIT_BACKGROUND_COLOR: 'slideStyling/EDIT_BACKGROUND_COLOR' = 'slideStyling/EDIT_BACKGROUND_COLOR';
+export const EDIT_FONT_IN_STATE: 'slideStyling/EDIT_FONT_IN_STATE' = 'slideStyling/EDIT_FONT_IN_STATE';
 
 export type AddToStateAction = {
   type: typeof ADD_TO_STATE,
@@ -23,6 +24,7 @@ export type EditContentTypeColorAction = {
     id: Identifier,
     contentItemType: ContentItemType,
     newColor: string,
+    font: string,
   },
 };
 
@@ -35,6 +37,18 @@ export type editBackgroundColorAction = {
   },
 };
 
+export type EditFontAction = {
+  type: typeof EDIT_FONT_IN_STATE,
+  payload: {
+    id: Identifier,
+    newFont: string,
+    colorHeading: string,
+    colorParagraph: string,
+  },
+};
+
+
 export type SlideStylingReducerAction =
   | AddToStateAction
-  | EditContentTypeColorAction;
+  | EditContentTypeColorAction
+  | EditFontAction;

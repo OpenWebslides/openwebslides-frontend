@@ -12,6 +12,7 @@ describe('selectors', (): void => {
     rules: {
       [contentItemTypes.HEADING]: {
         color: '#123785',
+        font: 'Verdana',
       },
     },
   };

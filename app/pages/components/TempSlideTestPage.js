@@ -103,6 +103,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
 };
 
 const EditColorComponent = slideStyling.components.EditColorComponent;
+const EditFontComponent = slideStyling.components.EditFontComponent;
 
 class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
   constructor(props: Props): void {
@@ -132,6 +133,7 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
   slideRef;
 
   toggleRead = (): void => {
+    console.log(this.slideRef);
     if (this.state.toggle) {
       this.setState({
         toggle: false,
@@ -156,6 +158,7 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
         }
         console.log(contentBlocks[i]);
       } */
+      console.log(this.slideRef.current);
       this.setState(
         { toggle: true,
           // $FlowFixMe
@@ -166,13 +169,13 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
   };
 
   pauseReading = (): void => {
-    if (this.state.startPlay) {
+    if (this.state.pausePlay) {
       this.setState(
         { toggle: true,
           // $FlowFixMe
           contentToBeRead: this.slideRef.current.innerText,
-          startPlay: false,
-          pausePlay: true,
+          startPlay: true,
+          pausePlay: false,
         },
       );
     }
@@ -181,8 +184,8 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
         { toggle: true,
           // $FlowFixMe
           contentToBeRead: this.slideRef.current.innerText,
-          startPlay: true,
-          pausePlay: false,
+          startPlay: false,
+          pausePlay: true,
         },
       );
     }
@@ -232,6 +235,10 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
           {PauseCheckbox}
         </div>
         <EditColorComponent
+          userId={userId}
+          slideStyling={slideStylingItem}
+        />
+        <EditFontComponent
           userId={userId}
           slideStyling={slideStylingItem}
         />
