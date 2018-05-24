@@ -32,8 +32,6 @@ const mapStateToProps = (state: State): StateProps => {
   // TODO: does this need null checks or is it impossible to access when not logged in?
   const CURRENT_USER = account != null ? account.id : 'jantje1234';
 
-  console.log(CURRENT_USER);
-
   return {
     topicIds: getAllTopicIdsByUserId(state, CURRENT_USER),
     userId: CURRENT_USER,

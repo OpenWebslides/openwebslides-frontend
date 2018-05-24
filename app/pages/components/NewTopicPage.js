@@ -5,7 +5,7 @@ import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
 
-import AuthenticatedPage from '../AuthenticatedPage';
+import Page from '../Page';
 
 const { NewTopicCard } = topics.components;
 
@@ -17,10 +17,12 @@ const PureNewTopicPage = (props: Props): React.Node => {
   } = props;
 
   return (
-    <AuthenticatedPage>
-      <h1>{t('global:title.createNewTopic')}</h1>
-      <NewTopicCard />
-    </AuthenticatedPage>
+    <Page needsAuth={true}>
+      <React.Fragment>
+        <h1>{t('global:title.createNewTopic')}</h1>
+        <NewTopicCard />
+      </React.Fragment>
+    </Page>
   );
 };
 

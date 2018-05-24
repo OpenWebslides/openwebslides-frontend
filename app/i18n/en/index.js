@@ -7,6 +7,7 @@ import editor from './namespaces/editor';
 import global from './namespaces/global';
 import feed from './namespaces/feed';
 import flash from './namespaces/flash';
+import sidebar from './namespaces/sidebar';
 import topics from './namespaces/topics';
 
 const index = {
@@ -17,6 +18,7 @@ const index = {
   feed,
   flash,
   global,
+  sidebar,
   topics,
 };
 

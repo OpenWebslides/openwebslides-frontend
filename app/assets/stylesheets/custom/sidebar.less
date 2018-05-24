@@ -1,0 +1,58 @@
+/*******************************
+     .editor
+*******************************/
+
+
+.sidebar {
+  padding: 0.5em;
+
+  &__slide {
+    font-size: 7px;
+  }
+
+  &__icon {
+    position: relative;
+    left: -25px;
+    top: -10px;
+    cursor: pointer;
+  }
+}
+
+.sidebar-column:not(:last-child) {
+  border-right: 1px solid @darkGray;
+  padding: 0 1em;
+}
+
+.sidebar-column-wrapper {
+  background-color: @lightGray;
+  border-left: 1px solid @mediumGray;
+  border-top: 1px solid @mediumGray;
+  border-bottom: 1px solid @mediumGray;
+
+  // necessary !important so Grid.Column style remains the same
+  position: absolute !important;
+  top: 0;
+  right: 75px;
+  height: 100%;
+}
+
+.sidebar-menu {
+  background-color: @darkGray;
+
+  &__item {
+    border-bottom: 1px solid @lightGray;
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+
+  // !important is necessary because this needs to override SUI defaults
+  &__button {
+    margin: 0 auto !important;
+    display: block !important;
+  }
+
+  // !important is necessary because this needs to override SUI defaults
+  &__icon {
+    margin: 0em !important;
+  }
+}

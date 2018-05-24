@@ -5,10 +5,12 @@ import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 import { Link, Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
+import { Grid } from 'semantic-ui-react';
 
 import topics from 'modules/topics';
 
-import AuthenticatedPage from '../AuthenticatedPage';
+import Page from '../Page';
+
 
 type RouteProps = {
   match: Match,
@@ -16,21 +18,31 @@ type RouteProps = {
 
 type Props = CustomTranslatorProps & RouteProps;
 
+
 const TopicEditor = topics.components.Editor;
 
-const TopicEditorForId = (props: RouteProps): React.Node => {
-  const { match } = props;
-  const topicId = match.params.id;
+const PureTopicEditorForId = (props: Props): React.Node => {
+  const {
+    match,
+  } = props;
 
-  if (topicId != null) {
-    return (
-      <TopicEditor topicId={topicId} />
-    );
-  }
-  else {
+  const topicId = match.params.id;
+  if (topicId == null) { // Null check necessary for flow
     return null;
   }
+
+  return (
+    <React.Fragment>
+      <Grid>
+        <Grid.Column>
+          <TopicEditor topicId={topicId} />
+        </Grid.Column>
+      </Grid>
+    </React.Fragment>
+  );
 };
+
+const TopicEditorForId = PureTopicEditorForId;
 
 
 const DummyContent = (props: RouteProps): React.Node => {
@@ -47,14 +59,14 @@ const DummyContent = (props: RouteProps): React.Node => {
   );
 };
 
-const PureEditorPage = (props: Props): React.Node => {
+const PureEditorPage = (props: RouteProps): React.Node => {
   return (
-    <AuthenticatedPage>
+    <Page needsAuth={true} needsSidebar={true}>
       <Switch>
         <Route path={`${props.match.url}/:id`} component={TopicEditorForId} />
         <Route component={DummyContent} />
       </Switch>
-    </AuthenticatedPage>
+    </Page>
   );
 };
 
