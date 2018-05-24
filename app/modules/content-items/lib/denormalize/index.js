@@ -4,6 +4,7 @@
 /* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';
+import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import type { Identifier } from 'types/model';
 
 import { subableContentItemTypes, containerContentItemTypes } from '../../model';
@@ -42,7 +43,7 @@ const denormalizeProp = (
           descendantItems.push(descendantItem);
         }
         else {
-          throw new Error('Invalid contentItemsById: descendant item could not be found.');
+          throw new CorruptedInternalStateError(`Invalid contentItemsById: descendant item could not be found.`);
         }
       },
     );

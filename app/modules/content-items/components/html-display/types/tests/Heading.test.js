@@ -13,6 +13,7 @@ describe(`Heading`, (): void => {
   const dummyHeading: $Exact<DenormalizedHeadingContentItem> = {
     id: '6o6qy5dz0a',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Lorem ipsum dolor sit amet',
     metadata: {
       tags: [],

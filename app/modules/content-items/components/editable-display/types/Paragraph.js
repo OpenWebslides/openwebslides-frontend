@@ -13,27 +13,38 @@ import EditableTextContent from '../EditableTextContent';
 
 type PassedProps = {
   contentItem: ParagraphContentItem,
-  onEditPlainText: (id: Identifier, text: string) => void,
+  onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
 };
 
 type Props = PassedProps;
 
-const PureParagraph = (props: Props): React.Node => {
-  const { contentItem, onEditPlainText } = props;
+class PureParagraph extends React.Component<Props> {
+  onEditableTextContentInput = (text: string): void => {
+    this.props.onEditPlainText(this.props.contentItem.id, text, true);
+  };
 
-  return (
-    <DisplayBlockWrapper
-      {..._.pick(props, passThroughProps)}
-      iconName="paragraph"
-    >
-      <EditableTextContent
-        multiline={true}
-        initialText={contentItem.text}
-        onDeactivate={(text: string) => onEditPlainText(contentItem.id, text)}
-      />
-    </DisplayBlockWrapper>
-  );
-};
+  onEditableTextContentDeactivate = (text: string): void => {
+    this.props.onEditPlainText(this.props.contentItem.id, text, false);
+  };
+
+  render = (): React.Node => {
+    const { contentItem } = this.props;
+
+    return (
+      <DisplayBlockWrapper
+        {..._.pick(this.props, passThroughProps)}
+        iconName="paragraph"
+      >
+        <EditableTextContent
+          multiline={true}
+          initialText={contentItem.text}
+          onInput={this.onEditableTextContentInput}
+          onDeactivate={this.onEditableTextContentDeactivate}
+        />
+      </DisplayBlockWrapper>
+    );
+  };
+}
 
 const Paragraph = PureParagraph;
 

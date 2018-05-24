@@ -2,6 +2,7 @@
 
 import authentication from './namespaces/authentication';
 import common from './namespaces/common';
+import contentItems from './namespaces/contentItems';
 import errors from './namespaces/errors';
 import editor from './namespaces/editor';
 import global from './namespaces/global';
@@ -13,6 +14,7 @@ import topics from './namespaces/topics';
 const index = {
   authentication,
   common,
+  contentItems,
   editor,
   errors,
   feed,

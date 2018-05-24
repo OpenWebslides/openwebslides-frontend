@@ -16,6 +16,7 @@ describe(`Slide`, (): void => {
     const dummyContentItem = {
       id: 'abcdefghij',
       type: contentItemTypes.HEADING,
+      isEditing: false,
       text: 'Heading',
       metadata: {
         tags: [],

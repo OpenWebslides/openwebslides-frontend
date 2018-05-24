@@ -11,7 +11,7 @@ import { PureParagraph } from '../Paragraph';
 
 describe(`Paragraph`, (): void => {
 
-  const dummyOnEditPlainText = (): void => {};
+  const dummyOnEditPlainText = jest.fn();
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
@@ -34,6 +34,38 @@ describe(`Paragraph`, (): void => {
       </I18nextProvider>,
     );
     expect(enzymeWrapper.text()).toContain(dummyContentItemData.paragraphContentItem.text);
+  });
+
+  describe(`onEditableTextContentInput`, (): void => {
+
+    it(`calls the passed onEditPlainText function`, (): void => {
+      const dummyText = 'Lorem ipsum';
+      const enzymeWrapper = shallow(
+        <PureParagraph
+          contentItem={dummyContentItemData.paragraphContentItem}
+          onEditPlainText={dummyOnEditPlainText}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentInput(dummyText);
+      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id, dummyText, true);
+    });
+
+  });
+
+  describe(`onEditableTextContentDeactivate`, (): void => {
+
+    it(`calls the passed onEditPlainText function`, (): void => {
+      const dummyText = 'Lorem ipsum';
+      const enzymeWrapper = shallow(
+        <PureParagraph
+          contentItem={dummyContentItemData.paragraphContentItem}
+          onEditPlainText={dummyOnEditPlainText}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentDeactivate(dummyText);
+      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id, dummyText, false);
+    });
+
   });
 
 });

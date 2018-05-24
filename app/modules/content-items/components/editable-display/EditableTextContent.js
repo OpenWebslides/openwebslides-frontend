@@ -12,17 +12,18 @@ type Props = {
   onInput?: (text: string) => void,
   onActivate?: () => void,
   onDeactivate?: (text: string) => void,
+  onKeyDown?: (key: string, ctrlKey: boolean, shiftKey: boolean, altKey: boolean) => void,
   className: string,
   textClassNameSuffix: string,
   inputClassNameSuffix: string,
 };
 
-type State = {
+type ComponentState = {
   isActive: boolean,
   text: string,
 };
 
-class EditableTextContent extends React.Component<Props, State> {
+class EditableTextContent extends React.Component<Props, ComponentState> {
   static defaultProps = {
     multiline: false,
     initialText: '',
@@ -31,8 +32,11 @@ class EditableTextContent extends React.Component<Props, State> {
     inputClassNameSuffix: '__input',
   };
 
-  static getDerivedStateFromProps = (nextProps: Props, prevState: State): State => {
-    const nextState: State = { ...prevState };
+  static getDerivedStateFromProps = (
+    nextProps: Props,
+    prevState: ComponentState,
+  ): $Shape<ComponentState> => {
+    const nextState: $Shape<ComponentState> = {};
 
     if (prevState.text !== nextProps.initialText) {
       nextState.text = nextProps.initialText;
@@ -41,7 +45,7 @@ class EditableTextContent extends React.Component<Props, State> {
     return nextState;
   };
 
-  state: State = {
+  state: ComponentState = {
     isActive: false,
     text: '',
   };
@@ -60,7 +64,9 @@ class EditableTextContent extends React.Component<Props, State> {
 
   handleInput = (event: SyntheticInputEvent<HTMLInputElement>): void => {
     this.setState({ text: event.currentTarget.value });
-    if (this.props.onInput) this.props.onInput(event.currentTarget.value);
+    if (this.props.onInput) {
+      this.props.onInput(event.currentTarget.value);
+    }
   };
 
   handleActivate = (): void => {
@@ -71,6 +77,12 @@ class EditableTextContent extends React.Component<Props, State> {
   handleDeactivate = (event: SyntheticEvent<HTMLInputElement>): void => {
     this.setState({ isActive: false });
     if (this.props.onDeactivate) this.props.onDeactivate(event.currentTarget.value);
+  };
+
+  handleKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
+    if (this.props.onKeyDown) {
+      this.props.onKeyDown(event.key, event.ctrlKey, event.shiftKey, event.altKey);
+    }
   };
 
   renderAsInput = (): React.Node => {
@@ -85,6 +97,7 @@ class EditableTextContent extends React.Component<Props, State> {
                 value={this.state.text}
                 onInput={this.handleInput}
                 onBlur={this.handleDeactivate}
+                onKeyDown={this.handleKeyDown}
                 ref={this.handleRef}
               />
             )
@@ -95,6 +108,7 @@ class EditableTextContent extends React.Component<Props, State> {
                 value={this.state.text}
                 onInput={this.handleInput}
                 onBlur={this.handleDeactivate}
+                onKeyDown={this.handleKeyDown}
                 ref={this.handleRef}
               />
             )

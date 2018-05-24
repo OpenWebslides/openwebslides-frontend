@@ -11,6 +11,7 @@ describe(`EditableTextContent`, (): void => {
   const dummyInput = jest.fn();
   const dummyActivate = jest.fn();
   const dummyDeactivate = jest.fn();
+  const dummyKeyDown = jest.fn();
   const dummyClassName = 'editable-text-content';
   const dummyTextClassNameSuffix = '__text';
   const dummyInputClassNameSuffix = '__input';
@@ -45,9 +46,6 @@ describe(`EditableTextContent`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         initialText={dummyText}
-        onInput={dummyInput}
-        onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
         inputClassNameSuffix={dummyInputClassNameSuffix}
@@ -61,9 +59,6 @@ describe(`EditableTextContent`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         initialText={dummyText}
-        onInput={dummyInput}
-        onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
         inputClassNameSuffix={dummyInputClassNameSuffix}
@@ -78,9 +73,6 @@ describe(`EditableTextContent`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         initialText={dummyText}
-        onInput={dummyInput}
-        onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
         inputClassNameSuffix={dummyInputClassNameSuffix}
@@ -95,9 +87,6 @@ describe(`EditableTextContent`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         initialText={dummyText}
-        onInput={dummyInput}
-        onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
         inputClassNameSuffix={dummyInputClassNameSuffix}
@@ -114,9 +103,6 @@ describe(`EditableTextContent`, (): void => {
       <EditableTextContent
         multiline={true}
         initialText={dummyText}
-        onInput={dummyInput}
-        onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
         inputClassNameSuffix={dummyInputClassNameSuffix}
@@ -128,13 +114,27 @@ describe(`EditableTextContent`, (): void => {
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
   });
 
+  it(`rerenders itself, when it is in input mode and receives an input event`, (): void => {
+    const enzymeWrapper = mount(
+      <EditableTextContent
+        initialText={dummyText}
+        className={dummyClassName}
+        textClassNameSuffix={dummyTextClassNameSuffix}
+        inputClassNameSuffix={dummyInputClassNameSuffix}
+      />,
+    );
+    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
+
+    const renderSpy = jest.spyOn(enzymeWrapper.instance(), 'render');
+    enzymeWrapper.find(inputSelector).hostNodes().simulate('input');
+    expect(renderSpy).toHaveBeenCalledTimes(1);
+  });
+
   it(`calls the passed onActivate function, when it is in text mode and receives a click event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         initialText={dummyText}
-        onInput={dummyInput}
         onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
         inputClassNameSuffix={dummyInputClassNameSuffix}
@@ -148,9 +148,7 @@ describe(`EditableTextContent`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         initialText={dummyText}
-        onInput={dummyInput}
         onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
         inputClassNameSuffix={dummyInputClassNameSuffix}
@@ -164,8 +162,6 @@ describe(`EditableTextContent`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         initialText={dummyText}
-        onInput={dummyInput}
-        onActivate={dummyActivate}
         onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
@@ -182,8 +178,6 @@ describe(`EditableTextContent`, (): void => {
       <EditableTextContent
         initialText={dummyText}
         onInput={dummyInput}
-        onActivate={dummyActivate}
-        onDeactivate={dummyDeactivate}
         className={dummyClassName}
         textClassNameSuffix={dummyTextClassNameSuffix}
         inputClassNameSuffix={dummyInputClassNameSuffix}
@@ -192,6 +186,91 @@ describe(`EditableTextContent`, (): void => {
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('input');
     expect(dummyInput).toHaveBeenCalledWith(dummyText);
+  });
+
+  it(`calls the passed onKeyDown function, when it is in input mode and receives a keyDown event`, (): void => {
+    const dummyKeyDownEvent = {
+      key: 'a',
+      ctrlKey: false,
+      shiftKey: false,
+      altKey: false,
+    };
+    const enzymeWrapper = mount(
+      <EditableTextContent
+        initialText={dummyText}
+        onKeyDown={dummyKeyDown}
+        className={dummyClassName}
+        textClassNameSuffix={dummyTextClassNameSuffix}
+        inputClassNameSuffix={dummyInputClassNameSuffix}
+      />,
+    );
+    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
+    enzymeWrapper.find(inputSelector).hostNodes().simulate('keyDown', dummyKeyDownEvent);
+    expect(dummyKeyDown).toHaveBeenCalledWith(
+      dummyKeyDownEvent.key,
+      dummyKeyDownEvent.ctrlKey,
+      dummyKeyDownEvent.shiftKey,
+      dummyKeyDownEvent.altKey,
+    );
+  });
+
+  it(`doesn't do anything, when there is no passed onKeyDown function and it is in input mode and receives a keyDown event`, (): void => {
+    // Pointless but needed for 100% coverage...
+    const enzymeWrapper = mount(
+      <EditableTextContent
+        initialText={dummyText}
+        className={dummyClassName}
+        textClassNameSuffix={dummyTextClassNameSuffix}
+        inputClassNameSuffix={dummyInputClassNameSuffix}
+      />,
+    );
+    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
+    enzymeWrapper.find(inputSelector).hostNodes().simulate('keyDown');
+  });
+
+  describe(`getDerivedStateFromProps`, (): void => {
+
+    it(`returns an object containing the new initialText, when the new initialText prop is different from the previous text state`, (): void => {
+      const dummyNewText = `${dummyText}${dummyText}`;
+      const dummyPrevState = {
+        isActive: false,
+        text: dummyText,
+      };
+      const dummyNextProps = {
+        multiline: false,
+        initialText: dummyNewText,
+        onInput: dummyInput,
+        onActivate: dummyActivate,
+        onDeactivate: dummyDeactivate,
+        className: dummyClassName,
+        textClassNameSuffix: dummyTextClassNameSuffix,
+        inputClassNameSuffix: dummyInputClassNameSuffix,
+      };
+      const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
+      expect(result).toEqual({
+        text: dummyNewText,
+      });
+    });
+
+    it(`returns an empty object, when the new initialText prop is the same as the previous text state`, (): void => {
+      const dummyPrevState = {
+        isActive: false,
+        text: dummyText,
+      };
+      const dummyNextProps = {
+        multiline: false,
+        initialText: dummyText,
+        onInput: dummyInput,
+        onActivate: dummyActivate,
+        onDeactivate: dummyDeactivate,
+        className: dummyClassName,
+        textClassNameSuffix: dummyTextClassNameSuffix,
+        inputClassNameSuffix: dummyInputClassNameSuffix,
+      };
+      const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
+      expect(result).toEqual({});
+    });
+
   });
 
 });
