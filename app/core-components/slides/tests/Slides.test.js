@@ -14,6 +14,7 @@ describe(`Slides`, (): void => {
     const dummyContentItemTreeRoot = {
       id: 'abcdefghij',
       type: contentItems.contentItemTypes.ROOT,
+      isEditing: false,
       childItemIds: [],
       childItems: [],
     };

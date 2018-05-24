@@ -154,6 +154,7 @@ export const dummyContentItemsById: ContentItemsById = {
   ivks4jgtxr: {
     id: 'ivks4jgtxr',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'This is a heading',
     metadata: {
       tags: [],
@@ -164,6 +165,7 @@ export const dummyContentItemsById: ContentItemsById = {
   oswmjc09be: ({
     id: 'oswmjc09be',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*.',
     metadata: {
       tags: [],
@@ -174,6 +176,7 @@ export const dummyContentItemsById: ContentItemsById = {
   jbv2ju5jc6: ({
     id: 'jbv2ju5jc6',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Mauris accumsan pretium sem, in volutpat nibh sodales a. Nulla blandit posuere ex, et facilisis dui volutpat in. Fusce tincidunt sed ipsum quis varius. Quisque vitae laoreet sem.',
     metadata: {
       tags: [],
@@ -184,6 +187,7 @@ export const dummyContentItemsById: ContentItemsById = {
   kcosdhj38v: {
     id: 'kcosdhj38v',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Open Webslides slide rendering',
     metadata: {
       tags: [],
@@ -194,6 +198,7 @@ export const dummyContentItemsById: ContentItemsById = {
   kdo4lbvn5l: {
     id: 'kdo4lbvn5l',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Subheading 1',
     metadata: {
       tags: [],
@@ -204,6 +209,7 @@ export const dummyContentItemsById: ContentItemsById = {
   kdl3l4jkvd: ({
     id: 'kdl3l4jkvd',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*. Mauris *accumsan* pretium sem, in volutpat nibh sodales a. **Nulla blandit** posuere ex, et [facilisis](https://www.lipsum.com) dui volutpat in.',
     metadata: {
       tags: [],
@@ -214,6 +220,7 @@ export const dummyContentItemsById: ContentItemsById = {
   vl4jfkdj4l: ({
     id: 'vl4jfkdj4l',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Introduction to the *Open Webslides **Slide Rendering** for noobs*',
     metadata: {
       tags: [],
@@ -224,6 +231,7 @@ export const dummyContentItemsById: ContentItemsById = {
   lhjdki4hvi: {
     id: 'lhjdki4hvi',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Subheading 2',
     metadata: {
       tags: [],
@@ -234,6 +242,7 @@ export const dummyContentItemsById: ContentItemsById = {
   dk3j5cl34k: ({
     id: 'dk3j5cl34k',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*.',
     metadata: {
       tags: [],
@@ -244,6 +253,7 @@ export const dummyContentItemsById: ContentItemsById = {
   kdloeijdj3: ({
     id: 'kdloeijdj3',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*. Mauris *accumsan* pretium sem, in volutpat nibh sodales a. **Nulla blandit** posuere ex, et [facilisis](https://www.lipsum.com) dui volutpat in.',
     metadata: {
       tags: [],
@@ -254,6 +264,7 @@ export const dummyContentItemsById: ContentItemsById = {
   dlidlf3ejk: {
     id: 'dlidlf3ejk',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Subheading 3',
     metadata: {
       tags: [],
@@ -264,6 +275,7 @@ export const dummyContentItemsById: ContentItemsById = {
   kchwki48cd: {
     id: 'kchwki48cd',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Yet Another Heading That Is Boring',
     metadata: {
       tags: [],
@@ -274,6 +286,7 @@ export const dummyContentItemsById: ContentItemsById = {
   kweoi4kivf: {
     id: 'kweoi4kivf',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Yep, super boring here',
     metadata: {
       tags: [],
@@ -284,6 +297,7 @@ export const dummyContentItemsById: ContentItemsById = {
   focej3icjd: ({
     id: 'focej3icjd',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Lorem **ipsum** dolor `sit` amet, [consectetur](https://www.lipsum.com) adipiscing *elit*. Mauris *accumsan* pretium sem, in volutpat nibh sodales a. **Nulla blandit** posuere ex, et [facilisis](https://www.lipsum.com) dui volutpat in.',
     metadata: {
       tags: [],
@@ -294,6 +308,7 @@ export const dummyContentItemsById: ContentItemsById = {
   ck2k4kvcj4: {
     id: 'ck2k4kvcj4',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: '10 Reasons Why You Should Read This',
     metadata: {
       tags: [],
@@ -304,6 +319,7 @@ export const dummyContentItemsById: ContentItemsById = {
   ldicl3j4jk: {
     id: 'ldicl3j4jk',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Welcome to the presentation',
     metadata: {
       tags: [],
