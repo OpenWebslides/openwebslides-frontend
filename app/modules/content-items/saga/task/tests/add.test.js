@@ -1,9 +1,13 @@
 // @flow
 
+import { select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
-import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
+import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../../actionTypes';
+import { getParentOrSuperById } from '../../../selectors';
 import { contentItemTypes } from '../../../model';
 import type {
   RootContentItem,
@@ -13,7 +17,7 @@ import type {
 } from '../../../model';
 import * as dummyContentItemData from '../../../lib/test-resources/dummyContentItemData';
 
-import addSaga from '../add';
+import addSaga, { convertSagaContextToReducerContext } from '../add';
 
 describe(`addSaga`, (): void => {
 
@@ -116,23 +120,179 @@ describe(`addSaga`, (): void => {
       .run();
   });
 
-  it(`temporarily throws a NotYetImplementedError, when context.contextType is SIBLING`, (): void => {
+  it(`converts a context with contextType.SIBLING to a context with contextType.PARENT, when the contentItem with id context.contextItemId is a childItem`, (): void => {
+    const dummyAddAction: t.AddAction = {
+      type: t.ADD,
+      payload: {
+        type: contentItemTypes.HEADING,
+        context: {
+          contextType: t.actionPayloadSagaContextTypes.SIBLING,
+          contextItemId: dummyHeading1.id,
+          positionInSiblings: 0,
+        },
+        isEditing: false,
+        propsForType: {
+          text: 'Lorem ipsum',
+        },
+      },
+    };
+    return expectSaga(addSaga, dummyAddAction)
+      .withState(dummyState)
+      .put.like({
+        action: {
+          type: t.ADD_TO_STATE,
+          payload: {
+            type: dummyAddAction.payload.type,
+            context: {
+              contextType: t.actionPayloadSagaContextTypes.PARENT,
+              contextItemId: dummyRoot.id,
+              positionInSiblings: 1,
+            },
+            isEditing: dummyAddAction.payload.isEditing,
+            propsForType: dummyAddAction.payload.propsForType,
+          },
+        },
+      })
+      .run();
+  });
+
+  it(`converts a context with contextType.SIBLING to a context with contextType.SUPER, when the contentItem with id context.contextItemId is a subItem`, (): void => {
     const dummyAddAction: t.AddAction = {
       type: t.ADD,
       payload: {
         type: contentItemTypes.PARAGRAPH,
         context: {
           contextType: t.actionPayloadSagaContextTypes.SIBLING,
-          contextItemId: dummyParagraph1.id,
+          contextItemId: dummyParagraph4.id,
           positionInSiblings: 0,
         },
         isEditing: false,
-        propsForType: {},
+        propsForType: {
+          text: 'Lorem ipsum',
+        },
       },
     };
-    expect((): void => {
-      expectSaga(addSaga, dummyAddAction).run();
-    }).toThrow(NotYetImplementedError);
+    return expectSaga(addSaga, dummyAddAction)
+      .withState(dummyState)
+      .put.like({
+        action: {
+          type: t.ADD_TO_STATE,
+          payload: {
+            type: dummyAddAction.payload.type,
+            context: {
+              contextType: t.actionPayloadSagaContextTypes.SUPER,
+              contextItemId: dummyHeading2.id,
+              positionInSiblings: 2,
+            },
+            isEditing: dummyAddAction.payload.isEditing,
+            propsForType: dummyAddAction.payload.propsForType,
+          },
+        },
+      })
+      .run();
+  });
+
+  describe(`convertSagaContextToReducerContext`, (): void => {
+
+    it(`correctly calculates absolute positionInSiblings from relative positionInSiblings, when relative positionInSiblings is a positive number different from 0`, (): void => {
+      const dummySagaContext = {
+        contextType: t.actionPayloadSagaContextTypes.SIBLING,
+        contextItemId: dummyHeading1.id,
+        positionInSiblings: 1,
+      };
+      const expectedReducerContext = {
+        contextType: t.actionPayloadReducerContextTypes.PARENT,
+        contextItemId: dummyRoot.id,
+        positionInSiblings: 2,
+      };
+      return expectSaga(convertSagaContextToReducerContext, dummySagaContext)
+        .withState(dummyState)
+        .returns(expectedReducerContext)
+        .run();
+    });
+
+    it(`correctly calculates absolute positionInSiblings from relative positionInSiblings, when relative positionInSiblings is a negative number`, (): void => {
+      const dummySagaContext = {
+        contextType: t.actionPayloadSagaContextTypes.SIBLING,
+        contextItemId: dummyHeading2.id,
+        positionInSiblings: -1,
+      };
+      const expectedReducerContext = {
+        contextType: t.actionPayloadReducerContextTypes.PARENT,
+        contextItemId: dummyRoot.id,
+        positionInSiblings: 1,
+      };
+      return expectSaga(convertSagaContextToReducerContext, dummySagaContext)
+        .withState(dummyState)
+        .returns(expectedReducerContext)
+        .run();
+    });
+
+    it(`throws an ObjectNotFoundError, when the contentItem with id context.contextItemId could not be found`, async (): Promise<*> => {
+      const dummySagaContext = {
+        contextType: t.actionPayloadSagaContextTypes.SIBLING,
+        contextItemId: 'DefinitelyNotValidId',
+        positionInSiblings: 0,
+      };
+      // Suppress console.error from redux-saga $FlowFixMe
+      console.error = jest.fn();
+      await expect(
+        expectSaga(convertSagaContextToReducerContext, dummySagaContext)
+          .withState(dummyState)
+          .run(),
+      ).rejects.toBeInstanceOf(ObjectNotFoundError);
+    });
+
+    it(`throws an InvalidArgumentError, when the calculated absolute positionInSiblings is less than 0`, async (): Promise<*> => {
+      const dummySagaContext = {
+        contextType: t.actionPayloadSagaContextTypes.SIBLING,
+        contextItemId: dummyHeading1.id,
+        positionInSiblings: -2,
+      };
+      // Suppress console.error from redux-saga $FlowFixMe
+      console.error = jest.fn();
+      await expect(
+        expectSaga(convertSagaContextToReducerContext, dummySagaContext)
+          .withState(dummyState)
+          .run(),
+      ).rejects.toBeInstanceOf(InvalidArgumentError);
+    });
+
+    it(`throws an InvalidArgumentError, when the calculated absolute positionInSiblings is greater than the length of the siblings array`, async (): Promise<*> => {
+      const dummySagaContext = {
+        contextType: t.actionPayloadSagaContextTypes.SIBLING,
+        contextItemId: dummyHeading1.id,
+        positionInSiblings: 2,
+      };
+      // Suppress console.error from redux-saga $FlowFixMe
+      console.error = jest.fn();
+      await expect(
+        expectSaga(convertSagaContextToReducerContext, dummySagaContext)
+          .withState(dummyState)
+          .run(),
+      ).rejects.toBeInstanceOf(InvalidArgumentError);
+    });
+
+    it(`throws a CorruptedInternalStateError if the selected parentOrSuperItem is neither subable nor a container, which shouldn't happen in normal circumstances`, async (): Promise<*> => {
+      const dummySagaContext = {
+        contextType: t.actionPayloadSagaContextTypes.SIBLING,
+        contextItemId: dummyHeading1.id,
+        positionInSiblings: 0,
+      };
+      // Suppress console.error from redux-saga $FlowFixMe
+      console.error = jest.fn();
+      await expect(
+        expectSaga(convertSagaContextToReducerContext, dummySagaContext)
+          .provide([
+            [
+              select(getParentOrSuperById, { id: dummyHeading1.id }),
+              dummyContentItemData.courseBreakContentItem,
+            ],
+          ])
+          .run(),
+      ).rejects.toBeInstanceOf(CorruptedInternalStateError);
+    });
+
   });
 
 });
