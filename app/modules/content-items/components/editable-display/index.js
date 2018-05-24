@@ -7,10 +7,11 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
+import * as t from '../../actionTypes';
 import { contentItemTypes, subableContentItemTypes } from '../../model';
 import type { ContentItem, SubableContentItem } from '../../model';
 import { getById } from '../../selectors';
-import { edit } from '../../actions';
+import { add, edit } from '../../actions';
 
 import Root from './types/Root';
 import Heading from './types/Heading';
@@ -48,6 +49,7 @@ type StateProps = {
 
 type DispatchProps = {
   onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
+  onAddEmptySubItem: (id: Identifier) => void,
 };
 
 type Props = PassedProps & StateProps & DispatchProps;
@@ -56,6 +58,7 @@ const passThroughProps = [
   'baseClassName',
   'subItemsClassNameSuffix',
   'onEditPlainText',
+  'onAddEmptySubItem',
 ];
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
@@ -74,6 +77,18 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
   return {
     onEditPlainText: (id: Identifier, text: string, isEditing: boolean): void => {
       dispatch(edit(id, { text }, isEditing));
+    },
+    onAddEmptySubItem: (id: Identifier): void => {
+      dispatch(add(
+        contentItemTypes.PARAGRAPH,
+        { text: '' },
+        {
+          contextType: t.actionPayloadSagaContextTypes.SUPER,
+          contextItemId: id,
+          positionInSiblings: 0,
+        },
+        true,
+      ));
     },
   };
 };
