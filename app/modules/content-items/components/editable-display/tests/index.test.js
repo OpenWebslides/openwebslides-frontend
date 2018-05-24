@@ -33,6 +33,7 @@ describe(`EditableDisplay`, (): void => {
 
   const dummyOnEditPlainText = (): void => {};
   const dummyOnAddEmptySubItem = (): void => {};
+  const dummyOnAddEmptySiblingItemBelow = (): void => {};
   const dummyBaseClassName = 'EditableDisplayBaseClassName';
   const dummySubItemsClassNameSuffix = 'EditableDisplaySubItemsClassNameSuffix';
   // const baseSelector = `.${dummyBaseClassName}`;
@@ -111,6 +112,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={{ id: 'abcdefghij', type: contentItemTypes.ROOT, isEditing: false, childItemIds: [] }}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -126,6 +128,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={dummyContentItemData.rootContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.find('PureRoot')).toHaveLength(1);
@@ -137,6 +140,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={dummyContentItemData.headingContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.find('PureHeading')).toHaveLength(1);
@@ -148,6 +152,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={dummyContentItemData.paragraphContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.find('PureParagraph')).toHaveLength(1);
@@ -159,6 +164,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={dummyContentItemData.listContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -170,6 +176,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={dummyContentItemData.listItemContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -181,6 +188,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={dummyContentItemData.blockquoteContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -192,6 +200,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={dummyContentItemData.codeContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -203,6 +212,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={dummyContentItemData.imageContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -214,6 +224,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={dummyContentItemData.videoContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -225,6 +236,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={dummyContentItemData.audioContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -236,6 +248,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={dummyContentItemData.iframeContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -247,6 +260,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={dummyContentItemData.slideBreakContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -258,6 +272,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={dummyContentItemData.courseBreakContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -359,6 +374,22 @@ describe(`EditableDisplay`, (): void => {
         { text: '' },
         {
           contextType: t.actionPayloadSagaContextTypes.SUPER,
+          contextItemId: dummyId,
+          positionInSiblings: 0,
+        },
+        true,
+      ));
+    });
+
+    it(`dispatches the correct ADD action, when onAddEmptySiblingItemBelow is called`, (): void => {
+      const dummyId = 'abcdefghijklmnopqrst';
+      const dummyDispatch = jest.fn();
+      mapDispatchToProps(dummyDispatch, ({}: any)).onAddEmptySiblingItemBelow(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(add(
+        contentItemTypes.PARAGRAPH,
+        { text: '' },
+        {
+          contextType: t.actionPayloadSagaContextTypes.SIBLING,
           contextItemId: dummyId,
           positionInSiblings: 0,
         },

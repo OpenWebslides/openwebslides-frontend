@@ -50,6 +50,7 @@ type StateProps = {
 type DispatchProps = {
   onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
   onAddEmptySubItem: (id: Identifier) => void,
+  onAddEmptySiblingItemBelow: (id: Identifier) => void,
 };
 
 type Props = PassedProps & StateProps & DispatchProps;
@@ -59,6 +60,7 @@ const passThroughProps = [
   'subItemsClassNameSuffix',
   'onEditPlainText',
   'onAddEmptySubItem',
+  'onAddEmptySiblingItemBelow',
 ];
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
@@ -84,6 +86,18 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
         { text: '' },
         {
           contextType: t.actionPayloadSagaContextTypes.SUPER,
+          contextItemId: id,
+          positionInSiblings: 0,
+        },
+        true,
+      ));
+    },
+    onAddEmptySiblingItemBelow: (id: Identifier): void => {
+      dispatch(add(
+        contentItemTypes.PARAGRAPH,
+        { text: '' },
+        {
+          contextType: t.actionPayloadSagaContextTypes.SIBLING,
           contextItemId: id,
           positionInSiblings: 0,
         },

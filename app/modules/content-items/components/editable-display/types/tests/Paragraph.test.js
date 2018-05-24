@@ -11,13 +11,20 @@ import { PureParagraph } from '../Paragraph';
 
 describe(`Paragraph`, (): void => {
 
-  const dummyOnEditPlainText = jest.fn();
+  let dummyOnEditPlainText: any;
+  let dummyOnAddEmptySiblingItemBelow: any;
+
+  beforeEach((): void => {
+    dummyOnEditPlainText = jest.fn();
+    dummyOnAddEmptySiblingItemBelow = jest.fn();
+  });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureParagraph
         contentItem={dummyContentItemData.paragraphContentItem}
         onEditPlainText={dummyOnEditPlainText}
+        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -29,6 +36,7 @@ describe(`Paragraph`, (): void => {
         <PureParagraph
           contentItem={dummyContentItemData.paragraphContentItem}
           onEditPlainText={dummyOnEditPlainText}
+          onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
           baseClassName="BaseClassName"
         />
       </I18nextProvider>,
@@ -44,6 +52,7 @@ describe(`Paragraph`, (): void => {
         <PureParagraph
           contentItem={dummyContentItemData.paragraphContentItem}
           onEditPlainText={dummyOnEditPlainText}
+          onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentInput(dummyText);
@@ -60,10 +69,39 @@ describe(`Paragraph`, (): void => {
         <PureParagraph
           contentItem={dummyContentItemData.paragraphContentItem}
           onEditPlainText={dummyOnEditPlainText}
+          onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentDeactivate(dummyText);
       expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id, dummyText, false);
+    });
+
+  });
+
+  describe(`onEditableTextContentKeyDown`, (): void => {
+
+    it(`calls the passed onAddEmptySubItem function, when the pressed key was "Enter"`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureParagraph
+          contentItem={dummyContentItemData.paragraphContentItem}
+          onEditPlainText={dummyOnEditPlainText}
+          onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentKeyDown('Enter', false, false, false);
+      expect(dummyOnAddEmptySiblingItemBelow).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id);
+    });
+
+    it(`does not call the onAddEmptySubItem function, when the pressed key is anything other than "Enter"`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureParagraph
+          contentItem={dummyContentItemData.paragraphContentItem}
+          onEditPlainText={dummyOnEditPlainText}
+          onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentKeyDown('A', false, false, false);
+      expect(dummyOnAddEmptySiblingItemBelow).toHaveBeenCalledTimes(0);
     });
 
   });
