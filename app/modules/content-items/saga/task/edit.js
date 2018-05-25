@@ -23,7 +23,7 @@ const editSaga = function* (action: t.EditAction): Generator<*, *, *> {
   }
 
   if (_.includes(plainTextContentItemTypes, contentItemToEdit.type)) {
-    if (propsForType.text != null && propsForType.text === '') {
+    if (propsForType.text != null && propsForType.text === '' && isEditing === false) {
       newPropsForType.text = `*\\[Empty contentItems should be automatically deleted; delete functionality to be implemented later.\\]*`;
     }
   }
