@@ -88,7 +88,7 @@ describe(`Paragraph`, (): void => {
           onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
         />,
       );
-      enzymeWrapper.instance().onEditableTextContentKeyDown('Enter', false, false, false);
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Enter', preventDefault: jest.fn() });
       expect(dummyOnAddEmptySiblingItemBelow).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id);
     });
 
@@ -100,7 +100,7 @@ describe(`Paragraph`, (): void => {
           onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
         />,
       );
-      enzymeWrapper.instance().onEditableTextContentKeyDown('A', false, false, false);
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'A' });
       expect(dummyOnAddEmptySiblingItemBelow).toHaveBeenCalledTimes(0);
     });
 

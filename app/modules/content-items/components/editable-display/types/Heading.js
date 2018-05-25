@@ -27,11 +27,9 @@ class PureHeading extends React.Component<Props> {
     this.props.onEditPlainText(this.props.contentItem.id, text, false);
   };
 
-  onEditableTextContentKeyDown = (
-    // eslint-disable-next-line no-unused-vars
-    key: string, ctrlKey: boolean, shiftKey: boolean, altKey: boolean,
-  ): void => {
-    if (key === 'Enter') {
+  onEditableTextContentKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
       this.props.onAddEmptySubItem(this.props.contentItem.id);
     }
   };
@@ -46,6 +44,7 @@ class PureHeading extends React.Component<Props> {
       >
         <EditableTextContent
           initialText={contentItem.text}
+          initialIsActive={contentItem.isEditing}
           onInput={this.onEditableTextContentInput}
           onDeactivate={this.onEditableTextContentDeactivate}
           onKeyDown={this.onEditableTextContentKeyDown}

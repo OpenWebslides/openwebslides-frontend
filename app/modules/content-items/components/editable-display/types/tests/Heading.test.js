@@ -88,7 +88,7 @@ describe(`Heading`, (): void => {
           onAddEmptySubItem={dummyOnAddEmptySubItem}
         />,
       );
-      enzymeWrapper.instance().onEditableTextContentKeyDown('Enter', false, false, false);
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Enter', preventDefault: jest.fn() });
       expect(dummyOnAddEmptySubItem).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
     });
 
@@ -100,7 +100,7 @@ describe(`Heading`, (): void => {
           onAddEmptySubItem={dummyOnAddEmptySubItem}
         />,
       );
-      enzymeWrapper.instance().onEditableTextContentKeyDown('A', false, false, false);
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'A' });
       expect(dummyOnAddEmptySubItem).toHaveBeenCalledTimes(0);
     });
 

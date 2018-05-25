@@ -206,12 +206,7 @@ describe(`EditableTextContent`, (): void => {
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('keyDown', dummyKeyDownEvent);
-    expect(dummyKeyDown).toHaveBeenCalledWith(
-      dummyKeyDownEvent.key,
-      dummyKeyDownEvent.ctrlKey,
-      dummyKeyDownEvent.shiftKey,
-      dummyKeyDownEvent.altKey,
-    );
+    expect(dummyKeyDown).toHaveBeenCalled();
   });
 
   it(`doesn't do anything, when there is no passed onKeyDown function and it is in input mode and receives a keyDown event`, (): void => {
