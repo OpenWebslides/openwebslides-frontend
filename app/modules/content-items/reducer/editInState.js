@@ -18,7 +18,7 @@ const editInState = (
   state: ContentItemsState,
   action: t.EditInStateAction,
 ): ContentItemsState => {
-  const { id, type, propsForType } = action.payload;
+  const { id, type, isEditing, propsForType } = action.payload;
   const contentItemToEdit = state.byId[id];
 
   if (contentItemToEdit == null) {
@@ -29,7 +29,10 @@ const editInState = (
     throw new InvalidArgumentError(`The contentItem's type does not match the type passed in the action. The contentItem's type was: "${contentItemToEdit.type}". The type passed in the action was: "${type}".`);
   }
 
-  const editedContentItem: any = { ...contentItemToEdit };
+  const editedContentItem: any = {
+    ...contentItemToEdit,
+    isEditing,
+  };
 
   if (_.includes(plainTextContentItemTypes, type)) {
     if (propsForType.text != null) {
