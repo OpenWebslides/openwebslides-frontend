@@ -23,10 +23,8 @@ const PureParagraph = (props: Props): React.Node => {
 
   return (
     <div className={`${containerClassName} ${containerClassName}--paragraph`}>
-      <p className={`${containerClassName}__item ows_paragraph`}>
-        <span style={styling}>
-          <InlineMarkdown text={contentItem.text} />
-        </span>
+      <p style={styling} className={`${containerClassName}__item ows_paragraph`}>
+        <InlineMarkdown text={contentItem.text} />
       </p>
       {children}
     </div>

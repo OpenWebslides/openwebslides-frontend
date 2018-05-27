@@ -30,10 +30,8 @@ const PureHeading = (props: Props, state: State): React.Node => {
   styling = { ...styling, fontFamily: slideStyling.rules[contentItemTypes.HEADING].font };
   return (
     <section className={`${containerClassName} ${containerClassName}--heading`}>
-      <HeadingTag className={`${containerClassName}__item ows_heading`}>
-        <span style={styling}>
-          <InlineMarkdown text={contentItem.text} />
-        </span>
+      <HeadingTag style={styling} className={`${containerClassName}__item ows_heading`}>
+        <InlineMarkdown text={contentItem.text} />
       </HeadingTag>
       {children}
     </section>
