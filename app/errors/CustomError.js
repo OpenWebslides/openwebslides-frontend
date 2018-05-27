@@ -20,6 +20,14 @@ class CustomError extends Error {
     else newMessage = message;
 
     super(newMessage);
+
+    // Temporary workaround for https://github.com/istanbuljs/babel-plugin-istanbul/issues/143 #TODO
+    /* eslint-disable no-proto */
+    // $FlowFixMe
+    this.constructor = CustomError;
+    // $FlowFixMe
+    this.__proto__ = CustomError.prototype;
+    /* eslint-enable */
   }
 }
 

@@ -1,3 +1,7 @@
 /*******************************
          Site Overrides
 *******************************/
+
+.ui.attached.menu:not(.tabular) {
+    border: none;
+}

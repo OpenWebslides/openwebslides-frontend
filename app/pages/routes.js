@@ -16,6 +16,7 @@ import EditorPage from './components/EditorPage';
 import NewTopicPage from './components/NewTopicPage';
 import ProfilePage from './components/ProfilePage';
 import TempSlideTestPage from './components/TempSlideTestPage';
+import GenerateRandomStringPage from './components/GenerateRandomStringPage';
 
 import SigninPage from './components/authentication/SigninPage';
 import SignupPage from './components/authentication/SignupPage';
@@ -30,6 +31,7 @@ const routes = (
     <Route path="/topics/new" component={NewTopicPage} />
     <Route path="/profile" component={ProfilePage} />
     <Route path="/tempslidetest" component={TempSlideTestPage} />
+    <Route path="/generaterandomstring/:length?" component={GenerateRandomStringPage} />
     <Route path="/auth/signin" exact={true} component={SigninPage} />
     <Route path="/auth/signup" exact={true} component={SignupPage} />
     <Route path="/auth/reset" exact={true} component={ResetPage} />

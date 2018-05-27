@@ -23,6 +23,7 @@ describe(`Root`, (): void => {
   const dummyHeading2: $Exact<HeadingContentItem> = {
     id: 'vqj12bqawx',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Dolor sit amet',
     metadata: dummyContentItemData.emptyMetadata,
     subItemIds: [],
@@ -30,6 +31,7 @@ describe(`Root`, (): void => {
   const dummyHeading1: $Exact<HeadingContentItem> = {
     id: 'o365j96prm',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Lorem ipsum',
     metadata: dummyContentItemData.emptyMetadata,
     subItemIds: [],
@@ -37,6 +39,7 @@ describe(`Root`, (): void => {
   const dummyRoot: $Exact<RootContentItem> = {
     id: 'jptgampe2x',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItemIds: [dummyHeading1.id, dummyHeading2.id],
   };
   const dummyContentItemsById: ContentItemsById = {

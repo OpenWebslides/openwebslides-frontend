@@ -5,14 +5,12 @@ import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import { Checkbox, Segment } from 'semantic-ui-react';
 
-// import Color, { TwitterPicker } from 'react-color';
 import type { CustomTranslatorProps } from 'types/translator';
 
 import type { State } from 'types/state';
 import contentItems, { contentItemTypes } from 'modules/content-items';
 import type { DenormalizedRootContentItem } from 'modules/content-items';
 import slideStyling from 'modules/slide-styling';
-import Slide from 'core-components/slides/Slide';
 import authentication from 'modules/authentication';
 import type { Identifier } from 'types/model';
 
@@ -20,6 +18,7 @@ import VoicePlayerToggle from 'core-components/slides/VoicePlayerToggle';
 import { addToState } from 'modules/slide-styling/actions';
 import { generateId } from 'modules/slide-styling//model';
 
+import Slides from 'core-components/slides/Slides';
 
 import Page from '../Page';
 import { getAllSlideStylingIdsByUserId, getById } from '../../modules/slide-styling/selectors';
@@ -93,8 +92,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
-    onAddToState: (
-      id: Identifier, userId: Identifier): void => {
+    onAddToState: (id: Identifier, userId: Identifier): void => {
       dispatch(
         addToState(id, userId),
       );
@@ -220,28 +218,30 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
     }
     return (
       <Page>
-        <div ref={this.slideRef}>
-          <Slide
-            contentItemTreeRootItem={contentItemTreeRootItem}
+        <div>
+          <div ref={this.slideRef}>
+            <Slides
+              contentItemTreeRootItem={contentItemTreeRootItem}
+              slideStyling={slideStylingItem}
+            />
+          </div>
+          <div className="Voice">
+            {VoicePlayerToggleNode}
+            <h5>Toggle to read slide</h5>
+            <Segment compact={true}>
+              <Checkbox toggle={true} onClick={this.toggleRead} checked={this.state.toggle} />
+            </Segment>
+            {PauseCheckbox}
+          </div>
+          <EditColorComponent
+            userId={userId}
+            slideStyling={slideStylingItem}
+          />
+          <EditFontComponent
+            userId={userId}
             slideStyling={slideStylingItem}
           />
         </div>
-        <div className="Voice">
-          {VoicePlayerToggleNode}
-          <h5>Toggle to read slide</h5>
-          <Segment compact={true}>
-            <Checkbox toggle={true} onClick={this.toggleRead} checked={this.state.toggle} />
-          </Segment>
-          {PauseCheckbox}
-        </div>
-        <EditColorComponent
-          userId={userId}
-          slideStyling={slideStylingItem}
-        />
-        <EditFontComponent
-          userId={userId}
-          slideStyling={slideStylingItem}
-        />
       </Page>
     );
   }

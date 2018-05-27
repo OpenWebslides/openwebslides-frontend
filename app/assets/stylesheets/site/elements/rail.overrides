@@ -1,3 +1,12 @@
 /*******************************
          Site Overrides
 *******************************/
+
+.ui.rail {
+    width: 75px;
+}
+
+.ui.right.rail {
+    left: unset;
+    right: 0px;
+}

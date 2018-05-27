@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import { createSelector } from 'reselect';
+import createCachedSelector from 're-reselect';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import denormalize from './lib/denormalize';
@@ -31,9 +32,11 @@ export const getById = (state: State, props: { id: Identifier }): ?ContentItem =
   return _.get(getAllById(state), props.id, null);
 };
 
-export const getDenormalizedById = createSelector(
+export const getDenormalizedById = createCachedSelector(
   [getById, getAllById],
   (contentItem: ?ContentItem, contentItemsById: ContentItemsById): ?DenormalizedContentItem => {
     return denormalize(contentItem, contentItemsById);
   },
+)(
+  (state: State, props: { id: Identifier }) => props.id,
 );

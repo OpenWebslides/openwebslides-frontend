@@ -3,14 +3,15 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
-
+import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
+import * as t from '../../actionTypes';
 import { contentItemTypes, subableContentItemTypes } from '../../model';
 import type { ContentItem, SubableContentItem } from '../../model';
 import { getById } from '../../selectors';
-import { editPlainText } from '../../actions';
+import { add, edit } from '../../actions';
 
 import Root from './types/Root';
 import Heading from './types/Heading';
@@ -47,7 +48,8 @@ type StateProps = {
 };
 
 type DispatchProps = {
-  onEditPlainText: (id: Identifier, text: string) => void,
+  onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
+  onAddEmptySubItem: (id: Identifier) => void,
 };
 
 type Props = PassedProps & StateProps & DispatchProps;
@@ -56,13 +58,14 @@ const passThroughProps = [
   'baseClassName',
   'subItemsClassNameSuffix',
   'onEditPlainText',
+  'onAddEmptySubItem',
 ];
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const contentItem = getById(state, { id: props.contentItemId });
 
   if (contentItem == null) {
-    throw new Error(`ContentItem with id "${props.contentItemId}" could not be found.`);
+    throw new ObjectNotFoundError('contentItems:contentItem', props.contentItemId);
   }
 
   return {
@@ -72,10 +75,20 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
   return {
-    onEditPlainText: (id: Identifier, text: string): void => {
-      dispatch(
-        editPlainText(id, text),
-      );
+    onEditPlainText: (id: Identifier, text: string, isEditing: boolean): void => {
+      dispatch(edit(id, { text }, isEditing));
+    },
+    onAddEmptySubItem: (id: Identifier): void => {
+      dispatch(add(
+        contentItemTypes.PARAGRAPH,
+        { text: '' },
+        {
+          contextType: t.actionPayloadSagaContextTypes.SUPER,
+          contextItemId: id,
+          positionInSiblings: 0,
+        },
+        true,
+      ));
     },
   };
 };
@@ -134,5 +147,5 @@ PureEditableDisplay.defaultProps = {
 
 const EditableDisplay = connect(mapStateToProps, mapDispatchToProps)(PureEditableDisplay);
 
-export { PureEditableDisplay, passThroughProps };
+export { PureEditableDisplay, passThroughProps, mapDispatchToProps, DummyDisplayComponent };
 export default EditableDisplay;
