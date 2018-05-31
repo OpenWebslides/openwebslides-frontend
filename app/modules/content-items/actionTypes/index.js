@@ -58,6 +58,7 @@ export type RemoveFromStateAction = {
   type: typeof REMOVE_FROM_STATE,
   payload: {
     id: Identifier,
+    context: ?ActionPayloadReducerContext,
   },
 };
 

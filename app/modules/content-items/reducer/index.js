@@ -11,6 +11,7 @@ import { dummyContentItemsById } from '../dummyData';
 
 import addToState from './addToState';
 import editInState from './editInState';
+import removeFromState from './removeFromState';
 import setMultipleInState from './setMultipleInState';
 
 const initialState: ContentItemsState = {
@@ -27,7 +28,7 @@ const reducer = (
     case t.EDIT_IN_STATE:
       return editInState(state, action);
     case t.REMOVE_FROM_STATE:
-      throw new NotYetImplementedError();
+      return removeFromState(state, action);
     case t.SET_MULTIPLE_IN_STATE:
       return setMultipleInState(state, action);
     default:

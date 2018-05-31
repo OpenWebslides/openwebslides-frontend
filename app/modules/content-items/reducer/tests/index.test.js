@@ -20,15 +20,15 @@ describe(`index`, (): void => {
     expect(reducer(undefined, dummyAction)).toEqual(dummyInitialState);
   });
 
-  it(`temporarily throws a NotYetImplementedError, when a REMOVE_FROM_STATE action is passed`, (): void => {
+  it(`temporarily throws a NotYetImplementedError, when a SET_IN_STATE action is passed`, (): void => {
     const prevState: ContentItemsState = {
       byId: {},
     };
-    const dummyRemoveFromStateAction: any = {
-      type: t.REMOVE_FROM_STATE,
+    const dummySetInStateAction: any = {
+      type: t.SET_IN_STATE,
     };
     expect((): void => {
-      reducer(prevState, dummyRemoveFromStateAction);
+      reducer(prevState, dummySetInStateAction);
     }).toThrow(NotYetImplementedError);
   });
 
