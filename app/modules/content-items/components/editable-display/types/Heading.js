@@ -14,6 +14,7 @@ type PassedProps = {
   contentItem: HeadingContentItem,
   onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
   onAddEmptySubItem: (id: Identifier) => void,
+  onRemove: (id: Identifier) => void,
 };
 
 type Props = PassedProps;
@@ -31,6 +32,10 @@ class PureHeading extends React.Component<Props> {
     if (event.key === 'Enter') {
       event.preventDefault();
       this.props.onAddEmptySubItem(this.props.contentItem.id);
+    }
+    else if (event.key === 'Backspace' && this.props.contentItem.text === '') {
+      event.preventDefault();
+      this.props.onRemove(this.props.contentItem.id);
     }
   };
 

@@ -15,6 +15,7 @@ type PassedProps = {
   contentItem: ParagraphContentItem,
   onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
   onAddEmptySiblingItemBelow: (id: Identifier) => void,
+  onRemove: (id: Identifier) => void,
 };
 
 type Props = PassedProps;
@@ -32,6 +33,10 @@ class PureParagraph extends React.Component<Props> {
     if (event.key === 'Enter') {
       event.preventDefault();
       this.props.onAddEmptySiblingItemBelow(this.props.contentItem.id);
+    }
+    else if (event.key === 'Backspace' && this.props.contentItem.text === '') {
+      event.preventDefault();
+      this.props.onRemove(this.props.contentItem.id);
     }
   };
 

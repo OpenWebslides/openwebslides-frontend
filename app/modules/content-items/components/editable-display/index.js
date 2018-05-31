@@ -11,7 +11,7 @@ import * as t from '../../actionTypes';
 import { contentItemTypes, subableContentItemTypes } from '../../model';
 import type { ContentItem, SubableContentItem } from '../../model';
 import { getById } from '../../selectors';
-import { add, edit } from '../../actions';
+import { add, edit, remove } from '../../actions';
 
 import Root from './types/Root';
 import Heading from './types/Heading';
@@ -51,6 +51,7 @@ type DispatchProps = {
   onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
   onAddEmptySubItem: (id: Identifier) => void,
   onAddEmptySiblingItemBelow: (id: Identifier) => void,
+  onRemove: (id: Identifier) => void,
 };
 
 type Props = PassedProps & StateProps & DispatchProps;
@@ -61,6 +62,7 @@ const passThroughProps = [
   'onEditPlainText',
   'onAddEmptySubItem',
   'onAddEmptySiblingItemBelow',
+  'onRemove',
 ];
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
@@ -103,6 +105,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
         },
         true,
       ));
+    },
+    onRemove: (id: Identifier): void => {
+      dispatch(remove(id));
     },
   };
 };

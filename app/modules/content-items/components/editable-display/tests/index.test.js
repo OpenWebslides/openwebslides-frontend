@@ -17,7 +17,7 @@ import EditableDisplay, {
 } from '..';
 
 import * as t from '../../../actionTypes';
-import { add, edit } from '../../../actions';
+import { add, edit, remove } from '../../../actions';
 import { contentItemTypes } from '../../../model';
 import type {
   RootContentItem,
@@ -34,6 +34,7 @@ describe(`EditableDisplay`, (): void => {
   const dummyOnEditPlainText = (): void => {};
   const dummyOnAddEmptySubItem = (): void => {};
   const dummyOnAddEmptySiblingItemBelow = (): void => {};
+  const dummyOnRemove = (): void => {};
   const dummyBaseClassName = 'EditableDisplayBaseClassName';
   const dummySubItemsClassNameSuffix = 'EditableDisplaySubItemsClassNameSuffix';
   // const baseSelector = `.${dummyBaseClassName}`;
@@ -113,6 +114,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -129,6 +131,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.find('PureRoot')).toHaveLength(1);
@@ -141,6 +144,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.find('PureHeading')).toHaveLength(1);
@@ -153,6 +157,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.find('PureParagraph')).toHaveLength(1);
@@ -165,6 +170,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -177,6 +183,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -189,6 +196,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -201,6 +209,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -213,6 +222,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -225,6 +235,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -237,6 +248,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -249,6 +261,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -261,6 +274,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -273,6 +287,7 @@ describe(`EditableDisplay`, (): void => {
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
         onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -395,6 +410,13 @@ describe(`EditableDisplay`, (): void => {
         },
         true,
       ));
+    });
+
+    it(`dispatches the correct REMOVE action, when onRemove is called`, (): void => {
+      const dummyId = 'abcdefghijklmnopqrst';
+      const dummyDispatch = jest.fn();
+      mapDispatchToProps(dummyDispatch, ({}: any)).onRemove(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(remove(dummyId));
     });
 
   });

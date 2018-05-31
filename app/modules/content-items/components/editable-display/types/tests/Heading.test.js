@@ -13,10 +13,12 @@ describe(`Heading`, (): void => {
 
   let dummyOnEditPlainText: any;
   let dummyOnAddEmptySubItem: any;
+  let dummyOnRemove: any;
 
   beforeEach((): void => {
     dummyOnEditPlainText = jest.fn();
     dummyOnAddEmptySubItem = jest.fn();
+    dummyOnRemove = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
@@ -25,6 +27,7 @@ describe(`Heading`, (): void => {
         contentItem={dummyContentItemData.headingContentItem}
         onEditPlainText={dummyOnEditPlainText}
         onAddEmptySubItem={dummyOnAddEmptySubItem}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -38,6 +41,7 @@ describe(`Heading`, (): void => {
           baseClassName="BaseClassName"
           onEditPlainText={dummyOnEditPlainText}
           onAddEmptySubItem={dummyOnAddEmptySubItem}
+          onRemove={dummyOnRemove}
         />
       </I18nextProvider>,
     );
@@ -53,6 +57,7 @@ describe(`Heading`, (): void => {
           contentItem={dummyContentItemData.headingContentItem}
           onEditPlainText={dummyOnEditPlainText}
           onAddEmptySubItem={dummyOnAddEmptySubItem}
+          onRemove={dummyOnRemove}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentInput(dummyText);
@@ -70,6 +75,7 @@ describe(`Heading`, (): void => {
           contentItem={dummyContentItemData.headingContentItem}
           onEditPlainText={dummyOnEditPlainText}
           onAddEmptySubItem={dummyOnAddEmptySubItem}
+          onRemove={dummyOnRemove}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentDeactivate(dummyText);
@@ -86,22 +92,38 @@ describe(`Heading`, (): void => {
           contentItem={dummyContentItemData.headingContentItem}
           onEditPlainText={dummyOnEditPlainText}
           onAddEmptySubItem={dummyOnAddEmptySubItem}
+          onRemove={dummyOnRemove}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Enter', preventDefault: jest.fn() });
       expect(dummyOnAddEmptySubItem).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
     });
 
-    it(`does not call the onAddEmptySubItem function, when the pressed key is anything other than "Enter"`, (): void => {
+    it(`calls the passed onRemove function, when the pressed key was "Backspace" and the contentItem's text prop was empty`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureHeading
+          contentItem={{ ...dummyContentItemData.headingContentItem, text: '' }}
+          onEditPlainText={dummyOnEditPlainText}
+          onAddEmptySubItem={dummyOnAddEmptySubItem}
+          onRemove={dummyOnRemove}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Backspace', preventDefault: jest.fn() });
+      expect(dummyOnRemove).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
+    });
+
+    it(`does not call any function, when the pressed key is anything other than "Enter" or "Backspace`, (): void => {
       const enzymeWrapper = shallow(
         <PureHeading
           contentItem={dummyContentItemData.headingContentItem}
           onEditPlainText={dummyOnEditPlainText}
           onAddEmptySubItem={dummyOnAddEmptySubItem}
+          onRemove={dummyOnRemove}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'A' });
       expect(dummyOnAddEmptySubItem).toHaveBeenCalledTimes(0);
+      expect(dummyOnRemove).toHaveBeenCalledTimes(0);
     });
 
   });
