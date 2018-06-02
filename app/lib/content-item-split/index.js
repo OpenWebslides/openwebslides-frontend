@@ -94,12 +94,12 @@ const split = (
   rootContentItem: DenormalizedRootContentItem,
 ): Array<DenormalizedRootContentItem> => {
   return recursiveSplit(rootContentItem).map(
-    (i: DenormalizedContentItem): DenormalizedRootContentItem => {
+    (item: DenormalizedContentItem, index: number): DenormalizedRootContentItem => {
       return {
-        id: 'foo', // TODO
+        id: `${rootContentItem.id}-${index}`,
         type: contentItemTypes.ROOT,
         isEditing: false,
-        childItems: [i],
+        childItems: [item],
       };
     },
   );
