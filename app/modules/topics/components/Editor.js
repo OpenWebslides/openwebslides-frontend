@@ -10,8 +10,6 @@ import FlashMessages from 'core-components/flash/FlashMessages';
 
 import { Button, Header } from 'semantic-ui-react';
 
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
-
 import contentItems from 'modules/content-items';
 import api from 'modules/api';
 

@@ -16,16 +16,19 @@ describe(`normalize`, (): void => {
   const dummyRoot1: $Exact<RootContentItem> = {
     id: 'kj3094k2mj',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItemIds: ['k295jck2k2'],
   };
   const dummyRoot2: $Exact<RootContentItem> = {
     id: 'e85loehjc6',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItemIds: ['kd92mj5bch', 'fs04f2lvgt'],
   };
   const dummyHeading1: $Exact<HeadingContentItem> = {
     id: 'kd92mj5bch',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Lorem ipsum',
     metadata: {
       tags: [],
@@ -36,6 +39,7 @@ describe(`normalize`, (): void => {
   const dummyHeading2: $Exact<HeadingContentItem> = {
     id: 'k295jck2k2',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Lorem ipsum',
     metadata: {
       tags: [],
@@ -46,6 +50,7 @@ describe(`normalize`, (): void => {
   const dummyParagraph1: $Exact<ParagraphContentItem> = {
     id: 'fs04f2lvgt',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Lorem ipsum',
     metadata: {
       tags: [],
@@ -56,6 +61,7 @@ describe(`normalize`, (): void => {
   const dummyParagraph2: $Exact<ParagraphContentItem> = {
     id: 'j210fj450f',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Lorem ipsum',
     metadata: {
       tags: [],

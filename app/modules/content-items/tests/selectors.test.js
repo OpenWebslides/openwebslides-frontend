@@ -43,11 +43,13 @@ describe(`selectors`, (): void => {
   const dummyRoot3: $Exact<RootContentItem> = {
     id: 'e85loehjc6',
     type: contentItemTypes.ROOT,
+    isEditing: false,
     childItemIds: ['kd92mj5bch', 'fs04f2lvgt'],
   };
   const dummyHeading2: $Exact<HeadingContentItem> = {
     id: 'kd92mj5bch',
     type: contentItemTypes.HEADING,
+    isEditing: false,
     text: 'Lorem ipsum',
     metadata: {
       tags: [],
@@ -58,6 +60,7 @@ describe(`selectors`, (): void => {
   const dummyParagraph1: $Exact<ParagraphContentItem> = {
     id: 'fs04f2lvgt',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Lorem ipsum',
     metadata: {
       tags: [],
@@ -68,6 +71,7 @@ describe(`selectors`, (): void => {
   const dummyParagraph2: $Exact<ParagraphContentItem> = {
     id: 'j210fj450f',
     type: contentItemTypes.PARAGRAPH,
+    isEditing: false,
     text: 'Lorem ipsum',
     metadata: {
       tags: [],
