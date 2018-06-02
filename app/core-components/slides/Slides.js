@@ -6,7 +6,6 @@ import type { CustomTranslatorProps } from 'types/translator';
 
 import type {
   DenormalizedRootContentItem,
-  DenormalizedContentItem,
 } from 'modules/content-items';
 
 import split from 'lib/content-item-split';
@@ -23,7 +22,7 @@ type Props = CustomTranslatorProps & PassedProps;
 const PureSlides = (props: Props): React.Node => {
   const { contentItemTreeRootItem } = props;
 
-  const contentItems: Array<DenormalizedContentItem> = split(contentItemTreeRootItem);
+  const contentItems: Array<DenormalizedRootContentItem> = split(contentItemTreeRootItem);
 
   return (
     <div className="ows_slides_container">
