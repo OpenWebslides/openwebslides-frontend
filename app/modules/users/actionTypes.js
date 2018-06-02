@@ -1,6 +1,5 @@
 // @flow
 
-import type { Error } from 'types/error';
 import type { Identifier } from 'types/model';
 import type { User } from './model';
 

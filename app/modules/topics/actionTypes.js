@@ -2,7 +2,6 @@
 
 import contentItems from 'modules/content-items';
 
-import type { Error } from 'types/error';
 import type { Identifier } from 'types/model';
 import type { RouterHistory } from 'react-router-dom';
 

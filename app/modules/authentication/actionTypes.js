@@ -4,8 +4,6 @@ import type { Token } from 'lib/api';
 
 import type { User } from 'modules/users';
 
-import type { Error } from 'types/error';
-
 /* Action constants */
 
 // Reducer actions
