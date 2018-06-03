@@ -13,6 +13,8 @@ import EditableTextContent from '../EditableTextContent';
 
 type PassedProps = {
   contentItem: ParagraphContentItem,
+  onStartEditing: (id: Identifier) => void,
+  onEndEditing: (id: Identifier) => void,
   onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
   onAddEmptySiblingItemBelow: (id: Identifier) => void,
   onRemove: (id: Identifier) => void,
@@ -21,12 +23,16 @@ type PassedProps = {
 type Props = PassedProps;
 
 class PureParagraph extends React.Component<Props> {
-  onEditableTextContentInput = (text: string): void => {
-    this.props.onEditPlainText(this.props.contentItem.id, text, true);
+  onEditableTextContentActivate = (): void => {
+    this.props.onStartEditing(this.props.contentItem.id);
   };
 
-  onEditableTextContentDeactivate = (text: string): void => {
-    this.props.onEditPlainText(this.props.contentItem.id, text, false);
+  onEditableTextContentDeactivate = (): void => {
+    this.props.onEndEditing(this.props.contentItem.id);
+  };
+
+  onEditableTextContentInput = (text: string): void => {
+    this.props.onEditPlainText(this.props.contentItem.id, text, true);
   };
 
   onEditableTextContentKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
@@ -52,8 +58,9 @@ class PureParagraph extends React.Component<Props> {
           multiline={true}
           initialText={contentItem.text}
           initialIsActive={contentItem.isEditing}
-          onInput={this.onEditableTextContentInput}
+          onActivate={this.onEditableTextContentActivate}
           onDeactivate={this.onEditableTextContentDeactivate}
+          onInput={this.onEditableTextContentInput}
           onKeyDown={this.onEditableTextContentKeyDown}
         />
       </DisplayBlockWrapper>

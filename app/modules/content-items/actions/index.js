@@ -1,19 +1,23 @@
 // @flow
 
 import addToState from './addToState';
-import editInState from './editInState';
+import editPropsForTypeInState from './editPropsForTypeInState';
+import switchEditingInState from './switchEditingInState';
 import removeFromState from './removeFromState';
 import setMultipleInState from './setMultipleInState';
 import add from './add';
 import edit from './edit';
+import toggleEditing from './toggleEditing';
 import remove from './remove';
 
 export {
   addToState,
-  editInState,
+  editPropsForTypeInState,
+  switchEditingInState,
   removeFromState,
   setMultipleInState,
   add,
   edit,
+  toggleEditing,
   remove,
 };

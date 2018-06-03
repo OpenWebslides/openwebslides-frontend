@@ -14,25 +14,17 @@ import type {
   ContentItemsState,
 } from '../model';
 
-const editInState = (
+const editPropsForTypeInState = (
   state: ContentItemsState,
-  action: t.EditInStateAction,
+  action: t.EditPropsForTypeInStateAction,
 ): ContentItemsState => {
   const { id, type, isEditing, propsForType } = action.payload;
   const contentItemToEdit = state.byId[id];
+  if (contentItemToEdit == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
+  if (contentItemToEdit.type !== type) throw new InvalidArgumentError(`The contentItem's type does not match the type passed in the action. The contentItem's type was: "${contentItemToEdit.type}". The type passed in the action was: "${type}".`);
+  if (contentItemToEdit.isEditing !== isEditing) throw new InvalidArgumentError(`The contentItem's isEditing value does not match the isEditing value passed in the action. The contentItem's value was: "${String(contentItemToEdit.isEditing)}". The value passed in the action was: "${String(isEditing)}".`);
 
-  if (contentItemToEdit == null) {
-    throw new ObjectNotFoundError('contentItems:contentItem', id);
-  }
-
-  if (contentItemToEdit.type !== type) {
-    throw new InvalidArgumentError(`The contentItem's type does not match the type passed in the action. The contentItem's type was: "${contentItemToEdit.type}". The type passed in the action was: "${type}".`);
-  }
-
-  const editedContentItem: any = {
-    ...contentItemToEdit,
-    isEditing,
-  };
+  const editedContentItem: any = { ...contentItemToEdit };
 
   if (_.includes(plainTextContentItemTypes, type)) {
     if (propsForType.text != null) {
@@ -57,4 +49,4 @@ const editInState = (
   }
 };
 
-export default editInState;
+export default editPropsForTypeInState;

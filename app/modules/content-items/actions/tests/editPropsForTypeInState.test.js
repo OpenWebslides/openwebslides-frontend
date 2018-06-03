@@ -5,10 +5,10 @@ import NotYetImplementedError from 'errors/implementation-errors/NotYetImplement
 import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
 
 import * as t from '../../actionTypes';
-import { editInState } from '../../actions';
+import { editPropsForTypeInState } from '../../actions';
 import { contentItemTypes } from '../../model';
 
-describe(`editInState`, (): void => {
+describe(`editPropsForTypeInState`, (): void => {
 
   const dummyId = 'abcdefghij';
   const dummyPlainTextType = contentItemTypes.HEADING;
@@ -17,9 +17,9 @@ describe(`editInState`, (): void => {
     text: 'Lorem ipsum dolor sit amet.',
   };
 
-  it(`returns a contentItem EDIT_IN_STATE action containing the passed props`, (): void => {
-    const expectedAction: t.EditInStateAction = {
-      type: t.EDIT_IN_STATE,
+  it(`returns a contentItem EDIT_PROPS_FOR_TYPE_IN_STATE action containing the passed props`, (): void => {
+    const expectedAction: t.EditPropsForTypeInStateAction = {
+      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         id: dummyId,
         type: dummyPlainTextType,
@@ -27,11 +27,11 @@ describe(`editInState`, (): void => {
         propsForType: dummyPlainTextProps,
       },
     };
-    expect(editInState(dummyId, dummyPlainTextType, dummyPlainTextProps, dummyIsEditing)).toEqual(expectedAction);
+    expect(editPropsForTypeInState(dummyId, dummyPlainTextType, dummyPlainTextProps, dummyIsEditing)).toEqual(expectedAction);
   });
 
   it(`throws an InvalidArgumentError, when the passed props contain invalid keys for the given contentItemType`, (): void => {
-    expect((): any => editInState(
+    expect((): any => editPropsForTypeInState(
       dummyId,
       dummyPlainTextType,
       {
@@ -42,7 +42,7 @@ describe(`editInState`, (): void => {
   });
 
   it(`throws an UnsupportedOperationError, when all passed props are undefined`, (): void => {
-    expect((): any => editInState(
+    expect((): any => editPropsForTypeInState(
       dummyId,
       dummyPlainTextType,
       {},
@@ -50,8 +50,8 @@ describe(`editInState`, (): void => {
   });
 
   it(`trims all passed plainText string props, when isEditing is FALSE and the passed string props contain unnecessary whitespace`, (): void => {
-    const expectedAction: t.EditInStateAction = {
-      type: t.EDIT_IN_STATE,
+    const expectedAction: t.EditPropsForTypeInStateAction = {
+      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         id: dummyId,
         type: dummyPlainTextType,
@@ -59,7 +59,7 @@ describe(`editInState`, (): void => {
         propsForType: dummyPlainTextProps,
       },
     };
-    const resultAction = editInState(
+    const resultAction = editPropsForTypeInState(
       dummyId,
       dummyPlainTextType,
       {
@@ -71,8 +71,8 @@ describe(`editInState`, (): void => {
   });
 
   it(`does not trim passed plainText string props, when isEditing is TRUE and the passed string props contain unnecessary whitespace`, (): void => {
-    const expectedAction: t.EditInStateAction = {
-      type: t.EDIT_IN_STATE,
+    const expectedAction: t.EditPropsForTypeInStateAction = {
+      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         id: dummyId,
         type: dummyPlainTextType,
@@ -82,7 +82,7 @@ describe(`editInState`, (): void => {
         },
       },
     };
-    const resultAction = editInState(
+    const resultAction = editPropsForTypeInState(
       dummyId,
       dummyPlainTextType,
       {
@@ -94,7 +94,7 @@ describe(`editInState`, (): void => {
   });
 
   it(`throws an InvalidArgumentError, when isEditing is FALSE and a non-nullable plainText string prop is an empty string`, (): void => {
-    expect((): any => editInState(
+    expect((): any => editPropsForTypeInState(
       dummyId,
       dummyPlainTextType,
       {
@@ -105,8 +105,8 @@ describe(`editInState`, (): void => {
   });
 
   it(`does not throw any error, when isEditing is TRUE and a non-nullable plainText string prop is an empty string`, (): void => {
-    const expectedAction: t.EditInStateAction = {
-      type: t.EDIT_IN_STATE,
+    const expectedAction: t.EditPropsForTypeInStateAction = {
+      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         id: dummyId,
         type: dummyPlainTextType,
@@ -116,7 +116,7 @@ describe(`editInState`, (): void => {
         },
       },
     };
-    const resultAction = editInState(
+    const resultAction = editPropsForTypeInState(
       dummyId,
       dummyPlainTextType,
       {
@@ -128,7 +128,7 @@ describe(`editInState`, (): void => {
   });
 
   it(`temporarily throws a NotYetImplementedError, when attempting to add a type other than plainText`, (): void => {
-    expect((): any => editInState(
+    expect((): any => editPropsForTypeInState(
       dummyId,
       contentItemTypes.IMAGE,
       {},

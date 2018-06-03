@@ -11,23 +11,33 @@ import { PureHeading } from '../Heading';
 
 describe(`Heading`, (): void => {
 
+  let dummyOnStartEditing: any;
+  let dummyOnEndEditing: any;
   let dummyOnEditPlainText: any;
   let dummyOnAddEmptySubItem: any;
   let dummyOnRemove: any;
+  let dummyProps: any;
 
   beforeEach((): void => {
+    dummyOnStartEditing = jest.fn();
+    dummyOnEndEditing = jest.fn();
     dummyOnEditPlainText = jest.fn();
     dummyOnAddEmptySubItem = jest.fn();
     dummyOnRemove = jest.fn();
+    dummyProps = {
+      onStartEditing: dummyOnStartEditing,
+      onEndEditing: dummyOnEndEditing,
+      onEditPlainText: dummyOnEditPlainText,
+      onAddEmptySubItem: dummyOnAddEmptySubItem,
+      onRemove: dummyOnRemove,
+    };
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureHeading
         contentItem={dummyContentItemData.headingContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
-        onRemove={dummyOnRemove}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -39,9 +49,7 @@ describe(`Heading`, (): void => {
         <PureHeading
           contentItem={dummyContentItemData.headingContentItem}
           baseClassName="BaseClassName"
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySubItem={dummyOnAddEmptySubItem}
-          onRemove={dummyOnRemove}
+          {...dummyProps}
         />
       </I18nextProvider>,
     );
@@ -55,9 +63,7 @@ describe(`Heading`, (): void => {
       const enzymeWrapper = shallow(
         <PureHeading
           contentItem={dummyContentItemData.headingContentItem}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySubItem={dummyOnAddEmptySubItem}
-          onRemove={dummyOnRemove}
+          {...dummyProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentInput(dummyText);
@@ -66,20 +72,34 @@ describe(`Heading`, (): void => {
 
   });
 
-  describe(`onEditableTextContentDeactivate`, (): void => {
+  describe(`onEditableTextContentActivate`, (): void => {
 
-    it(`calls the passed onEditPlainText function`, (): void => {
+    it(`calls the passed onStartEditing function`, (): void => {
       const dummyText = 'Lorem ipsum';
       const enzymeWrapper = shallow(
         <PureHeading
           contentItem={dummyContentItemData.headingContentItem}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySubItem={dummyOnAddEmptySubItem}
-          onRemove={dummyOnRemove}
+          {...dummyProps}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentActivate(dummyText);
+      expect(dummyOnStartEditing).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
+    });
+
+  });
+
+  describe(`onEditableTextContentDeactivate`, (): void => {
+
+    it(`calls the passed onEndEditing function`, (): void => {
+      const dummyText = 'Lorem ipsum';
+      const enzymeWrapper = shallow(
+        <PureHeading
+          contentItem={dummyContentItemData.headingContentItem}
+          {...dummyProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentDeactivate(dummyText);
-      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id, dummyText, false);
+      expect(dummyOnEndEditing).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
     });
 
   });
@@ -90,9 +110,7 @@ describe(`Heading`, (): void => {
       const enzymeWrapper = shallow(
         <PureHeading
           contentItem={dummyContentItemData.headingContentItem}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySubItem={dummyOnAddEmptySubItem}
-          onRemove={dummyOnRemove}
+          {...dummyProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Enter', preventDefault: jest.fn() });
@@ -103,9 +121,7 @@ describe(`Heading`, (): void => {
       const enzymeWrapper = shallow(
         <PureHeading
           contentItem={{ ...dummyContentItemData.headingContentItem, text: '' }}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySubItem={dummyOnAddEmptySubItem}
-          onRemove={dummyOnRemove}
+          {...dummyProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Backspace', preventDefault: jest.fn() });
@@ -116,9 +132,7 @@ describe(`Heading`, (): void => {
       const enzymeWrapper = shallow(
         <PureHeading
           contentItem={dummyContentItemData.headingContentItem}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySubItem={dummyOnAddEmptySubItem}
-          onRemove={dummyOnRemove}
+          {...dummyProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'A' });

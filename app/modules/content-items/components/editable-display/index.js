@@ -11,7 +11,7 @@ import * as t from '../../actionTypes';
 import { contentItemTypes, subableContentItemTypes } from '../../model';
 import type { ContentItem, SubableContentItem } from '../../model';
 import { getById } from '../../selectors';
-import { add, edit, remove } from '../../actions';
+import { add, edit, toggleEditing, remove } from '../../actions';
 
 import Root from './types/Root';
 import Heading from './types/Heading';
@@ -48,6 +48,8 @@ type StateProps = {
 };
 
 type DispatchProps = {
+  onStartEditing: (id: Identifier) => void,
+  onEndEditing: (id: Identifier) => void,
   onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
   onAddEmptySubItem: (id: Identifier) => void,
   onAddEmptySiblingItemBelow: (id: Identifier) => void,
@@ -59,6 +61,8 @@ type Props = PassedProps & StateProps & DispatchProps;
 const passThroughProps = [
   'baseClassName',
   'subItemsClassNameSuffix',
+  'onStartEditing',
+  'onEndEditing',
   'onEditPlainText',
   'onAddEmptySubItem',
   'onAddEmptySiblingItemBelow',
@@ -79,10 +83,17 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
   return {
+    onStartEditing: (id: Identifier): void => {
+      dispatch(toggleEditing(id, true));
+    },
+    onEndEditing: (id: Identifier): void => {
+      dispatch(toggleEditing(id, false));
+    },
     onEditPlainText: (id: Identifier, text: string, isEditing: boolean): void => {
       dispatch(edit(id, { text }, isEditing));
     },
     onAddEmptySubItem: (id: Identifier): void => {
+      dispatch(toggleEditing(id, false));
       dispatch(add(
         contentItemTypes.PARAGRAPH,
         { text: '' },
@@ -95,6 +106,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
       ));
     },
     onAddEmptySiblingItemBelow: (id: Identifier): void => {
+      dispatch(toggleEditing(id, false));
       dispatch(add(
         contentItemTypes.PARAGRAPH,
         { text: '' },

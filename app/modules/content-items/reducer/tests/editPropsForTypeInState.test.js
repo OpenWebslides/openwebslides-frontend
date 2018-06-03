@@ -13,7 +13,7 @@ import type {
 } from '../../model';
 import * as dummyContentItemData from '../../lib/test-resources/dummyContentItemData';
 
-describe(`EDIT_IN_STATE`, (): void => {
+describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
 
   const dummyPlainTextContentItem: $Exact<PlainTextContentItem> = {
     id: 'abcdefghij',
@@ -33,12 +33,12 @@ describe(`EDIT_IN_STATE`, (): void => {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
     };
-    const editPlainTextInStateAction: t.EditInStateAction = {
-      type: t.EDIT_IN_STATE,
+    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
+      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         id: dummyPlainTextContentItem.id,
         type: dummyPlainTextContentItem.type,
-        isEditing: false,
+        isEditing: dummyPlainTextContentItem.isEditing,
         propsForType: {
           text: editedText,
         },
@@ -49,7 +49,7 @@ describe(`EDIT_IN_STATE`, (): void => {
         [dummyPlainTextContentItem.id]: editedPlainTextContentItem,
       },
     };
-    const resultState = reducer(prevState, editPlainTextInStateAction);
+    const resultState = reducer(prevState, editPropsForTypeInStateAction);
 
     expect(resultState).toEqual(nextState);
     expect(resultState).not.toBe(prevState);
@@ -63,16 +63,16 @@ describe(`EDIT_IN_STATE`, (): void => {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
     };
-    const editPlainTextInStateAction: t.EditInStateAction = {
-      type: t.EDIT_IN_STATE,
+    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
+      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         id: dummyPlainTextContentItem.id,
         type: dummyPlainTextContentItem.type,
-        isEditing: false,
+        isEditing: dummyPlainTextContentItem.isEditing,
         propsForType: {},
       },
     };
-    const resultState = reducer(prevState, editPlainTextInStateAction);
+    const resultState = reducer(prevState, editPropsForTypeInStateAction);
 
     expect(resultState).toBe(prevState);
     expect(resultState.byId).toBe(prevState.byId);
@@ -85,18 +85,18 @@ describe(`EDIT_IN_STATE`, (): void => {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
     };
-    const editPlainTextInStateAction: t.EditInStateAction = {
-      type: t.EDIT_IN_STATE,
+    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
+      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         id: dummyPlainTextContentItem.id,
         type: dummyPlainTextContentItem.type,
-        isEditing: false,
+        isEditing: dummyPlainTextContentItem.isEditing,
         propsForType: {
           text: dummyPlainTextContentItem.text,
         },
       },
     };
-    const resultState = reducer(prevState, editPlainTextInStateAction);
+    const resultState = reducer(prevState, editPropsForTypeInStateAction);
 
     expect(resultState).toBe(prevState);
     expect(resultState.byId).toBe(prevState.byId);
@@ -108,8 +108,8 @@ describe(`EDIT_IN_STATE`, (): void => {
     const prevState: ContentItemsState = {
       byId: {},
     };
-    const editPlainTextInStateAction: t.EditInStateAction = {
-      type: t.EDIT_IN_STATE,
+    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
+      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         id: dummyInvalidId,
         type: contentItemTypes.HEADING,
@@ -121,7 +121,7 @@ describe(`EDIT_IN_STATE`, (): void => {
     };
     expect((): any => reducer(
       prevState,
-      editPlainTextInStateAction,
+      editPropsForTypeInStateAction,
     )).toThrow(ObjectNotFoundError);
   });
 
@@ -131,12 +131,12 @@ describe(`EDIT_IN_STATE`, (): void => {
         [dummyContentItemData.rootContentItem.id]: dummyContentItemData.rootContentItem,
       },
     };
-    const editPlainTextInStateAction: t.EditInStateAction = {
-      type: t.EDIT_IN_STATE,
+    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
+      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         id: dummyContentItemData.rootContentItem.id,
         type: contentItemTypes.HEADING,
-        isEditing: false,
+        isEditing: dummyContentItemData.rootContentItem.isEditing,
         propsForType: {
           text: 'Lorem ipsum',
         },
@@ -144,7 +144,30 @@ describe(`EDIT_IN_STATE`, (): void => {
     };
     expect((): any => reducer(
       prevState,
-      editPlainTextInStateAction,
+      editPropsForTypeInStateAction,
+    )).toThrow(InvalidArgumentError);
+  });
+
+  it(`throws an InvalidArgumentError, when the contentItem for the passed id does not match the action's isEditing prop`, (): void => {
+    const prevState: ContentItemsState = {
+      byId: {
+        [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
+      },
+    };
+    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
+      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
+      payload: {
+        id: dummyPlainTextContentItem.id,
+        type: dummyPlainTextContentItem.type,
+        isEditing: !dummyPlainTextContentItem.isEditing,
+        propsForType: {
+          text: 'Lorem ipsum',
+        },
+      },
+    };
+    expect((): any => reducer(
+      prevState,
+      editPropsForTypeInStateAction,
     )).toThrow(InvalidArgumentError);
   });
 
@@ -154,18 +177,18 @@ describe(`EDIT_IN_STATE`, (): void => {
         [dummyContentItemData.rootContentItem.id]: dummyContentItemData.rootContentItem,
       },
     };
-    const editPlainTextInStateAction: t.EditInStateAction = {
-      type: t.EDIT_IN_STATE,
+    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
+      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         id: dummyContentItemData.rootContentItem.id,
         type: dummyContentItemData.rootContentItem.type,
-        isEditing: false,
+        isEditing: dummyContentItemData.rootContentItem.isEditing,
         propsForType: {},
       },
     };
     expect((): any => reducer(
       prevState,
-      editPlainTextInStateAction,
+      editPropsForTypeInStateAction,
     )).toThrow(NotYetImplementedError);
   });
 

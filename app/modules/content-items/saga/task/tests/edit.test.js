@@ -66,12 +66,12 @@ describe(`editSaga`, (): void => {
     },
   };
 
-  it(`puts an editInState action`, (): void => {
+  it(`puts an editPropsForTypeInState action`, (): void => {
     const dummyEditAction: $Exact<EditAction> = {
       type: t.EDIT,
       payload: {
         id: dummyParagraph1.id,
-        isEditing: false,
+        isEditing: true,
         propsForType: {
           text: 'Lorem ipsum dolor sit amet.',
         },
@@ -81,14 +81,38 @@ describe(`editSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.EDIT_IN_STATE,
+          type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
           payload: {
             id: dummyParagraph1.id,
             type: dummyParagraph1.type,
-            isEditing: false,
+            isEditing: true,
             propsForType: {
               text: dummyEditAction.payload.propsForType.text,
             },
+          },
+        },
+      })
+      .run();
+  });
+
+  it(`puts an toggleEditing action, when the passed isEditing value is different from the contentItem's current isEditing value`, (): void => {
+    const dummyEditAction: $Exact<EditAction> = {
+      type: t.EDIT,
+      payload: {
+        id: dummyParagraph1.id,
+        isEditing: true,
+        propsForType: {
+          text: 'Lorem ipsum dolor sit amet.',
+        },
+      },
+    };
+    return expectSaga(editSaga, dummyEditAction)
+      .withState(dummyState)
+      .put.like({
+        action: {
+          type: t.TOGGLE_EDITING,
+          payload: {
+            id: dummyParagraph1.id,
           },
         },
       })
@@ -147,7 +171,7 @@ describe(`editSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.EDIT_IN_STATE,
+          type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
           payload: {
             propsForType: {
               text: `*\\[Empty contentItems should be automatically deleted; delete functionality to be implemented later.\\]*`,

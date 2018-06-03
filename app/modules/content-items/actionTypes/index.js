@@ -17,8 +17,8 @@ import type {
 
 // Reducer actions
 export const ADD_TO_STATE: 'contentItems/ADD_TO_STATE' = 'contentItems/ADD_TO_STATE';
-export const EDIT_IN_STATE: 'contentItems/EDIT_IN_STATE' = 'contentItems/EDIT_IN_STATE';
-// #TODO add actions for editing subItemIds, etc.
+export const EDIT_PROPS_FOR_TYPE_IN_STATE: 'contentItems/EDIT_PROPS_FOR_TYPE_IN_STATE' = 'contentItems/EDIT_PROPS_FOR_TYPE_IN_STATE';
+export const SWITCH_EDITING_IN_STATE: 'contentItems/SWITCH_EDITING_IN_STATE' = 'contentItems/SWITCH_EDITING_IN_STATE';
 export const REMOVE_FROM_STATE: 'contentItems/REMOVE_FROM_STATE' = 'contentItems/REMOVE_FROM_STATE';
 export const SET_IN_STATE: 'contentItems/SET_IN_STATE' = 'contentItems/SET_IN_STATE';
 export const SET_MULTIPLE_IN_STATE: 'contentItems/SET_MULTIPLE_IN_STATE' = 'contentItems/SET_MULTIPLE_IN_STATE';
@@ -26,6 +26,7 @@ export const SET_MULTIPLE_IN_STATE: 'contentItems/SET_MULTIPLE_IN_STATE' = 'cont
 // Task saga actions
 export const ADD: 'contentItems/ADD' = 'contentItems/ADD';
 export const EDIT: 'contentItems/EDIT' = 'contentItems/EDIT';
+export const TOGGLE_EDITING: 'contentItems/TOGGLE_EDITING' = 'contentItems/TOGGLE_EDITING';
 export const MOVE: 'contentItems/MOVE' = 'contentItems/MOVE';
 export const REMOVE: 'contentItems/REMOVE' = 'contentItems/REMOVE';
 
@@ -44,13 +45,21 @@ export type AddToStateAction = {
   },
 };
 
-export type EditInStateAction = {
-  type: typeof EDIT_IN_STATE,
+export type EditPropsForTypeInStateAction = {
+  type: typeof EDIT_PROPS_FOR_TYPE_IN_STATE,
   payload: {
     id: Identifier,
     type: ContentItemType,
     isEditing: boolean,
     propsForType: ActionPayloadPropsForType,
+  },
+};
+
+export type SwitchEditingInStateAction = {
+  type: typeof SWITCH_EDITING_IN_STATE,
+  payload: {
+    previousEditingItemId: ?Identifier,
+    nextEditingItemId: ?Identifier,
   },
 };
 
@@ -88,6 +97,14 @@ export type EditAction = {
   },
 };
 
+export type ToggleEditingAction = {
+  type: typeof TOGGLE_EDITING,
+  payload: {
+    id: Identifier,
+    isEditing?: boolean,
+  },
+};
+
 export type MoveAction = {
   type: typeof MOVE,
   payload: {
@@ -105,13 +122,15 @@ export type RemoveAction = {
 
 export type ReducerAction =
   | AddToStateAction
-  | EditInStateAction
+  | EditPropsForTypeInStateAction
+  | SwitchEditingInStateAction
   | RemoveFromStateAction
   | SetMultipleInStateAction;
 
 export type TaskSagaAction =
   | AddAction
   | EditAction
+  | ToggleEditingAction
   | MoveAction
   | RemoveAction;
 

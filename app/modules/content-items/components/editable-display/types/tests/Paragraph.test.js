@@ -11,23 +11,33 @@ import { PureParagraph } from '../Paragraph';
 
 describe(`Paragraph`, (): void => {
 
+  let dummyOnStartEditing: any;
+  let dummyOnEndEditing: any;
   let dummyOnEditPlainText: any;
   let dummyOnAddEmptySiblingItemBelow: any;
   let dummyOnRemove: any;
+  let dummyProps: any;
 
   beforeEach((): void => {
+    dummyOnStartEditing = jest.fn();
+    dummyOnEndEditing = jest.fn();
     dummyOnEditPlainText = jest.fn();
     dummyOnAddEmptySiblingItemBelow = jest.fn();
     dummyOnRemove = jest.fn();
+    dummyProps = {
+      onStartEditing: dummyOnStartEditing,
+      onEndEditing: dummyOnEndEditing,
+      onEditPlainText: dummyOnEditPlainText,
+      onAddEmptySiblingItemBelow: dummyOnAddEmptySiblingItemBelow,
+      onRemove: dummyOnRemove,
+    };
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureParagraph
         contentItem={dummyContentItemData.paragraphContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
-        onRemove={dummyOnRemove}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -38,10 +48,8 @@ describe(`Paragraph`, (): void => {
       <I18nextProvider i18n={i18nextConfig}>
         <PureParagraph
           contentItem={dummyContentItemData.paragraphContentItem}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
-          onRemove={dummyOnRemove}
           baseClassName="BaseClassName"
+          {...dummyProps}
         />
       </I18nextProvider>,
     );
@@ -55,9 +63,7 @@ describe(`Paragraph`, (): void => {
       const enzymeWrapper = shallow(
         <PureParagraph
           contentItem={dummyContentItemData.paragraphContentItem}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
-          onRemove={dummyOnRemove}
+          {...dummyProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentInput(dummyText);
@@ -66,20 +72,34 @@ describe(`Paragraph`, (): void => {
 
   });
 
-  describe(`onEditableTextContentDeactivate`, (): void => {
+  describe(`onEditableTextContentActivate`, (): void => {
 
-    it(`calls the passed onEditPlainText function`, (): void => {
+    it(`calls the passed onStartEditing function`, (): void => {
       const dummyText = 'Lorem ipsum';
       const enzymeWrapper = shallow(
         <PureParagraph
           contentItem={dummyContentItemData.paragraphContentItem}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
-          onRemove={dummyOnRemove}
+          {...dummyProps}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentActivate(dummyText);
+      expect(dummyOnStartEditing).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id);
+    });
+
+  });
+
+  describe(`onEditableTextContentDeactivate`, (): void => {
+
+    it(`calls the passed onEndEditing function`, (): void => {
+      const dummyText = 'Lorem ipsum';
+      const enzymeWrapper = shallow(
+        <PureParagraph
+          contentItem={dummyContentItemData.paragraphContentItem}
+          {...dummyProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentDeactivate(dummyText);
-      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id, dummyText, false);
+      expect(dummyOnEndEditing).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id);
     });
 
   });
@@ -90,9 +110,7 @@ describe(`Paragraph`, (): void => {
       const enzymeWrapper = shallow(
         <PureParagraph
           contentItem={dummyContentItemData.paragraphContentItem}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
-          onRemove={dummyOnRemove}
+          {...dummyProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Enter', preventDefault: jest.fn() });
@@ -103,9 +121,7 @@ describe(`Paragraph`, (): void => {
       const enzymeWrapper = shallow(
         <PureParagraph
           contentItem={{ ...dummyContentItemData.paragraphContentItem, text: '' }}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
-          onRemove={dummyOnRemove}
+          {...dummyProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Backspace', preventDefault: jest.fn() });
@@ -116,9 +132,7 @@ describe(`Paragraph`, (): void => {
       const enzymeWrapper = shallow(
         <PureParagraph
           contentItem={dummyContentItemData.paragraphContentItem}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySiblingItemBelow={dummyOnAddEmptySiblingItemBelow}
-          onRemove={dummyOnRemove}
+          {...dummyProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'A' });
