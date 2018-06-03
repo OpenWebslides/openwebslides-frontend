@@ -6,34 +6,38 @@ import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedO
 
 import * as t from '../../actionTypes';
 import { editPropsForTypeInState } from '../../actions';
-import { contentItemTypes } from '../../model';
+import type { HeadingContentItem } from '../../model';
+import * as dummyData from '../../lib/test-resources/dummyContentItemData';
 
 describe(`editPropsForTypeInState`, (): void => {
 
-  const dummyId = 'abcdefghij';
-  const dummyPlainTextType = contentItemTypes.HEADING;
-  const dummyIsEditing = false;
-  const dummyPlainTextProps = {
-    text: 'Lorem ipsum dolor sit amet.',
-  };
+  let dummyContentItem: HeadingContentItem;
+  let dummyPlainTextProps: t.ActionPayloadPropsForType;
+
+  beforeEach((): void => {
+    dummyContentItem = {
+      ...dummyData.headingContentItem,
+      isEditing: false,
+    };
+    dummyPlainTextProps = {
+      text: 'This text has been edited.',
+    };
+  });
 
   it(`returns a contentItem EDIT_PROPS_FOR_TYPE_IN_STATE action containing the passed props`, (): void => {
     const expectedAction: t.EditPropsForTypeInStateAction = {
       type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
-        id: dummyId,
-        type: dummyPlainTextType,
-        isEditing: dummyIsEditing,
+        contentItem: dummyContentItem,
         propsForType: dummyPlainTextProps,
       },
     };
-    expect(editPropsForTypeInState(dummyId, dummyPlainTextType, dummyPlainTextProps, dummyIsEditing)).toEqual(expectedAction);
+    expect(editPropsForTypeInState(dummyContentItem, dummyPlainTextProps)).toEqual(expectedAction);
   });
 
   it(`throws an InvalidArgumentError, when the passed props contain invalid keys for the given contentItemType`, (): void => {
     expect((): any => editPropsForTypeInState(
-      dummyId,
-      dummyPlainTextType,
+      dummyContentItem,
       {
         ...dummyPlainTextProps,
         definitelyNotAValidProp: 'abcde',
@@ -43,94 +47,82 @@ describe(`editPropsForTypeInState`, (): void => {
 
   it(`throws an UnsupportedOperationError, when all passed props are undefined`, (): void => {
     expect((): any => editPropsForTypeInState(
-      dummyId,
-      dummyPlainTextType,
+      dummyContentItem,
       {},
     )).toThrow(UnsupportedOperationError);
   });
 
-  it(`trims all passed plainText string props, when isEditing is FALSE and the passed string props contain unnecessary whitespace`, (): void => {
+  it(`trims all passed plainText string props, when the contentItem's isEditing value is FALSE and the passed string props contain unnecessary whitespace`, (): void => {
     const expectedAction: t.EditPropsForTypeInStateAction = {
       type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
-        id: dummyId,
-        type: dummyPlainTextType,
-        isEditing: false,
+        contentItem: dummyContentItem,
         propsForType: dummyPlainTextProps,
       },
     };
     const resultAction = editPropsForTypeInState(
-      dummyId,
-      dummyPlainTextType,
+      dummyContentItem,
       {
-        text: `   ${dummyPlainTextProps.text}   `,
+        text: `   ${String(dummyPlainTextProps.text)}   `,
       },
-      false,
     );
     expect(resultAction).toEqual(expectedAction);
   });
 
-  it(`does not trim passed plainText string props, when isEditing is TRUE and the passed string props contain unnecessary whitespace`, (): void => {
+  it(`does not trim passed plainText string props, when the contentItem's isEditing value is TRUE and the passed string props contain unnecessary whitespace`, (): void => {
+    dummyContentItem.isEditing = true;
+
     const expectedAction: t.EditPropsForTypeInStateAction = {
       type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
-        id: dummyId,
-        type: dummyPlainTextType,
-        isEditing: true,
+        contentItem: dummyContentItem,
         propsForType: {
-          text: `   ${dummyPlainTextProps.text}   `,
+          text: `   ${String(dummyPlainTextProps.text)}   `,
         },
       },
     };
     const resultAction = editPropsForTypeInState(
-      dummyId,
-      dummyPlainTextType,
+      dummyContentItem,
       {
-        text: `   ${dummyPlainTextProps.text}   `,
+        text: `   ${String(dummyPlainTextProps.text)}   `,
       },
-      true,
     );
     expect(resultAction).toEqual(expectedAction);
   });
 
-  it(`throws an InvalidArgumentError, when isEditing is FALSE and a non-nullable plainText string prop is an empty string`, (): void => {
+  it(`throws an InvalidArgumentError, when the contentItem's isEditing value is FALSE and a non-nullable plainText string prop is an empty string`, (): void => {
     expect((): any => editPropsForTypeInState(
-      dummyId,
-      dummyPlainTextType,
+      dummyContentItem,
       {
         text: '',
       },
-      false,
     )).toThrow(InvalidArgumentError);
   });
 
-  it(`does not throw any error, when isEditing is TRUE and a non-nullable plainText string prop is an empty string`, (): void => {
+  it(`does not throw any error, when the contentItem's isEditing value is TRUE and a non-nullable plainText string prop is an empty string`, (): void => {
+    dummyContentItem.isEditing = true;
+
     const expectedAction: t.EditPropsForTypeInStateAction = {
       type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
-        id: dummyId,
-        type: dummyPlainTextType,
-        isEditing: true,
+        contentItem: dummyContentItem,
         propsForType: {
           text: '',
         },
       },
     };
     const resultAction = editPropsForTypeInState(
-      dummyId,
-      dummyPlainTextType,
+      dummyContentItem,
       {
         text: '',
       },
-      true,
     );
     expect(resultAction).toEqual(expectedAction);
   });
 
   it(`temporarily throws a NotYetImplementedError, when attempting to add a type other than plainText`, (): void => {
     expect((): any => editPropsForTypeInState(
-      dummyId,
-      contentItemTypes.IMAGE,
+      dummyData.imageContentItem,
       {},
     )).toThrow(NotYetImplementedError);
   });

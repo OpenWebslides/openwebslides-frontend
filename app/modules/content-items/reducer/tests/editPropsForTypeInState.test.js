@@ -1,30 +1,30 @@
 // @flow
 
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import reducer from '../../reducer';
 import * as t from '../../actionTypes';
-import { contentItemTypes } from '../../model';
 import type {
-  PlainTextContentItem,
+  HeadingContentItem,
   ContentItemsState,
 } from '../../model';
-import * as dummyContentItemData from '../../lib/test-resources/dummyContentItemData';
+import * as dummyData from '../../lib/test-resources/dummyContentItemData';
 
 describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
 
-  const dummyPlainTextContentItem: $Exact<PlainTextContentItem> = {
-    id: 'abcdefghij',
-    type: contentItemTypes.HEADING,
-    isEditing: false,
-    text: 'Lorem ipsum dolor sit amet',
-  };
+  let dummyPlainTextContentItem: HeadingContentItem;
+
+  beforeEach((): void => {
+    dummyPlainTextContentItem = {
+      ...dummyData.headingContentItem,
+    };
+  });
 
   it(`changes a plainText contentItem's props, when the passed props are valid`, (): void => {
-    const editedText = 'Consectetur adipiscing elit';
-    const editedPlainTextContentItem: PlainTextContentItem = {
+    const editedText = 'This text has been edited.';
+    const editedPlainTextContentItem: HeadingContentItem = {
       ...dummyPlainTextContentItem,
       text: editedText,
     };
@@ -36,9 +36,7 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
     const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
       type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
-        id: dummyPlainTextContentItem.id,
-        type: dummyPlainTextContentItem.type,
-        isEditing: dummyPlainTextContentItem.isEditing,
+        contentItem: dummyPlainTextContentItem,
         propsForType: {
           text: editedText,
         },
@@ -66,9 +64,7 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
     const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
       type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
-        id: dummyPlainTextContentItem.id,
-        type: dummyPlainTextContentItem.type,
-        isEditing: dummyPlainTextContentItem.isEditing,
+        contentItem: dummyPlainTextContentItem,
         propsForType: {},
       },
     };
@@ -88,9 +84,7 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
     const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
       type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
-        id: dummyPlainTextContentItem.id,
-        type: dummyPlainTextContentItem.type,
-        isEditing: dummyPlainTextContentItem.isEditing,
+        contentItem: dummyPlainTextContentItem,
         propsForType: {
           text: dummyPlainTextContentItem.text,
         },
@@ -103,17 +97,14 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
     expect(resultState.byId[dummyPlainTextContentItem.id]).toBe(prevState.byId[dummyPlainTextContentItem.id]);
   });
 
-  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, (): void => {
-    const dummyInvalidId = 'ExtremelyUnlikelyIdX';
+  it(`throws an ObjectNotFoundError, when the passed contentItem could not be found in the state`, (): void => {
     const prevState: ContentItemsState = {
       byId: {},
     };
     const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
       type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
-        id: dummyInvalidId,
-        type: contentItemTypes.HEADING,
-        isEditing: false,
+        contentItem: dummyPlainTextContentItem,
         propsForType: {
           text: 'Lorem ipsum',
         },
@@ -125,30 +116,7 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
     )).toThrow(ObjectNotFoundError);
   });
 
-  it(`throws an InvalidArgumentError, when the contentItem for the passed id does not match the action's type prop`, (): void => {
-    const prevState: ContentItemsState = {
-      byId: {
-        [dummyContentItemData.rootContentItem.id]: dummyContentItemData.rootContentItem,
-      },
-    };
-    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
-      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
-      payload: {
-        id: dummyContentItemData.rootContentItem.id,
-        type: contentItemTypes.HEADING,
-        isEditing: dummyContentItemData.rootContentItem.isEditing,
-        propsForType: {
-          text: 'Lorem ipsum',
-        },
-      },
-    };
-    expect((): any => reducer(
-      prevState,
-      editPropsForTypeInStateAction,
-    )).toThrow(InvalidArgumentError);
-  });
-
-  it(`throws an InvalidArgumentError, when the contentItem for the passed id does not match the action's isEditing prop`, (): void => {
+  it(`throws a CorruptedInternalStateError, when the passed contentItem does not match the contentItem with the same id fetched from the state`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
@@ -157,9 +125,10 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
     const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
       type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
-        id: dummyPlainTextContentItem.id,
-        type: dummyPlainTextContentItem.type,
-        isEditing: !dummyPlainTextContentItem.isEditing,
+        contentItem: ({
+          ...dummyPlainTextContentItem,
+          text: 'Text should not be edited outside of a reducer. This will throw an error.',
+        }: HeadingContentItem),
         propsForType: {
           text: 'Lorem ipsum',
         },
@@ -168,21 +137,19 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
     expect((): any => reducer(
       prevState,
       editPropsForTypeInStateAction,
-    )).toThrow(InvalidArgumentError);
+    )).toThrow(CorruptedInternalStateError);
   });
 
   it(`temporarily throws a NotYetImplementedError, when the contentItem's type is not a plainTextContentItemType`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem.id]: dummyContentItemData.rootContentItem,
+        [dummyData.rootContentItem.id]: dummyData.rootContentItem,
       },
     };
     const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
       type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
-        id: dummyContentItemData.rootContentItem.id,
-        type: dummyContentItemData.rootContentItem.type,
-        isEditing: dummyContentItemData.rootContentItem.isEditing,
+        contentItem: dummyData.rootContentItem,
         propsForType: {},
       },
     };

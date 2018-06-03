@@ -2,7 +2,7 @@
 /* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import * as t from '../actionTypes';
@@ -18,15 +18,14 @@ const editPropsForTypeInState = (
   state: ContentItemsState,
   action: t.EditPropsForTypeInStateAction,
 ): ContentItemsState => {
-  const { id, type, isEditing, propsForType } = action.payload;
-  const contentItemToEdit = state.byId[id];
-  if (contentItemToEdit == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
-  if (contentItemToEdit.type !== type) throw new InvalidArgumentError(`The contentItem's type does not match the type passed in the action. The contentItem's type was: "${contentItemToEdit.type}". The type passed in the action was: "${type}".`);
-  if (contentItemToEdit.isEditing !== isEditing) throw new InvalidArgumentError(`The contentItem's isEditing value does not match the isEditing value passed in the action. The contentItem's value was: "${String(contentItemToEdit.isEditing)}". The value passed in the action was: "${String(isEditing)}".`);
+  const { contentItem, propsForType } = action.payload;
+  const contentItemToEdit = state.byId[contentItem.id];
+  if (contentItemToEdit == null) throw new ObjectNotFoundError('contentItems:contentItem', contentItem.id);
+  if (!_.isEqual(contentItem, contentItemToEdit)) throw new CorruptedInternalStateError(`The contentItem passed in the action does not match the contentItem with the same id fetched from the state. Either the contentItem passed in the action has not been refreshed after a previous edit action, or a developer has attempted to edit a contentItem without using a reducer.`);
 
   const editedContentItem: any = { ...contentItemToEdit };
 
-  if (_.includes(plainTextContentItemTypes, type)) {
+  if (_.includes(plainTextContentItemTypes, contentItemToEdit.type)) {
     if (propsForType.text != null) {
       (editedContentItem: PlainTextContentItem).text = propsForType.text;
     }
@@ -43,7 +42,7 @@ const editPropsForTypeInState = (
       ...state,
       byId: {
         ...state.byId,
-        [id]: editedContentItem,
+        [editedContentItem.id]: editedContentItem,
       },
     };
   }

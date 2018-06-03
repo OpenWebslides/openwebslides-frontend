@@ -32,7 +32,7 @@ const editSaga = function* (action: t.EditAction): Generator<*, *, *> {
     throw new NotYetImplementedError(`ContentItemType not yet supported`);
   }
 
-  yield put(editPropsForTypeInState(id, contentItemToEdit.type, newPropsForType, isEditing));
+  yield put(editPropsForTypeInState(contentItemToEdit, newPropsForType));
 };
 
 export default editSaga;

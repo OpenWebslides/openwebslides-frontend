@@ -48,9 +48,7 @@ export type AddToStateAction = {
 export type EditPropsForTypeInStateAction = {
   type: typeof EDIT_PROPS_FOR_TYPE_IN_STATE,
   payload: {
-    id: Identifier,
-    type: ContentItemType,
-    isEditing: boolean,
+    contentItem: ContentItem,
     propsForType: ActionPayloadPropsForType,
   },
 };
