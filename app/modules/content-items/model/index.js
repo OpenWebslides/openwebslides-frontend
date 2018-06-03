@@ -26,6 +26,9 @@ import type { Tag } from './tags';
 import { visibilityTypes } from './visibilities';
 import type { Visibility } from './visibilities';
 
+
+// BASE --------------------------------------------------------------------------------------------
+
 // Base type for contentItems.
 export type BaseContentItem = {
   // Unique identifier for the contentItem.
@@ -37,12 +40,28 @@ export type BaseContentItem = {
   +isEditing: boolean,
 };
 
+// List of 'base' contentItem props that can be edited through propsForType.
+export const editablePropsForBaseContentItem = [
+  // Placeholder
+];
+
+
+// SYMBOL ------------------------------------------------------------------------------------------
+
 // Additional props for 'symbol' contentItems.
 export type SymbolContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to symbolContentItemTypes.
   +type: SymbolContentItemType,
 };
+
+// List of 'symbol' contentItem props that can be edited through propsForType.
+export const editablePropsForSymbolContentItem = [
+  ...editablePropsForBaseContentItem,
+];
+
+
+// PLAINTEXT ---------------------------------------------------------------------------------------
 
 // Additonal props for 'plainText' contentItems.
 export type PlainTextContentItem = {
@@ -53,6 +72,15 @@ export type PlainTextContentItem = {
   // May contain markdown to create emphasized / linked elements.
   +text: string,
 };
+
+// List of 'plainText' contentItem props that can be edited through propsForType.
+export const editablePropsForPlainTextContentItem = [
+  ...editablePropsForBaseContentItem,
+  'text',
+];
+
+
+// MEDIA -------------------------------------------------------------------------------------------
 
 // Additional props for 'media' contentItems.
 export type MediaContentItem = {
@@ -67,7 +95,15 @@ export type MediaContentItem = {
   +caption: ?string,
 };
 
-// Additional props for taggable contentItems.
+// List of 'media' contentItem props that can be edited through propsForType.
+export const editablePropsForMediaContentItem = [
+  ...editablePropsForBaseContentItem,
+];
+
+
+// TAGGABLE ----------------------------------------------------------------------------------------
+
+// Additional props for 'taggable' contentItems.
 export type TaggableContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to taggableContentItemTypes.
@@ -76,7 +112,15 @@ export type TaggableContentItem = {
   +metadata: Metadata,
 };
 
-// Additional props for subable contentItems.
+// List of 'taggable' contentItem props that can be edited through propsForType.
+export const editablePropsForTaggableContentItem = [
+  ...editablePropsForBaseContentItem,
+];
+
+
+// SUBABLE -----------------------------------------------------------------------------------------
+
+// Additional props for 'subable' contentItems.
 export type SubableContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to subableContentItemTypes.
@@ -85,7 +129,7 @@ export type SubableContentItem = {
   +subItemIds: Array<Identifier>,
 };
 
-// Additional props for denormalized subable contentItems.
+// Additional props for denormalized 'subable' contentItems.
 export type DenormalizedSubableContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to subableContentItemTypes.
@@ -95,7 +139,15 @@ export type DenormalizedSubableContentItem = {
   +subItems: Array<DenormalizedContentItem>,
 };
 
-// Additional props for container contentItems.
+// List of 'subable' contentItem props that can be edited through propsForType.
+export const editablePropsForSubableContentItem = [
+  ...editablePropsForBaseContentItem,
+];
+
+
+// CONTAINER ---------------------------------------------------------------------------------------
+
+// Additional props for 'container' contentItems.
 export type ContainerContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to containerContentItemTypes.
@@ -104,7 +156,7 @@ export type ContainerContentItem = {
   +childItemIds: Array<Identifier>,
 };
 
-// Additional props for denormalized container contentItems.
+// Additional props for denormalized 'container' contentItems.
 export type DenormalizedContainerContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to containerContentItemTypes.
@@ -113,6 +165,14 @@ export type DenormalizedContainerContentItem = {
   // eslint-disable-next-line no-use-before-define
   +childItems: Array<DenormalizedContentItem>,
 };
+
+// List of 'container' contentItem props that can be edited through propsForType.
+export const editablePropsForContainerContentItem = [
+  ...editablePropsForBaseContentItem,
+];
+
+
+// ROOT --------------------------------------------------------------------------------------------
 
 // Additional props for ROOT contentItems.
 export type RootContentItemProps = {
@@ -134,6 +194,15 @@ export type DenormalizedRootContentItem = {
   ...$Exact<DenormalizedContainerContentItem>,
   ...$Exact<RootContentItemProps>,
 };
+
+// List of ROOT contentItem props that can be edited through propsForType.
+export const editablePropsForRootContentItem = [
+  ...editablePropsForSymbolContentItem,
+  ...editablePropsForContainerContentItem,
+];
+
+
+// HEADING -----------------------------------------------------------------------------------------
 
 // Additional props for HEADING contentItems.
 export type HeadingContentItemProps = {
@@ -158,6 +227,16 @@ export type DenormalizedHeadingContentItem = {
   ...$Exact<HeadingContentItemProps>,
 };
 
+// List of HEADING contentItem props that can be edited through propsForType.
+export const editablePropsForHeadingContentItem = [
+  ...editablePropsForPlainTextContentItem,
+  ...editablePropsForTaggableContentItem,
+  ...editablePropsForSubableContentItem,
+];
+
+
+// PARAGRAPH ---------------------------------------------------------------------------------------
+
 // Additional props for PARAGRAPH contentItems.
 export type ParagraphContentItemProps = {
   // Limit contentItem type to PARAGRAPH.
@@ -180,6 +259,16 @@ export type DenormalizedParagraphContentItem = {
   ...$Exact<DenormalizedSubableContentItem>,
   ...$Exact<ParagraphContentItemProps>,
 };
+
+// List of PARAGRAPH contentItem props that can be edited through propsForType.
+export const editablePropsForParagraphContentItem = [
+  ...editablePropsForPlainTextContentItem,
+  ...editablePropsForTaggableContentItem,
+  ...editablePropsForSubableContentItem,
+];
+
+
+// LIST --------------------------------------------------------------------------------------------
 
 // Additional props for LIST contentItems.
 export type ListContentItemProps = {
@@ -205,6 +294,16 @@ export type DenormalizedListContentItem = {
   ...$Exact<ListContentItemProps>,
 };
 
+// List of LIST contentItem props that can be edited through propsForType.
+export const editablePropsForListContentItem = [
+  ...editablePropsForContainerContentItem,
+  ...editablePropsForTaggableContentItem,
+  ...editablePropsForSubableContentItem,
+];
+
+
+// LIST_ITEM ---------------------------------------------------------------------------------------
+
 // Additional props for LIST_ITEM contentItems.
 export type ListItemContentItemProps = {
   // Limit contentItem type to LIST_ITEM.
@@ -225,6 +324,15 @@ export type DenormalizedListItemContentItem = {
   ...$Exact<TaggableContentItem>,
   ...$Exact<ListItemContentItemProps>,
 };
+
+// List of LIST_ITEM contentItem props that can be edited through propsForType.
+export const editablePropsForListItemContentItem = [
+  ...editablePropsForPlainTextContentItem,
+  ...editablePropsForTaggableContentItem,
+];
+
+
+// BLOCKQUOTE --------------------------------------------------------------------------------------
 
 // Additional props for BLOCKQUOTE contentItems.
 export type BlockquoteContentItemProps = {
@@ -252,6 +360,16 @@ export type DenormalizedBlockquoteContentItem = {
   ...$Exact<BlockquoteContentItemProps>,
 };
 
+// List of BLOCKQUOTE contentItem props that can be edited through propsForType.
+export const editablePropsForBlockquoteContentItem = [
+  ...editablePropsForPlainTextContentItem,
+  ...editablePropsForTaggableContentItem,
+  ...editablePropsForSubableContentItem,
+];
+
+
+// CODE --------------------------------------------------------------------------------------------
+
 // Additional props for CODE contentItems.
 export type CodeContentItemProps = {
   // Limit contentItem type to CODE.
@@ -276,6 +394,16 @@ export type DenormalizedCodeContentItem = {
   ...$Exact<CodeContentItemProps>,
 };
 
+// List of CODE contentItem props that can be edited through propsForType.
+export const editablePropsForCodeContentItem = [
+  ...editablePropsForPlainTextContentItem,
+  ...editablePropsForTaggableContentItem,
+  ...editablePropsForSubableContentItem,
+];
+
+
+// IMAGE -------------------------------------------------------------------------------------------
+
 // Additional props for IMAGE contentItems.
 export type ImageContentItemProps = {
   // Limit contentItem type to IMAGE.
@@ -298,6 +426,16 @@ export type DenormalizedImageContentItem = {
   ...$Exact<DenormalizedSubableContentItem>,
   ...$Exact<ImageContentItemProps>,
 };
+
+// List of IMAGE contentItem props that can be edited through propsForType.
+export const editablePropsForImageContentItem = [
+  ...editablePropsForMediaContentItem,
+  ...editablePropsForTaggableContentItem,
+  ...editablePropsForSubableContentItem,
+];
+
+
+// VIDEO -------------------------------------------------------------------------------------------
 
 // Additional props for VIDEO contentItems.
 export type VideoContentItemProps = {
@@ -322,6 +460,16 @@ export type DenormalizedVideoContentItem = {
   ...$Exact<VideoContentItemProps>,
 };
 
+// List of VIDEO contentItem props that can be edited through propsForType.
+export const editablePropsForVideoContentItem = [
+  ...editablePropsForMediaContentItem,
+  ...editablePropsForTaggableContentItem,
+  ...editablePropsForSubableContentItem,
+];
+
+
+// AUDIO -------------------------------------------------------------------------------------------
+
 // Additional props for AUDIO contentItems.
 export type AudioContentItemProps = {
   // Limit contentItem type to AUDIO,
@@ -344,6 +492,16 @@ export type DenormalizedAudioContentItem = {
   ...$Exact<DenormalizedSubableContentItem>,
   ...$Exact<AudioContentItemProps>,
 };
+
+// List of AUDIO contentItem props that can be edited through propsForType.
+export const editablePropsForAudioContentItem = [
+  ...editablePropsForMediaContentItem,
+  ...editablePropsForTaggableContentItem,
+  ...editablePropsForSubableContentItem,
+];
+
+
+// IFRAME ------------------------------------------------------------------------------------------
 
 // Additional props for IFRAME contentItems.
 export type IframeContentItemProps = {
@@ -368,6 +526,16 @@ export type DenormalizedIframeContentItem = {
   ...$Exact<IframeContentItemProps>,
 };
 
+// List of IFRAME contentItem props that can be edited through propsForType.
+export const editablePropsForIframeContentItem = [
+  ...editablePropsForMediaContentItem,
+  ...editablePropsForTaggableContentItem,
+  ...editablePropsForSubableContentItem,
+];
+
+
+// SLIDE_BREAK -------------------------------------------------------------------------------------
+
 // Additional props for SLIDE_BREAK contentItems.
 export type SlideBreakContentItemProps = {
   // Limit contentItem type to SLIDE_BREAK.
@@ -387,6 +555,14 @@ export type DenormalizedSlideBreakContentItem = {
   ...$Exact<SlideBreakContentItemProps>,
 };
 
+// List of SLIDE_BREAK contentItem props that can be edited through propsForType.
+export const editablePropsForSlideBreakContentItem = [
+  ...editablePropsForSymbolContentItem,
+];
+
+
+// COURSE_BREAK ------------------------------------------------------------------------------------
+
 // Additional props for COURSE_BREAK contentItems.
 export type CourseBreakContentItemProps = {
   // Limit contentItem type to COURSE_BREAK.
@@ -405,6 +581,14 @@ export type DenormalizedCourseBreakContentItem = {
   ...$Exact<SymbolContentItem>,
   ...$Exact<CourseBreakContentItemProps>,
 };
+
+// List of COURSE_BREAK contentItem props that can be edited through propsForType.
+export const editablePropsForCourseBreakContentItem = [
+  ...editablePropsForSymbolContentItem,
+];
+
+
+// CONTENT_ITEM ------------------------------------------------------------------------------------
 
 // Type for generic contentItems.
 export type ContentItem =
@@ -438,6 +622,26 @@ export type DenormalizedContentItem =
   | DenormalizedSlideBreakContentItem
   | DenormalizedCourseBreakContentItem;
 
+// Map contentItemTypes to their editable props lists.
+export const editablePropsForType = {
+  [contentItemTypes.ROOT]: editablePropsForRootContentItem,
+  [contentItemTypes.HEADING]: editablePropsForHeadingContentItem,
+  [contentItemTypes.PARAGRAPH]: editablePropsForParagraphContentItem,
+  [contentItemTypes.LIST]: editablePropsForListContentItem,
+  [contentItemTypes.LIST_ITEM]: editablePropsForListItemContentItem,
+  [contentItemTypes.BLOCKQUOTE]: editablePropsForBlockquoteContentItem,
+  [contentItemTypes.CODE]: editablePropsForCodeContentItem,
+  [contentItemTypes.IMAGE]: editablePropsForImageContentItem,
+  [contentItemTypes.VIDEO]: editablePropsForVideoContentItem,
+  [contentItemTypes.AUDIO]: editablePropsForAudioContentItem,
+  [contentItemTypes.IFRAME]: editablePropsForIframeContentItem,
+  [contentItemTypes.SLIDE_BREAK]: editablePropsForSlideBreakContentItem,
+  [contentItemTypes.COURSE_BREAK]: editablePropsForCourseBreakContentItem,
+};
+
+
+// STATE -------------------------------------------------------------------------------------------
+
 export type ContentItemsById = {
   +[contentItemId: Identifier]: ContentItem,
 };
@@ -445,6 +649,9 @@ export type ContentItemsById = {
 export type ContentItemsState = {
   +byId: ContentItemsById,
 };
+
+
+// EXPORTS -----------------------------------------------------------------------------------------
 
 export {
   contentItemTypes,
