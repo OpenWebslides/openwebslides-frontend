@@ -30,6 +30,20 @@ export const getAll = createSelector(
   },
 );
 
+export const getCurrentlyEditing = createSelector(
+  [getAllById],
+  (contentItemsById: ContentItemsById): ?ContentItem => {
+    const currentlyEditingItem = _.find(
+      // eslint-disable-next-line flowtype/no-weak-types
+      (contentItemsById: any),
+      (contentItem: ContentItem): boolean => {
+        return contentItem.isEditing;
+      },
+    );
+    return currentlyEditingItem || null;
+  },
+);
+
 export const getById = (state: State, props: { id: Identifier }): ?ContentItem => {
   return _.get(getAllById(state), props.id, null);
 };

@@ -4,6 +4,7 @@ import {
   getById,
   getAllById,
   getAll,
+  getCurrentlyEditing,
   getParentOrSuperById,
   getDenormalizedById,
   getAllDescendantsById,
@@ -122,6 +123,19 @@ describe(`selectors`, (): void => {
     it(`returns an empty array, when there are no contentItems in the state`, (): void => {
       const contentItems = getAll(dummyEmptyState);
       expect(contentItems).toEqual([]);
+    });
+
+  });
+
+  describe(`getCurrentlyEditing`, (): void => {
+
+    it(`returns the contentItem for which the isEditing value is currently TRUE`, (): void => {
+      dummyHeading1.isEditing = true;
+      expect(getCurrentlyEditing(dummyState)).toBe(dummyHeading1);
+    });
+
+    it(`returns NULL, when there is no contentItem for which the isEditing value is currently TRUE`, (): void => {
+      expect(getCurrentlyEditing(dummyState)).toBeNull();
     });
 
   });
