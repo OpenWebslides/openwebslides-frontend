@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
-import validateActionStringArgs from 'lib/validation/action-arguments/string';
+import validateActionArguments from 'lib/validate/actionArguments';
 import type { Identifier } from 'types/model';
 import * as t from '../actionTypes';
 import {
@@ -27,10 +27,14 @@ const addToState = (
   let newPropsForType: t.ActionPayloadPropsForType = {};
 
   if (_.includes(plainTextContentItemTypes, type)) {
-    const validatedPlainTextStringArgs = validateActionStringArgs(
+    const validatedPlainTextStringArgs = validateActionArguments(
       propsForType,
       validPropsForPlainTextTypes,
-      { throwOnEmpty: false, throwOnUndefined: true, trim: true },
+      {
+        throwOnEmptyString: false,
+        throwOnUndefined: true,
+        trimString: true,
+      },
     );
     newPropsForType = { ...newPropsForType, ...validatedPlainTextStringArgs };
     unprocessedPropsForType = _.omit(unprocessedPropsForType, validPropsForPlainTextTypes);

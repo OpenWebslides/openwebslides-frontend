@@ -3,25 +3,25 @@
 import _ from 'lodash';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 
-type ActionStringArgsValidationOptions = {
-  throwOnEmpty: boolean,
+type ActionArgumentsValidationOptions = {
+  throwOnEmptyString: boolean,
   throwOnUndefined: boolean,
-  trim: boolean,
+  trimString: boolean,
 };
 
-const defaultActionStringArgsValidationOptions: ActionStringArgsValidationOptions = {
-  throwOnEmpty: true,
+const defaultActionArgumentsValidationOptions: ActionArgumentsValidationOptions = {
+  throwOnEmptyString: true,
   throwOnUndefined: true,
-  trim: true,
+  trimString: true,
 };
 
-const validateActionStringArgs = (
+const validateActionArguments = (
   argsObject: {},
   argsKeys: Array<string>,
-  options: {} = defaultActionStringArgsValidationOptions,
+  options: $Shape<ActionArgumentsValidationOptions> = defaultActionArgumentsValidationOptions,
 ): {} => {
   const mergedOptions = {
-    ...defaultActionStringArgsValidationOptions,
+    ...defaultActionArgumentsValidationOptions,
     ...options,
   };
   const validatedArgsObject = {};
@@ -43,14 +43,14 @@ const validateActionStringArgs = (
       }
     }
     else {
-      if (mergedOptions.trim) {
+      if (_.isString(value) && mergedOptions.trimString) {
         newValue = _.trim(value);
       }
       else {
         newValue = value;
       }
 
-      if (mergedOptions.throwOnEmpty && newValue === '') {
+      if (mergedOptions.throwOnEmptyString && newValue === '') {
         throw new InvalidArgumentError(`"${key}" cannot be an empty string`);
       }
       else {
@@ -62,5 +62,5 @@ const validateActionStringArgs = (
   return validatedArgsObject;
 };
 
-export type { ActionStringArgsValidationOptions };
-export default validateActionStringArgs;
+export type { ActionArgumentsValidationOptions };
+export default validateActionArguments;

@@ -3,16 +3,24 @@
 import _ from 'lodash';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 
-import validateActionStringArgs from '../string';
-import type { ActionStringArgsValidationOptions } from '../string';
+import validateActionArguments from '..';
+import type { ActionArgumentsValidationOptions } from '..';
 
-describe(`validateActionStringArgs`, (): void => {
+describe(`validateActionArguments`, (): void => {
 
-  const dummyArg1Key = 'dummyArg1Key';
-  const dummyArg2Key = 'dummyArg2Key';
-  const dummyArg3Key = 'dummyArg3Key';
-  const dummyText1 = 'Lorem ipsum';
-  const dummyText2 = 'Dolor sit amet';
+  let dummyArg1Key: string;
+  let dummyArg2Key: string;
+  let dummyArg3Key: string;
+  let dummyText1: string;
+  let dummyText2: string;
+
+  beforeEach((): void => {
+    dummyArg1Key = 'dummyArg1Key';
+    dummyArg2Key = 'dummyArg2Key';
+    dummyArg3Key = 'dummyArg3Key';
+    dummyText1 = 'Lorem ipsum';
+    dummyText2 = 'Dolor sit amet';
+  });
 
   it(`returns an object equal to the argsObject, when all args were valid`, (): void => {
     const dummyArgsKeys = [
@@ -23,13 +31,13 @@ describe(`validateActionStringArgs`, (): void => {
       [dummyArg1Key]: dummyText1,
       [dummyArg2Key]: dummyText2,
     };
-    const dummyOptions: ActionStringArgsValidationOptions = {
-      throwOnEmpty: true,
+    const dummyOptions: ActionArgumentsValidationOptions = {
+      throwOnEmptyString: true,
       throwOnUndefined: true,
-      trim: true,
+      trimString: true,
     };
 
-    const actualReturnValue = validateActionStringArgs(dummyArgsObject, dummyArgsKeys, dummyOptions);
+    const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
     expect(actualReturnValue).toEqual(dummyArgsObject);
   });
 
@@ -44,13 +52,13 @@ describe(`validateActionStringArgs`, (): void => {
       [dummyArg2Key]: '',
       [dummyArg3Key]: undefined,
     };
-    const dummyOptions: ActionStringArgsValidationOptions = {
-      throwOnEmpty: false,
+    const dummyOptions: ActionArgumentsValidationOptions = {
+      throwOnEmptyString: false,
       throwOnUndefined: false,
-      trim: false,
+      trimString: false,
     };
 
-    const actualReturnValue = validateActionStringArgs(dummyArgsObject, dummyArgsKeys, dummyOptions);
+    const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
     expect(actualReturnValue).toEqual(dummyArgsObject);
   });
 
@@ -60,24 +68,24 @@ describe(`validateActionStringArgs`, (): void => {
       dummyArg2Key,
     ];
     const dummyArgsObject = {};
-    const dummyOptions: ActionStringArgsValidationOptions = {
-      throwOnEmpty: false,
+    const dummyOptions: ActionArgumentsValidationOptions = {
+      throwOnEmptyString: false,
       throwOnUndefined: false,
-      trim: false,
+      trimString: false,
     };
 
     const expectedReturnValue = {
       [dummyArg1Key]: undefined,
       [dummyArg2Key]: undefined,
     };
-    const actualReturnValue = validateActionStringArgs(dummyArgsObject, dummyArgsKeys, dummyOptions);
+    const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
     expect(actualReturnValue).toEqual(expectedReturnValue);
     // Note: we use lodash' isEmpty() because unlike jest's toEqual({}) it returns FALSE when the
     // object contains keys with undefined values.
     expect(_.isEmpty(actualReturnValue)).toBe(false);
   });
 
-  it(`throws an InvalidArgumentError, when "throwOnEmpty" is set to TRUE and one of the passed args is an empty string`, (): void => {
+  it(`throws an InvalidArgumentError, when "throwOnEmptyString" is set to TRUE and one of the passed args is an empty string`, (): void => {
     const dummyArgsKeys = [
       dummyArg1Key,
       dummyArg2Key,
@@ -86,20 +94,20 @@ describe(`validateActionStringArgs`, (): void => {
       [dummyArg1Key]: dummyText1,
       [dummyArg2Key]: '',
     };
-    const dummyOptions: ActionStringArgsValidationOptions = {
-      throwOnEmpty: true,
+    const dummyOptions: ActionArgumentsValidationOptions = {
+      throwOnEmptyString: true,
       throwOnUndefined: false,
-      trim: false,
+      trimString: false,
     };
 
-    expect((): any => validateActionStringArgs(
+    expect((): any => validateActionArguments(
       dummyArgsObject,
       dummyArgsKeys,
       dummyOptions,
     )).toThrow(InvalidArgumentError);
   });
 
-  it(`uses a default value of TRUE, when the "throwOnEmpty" option is not set`, (): void => {
+  it(`uses a default value of TRUE, when the "throwOnEmptyString" option is not set`, (): void => {
     const dummyArgsKeys = [
       dummyArg1Key,
       dummyArg2Key,
@@ -109,7 +117,7 @@ describe(`validateActionStringArgs`, (): void => {
       [dummyArg2Key]: '',
     };
 
-    expect((): any => validateActionStringArgs(
+    expect((): any => validateActionArguments(
       dummyArgsObject,
       dummyArgsKeys,
     )).toThrow(InvalidArgumentError);
@@ -124,13 +132,13 @@ describe(`validateActionStringArgs`, (): void => {
       [dummyArg1Key]: dummyText1,
       [dummyArg2Key]: undefined,
     };
-    const dummyOptions: ActionStringArgsValidationOptions = {
-      throwOnEmpty: false,
+    const dummyOptions: ActionArgumentsValidationOptions = {
+      throwOnEmptyString: false,
       throwOnUndefined: true,
-      trim: false,
+      trimString: false,
     };
 
-    expect((): any => validateActionStringArgs(
+    expect((): any => validateActionArguments(
       dummyArgsObject,
       dummyArgsKeys,
       dummyOptions,
@@ -145,13 +153,13 @@ describe(`validateActionStringArgs`, (): void => {
     const dummyArgsObject = {
       [dummyArg1Key]: dummyText1,
     };
-    const dummyOptions: ActionStringArgsValidationOptions = {
-      throwOnEmpty: false,
+    const dummyOptions: ActionArgumentsValidationOptions = {
+      throwOnEmptyString: false,
       throwOnUndefined: true,
-      trim: false,
+      trimString: false,
     };
 
-    expect((): any => validateActionStringArgs(
+    expect((): any => validateActionArguments(
       dummyArgsObject,
       dummyArgsKeys,
       dummyOptions,
@@ -168,13 +176,13 @@ describe(`validateActionStringArgs`, (): void => {
       [dummyArg2Key]: undefined,
     };
 
-    expect((): any => validateActionStringArgs(
+    expect((): any => validateActionArguments(
       dummyArgsObject,
       dummyArgsKeys,
     )).toThrow(InvalidArgumentError);
   });
 
-  it(`trims all passed args, when "trim" is set to TRUE and the passed args contain unnecessary whitespace`, (): void => {
+  it(`trims all passed args, when "trimString" is set to TRUE and the passed args contain unnecessary whitespace`, (): void => {
     const dummyArgsKeys = [
       dummyArg1Key,
       dummyArg2Key,
@@ -183,21 +191,21 @@ describe(`validateActionStringArgs`, (): void => {
       [dummyArg1Key]: `   ${dummyText1}   `,
       [dummyArg2Key]: `   ${dummyText2}   `,
     };
-    const dummyOptions: ActionStringArgsValidationOptions = {
-      throwOnEmpty: false,
+    const dummyOptions: ActionArgumentsValidationOptions = {
+      throwOnEmptyString: false,
       throwOnUndefined: false,
-      trim: true,
+      trimString: true,
     };
     const expectedReturnValue = {
       [dummyArg1Key]: dummyText1,
       [dummyArg2Key]: dummyText2,
     };
 
-    const actualReturnValue = validateActionStringArgs(dummyArgsObject, dummyArgsKeys, dummyOptions);
+    const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
     expect(actualReturnValue).toEqual(expectedReturnValue);
   });
 
-  it(`uses a default value of TRUE, when the "trim" option is not set`, (): void => {
+  it(`uses a default value of TRUE, when the "trimString" option is not set`, (): void => {
     const dummyArgsKeys = [
       dummyArg1Key,
       dummyArg2Key,
@@ -211,7 +219,7 @@ describe(`validateActionStringArgs`, (): void => {
       [dummyArg2Key]: dummyText2,
     };
 
-    const actualReturnValue = validateActionStringArgs(dummyArgsObject, dummyArgsKeys);
+    const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys);
     expect(actualReturnValue).toEqual(expectedReturnValue);
   });
 
@@ -224,13 +232,34 @@ describe(`validateActionStringArgs`, (): void => {
       [dummyArg1Key]: dummyText1,
       [dummyArg2Key]: null,
     };
-    const dummyOptions: ActionStringArgsValidationOptions = {
-      throwOnEmpty: true,
+    const dummyOptions: ActionArgumentsValidationOptions = {
+      throwOnEmptyString: true,
       throwOnUndefined: true,
-      trim: true,
+      trimString: true,
     };
 
-    const actualReturnValue = validateActionStringArgs(dummyArgsObject, dummyArgsKeys, dummyOptions);
+    const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
+    expect(actualReturnValue).toEqual(dummyArgsObject);
+  });
+
+  it(`allows non-string values to pass through unchanged`, (): void => {
+    const dummyArgsKeys = [
+      dummyArg1Key,
+      dummyArg2Key,
+      dummyArg3Key,
+    ];
+    const dummyArgsObject = {
+      [dummyArg1Key]: dummyText1,
+      [dummyArg2Key]: 666,
+      [dummyArg3Key]: true,
+    };
+    const dummyOptions: ActionArgumentsValidationOptions = {
+      throwOnEmptyString: true,
+      throwOnUndefined: true,
+      trimString: true,
+    };
+
+    const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
     expect(actualReturnValue).toEqual(dummyArgsObject);
   });
 
@@ -244,14 +273,14 @@ describe(`validateActionStringArgs`, (): void => {
       [dummyArg2Key]: `   ${dummyText2}   `,
     };
     const dummyOptions = {
-      trim: false,
+      trimString: false,
     };
 
-    const actualReturnValue = validateActionStringArgs(dummyArgsObject, dummyArgsKeys, dummyOptions);
+    const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
     expect(actualReturnValue).toEqual(dummyArgsObject);
   });
 
-  it(`does not mutate the stringArgs object`, (): void => {
+  it(`does not mutate the argsObject`, (): void => {
     const dummyArgsKeys = [
       dummyArg1Key,
       dummyArg2Key,
@@ -261,13 +290,13 @@ describe(`validateActionStringArgs`, (): void => {
       [dummyArg2Key]: `   ${dummyText2}   `,
     };
     const dummyArgsObjectCopy = { ...dummyArgsObject };
-    const dummyOptions: ActionStringArgsValidationOptions = {
-      throwOnEmpty: false,
+    const dummyOptions: ActionArgumentsValidationOptions = {
+      throwOnEmptyString: false,
       throwOnUndefined: false,
-      trim: true,
+      trimString: true,
     };
 
-    const actualReturnValue = validateActionStringArgs(dummyArgsObject, dummyArgsKeys, dummyOptions);
+    const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
     expect(actualReturnValue).not.toBe(dummyArgsObject);
     expect(dummyArgsObject).toEqual(dummyArgsObjectCopy);
   });
