@@ -28,7 +28,7 @@ const toggleEditingSaga = function* (action: t.ToggleEditingAction): Generator<*
         contentItemToToggle,
         editablePropsForType[contentItemToToggle.type],
       );
-      yield put(edit(id, propsForType, false));
+      yield put(edit(id, propsForType));
     }
   }
 };

@@ -90,7 +90,6 @@ export type EditAction = {
   type: typeof EDIT,
   payload: {
     id: Identifier,
-    isEditing: boolean,
     propsForType: ActionPayloadPropsForType,
   },
 };

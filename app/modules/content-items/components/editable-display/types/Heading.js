@@ -14,7 +14,7 @@ type PassedProps = {
   contentItem: HeadingContentItem,
   onStartEditing: (id: Identifier) => void,
   onEndEditing: (id: Identifier) => void,
-  onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
+  onEditPlainText: (id: Identifier, text: string) => void,
   onAddEmptySubItem: (id: Identifier) => void,
   onRemove: (id: Identifier) => void,
 };
@@ -31,7 +31,7 @@ class PureHeading extends React.Component<Props> {
   };
 
   onEditableTextContentInput = (text: string): void => {
-    this.props.onEditPlainText(this.props.contentItem.id, text, true);
+    this.props.onEditPlainText(this.props.contentItem.id, text);
   };
 
   onEditableTextContentKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {

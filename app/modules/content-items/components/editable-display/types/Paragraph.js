@@ -15,7 +15,7 @@ type PassedProps = {
   contentItem: ParagraphContentItem,
   onStartEditing: (id: Identifier) => void,
   onEndEditing: (id: Identifier) => void,
-  onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
+  onEditPlainText: (id: Identifier, text: string) => void,
   onAddEmptySiblingItemBelow: (id: Identifier) => void,
   onRemove: (id: Identifier) => void,
 };
@@ -32,7 +32,7 @@ class PureParagraph extends React.Component<Props> {
   };
 
   onEditableTextContentInput = (text: string): void => {
-    this.props.onEditPlainText(this.props.contentItem.id, text, true);
+    this.props.onEditPlainText(this.props.contentItem.id, text);
   };
 
   onEditableTextContentKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {

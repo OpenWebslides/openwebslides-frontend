@@ -146,7 +146,6 @@ describe(`toggleEditingSaga`, (): void => {
           type: t.EDIT,
           payload: {
             id: dummyData.headingContentItem.id,
-            isEditing: false,
             propsForType: _.pick(dummyData.headingContentItem, editablePropsForType[dummyData.headingContentItem.type]),
           },
         },

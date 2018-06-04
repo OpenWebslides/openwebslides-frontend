@@ -355,11 +355,10 @@ describe(`EditableDisplay`, (): void => {
 
     it(`dispatches the correct EDIT action, when onEditPlainText is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
-      const dummyIsEditing = true;
       const dummyText = 'Lorem ipsum';
       const dummyDispatch = jest.fn();
-      mapDispatchToProps(dummyDispatch, ({}: any)).onEditPlainText(dummyId, dummyText, dummyIsEditing);
-      expect(dummyDispatch).toHaveBeenCalledWith(edit(dummyId, { text: dummyText }, dummyIsEditing));
+      mapDispatchToProps(dummyDispatch, ({}: any)).onEditPlainText(dummyId, dummyText);
+      expect(dummyDispatch).toHaveBeenCalledWith(edit(dummyId, { text: dummyText }));
     });
 
     it(`dispatches the correct TOGGLE_EDITING and ADD actions, when onAddEmptySubItem is called`, (): void => {

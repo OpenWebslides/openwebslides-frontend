@@ -67,7 +67,7 @@ describe(`Heading`, (): void => {
         />,
       );
       enzymeWrapper.instance().onEditableTextContentInput(dummyText);
-      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id, dummyText, true);
+      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id, dummyText);
     });
 
   });

@@ -50,7 +50,7 @@ type StateProps = {
 type DispatchProps = {
   onStartEditing: (id: Identifier) => void,
   onEndEditing: (id: Identifier) => void,
-  onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
+  onEditPlainText: (id: Identifier, text: string) => void,
   onAddEmptySubItem: (id: Identifier) => void,
   onAddEmptySiblingItemBelow: (id: Identifier) => void,
   onRemove: (id: Identifier) => void,
@@ -89,8 +89,8 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
     onEndEditing: (id: Identifier): void => {
       dispatch(toggleEditing(id, false));
     },
-    onEditPlainText: (id: Identifier, text: string, isEditing: boolean): void => {
-      dispatch(edit(id, { text }, isEditing));
+    onEditPlainText: (id: Identifier, text: string): void => {
+      dispatch(edit(id, { text }));
     },
     onAddEmptySubItem: (id: Identifier): void => {
       dispatch(toggleEditing(id, false));

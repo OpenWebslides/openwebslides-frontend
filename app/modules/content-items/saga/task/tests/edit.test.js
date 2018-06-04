@@ -86,30 +86,6 @@ describe(`editSaga`, (): void => {
       .run();
   });
 
-  it(`puts an toggleEditing action, when the passed isEditing value is different from the contentItem's current isEditing value`, (): void => {
-    const dummyEditAction: $Exact<EditAction> = {
-      type: t.EDIT,
-      payload: {
-        id: dummyParagraph1.id,
-        isEditing: true,
-        propsForType: {
-          text: 'Lorem ipsum dolor sit amet.',
-        },
-      },
-    };
-    return expectSaga(editSaga, dummyEditAction)
-      .withState(dummyState)
-      .put.like({
-        action: {
-          type: t.TOGGLE_EDITING,
-          payload: {
-            id: dummyParagraph1.id,
-          },
-        },
-      })
-      .run();
-  });
-
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, (): void => {
     const dummyInvalidId = 'ExtremelyUnlikelyIdX';
     const dummyEditAction: $Exact<EditAction> = {

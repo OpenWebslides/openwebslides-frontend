@@ -67,7 +67,7 @@ describe(`Paragraph`, (): void => {
         />,
       );
       enzymeWrapper.instance().onEditableTextContentInput(dummyText);
-      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id, dummyText, true);
+      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id, dummyText);
     });
 
   });
