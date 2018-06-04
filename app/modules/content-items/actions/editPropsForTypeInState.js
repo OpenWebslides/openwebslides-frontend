@@ -5,6 +5,7 @@ import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentEr
 import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
 import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
 import validateActionArguments from 'lib/validate/actionArguments';
+
 import * as t from '../actionTypes';
 import { plainTextContentItemTypes, editablePropsForType } from '../model';
 import type { ContentItem } from '../model';
