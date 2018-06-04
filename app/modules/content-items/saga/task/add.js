@@ -9,7 +9,7 @@ import type { Identifier } from 'types/model';
 
 import generateId from '../../lib/generate-id';
 import * as t from '../../actionTypes';
-import { addToState } from '../../actions';
+import { addToState, toggleEditing } from '../../actions';
 import { getParentOrSuperById } from '../../selectors';
 import {
   subableContentItemTypes,
@@ -79,13 +79,12 @@ const convertSagaContextToReducerContext = function* (
 };
 
 const addSaga = function* (action: t.AddAction): Generator<*, *, *> {
-  const { type, context, propsForType, isEditing } = action.payload;
+  const { type, context, propsForType } = action.payload;
   const newId = generateId();
   const newContext = yield call(convertSagaContextToReducerContext, context);
 
-  // #TODO move cursor to newly added contentItem
-
-  yield put(addToState(newId, type, propsForType, newContext, isEditing));
+  yield put(addToState(newId, type, newContext, propsForType));
+  yield put(toggleEditing(newId, true));
 };
 
 export { convertSagaContextToReducerContext };

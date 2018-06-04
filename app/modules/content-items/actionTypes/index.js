@@ -39,7 +39,6 @@ export type AddToStateAction = {
   payload: {
     id: Identifier,
     type: ContentItemType,
-    isEditing: boolean,
     context: ?ActionPayloadReducerContext,
     propsForType: ActionPayloadPropsForType,
   },
@@ -80,7 +79,6 @@ export type AddAction = {
   type: typeof ADD,
   payload: {
     type: ContentItemType,
-    isEditing: boolean,
     context: ?ActionPayloadSagaContext,
     propsForType: ActionPayloadPropsForType,
   },

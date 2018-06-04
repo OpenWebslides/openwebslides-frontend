@@ -29,11 +29,11 @@ const addToState = (
   state: ContentItemsState,
   action: t.AddToStateAction,
 ): ContentItemsState => {
-  const { id, type, context, propsForType, isEditing } = action.payload;
+  const { id, type, context, propsForType } = action.payload;
   const newContentItem: BaseContentItem = {
     id,
     type,
-    isEditing,
+    isEditing: false,
   };
   let newState: ContentItemsState = { ...state };
 

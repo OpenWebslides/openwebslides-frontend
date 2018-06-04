@@ -368,13 +368,12 @@ describe(`EditableDisplay`, (): void => {
       expect(dummyDispatch).toHaveBeenCalledWith(toggleEditing(dummyId, false));
       expect(dummyDispatch).toHaveBeenCalledWith(add(
         contentItemTypes.PARAGRAPH,
-        { text: '' },
         {
           contextType: t.actionPayloadSagaContextTypes.SUPER,
           contextItemId: dummyId,
           positionInSiblings: 0,
         },
-        true,
+        { text: '' },
       ));
     });
 
@@ -385,13 +384,12 @@ describe(`EditableDisplay`, (): void => {
       expect(dummyDispatch).toHaveBeenCalledWith(toggleEditing(dummyId, false));
       expect(dummyDispatch).toHaveBeenCalledWith(add(
         contentItemTypes.PARAGRAPH,
-        { text: '' },
         {
           contextType: t.actionPayloadSagaContextTypes.SIBLING,
           contextItemId: dummyId,
           positionInSiblings: 0,
         },
-        true,
+        { text: '' },
       ));
     });
 

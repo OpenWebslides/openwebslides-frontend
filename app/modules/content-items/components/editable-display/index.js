@@ -96,26 +96,24 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
       dispatch(toggleEditing(id, false));
       dispatch(add(
         contentItemTypes.PARAGRAPH,
-        { text: '' },
         {
           contextType: t.actionPayloadSagaContextTypes.SUPER,
           contextItemId: id,
           positionInSiblings: 0,
         },
-        true,
+        { text: '' },
       ));
     },
     onAddEmptySiblingItemBelow: (id: Identifier): void => {
       dispatch(toggleEditing(id, false));
       dispatch(add(
         contentItemTypes.PARAGRAPH,
-        { text: '' },
         {
           contextType: t.actionPayloadSagaContextTypes.SIBLING,
           contextItemId: id,
           positionInSiblings: 0,
         },
-        true,
+        { text: '' },
       ));
     },
     onRemove: (id: Identifier): void => {

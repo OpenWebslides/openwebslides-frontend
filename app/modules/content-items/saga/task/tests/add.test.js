@@ -72,7 +72,6 @@ describe(`addSaga`, (): void => {
           contextItemId: dummyHeading1.id,
           positionInSiblings: 0,
         },
-        isEditing: false,
         propsForType: {
           text: 'Lorem ipsum dolor sit amet.',
         },
@@ -86,11 +85,31 @@ describe(`addSaga`, (): void => {
           payload: {
             type: dummyAddAction.payload.type,
             context: dummyAddAction.payload.context,
-            isEditing: dummyAddAction.payload.isEditing,
             propsForType: dummyAddAction.payload.propsForType,
           },
         },
       })
+      .run();
+  });
+
+  it(`puts a toggleEditing action`, (): void => {
+    const dummyAddAction: t.AddAction = {
+      type: t.ADD,
+      payload: {
+        type: contentItemTypes.PARAGRAPH,
+        context: {
+          contextType: t.actionPayloadSagaContextTypes.SUPER,
+          contextItemId: dummyHeading1.id,
+          positionInSiblings: 0,
+        },
+        propsForType: {
+          text: 'Lorem ipsum dolor sit amet.',
+        },
+      },
+    };
+    return expectSaga(addSaga, dummyAddAction)
+      .withState(dummyState)
+      .put.actionType(t.TOGGLE_EDITING)
       .run();
   });
 
@@ -100,7 +119,6 @@ describe(`addSaga`, (): void => {
       payload: {
         type: contentItemTypes.ROOT,
         context: undefined,
-        isEditing: false,
         propsForType: {},
       },
     };
@@ -112,7 +130,6 @@ describe(`addSaga`, (): void => {
           payload: {
             type: dummyAddAction.payload.type,
             context: null,
-            isEditing: dummyAddAction.payload.isEditing,
             propsForType: dummyAddAction.payload.propsForType,
           },
         },
@@ -130,7 +147,6 @@ describe(`addSaga`, (): void => {
           contextItemId: dummyHeading1.id,
           positionInSiblings: 0,
         },
-        isEditing: false,
         propsForType: {
           text: 'Lorem ipsum',
         },
@@ -148,7 +164,6 @@ describe(`addSaga`, (): void => {
               contextItemId: dummyRoot.id,
               positionInSiblings: 1,
             },
-            isEditing: dummyAddAction.payload.isEditing,
             propsForType: dummyAddAction.payload.propsForType,
           },
         },
@@ -166,7 +181,6 @@ describe(`addSaga`, (): void => {
           contextItemId: dummyParagraph4.id,
           positionInSiblings: 0,
         },
-        isEditing: false,
         propsForType: {
           text: 'Lorem ipsum',
         },
@@ -184,7 +198,6 @@ describe(`addSaga`, (): void => {
               contextItemId: dummyHeading2.id,
               positionInSiblings: 2,
             },
-            isEditing: dummyAddAction.payload.isEditing,
             propsForType: dummyAddAction.payload.propsForType,
           },
         },

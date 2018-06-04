@@ -71,7 +71,6 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: dummyNewHeading.id,
         type: contentItemTypes.HEADING,
-        isEditing: false,
         context: {
           contextType: t.actionPayloadReducerContextTypes.PARENT,
           contextItemId: dummyRoot.id,
@@ -109,7 +108,6 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
         context: {
           contextType: t.actionPayloadReducerContextTypes.SUPER,
           contextItemId: dummyHeading1.id,
@@ -147,7 +145,6 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: dummyNewRoot.id,
         type: contentItemTypes.ROOT,
-        isEditing: false,
         context: null,
         propsForType: {},
       },
@@ -174,7 +171,6 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
         context: {
           contextType: t.actionPayloadReducerContextTypes.SUPER,
           contextItemId: dummyHeading1.id,
@@ -208,7 +204,6 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: 'abcdefghijklmnopqrst',
         type: 'DEFINITELY_NOT_A_VALID_TYPE',
-        isEditing: false,
         context: {
           contextType: t.actionPayloadReducerContextTypes.SUPER,
           contextItemId: dummyHeading1.id,
@@ -231,7 +226,6 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
         context: null,
         propsForType: {
           text: dummyNewParagraph.text,
@@ -252,7 +246,6 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
         context: {
           contextType: t.actionPayloadReducerContextTypes.SUPER,
           contextItemId: 'ThisIsAVeryInvalidId',
@@ -277,7 +270,6 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
         context: {
           contextType: t.actionPayloadReducerContextTypes.PARENT,
           contextItemId: dummyHeading1.id,
@@ -302,7 +294,6 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
         context: {
           contextType: t.actionPayloadReducerContextTypes.SUPER,
           contextItemId: dummyRoot.id,
@@ -327,7 +318,6 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
         context: {
           contextType: 'InvalidContextType',
           contextItemId: dummyHeading1.id,
@@ -352,7 +342,6 @@ describe(`ADD_TO_STATE`, (): void => {
       payload: {
         id: 'abcdefghijklmnopqrst',
         type: contentItemTypes.LIST,
-        isEditing: false,
         context: {
           contextType: t.actionPayloadReducerContextTypes.SUPER,
           contextItemId: dummyHeading1.id,

@@ -19,9 +19,8 @@ const validPropsForPlainTextTypes = [
 const addToState = (
   id: Identifier,
   type: ContentItemType,
-  propsForType: t.ActionPayloadPropsForType,
   context: ?t.ActionPayloadReducerContext,
-  isEditing: boolean = false,
+  propsForType: t.ActionPayloadPropsForType,
 ): t.AddToStateAction => {
   const newId = id;
   let unprocessedPropsForType: t.ActionPayloadPropsForType = { ...propsForType };
@@ -31,7 +30,7 @@ const addToState = (
     const validatedPlainTextStringArgs = validateActionStringArgs(
       propsForType,
       validPropsForPlainTextTypes,
-      { throwOnEmpty: !isEditing, throwOnUndefined: true, trim: true },
+      { throwOnEmpty: false, throwOnUndefined: true, trim: true },
     );
     newPropsForType = { ...newPropsForType, ...validatedPlainTextStringArgs };
     unprocessedPropsForType = _.omit(unprocessedPropsForType, validPropsForPlainTextTypes);
@@ -53,7 +52,6 @@ const addToState = (
       id: newId,
       type,
       context,
-      isEditing,
       propsForType: newPropsForType,
     },
   };
