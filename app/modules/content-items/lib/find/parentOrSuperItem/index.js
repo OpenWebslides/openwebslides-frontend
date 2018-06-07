@@ -5,11 +5,11 @@ import _ from 'lodash';
 import {
   subableContentItemTypes,
   containerContentItemTypes,
-} from '../../model';
+} from '../../../model';
 import type {
   ContentItem,
   ContentItemsById,
-} from '../../model';
+} from '../../../model';
 
 const findParentOrSuperItem = (
   contentItem: ?ContentItem,

@@ -5,8 +5,8 @@ import type {
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
-} from '../../../model';
-import * as dummyContentItemData from '../../../lib/test-resources/dummyContentItemData';
+} from '../../../../model';
+import * as dummyData from '../../../../lib/test-resources/dummyContentItemData';
 
 import findParentOrSuperItem from '..';
 
@@ -23,27 +23,27 @@ describe(`findParentOrSuperItem`, (): void => {
 
   beforeEach((): void => {
     dummyParagraph4 = {
-      ...dummyContentItemData.paragraphContentItem4,
+      ...dummyData.paragraphContentItem4,
     };
     dummyParagraph3 = {
-      ...dummyContentItemData.paragraphContentItem3,
+      ...dummyData.paragraphContentItem3,
     };
     dummyHeading2 = {
-      ...dummyContentItemData.headingContentItem2,
+      ...dummyData.headingContentItem2,
       subItemIds: [dummyParagraph3.id, dummyParagraph4.id],
     };
     dummyParagraph2 = {
-      ...dummyContentItemData.paragraphContentItem2,
+      ...dummyData.paragraphContentItem2,
     };
     dummyParagraph1 = {
-      ...dummyContentItemData.paragraphContentItem,
+      ...dummyData.paragraphContentItem,
     };
     dummyHeading1 = {
-      ...dummyContentItemData.headingContentItem,
+      ...dummyData.headingContentItem,
       subItemIds: [dummyParagraph1.id, dummyParagraph2.id],
     };
     dummyRoot = {
-      ...dummyContentItemData.rootContentItem,
+      ...dummyData.rootContentItem,
       childItemIds: [dummyHeading1.id, dummyHeading2.id],
     };
     dummyContentItemsById = {

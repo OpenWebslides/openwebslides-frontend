@@ -5,7 +5,7 @@ import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import findParentOrSuperItem from './lib/findParentOrSuperItem';
+import findParentOrSuperItem from './lib/find/parentOrSuperItem';
 import denormalize from './lib/denormalize';
 import getAllDescendants from './lib/get-all-descendants';
 import type {
