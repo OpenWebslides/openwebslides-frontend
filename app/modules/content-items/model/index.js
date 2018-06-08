@@ -649,6 +649,25 @@ export const editablePropsForType = {
   [contentItemTypes.COURSE_BREAK]: editablePropsForCourseBreakContentItem,
 };
 
+// Type object containing all possible props for all possible types.
+export type AllPropsForAllTypes = {
+  ...$Exact<RootContentItem>,
+  ...$Exact<HeadingContentItem>,
+  ...$Exact<ParagraphContentItem>,
+  ...$Exact<ListContentItem>,
+  ...$Exact<ListItemContentItem>,
+  ...$Exact<BlockquoteContentItem>,
+  ...$Exact<CodeContentItem>,
+  ...$Exact<ImageContentItem>,
+  ...$Exact<VideoContentItem>,
+  ...$Exact<AudioContentItem>,
+  ...$Exact<IframeContentItem>,
+  ...$Exact<SlideBreakContentItem>,
+  ...$Exact<CourseBreakContentItem>,
+  // Reset this to the generic contentItemType
+  +type: ContentItemType,
+};
+
 
 // STATE -------------------------------------------------------------------------------------------
 

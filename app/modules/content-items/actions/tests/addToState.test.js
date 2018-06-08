@@ -53,10 +53,10 @@ describe(`addToState`, (): void => {
       dummyId,
       dummyPlainTextType,
       dummyContext,
-      {
+      ({
         ...dummyPlainTextProps,
         definitelyNotAValidProp: 'abcde',
-      },
+      }: any),
     )).toThrow(InvalidArgumentError);
   });
 

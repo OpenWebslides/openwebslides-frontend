@@ -12,7 +12,7 @@ import * as dummyData from '../../lib/test-resources/dummyContentItemData';
 describe(`editPropsForTypeInState`, (): void => {
 
   let dummyContentItem: HeadingContentItem;
-  let dummyPlainTextProps: t.ActionPayloadPropsForType;
+  let dummyPlainTextProps: { text: string };
 
   beforeEach((): void => {
     dummyContentItem = {
@@ -38,10 +38,10 @@ describe(`editPropsForTypeInState`, (): void => {
   it(`throws an InvalidArgumentError, when the passed props contain invalid keys for the given contentItemType`, (): void => {
     expect((): any => editPropsForTypeInState(
       dummyContentItem,
-      {
+      ({
         ...dummyPlainTextProps,
         definitelyNotAValidProp: 'abcde',
-      },
+      }: any),
     )).toThrow(InvalidArgumentError);
   });
 

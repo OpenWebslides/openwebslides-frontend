@@ -6,9 +6,8 @@ import type {
   ContentItemType,
   Context,
   AncestorContext,
+  AllPropsForAllTypes,
 } from '../model';
-
-import type { ActionPayloadPropsForType } from './payload/propsForType';
 
 // Reducer actions
 export const ADD_TO_STATE: 'contentItems/ADD_TO_STATE' = 'contentItems/ADD_TO_STATE';
@@ -35,7 +34,7 @@ export type AddToStateAction = {
     id: Identifier,
     type: ContentItemType,
     context: ?AncestorContext,
-    propsForType: ActionPayloadPropsForType,
+    propsForType: $Shape<AllPropsForAllTypes>,
   },
 };
 
@@ -43,7 +42,7 @@ export type EditPropsForTypeInStateAction = {
   type: typeof EDIT_PROPS_FOR_TYPE_IN_STATE,
   payload: {
     contentItem: ContentItem,
-    propsForType: ActionPayloadPropsForType,
+    propsForType: $Shape<AllPropsForAllTypes>,
   },
 };
 
@@ -75,7 +74,7 @@ export type AddAction = {
   payload: {
     type: ContentItemType,
     context: ?Context,
-    propsForType: ActionPayloadPropsForType,
+    propsForType: $Shape<AllPropsForAllTypes>,
   },
 };
 
@@ -83,7 +82,7 @@ export type EditAction = {
   type: typeof EDIT,
   payload: {
     id: Identifier,
-    propsForType: ActionPayloadPropsForType,
+    propsForType: $Shape<AllPropsForAllTypes>,
   },
 };
 
@@ -123,7 +122,3 @@ export type TaskSagaAction =
   | ToggleEditingAction
   | MoveAction
   | RemoveAction;
-
-export type {
-  ActionPayloadPropsForType,
-};
