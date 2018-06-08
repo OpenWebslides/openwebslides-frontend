@@ -6,7 +6,10 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import reducer from '../../reducer';
 import * as t from '../../actionTypes';
-import { contentItemTypes } from '../../model';
+import {
+  contentItemTypes,
+  contextTypes,
+} from '../../model';
 import type {
   RootContentItem,
   HeadingContentItem,
@@ -72,7 +75,7 @@ describe(`ADD_TO_STATE`, (): void => {
         id: dummyNewHeading.id,
         type: contentItemTypes.HEADING,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.PARENT,
+          contextType: contextTypes.PARENT,
           contextItemId: dummyRoot.id,
           positionInSiblings: 2,
         },
@@ -109,7 +112,7 @@ describe(`ADD_TO_STATE`, (): void => {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
           positionInSiblings: 1,
         },
@@ -172,7 +175,7 @@ describe(`ADD_TO_STATE`, (): void => {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
         },
         propsForType: {
@@ -205,7 +208,7 @@ describe(`ADD_TO_STATE`, (): void => {
         id: 'abcdefghijklmnopqrst',
         type: 'DEFINITELY_NOT_A_VALID_TYPE',
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
           positionInSiblings: 1,
         },
@@ -247,7 +250,7 @@ describe(`ADD_TO_STATE`, (): void => {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: 'ThisIsAVeryInvalidId',
           positionInSiblings: 1,
         },
@@ -271,7 +274,7 @@ describe(`ADD_TO_STATE`, (): void => {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.PARENT,
+          contextType: contextTypes.PARENT,
           contextItemId: dummyHeading1.id,
           positionInSiblings: 1,
         },
@@ -295,7 +298,7 @@ describe(`ADD_TO_STATE`, (): void => {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyRoot.id,
           positionInSiblings: 1,
         },
@@ -343,7 +346,7 @@ describe(`ADD_TO_STATE`, (): void => {
         id: 'abcdefghijklmnopqrst',
         type: contentItemTypes.LIST,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
           positionInSiblings: 1,
         },

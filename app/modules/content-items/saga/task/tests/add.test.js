@@ -7,8 +7,11 @@ import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentEr
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../../actionTypes';
-import { getParentOrSuperById } from '../../../selectors';
-import { contentItemTypes } from '../../../model';
+import { getAncestorById } from '../../../selectors';
+import {
+  contentItemTypes,
+  contextTypes,
+} from '../../../model';
 import type {
   RootContentItem,
   HeadingContentItem,
@@ -17,7 +20,7 @@ import type {
 } from '../../../model';
 import * as dummyContentItemData from '../../../lib/test-resources/dummyContentItemData';
 
-import addSaga, { convertSagaContextToReducerContext } from '../add';
+import addSaga, { convertContextToAncestorContext } from '../add';
 
 describe(`addSaga`, (): void => {
 
@@ -68,7 +71,7 @@ describe(`addSaga`, (): void => {
       payload: {
         type: contentItemTypes.PARAGRAPH,
         context: {
-          contextType: t.actionPayloadSagaContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
           positionInSiblings: 0,
         },
@@ -98,7 +101,7 @@ describe(`addSaga`, (): void => {
       payload: {
         type: contentItemTypes.PARAGRAPH,
         context: {
-          contextType: t.actionPayloadSagaContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
           positionInSiblings: 0,
         },
@@ -143,7 +146,7 @@ describe(`addSaga`, (): void => {
       payload: {
         type: contentItemTypes.HEADING,
         context: {
-          contextType: t.actionPayloadSagaContextTypes.SIBLING,
+          contextType: contextTypes.SIBLING,
           contextItemId: dummyHeading1.id,
           positionInSiblings: 0,
         },
@@ -160,7 +163,7 @@ describe(`addSaga`, (): void => {
           payload: {
             type: dummyAddAction.payload.type,
             context: {
-              contextType: t.actionPayloadSagaContextTypes.PARENT,
+              contextType: contextTypes.PARENT,
               contextItemId: dummyRoot.id,
               positionInSiblings: 1,
             },
@@ -177,7 +180,7 @@ describe(`addSaga`, (): void => {
       payload: {
         type: contentItemTypes.PARAGRAPH,
         context: {
-          contextType: t.actionPayloadSagaContextTypes.SIBLING,
+          contextType: contextTypes.SIBLING,
           contextItemId: dummyParagraph4.id,
           positionInSiblings: 0,
         },
@@ -194,7 +197,7 @@ describe(`addSaga`, (): void => {
           payload: {
             type: dummyAddAction.payload.type,
             context: {
-              contextType: t.actionPayloadSagaContextTypes.SUPER,
+              contextType: contextTypes.SUPER,
               contextItemId: dummyHeading2.id,
               positionInSiblings: 2,
             },
@@ -205,52 +208,52 @@ describe(`addSaga`, (): void => {
       .run();
   });
 
-  describe(`convertSagaContextToReducerContext`, (): void => {
+  describe(`convertContextToAncestorContext`, (): void => {
 
     it(`correctly calculates absolute positionInSiblings from relative positionInSiblings, when relative positionInSiblings is a positive number different from 0`, (): void => {
       const dummySagaContext = {
-        contextType: t.actionPayloadSagaContextTypes.SIBLING,
+        contextType: contextTypes.SIBLING,
         contextItemId: dummyHeading1.id,
         positionInSiblings: 1,
       };
-      const expectedReducerContext = {
-        contextType: t.actionPayloadReducerContextTypes.PARENT,
+      const expectedAncestorContext = {
+        contextType: contextTypes.PARENT,
         contextItemId: dummyRoot.id,
         positionInSiblings: 2,
       };
-      return expectSaga(convertSagaContextToReducerContext, dummySagaContext)
+      return expectSaga(convertContextToAncestorContext, dummySagaContext)
         .withState(dummyState)
-        .returns(expectedReducerContext)
+        .returns(expectedAncestorContext)
         .run();
     });
 
     it(`correctly calculates absolute positionInSiblings from relative positionInSiblings, when relative positionInSiblings is a negative number`, (): void => {
       const dummySagaContext = {
-        contextType: t.actionPayloadSagaContextTypes.SIBLING,
+        contextType: contextTypes.SIBLING,
         contextItemId: dummyHeading2.id,
         positionInSiblings: -1,
       };
-      const expectedReducerContext = {
-        contextType: t.actionPayloadReducerContextTypes.PARENT,
+      const expectedAncestorContext = {
+        contextType: contextTypes.PARENT,
         contextItemId: dummyRoot.id,
         positionInSiblings: 1,
       };
-      return expectSaga(convertSagaContextToReducerContext, dummySagaContext)
+      return expectSaga(convertContextToAncestorContext, dummySagaContext)
         .withState(dummyState)
-        .returns(expectedReducerContext)
+        .returns(expectedAncestorContext)
         .run();
     });
 
     it(`throws an ObjectNotFoundError, when the contentItem with id context.contextItemId could not be found`, async (): Promise<*> => {
       const dummySagaContext = {
-        contextType: t.actionPayloadSagaContextTypes.SIBLING,
+        contextType: contextTypes.SIBLING,
         contextItemId: 'DefinitelyNotValidId',
         positionInSiblings: 0,
       };
       // Suppress console.error from redux-saga $FlowFixMe
       console.error = jest.fn();
       await expect(
-        expectSaga(convertSagaContextToReducerContext, dummySagaContext)
+        expectSaga(convertContextToAncestorContext, dummySagaContext)
           .withState(dummyState)
           .run(),
       ).rejects.toBeInstanceOf(ObjectNotFoundError);
@@ -258,14 +261,14 @@ describe(`addSaga`, (): void => {
 
     it(`throws an InvalidArgumentError, when the calculated absolute positionInSiblings is less than 0`, async (): Promise<*> => {
       const dummySagaContext = {
-        contextType: t.actionPayloadSagaContextTypes.SIBLING,
+        contextType: contextTypes.SIBLING,
         contextItemId: dummyHeading1.id,
         positionInSiblings: -2,
       };
       // Suppress console.error from redux-saga $FlowFixMe
       console.error = jest.fn();
       await expect(
-        expectSaga(convertSagaContextToReducerContext, dummySagaContext)
+        expectSaga(convertContextToAncestorContext, dummySagaContext)
           .withState(dummyState)
           .run(),
       ).rejects.toBeInstanceOf(InvalidArgumentError);
@@ -273,14 +276,14 @@ describe(`addSaga`, (): void => {
 
     it(`throws an InvalidArgumentError, when the calculated absolute positionInSiblings is greater than the length of the siblings array`, async (): Promise<*> => {
       const dummySagaContext = {
-        contextType: t.actionPayloadSagaContextTypes.SIBLING,
+        contextType: contextTypes.SIBLING,
         contextItemId: dummyHeading1.id,
         positionInSiblings: 2,
       };
       // Suppress console.error from redux-saga $FlowFixMe
       console.error = jest.fn();
       await expect(
-        expectSaga(convertSagaContextToReducerContext, dummySagaContext)
+        expectSaga(convertContextToAncestorContext, dummySagaContext)
           .withState(dummyState)
           .run(),
       ).rejects.toBeInstanceOf(InvalidArgumentError);
@@ -288,17 +291,17 @@ describe(`addSaga`, (): void => {
 
     it(`throws a CorruptedInternalStateError if the selected parentOrSuperItem is neither subable nor a container, which shouldn't happen in normal circumstances`, async (): Promise<*> => {
       const dummySagaContext = {
-        contextType: t.actionPayloadSagaContextTypes.SIBLING,
+        contextType: contextTypes.SIBLING,
         contextItemId: dummyHeading1.id,
         positionInSiblings: 0,
       };
       // Suppress console.error from redux-saga $FlowFixMe
       console.error = jest.fn();
       await expect(
-        expectSaga(convertSagaContextToReducerContext, dummySagaContext)
+        expectSaga(convertContextToAncestorContext, dummySagaContext)
           .provide([
             [
-              select(getParentOrSuperById, { id: dummyHeading1.id }),
+              select(getAncestorById, { id: dummyHeading1.id }),
               dummyContentItemData.courseBreakContentItem,
             ],
           ])

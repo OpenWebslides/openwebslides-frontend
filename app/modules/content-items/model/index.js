@@ -25,6 +25,16 @@ import { tagTypes } from './tags';
 import type { Tag } from './tags';
 import { visibilityTypes } from './visibilities';
 import type { Visibility } from './visibilities';
+import {
+  contextTypes,
+  ancestorContextTypes,
+} from './context';
+import type {
+  ContextType,
+  AncestorContextType,
+  Context,
+  AncestorContext,
+} from './context';
 
 
 // BASE --------------------------------------------------------------------------------------------
@@ -663,6 +673,8 @@ export {
   containerContentItemTypes,
   tagTypes,
   visibilityTypes,
+  contextTypes,
+  ancestorContextTypes,
 };
 
 export type {
@@ -676,4 +688,8 @@ export type {
   Metadata,
   Tag,
   Visibility,
+  ContextType,
+  AncestorContextType,
+  Context,
+  AncestorContext,
 };

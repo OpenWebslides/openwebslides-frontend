@@ -5,6 +5,9 @@ import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentEr
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
+import {
+  contextTypes,
+} from '../../model';
 import type {
   ContentItemsState,
 } from '../../model';
@@ -67,7 +70,7 @@ describe(`removeFromState`, (): void => {
       payload: {
         id: dummyContentItemData.paragraphContentItem.id,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyContentItemData.headingContentItem.id,
         },
       },
@@ -108,7 +111,7 @@ describe(`removeFromState`, (): void => {
       payload: {
         id: dummyContentItemData.headingContentItem.id,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.PARENT,
+          contextType: contextTypes.PARENT,
           contextItemId: dummyContentItemData.rootContentItem.id,
         },
       },
@@ -159,7 +162,7 @@ describe(`removeFromState`, (): void => {
       payload: {
         id: dummyContentItemData.headingContentItem.id,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.PARENT,
+          contextType: contextTypes.PARENT,
           contextItemId: dummyContentItemData.rootContentItem.id,
         },
       },
@@ -245,7 +248,7 @@ describe(`removeFromState`, (): void => {
       payload: {
         id: 'DefinitelyNotValidId',
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyContentItemData.headingContentItem.id,
         },
       },
@@ -277,7 +280,7 @@ describe(`removeFromState`, (): void => {
       payload: {
         id: dummyContentItemData.paragraphContentItem.id,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: 'DefinitelyNotValidId',
         },
       },
@@ -334,7 +337,7 @@ describe(`removeFromState`, (): void => {
       payload: {
         id: dummyContentItemData.headingContentItem.id,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyContentItemData.rootContentItem.id,
         },
       },
@@ -365,7 +368,7 @@ describe(`removeFromState`, (): void => {
       payload: {
         id: dummyContentItemData.paragraphContentItem.id,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyContentItemData.headingContentItem.id,
         },
       },
@@ -397,7 +400,7 @@ describe(`removeFromState`, (): void => {
       payload: {
         id: dummyContentItemData.paragraphContentItem.id,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.PARENT,
+          contextType: contextTypes.PARENT,
           contextItemId: dummyContentItemData.headingContentItem.id,
         },
       },
@@ -428,7 +431,7 @@ describe(`removeFromState`, (): void => {
       payload: {
         id: dummyContentItemData.headingContentItem.id,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.PARENT,
+          contextType: contextTypes.PARENT,
           contextItemId: dummyContentItemData.rootContentItem.id,
         },
       },
@@ -492,7 +495,7 @@ describe(`removeFromState`, (): void => {
       payload: {
         id: dummyContentItemData.headingContentItem.id,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyContentItemData.headingContentItem.id,
         },
       },

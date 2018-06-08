@@ -7,9 +7,15 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
-import * as t from '../../actionTypes';
-import { contentItemTypes, subableContentItemTypes } from '../../model';
-import type { ContentItem, SubableContentItem } from '../../model';
+import {
+  contentItemTypes,
+  subableContentItemTypes,
+  contextTypes,
+} from '../../model';
+import type {
+  ContentItem,
+  SubableContentItem,
+} from '../../model';
 import { getById } from '../../selectors';
 import { add, edit, toggleEditing, remove } from '../../actions';
 
@@ -97,7 +103,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
       dispatch(add(
         contentItemTypes.PARAGRAPH,
         {
-          contextType: t.actionPayloadSagaContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: id,
           positionInSiblings: 0,
         },
@@ -109,7 +115,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
       dispatch(add(
         contentItemTypes.PARAGRAPH,
         {
-          contextType: t.actionPayloadSagaContextTypes.SIBLING,
+          contextType: contextTypes.SIBLING,
           contextItemId: id,
           positionInSiblings: 0,
         },

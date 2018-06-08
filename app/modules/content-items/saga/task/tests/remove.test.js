@@ -5,6 +5,9 @@ import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedI
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../../actionTypes';
+import {
+  contextTypes,
+} from '../../../model';
 import type {
   RootContentItem,
   HeadingContentItem,
@@ -84,7 +87,7 @@ describe(`removeSaga`, (): void => {
           payload: {
             id: dummyParagraph.id,
             context: {
-              contextType: t.actionPayloadReducerContextTypes.SUPER,
+              contextType: contextTypes.SUPER,
               contextItemId: dummyHeading.id,
             },
           },
@@ -108,7 +111,7 @@ describe(`removeSaga`, (): void => {
           payload: {
             id: dummyHeading.id,
             context: {
-              contextType: t.actionPayloadReducerContextTypes.PARENT,
+              contextType: contextTypes.PARENT,
               contextItemId: dummyRoot.id,
             },
           },

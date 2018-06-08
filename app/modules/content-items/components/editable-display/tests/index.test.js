@@ -16,9 +16,11 @@ import EditableDisplay, {
   DummyDisplayComponent,
 } from '..';
 
-import * as t from '../../../actionTypes';
 import { add, edit, toggleEditing, remove } from '../../../actions';
-import { contentItemTypes } from '../../../model';
+import {
+  contentItemTypes,
+  contextTypes,
+} from '../../../model';
 import type {
   RootContentItem,
   HeadingContentItem,
@@ -369,7 +371,7 @@ describe(`EditableDisplay`, (): void => {
       expect(dummyDispatch).toHaveBeenCalledWith(add(
         contentItemTypes.PARAGRAPH,
         {
-          contextType: t.actionPayloadSagaContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyId,
           positionInSiblings: 0,
         },
@@ -385,7 +387,7 @@ describe(`EditableDisplay`, (): void => {
       expect(dummyDispatch).toHaveBeenCalledWith(add(
         contentItemTypes.PARAGRAPH,
         {
-          contextType: t.actionPayloadSagaContextTypes.SIBLING,
+          contextType: contextTypes.SIBLING,
           contextItemId: dummyId,
           positionInSiblings: 0,
         },

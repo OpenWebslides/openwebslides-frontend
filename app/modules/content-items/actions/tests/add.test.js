@@ -2,13 +2,14 @@
 
 import * as t from '../../actionTypes';
 import { add } from '../../actions';
-import { contentItemTypes } from '../../model';
+import { contentItemTypes, contextTypes } from '../../model';
+import type { Context } from '../../model';
 
 describe(`add`, (): void => {
 
   const dummyType = contentItemTypes.HEADING;
-  const dummyContext: t.ActionPayloadSagaContext = {
-    contextType: t.actionPayloadSagaContextTypes.SIBLING,
+  const dummyContext: Context = {
+    contextType: contextTypes.SIBLING,
     contextItemId: 'abcdefghijklmnopqrst',
   };
   const dummyProps = {

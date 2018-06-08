@@ -15,6 +15,7 @@ import {
   taggableContentItemTypes,
   subableContentItemTypes,
   containerContentItemTypes,
+  contextTypes,
 } from '../model';
 import type {
   BaseContentItem,
@@ -99,7 +100,7 @@ const addToState = (
     }
     let editedContextItem: any = { ...contextItemToEdit };
 
-    if (context.contextType === t.actionPayloadReducerContextTypes.PARENT) {
+    if (context.contextType === contextTypes.PARENT) {
       if (!_.includes(containerContentItemTypes, editedContextItem.type)) {
         throw new InvalidArgumentError(`Can't add a child item to a contentItem that is not a container.`);
       }
@@ -110,7 +111,7 @@ const addToState = (
         positionInSiblings,
       );
     }
-    else if (context.contextType === t.actionPayloadReducerContextTypes.SUPER) {
+    else if (context.contextType === contextTypes.SUPER) {
       if (!_.includes(subableContentItemTypes, editedContextItem.type)) {
         throw new InvalidArgumentError(`Can't add a sub item to a contentItem that is not subable.`);
       }

@@ -1,19 +1,14 @@
 // @flow
 
 import type { Identifier } from 'types/model';
-import type { ContentItem, ContentItemType } from '../model';
+import type {
+  ContentItem,
+  ContentItemType,
+  Context,
+  AncestorContext,
+} from '../model';
 
 import type { ActionPayloadPropsForType } from './payload/propsForType';
-import {
-  actionPayloadReducerContextTypes,
-  actionPayloadSagaContextTypes,
-} from './payload/context';
-import type {
-  ActionPayloadReducerContext,
-  ActionPayloadReducerContextType,
-  ActionPayloadSagaContext,
-  ActionPayloadSagaContextType,
-} from './payload/context';
 
 // Reducer actions
 export const ADD_TO_STATE: 'contentItems/ADD_TO_STATE' = 'contentItems/ADD_TO_STATE';
@@ -39,7 +34,7 @@ export type AddToStateAction = {
   payload: {
     id: Identifier,
     type: ContentItemType,
-    context: ?ActionPayloadReducerContext,
+    context: ?AncestorContext,
     propsForType: ActionPayloadPropsForType,
   },
 };
@@ -64,7 +59,7 @@ export type RemoveFromStateAction = {
   type: typeof REMOVE_FROM_STATE,
   payload: {
     id: Identifier,
-    context: ?ActionPayloadReducerContext,
+    context: ?AncestorContext,
   },
 };
 
@@ -79,7 +74,7 @@ export type AddAction = {
   type: typeof ADD,
   payload: {
     type: ContentItemType,
-    context: ?ActionPayloadSagaContext,
+    context: ?Context,
     propsForType: ActionPayloadPropsForType,
   },
 };
@@ -129,14 +124,6 @@ export type TaskSagaAction =
   | MoveAction
   | RemoveAction;
 
-export {
-  actionPayloadReducerContextTypes,
-  actionPayloadSagaContextTypes,
-};
 export type {
   ActionPayloadPropsForType,
-  ActionPayloadReducerContext,
-  ActionPayloadReducerContextType,
-  ActionPayloadSagaContext,
-  ActionPayloadSagaContextType,
 };

@@ -5,14 +5,15 @@ import NotYetImplementedError from 'errors/implementation-errors/NotYetImplement
 
 import * as t from '../../actionTypes';
 import { addToState } from '../../actions';
-import { contentItemTypes } from '../../model';
+import { contentItemTypes, contextTypes } from '../../model';
+import type { AncestorContext } from '../../model';
 
 describe(`addToState`, (): void => {
 
   const dummyId = 'abcdefghij';
   const dummyPlainTextType = contentItemTypes.HEADING;
-  const dummyContext: t.ActionPayloadReducerContext = {
-    contextType: t.actionPayloadReducerContextTypes.PARENT,
+  const dummyContext: AncestorContext = {
+    contextType: contextTypes.PARENT,
     contextItemId: 'uvwxyzabcdefghijklmn',
   };
   const dummyPlainTextProps = {

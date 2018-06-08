@@ -7,18 +7,25 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
 import { removeFromState } from '../../actions';
-import { contentItemTypes, subableContentItemTypes } from '../../model';
-import { getById, getParentOrSuperById } from '../../selectors';
+import {
+  contentItemTypes,
+  subableContentItemTypes,
+  contextTypes,
+} from '../../model';
+import type {
+  AncestorContext,
+} from '../../model';
+import { getById, getAncestorById } from '../../selectors';
 
-// eslint-disable-next-line require-yield
 const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
   const { id } = action.payload;
   const contentItemToRemove = yield select(getById, { id });
   if (contentItemToRemove == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
-  let context: ?t.ActionPayloadReducerContext = null;
+  let context: ?AncestorContext = null;
 
+  // Determine the context of the contentItemToRemove
   if (contentItemToRemove.type !== contentItemTypes.ROOT) {
-    const parentOrSuperItem = yield select(getParentOrSuperById, { id });
+    const parentOrSuperItem = yield select(getAncestorById, { id });
     if (parentOrSuperItem == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
 
     // If the contextItem is a superItem
@@ -27,19 +34,20 @@ const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
       && _.includes(parentOrSuperItem.subItemIds, contentItemToRemove.id)
     ) {
       context = {
-        contextType: t.actionPayloadReducerContextTypes.SUPER,
+        contextType: contextTypes.SUPER,
         contextItemId: parentOrSuperItem.id,
       };
     }
     // If the contextItem is a containerItem
     else {
       context = {
-        contextType: t.actionPayloadReducerContextTypes.PARENT,
+        contextType: contextTypes.PARENT,
         contextItemId: parentOrSuperItem.id,
       };
     }
   }
 
+  // Remove the contentItem and move the cursor to the previous contentItem #TODO
   yield put(removeFromState(id, context));
 };
 

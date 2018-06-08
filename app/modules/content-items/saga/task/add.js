@@ -10,54 +10,62 @@ import type { Identifier } from 'types/model';
 import generateId from '../../lib/generate-id';
 import * as t from '../../actionTypes';
 import { addToState, toggleEditing } from '../../actions';
-import { getParentOrSuperById } from '../../selectors';
+import { getAncestorById } from '../../selectors';
 import {
   subableContentItemTypes,
   containerContentItemTypes,
+  contextTypes,
+  ancestorContextTypes,
+} from '../../model';
+import type {
+  Context,
+  AncestorContext,
+  AncestorContextType,
 } from '../../model';
 
-const convertSagaContextToReducerContext = function* (
-  sagaContext: ?t.ActionPayloadSagaContext,
-): Generator<*, ?t.ActionPayloadReducerContext, *> {
-  let reducerContext: ?t.ActionPayloadReducerContext;
-  let reducerContextType: t.ActionPayloadReducerContextType;
+const convertContextToAncestorContext = function* (
+  context: ?Context,
+): Generator<*, ?AncestorContext, *> {
+  let ancestorContext: ?AncestorContext;
+  let ancestorContextType: AncestorContextType;
   let siblingsArray: Array<Identifier>;
 
   // NULL should map to NULL
-  if (sagaContext == null) {
-    reducerContext = null;
+  if (context == null) {
+    ancestorContext = null;
   }
-  // Any contextType other than SIBLING can be directly mapped to the reducerContextType
-  else if (sagaContext.contextType !== t.actionPayloadSagaContextTypes.SIBLING) {
+  // Any contextType other than SIBLING can be directly mapped to the ancestorContextType
+  // #TODO whitelist instead of blacklist
+  else if (context.contextType !== contextTypes.SIBLING) {
     // eslint-disable-next-line flowtype/no-weak-types
-    reducerContext = ((sagaContext: any): t.ActionPayloadReducerContext);
+    ancestorContext = ((context: any): AncestorContext);
   }
   // If the contextType is SIBLING, convert it to either PARENT or SUPER
   else {
     // If contextType is SIBLING, positionInSiblings represents a relative value
-    const relativePositionInSiblings = sagaContext.positionInSiblings;
+    const relativePositionInSiblings = context.positionInSiblings || 0;
     // Get the parent or super item; throw error if not found
     const contextParentOrSuperItem = yield select(
-      getParentOrSuperById,
-      { id: sagaContext.contextItemId },
+      getAncestorById,
+      { id: context.contextItemId },
     );
-    if (contextParentOrSuperItem == null) throw new ObjectNotFoundError('contentItems:contentItem', sagaContext.contextItemId);
+    if (contextParentOrSuperItem == null) throw new ObjectNotFoundError('contentItems:contentItem', context.contextItemId);
 
     // If contextParentOrSuperItem is a SUPER item
     if (_.includes(subableContentItemTypes, contextParentOrSuperItem.type)) {
-      reducerContextType = t.actionPayloadReducerContextTypes.SUPER;
+      ancestorContextType = ancestorContextTypes.SUPER;
       siblingsArray = contextParentOrSuperItem.subItemIds;
     }
     // If contextParentOrSuperItem is a PARENT item
     else if (_.includes(containerContentItemTypes, contextParentOrSuperItem.type)) {
-      reducerContextType = t.actionPayloadReducerContextTypes.PARENT;
+      ancestorContextType = ancestorContextTypes.PARENT;
       siblingsArray = contextParentOrSuperItem.childItemIds;
     }
     // Failsafe in case of major coding error...
     else throw new CorruptedInternalStateError(`This shouldn't happen.`);
 
     // Calculate absolute positionInSiblings from relativePositionInSiblings
-    const indexOfContextItemInSiblings = _.indexOf(siblingsArray, sagaContext.contextItemId);
+    const indexOfContextItemInSiblings = _.indexOf(siblingsArray, context.contextItemId);
     const absolutePositionInSiblings = indexOfContextItemInSiblings
       + 1
       + relativePositionInSiblings;
@@ -68,24 +76,24 @@ const convertSagaContextToReducerContext = function* (
     }
 
     // Create converted reducerContext
-    reducerContext = {
-      contextType: reducerContextType,
+    ancestorContext = {
+      contextType: ancestorContextType,
       contextItemId: contextParentOrSuperItem.id,
       positionInSiblings: absolutePositionInSiblings,
     };
   }
 
-  return reducerContext;
+  return ancestorContext;
 };
 
 const addSaga = function* (action: t.AddAction): Generator<*, *, *> {
   const { type, context, propsForType } = action.payload;
   const newId = generateId();
-  const newContext = yield call(convertSagaContextToReducerContext, context);
+  const newContext = yield call(convertContextToAncestorContext, context);
 
   yield put(addToState(newId, type, newContext, propsForType));
   yield put(toggleEditing(newId, true));
 };
 
-export { convertSagaContextToReducerContext };
+export { convertContextToAncestorContext };
 export default addSaga;

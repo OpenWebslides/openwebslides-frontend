@@ -1,11 +1,11 @@
 // @flow
 
 import * as t from '../actionTypes';
-import type { ContentItemType } from '../model';
+import type { ContentItemType, Context } from '../model';
 
 const add = (
   type: ContentItemType,
-  context: ?t.ActionPayloadSagaContext,
+  context: ?Context,
   propsForType: t.ActionPayloadPropsForType,
 ): t.AddAction => {
   return {

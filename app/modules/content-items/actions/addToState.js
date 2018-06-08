@@ -8,12 +8,12 @@ import type { Identifier } from 'types/model';
 
 import * as t from '../actionTypes';
 import { contentItemTypes, plainTextContentItemTypes, editablePropsForType } from '../model';
-import type { ContentItemType } from '../model';
+import type { ContentItemType, AncestorContext } from '../model';
 
 const addToState = (
   id: Identifier,
   type: ContentItemType,
-  context: ?t.ActionPayloadReducerContext,
+  context: ?AncestorContext,
   propsForType: t.ActionPayloadPropsForType,
 ): t.AddToStateAction => {
   if (!(_.includes(plainTextContentItemTypes, type) || type === contentItemTypes.ROOT)) throw new NotYetImplementedError(`ContentItemType not yet supported`);

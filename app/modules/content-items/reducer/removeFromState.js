@@ -12,6 +12,7 @@ import {
   contentItemTypes,
   subableContentItemTypes,
   containerContentItemTypes,
+  contextTypes,
 } from '../model';
 import type {
   ContentItem,
@@ -95,7 +96,7 @@ const removeFromState = (
 
     let contextItemToEdit: any = { ...contextItem };
 
-    if (context.contextType === t.actionPayloadReducerContextTypes.SUPER) {
+    if (context.contextType === contextTypes.SUPER) {
       if (!_.includes(subableContentItemTypes, contextItemToEdit.type)) {
         throw new InvalidArgumentError(`Can't remove a sub item from a contentItem that is not subable.`);
       }
@@ -108,7 +109,7 @@ const removeFromState = (
         subItemIds: _.without(contextItemToEdit.subItemIds, contentItemToRemove.id),
       };
     }
-    else if (context.contextType === t.actionPayloadReducerContextTypes.PARENT) {
+    else if (context.contextType === contextTypes.PARENT) {
       if (!_.includes(containerContentItemTypes, contextItemToEdit.type)) {
         throw new InvalidArgumentError(`Can't remove a child item from a contentItem that is not a container.`);
       }
