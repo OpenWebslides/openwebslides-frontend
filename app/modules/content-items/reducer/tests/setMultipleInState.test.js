@@ -23,7 +23,7 @@ describe(`SET_MULTIPLE_IN_STATE`, (): void => {
       },
     };
 
-    expect(reducer(prevState, setMultipleInStateAction)).toEqual(prevState);
+    expect(reducer(prevState, setMultipleInStateAction)).toBe(prevState);
   });
 
   it(`adds new content items to the state`, (): void => {
