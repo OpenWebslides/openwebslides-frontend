@@ -2,12 +2,16 @@
 
 import _ from 'lodash';
 
+import contentItems from 'modules/content-items';
+
 import type { Identifier } from 'types/model';
 import type { RouterHistory } from 'react-router-dom';
 import type { Topic } from './model';
 
 import * as t from './actionTypes';
 import { generateId } from './model';
+
+const { ContentItem } = contentItems.model;
 
 // Reducer actions
 export const addToState = (
@@ -201,12 +205,34 @@ export const getAllByUserId = (
   };
 };
 
+export const save = (
+  id: Identifier,
+): t.SaveContentAction | t.SaveContentErrorAction => {
+  return {
+    type: t.SAVE,
+    payload: {
+      id,
+    },
+  };
+};
+
+export const load = (
+  id: Identifier,
+): t.LoadContentAction | t.LoadContentErrorAction => {
+  return {
+    type: t.LOAD,
+    payload: {
+      id,
+    },
+  };
+};
+
 // API saga actions
-export const apiDeleteTopic = (
+export const apiDelete = (
   id: Identifier,
 ): t.ApiDeleteTopicAction => {
   return {
-    type: t.API_DELETE_TOPIC,
+    type: t.API_DELETE,
     payload: {
       id,
     },
@@ -214,39 +240,63 @@ export const apiDeleteTopic = (
 };
 
 
-export const apiGetAllTopics = (
+export const apiGetAllByUserId = (
   userId: Identifier,
 ): t.ApiGetAllTopicsByUserIdAction => {
   return {
-    type: t.API_GET_ALL_TOPICS_BY_USERID,
+    type: t.API_GET_ALL_BY_USERID,
     payload: {
       userId,
     },
   };
 };
 
-export const apiGetTopic = (
+export const apiGet = (
   id: Identifier,
 ): t.ApiGetTopicAction => {
   return {
-    type: t.API_GET_TOPIC,
+    type: t.API_GET,
     payload: {
       id,
     },
   };
 };
 
-export const apiPostTopic = (
+export const apiPost = (
   userId: Identifier,
   title: string,
   description: ?string,
 ): t.ApiPostTopicAction => {
   return {
-    type: t.API_POST_TOPIC,
+    type: t.API_POST,
     payload: {
       userId,
       title,
       description,
+    },
+  };
+};
+
+export const apiPatchContent = (
+  id: Identifier,
+  content: Array<ContentItem>,
+): t.ApiPatchTopicContentAction => {
+  return {
+    type: t.API_PATCH_CONTENT,
+    payload: {
+      id,
+      content,
+    },
+  };
+};
+
+export const apiGetContent = (
+  id: Identifier,
+): t.ApiGetTopicContentAction => {
+  return {
+    type: t.API_GET_CONTENT,
+    payload: {
+      id,
     },
   };
 };

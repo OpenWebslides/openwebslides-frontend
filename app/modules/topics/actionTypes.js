@@ -1,10 +1,14 @@
 // @flow
 
+import contentItems from 'modules/content-items';
+
 import type { Error } from 'types/error';
 import type { Identifier } from 'types/model';
 import type { RouterHistory } from 'react-router-dom';
 
 import type { Topic } from './model';
+
+const { ContentItem } = contentItems.model;
 
 /* Action constants */
 
@@ -25,18 +29,24 @@ export const EDIT: 'topics/EDIT' = 'topics/EDIT';
 export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
 export const GET: 'topics/GET' = 'topics/GET';
 export const GET_ALL_BY_USERID: 'topics/GET_ALL_BY_USERID' = 'topics/GET_ALL_BY_USERID';
+export const SAVE: 'topics/SAVE' = 'topics/SAVE';
+export const LOAD: 'topics/LOAD' = 'topics/LOAD';
 
 export const ADD_ERROR: 'topics/ADD_ERROR' = 'topics/ADD_ERROR';
 export const EDIT_ERROR: 'topics/EDIT_ERROR' = 'topics/EDIT_ERROR';
 export const REMOVE_ERROR: 'topics/REMOVE_ERROR' = 'topics/REMOVE_ERROR';
 export const GET_ERROR: 'topics/GET_ERROR' = 'topics/GET_ERROR';
 export const GET_ALL_BY_USERID_ERROR: 'topics/GET_ALL_BY_USERID_ERROR' = 'topics/GET_ALL_BY_USERID_ERROR';
+export const SAVE_ERROR: 'topics/SAVE_ERROR' = 'topics/SAVE_ERROR';
+export const LOAD_ERROR: 'topics/LOAD_ERROR' = 'topics/LOAD_ERROR';
 
 // API saga actions
-export const API_DELETE_TOPIC: 'topics/API_DELETE_TOPIC' = 'topics/API_DELETE_TOPIC';
-export const API_GET_TOPIC: 'topics/API_GET_TOPIC' = 'topics/API_GET_TOPIC';
-export const API_GET_ALL_TOPICS_BY_USERID: 'topics/API_GET_ALL_TOPICS_BY_USERID' = 'topics/API_GET_ALL_TOPICS_BY_USERID';
-export const API_POST_TOPIC: 'topics/API_POST_TOPIC' = 'topics/API_POST_TOPIC';
+export const API_DELETE: 'topics/API_DELETE' = 'topics/API_DELETE';
+export const API_GET: 'topics/API_GET' = 'topics/API_GET';
+export const API_GET_ALL_BY_USERID: 'topics/API_GET_ALL_BY_USERID' = 'topics/API_GET_ALL_BY_USERID';
+export const API_POST: 'topics/API_POST' = 'topics/API_POST';
+export const API_PATCH_CONTENT: 'topics/API_PATCH_CONTENT' = 'topics/API_PATCH_CONTENT';
+export const API_GET_CONTENT: 'topics/API_GET_CONTENT' = 'topics/API_GET_CONTENT';
 
 /* Action types */
 
@@ -138,6 +148,20 @@ export type GetAllByUserIdAction = {
   },
 };
 
+export type SaveContentAction = {
+  type: typeof SAVE,
+  payload: {
+    id: Identifier,
+  },
+};
+
+export type LoadContentAction = {
+  type: typeof LOAD,
+  payload: {
+    id: Identifier,
+  },
+};
+
 export type AddErrorAction = {
   type: typeof ADD_ERROR,
   error: Error,
@@ -163,34 +187,59 @@ export type GetAllByUserIdErrorAction = {
   error: Error,
 };
 
+export type SaveContentErrorAction = {
+  type: typeof SAVE_ERROR,
+  error: Error,
+};
+
+export type LoadContentErrorAction = {
+  type: typeof LOAD_ERROR,
+  error: Error,
+};
+
 // API saga actions
 export type ApiDeleteTopicAction = {
-  type: typeof API_DELETE_TOPIC,
+  type: typeof API_DELETE,
   payload: {
     id: Identifier,
   },
 };
 
 export type ApiGetTopicAction = {
-  type: typeof API_GET_TOPIC,
+  type: typeof API_GET,
   payload: {
     id: Identifier,
   },
 };
 
 export type ApiGetAllTopicsByUserIdAction = {
-  type: typeof API_GET_ALL_TOPICS_BY_USERID,
+  type: typeof API_GET_ALL_BY_USERID,
   payload: {
     userId: Identifier,
   },
 };
 
 export type ApiPostTopicAction = {
-  type: typeof API_POST_TOPIC,
+  type: typeof API_POST,
   payload: {
     userId: Identifier,
     title: string,
     description: ?string,
+  },
+};
+
+export type ApiPatchTopicContentAction = {
+  type: typeof API_PATCH_CONTENT,
+  payload: {
+    id: Identifier,
+    content: Array<ContentItem>,
+  },
+};
+
+export type ApiGetTopicContentAction = {
+  type: typeof API_GET_CONTENT,
+  payload: {
+    id: Identifier,
   },
 };
 

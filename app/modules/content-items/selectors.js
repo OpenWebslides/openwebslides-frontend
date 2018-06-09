@@ -6,6 +6,7 @@ import createCachedSelector from 're-reselect';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import denormalize from './lib/denormalize';
+import getAllDescendants from './lib/get-all-descendants';
 import type {
   ContentItem,
   DenormalizedContentItem,
@@ -39,4 +40,11 @@ export const getDenormalizedById = createCachedSelector(
   },
 )(
   (state: State, props: { id: Identifier }) => props.id,
+);
+
+export const getAllDescendantsById = createSelector(
+  [getById, getAllById],
+  (contentItem: ?ContentItem, contentItemsById: ContentItemsById): Array<ContentItem> => {
+    return getAllDescendants(contentItem, contentItemsById);
+  },
 );

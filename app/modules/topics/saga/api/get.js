@@ -9,7 +9,7 @@ import type { Topic } from '../../model';
 
 import { addToState, setItemsInState } from '../../actions';
 
-export const apiGetTopicSaga = function* (action: t.GetAction): Generator<*, *, *> {
+export const apiGetSaga = function* (action: t.GetAction): Generator<*, *, *> {
   try {
     const response = yield call(TopicsApi.get, action.payload.id);
 
@@ -30,7 +30,7 @@ export const apiGetTopicSaga = function* (action: t.GetAction): Generator<*, *, 
   }
 };
 
-export const apiGetAllTopicsByUserIdSaga = function* (
+export const apiGetAllByUserIdByUserIdSaga = function* (
   action: t.GetAllByUserIdAction,
 ): Generator<*, *, *> {
   try {

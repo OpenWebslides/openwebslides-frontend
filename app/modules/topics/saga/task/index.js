@@ -9,6 +9,8 @@ import editSaga from './edit';
 import getSaga from './get';
 import getAllSaga from './getAll';
 import removeSaga from './remove';
+import saveSaga from './save';
+import loadSaga from './load';
 
 const taskSaga = function* (): Generator<*, *, *> {
   yield all([
@@ -17,6 +19,8 @@ const taskSaga = function* (): Generator<*, *, *> {
     takeEvery(t.GET, getSaga),
     takeEvery(t.GET_ALL_BY_USERID, getAllSaga),
     takeLatest(t.REMOVE, removeSaga),
+    takeLatest(t.SAVE, saveSaga),
+    takeLatest(t.LOAD, loadSaga),
   ]);
 };
 

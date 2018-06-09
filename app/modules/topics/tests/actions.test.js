@@ -189,4 +189,62 @@ describe(`actions`, (): void => {
 
   });
 
+  describe(`save`, (): void => {
+    it(`returns a SAVE action`, (): void => {
+      const id = 'abcdefghij';
+      const expectedAction: t.SaveContentAction = {
+        type: t.SAVE,
+        payload: {
+          id,
+        },
+      };
+
+      expect(actions.save(id)).toEqual(expectedAction);
+    });
+  });
+
+  describe(`load`, (): void => {
+    it(`returns a LOAD action`, (): void => {
+      const id = 'abcdefghij';
+      const expectedAction: t.LoadContentAction = {
+        type: t.LOAD,
+        payload: {
+          id,
+        },
+      };
+
+      expect(actions.load(id)).toEqual(expectedAction);
+    });
+  });
+
+  describe(`apiPatchContent`, (): void => {
+    it(`returns a API_PATCH_CONTENT action`, (): void => {
+      const id = 'abcdefghij';
+      const content = [];
+      const expectedAction: t.ApiPatchTopicContentAction = {
+        type: t.API_PATCH_CONTENT,
+        payload: {
+          id,
+          content,
+        },
+      };
+
+      expect(actions.apiPatchContent(id, content)).toEqual(expectedAction);
+    });
+  });
+
+  describe(`apiGetContent`, (): void => {
+    it(`returns a API_GET_CONTENT action`, (): void => {
+      const id = 'abcdefghij';
+      const expectedAction: t.ApiGetTopicContentAction = {
+        type: t.API_GET_CONTENT,
+        payload: {
+          id,
+        },
+      };
+
+      expect(actions.apiGetContent(id)).toEqual(expectedAction);
+    });
+  });
+
 });

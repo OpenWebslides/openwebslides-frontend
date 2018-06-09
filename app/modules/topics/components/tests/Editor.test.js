@@ -32,6 +32,8 @@ describe(`Editor`, (): void => {
         topicId="abcdefghij"
         topic={dummyTopic}
         contentItemTreeRootItem={dummyDenormalizedContentItem}
+        onSaveButtonClick={(): void => {}}
+        onLoadButtonClick={(): void => {}}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

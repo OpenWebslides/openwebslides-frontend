@@ -9,7 +9,7 @@ import * as t from '../../actionTypes';
 
 const { getToken } = authentication.selectors;
 
-export const apiPostTopicSaga = function* (action: t.ApiPostTopicAction): Generator<*, *, *> {
+export const apiPostSaga = function* (action: t.ApiPostTopicAction): Generator<*, *, *> {
   try {
     const { userId, title, description } = action.payload;
     const token = yield select(getToken);

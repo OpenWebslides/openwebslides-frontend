@@ -1,6 +1,6 @@
 // @flow
 
-// import * as actions from './actions';
+import * as actions from './actions';
 import * as model from './model';
 import * as selectors from './selectors';
 import components from './components';
@@ -10,7 +10,7 @@ import saga from './saga';
 import type { AuthState } from './model';
 
 const authentication = {
-  // actions,
+  actions,
   model,
   selectors,
   components,
