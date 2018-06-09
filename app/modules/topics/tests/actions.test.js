@@ -217,7 +217,7 @@ describe(`actions`, (): void => {
     });
   });
 
-  describe(`apiPatchTopicContent`, (): void => {
+  describe(`apiPatchContent`, (): void => {
     it(`returns a API_PATCH_CONTENT action`, (): void => {
       const id = 'abcdefghij';
       const contentItems = [];
@@ -229,11 +229,11 @@ describe(`actions`, (): void => {
         },
       };
 
-      expect(actions.apiPatchTopicContent(id, contentItems)).toEqual(expectedAction);
+      expect(actions.apiPatchContent(id, contentItems)).toEqual(expectedAction);
     });
   });
 
-  describe(`apiGetTopicContent`, (): void => {
+  describe(`apiGetContent`, (): void => {
     it(`returns a API_GET_CONTENT action`, (): void => {
       const id = 'abcdefghij';
       const expectedAction: t.ApiGetTopicContentAction = {
@@ -243,7 +243,7 @@ describe(`actions`, (): void => {
         },
       };
 
-      expect(actions.apiGetTopicContent(id)).toEqual(expectedAction);
+      expect(actions.apiGetContent(id)).toEqual(expectedAction);
     });
   });
 

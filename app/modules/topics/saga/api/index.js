@@ -4,20 +4,20 @@ import { all, takeLatest, takeEvery } from 'redux-saga/effects';
 
 import * as t from '../../actionTypes';
 
-import { apiDeleteTopicSaga } from './delete';
-import { apiGetAllTopicsByUserIdSaga, apiGetTopicSaga } from './get';
-import { apiPostTopicSaga } from './post';
-import { apiPatchTopicContentSaga } from './patchContent';
-import { apiGetTopicContentSaga } from './getContent';
+import { apiDeleteSaga } from './delete';
+import { apiGetAllByUserIdByUserIdSaga, apiGetSaga } from './get';
+import { apiPostSaga } from './post';
+import { apiPatchContentSaga } from './patchContent';
+import { apiGetContentSaga } from './getContent';
 
 const apiSaga = function* (): Generator<*, *, *> {
   yield all([
-    takeLatest(t.API_DELETE, apiDeleteTopicSaga),
-    takeEvery(t.API_GET, apiGetTopicSaga),
-    takeLatest(t.API_GET_ALL_BY_USERID, apiGetAllTopicsByUserIdSaga),
-    takeLatest(t.API_POST, apiPostTopicSaga),
-    takeLatest(t.API_PATCH_CONTENT, apiPatchTopicContentSaga),
-    takeLatest(t.API_GET_CONTENT, apiGetTopicContentSaga),
+    takeLatest(t.API_DELETE, apiDeleteSaga),
+    takeEvery(t.API_GET, apiGetSaga),
+    takeLatest(t.API_GET_ALL_BY_USERID, apiGetAllByUserIdByUserIdSaga),
+    takeLatest(t.API_POST, apiPostSaga),
+    takeLatest(t.API_PATCH_CONTENT, apiPatchContentSaga),
+    takeLatest(t.API_GET_CONTENT, apiGetContentSaga),
   ]);
 };
 

@@ -16,7 +16,7 @@ const { getToken } = authentication.selectors;
 const { setStatusInState } = api.actions;
 const { statusTypes } = api.model;
 
-export const apiPatchTopicContentSaga = function* (
+export const apiPatchContentSaga = function* (
   action: t.ApiPatchTopicContentAction,
 ): Generator<*, *, *> {
   yield put(setStatusInState(t.API_PATCH_CONTENT, statusTypes.PENDING));

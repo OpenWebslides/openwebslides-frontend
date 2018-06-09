@@ -10,7 +10,7 @@ import { removeFromState } from '../../actions';
 
 const { getToken } = authentication.selectors;
 
-export const apiDeleteTopicSaga = function* (action: t.ApiDeleteTopicAction): Generator<*, *, *> {
+export const apiDeleteSaga = function* (action: t.ApiDeleteTopicAction): Generator<*, *, *> {
   try {
     const { id } = action.payload;
     const token = yield select(getToken);

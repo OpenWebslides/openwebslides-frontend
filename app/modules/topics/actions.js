@@ -228,7 +228,7 @@ export const load = (
 };
 
 // API saga actions
-export const apiDeleteTopic = (
+export const apiDelete = (
   id: Identifier,
 ): t.ApiDeleteTopicAction => {
   return {
@@ -240,7 +240,7 @@ export const apiDeleteTopic = (
 };
 
 
-export const apiGetAllTopics = (
+export const apiGetAllByUserId = (
   userId: Identifier,
 ): t.ApiGetAllTopicsByUserIdAction => {
   return {
@@ -251,7 +251,7 @@ export const apiGetAllTopics = (
   };
 };
 
-export const apiGetTopic = (
+export const apiGet = (
   id: Identifier,
 ): t.ApiGetTopicAction => {
   return {
@@ -262,7 +262,7 @@ export const apiGetTopic = (
   };
 };
 
-export const apiPostTopic = (
+export const apiPost = (
   userId: Identifier,
   title: string,
   description: ?string,
@@ -277,7 +277,7 @@ export const apiPostTopic = (
   };
 };
 
-export const apiPatchTopicContent = (
+export const apiPatchContent = (
   id: Identifier,
   contentItems: Array<ContentItem>,
 ): t.ApiPatchTopicContentAction => {
@@ -290,7 +290,7 @@ export const apiPatchTopicContent = (
   };
 };
 
-export const apiGetTopicContent = (
+export const apiGetContent = (
   id: Identifier,
 ): t.ApiGetTopicContentAction => {
   return {

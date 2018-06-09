@@ -4,7 +4,7 @@ import contentItems from 'modules/content-items';
 
 import { put, select } from 'redux-saga/effects';
 import * as t from '../../actionTypes';
-import { apiPatchTopicContent } from '../../actions';
+import { apiPatchContent } from '../../actions';
 import { getById } from '../../selectors';
 import type { Topic } from '../../model';
 
@@ -20,7 +20,7 @@ const saveSaga = function* (action: t.SaveContentAction): Generator<*, *, *> {
     id: topic.rootContentItemId,
   });
 
-  yield put(apiPatchTopicContent(id, contentItemDescendants));
+  yield put(apiPatchContent(id, contentItemDescendants));
 };
 
 export default saveSaga;

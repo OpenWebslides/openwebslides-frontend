@@ -3,10 +3,10 @@
 import { put } from 'redux-saga/effects';
 
 import * as t from '../../actionTypes';
-import { apiGetTopic } from '../../actions';
+import { apiGet } from '../../actions';
 
 const getSaga = function* (action: t.GetAction): Generator<*, *, *> {
-  yield put(apiGetTopic(action.payload.id));
+  yield put(apiGet(action.payload.id));
 };
 
 export default getSaga;

@@ -22,7 +22,7 @@ const { statusTypes } = api.model;
 const { setMultipleInState } = contentItems.actions;
 const { ContentItem } = contentItems.model;
 
-export const apiGetTopicContentSaga = function* (
+export const apiGetContentSaga = function* (
   action: t.ApiGetTopicContentAction,
 ): Generator<*, *, *> {
   yield put(setStatusInState(t.API_GET_CONTENT, statusTypes.PENDING));

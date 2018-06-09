@@ -1,7 +1,7 @@
 // @flow
 import { put } from 'redux-saga/effects';
 import * as t from '../../actionTypes';
-import { apiDeleteTopic } from '../../actions';
+import { apiDelete } from '../../actions';
 
 // eslint-disable-next-line require-yield
 const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
@@ -9,7 +9,7 @@ const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
     id,
   } = action.payload;
 
-  yield put(apiDeleteTopic(id));
+  yield put(apiDelete(id));
 };
 
 export default removeSaga;
