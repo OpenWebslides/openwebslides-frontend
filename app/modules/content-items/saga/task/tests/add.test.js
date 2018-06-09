@@ -7,7 +7,7 @@ import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentEr
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../../actionTypes';
-import { getAncestorById } from '../../../selectors';
+import { getParentOrSuperById } from '../../../selectors';
 import {
   contentItemTypes,
   contextTypes,
@@ -301,7 +301,7 @@ describe(`addSaga`, (): void => {
         expectSaga(convertContextToAncestorContext, dummySagaContext)
           .provide([
             [
-              select(getAncestorById, { id: dummyHeading1.id }),
+              select(getParentOrSuperById, { id: dummyHeading1.id }),
               dummyContentItemData.courseBreakContentItem,
             ],
           ])

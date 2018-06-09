@@ -10,7 +10,7 @@ import type { Identifier } from 'types/model';
 import generateId from '../../lib/generate-id';
 import * as t from '../../actionTypes';
 import { addToState, toggleEditing } from '../../actions';
-import { getAncestorById } from '../../selectors';
+import { getParentOrSuperById } from '../../selectors';
 import {
   subableContentItemTypes,
   containerContentItemTypes,
@@ -46,7 +46,7 @@ const convertContextToAncestorContext = function* (
     const relativePositionInSiblings = context.positionInSiblings || 0;
     // Get the parent or super item; throw error if not found
     const contextParentOrSuperItem = yield select(
-      getAncestorById,
+      getParentOrSuperById,
       { id: context.contextItemId },
     );
     if (contextParentOrSuperItem == null) throw new ObjectNotFoundError('contentItems:contentItem', context.contextItemId);

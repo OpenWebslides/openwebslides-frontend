@@ -1,5 +1,8 @@
 // @flow
 
+import _ from 'lodash';
+import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
+
 import type {
   RootContentItem,
   HeadingContentItem,
@@ -8,11 +11,10 @@ import type {
 } from '../../../../model';
 import * as dummyData from '../../../../lib/test-resources/dummyContentItemData';
 
-import findParentOrSuperItem from '..';
+import findNextSiblingItem from '..';
 
-describe(`findParentOrSuperItem`, (): void => {
+describe(`findNextSiblingItem`, (): void => {
 
-  let dummyParagraph23: $Exact<ParagraphContentItem>;
   let dummyParagraph22: $Exact<ParagraphContentItem>;
   let dummyParagraph21: $Exact<ParagraphContentItem>;
   let dummyHeading2: $Exact<HeadingContentItem>;
@@ -23,12 +25,11 @@ describe(`findParentOrSuperItem`, (): void => {
   let dummyContentItemsById: $Exact<ContentItemsById>;
 
   beforeEach((): void => {
-    dummyParagraph23 = { ...dummyData.paragraphContentItem5 };
     dummyParagraph22 = { ...dummyData.paragraphContentItem4 };
     dummyParagraph21 = { ...dummyData.paragraphContentItem3 };
     dummyHeading2 = {
       ...dummyData.headingContentItem2,
-      subItemIds: [dummyParagraph21.id, dummyParagraph22.id, dummyParagraph23.id],
+      subItemIds: [dummyParagraph21.id, dummyParagraph22.id],
     };
     dummyParagraph12 = { ...dummyData.paragraphContentItem2 };
     dummyParagraph11 = { ...dummyData.paragraphContentItem };
@@ -48,30 +49,42 @@ describe(`findParentOrSuperItem`, (): void => {
       [dummyHeading2.id]: dummyHeading2,
       [dummyParagraph21.id]: dummyParagraph21,
       [dummyParagraph22.id]: dummyParagraph22,
-      [dummyParagraph23.id]: dummyParagraph23,
     };
   });
 
-  it(`returns the parent item, when the passed contentItem is a childItem`, (): void => {
-    const actualResult = findParentOrSuperItem(dummyHeading2, dummyContentItemsById);
-    const expectedResult = dummyRoot;
+  it(`returns the next siblingItem, when the passed contentItem is a subItem and not the last in its list of siblings`, (): void => {
+    const actualResult = findNextSiblingItem(dummyParagraph11, dummyContentItemsById);
+    const expectedResult = dummyParagraph12;
     expect(actualResult).toBe(expectedResult);
   });
 
-  it(`returns the super item, when the passed contentItem is a subItem`, (): void => {
-    const actualResult = findParentOrSuperItem(dummyParagraph21, dummyContentItemsById);
+  it(`returns the next siblingItem, when the passed contentItem is a childItem and not the last in its list of siblings`, (): void => {
+    const actualResult = findNextSiblingItem(dummyHeading1, dummyContentItemsById);
     const expectedResult = dummyHeading2;
     expect(actualResult).toBe(expectedResult);
   });
 
-  it(`returns NULL, when no parent or super item could be found`, (): void => {
-    const actualResult = findParentOrSuperItem(dummyRoot, dummyContentItemsById);
+  it(`returns NULL, when the passed contentItem is the last in its list of siblings`, (): void => {
+    const actualResult = findNextSiblingItem(dummyParagraph12, dummyContentItemsById);
+    expect(actualResult).toBeNull();
+  });
+
+  it(`returns NULL, when the passed contentItem is neither a child- nor a subItem (i.e. is a ROOT)`, (): void => {
+    const actualResult = findNextSiblingItem(dummyRoot, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
   it(`returns NULL, when the passed contentItem is NULL`, (): void => {
-    const actualResult = findParentOrSuperItem(null, dummyContentItemsById);
+    const actualResult = findNextSiblingItem(null, dummyContentItemsById);
     expect(actualResult).toBeNull();
+  });
+
+  it(`throws a CorruptedInternalStateError, when the passed contentItemsById object contains inconsistencies`, (): void => {
+    dummyContentItemsById = _.omit(dummyContentItemsById, dummyParagraph12.id);
+
+    expect((): void => {
+      findNextSiblingItem(dummyParagraph11, dummyContentItemsById);
+    }).toThrow(CorruptedInternalStateError);
   });
 
 });

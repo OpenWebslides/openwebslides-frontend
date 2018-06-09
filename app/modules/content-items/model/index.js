@@ -34,6 +34,7 @@ import type {
   AncestorContextType,
   Context,
   AncestorContext,
+  ExtendedAncestorContext,
 } from './context';
 
 
@@ -711,4 +712,5 @@ export type {
   AncestorContextType,
   Context,
   AncestorContext,
+  ExtendedAncestorContext,
 };

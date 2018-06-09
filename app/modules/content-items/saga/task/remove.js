@@ -15,7 +15,7 @@ import {
 import type {
   AncestorContext,
 } from '../../model';
-import { getById, getAncestorById } from '../../selectors';
+import { getById, getParentOrSuperById } from '../../selectors';
 
 const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
   const { id } = action.payload;
@@ -25,7 +25,7 @@ const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
 
   // Determine the context of the contentItemToRemove
   if (contentItemToRemove.type !== contentItemTypes.ROOT) {
-    const parentOrSuperItem = yield select(getAncestorById, { id });
+    const parentOrSuperItem = yield select(getParentOrSuperById, { id });
     if (parentOrSuperItem == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
 
     // If the contextItem is a superItem
