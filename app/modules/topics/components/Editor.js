@@ -62,49 +62,64 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
 
 const ContentItemEditableDisplay = contentItems.components.EditableDisplay;
 
-const PureEditor = (props: Props): React.Node => {
-  const {
-    t,
-    topicId,
-    topic,
-    onSaveButtonClick,
-    onLoadButtonClick,
-  } = props;
+class PureEditor extends React.Component<Props> {
+  onLoadButtonClick = (): void => {
+    this.props.onLoadButtonClick(this.props.topicId);
+  }
 
-  if (!topic) {
-    onLoadButtonClick(topicId);
+  onSaveButtonClick = (): void => {
+    this.props.onSaveButtonClick(this.props.topicId);
+  }
+
+  // const {
+  //   t,
+  //   topicId,
+  //   topic,
+  //   onSaveButtonClick,
+  //   onLoadButtonClick,
+  // } = props;
+
+  render = (): React.Node => {
+    const {
+      t,
+      topic,
+    } = this.props;
+
+    if (!topic) {
+      this.onLoadButtonClick();
+
+      return (
+        <div>
+          <ApiDimmer request={API_GET_CONTENT}>{t('editor:api.load.pending')}</ApiDimmer>
+        </div>
+      );
+    }
 
     return (
       <div>
+        <Header as="h1">{this.props.topic.title}</Header>
+
+        <FlashMessages />
+
         <ApiDimmer request={API_GET_CONTENT}>{t('editor:api.load.pending')}</ApiDimmer>
+        <ApiDimmer request={API_PATCH_CONTENT}>{t('editor:api.save.pending')}</ApiDimmer>
+
+        <p>
+          <Button primary={true} onClick={this.onSaveButtonClick}>
+            {t('common:button.save')}
+          </Button>
+          <Button onClick={this.onLoadButtonClick}>
+            Load
+          </Button>
+        </p>
+
+        <Link to="/tempslidetest">Temp slide test page</Link>
+        {/* $FlowFixMe See: https://github.com/facebook/flow/issues/4644 */}
+        <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
       </div>
     );
   }
-
-  return (
-    <div>
-      <Header as="h1">{topic.title}</Header>
-
-      <FlashMessages />
-
-      <ApiDimmer request={API_GET_CONTENT}>{t('editor:api.load.pending')}</ApiDimmer>
-      <ApiDimmer request={API_PATCH_CONTENT}>{t('editor:api.save.pending')}</ApiDimmer>
-
-      <p>
-        <Button primary={true} onClick={() => onSaveButtonClick(topic.id)}>
-          {t('common:button.save')}
-        </Button>
-        <Button onClick={() => onLoadButtonClick(topic.id)}>
-          Load
-        </Button>
-      </p>
-
-      <Link to="/tempslidetest">Temp slide test page</Link>
-      { /* $FlowFixMe See: https://github.com/facebook/flow/issues/4644 */ }
-      <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
-    </div>
-  );
-};
+}
 
 const Editor = connect(mapStateToProps, mapDispatchToProps)(translate()(PureEditor));
 
