@@ -61,13 +61,6 @@ export type RemoveFromStateAction = {
   },
 };
 
-export type SetInStateAction = {
-  type: typeof SET_IN_STATE,
-  payload: {
-    contentItem: ContentItem,
-  },
-};
-
 export type SetMultipleInStateAction = {
   type: typeof SET_MULTIPLE_IN_STATE,
   payload: {
@@ -113,7 +106,6 @@ export type ReducerAction =
   | AddToStateAction
   | EditInStateAction
   | RemoveFromStateAction
-  | SetInStateAction
   | SetMultipleInStateAction;
 
 export type TaskSagaAction =

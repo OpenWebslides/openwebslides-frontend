@@ -27,7 +27,6 @@ const reducer = (
     case t.EDIT_IN_STATE:
       return editInState(state, action);
     case t.REMOVE_FROM_STATE:
-    case t.SET_IN_STATE:
       throw new NotYetImplementedError();
     case t.SET_MULTIPLE_IN_STATE:
       return setMultipleInState(state, action);
