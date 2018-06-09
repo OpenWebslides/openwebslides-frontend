@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';
 
@@ -7,6 +8,8 @@ import type { Identifier } from 'types/model';
 import type {
   ContentItem,
   ContentItemsById,
+  ContainerContentItem,
+  SubableContentItem,
 } from '../../model';
 
 
@@ -24,8 +27,7 @@ const getDescendants = (
 
   if (_.includes(containerContentItemTypes, contentItem.type)) {
     // Iterate over children
-    // $FlowFixMe
-    contentItem.childItemIds.forEach((childId: Identifier): void => {
+    ((contentItem: any): ContainerContentItem).childItemIds.forEach((childId: Identifier): void => {
       const childItem = contentItemsById[childId];
       contentItems = contentItems.concat(getDescendants(childItem, contentItemsById));
     });
@@ -33,8 +35,7 @@ const getDescendants = (
 
   if (_.includes(subableContentItemTypes, contentItem.type)) {
     // Iterate over subitems
-    // $FlowFixMe
-    contentItem.subItemIds.forEach((childId: Identifier): void => {
+    ((contentItem: any): SubableContentItem).subItemIds.forEach((childId: Identifier): void => {
       const childItem = contentItemsById[childId];
       contentItems = contentItems.concat(getDescendants(childItem, contentItemsById));
     });
