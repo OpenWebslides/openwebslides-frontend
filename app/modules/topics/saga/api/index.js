@@ -12,12 +12,12 @@ import { apiGetTopicContentSaga } from './getContent';
 
 const apiSaga = function* (): Generator<*, *, *> {
   yield all([
-    takeLatest(t.API_DELETE_TOPIC, apiDeleteTopicSaga),
-    takeEvery(t.API_GET_TOPIC, apiGetTopicSaga),
-    takeLatest(t.API_GET_ALL_TOPICS_BY_USERID, apiGetAllTopicsByUserIdSaga),
-    takeLatest(t.API_POST_TOPIC, apiPostTopicSaga),
-    takeLatest(t.API_PATCH_TOPIC_CONTENT, apiPatchTopicContentSaga),
-    takeLatest(t.API_GET_TOPIC_CONTENT, apiGetTopicContentSaga),
+    takeLatest(t.API_DELETE, apiDeleteTopicSaga),
+    takeEvery(t.API_GET, apiGetTopicSaga),
+    takeLatest(t.API_GET_ALL_BY_USERID, apiGetAllTopicsByUserIdSaga),
+    takeLatest(t.API_POST, apiPostTopicSaga),
+    takeLatest(t.API_PATCH_CONTENT, apiPatchTopicContentSaga),
+    takeLatest(t.API_GET_CONTENT, apiGetTopicContentSaga),
   ]);
 };
 

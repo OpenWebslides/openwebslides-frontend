@@ -20,8 +20,8 @@ import type { Topic } from '../model';
 import { getById } from '../selectors';
 import { save, load } from '../actions';
 import {
-  API_GET_TOPIC_CONTENT,
-  API_PATCH_TOPIC_CONTENT,
+  API_GET_CONTENT,
+  API_PATCH_CONTENT,
 } from '../actionTypes';
 
 const { ApiDimmer } = api.components;
@@ -76,7 +76,7 @@ const PureEditor = (props: Props): React.Node => {
 
     return (
       <div>
-        <ApiDimmer request={API_GET_TOPIC_CONTENT}>{t('editor:api.load.pending')}</ApiDimmer>
+        <ApiDimmer request={API_GET_CONTENT}>{t('editor:api.load.pending')}</ApiDimmer>
       </div>
     );
   }
@@ -87,8 +87,8 @@ const PureEditor = (props: Props): React.Node => {
 
       <FlashMessages />
 
-      <ApiDimmer request={API_GET_TOPIC_CONTENT}>{t('editor:api.load.pending')}</ApiDimmer>
-      <ApiDimmer request={API_PATCH_TOPIC_CONTENT}>{t('editor:api.save.pending')}</ApiDimmer>
+      <ApiDimmer request={API_GET_CONTENT}>{t('editor:api.load.pending')}</ApiDimmer>
+      <ApiDimmer request={API_PATCH_CONTENT}>{t('editor:api.save.pending')}</ApiDimmer>
 
       <p>
         <Button primary={true} onClick={() => onSaveButtonClick(topic.id)}>

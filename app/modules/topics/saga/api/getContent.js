@@ -25,7 +25,7 @@ const { ContentItem } = contentItems.model;
 export const apiGetTopicContentSaga = function* (
   action: t.ApiGetTopicContentAction,
 ): Generator<*, *, *> {
-  yield put(setStatusInState(t.API_GET_TOPIC_CONTENT, statusTypes.PENDING));
+  yield put(setStatusInState(t.API_GET_CONTENT, statusTypes.PENDING));
 
   try {
     const { id } = action.payload;
@@ -38,7 +38,7 @@ export const apiGetTopicContentSaga = function* (
     yield put(setMultipleInState(items));
 
     yield put(setTokenInState(response.token));
-    yield put(setStatusInState(t.API_GET_TOPIC_CONTENT, statusTypes.SUCCESS));
+    yield put(setStatusInState(t.API_GET_CONTENT, statusTypes.SUCCESS));
     yield put(flashMessage('editor:api.load.success'));
   }
   catch (error) {
@@ -46,7 +46,7 @@ export const apiGetTopicContentSaga = function* (
       throw error;
     }
 
-    yield put(setStatusInState(t.API_GET_TOPIC_CONTENT, statusTypes.FAILURE));
+    yield put(setStatusInState(t.API_GET_CONTENT, statusTypes.FAILURE));
     yield put(flashErrorMessage('editor:api.load.failure'));
   }
 };

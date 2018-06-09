@@ -19,7 +19,7 @@ const { statusTypes } = api.model;
 export const apiPatchTopicContentSaga = function* (
   action: t.ApiPatchTopicContentAction,
 ): Generator<*, *, *> {
-  yield put(setStatusInState(t.API_PATCH_TOPIC_CONTENT, statusTypes.PENDING));
+  yield put(setStatusInState(t.API_PATCH_CONTENT, statusTypes.PENDING));
 
   try {
     const { id, contentItems } = action.payload;
@@ -28,11 +28,11 @@ export const apiPatchTopicContentSaga = function* (
     const response = yield call(TopicsApi.patchContent, id, contentItems, token);
 
     yield put(setTokenInState(response.token));
-    yield put(setStatusInState(t.API_PATCH_TOPIC_CONTENT, statusTypes.SUCCESS));
+    yield put(setStatusInState(t.API_PATCH_CONTENT, statusTypes.SUCCESS));
     yield put(flashMessage('editor:api.save.success'));
   }
   catch (error) {
-    yield put(setStatusInState(t.API_PATCH_TOPIC_CONTENT, statusTypes.FAILURE));
+    yield put(setStatusInState(t.API_PATCH_CONTENT, statusTypes.FAILURE));
     yield put(flashErrorMessage('editor:api.save.failure'));
   }
 };

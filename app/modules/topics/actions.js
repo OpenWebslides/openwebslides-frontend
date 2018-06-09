@@ -209,7 +209,7 @@ export const save = (
   id: Identifier,
 ): t.SaveContentAction | t.SaveContentErrorAction => {
   return {
-    type: t.SAVE_CONTENT,
+    type: t.SAVE,
     payload: {
       id,
     },
@@ -220,7 +220,7 @@ export const load = (
   id: Identifier,
 ): t.LoadContentAction | t.LoadContentErrorAction => {
   return {
-    type: t.LOAD_CONTENT,
+    type: t.LOAD,
     payload: {
       id,
     },
@@ -232,7 +232,7 @@ export const apiDeleteTopic = (
   id: Identifier,
 ): t.ApiDeleteTopicAction => {
   return {
-    type: t.API_DELETE_TOPIC,
+    type: t.API_DELETE,
     payload: {
       id,
     },
@@ -244,7 +244,7 @@ export const apiGetAllTopics = (
   userId: Identifier,
 ): t.ApiGetAllTopicsByUserIdAction => {
   return {
-    type: t.API_GET_ALL_TOPICS_BY_USERID,
+    type: t.API_GET_ALL_BY_USERID,
     payload: {
       userId,
     },
@@ -255,7 +255,7 @@ export const apiGetTopic = (
   id: Identifier,
 ): t.ApiGetTopicAction => {
   return {
-    type: t.API_GET_TOPIC,
+    type: t.API_GET,
     payload: {
       id,
     },
@@ -268,7 +268,7 @@ export const apiPostTopic = (
   description: ?string,
 ): t.ApiPostTopicAction => {
   return {
-    type: t.API_POST_TOPIC,
+    type: t.API_POST,
     payload: {
       userId,
       title,
@@ -282,7 +282,7 @@ export const apiPatchTopicContent = (
   contentItems: Array<ContentItem>,
 ): t.ApiPatchTopicContentAction => {
   return {
-    type: t.API_PATCH_TOPIC_CONTENT,
+    type: t.API_PATCH_CONTENT,
     payload: {
       id,
       contentItems,
@@ -294,7 +294,7 @@ export const apiGetTopicContent = (
   id: Identifier,
 ): t.ApiGetTopicContentAction => {
   return {
-    type: t.API_GET_TOPIC_CONTENT,
+    type: t.API_GET_CONTENT,
     payload: {
       id,
     },

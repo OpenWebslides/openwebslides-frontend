@@ -190,10 +190,10 @@ describe(`actions`, (): void => {
   });
 
   describe(`save`, (): void => {
-    it(`returns a SAVE_CONTENT action`, (): void => {
+    it(`returns a SAVE action`, (): void => {
       const id = 'abcdefghij';
       const expectedAction: t.SaveContentAction = {
-        type: t.SAVE_CONTENT,
+        type: t.SAVE,
         payload: {
           id,
         },
@@ -204,10 +204,10 @@ describe(`actions`, (): void => {
   });
 
   describe(`load`, (): void => {
-    it(`returns a LOAD_CONTENT action`, (): void => {
+    it(`returns a LOAD action`, (): void => {
       const id = 'abcdefghij';
       const expectedAction: t.LoadContentAction = {
-        type: t.LOAD_CONTENT,
+        type: t.LOAD,
         payload: {
           id,
         },
@@ -218,11 +218,11 @@ describe(`actions`, (): void => {
   });
 
   describe(`apiPatchTopicContent`, (): void => {
-    it(`returns a API_PATCH_TOPIC_CONTENT action`, (): void => {
+    it(`returns a API_PATCH_CONTENT action`, (): void => {
       const id = 'abcdefghij';
       const contentItems = [];
       const expectedAction: t.ApiPatchTopicContentAction = {
-        type: t.API_PATCH_TOPIC_CONTENT,
+        type: t.API_PATCH_CONTENT,
         payload: {
           id,
           contentItems,
@@ -234,10 +234,10 @@ describe(`actions`, (): void => {
   });
 
   describe(`apiGetTopicContent`, (): void => {
-    it(`returns a API_GET_TOPIC_CONTENT action`, (): void => {
+    it(`returns a API_GET_CONTENT action`, (): void => {
       const id = 'abcdefghij';
       const expectedAction: t.ApiGetTopicContentAction = {
-        type: t.API_GET_TOPIC_CONTENT,
+        type: t.API_GET_CONTENT,
         payload: {
           id,
         },

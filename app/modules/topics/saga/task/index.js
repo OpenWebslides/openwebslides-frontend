@@ -19,8 +19,8 @@ const taskSaga = function* (): Generator<*, *, *> {
     takeEvery(t.GET, getSaga),
     takeEvery(t.GET_ALL_BY_USERID, getAllSaga),
     takeLatest(t.REMOVE, removeSaga),
-    takeLatest(t.SAVE_CONTENT, saveSaga),
-    takeLatest(t.LOAD_CONTENT, loadSaga),
+    takeLatest(t.SAVE, saveSaga),
+    takeLatest(t.LOAD, loadSaga),
   ]);
 };
 
