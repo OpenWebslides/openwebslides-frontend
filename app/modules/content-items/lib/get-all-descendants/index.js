@@ -44,7 +44,7 @@ const getDescendants = (
   return contentItems;
 };
 
-const normalize = (
+const getAllDescendants = (
   contentItem: ?ContentItem,
   contentItemsById: ContentItemsById,
 ): Array<ContentItem> => {
@@ -56,4 +56,4 @@ const normalize = (
   }
 };
 
-export default normalize;
+export default getAllDescendants;

@@ -1,6 +1,6 @@
 // @flow
 
-import normalize from '..';
+import getAllDescendants from '..';
 
 import { contentItemTypes } from '../../../model';
 import type {
@@ -10,7 +10,7 @@ import type {
   ContentItemsById, ContentItem,
 } from '../../../model';
 
-describe(`normalize`, (): void => {
+describe(`getAllDescendants`, (): void => {
 
 
   const dummyRoot1: $Exact<RootContentItem> = {
@@ -80,23 +80,23 @@ describe(`normalize`, (): void => {
   };
 
   it(`returns a list of contentItems, when the passed contentItem is a subable contentItem`, (): void => {
-    const normalizedContentItems = normalize(dummyHeading1, dummyContentItemsById);
+    const contentItemDescendants = getAllDescendants(dummyHeading1, dummyContentItemsById);
     const expectedResult: Array<ContentItem> = [
       dummyHeading1,
       dummyParagraph2,
     ];
-    expect(normalizedContentItems).toEqual(expectedResult);
+    expect(contentItemDescendants).toEqual(expectedResult);
   });
 
   it(`returns a list of contentItems, when the passed contentItem is a container contentItem`, (): void => {
-    const normalizedContentItems = normalize(dummyRoot2, dummyContentItemsById);
+    const contentItemDescendants = getAllDescendants(dummyRoot2, dummyContentItemsById);
     const expectedResult: Array<ContentItem> = [
       dummyRoot2,
       dummyHeading1,
       dummyParagraph2,
       dummyParagraph1,
     ];
-    expect(normalizedContentItems).toEqual(expectedResult);
+    expect(contentItemDescendants).toEqual(expectedResult);
   });
 
 });

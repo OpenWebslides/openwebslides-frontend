@@ -1,7 +1,7 @@
 // @flow
 
 import contentItemsModule from 'modules/content-items';
-import { getById, getAllById, getAll, getDenormalizedById, getNormalizedById } from '../selectors';
+import { getById, getAllById, getAll, getDenormalizedById, getAllDescendantsById } from '../selectors';
 import { contentItemTypes } from '../model';
 import type {
   RootContentItem,
@@ -177,10 +177,10 @@ describe(`selectors`, (): void => {
 
   });
 
-  describe(`getNormalizedById`, (): void => {
+  describe(`getAllDescendantsById`, (): void => {
 
-    it(`returns the correct normalized contentItems for the given id, when the given id is valid`, (): void => {
-      const normalizedContentItem = getNormalizedById(dummyState, { id: dummyRoot3.id });
+    it(`returns the contentItem descendants for the given id, when the given id is valid`, (): void => {
+      const contentItemDescendants = getAllDescendantsById(dummyState, { id: dummyRoot3.id });
       const expectedResult: Array<ContentItem> = [
         dummyRoot3,
         dummyHeading2,
@@ -188,12 +188,12 @@ describe(`selectors`, (): void => {
         dummyParagraph1,
       ];
 
-      expect(normalizedContentItem).toEqual(expectedResult);
+      expect(contentItemDescendants).toEqual(expectedResult);
     });
 
     it(`returns an empty array, when the given id is invalid`, (): void => {
-      const normalizedContentItem = getNormalizedById(dummyState, { id: 'k92jkdh29d' });
-      expect(normalizedContentItem).toEqual([]);
+      const contentItemDescendants = getAllDescendantsById(dummyState, { id: 'k92jkdh29d' });
+      expect(contentItemDescendants).toEqual([]);
     });
 
   });
