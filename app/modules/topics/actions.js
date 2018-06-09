@@ -2,7 +2,7 @@
 
 import _ from 'lodash';
 
-import contentItemsModule from 'modules/content-items';
+import contentItems from 'modules/content-items';
 
 import type { Identifier } from 'types/model';
 import type { RouterHistory } from 'react-router-dom';
@@ -11,7 +11,7 @@ import type { Topic } from './model';
 import * as t from './actionTypes';
 import { generateId } from './model';
 
-const { ContentItem } = contentItemsModule.model;
+const { ContentItem } = contentItems.model;
 
 // Reducer actions
 export const addToState = (
@@ -279,13 +279,13 @@ export const apiPost = (
 
 export const apiPatchContent = (
   id: Identifier,
-  contentItems: Array<ContentItem>,
+  content: Array<ContentItem>,
 ): t.ApiPatchTopicContentAction => {
   return {
     type: t.API_PATCH_CONTENT,
     payload: {
       id,
-      contentItems,
+      content,
     },
   };
 };

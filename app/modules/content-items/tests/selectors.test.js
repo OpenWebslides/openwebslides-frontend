@@ -1,6 +1,6 @@
 // @flow
 
-import contentItemsModule from 'modules/content-items';
+import contentItems from 'modules/content-items';
 import { getById, getAllById, getAll, getDenormalizedById, getAllDescendantsById } from '../selectors';
 import { contentItemTypes } from '../model';
 import type {
@@ -13,7 +13,7 @@ import type {
   ContentItemsState,
 } from '../model';
 
-const { ContentItem } = contentItemsModule.model;
+const { ContentItem } = contentItems.model;
 
 describe(`selectors`, (): void => {
 
@@ -135,8 +135,8 @@ describe(`selectors`, (): void => {
   describe(`getAll`, (): void => {
 
     it(`returns an array containing all contentItems, when there are one or more contentItems in the state`, (): void => {
-      const contentItems = getAll(dummyState);
-      expect(contentItems).toEqual([
+      const allContentItems = getAll(dummyState);
+      expect(allContentItems).toEqual([
         dummyRoot1,
         dummyRoot2,
         dummyRoot3,
@@ -148,8 +148,8 @@ describe(`selectors`, (): void => {
     });
 
     it(`returns an empty array, when there are no contentItems in the state`, (): void => {
-      const contentItems = getAll(dummyEmptyState);
-      expect(contentItems).toEqual([]);
+      const allContentItems = getAll(dummyEmptyState);
+      expect(allContentItems).toEqual([]);
     });
 
   });

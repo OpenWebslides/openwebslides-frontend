@@ -220,16 +220,16 @@ describe(`actions`, (): void => {
   describe(`apiPatchContent`, (): void => {
     it(`returns a API_PATCH_CONTENT action`, (): void => {
       const id = 'abcdefghij';
-      const contentItems = [];
+      const content = [];
       const expectedAction: t.ApiPatchTopicContentAction = {
         type: t.API_PATCH_CONTENT,
         payload: {
           id,
-          contentItems,
+          content,
         },
       };
 
-      expect(actions.apiPatchContent(id, contentItems)).toEqual(expectedAction);
+      expect(actions.apiPatchContent(id, content)).toEqual(expectedAction);
     });
   });
 

@@ -2,7 +2,7 @@
 
 import type { Identifier } from 'types/model';
 
-import contentItemsModule from 'modules/content-items';
+import contentItems from 'modules/content-items';
 
 import {
   USERS_ENDPOINT,
@@ -15,7 +15,7 @@ import type { Response, Token } from '../model';
 
 import ApiRequest from '../ApiRequest';
 
-const { ContentItem } = contentItemsModule.model;
+const { ContentItem } = contentItems.model;
 
 const destroy = (
   id: Identifier,
@@ -98,7 +98,7 @@ const post = (
 
 const patchContent = (
   topicId: Identifier,
-  contentItems: Array<ContentItem>,
+  content: Array<ContentItem>,
   token: string,
 ): Promise<Response> => {
   const request = new ApiRequest();
@@ -107,7 +107,7 @@ const patchContent = (
     data: {
       type: 'contents',
       attributes: {
-        content: contentItems,
+        content,
       },
     },
   });
