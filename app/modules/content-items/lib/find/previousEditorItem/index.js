@@ -3,7 +3,7 @@
  * Finds the contentItem that comes directly before the passed contentItem in editor order.
  */
 
-import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
+import _ from 'lodash';
 
 import type {
   ContentItem,
@@ -20,28 +20,29 @@ const findPreviousEditorItem = (
   const context = find.extendedAncestorContext(contentItem, contentItemsById);
   if (context == null) return null;
 
-  const { contextItemId, siblingItemIds, positionInSiblings } = context;
+  const { contextItemId, positionInSiblings } = context;
   const parentOrSuperItem = contentItemsById[contextItemId];
 
   // If the contentItem is the first in its list of siblings,
-  // the previous item is its parentOrSuperItem.
+  // the previousEditorItem is its parentOrSuperItem.
   if (positionInSiblings == null || positionInSiblings === 0) {
     return parentOrSuperItem;
   }
   // If the contentItem is not the first in its list of siblings,
-  // the previous item is the last nested child or subItem of its previous sibling.
+  // the previousEditorItem is the last nested child or subItem of its previous sibling.
   else {
-    const previousSiblingId = siblingItemIds[context.positionInSiblings - 1];
-    const previousSibling = contentItemsById[previousSiblingId];
-    if (previousSibling == null) throw new CorruptedInternalStateError(`ContentItemsById contains inconsistencies; this shouldn't happen.`);
+    const prevSibling = find.previousSiblingItem(contentItem, contentItemsById);
+    const prevSiblingAllDescendants = find.allDescendantItems(prevSibling, contentItemsById);
 
-    const previousSiblingFurthestLastChildOrSubItem = find.furthest(
-      previousSibling,
-      contentItemsById,
-      find.lastChildOrSubItem,
-    );
-
-    return previousSiblingFurthestLastChildOrSubItem || previousSibling;
+    // If the previous sibling doesn't have descendants,
+    // the previousEditorItem is the previous sibling itself.
+    if (prevSiblingAllDescendants.length === 0) {
+      return prevSibling;
+    }
+    // If it does have descandants, the previousEditorItem is its last descendant.
+    else {
+      return _.last(prevSiblingAllDescendants);
+    }
   }
 };
 

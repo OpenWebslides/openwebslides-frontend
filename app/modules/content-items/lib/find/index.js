@@ -6,8 +6,6 @@
 import extendedAncestorContext from './extendedAncestorContext';
 
 import parentOrSuperItem from './parentOrSuperItem';
-import firstChildOrSubItem from './firstChildOrSubItem';
-import lastChildOrSubItem from './lastChildOrSubItem';
 import allAncestorItems from './allAncestorItems';
 import allChildOrSubItems from './allChildOrSubItems';
 import allDescendantItems from './allDescendantItems';
@@ -25,8 +23,6 @@ import furthest from './furthest';
 const find = {
   extendedAncestorContext,
   parentOrSuperItem,
-  firstChildOrSubItem,
-  lastChildOrSubItem,
   allAncestorItems,
   allChildOrSubItems,
   allDescendantItems,

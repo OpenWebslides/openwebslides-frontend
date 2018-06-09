@@ -39,11 +39,11 @@ const findNextEditorItem = (
   if (contentItem == null) return null;
 
   // First, see if the contentItem has subItems or childItems.
-  const firstChildOrSubItem = find.firstChildOrSubItem(contentItem, contentItemsById);
+  const allChildOrSubItems = find.allChildOrSubItems(contentItem, contentItemsById);
 
   // If so, return the first sub- or childItem.
-  if (firstChildOrSubItem != null) {
-    return firstChildOrSubItem;
+  if (allChildOrSubItems.length !== 0) {
+    return allChildOrSubItems[0];
   }
   // If the contentItem has no sub- or childItems
   else {

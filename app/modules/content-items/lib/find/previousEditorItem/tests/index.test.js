@@ -1,8 +1,5 @@
 // @flow
 
-import _ from 'lodash';
-import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
-
 import type {
   RootContentItem,
   HeadingContentItem,
@@ -102,14 +99,6 @@ describe(`findPreviousEditorItem`, (): void => {
   it(`returns NULL, when the passed contentItem is NULL`, (): void => {
     const actualResult = findPreviousEditorItem(null, dummyContentItemsById);
     expect(actualResult).toBeNull();
-  });
-
-  it(`throws a CorruptedInternalStateError, when the passed contentItemsById object contains inconsistencies`, (): void => {
-    dummyContentItemsById = _.omit(dummyContentItemsById, dummyParagraph141.id);
-
-    expect((): void => {
-      findPreviousEditorItem(dummyParagraph142, dummyContentItemsById);
-    }).toThrow(CorruptedInternalStateError);
   });
 
 });
