@@ -129,4 +129,5 @@ export type TaskSagaAction =
   | EditAction
   | ToggleEditingAction
   | MoveAction
-  | RemoveAction;
+  | RemoveAction
+  | RemoveAndTogglePreviousItemAction;
