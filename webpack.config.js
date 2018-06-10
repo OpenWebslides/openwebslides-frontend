@@ -16,7 +16,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 // Path name constants
 const paths = {
@@ -121,14 +120,6 @@ const devConfig = {
   plugins: [
     // Include hot reloading functionality
     new webpack.HotModuleReplacementPlugin(),
-    new CircularDependencyPlugin({
-      // exclude detection of files based on a RegExp
-      exclude: /node_modules|editable-display|html-display/,
-      // add errors to webpack instead of warnings
-      failOnError: false,
-      // set the current working directory for displaying module paths
-      cwd: process.cwd(),
-    }),
   ],
 
   module: {
