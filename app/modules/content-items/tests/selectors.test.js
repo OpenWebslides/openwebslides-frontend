@@ -5,7 +5,6 @@ import {
   getAllById,
   getAll,
   getCurrentlyEditing,
-  getParentOrSuperById,
   getDenormalizedById,
   getAllDescendantsById,
 } from '../selectors';
@@ -136,22 +135,6 @@ describe(`selectors`, (): void => {
 
     it(`returns NULL, when there is no contentItem for which the isEditing value is currently TRUE`, (): void => {
       expect(getCurrentlyEditing(dummyState)).toBeNull();
-    });
-
-  });
-
-  describe(`getParentOrSuperById`, (): void => {
-
-    it(`returns the correct parentItem, when the given id is of a valid childItem`, (): void => {
-      const expectedResult = dummyRoot;
-      const actualResult = getParentOrSuperById(dummyState, { id: dummyHeading1.id });
-      expect(actualResult).toBe(expectedResult);
-    });
-
-    it(`returns the correct superItem, when the given id is of a valid subItem`, (): void => {
-      const expectedResult = dummyHeading2;
-      const actualResult = getParentOrSuperById(dummyState, { id: dummyParagraph4.id });
-      expect(actualResult).toBe(expectedResult);
     });
 
   });
