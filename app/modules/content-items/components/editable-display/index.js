@@ -105,7 +105,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
         {
           contextType: contextTypes.SUPER,
           contextItemId: id,
-          positionInSiblings: 0,
+          indexInSiblingItems: 0,
         },
         { text: '' },
       ));
@@ -117,7 +117,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
         {
           contextType: contextTypes.SIBLING,
           contextItemId: id,
-          positionInSiblings: 0,
+          indexInSiblingItemsShift: 0,
         },
         { text: '' },
       ));

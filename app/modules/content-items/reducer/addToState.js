@@ -93,7 +93,7 @@ const addToState = (
     }
   }
   else {
-    const positionInSiblings = context.positionInSiblings || 0;
+    const indexInSiblingItems = context.indexInSiblingItems || 0;
     const contextItemToEdit = state.byId[context.contextItemId];
     if (contextItemToEdit == null) {
       throw new ObjectNotFoundError('contentItems:contentItem', id);
@@ -108,7 +108,7 @@ const addToState = (
       editedContextItem.childItemIds = insertIntoArray(
         editedContextItem.childItemIds,
         newContentItem.id,
-        positionInSiblings,
+        indexInSiblingItems,
       );
     }
     else if (context.contextType === contextTypes.SUPER) {
@@ -119,7 +119,7 @@ const addToState = (
       editedContextItem.subItemIds = insertIntoArray(
         editedContextItem.subItemIds,
         newContentItem.id,
-        positionInSiblings,
+        indexInSiblingItems,
       );
     }
     else {

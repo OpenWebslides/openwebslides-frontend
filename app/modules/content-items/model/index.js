@@ -27,14 +27,17 @@ import { visibilityTypes } from './visibilities';
 import type { Visibility } from './visibilities';
 import {
   contextTypes,
-  ancestorContextTypes,
+  verticalContextTypes,
+  horizontalContextTypes,
 } from './context';
 import type {
   ContextType,
-  AncestorContextType,
+  VerticalContextType,
+  HorizontalContextType,
   Context,
-  AncestorContext,
-  ExtendedAncestorContext,
+  VerticalContext,
+  ExtendedVerticalContext,
+  HorizontalContext,
 } from './context';
 
 
@@ -694,7 +697,8 @@ export {
   tagTypes,
   visibilityTypes,
   contextTypes,
-  ancestorContextTypes,
+  verticalContextTypes,
+  horizontalContextTypes,
 };
 
 export type {
@@ -709,8 +713,10 @@ export type {
   Tag,
   Visibility,
   ContextType,
-  AncestorContextType,
+  VerticalContextType,
+  HorizontalContextType,
   Context,
-  AncestorContext,
-  ExtendedAncestorContext,
+  VerticalContext,
+  ExtendedVerticalContext,
+  HorizontalContext,
 };

@@ -15,13 +15,13 @@ const findParentOrSuperItem = (
   contentItemsById: ContentItemsById,
 ): ?ContentItem => {
   if (contentItem == null) return null;
-  const extendedAncestorContext = find.extendedAncestorContext(contentItem, contentItemsById);
+  const context = find.extendedVerticalContext(contentItem, contentItemsById);
 
-  if (extendedAncestorContext == null) {
+  if (context == null) {
     return null;
   }
   else {
-    return contentItemsById[extendedAncestorContext.contextItemId];
+    return contentItemsById[context.contextItemId];
   }
 };
 

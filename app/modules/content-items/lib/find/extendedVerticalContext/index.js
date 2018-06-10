@@ -21,14 +21,14 @@ import type {
   SubableContentItem,
   ContainerContentItem,
   ContentItemsById,
-  ExtendedAncestorContext,
+  ExtendedVerticalContext,
 } from '../../../model';
 
 const getContextFromCandidateParentOrSuperItem = (
   contentItem: ContentItem,
   candidateParentOrSuperItem: ContentItem,
-): ?ExtendedAncestorContext => {
-  let context: ?ExtendedAncestorContext = null;
+): ?ExtendedVerticalContext => {
+  let context: ?ExtendedVerticalContext = null;
   let siblingItemIds: Array<Identifier>;
 
   // If the current candidate is the superItem of the passed contentItem
@@ -44,7 +44,7 @@ const getContextFromCandidateParentOrSuperItem = (
       contextType: contextTypes.SUPER,
       contextItemId: candidateParentOrSuperItem.id,
       siblingItemIds,
-      positionInSiblings: _.indexOf(siblingItemIds, contentItem.id),
+      indexInSiblingItems: _.indexOf(siblingItemIds, contentItem.id),
     };
   }
   // If the current candidate is the parentItem of the passed contentItem
@@ -60,23 +60,23 @@ const getContextFromCandidateParentOrSuperItem = (
       contextType: contextTypes.PARENT,
       contextItemId: candidateParentOrSuperItem.id,
       siblingItemIds,
-      positionInSiblings: _.indexOf(siblingItemIds, contentItem.id),
+      indexInSiblingItems: _.indexOf(siblingItemIds, contentItem.id),
     };
   }
 
   return context;
 };
 
-const findExtendedAncestorContext = (
+const findExtendedVerticalContext = (
   contentItem: ?ContentItem,
   contentItemsById: ContentItemsById,
   // If the parentOrSuperItem is known, it can be passed in order to avoid having to loop through
   // all contentItems.
   parentOrSuperItem: ?ContentItem = null,
-): ?ExtendedAncestorContext => {
+): ?ExtendedVerticalContext => {
   if (contentItem == null) return null;
 
-  let context: ?ExtendedAncestorContext = null;
+  let context: ?ExtendedVerticalContext = null;
 
   // If the parentOrSuperItem wasn't previously known
   if (parentOrSuperItem == null) {
@@ -105,4 +105,4 @@ const findExtendedAncestorContext = (
   return context;
 };
 
-export default findExtendedAncestorContext;
+export default findExtendedVerticalContext;

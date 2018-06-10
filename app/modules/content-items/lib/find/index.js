@@ -3,7 +3,7 @@
  * Index for all find functions; import this to avoid having to import the separate find functions.
  */
 
-import extendedAncestorContext from './extendedAncestorContext';
+import extendedVerticalContext from './extendedVerticalContext';
 
 import parentOrSuperItem from './parentOrSuperItem';
 import allAncestorItems from './allAncestorItems';
@@ -21,7 +21,7 @@ import closest from './closest';
 import furthest from './furthest';
 
 const find = {
-  extendedAncestorContext,
+  extendedVerticalContext,
   parentOrSuperItem,
   allAncestorItems,
   allChildOrSubItems,

@@ -10,13 +10,13 @@ import type {
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
-  ExtendedAncestorContext,
+  ExtendedVerticalContext,
 } from '../../../../model';
 import * as dummyData from '../../../../lib/test-resources/dummyContentItemData';
 
-import findExtendedAncestorContext from '..';
+import findExtendedVerticalContext from '..';
 
-describe(`findExtendedAncestorContext`, (): void => {
+describe(`findExtendedVerticalContext`, (): void => {
 
   let dummyParagraph23: $Exact<ParagraphContentItem>;
   let dummyParagraph22: $Exact<ParagraphContentItem>;
@@ -59,84 +59,84 @@ describe(`findExtendedAncestorContext`, (): void => {
   });
 
   it(`returns the correct context, when the passed contentItem is a subItem`, (): void => {
-    const actualResult = findExtendedAncestorContext(dummyParagraph11, dummyContentItemsById);
-    const expectedResult: $Exact<ExtendedAncestorContext> = {
+    const actualResult = findExtendedVerticalContext(dummyParagraph11, dummyContentItemsById);
+    const expectedResult: ExtendedVerticalContext = {
       contextType: contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
       siblingItemIds: [dummyParagraph11.id, dummyParagraph12.id],
-      positionInSiblings: 0,
+      indexInSiblingItems: 0,
     };
     expect(actualResult).toEqual(expectedResult);
   });
 
   it(`returns the correct context, when the passed contentItem is a childItem`, (): void => {
-    const actualResult = findExtendedAncestorContext(dummyHeading2, dummyContentItemsById);
-    const expectedResult: $Exact<ExtendedAncestorContext> = {
+    const actualResult = findExtendedVerticalContext(dummyHeading2, dummyContentItemsById);
+    const expectedResult: ExtendedVerticalContext = {
       contextType: contextTypes.PARENT,
       contextItemId: dummyRoot.id,
       siblingItemIds: [dummyHeading1.id, dummyHeading2.id],
-      positionInSiblings: 1,
+      indexInSiblingItems: 1,
     };
     expect(actualResult).toEqual(expectedResult);
   });
 
   it(`returns the correct context, when the passed contentItem is the first in its list of siblings`, (): void => {
-    const actualResult = findExtendedAncestorContext(dummyParagraph21, dummyContentItemsById);
-    const expectedResult: $Exact<ExtendedAncestorContext> = {
+    const actualResult = findExtendedVerticalContext(dummyParagraph21, dummyContentItemsById);
+    const expectedResult: ExtendedVerticalContext = {
       contextType: contextTypes.SUPER,
       contextItemId: dummyHeading2.id,
       siblingItemIds: [dummyParagraph21.id, dummyParagraph22.id, dummyParagraph23.id],
-      positionInSiblings: 0,
+      indexInSiblingItems: 0,
     };
     expect(actualResult).toEqual(expectedResult);
   });
 
   it(`returns the correct context, when the passed contentItem is the last in its list of siblings`, (): void => {
-    const actualResult = findExtendedAncestorContext(dummyParagraph23, dummyContentItemsById);
-    const expectedResult: $Exact<ExtendedAncestorContext> = {
+    const actualResult = findExtendedVerticalContext(dummyParagraph23, dummyContentItemsById);
+    const expectedResult: ExtendedVerticalContext = {
       contextType: contextTypes.SUPER,
       contextItemId: dummyHeading2.id,
       siblingItemIds: [dummyParagraph21.id, dummyParagraph22.id, dummyParagraph23.id],
-      positionInSiblings: 2,
+      indexInSiblingItems: 2,
     };
     expect(actualResult).toEqual(expectedResult);
   });
 
   it(`returns the correct context, when the passed contentItem is neither the first nor the last in its list of siblings`, (): void => {
-    const actualResult = findExtendedAncestorContext(dummyParagraph22, dummyContentItemsById);
-    const expectedResult: $Exact<ExtendedAncestorContext> = {
+    const actualResult = findExtendedVerticalContext(dummyParagraph22, dummyContentItemsById);
+    const expectedResult: ExtendedVerticalContext = {
       contextType: contextTypes.SUPER,
       contextItemId: dummyHeading2.id,
       siblingItemIds: [dummyParagraph21.id, dummyParagraph22.id, dummyParagraph23.id],
-      positionInSiblings: 1,
+      indexInSiblingItems: 1,
     };
     expect(actualResult).toEqual(expectedResult);
   });
 
   it(`returns the correct context, when the parentOrSuperItem is passed as a argument`, (): void => {
-    const actualResult = findExtendedAncestorContext(dummyParagraph11, dummyContentItemsById, dummyHeading1);
-    const expectedResult: $Exact<ExtendedAncestorContext> = {
+    const actualResult = findExtendedVerticalContext(dummyParagraph11, dummyContentItemsById, dummyHeading1);
+    const expectedResult: ExtendedVerticalContext = {
       contextType: contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
       siblingItemIds: [dummyParagraph11.id, dummyParagraph12.id],
-      positionInSiblings: 0,
+      indexInSiblingItems: 0,
     };
     expect(actualResult).toEqual(expectedResult);
   });
 
   it(`throws an InvalidArgumentError, when the passed parentOrSuperItem doesn't contain the passed contentItem as a subItem or childItem`, (): void => {
     expect((): void => {
-      findExtendedAncestorContext(dummyParagraph11, dummyContentItemsById, dummyHeading2);
+      findExtendedVerticalContext(dummyParagraph11, dummyContentItemsById, dummyHeading2);
     }).toThrow(InvalidArgumentError);
   });
 
   it(`returns NULL, when the passed contentItem is neither a child- nor a subItem (i.e. is a ROOT)`, (): void => {
-    const actualResult = findExtendedAncestorContext(dummyRoot, dummyContentItemsById);
+    const actualResult = findExtendedVerticalContext(dummyRoot, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
   it(`returns NULL, when the passed contentItem is NULL`, (): void => {
-    const actualResult = findExtendedAncestorContext(null, dummyContentItemsById);
+    const actualResult = findExtendedVerticalContext(null, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 

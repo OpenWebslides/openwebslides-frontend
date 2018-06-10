@@ -77,7 +77,7 @@ describe(`ADD_TO_STATE`, (): void => {
         context: {
           contextType: contextTypes.PARENT,
           contextItemId: dummyRoot.id,
-          positionInSiblings: 2,
+          indexInSiblingItems: 2,
         },
         propsForType: {
           text: dummyNewHeading.text,
@@ -114,7 +114,7 @@ describe(`ADD_TO_STATE`, (): void => {
         context: {
           contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
-          positionInSiblings: 1,
+          indexInSiblingItems: 1,
         },
         propsForType: {
           text: dummyNewParagraph.text,
@@ -210,7 +210,7 @@ describe(`ADD_TO_STATE`, (): void => {
         context: {
           contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
-          positionInSiblings: 1,
+          indexInSiblingItems: 1,
         },
         propsForType: {},
       },
@@ -252,7 +252,7 @@ describe(`ADD_TO_STATE`, (): void => {
         context: {
           contextType: contextTypes.SUPER,
           contextItemId: 'ThisIsAVeryInvalidId',
-          positionInSiblings: 1,
+          indexInSiblingItems: 1,
         },
         propsForType: {
           text: dummyNewParagraph.text,
@@ -276,7 +276,7 @@ describe(`ADD_TO_STATE`, (): void => {
         context: {
           contextType: contextTypes.PARENT,
           contextItemId: dummyHeading1.id,
-          positionInSiblings: 1,
+          indexInSiblingItems: 1,
         },
         propsForType: {
           text: dummyNewParagraph.text,
@@ -300,7 +300,7 @@ describe(`ADD_TO_STATE`, (): void => {
         context: {
           contextType: contextTypes.SUPER,
           contextItemId: dummyRoot.id,
-          positionInSiblings: 1,
+          indexInSiblingItems: 1,
         },
         propsForType: {
           text: dummyNewParagraph.text,
@@ -324,7 +324,7 @@ describe(`ADD_TO_STATE`, (): void => {
         context: {
           contextType: 'InvalidContextType',
           contextItemId: dummyHeading1.id,
-          positionInSiblings: 1,
+          indexInSiblingItems: 1,
         },
         propsForType: {
           text: dummyNewParagraph.text,
@@ -348,7 +348,7 @@ describe(`ADD_TO_STATE`, (): void => {
         context: {
           contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
-          positionInSiblings: 1,
+          indexInSiblingItems: 1,
         },
         propsForType: {},
       },

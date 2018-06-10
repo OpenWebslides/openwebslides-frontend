@@ -6,7 +6,7 @@
 import type {
   ContentItem,
   ContentItemsById,
-  ExtendedAncestorContext,
+  ExtendedVerticalContext,
 } from '../../../model';
 import find from '..';
 
@@ -15,18 +15,18 @@ const findClosestAncestorThatHasNextSiblingItem = (
   contentItemsById: ContentItemsById,
 ): ?ContentItem => {
   let currentContentItem: ContentItem = contentItem;
-  let candidateContext: ?ExtendedAncestorContext = find.extendedAncestorContext(
+  let candidateContext: ?ExtendedVerticalContext = find.extendedVerticalContext(
     currentContentItem,
     contentItemsById,
   );
   let closestValidAncestor: ?ContentItem = null;
 
   while (closestValidAncestor == null && candidateContext != null) {
-    if (candidateContext.positionInSiblings !== candidateContext.siblingItemIds.length - 1) {
+    if (candidateContext.indexInSiblingItems !== candidateContext.siblingItemIds.length - 1) {
       closestValidAncestor = currentContentItem;
     }
     currentContentItem = contentItemsById[candidateContext.contextItemId];
-    candidateContext = find.extendedAncestorContext(currentContentItem, contentItemsById);
+    candidateContext = find.extendedVerticalContext(currentContentItem, contentItemsById);
   }
 
   return closestValidAncestor;

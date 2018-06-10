@@ -23,10 +23,10 @@ const findAllSiblingItems = (
 ): Array<ContentItem> => {
   if (contentItem == null) return [];
 
-  const extendedAncestorContext = find.extendedAncestorContext(contentItem, contentItemsById);
-  if (extendedAncestorContext == null) return [];
+  const extendedVerticalContext = find.extendedVerticalContext(contentItem, contentItemsById);
+  if (extendedVerticalContext == null) return [];
 
-  const siblingItems = extendedAncestorContext.siblingItemIds.map((
+  const siblingItems = extendedVerticalContext.siblingItemIds.map((
     siblingItemId: Identifier,
   ): ContentItem => {
     const siblingItem = contentItemsById[siblingItemId];

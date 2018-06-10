@@ -13,7 +13,7 @@ import {
   contextTypes,
 } from '../../model';
 import type {
-  AncestorContext,
+  VerticalContext,
 } from '../../model';
 import { getById, getParentOrSuperById } from '../../selectors';
 
@@ -21,8 +21,9 @@ const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
   const { id } = action.payload;
   const contentItemToRemove = yield select(getById, { id });
   if (contentItemToRemove == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
-  let context: ?AncestorContext = null;
+  let context: ?VerticalContext = null;
 
+  // #TODO use find function instead
   // Determine the context of the contentItemToRemove
   if (contentItemToRemove.type !== contentItemTypes.ROOT) {
     const parentOrSuperItem = yield select(getParentOrSuperById, { id });

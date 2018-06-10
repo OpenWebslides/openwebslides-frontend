@@ -17,15 +17,15 @@ const findPreviousEditorItem = (
 ): ?ContentItem => {
   if (contentItem == null) return null;
 
-  const context = find.extendedAncestorContext(contentItem, contentItemsById);
+  const context = find.extendedVerticalContext(contentItem, contentItemsById);
   if (context == null) return null;
 
-  const { contextItemId, positionInSiblings } = context;
+  const { contextItemId, indexInSiblingItems } = context;
   const parentOrSuperItem = contentItemsById[contextItemId];
 
   // If the contentItem is the first in its list of siblings,
   // the previousEditorItem is its parentOrSuperItem.
-  if (positionInSiblings == null || positionInSiblings === 0) {
+  if (indexInSiblingItems == null || indexInSiblingItems === 0) {
     return parentOrSuperItem;
   }
   // If the contentItem is not the first in its list of siblings,

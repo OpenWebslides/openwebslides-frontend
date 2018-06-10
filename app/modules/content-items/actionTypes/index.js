@@ -5,7 +5,7 @@ import type {
   ContentItem,
   ContentItemType,
   Context,
-  AncestorContext,
+  VerticalContext,
   AllPropsForAllTypes,
 } from '../model';
 
@@ -33,7 +33,7 @@ export type AddToStateAction = {
   payload: {
     id: Identifier,
     type: ContentItemType,
-    context: ?AncestorContext,
+    context: ?VerticalContext,
     propsForType: $Shape<AllPropsForAllTypes>,
   },
 };
@@ -58,7 +58,7 @@ export type RemoveFromStateAction = {
   type: typeof REMOVE_FROM_STATE,
   payload: {
     id: Identifier,
-    context: ?AncestorContext,
+    context: ?VerticalContext,
   },
 };
 

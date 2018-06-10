@@ -17,41 +17,63 @@ export const contextTypes = {
 };
 export type ContextType = $Values<typeof contextTypes>;
 
-export const ancestorContextTypes = {
+export const verticalContextTypes = {
   PARENT,
   SUPER,
 };
-export type AncestorContextType = $Values<typeof ancestorContextTypes>;
+export type VerticalContextType = $Values<typeof verticalContextTypes>;
 
-export type Context = {
-  // PARENT if this contentItem is a childItem of the item with id contextItemId,
-  // SUPER if this contentItem is a subItem of the item with id contextItemId,
-  // SIBLING if this contentItem is a sibling of the item with id contextItemId.
-  contextType: ContextType,
-  // The id of either the parentItem or the superItem or the siblingItem.
-  // #TODO rename this to ancestorItemId
-  contextItemId: Identifier,
-  // Position of this contentItem in its list of siblings, which can be either childItemIds or
-  // subItemIds. Should default to 0 if not set.
-  // If contextItemType is SIBLING, a value of 0 or more indicates that this contentItem should be
-  // positioned the given number of positions after the item with id contextItemId. A value of -1 or
-  // less indicates it should be positioned before it by the given number of positions.
-  // #TODO rename this to positionInSiblingItems
-  positionInSiblings?: number,
+export const horizontalContextTypes = {
+  SIBLING,
 };
+export type HorizontalContextType = $Values<typeof horizontalContextTypes>;
 
-export type AncestorContext = {
-  ...$Exact<Context>,
-  // Limit contextType posibilities to the two ancestor types for easier processing;
-  // other contextTypes can always be converted to this.
-  contextType: AncestorContextType,
-};
+export type BaseContext = {|
+  // PARENT when defining a context for a childItem
+  // SUPER when defining a context for a subItem
+  // SIBLING when defining a context for a siblingItem
+  +contextType: ContextType,
+  // The id of the contentItem in relation to which the context is defined;
+  // i.e. the parentItem if the contextType is SUPER, etc.
+  +contextItemId: Identifier,
+|};
 
-export type ExtendedAncestorContext = {
-  ...$Exact<AncestorContext>,
-  // This aren't needed when adding / moving / etc. contentItems,
-  // but can be useful when traversing.
-  siblingItemIds: Array<Identifier>,
+export type SimpleVerticalContext = {|
+  ...BaseContext,
+  // Limit the contextType to verticalContextTypes.
+  +contextType: VerticalContextType,
+  // The position of the contentItem for which this context is defined in its list of siblings,
+  // which can be either the contextItem's childItemIds or its subItemIds, depending on the
+  // contextType.
+  // Should default to 0 if not set.
+  +indexInSiblingItems?: number,
+|};
+
+export type ExtendedVerticalContext = {|
+  ...SimpleVerticalContext,
   // Make this prop required.
-  positionInSiblings: number,
-};
+  +indexInSiblingItems: number,
+  // Array containing the ids of all of the siblings of the contentItem for which this context
+  // is defined. Can be either the contextItem's childItemIds or its subItemIds, depending on the
+  // contextType.
+  +siblingItemIds: Array<Identifier>,
+|};
+
+export type VerticalContext = SimpleVerticalContext | ExtendedVerticalContext;
+
+export type HorizontalContext = {|
+  ...BaseContext,
+  // Limit the contextType to horizontalContextTypes.
+  +contextType: HorizontalContextType,
+  // The shift in position of the contentItem for which this context is defined relative to the
+  // sibling with id contextItemId. A value of 0 or more indicates that this contentItem is
+  // positioned the given number of positions after the siblingItem. A value of -1 or less indicates
+  // that it is positioned before the siblingItem by the given number of positions.
+  // Should default to 0 if not set.
+  +indexInSiblingItemsShift?: number,
+|};
+
+export type Context =
+  | VerticalContext
+  | ExtendedVerticalContext
+  | HorizontalContext;

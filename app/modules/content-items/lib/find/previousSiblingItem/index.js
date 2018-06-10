@@ -21,16 +21,16 @@ const findPreviousSiblingItem = (
 ): ?ContentItem => {
   if (contentItem == null) return null;
 
-  const context = find.extendedAncestorContext(contentItem, contentItemsById);
+  const context = find.extendedVerticalContext(contentItem, contentItemsById);
   if (context == null) return null;
 
-  const { positionInSiblings, siblingItemIds } = context;
+  const { indexInSiblingItems, siblingItemIds } = context;
 
-  if (positionInSiblings === 0) {
+  if (indexInSiblingItems === 0) {
     return null;
   }
   else {
-    const previousSiblingItem = contentItemsById[siblingItemIds[positionInSiblings - 1]];
+    const previousSiblingItem = contentItemsById[siblingItemIds[indexInSiblingItems - 1]];
     if (previousSiblingItem == null) throw new CorruptedInternalStateError(`ContentItemsById object contains inconsistencies; this shouldn't happen.`);
 
     return previousSiblingItem;

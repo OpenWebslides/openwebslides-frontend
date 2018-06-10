@@ -373,7 +373,7 @@ describe(`EditableDisplay`, (): void => {
         {
           contextType: contextTypes.SUPER,
           contextItemId: dummyId,
-          positionInSiblings: 0,
+          indexInSiblingItems: 0,
         },
         { text: '' },
       ));
@@ -389,7 +389,7 @@ describe(`EditableDisplay`, (): void => {
         {
           contextType: contextTypes.SIBLING,
           contextItemId: dummyId,
-          positionInSiblings: 0,
+          indexInSiblingItemsShift: 0,
         },
         { text: '' },
       ));

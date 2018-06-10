@@ -1,13 +1,8 @@
 // @flow
 
-import { select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
-import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../../actionTypes';
-import { getParentOrSuperById } from '../../../selectors';
 import {
   contentItemTypes,
   contextTypes,
@@ -20,7 +15,7 @@ import type {
 } from '../../../model';
 import * as dummyContentItemData from '../../../lib/test-resources/dummyContentItemData';
 
-import addSaga, { convertContextToAncestorContext } from '../add';
+import addSaga from '../add';
 
 describe(`addSaga`, (): void => {
 
@@ -73,7 +68,7 @@ describe(`addSaga`, (): void => {
         context: {
           contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
-          positionInSiblings: 0,
+          indexInSiblingItems: 0,
         },
         propsForType: {
           text: 'Lorem ipsum dolor sit amet.',
@@ -103,7 +98,7 @@ describe(`addSaga`, (): void => {
         context: {
           contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
-          positionInSiblings: 0,
+          indexInSiblingItems: 0,
         },
         propsForType: {
           text: 'Lorem ipsum dolor sit amet.',
@@ -148,7 +143,7 @@ describe(`addSaga`, (): void => {
         context: {
           contextType: contextTypes.SIBLING,
           contextItemId: dummyHeading1.id,
-          positionInSiblings: 0,
+          indexInSiblingItemsShift: 0,
         },
         propsForType: {
           text: 'Lorem ipsum',
@@ -165,7 +160,7 @@ describe(`addSaga`, (): void => {
             context: {
               contextType: contextTypes.PARENT,
               contextItemId: dummyRoot.id,
-              positionInSiblings: 1,
+              indexInSiblingItems: 1,
             },
             propsForType: dummyAddAction.payload.propsForType,
           },
@@ -182,7 +177,7 @@ describe(`addSaga`, (): void => {
         context: {
           contextType: contextTypes.SIBLING,
           contextItemId: dummyParagraph4.id,
-          positionInSiblings: 0,
+          indexInSiblingItemsShift: 0,
         },
         propsForType: {
           text: 'Lorem ipsum',
@@ -199,116 +194,13 @@ describe(`addSaga`, (): void => {
             context: {
               contextType: contextTypes.SUPER,
               contextItemId: dummyHeading2.id,
-              positionInSiblings: 2,
+              indexInSiblingItems: 2,
             },
             propsForType: dummyAddAction.payload.propsForType,
           },
         },
       })
       .run();
-  });
-
-  describe(`convertContextToAncestorContext`, (): void => {
-
-    it(`correctly calculates absolute positionInSiblings from relative positionInSiblings, when relative positionInSiblings is a positive number different from 0`, (): void => {
-      const dummySagaContext = {
-        contextType: contextTypes.SIBLING,
-        contextItemId: dummyHeading1.id,
-        positionInSiblings: 1,
-      };
-      const expectedAncestorContext = {
-        contextType: contextTypes.PARENT,
-        contextItemId: dummyRoot.id,
-        positionInSiblings: 2,
-      };
-      return expectSaga(convertContextToAncestorContext, dummySagaContext)
-        .withState(dummyState)
-        .returns(expectedAncestorContext)
-        .run();
-    });
-
-    it(`correctly calculates absolute positionInSiblings from relative positionInSiblings, when relative positionInSiblings is a negative number`, (): void => {
-      const dummySagaContext = {
-        contextType: contextTypes.SIBLING,
-        contextItemId: dummyHeading2.id,
-        positionInSiblings: -1,
-      };
-      const expectedAncestorContext = {
-        contextType: contextTypes.PARENT,
-        contextItemId: dummyRoot.id,
-        positionInSiblings: 1,
-      };
-      return expectSaga(convertContextToAncestorContext, dummySagaContext)
-        .withState(dummyState)
-        .returns(expectedAncestorContext)
-        .run();
-    });
-
-    it(`throws an ObjectNotFoundError, when the contentItem with id context.contextItemId could not be found`, async (): Promise<*> => {
-      const dummySagaContext = {
-        contextType: contextTypes.SIBLING,
-        contextItemId: 'DefinitelyNotValidId',
-        positionInSiblings: 0,
-      };
-      // Suppress console.error from redux-saga $FlowFixMe
-      console.error = jest.fn();
-      await expect(
-        expectSaga(convertContextToAncestorContext, dummySagaContext)
-          .withState(dummyState)
-          .run(),
-      ).rejects.toBeInstanceOf(ObjectNotFoundError);
-    });
-
-    it(`throws an InvalidArgumentError, when the calculated absolute positionInSiblings is less than 0`, async (): Promise<*> => {
-      const dummySagaContext = {
-        contextType: contextTypes.SIBLING,
-        contextItemId: dummyHeading1.id,
-        positionInSiblings: -2,
-      };
-      // Suppress console.error from redux-saga $FlowFixMe
-      console.error = jest.fn();
-      await expect(
-        expectSaga(convertContextToAncestorContext, dummySagaContext)
-          .withState(dummyState)
-          .run(),
-      ).rejects.toBeInstanceOf(InvalidArgumentError);
-    });
-
-    it(`throws an InvalidArgumentError, when the calculated absolute positionInSiblings is greater than the length of the siblings array`, async (): Promise<*> => {
-      const dummySagaContext = {
-        contextType: contextTypes.SIBLING,
-        contextItemId: dummyHeading1.id,
-        positionInSiblings: 2,
-      };
-      // Suppress console.error from redux-saga $FlowFixMe
-      console.error = jest.fn();
-      await expect(
-        expectSaga(convertContextToAncestorContext, dummySagaContext)
-          .withState(dummyState)
-          .run(),
-      ).rejects.toBeInstanceOf(InvalidArgumentError);
-    });
-
-    it(`throws a CorruptedInternalStateError if the selected parentOrSuperItem is neither subable nor a container, which shouldn't happen in normal circumstances`, async (): Promise<*> => {
-      const dummySagaContext = {
-        contextType: contextTypes.SIBLING,
-        contextItemId: dummyHeading1.id,
-        positionInSiblings: 0,
-      };
-      // Suppress console.error from redux-saga $FlowFixMe
-      console.error = jest.fn();
-      await expect(
-        expectSaga(convertContextToAncestorContext, dummySagaContext)
-          .provide([
-            [
-              select(getParentOrSuperById, { id: dummyHeading1.id }),
-              dummyContentItemData.courseBreakContentItem,
-            ],
-          ])
-          .run(),
-      ).rejects.toBeInstanceOf(CorruptedInternalStateError);
-    });
-
   });
 
 });

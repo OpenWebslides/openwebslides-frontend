@@ -3,11 +3,11 @@
 import type { Identifier } from 'types/model';
 
 import * as t from '../actionTypes';
-import type { AncestorContext } from '../model';
+import type { VerticalContext } from '../model';
 
 const removeFromState = (
   id: Identifier,
-  context: ?AncestorContext,
+  context: ?VerticalContext,
 ): t.RemoveFromStateAction => {
   return {
     type: t.REMOVE_FROM_STATE,
