@@ -14,34 +14,32 @@ import type {
   ParagraphContentItem,
   ContentItemsById,
 } from '../../../model';
-import * as dummyContentItemData from '../../../lib/test-resources/dummyContentItemData';
+import * as dummyData from '../../../lib/test-resources/dummyContentItemData';
 
 import removeSaga from '../remove';
 
 describe(`removeSaga`, (): void => {
 
-  let dummyParagraph: $Exact<ParagraphContentItem>;
-  let dummyHeading: $Exact<HeadingContentItem>;
+  let dummyParagraph11: $Exact<ParagraphContentItem>;
+  let dummyHeading1: $Exact<HeadingContentItem>;
   let dummyRoot: $Exact<RootContentItem>;
   let dummyContentItemsById: $Exact<ContentItemsById>;
   let dummyState: any;
 
   beforeEach((): void => {
-    dummyParagraph = {
-      ...dummyContentItemData.paragraphContentItem,
-    };
-    dummyHeading = {
-      ...dummyContentItemData.headingContentItem,
-      subItemIds: [dummyParagraph.id],
+    dummyParagraph11 = { ...dummyData.paragraphContentItem };
+    dummyHeading1 = {
+      ...dummyData.headingContentItem,
+      subItemIds: [dummyParagraph11.id],
     };
     dummyRoot = {
-      ...dummyContentItemData.rootContentItem,
-      childItemIds: [dummyHeading.id],
+      ...dummyData.rootContentItem,
+      childItemIds: [dummyHeading1.id],
     };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
-      [dummyHeading.id]: dummyHeading,
-      [dummyParagraph.id]: dummyParagraph,
+      [dummyHeading1.id]: dummyHeading1,
+      [dummyParagraph11.id]: dummyParagraph11,
     };
     dummyState = {
       modules: {
@@ -56,7 +54,7 @@ describe(`removeSaga`, (): void => {
     const dummyRemoveAction: t.RemoveAction = {
       type: t.REMOVE,
       payload: {
-        id: dummyParagraph.id,
+        id: dummyParagraph11.id,
       },
     };
     return expectSaga(removeSaga, dummyRemoveAction)
@@ -65,7 +63,7 @@ describe(`removeSaga`, (): void => {
         action: {
           type: t.REMOVE_FROM_STATE,
           payload: {
-            id: dummyParagraph.id,
+            id: dummyParagraph11.id,
           },
         },
       })
@@ -76,7 +74,7 @@ describe(`removeSaga`, (): void => {
     const dummyRemoveAction: t.RemoveAction = {
       type: t.REMOVE,
       payload: {
-        id: dummyParagraph.id,
+        id: dummyParagraph11.id,
       },
     };
     return expectSaga(removeSaga, dummyRemoveAction)
@@ -85,10 +83,10 @@ describe(`removeSaga`, (): void => {
         action: {
           type: t.REMOVE_FROM_STATE,
           payload: {
-            id: dummyParagraph.id,
+            id: dummyParagraph11.id,
             context: {
               contextType: contextTypes.SUPER,
-              contextItemId: dummyHeading.id,
+              contextItemId: dummyHeading1.id,
             },
           },
         },
@@ -100,7 +98,7 @@ describe(`removeSaga`, (): void => {
     const dummyRemoveAction: t.RemoveAction = {
       type: t.REMOVE,
       payload: {
-        id: dummyHeading.id,
+        id: dummyHeading1.id,
       },
     };
     return expectSaga(removeSaga, dummyRemoveAction)
@@ -109,7 +107,7 @@ describe(`removeSaga`, (): void => {
         action: {
           type: t.REMOVE_FROM_STATE,
           payload: {
-            id: dummyHeading.id,
+            id: dummyHeading1.id,
             context: {
               contextType: contextTypes.PARENT,
               contextItemId: dummyRoot.id,
@@ -163,7 +161,7 @@ describe(`removeSaga`, (): void => {
       modules: {
         contentItems: {
           byId: {
-            [dummyParagraph.id]: dummyParagraph,
+            [dummyParagraph11.id]: dummyParagraph11,
           },
         },
       },
@@ -171,7 +169,7 @@ describe(`removeSaga`, (): void => {
     const dummyRemoveAction: t.RemoveAction = {
       type: t.REMOVE,
       payload: {
-        id: dummyParagraph.id,
+        id: dummyParagraph11.id,
       },
     };
 

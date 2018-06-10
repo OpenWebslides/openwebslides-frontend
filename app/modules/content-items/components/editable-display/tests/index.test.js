@@ -16,7 +16,7 @@ import EditableDisplay, {
   DummyDisplayComponent,
 } from '..';
 
-import { add, edit, toggleEditing, remove } from '../../../actions';
+import { add, edit, toggleEditing, removeAndTogglePreviousItem } from '../../../actions';
 import {
   contentItemTypes,
   contextTypes,
@@ -395,11 +395,11 @@ describe(`EditableDisplay`, (): void => {
       ));
     });
 
-    it(`dispatches the correct REMOVE action, when onRemove is called`, (): void => {
+    it(`dispatches the correct REMOVE_AND_TOGGLE_PREVIOUS_ITEM action, when onRemove is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onRemove(dummyId);
-      expect(dummyDispatch).toHaveBeenCalledWith(remove(dummyId));
+      expect(dummyDispatch).toHaveBeenCalledWith(removeAndTogglePreviousItem(dummyId));
     });
 
   });

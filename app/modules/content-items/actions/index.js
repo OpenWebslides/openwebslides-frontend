@@ -9,6 +9,7 @@ import add from './add';
 import edit from './edit';
 import toggleEditing from './toggleEditing';
 import remove from './remove';
+import removeAndTogglePreviousItem from './removeAndTogglePreviousItem';
 
 export {
   addToState,
@@ -20,4 +21,5 @@ export {
   edit,
   toggleEditing,
   remove,
+  removeAndTogglePreviousItem,
 };

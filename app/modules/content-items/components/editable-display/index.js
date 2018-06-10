@@ -17,7 +17,7 @@ import type {
   SubableContentItem,
 } from '../../model';
 import { getById } from '../../selectors';
-import { add, edit, toggleEditing, remove } from '../../actions';
+import { add, edit, toggleEditing, removeAndTogglePreviousItem } from '../../actions';
 
 import Root from './types/Root';
 import Heading from './types/Heading';
@@ -123,7 +123,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
       ));
     },
     onRemove: (id: Identifier): void => {
-      dispatch(remove(id));
+      dispatch(removeAndTogglePreviousItem(id));
     },
   };
 };

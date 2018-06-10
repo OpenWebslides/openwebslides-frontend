@@ -20,7 +20,7 @@ const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
   const context = find.extendedVerticalContext(contentItemToRemove, contentItemsById);
   if (contentItemToRemove.type !== contentItemTypes.ROOT && context == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
 
-  // Remove the contentItem and move the cursor to the previous contentItem #TODO
+  // Remove the contentItem
   yield put(removeFromState(id, context));
 };
 

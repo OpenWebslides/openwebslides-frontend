@@ -23,6 +23,7 @@ export const EDIT: 'contentItems/EDIT' = 'contentItems/EDIT';
 export const TOGGLE_EDITING: 'contentItems/TOGGLE_EDITING' = 'contentItems/TOGGLE_EDITING';
 export const MOVE: 'contentItems/MOVE' = 'contentItems/MOVE';
 export const REMOVE: 'contentItems/REMOVE' = 'contentItems/REMOVE';
+export const REMOVE_AND_TOGGLE_PREVIOUS_ITEM: 'contentItems/REMOVE_AND_TOGGLE_PREVIOUS_ITEM' = 'contentItems/REMOVE_AND_TOGGLE_PREVIOUS_ITEM';
 
 // API saga actions
 
@@ -107,6 +108,13 @@ export type RemoveAction = {
   payload: {
     id: Identifier,
   };
+};
+
+export type RemoveAndTogglePreviousItemAction = {
+  type: typeof REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
+  payload: {
+    id: Identifier,
+  },
 };
 
 export type ReducerAction =
