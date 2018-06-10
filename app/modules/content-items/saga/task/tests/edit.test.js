@@ -20,34 +20,30 @@ import editSaga from '../edit';
 
 describe(`editSaga`, (): void => {
 
-  let dummyParagraph2: $Exact<ParagraphContentItem>;
-  let dummyParagraph1: $Exact<ParagraphContentItem>;
+  let dummyParagraph12: $Exact<ParagraphContentItem>;
+  let dummyParagraph11: $Exact<ParagraphContentItem>;
   let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot1: $Exact<RootContentItem>;
+  let dummyRoot: $Exact<RootContentItem>;
   let dummyContentItemsById: ContentItemsById;
   let dummyContentItemsState: ContentItemsState;
   let dummyState: any;
 
   beforeEach((): void => {
-    dummyParagraph2 = {
-      ...dummyData.paragraphContentItem2,
-    };
-    dummyParagraph1 = {
-      ...dummyData.paragraphContentItem,
-    };
+    dummyParagraph12 = { ...dummyData.paragraphContentItem2 };
+    dummyParagraph11 = { ...dummyData.paragraphContentItem };
     dummyHeading1 = {
       ...dummyData.headingContentItem,
-      subItemIds: [dummyParagraph1.id, dummyParagraph2.id],
+      subItemIds: [dummyParagraph11.id, dummyParagraph12.id],
     };
-    dummyRoot1 = {
+    dummyRoot = {
       ...dummyData.rootContentItem,
       childItemIds: [dummyHeading1.id],
     };
     dummyContentItemsById = {
-      [dummyRoot1.id]: dummyRoot1,
+      [dummyRoot.id]: dummyRoot,
       [dummyHeading1.id]: dummyHeading1,
-      [dummyParagraph1.id]: dummyParagraph1,
-      [dummyParagraph2.id]: dummyParagraph2,
+      [dummyParagraph11.id]: dummyParagraph11,
+      [dummyParagraph12.id]: dummyParagraph12,
     };
     dummyContentItemsState = {
       byId: dummyContentItemsById,
@@ -63,8 +59,7 @@ describe(`editSaga`, (): void => {
     const dummyEditAction: $Exact<EditAction> = {
       type: t.EDIT,
       payload: {
-        id: dummyParagraph1.id,
-        isEditing: true,
+        id: dummyParagraph11.id,
         propsForType: {
           text: 'Lorem ipsum dolor sit amet.',
         },
@@ -76,7 +71,7 @@ describe(`editSaga`, (): void => {
         action: {
           type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
           payload: {
-            contentItem: dummyParagraph1,
+            contentItem: dummyParagraph11,
             propsForType: {
               text: dummyEditAction.payload.propsForType.text,
             },
@@ -86,13 +81,53 @@ describe(`editSaga`, (): void => {
       .run();
   });
 
+  it(`puts a remove action, when a plainText contentItem's isEditing state is FALSE and its text property is being set to an empty string`, (): void => {
+    const dummyEditAction: $Exact<EditAction> = {
+      type: t.EDIT,
+      payload: {
+        id: dummyParagraph11.id,
+        propsForType: {
+          text: '',
+        },
+      },
+    };
+    return expectSaga(editSaga, dummyEditAction)
+      .withState(dummyState)
+      .put.like({
+        action: {
+          type: t.REMOVE,
+          payload: {
+            id: dummyParagraph11.id,
+          },
+        },
+      })
+      .run();
+  });
+
+  it(`does not put a remove action, when a plainText contentItem's isEditing state is TRUE and its text property is being set to an empty string`, (): void => {
+    dummyParagraph11.isEditing = true;
+
+    const dummyEditAction: $Exact<EditAction> = {
+      type: t.EDIT,
+      payload: {
+        id: dummyParagraph11.id,
+        propsForType: {
+          text: '',
+        },
+      },
+    };
+    return expectSaga(editSaga, dummyEditAction)
+      .withState(dummyState)
+      .not.put.actionType(t.REMOVE)
+      .run();
+  });
+
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, (): void => {
     const dummyInvalidId = 'ExtremelyUnlikelyIdX';
     const dummyEditAction: $Exact<EditAction> = {
       type: t.EDIT,
       payload: {
         id: dummyInvalidId,
-        isEditing: false,
         propsForType: {
           text: 'Lorem ipsum dolor sit amet.',
         },
@@ -110,7 +145,7 @@ describe(`editSaga`, (): void => {
     const dummyEditAction: $Exact<EditAction> = {
       type: t.EDIT,
       payload: {
-        id: dummyRoot1.id,
+        id: dummyRoot.id,
         isEditing: false,
         propsForType: {},
       },
@@ -118,35 +153,9 @@ describe(`editSaga`, (): void => {
     expect((): void => {
       testSaga(editSaga, dummyEditAction)
         .next()
-        .select(getById, { id: dummyRoot1.id })
-        .next(dummyRoot1);
+        .select(getById, { id: dummyRoot.id })
+        .next(dummyRoot);
     }).toThrow(NotYetImplementedError);
-  });
-
-  it(`temporarily replaces empty text props with a delete placeholder`, (): void => {
-    const dummyEditAction: $Exact<EditAction> = {
-      type: t.EDIT,
-      payload: {
-        id: dummyParagraph1.id,
-        isEditing: false,
-        propsForType: {
-          text: '',
-        },
-      },
-    };
-    return expectSaga(editSaga, dummyEditAction)
-      .withState(dummyState)
-      .put.like({
-        action: {
-          type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
-          payload: {
-            propsForType: {
-              text: `*\\[Empty contentItems should be automatically deleted; delete functionality to be implemented later.\\]*`,
-            },
-          },
-        },
-      })
-      .run();
   });
 
 });
