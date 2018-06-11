@@ -1,45 +1,55 @@
 // @flow
 
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import {
-  contextTypes,
-} from '../../model';
 import type {
+  SubableContentItem,
+  ContainerContentItem,
+  RootContentItem,
+  HeadingContentItem,
+  ParagraphContentItem,
   ContentItemsState,
 } from '../../model';
-import * as dummyContentItemData from '../../lib/test-resources/dummyContentItemData';
+import * as dummyData from '../../lib/test-resources/dummyContentItemData';
 
 import reducer from '../../reducer';
 
 describe(`removeFromState`, (): void => {
 
+  let dummyRoot2: $Exact<RootContentItem>;
+  let dummyHeading2: $Exact<HeadingContentItem>;
+  let dummyParagraph2: $Exact<ParagraphContentItem>;
+  let dummyParagraph1: $Exact<ParagraphContentItem>;
+  let dummyHeading1: $Exact<HeadingContentItem>;
+  let dummyRoot1: $Exact<RootContentItem>;
+
+  beforeEach((): void => {
+    dummyRoot2 = { ...dummyData.rootContentItem2 };
+    dummyHeading2 = { ...dummyData.headingContentItem2 };
+    dummyParagraph2 = { ...dummyData.paragraphContentItem2 };
+    dummyParagraph1 = { ...dummyData.paragraphContentItem };
+    dummyHeading1 = { ...dummyData.headingContentItem };
+    dummyRoot1 = { ...dummyData.rootContentItem };
+  });
+
   it(`removes the contentItem from the state, when the context is NULL`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-        },
-        [dummyContentItemData.rootContentItem2.id]: {
-          ...dummyContentItemData.rootContentItem2,
-        },
+        [dummyRoot1.id]: { ...dummyRoot1 },
+        [dummyRoot2.id]: { ...dummyRoot2 },
       },
     };
     const removeFromStateAction: t.RemoveFromStateAction = {
       type: t.REMOVE_FROM_STATE,
       payload: {
-        id: dummyContentItemData.rootContentItem.id,
-        context: null,
+        id: dummyRoot1.id,
       },
     };
     const nextState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem2.id]: {
-          ...dummyContentItemData.rootContentItem2,
-        },
+        [dummyRoot2.id]: { ...dummyRoot2 },
       },
     };
     const resultState: ContentItemsState = reducer(prevState, removeFromStateAction);
@@ -49,41 +59,28 @@ describe(`removeFromState`, (): void => {
     expect(resultState.byId).not.toBe(nextState.byId);
   });
 
-  it(`removes the contentItem from the state, when the contextType is SUPER`, (): void => {
+  it(`removes the contentItem from the state, when the contentItem is a subItem`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: [dummyContentItemData.headingContentItem.id],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-          subItemIds: [dummyContentItemData.paragraphContentItem.id],
-        },
-        [dummyContentItemData.paragraphContentItem.id]: {
-          ...dummyContentItemData.paragraphContentItem,
-        },
+        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2 },
       },
     };
     const removeFromStateAction: t.RemoveFromStateAction = {
       type: t.REMOVE_FROM_STATE,
       payload: {
-        id: dummyContentItemData.paragraphContentItem.id,
-        context: {
-          contextType: contextTypes.SUPER,
-          contextItemId: dummyContentItemData.headingContentItem.id,
-        },
+        id: dummyParagraph1.id,
       },
     };
     const nextState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: [dummyContentItemData.headingContentItem.id],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-        },
+        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph2.id] },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2 },
       },
     };
     const resultState: ContentItemsState = reducer(prevState, removeFromStateAction);
@@ -91,36 +88,32 @@ describe(`removeFromState`, (): void => {
     expect(resultState).toEqual(nextState);
     expect(resultState).not.toBe(nextState);
     expect(resultState.byId).not.toBe(nextState.byId);
-    expect(resultState.byId[dummyContentItemData.headingContentItem.id]).not.toBe(nextState.byId[dummyContentItemData.headingContentItem.id]);
+    expect(resultState.byId[dummyHeading1.id]).not.toBe(nextState.byId[dummyHeading1.id]);
+    expect(((resultState.byId[dummyHeading1.id]: any): SubableContentItem).subItemIds).not.toBe(((nextState.byId[dummyHeading1.id]: any): SubableContentItem).subItemIds);
   });
 
-  it(`removes the contentItem from the state, when the contextType is PARENT`, (): void => {
+  it(`removes the contentItem from the state, when the contentItem is a childItem`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: [dummyContentItemData.headingContentItem.id],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-        },
+        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2 },
       },
     };
     const removeFromStateAction: t.RemoveFromStateAction = {
       type: t.REMOVE_FROM_STATE,
       payload: {
-        id: dummyContentItemData.headingContentItem.id,
-        context: {
-          contextType: contextTypes.PARENT,
-          contextItemId: dummyContentItemData.rootContentItem.id,
-        },
+        id: dummyHeading2.id,
       },
     };
     const nextState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-        },
+        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading1.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
       },
     };
     const resultState: ContentItemsState = reducer(prevState, removeFromStateAction);
@@ -128,50 +121,30 @@ describe(`removeFromState`, (): void => {
     expect(resultState).toEqual(nextState);
     expect(resultState).not.toBe(nextState);
     expect(resultState.byId).not.toBe(nextState.byId);
-    expect(resultState.byId[dummyContentItemData.rootContentItem.id]).not.toBe(nextState.byId[dummyContentItemData.rootContentItem.id]);
+    expect(resultState.byId[dummyRoot1.id]).not.toBe(nextState.byId[dummyRoot1.id]);
+    expect(((resultState.byId[dummyRoot1.id]: any): ContainerContentItem).childItemIds).not.toBe(((nextState.byId[dummyRoot1.id]: any): ContainerContentItem).childItemIds);
   });
 
   it(`removes all subItems as well, when the contentItem to delete is a superItem`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: [dummyContentItemData.headingContentItem.id],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-          subItemIds: [
-            dummyContentItemData.paragraphContentItem.id,
-            dummyContentItemData.paragraphContentItem2.id,
-          ],
-        },
-        [dummyContentItemData.paragraphContentItem.id]: {
-          ...dummyContentItemData.paragraphContentItem,
-        },
-        [dummyContentItemData.paragraphContentItem2.id]: {
-          ...dummyContentItemData.paragraphContentItem2,
-          subItemIds: [dummyContentItemData.paragraphContentItem3.id],
-        },
-        [dummyContentItemData.paragraphContentItem3.id]: {
-          ...dummyContentItemData.paragraphContentItem3,
-        },
+        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2 },
       },
     };
     const removeFromStateAction: t.RemoveFromStateAction = {
       type: t.REMOVE_FROM_STATE,
       payload: {
-        id: dummyContentItemData.headingContentItem.id,
-        context: {
-          contextType: contextTypes.PARENT,
-          contextItemId: dummyContentItemData.rootContentItem.id,
-        },
+        id: dummyHeading1.id,
       },
     };
     const nextState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-        },
+        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading2.id] },
+        [dummyHeading2.id]: { ...dummyHeading2 },
       },
     };
     const resultState: ContentItemsState = reducer(prevState, removeFromStateAction);
@@ -182,44 +155,23 @@ describe(`removeFromState`, (): void => {
   it(`removes all childItems as well, when the contentItem to delete is a parentItem`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: [dummyContentItemData.headingContentItem.id],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-          subItemIds: [
-            dummyContentItemData.paragraphContentItem.id,
-            dummyContentItemData.paragraphContentItem2.id,
-          ],
-        },
-        [dummyContentItemData.paragraphContentItem.id]: {
-          ...dummyContentItemData.paragraphContentItem,
-        },
-        [dummyContentItemData.paragraphContentItem2.id]: {
-          ...dummyContentItemData.paragraphContentItem2,
-          subItemIds: [dummyContentItemData.paragraphContentItem3.id],
-        },
-        [dummyContentItemData.paragraphContentItem3.id]: {
-          ...dummyContentItemData.paragraphContentItem3,
-        },
-        [dummyContentItemData.rootContentItem2.id]: {
-          ...dummyContentItemData.rootContentItem2,
-        },
+        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2 },
+        [dummyRoot2.id]: { ...dummyRoot2 },
       },
     };
     const removeFromStateAction: t.RemoveFromStateAction = {
       type: t.REMOVE_FROM_STATE,
       payload: {
-        id: dummyContentItemData.rootContentItem.id,
-        context: null,
+        id: dummyRoot1.id,
       },
     };
     const nextState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem2.id]: {
-          ...dummyContentItemData.rootContentItem2,
-        },
+        [dummyRoot2.id]: { ...dummyRoot2 },
       },
     };
     const resultState: ContentItemsState = reducer(prevState, removeFromStateAction);
@@ -230,274 +182,39 @@ describe(`removeFromState`, (): void => {
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: [dummyContentItemData.headingContentItem.id],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-          subItemIds: [dummyContentItemData.paragraphContentItem.id],
-        },
-        [dummyContentItemData.paragraphContentItem.id]: {
-          ...dummyContentItemData.paragraphContentItem,
-        },
+        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2 },
       },
     };
     const removeFromStateAction: t.RemoveFromStateAction = {
       type: t.REMOVE_FROM_STATE,
       payload: {
         id: 'DefinitelyNotValidId',
-        context: {
-          contextType: contextTypes.SUPER,
-          contextItemId: dummyContentItemData.headingContentItem.id,
-        },
       },
     };
 
     expect((): void => {
       reducer(prevState, removeFromStateAction);
     }).toThrow(ObjectNotFoundError);
-  });
-
-  it(`throws an ObjectNotFoundError, when the contentItem with id contextItemId cannot be found`, (): void => {
-    const prevState: ContentItemsState = {
-      byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: [dummyContentItemData.headingContentItem.id],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-          subItemIds: [dummyContentItemData.paragraphContentItem.id],
-        },
-        [dummyContentItemData.paragraphContentItem.id]: {
-          ...dummyContentItemData.paragraphContentItem,
-        },
-      },
-    };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
-      payload: {
-        id: dummyContentItemData.paragraphContentItem.id,
-        context: {
-          contextType: contextTypes.SUPER,
-          contextItemId: 'DefinitelyNotValidId',
-        },
-      },
-    };
-
-    expect((): void => {
-      reducer(prevState, removeFromStateAction);
-    }).toThrow(ObjectNotFoundError);
-  });
-
-  it(`throws an InvalidArgumentError, when the context is NULL and the contentItem with the passed id is not a rootContentItem`, (): void => {
-    const prevState: ContentItemsState = {
-      byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: [dummyContentItemData.headingContentItem.id],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-        },
-      },
-    };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
-      payload: {
-        id: dummyContentItemData.headingContentItem.id,
-        context: null,
-      },
-    };
-
-    expect((): void => {
-      reducer(prevState, removeFromStateAction);
-    }).toThrow(InvalidArgumentError);
-  });
-
-  it(`throws an InvalidArgumentError, when the contextType is SUPER and the contentItem with id contextItemId is not a superItem`, (): void => {
-    const prevState: ContentItemsState = {
-      byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: [dummyContentItemData.headingContentItem.id],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-          subItemIds: [dummyContentItemData.paragraphContentItem.id],
-        },
-        [dummyContentItemData.paragraphContentItem.id]: {
-          ...dummyContentItemData.paragraphContentItem,
-        },
-      },
-    };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
-      payload: {
-        id: dummyContentItemData.headingContentItem.id,
-        context: {
-          contextType: contextTypes.SUPER,
-          contextItemId: dummyContentItemData.rootContentItem.id,
-        },
-      },
-    };
-
-    expect((): void => {
-      reducer(prevState, removeFromStateAction);
-    }).toThrow(InvalidArgumentError);
-  });
-
-  it(`throws an InvalidArgumentError, when the contextType is SUPER and the contentItem with id contextItemId has no such subItem`, (): void => {
-    const prevState: ContentItemsState = {
-      byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: [dummyContentItemData.headingContentItem.id],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-        },
-        [dummyContentItemData.paragraphContentItem.id]: {
-          ...dummyContentItemData.paragraphContentItem,
-        },
-      },
-    };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
-      payload: {
-        id: dummyContentItemData.paragraphContentItem.id,
-        context: {
-          contextType: contextTypes.SUPER,
-          contextItemId: dummyContentItemData.headingContentItem.id,
-        },
-      },
-    };
-
-    expect((): void => {
-      reducer(prevState, removeFromStateAction);
-    }).toThrow(InvalidArgumentError);
-  });
-
-  it(`throws an InvalidArgumentError, when the contextType is PARENT and the contentItem with id contextItemId is not a containerItem`, (): void => {
-    const prevState: ContentItemsState = {
-      byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: [dummyContentItemData.headingContentItem.id],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-          subItemIds: [dummyContentItemData.paragraphContentItem.id],
-        },
-        [dummyContentItemData.paragraphContentItem.id]: {
-          ...dummyContentItemData.paragraphContentItem,
-        },
-      },
-    };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
-      payload: {
-        id: dummyContentItemData.paragraphContentItem.id,
-        context: {
-          contextType: contextTypes.PARENT,
-          contextItemId: dummyContentItemData.headingContentItem.id,
-        },
-      },
-    };
-
-    expect((): void => {
-      reducer(prevState, removeFromStateAction);
-    }).toThrow(InvalidArgumentError);
-  });
-
-  it(`throws an InvalidArgumentError, when the contextType is PARENT and the contentItem with id contextItemId has no such childItem`, (): void => {
-    const prevState: ContentItemsState = {
-      byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-          subItemIds: [dummyContentItemData.paragraphContentItem.id],
-        },
-        [dummyContentItemData.paragraphContentItem.id]: {
-          ...dummyContentItemData.paragraphContentItem,
-        },
-      },
-    };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
-      payload: {
-        id: dummyContentItemData.headingContentItem.id,
-        context: {
-          contextType: contextTypes.PARENT,
-          contextItemId: dummyContentItemData.rootContentItem.id,
-        },
-      },
-    };
-
-    expect((): void => {
-      reducer(prevState, removeFromStateAction);
-    }).toThrow(InvalidArgumentError);
-  });
-
-  it(`throws an InvalidArgumentError, when the context.contextType is not a valid actionPayloadReducerContextType`, (): void => {
-    const prevState: ContentItemsState = {
-      byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: [dummyContentItemData.headingContentItem.id],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-          subItemIds: [dummyContentItemData.paragraphContentItem.id],
-        },
-        [dummyContentItemData.paragraphContentItem.id]: {
-          ...dummyContentItemData.paragraphContentItem,
-        },
-      },
-    };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
-      payload: {
-        id: dummyContentItemData.headingContentItem.id,
-        context: {
-          contextType: ('InvalidContextType': any),
-          contextItemId: dummyContentItemData.rootContentItem.id,
-        },
-      },
-    };
-
-    expect((): void => {
-      reducer(prevState, removeFromStateAction);
-    }).toThrow(InvalidArgumentError);
   });
 
   it(`throws a CorruptedInternalStateError, when a subItem cannot be found`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: [dummyContentItemData.headingContentItem.id],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-          subItemIds: ['DefinitelyNotValidId'],
-        },
-        [dummyContentItemData.paragraphContentItem.id]: {
-          ...dummyContentItemData.paragraphContentItem,
-        },
+        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, 'DefinitelyNotValidId'] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2 },
       },
     };
     const removeFromStateAction: t.RemoveFromStateAction = {
       type: t.REMOVE_FROM_STATE,
       payload: {
-        id: dummyContentItemData.headingContentItem.id,
-        context: {
-          contextType: contextTypes.SUPER,
-          contextItemId: dummyContentItemData.headingContentItem.id,
-        },
+        id: dummyHeading1.id,
       },
     };
 
@@ -509,24 +226,40 @@ describe(`removeFromState`, (): void => {
   it(`throws a CorruptedInternalStateError, when a childItem cannot be found`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
-        [dummyContentItemData.rootContentItem.id]: {
-          ...dummyContentItemData.rootContentItem,
-          childItemIds: ['DefinitelyNotValidId'],
-        },
-        [dummyContentItemData.headingContentItem.id]: {
-          ...dummyContentItemData.headingContentItem,
-          subItemIds: [dummyContentItemData.paragraphContentItem.id],
-        },
-        [dummyContentItemData.paragraphContentItem.id]: {
-          ...dummyContentItemData.paragraphContentItem,
-        },
+        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading1.id, dummyHeading2.id, 'DefinitelyNotValidId'] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2 },
       },
     };
     const removeFromStateAction: t.RemoveFromStateAction = {
       type: t.REMOVE_FROM_STATE,
       payload: {
-        id: dummyContentItemData.rootContentItem.id,
-        context: null,
+        id: dummyRoot1.id,
+      },
+    };
+
+    expect((): void => {
+      reducer(prevState, removeFromStateAction);
+    }).toThrow(CorruptedInternalStateError);
+  });
+
+
+  it(`throws a CorruptedInternalStateError, when a parentOrSuperItem cannot be found for a non-root contentItem`, async (): Promise<*> => {
+    const prevState: ContentItemsState = {
+      byId: {
+        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: ['DefinitelyNotValidId', dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2 },
+      },
+    };
+    const removeFromStateAction: t.RemoveFromStateAction = {
+      type: t.REMOVE_FROM_STATE,
+      payload: {
+        id: dummyParagraph1.id,
       },
     };
 

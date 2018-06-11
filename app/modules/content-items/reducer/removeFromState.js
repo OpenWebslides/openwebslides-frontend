@@ -3,7 +3,6 @@
 
 import _ from 'lodash';
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { Identifier } from 'types/model';
 
@@ -20,6 +19,7 @@ import type {
   ContainerContentItem,
   ContentItemsState,
 } from '../model';
+import find from '../lib/find';
 
 const removeChildrenAndSubItemsFromState = (
   state: ContentItemsState,
@@ -64,7 +64,7 @@ const removeFromState = (
   state: ContentItemsState,
   action: t.RemoveFromStateAction,
 ): ContentItemsState => {
-  const { id, context } = action.payload;
+  const { id } = action.payload;
   let newState: ContentItemsState = {
     ...state,
   };
@@ -72,6 +72,9 @@ const removeFromState = (
   // Get the contentItem to remove
   const contentItemToRemove = state.byId[id];
   if (contentItemToRemove == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
+
+  // Find its context
+  const context = find.extendedVerticalContext(contentItemToRemove, state.byId);
 
   // Remove it from the byId object
   newState = {
@@ -85,52 +88,31 @@ const removeFromState = (
   // Update the removed contentItem's context, if there is one
   if (context == null) {
     if (contentItemToRemove.type !== contentItemTypes.ROOT) {
-      throw new InvalidArgumentError(`Adding a new contentItem of a type other than ROOT requires a context to be defined.`);
+      throw new CorruptedInternalStateError(`Invalid contentItemsById: could not find parentOrSuperItem for a non-ROOT contentItem.`);
     }
   }
   else {
-    const contextItem = state.byId[context.contextItemId];
-    if (contextItem == null) {
-      throw new ObjectNotFoundError('contentItems:contentItem', context.contextItemId);
-    }
-
-    let contextItemToEdit: any = { ...contextItem };
+    const parentOrSuperItem = state.byId[context.contextItemId];
+    let parentOrSuperItemToEdit: any = { ...parentOrSuperItem };
 
     if (context.contextType === contextTypes.SUPER) {
-      if (!_.includes(subableContentItemTypes, contextItemToEdit.type)) {
-        throw new InvalidArgumentError(`Can't remove a sub item from a contentItem that is not subable.`);
-      }
-      if (!_.includes(contextItemToEdit.subItemIds, contentItemToRemove.id)) {
-        throw new InvalidArgumentError(`No such subItem found.`);
-      }
-
-      contextItemToEdit = {
-        ...contextItemToEdit,
-        subItemIds: _.without(contextItemToEdit.subItemIds, contentItemToRemove.id),
-      };
-    }
-    else if (context.contextType === contextTypes.PARENT) {
-      if (!_.includes(containerContentItemTypes, contextItemToEdit.type)) {
-        throw new InvalidArgumentError(`Can't remove a child item from a contentItem that is not a container.`);
-      }
-      if (!_.includes(contextItemToEdit.childItemIds, contentItemToRemove.id)) {
-        throw new InvalidArgumentError(`No such childItem found.`);
-      }
-
-      contextItemToEdit = {
-        ...contextItemToEdit,
-        childItemIds: _.without(contextItemToEdit.childItemIds, contentItemToRemove.id),
+      parentOrSuperItemToEdit = {
+        ...parentOrSuperItemToEdit,
+        subItemIds: _.without(parentOrSuperItemToEdit.subItemIds, contentItemToRemove.id),
       };
     }
     else {
-      throw new InvalidArgumentError(`Invalid contextType.`);
+      parentOrSuperItemToEdit = {
+        ...parentOrSuperItemToEdit,
+        childItemIds: _.without(parentOrSuperItemToEdit.childItemIds, contentItemToRemove.id),
+      };
     }
 
     newState = {
       ...newState,
       byId: {
         ...newState.byId,
-        [contextItemToEdit.id]: contextItemToEdit,
+        [parentOrSuperItemToEdit.id]: parentOrSuperItemToEdit,
       },
     };
   }
