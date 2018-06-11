@@ -12,6 +12,7 @@ import { dummyContentItemsById } from '../dummyData';
 import addToState from './addToState';
 import editPropsForTypeInState from './editPropsForTypeInState';
 import switchEditingInState from './switchEditingInState';
+import moveInState from './moveInState';
 import removeFromState from './removeFromState';
 import setMultipleInState from './setMultipleInState';
 
@@ -30,6 +31,8 @@ const reducer = (
       return editPropsForTypeInState(state, action);
     case t.SWITCH_EDITING_IN_STATE:
       return switchEditingInState(state, action);
+    case t.MOVE_IN_STATE:
+      return moveInState(state, action);
     case t.REMOVE_FROM_STATE:
       return removeFromState(state, action);
     case t.SET_MULTIPLE_IN_STATE:
