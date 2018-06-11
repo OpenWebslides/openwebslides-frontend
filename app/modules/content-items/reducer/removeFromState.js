@@ -11,7 +11,6 @@ import {
   contentItemTypes,
   subableContentItemTypes,
   containerContentItemTypes,
-  contextTypes,
 } from '../model';
 import type {
   ContentItem,
@@ -20,6 +19,7 @@ import type {
   ContentItemsState,
 } from '../model';
 import find from '../lib/find';
+import edit from '../lib/edit';
 
 const removeChildrenAndSubItemsFromState = (
   state: ContentItemsState,
@@ -92,27 +92,17 @@ const removeFromState = (
     }
   }
   else {
-    const parentOrSuperItem = state.byId[context.contextItemId];
-    let parentOrSuperItemToEdit: any = { ...parentOrSuperItem };
-
-    if (context.contextType === contextTypes.SUPER) {
-      parentOrSuperItemToEdit = {
-        ...parentOrSuperItemToEdit,
-        subItemIds: _.without(parentOrSuperItemToEdit.subItemIds, contentItemToRemove.id),
-      };
-    }
-    else {
-      parentOrSuperItemToEdit = {
-        ...parentOrSuperItemToEdit,
-        childItemIds: _.without(parentOrSuperItemToEdit.childItemIds, contentItemToRemove.id),
-      };
-    }
+    const editedParentOrSuperItem = edit.removeChildOrSubItemIdFromContext(
+      context,
+      contentItemToRemove.id,
+      state.byId,
+    );
 
     newState = {
       ...newState,
       byId: {
         ...newState.byId,
-        [parentOrSuperItemToEdit.id]: parentOrSuperItemToEdit,
+        [editedParentOrSuperItem.id]: editedParentOrSuperItem,
       },
     };
   }
