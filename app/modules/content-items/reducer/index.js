@@ -1,7 +1,5 @@
 // @flow
 
-import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
-
 import * as t from '../actionTypes';
 import type {
   ContentItemsState,

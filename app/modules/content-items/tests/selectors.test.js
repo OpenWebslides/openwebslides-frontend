@@ -8,7 +8,6 @@ import {
   getDenormalizedById,
   getAllDescendantsById,
 } from '../selectors';
-import { contentItemTypes } from '../model';
 import type {
   ContentItem,
   RootContentItem,
