@@ -10,6 +10,8 @@ import add from './add';
 import edit from './edit';
 import toggleEditing from './toggleEditing';
 import move from './move';
+import indent from './indent';
+import reverseIndent from './reverseIndent';
 import remove from './remove';
 import removeAndTogglePreviousItem from './removeAndTogglePreviousItem';
 
@@ -24,6 +26,8 @@ export {
   edit,
   toggleEditing,
   move,
+  indent,
+  reverseIndent,
   remove,
   removeAndTogglePreviousItem,
 };

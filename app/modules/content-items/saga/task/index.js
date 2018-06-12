@@ -8,6 +8,8 @@ import addSaga from './add';
 import editSaga from './edit';
 import toggleEditingSaga from './toggleEditing';
 import moveSaga from './move';
+import indentSaga from './indent';
+import reverseIndentSaga from './reverseIndent';
 import removeSaga from './remove';
 import removeAndTogglePreviousItemSaga from './removeAndTogglePreviousItem';
 
@@ -17,6 +19,8 @@ const taskSaga = function* (): Generator<*, *, *> {
     takeEvery(t.EDIT, editSaga),
     takeEvery(t.TOGGLE_EDITING, toggleEditingSaga),
     takeEvery(t.MOVE, moveSaga),
+    takeEvery(t.INDENT, indentSaga),
+    takeEvery(t.REVERSE_INDENT, reverseIndentSaga),
     takeEvery(t.REMOVE, removeSaga),
     takeEvery(t.REMOVE_AND_TOGGLE_PREVIOUS_ITEM, removeAndTogglePreviousItemSaga),
   ]);

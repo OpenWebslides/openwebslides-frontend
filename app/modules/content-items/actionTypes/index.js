@@ -23,6 +23,8 @@ export const ADD: 'contentItems/ADD' = 'contentItems/ADD';
 export const EDIT: 'contentItems/EDIT' = 'contentItems/EDIT';
 export const TOGGLE_EDITING: 'contentItems/TOGGLE_EDITING' = 'contentItems/TOGGLE_EDITING';
 export const MOVE: 'contentItems/MOVE' = 'contentItems/MOVE';
+export const INDENT: 'contentItems/INDENT' = 'contentItems/INDENT';
+export const REVERSE_INDENT: 'contentItems/REVERSE_INDENT' = 'contentItems/REVERSE_INDENT';
 export const REMOVE: 'contentItems/REMOVE' = 'contentItems/REMOVE';
 export const REMOVE_AND_TOGGLE_PREVIOUS_ITEM: 'contentItems/REMOVE_AND_TOGGLE_PREVIOUS_ITEM' = 'contentItems/REMOVE_AND_TOGGLE_PREVIOUS_ITEM';
 
@@ -111,6 +113,20 @@ export type MoveAction = {
   },
 };
 
+export type IndentAction = {
+  type: typeof INDENT,
+  payload: {
+    id: Identifier,
+  },
+};
+
+export type ReverseIndentAction = {
+  type: typeof REVERSE_INDENT,
+  payload: {
+    id: Identifier,
+  },
+};
+
 export type RemoveAction = {
   type: typeof REMOVE,
   payload: {
@@ -138,5 +154,7 @@ export type TaskSagaAction =
   | EditAction
   | ToggleEditingAction
   | MoveAction
+  | IndentAction
+  | ReverseIndentAction
   | RemoveAction
   | RemoveAndTogglePreviousItemAction;
