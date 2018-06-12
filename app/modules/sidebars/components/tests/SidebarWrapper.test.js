@@ -8,11 +8,12 @@ import { PureSidebarWrapper } from '../SidebarWrapper';
 describe(`SidebarWrapper`, (): void => {
 
   it(`renders without errors`, (): void => {
+    const dummyToggle = jest.fn();
     const enzymeWrapper = shallow(
       <PureSidebarWrapper
         topicId="abcdefghij"
         sidebars={[]}
-        toggle={(): void => {}}
+        toggle={dummyToggle}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

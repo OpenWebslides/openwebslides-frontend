@@ -67,9 +67,9 @@ class PureTopicCard extends React.Component<Props, LocalState> {
     this.setState({ open: false });
   };
 
-  yes = (topicId: Identifier): void => {
+  yes = (): void => {
     this.setState({ open: false });
-    this.props.onRemoveButtonClick(topicId);
+    this.props.onRemoveButtonClick(this.props.topic.id);
   };
 
   render = (): React.Node => {
@@ -116,7 +116,7 @@ class PureTopicCard extends React.Component<Props, LocalState> {
             <Button primary={true} onClick={this.no}>
             Cancel
             </Button>
-            <Button secondary={true} icon="trash" labelPosition="left" content="Delete" onClick={() => this.yes(topicId)} />
+            <Button secondary={true} icon="trash" labelPosition="left" content="Delete" onClick={this.yes} />
           </Modal.Actions>
         </Modal>
       </React.Fragment>

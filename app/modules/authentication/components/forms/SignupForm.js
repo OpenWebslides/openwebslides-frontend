@@ -15,9 +15,7 @@ import type { User } from 'modules/users';
 import { isAuthenticated, getAccount } from '../../selectors';
 import { signup } from '../../actions';
 
-type PassedProps = {
-};
-
+type PassedProps = {};
 
 type StateProps = {
   authenticated: boolean,
@@ -51,12 +49,13 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-// eslint-disable-next-line react/prop-types,flowtype/require-parameter-type
-const renderCheckBox = ({ input, label }): Field => {
+const renderCheckBox = ({ input, label }: *): Field => {
   return (
     <Checkbox
       label={label}
       checked={!!input.value}
+      // #TODO
+      // eslint-disable-next-line react/jsx-no-bind
       onChange={(e, { checked }) => input.onChange(checked)}
     />
   );
@@ -144,7 +143,7 @@ const PureSignupForm = (props: Props): React.Node => {
 };
 
 const ReduxSignupForm = reduxForm({
-  // Unique name for the from
+  // Unique name for the form
   form: 'signup',
   onSubmit: handleSignup,
 })(PureSignupForm);

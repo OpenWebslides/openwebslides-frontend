@@ -16,13 +16,14 @@ describe(`TopicCard`, (): void => {
       description: '',
       rootContentItemId: 'abcdefghij',
     };
+    const dummyOnRemoveButtonClick = jest.fn();
 
     const enzymeWrapper = shallow(
       <PureTopicCard
         {...dummyTranslatorProps}
         topicId="abcdefghij"
         topic={dummyTopic}
-        onRemoveButtonClick={(): void => {}}
+        onRemoveButtonClick={dummyOnRemoveButtonClick}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

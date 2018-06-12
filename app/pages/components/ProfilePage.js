@@ -85,6 +85,8 @@ const PureProfilePage = (props: Props): React.Node => {
         <h1>{t('global:title.profile')}</h1>
         <Switch>
           <Route path={`${match.url}/:id`} component={UserProfile} />
+          { /* #TODO */ }
+          { /* eslint-disable-next-line react/jsx-no-bind */ }
           <Route render={() => <CurrentUserProfile userId={CURRENT_USER} />} />
         </Switch>
       </React.Fragment>

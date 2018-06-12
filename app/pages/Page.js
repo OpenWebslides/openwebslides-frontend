@@ -84,7 +84,6 @@ const SidebarComponent = (props: SidebarProps): React.Node => {
   );
 };
 
-
 const PurePage = (props: Props): React.Node => {
   const {
     authenticated,
@@ -113,6 +112,8 @@ const PurePage = (props: Props): React.Node => {
           </Grid.Column>
           <Route
             path={`${props.match.url}/:id`}
+            // #TODO
+            // eslint-disable-next-line react/jsx-no-bind
             render={(sidebarProps) => (
               <SidebarComponent {...sidebarProps} amountOfCols={sidebarWrapperCols} />
             )}

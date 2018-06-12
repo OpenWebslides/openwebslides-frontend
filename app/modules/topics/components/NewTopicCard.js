@@ -115,6 +115,8 @@ const PureNewTopicCard = (props: Props): React.Node => {
 
   return (
     <div>
+      { /* #TODO */ }
+      { /* eslint-disable-next-line react/jsx-no-bind */ }
       <NewTopicCardFormHOC t={t} onSubmit={handleSubmit} />
     </div>
   );
