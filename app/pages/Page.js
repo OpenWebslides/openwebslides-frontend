@@ -41,8 +41,6 @@ type SidebarProps = {
 
 type Props = CustomTranslatorProps & PassedProps & StateProps & RouterProps;
 
-// TODO: some flowTyped error from ContextRouter in react-router-dom package
-// $FlowFixMe
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const {
     needsAuth,
