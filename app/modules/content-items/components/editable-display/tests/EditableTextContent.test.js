@@ -7,22 +7,36 @@ import EditableTextContent from '../EditableTextContent';
 
 describe(`EditableTextContent`, (): void => {
 
-  const dummyText = 'Lorem ipsum dolor sit amet.';
-  const dummyInput = jest.fn();
-  const dummyActivate = jest.fn();
-  const dummyDeactivate = jest.fn();
-  const dummyKeyDown = jest.fn();
-  const dummyClassName = 'editable-text-content';
-  const dummyTextClassNameSuffix = '__text';
-  const dummyInputClassNameSuffix = '__input';
-  const dummyTextClassName = `${dummyClassName}${dummyTextClassNameSuffix}`;
-  // const dummyInputClassName = `${dummyClassName}${dummyInputClassNameSuffix}`;
-  const textSelector = `.${dummyTextClassName}`;
-  // Using dummyInputClassName as a selector won't work if the element is in singleline mode
-  // because Semantic UI wraps the <input> element in a <div>.
-  // Selecting the element that has an [onBlur] attribute seems like a good way to make sure
-  // the form element itself is selected, and works for both <input> and <textarea>.
-  const inputSelector = '[onBlur]';
+  let dummyText: string;
+  let dummyInput: *;
+  let dummyActivate: *;
+  let dummyDeactivate: *;
+  let dummyKeyDown: *;
+  let dummyClassName: string;
+  let dummyTextClassNameSuffix: string;
+  let dummyInputClassNameSuffix: string;
+  let dummyTextClassName: string;
+  let textSelector: string;
+  let inputSelector: string;
+
+  beforeEach((): void => {
+    dummyText = 'Lorem ipsum dolor sit amet.';
+    dummyInput = jest.fn();
+    dummyActivate = jest.fn();
+    dummyDeactivate = jest.fn();
+    dummyKeyDown = jest.fn();
+    dummyClassName = 'editable-text-content';
+    dummyTextClassNameSuffix = '__text';
+    dummyInputClassNameSuffix = '__input';
+    dummyTextClassName = `${dummyClassName}${dummyTextClassNameSuffix}`;
+    // dummyInputClassName = `${dummyClassName}${dummyInputClassNameSuffix}`;
+    textSelector = `.${dummyTextClassName}`;
+    // Using dummyInputClassName as a selector won't work if the element is in singleline mode
+    // because Semantic UI wraps the <input> element in a <div>.
+    // Selecting the element that has an [onBlur] attribute seems like a good way to make sure
+    // the form element itself is selected, and works for both <input> and <textarea>.
+    inputSelector = '[onBlur]';
+  });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
@@ -225,10 +239,12 @@ describe(`EditableTextContent`, (): void => {
 
   describe(`getDerivedStateFromProps`, (): void => {
 
-    it(`returns an object containing the new text, when the new initialText prop is different from the previous text state`, (): void => {
+    it(`returns an object containing the new text and initialText, when the new initialText prop is different from the previous one`, (): void => {
       const dummyNewText = `${dummyText}${dummyText}`;
       const dummyPrevState = {
+        initialIsActive: false,
         isActive: false,
+        initialText: dummyText,
         text: dummyText,
       };
       const dummyNextProps = {
@@ -244,13 +260,16 @@ describe(`EditableTextContent`, (): void => {
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
       expect(result).toEqual({
+        initialText: dummyNewText,
         text: dummyNewText,
       });
     });
 
-    it(`returns an object containing the new isActive, when the new initialIsActive prop is different from the previous text state`, (): void => {
+    it(`returns an object containing the new isActive and initialIsActive, when the new initialIsActive prop is different from the previous one`, (): void => {
       const dummyPrevState = {
+        initialIsActive: false,
         isActive: false,
+        initialText: dummyText,
         text: dummyText,
       };
       const dummyNextProps = {
@@ -266,13 +285,16 @@ describe(`EditableTextContent`, (): void => {
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
       expect(result).toEqual({
+        initialIsActive: true,
         isActive: true,
       });
     });
 
-    it(`returns an empty object, when the new initialText prop is the same as the previous text state`, (): void => {
+    it(`returns an empty object, when the new initialText prop is the same as the previous one and the new intitialIsActive prop is the same as the previous one`, (): void => {
       const dummyPrevState = {
+        initialIsActive: false,
         isActive: false,
+        initialText: dummyText,
         text: dummyText,
       };
       const dummyNextProps = {

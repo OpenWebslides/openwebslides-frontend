@@ -20,7 +20,9 @@ type Props = {
 };
 
 type ComponentState = {
+  initialIsActive: boolean,
   isActive: boolean,
+  initialText: string,
   text: string,
 };
 
@@ -29,31 +31,39 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     multiline: false,
     initialText: '',
     initialIsActive: false,
+    onInput: undefined,
+    onActivate: undefined,
+    onDeactivate: undefined,
+    onKeyDown: undefined,
     className: 'editable-text-content',
     textClassNameSuffix: '__text',
     inputClassNameSuffix: '__input',
   };
 
+  state: ComponentState = {
+    initialIsActive: false,
+    isActive: false,
+    initialText: '',
+    text: '',
+  };
+
   static getDerivedStateFromProps = (
-    nextProps: Props,
-    prevState: ComponentState,
+    props: Props,
+    state: ComponentState,
   ): $Shape<ComponentState> => {
     const nextState: $Shape<ComponentState> = {};
 
-    if (prevState.text !== nextProps.initialText) {
-      nextState.text = nextProps.initialText;
+    if (state.initialText !== props.initialText) {
+      nextState.initialText = props.initialText;
+      nextState.text = props.initialText;
     }
 
-    if (prevState.isActive !== nextProps.initialIsActive) {
-      nextState.isActive = nextProps.initialIsActive;
+    if (state.initialIsActive !== props.initialIsActive) {
+      nextState.initialIsActive = props.initialIsActive;
+      nextState.isActive = props.initialIsActive;
     }
 
     return nextState;
-  };
-
-  state: ComponentState = {
-    isActive: false,
-    text: '',
   };
 
   componentDidUpdate = (): void => {
@@ -86,9 +96,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
   };
 
   handleKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
-    if (this.props.onKeyDown) {
-      this.props.onKeyDown(event);
-    }
+    if (this.props.onKeyDown) this.props.onKeyDown(event);
   };
 
   renderAsInput = (): React.Node => {
