@@ -17,7 +17,14 @@ import type {
   SubableContentItem,
 } from '../../model';
 import { getById } from '../../selectors';
-import { add, edit, toggleEditing, removeAndTogglePreviousItem } from '../../actions';
+import {
+  add,
+  edit,
+  toggleEditing,
+  removeAndTogglePreviousItem,
+  indent,
+  reverseIndent,
+} from '../../actions';
 
 import Root from './types/Root';
 import Heading from './types/Heading';
@@ -60,6 +67,8 @@ type DispatchProps = {
   onAddEmptySubItem: (id: Identifier) => void,
   onAddEmptySiblingItemBelow: (id: Identifier) => void,
   onRemove: (id: Identifier) => void,
+  onIndent: (id: Identifier) => void,
+  onReverseIndent: (id: Identifier) => void,
 };
 
 type Props = PassedProps & StateProps & DispatchProps;
@@ -73,6 +82,8 @@ const passThroughProps = [
   'onAddEmptySubItem',
   'onAddEmptySiblingItemBelow',
   'onRemove',
+  'onIndent',
+  'onReverseIndent',
 ];
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
@@ -124,6 +135,12 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
     },
     onRemove: (id: Identifier): void => {
       dispatch(removeAndTogglePreviousItem(id));
+    },
+    onIndent: (id: Identifier): void => {
+      dispatch(indent(id));
+    },
+    onReverseIndent: (id: Identifier): void => {
+      dispatch(reverseIndent(id));
     },
   };
 };

@@ -16,7 +16,14 @@ import EditableDisplay, {
   DummyDisplayComponent,
 } from '..';
 
-import { add, edit, toggleEditing, removeAndTogglePreviousItem } from '../../../actions';
+import {
+  add,
+  edit,
+  toggleEditing,
+  removeAndTogglePreviousItem,
+  indent,
+  reverseIndent,
+} from '../../../actions';
 import {
   contentItemTypes,
   contextTypes,
@@ -39,6 +46,8 @@ describe(`EditableDisplay`, (): void => {
   const dummyOnAddEmptySubItem = (): void => {};
   const dummyOnAddEmptySiblingItemBelow = (): void => {};
   const dummyOnRemove = (): void => {};
+  const dummyOnIndent = (): void => {};
+  const dummyOnReverseIndent = (): void => {};
   const dummyProps = {
     onStartEditing: dummyOnStartEditing,
     onEndEditing: dummyOnEndEditing,
@@ -46,6 +55,8 @@ describe(`EditableDisplay`, (): void => {
     onAddEmptySubItem: dummyOnAddEmptySubItem,
     onAddEmptySiblingItemBelow: dummyOnAddEmptySiblingItemBelow,
     onRemove: dummyOnRemove,
+    onIndent: dummyOnIndent,
+    onReverseIndent: dummyOnReverseIndent,
   };
   const dummyBaseClassName = 'EditableDisplayBaseClassName';
   const dummySubItemsClassNameSuffix = 'EditableDisplaySubItemsClassNameSuffix';
@@ -400,6 +411,20 @@ describe(`EditableDisplay`, (): void => {
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onRemove(dummyId);
       expect(dummyDispatch).toHaveBeenCalledWith(removeAndTogglePreviousItem(dummyId));
+    });
+
+    it(`dispatches the correct INDENT action, when onIndent is called`, (): void => {
+      const dummyId = 'abcdefghijklmnopqrst';
+      const dummyDispatch = jest.fn();
+      mapDispatchToProps(dummyDispatch, ({}: any)).onIndent(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(indent(dummyId));
+    });
+
+    it(`dispatches the correct REVERSE_INDENT action, when onReverseIndent is called`, (): void => {
+      const dummyId = 'abcdefghijklmnopqrst';
+      const dummyDispatch = jest.fn();
+      mapDispatchToProps(dummyDispatch, ({}: any)).onReverseIndent(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(reverseIndent(dummyId));
     });
 
   });

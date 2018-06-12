@@ -16,6 +16,8 @@ describe(`Heading`, (): void => {
   let dummyOnEditPlainText: any;
   let dummyOnAddEmptySubItem: any;
   let dummyOnRemove: any;
+  let dummyOnIndent: any;
+  let dummyOnReverseIndent: any;
   let dummyProps: any;
 
   beforeEach((): void => {
@@ -24,12 +26,16 @@ describe(`Heading`, (): void => {
     dummyOnEditPlainText = jest.fn();
     dummyOnAddEmptySubItem = jest.fn();
     dummyOnRemove = jest.fn();
+    dummyOnIndent = jest.fn();
+    dummyOnReverseIndent = jest.fn();
     dummyProps = {
       onStartEditing: dummyOnStartEditing,
       onEndEditing: dummyOnEndEditing,
       onEditPlainText: dummyOnEditPlainText,
       onAddEmptySubItem: dummyOnAddEmptySubItem,
       onRemove: dummyOnRemove,
+      onIndent: dummyOnIndent,
+      onReverseIndent: dummyOnReverseIndent,
     };
   });
 
@@ -128,7 +134,29 @@ describe(`Heading`, (): void => {
       expect(dummyOnRemove).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
     });
 
-    it(`does not call any function, when the pressed key is anything other than "Enter" or "Backspace`, (): void => {
+    it(`calls the passed onIndent function, when the pressed key combination was "CTRL" + "ArrowRight"`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureHeading
+          contentItem={dummyContentItemData.headingContentItem}
+          {...dummyProps}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'ArrowRight', ctrlKey: true, preventDefault: jest.fn() });
+      expect(dummyOnIndent).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
+    });
+
+    it(`calls the passed onReverseIndent function, when the pressed key combination was "CTRL" + "ArrowLeft"`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureHeading
+          contentItem={dummyContentItemData.headingContentItem}
+          {...dummyProps}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'ArrowLeft', ctrlKey: true, preventDefault: jest.fn() });
+      expect(dummyOnReverseIndent).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
+    });
+
+    it(`does not call any function, when the pressed key is anything other than the above key combinations`, (): void => {
       const enzymeWrapper = shallow(
         <PureHeading
           contentItem={dummyContentItemData.headingContentItem}
@@ -138,6 +166,8 @@ describe(`Heading`, (): void => {
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'A' });
       expect(dummyOnAddEmptySubItem).toHaveBeenCalledTimes(0);
       expect(dummyOnRemove).toHaveBeenCalledTimes(0);
+      expect(dummyOnIndent).toHaveBeenCalledTimes(0);
+      expect(dummyOnReverseIndent).toHaveBeenCalledTimes(0);
     });
 
   });

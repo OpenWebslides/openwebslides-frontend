@@ -16,6 +16,8 @@ describe(`Paragraph`, (): void => {
   let dummyOnEditPlainText: any;
   let dummyOnAddEmptySiblingItemBelow: any;
   let dummyOnRemove: any;
+  let dummyOnIndent: any;
+  let dummyOnReverseIndent: any;
   let dummyProps: any;
 
   beforeEach((): void => {
@@ -24,12 +26,16 @@ describe(`Paragraph`, (): void => {
     dummyOnEditPlainText = jest.fn();
     dummyOnAddEmptySiblingItemBelow = jest.fn();
     dummyOnRemove = jest.fn();
+    dummyOnIndent = jest.fn();
+    dummyOnReverseIndent = jest.fn();
     dummyProps = {
       onStartEditing: dummyOnStartEditing,
       onEndEditing: dummyOnEndEditing,
       onEditPlainText: dummyOnEditPlainText,
       onAddEmptySiblingItemBelow: dummyOnAddEmptySiblingItemBelow,
       onRemove: dummyOnRemove,
+      onIndent: dummyOnIndent,
+      onReverseIndent: dummyOnReverseIndent,
     };
   });
 
@@ -128,7 +134,29 @@ describe(`Paragraph`, (): void => {
       expect(dummyOnRemove).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id);
     });
 
-    it(`does not call any function, when the pressed key is anything other than "Enter" or "Backspace`, (): void => {
+    it(`calls the passed onIndent function, when the pressed key combination was "CTRL" + "ArrowRight"`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureParagraph
+          contentItem={dummyContentItemData.paragraphContentItem}
+          {...dummyProps}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'ArrowRight', ctrlKey: true, preventDefault: jest.fn() });
+      expect(dummyOnIndent).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id);
+    });
+
+    it(`calls the passed onReverseIndent function, when the pressed key combination was "CTRL" + "ArrowLeft"`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureParagraph
+          contentItem={dummyContentItemData.paragraphContentItem}
+          {...dummyProps}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'ArrowLeft', ctrlKey: true, preventDefault: jest.fn() });
+      expect(dummyOnReverseIndent).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id);
+    });
+
+    it(`does not call any function, when the pressed key is anything other than the above key combinations`, (): void => {
       const enzymeWrapper = shallow(
         <PureParagraph
           contentItem={dummyContentItemData.paragraphContentItem}
@@ -138,6 +166,8 @@ describe(`Paragraph`, (): void => {
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'A' });
       expect(dummyOnAddEmptySiblingItemBelow).toHaveBeenCalledTimes(0);
       expect(dummyOnRemove).toHaveBeenCalledTimes(0);
+      expect(dummyOnIndent).toHaveBeenCalledTimes(0);
+      expect(dummyOnReverseIndent).toHaveBeenCalledTimes(0);
     });
 
   });
