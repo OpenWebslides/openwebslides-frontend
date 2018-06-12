@@ -59,6 +59,9 @@
     // Allow programmer to decide which formatting is more readable on a case-by-case basis.
     "no-else-return": "off",
 
+    // Turn this off so that we can use flowtype/no-unused-expressions instead.
+    "no-unused-expressions": "off",
+
     // Allow some common React/Redux function arguments to go unused, to allow copy/pasting boilerplate code.
     "no-unused-vars": [
       "error",
@@ -103,14 +106,24 @@
     // Note: temporarily turned of until https://github.com/gajus/eslint-plugin-flowtype/pull/318 has been merged #TODO
     // "flowtype/no-dupe-keys": "error",
 
-    // Discourage suppressing flow errors.
-    "flowtype/no-flow-fix-me-comments": "warn",
+    // Disallow $FlowFixMe comments that don't have a reason specified.
+    "flowtype/no-flow-fix-me-comments": [
+      "error",
+      " .+" // Allows $FlowFixMe followed by a space and one or more characters to pass without error
+    ],
 
     // Prevent typos.
     "flowtype/no-primitive-constructor-types": "error",
 
-    // Extends the no-unused-expressions rule to ignore flow type cast expressions. #TODO seems to be broken atm
-    "flowtype/no-unused-expressions": "error",
+    // Extends the no-unused-expressions rule to ignore flow type cast expressions.
+    "flowtype/no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": false,
+        "allowTernary": false,
+        "allowTaggedTemplates": false
+      }
+    ],
 
     // Prevent lazy typing.
     "flowtype/no-weak-types": "error",
@@ -184,8 +197,13 @@
 
     // Currently doesn't work correctly in combination with Flow.
     // See https://github.com/yannickcr/eslint-plugin-react/issues/1593
-    // #TODO re-enable as soon as the above issue is resolved
-    "react/default-props-match-prop-types": "off",
+    // #TODO delete this override as soon as the above issue is resolved
+    "react/default-props-match-prop-types": [
+      "error",
+      {
+        "allowRequiredDefaults": true
+      }
+    ],
 
     // Always explicitly write out a boolean property's value
     // for better readability / consistency with other properties.
@@ -202,6 +220,19 @@
         "extensions": [".js"]
       }
     ],
+
+    // Prevent unnecessary re-rendering by never using .bind() or lambda's in jsx properties;
+    // use classes with property initializers instead.
+    "react/jsx-no-bind": [
+      "error",
+      {
+        "ignoreRefs": false,
+        "allowArrowFunctions": false,
+        "allowFunctions": false,
+        "allowBind": false
+      }
+    ],
+
     // Generates false positives when props are immediately passed to other function
     // Example: in a mapStateToProps function where prop is passed to selector function
     "react/no-unused-prop-types": "off"
