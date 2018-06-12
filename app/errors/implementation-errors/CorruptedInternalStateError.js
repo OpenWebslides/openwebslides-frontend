@@ -12,9 +12,9 @@ class CorruptedInternalStateError extends ImplementationError {
 
     // Temporary workaround for https://github.com/istanbuljs/babel-plugin-istanbul/issues/143 #TODO
     /* eslint-disable no-proto */
-    // $FlowFixMe
+    // $FlowFixMe Temporary workaround
     this.constructor = CorruptedInternalStateError;
-    // $FlowFixMe
+    // $FlowFixMe Temporary workaround
     this.__proto__ = CorruptedInternalStateError.prototype;
     /* eslint-enable */
   }
