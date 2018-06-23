@@ -113,10 +113,10 @@ class PureTopicCard extends React.Component<Props, LocalState> {
             <p>Are you sure you want to delete this topic?</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button primary={true} onClick={this.no}>
+            <Button secondary={true} onClick={this.no}>
             Cancel
             </Button>
-            <Button secondary={true} icon="trash" labelPosition="left" content="Delete" onClick={this.yes} />
+            <Button primary={true} icon="trash" labelPosition="left" content="Delete" onClick={this.yes} />
           </Modal.Actions>
         </Modal>
       </React.Fragment>
