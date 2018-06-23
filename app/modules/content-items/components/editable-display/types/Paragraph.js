@@ -13,18 +13,47 @@ import EditableTextContent from '../EditableTextContent';
 
 type PassedProps = {
   contentItem: ParagraphContentItem,
-  onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
+  onStartEditing: (id: Identifier) => void,
+  onEndEditing: (id: Identifier) => void,
+  onEditPlainText: (id: Identifier, text: string) => void,
+  onAddEmptySiblingItemBelow: (id: Identifier) => void,
+  onRemove: (id: Identifier) => void,
+  onIndent: (id: Identifier) => void,
+  onReverseIndent: (id: Identifier) => void,
 };
 
 type Props = PassedProps;
 
 class PureParagraph extends React.Component<Props> {
-  onEditableTextContentInput = (text: string): void => {
-    this.props.onEditPlainText(this.props.contentItem.id, text, true);
+  onEditableTextContentActivate = (): void => {
+    this.props.onStartEditing(this.props.contentItem.id);
   };
 
-  onEditableTextContentDeactivate = (text: string): void => {
-    this.props.onEditPlainText(this.props.contentItem.id, text, false);
+  onEditableTextContentDeactivate = (): void => {
+    this.props.onEndEditing(this.props.contentItem.id);
+  };
+
+  onEditableTextContentInput = (text: string): void => {
+    this.props.onEditPlainText(this.props.contentItem.id, text);
+  };
+
+  onEditableTextContentKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.props.onAddEmptySiblingItemBelow(this.props.contentItem.id);
+    }
+    else if (event.key === 'Backspace' && this.props.contentItem.text === '') {
+      event.preventDefault();
+      this.props.onRemove(this.props.contentItem.id);
+    }
+    else if (event.key === 'ArrowRight' && event.ctrlKey === true) {
+      event.preventDefault();
+      this.props.onIndent(this.props.contentItem.id);
+    }
+    else if (event.key === 'ArrowLeft' && event.ctrlKey === true) {
+      event.preventDefault();
+      this.props.onReverseIndent(this.props.contentItem.id);
+    }
   };
 
   render = (): React.Node => {
@@ -38,8 +67,11 @@ class PureParagraph extends React.Component<Props> {
         <EditableTextContent
           multiline={true}
           initialText={contentItem.text}
-          onInput={this.onEditableTextContentInput}
+          initialIsActive={contentItem.isEditing}
+          onActivate={this.onEditableTextContentActivate}
           onDeactivate={this.onEditableTextContentDeactivate}
+          onInput={this.onEditableTextContentInput}
+          onKeyDown={this.onEditableTextContentKeyDown}
         />
       </DisplayBlockWrapper>
     );

@@ -1,24 +1,19 @@
 // @flow
 
 import type { Identifier } from 'types/model';
-import type { ContentItem, ContentItemType } from '../model';
-
-import type { ActionPayloadPropsForType } from './payload/propsForType';
-import {
-  actionPayloadReducerContextTypes,
-  actionPayloadSagaContextTypes,
-} from './payload/context';
 import type {
-  ActionPayloadReducerContext,
-  ActionPayloadReducerContextType,
-  ActionPayloadSagaContext,
-  ActionPayloadSagaContextType,
-} from './payload/context';
+  ContentItem,
+  ContentItemType,
+  Context,
+  VerticalContext,
+  AllPropsForAllTypes,
+} from '../model';
 
 // Reducer actions
 export const ADD_TO_STATE: 'contentItems/ADD_TO_STATE' = 'contentItems/ADD_TO_STATE';
-export const EDIT_IN_STATE: 'contentItems/EDIT_IN_STATE' = 'contentItems/EDIT_IN_STATE';
-// #TODO add actions for editing subItemIds, etc.
+export const EDIT_PROPS_FOR_TYPE_IN_STATE: 'contentItems/EDIT_PROPS_FOR_TYPE_IN_STATE' = 'contentItems/EDIT_PROPS_FOR_TYPE_IN_STATE';
+export const SWITCH_EDITING_IN_STATE: 'contentItems/SWITCH_EDITING_IN_STATE' = 'contentItems/SWITCH_EDITING_IN_STATE';
+export const MOVE_IN_STATE: 'contentItems/MOVE_IN_STATE' = 'contentItems/MOVE_IN_STATE';
 export const REMOVE_FROM_STATE: 'contentItems/REMOVE_FROM_STATE' = 'contentItems/REMOVE_FROM_STATE';
 export const SET_IN_STATE: 'contentItems/SET_IN_STATE' = 'contentItems/SET_IN_STATE';
 export const SET_MULTIPLE_IN_STATE: 'contentItems/SET_MULTIPLE_IN_STATE' = 'contentItems/SET_MULTIPLE_IN_STATE';
@@ -26,8 +21,12 @@ export const SET_MULTIPLE_IN_STATE: 'contentItems/SET_MULTIPLE_IN_STATE' = 'cont
 // Task saga actions
 export const ADD: 'contentItems/ADD' = 'contentItems/ADD';
 export const EDIT: 'contentItems/EDIT' = 'contentItems/EDIT';
+export const TOGGLE_EDITING: 'contentItems/TOGGLE_EDITING' = 'contentItems/TOGGLE_EDITING';
 export const MOVE: 'contentItems/MOVE' = 'contentItems/MOVE';
+export const INDENT: 'contentItems/INDENT' = 'contentItems/INDENT';
+export const REVERSE_INDENT: 'contentItems/REVERSE_INDENT' = 'contentItems/REVERSE_INDENT';
 export const REMOVE: 'contentItems/REMOVE' = 'contentItems/REMOVE';
+export const REMOVE_AND_TOGGLE_PREVIOUS_ITEM: 'contentItems/REMOVE_AND_TOGGLE_PREVIOUS_ITEM' = 'contentItems/REMOVE_AND_TOGGLE_PREVIOUS_ITEM';
 
 // API saga actions
 
@@ -38,19 +37,32 @@ export type AddToStateAction = {
   payload: {
     id: Identifier,
     type: ContentItemType,
-    isEditing: boolean,
-    context: ?ActionPayloadReducerContext,
-    propsForType: ActionPayloadPropsForType,
+    context: ?VerticalContext,
+    propsForType: $Shape<AllPropsForAllTypes>,
   },
 };
 
-export type EditInStateAction = {
-  type: typeof EDIT_IN_STATE,
+export type EditPropsForTypeInStateAction = {
+  type: typeof EDIT_PROPS_FOR_TYPE_IN_STATE,
+  payload: {
+    contentItem: ContentItem,
+    propsForType: $Shape<AllPropsForAllTypes>,
+  },
+};
+
+export type SwitchEditingInStateAction = {
+  type: typeof SWITCH_EDITING_IN_STATE,
+  payload: {
+    previousEditingItemId: ?Identifier,
+    nextEditingItemId: ?Identifier,
+  },
+};
+
+export type MoveInStateAction = {
+  type: typeof MOVE_IN_STATE,
   payload: {
     id: Identifier,
-    type: ContentItemType,
-    isEditing: boolean,
-    propsForType: ActionPayloadPropsForType,
+    nextContext: VerticalContext,
   },
 };
 
@@ -72,9 +84,8 @@ export type AddAction = {
   type: typeof ADD,
   payload: {
     type: ContentItemType,
-    isEditing: boolean,
-    context: ?ActionPayloadSagaContext,
-    propsForType: ActionPayloadPropsForType,
+    context: ?Context,
+    propsForType: $Shape<AllPropsForAllTypes>,
   },
 };
 
@@ -82,8 +93,15 @@ export type EditAction = {
   type: typeof EDIT,
   payload: {
     id: Identifier,
-    isEditing: boolean,
-    propsForType: ActionPayloadPropsForType,
+    propsForType: $Shape<AllPropsForAllTypes>,
+  },
+};
+
+export type ToggleEditingAction = {
+  type: typeof TOGGLE_EDITING,
+  payload: {
+    id: Identifier,
+    isEditing?: boolean,
   },
 };
 
@@ -91,7 +109,21 @@ export type MoveAction = {
   type: typeof MOVE,
   payload: {
     id: Identifier,
-    // #TODO stub
+    nextContext: VerticalContext,
+  },
+};
+
+export type IndentAction = {
+  type: typeof INDENT,
+  payload: {
+    id: Identifier,
+  },
+};
+
+export type ReverseIndentAction = {
+  type: typeof REVERSE_INDENT,
+  payload: {
+    id: Identifier,
   },
 };
 
@@ -102,26 +134,27 @@ export type RemoveAction = {
   };
 };
 
+export type RemoveAndTogglePreviousItemAction = {
+  type: typeof REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
+  payload: {
+    id: Identifier,
+  },
+};
+
 export type ReducerAction =
   | AddToStateAction
-  | EditInStateAction
+  | EditPropsForTypeInStateAction
+  | SwitchEditingInStateAction
+  | MoveInStateAction
   | RemoveFromStateAction
   | SetMultipleInStateAction;
 
 export type TaskSagaAction =
   | AddAction
   | EditAction
+  | ToggleEditingAction
   | MoveAction
-  | RemoveAction;
-
-export {
-  actionPayloadReducerContextTypes,
-  actionPayloadSagaContextTypes,
-};
-export type {
-  ActionPayloadPropsForType,
-  ActionPayloadReducerContext,
-  ActionPayloadReducerContextType,
-  ActionPayloadSagaContext,
-  ActionPayloadSagaContextType,
-};
+  | IndentAction
+  | ReverseIndentAction
+  | RemoveAction
+  | RemoveAndTogglePreviousItemAction;

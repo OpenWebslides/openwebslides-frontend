@@ -9,10 +9,11 @@ import InlineMarkdown from 'core-components/inline-markdown';
 type Props = {
   multiline: boolean,
   initialText: string,
+  initialIsActive: boolean,
   onInput?: (text: string) => void,
   onActivate?: () => void,
   onDeactivate?: (text: string) => void,
-  onKeyDown?: (key: string, ctrlKey: boolean, shiftKey: boolean, altKey: boolean) => void,
+  onKeyDown?: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void,
   className: string,
   textClassNameSuffix: string,
   inputClassNameSuffix: string,
@@ -27,6 +28,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
   static defaultProps = {
     multiline: false,
     initialText: '',
+    initialIsActive: false,
     className: 'editable-text-content',
     textClassNameSuffix: '__text',
     inputClassNameSuffix: '__input',
@@ -40,6 +42,10 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
 
     if (prevState.text !== nextProps.initialText) {
       nextState.text = nextProps.initialText;
+    }
+
+    if (prevState.isActive !== nextProps.initialIsActive) {
+      nextState.isActive = nextProps.initialIsActive;
     }
 
     return nextState;
@@ -81,7 +87,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
 
   handleKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
     if (this.props.onKeyDown) {
-      this.props.onKeyDown(event.key, event.ctrlKey, event.shiftKey, event.altKey);
+      this.props.onKeyDown(event);
     }
   };
 
@@ -95,6 +101,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
                 className={`${this.props.className}${this.props.inputClassNameSuffix} ${this.props.className}${this.props.inputClassNameSuffix}--multiline`}
                 autoHeight={true}
                 value={this.state.text}
+                autoFocus={this.state.isActive}
                 onInput={this.handleInput}
                 onBlur={this.handleDeactivate}
                 onKeyDown={this.handleKeyDown}
@@ -106,6 +113,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
                 className={`${this.props.className}${this.props.inputClassNameSuffix} ${this.props.className}${this.props.inputClassNameSuffix}--singleline`}
                 fluid={true}
                 value={this.state.text}
+                autoFocus={this.state.isActive}
                 onInput={this.handleInput}
                 onBlur={this.handleDeactivate}
                 onKeyDown={this.handleKeyDown}

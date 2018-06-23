@@ -7,11 +7,24 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
-import * as t from '../../actionTypes';
-import { contentItemTypes, subableContentItemTypes } from '../../model';
-import type { ContentItem, SubableContentItem } from '../../model';
+import {
+  contentItemTypes,
+  subableContentItemTypes,
+  contextTypes,
+} from '../../model';
+import type {
+  ContentItem,
+  SubableContentItem,
+} from '../../model';
 import { getById } from '../../selectors';
-import { add, edit } from '../../actions';
+import {
+  add,
+  edit,
+  toggleEditing,
+  removeAndTogglePreviousItem,
+  indent,
+  reverseIndent,
+} from '../../actions';
 
 import Root from './types/Root';
 import Heading from './types/Heading';
@@ -48,8 +61,14 @@ type StateProps = {
 };
 
 type DispatchProps = {
-  onEditPlainText: (id: Identifier, text: string, isEditing: boolean) => void,
+  onStartEditing: (id: Identifier) => void,
+  onEndEditing: (id: Identifier) => void,
+  onEditPlainText: (id: Identifier, text: string) => void,
   onAddEmptySubItem: (id: Identifier) => void,
+  onAddEmptySiblingItemBelow: (id: Identifier) => void,
+  onRemove: (id: Identifier) => void,
+  onIndent: (id: Identifier) => void,
+  onReverseIndent: (id: Identifier) => void,
 };
 
 type Props = PassedProps & StateProps & DispatchProps;
@@ -57,8 +76,14 @@ type Props = PassedProps & StateProps & DispatchProps;
 const passThroughProps = [
   'baseClassName',
   'subItemsClassNameSuffix',
+  'onStartEditing',
+  'onEndEditing',
   'onEditPlainText',
   'onAddEmptySubItem',
+  'onAddEmptySiblingItemBelow',
+  'onRemove',
+  'onIndent',
+  'onReverseIndent',
 ];
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
@@ -75,20 +100,47 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
   return {
-    onEditPlainText: (id: Identifier, text: string, isEditing: boolean): void => {
-      dispatch(edit(id, { text }, isEditing));
+    onStartEditing: (id: Identifier): void => {
+      dispatch(toggleEditing(id, true));
+    },
+    onEndEditing: (id: Identifier): void => {
+      dispatch(toggleEditing(id, false));
+    },
+    onEditPlainText: (id: Identifier, text: string): void => {
+      dispatch(edit(id, { text }));
     },
     onAddEmptySubItem: (id: Identifier): void => {
+      dispatch(toggleEditing(id, false));
       dispatch(add(
         contentItemTypes.PARAGRAPH,
-        { text: '' },
         {
-          contextType: t.actionPayloadSagaContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: id,
-          positionInSiblings: 0,
+          indexInSiblingItems: 0,
         },
-        true,
+        { text: '' },
       ));
+    },
+    onAddEmptySiblingItemBelow: (id: Identifier): void => {
+      dispatch(toggleEditing(id, false));
+      dispatch(add(
+        contentItemTypes.PARAGRAPH,
+        {
+          contextType: contextTypes.SIBLING,
+          contextItemId: id,
+          indexInSiblingItemsShift: 0,
+        },
+        { text: '' },
+      ));
+    },
+    onRemove: (id: Identifier): void => {
+      dispatch(removeAndTogglePreviousItem(id));
+    },
+    onIndent: (id: Identifier): void => {
+      dispatch(indent(id));
+    },
+    onReverseIndent: (id: Identifier): void => {
+      dispatch(reverseIndent(id));
     },
   };
 };

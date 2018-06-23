@@ -5,15 +5,15 @@ import NotYetImplementedError from 'errors/implementation-errors/NotYetImplement
 
 import * as t from '../../actionTypes';
 import { addToState } from '../../actions';
-import { contentItemTypes } from '../../model';
+import { contentItemTypes, contextTypes } from '../../model';
+import type { VerticalContext } from '../../model';
 
 describe(`addToState`, (): void => {
 
   const dummyId = 'abcdefghij';
   const dummyPlainTextType = contentItemTypes.HEADING;
-  const dummyIsEditing = false;
-  const dummyContext: t.ActionPayloadReducerContext = {
-    contextType: t.actionPayloadReducerContextTypes.PARENT,
+  const dummyContext: VerticalContext = {
+    contextType: contextTypes.PARENT,
     contextItemId: 'uvwxyzabcdefghijklmn',
   };
   const dummyPlainTextProps = {
@@ -26,7 +26,6 @@ describe(`addToState`, (): void => {
       payload: {
         id: dummyId,
         type: dummyPlainTextType,
-        isEditing: dummyIsEditing,
         context: dummyContext,
         propsForType: dummyPlainTextProps,
       },
@@ -34,9 +33,8 @@ describe(`addToState`, (): void => {
     const resultAction = addToState(
       dummyId,
       dummyPlainTextType,
-      dummyPlainTextProps,
       dummyContext,
-      dummyIsEditing,
+      dummyPlainTextProps,
     );
     expect(resultAction).toEqual(expectedAction);
   });
@@ -45,8 +43,8 @@ describe(`addToState`, (): void => {
     expect((): any => addToState(
       dummyId,
       dummyPlainTextType,
-      {},
       dummyContext,
+      {},
     )).toThrow(InvalidArgumentError);
   });
 
@@ -54,11 +52,11 @@ describe(`addToState`, (): void => {
     expect((): any => addToState(
       dummyId,
       dummyPlainTextType,
-      {
+      dummyContext,
+      ({
         ...dummyPlainTextProps,
         definitelyNotAValidProp: 'abcde',
-      },
-      dummyContext,
+      }: any),
     )).toThrow(InvalidArgumentError);
   });
 
@@ -68,7 +66,6 @@ describe(`addToState`, (): void => {
       payload: {
         id: dummyId,
         type: dummyPlainTextType,
-        isEditing: dummyIsEditing,
         context: dummyContext,
         propsForType: dummyPlainTextProps,
       },
@@ -76,48 +73,10 @@ describe(`addToState`, (): void => {
     const resultAction = addToState(
       dummyId,
       dummyPlainTextType,
+      dummyContext,
       {
         text: `   ${dummyPlainTextProps.text}   `,
       },
-      dummyContext,
-      dummyIsEditing,
-    );
-    expect(resultAction).toEqual(expectedAction);
-  });
-
-  it(`throws an InvalidArgumentError, when isEditing is FALSE and a non-nullable plainText string prop is an empty string`, (): void => {
-    expect((): any => addToState(
-      dummyId,
-      dummyPlainTextType,
-      {
-        text: '   ',
-      },
-      dummyContext,
-      false,
-    )).toThrow(InvalidArgumentError);
-  });
-
-  it(`does not throw any error, when isEditing is TRUE and a non-nullable plainText string prop is an empty string`, (): void => {
-    const expectedAction: t.AddToStateAction = {
-      type: t.ADD_TO_STATE,
-      payload: {
-        id: dummyId,
-        type: dummyPlainTextType,
-        isEditing: true,
-        context: dummyContext,
-        propsForType: {
-          text: '',
-        },
-      },
-    };
-    const resultAction = addToState(
-      dummyId,
-      dummyPlainTextType,
-      {
-        text: '',
-      },
-      dummyContext,
-      true,
     );
     expect(resultAction).toEqual(expectedAction);
   });
@@ -126,8 +85,8 @@ describe(`addToState`, (): void => {
     expect((): any => addToState(
       dummyId,
       contentItemTypes.IMAGE,
-      {},
       dummyContext,
+      {},
     )).toThrow(NotYetImplementedError);
   });
 

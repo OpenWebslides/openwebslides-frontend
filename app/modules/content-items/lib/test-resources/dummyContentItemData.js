@@ -129,6 +129,60 @@ export const paragraphContentItem6: $Exact<model.ParagraphContentItem> = {
   subItemIds: [],
 };
 
+export const paragraphContentItem7: $Exact<model.ParagraphContentItem> = {
+  id: '1m7n6cqriw1m7n6cqriw',
+  type: model.contentItemTypes.PARAGRAPH,
+  isEditing: false,
+  text: 'Vivamus ullamcorper malesuada erat.',
+  metadata: emptyMetadata,
+  subItemIds: [],
+};
+
+export const paragraphContentItem8: $Exact<model.ParagraphContentItem> = {
+  id: '6magcvyj9q6magcvyj9q',
+  type: model.contentItemTypes.PARAGRAPH,
+  isEditing: false,
+  text: 'In fringilla, odio et varius placerat, sem purus venenatis purus, in imperdiet massa tellus in justo. ',
+  metadata: emptyMetadata,
+  subItemIds: [],
+};
+
+export const paragraphContentItem9: $Exact<model.ParagraphContentItem> = {
+  id: '6j0zi7atjl6j0zi7atjl',
+  type: model.contentItemTypes.PARAGRAPH,
+  isEditing: false,
+  text: 'Mauris feugiat lacus non purus pellentesque, sed lobortis erat tincidunt.',
+  metadata: emptyMetadata,
+  subItemIds: [],
+};
+
+export const paragraphContentItem10: $Exact<model.ParagraphContentItem> = {
+  id: 'l5r9ymmi0el5r9ymmi0e',
+  type: model.contentItemTypes.PARAGRAPH,
+  isEditing: false,
+  text: 'Nulla enim turpis, gravida eget malesuada eu, molestie at lorem.',
+  metadata: emptyMetadata,
+  subItemIds: [],
+};
+
+export const paragraphContentItem11: $Exact<model.ParagraphContentItem> = {
+  id: 't1sicfe8s9t1sicfe8s9',
+  type: model.contentItemTypes.PARAGRAPH,
+  isEditing: false,
+  text: 'In sollicitudin erat ut eros molestie, at pellentesque diam blandit.',
+  metadata: emptyMetadata,
+  subItemIds: [],
+};
+
+export const paragraphContentItem12: $Exact<model.ParagraphContentItem> = {
+  id: 'rwa81w8aogrwa81w8aog',
+  type: model.contentItemTypes.PARAGRAPH,
+  isEditing: false,
+  text: 'Phasellus luctus nunc nunc, ac vestibulum tortor pellentesque at.',
+  metadata: emptyMetadata,
+  subItemIds: [],
+};
+
 export const listContentItem: $Exact<model.ListContentItem> = {
   id: 'g09fzfwsnpg09fzfwsnp',
   type: model.contentItemTypes.LIST,

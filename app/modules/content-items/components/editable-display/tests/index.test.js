@@ -16,9 +16,18 @@ import EditableDisplay, {
   DummyDisplayComponent,
 } from '..';
 
-import * as t from '../../../actionTypes';
-import { add, edit } from '../../../actions';
-import { contentItemTypes } from '../../../model';
+import {
+  add,
+  edit,
+  toggleEditing,
+  removeAndTogglePreviousItem,
+  indent,
+  reverseIndent,
+} from '../../../actions';
+import {
+  contentItemTypes,
+  contextTypes,
+} from '../../../model';
 import type {
   RootContentItem,
   HeadingContentItem,
@@ -31,8 +40,24 @@ import * as dummyContentItemData from '../../../lib/test-resources/dummyContentI
 
 describe(`EditableDisplay`, (): void => {
 
+  const dummyOnStartEditing = (): void => {};
+  const dummyOnEndEditing = (): void => {};
   const dummyOnEditPlainText = (): void => {};
   const dummyOnAddEmptySubItem = (): void => {};
+  const dummyOnAddEmptySiblingItemBelow = (): void => {};
+  const dummyOnRemove = (): void => {};
+  const dummyOnIndent = (): void => {};
+  const dummyOnReverseIndent = (): void => {};
+  const dummyProps = {
+    onStartEditing: dummyOnStartEditing,
+    onEndEditing: dummyOnEndEditing,
+    onEditPlainText: dummyOnEditPlainText,
+    onAddEmptySubItem: dummyOnAddEmptySubItem,
+    onAddEmptySiblingItemBelow: dummyOnAddEmptySiblingItemBelow,
+    onRemove: dummyOnRemove,
+    onIndent: dummyOnIndent,
+    onReverseIndent: dummyOnReverseIndent,
+  };
   const dummyBaseClassName = 'EditableDisplayBaseClassName';
   const dummySubItemsClassNameSuffix = 'EditableDisplaySubItemsClassNameSuffix';
   // const baseSelector = `.${dummyBaseClassName}`;
@@ -109,8 +134,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId="abcdefghij"
         contentItem={{ id: 'abcdefghij', type: contentItemTypes.ROOT, isEditing: false, childItemIds: [] }}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -124,8 +148,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.rootContentItem.id}
         contentItem={dummyContentItemData.rootContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.find('PureRoot')).toHaveLength(1);
@@ -135,8 +158,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.headingContentItem.id}
         contentItem={dummyContentItemData.headingContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.find('PureHeading')).toHaveLength(1);
@@ -146,8 +168,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.paragraphContentItem.id}
         contentItem={dummyContentItemData.paragraphContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.find('PureParagraph')).toHaveLength(1);
@@ -157,8 +178,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.listContentItem.id}
         contentItem={dummyContentItemData.listContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -168,8 +188,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.listItemContentItem.id}
         contentItem={dummyContentItemData.listItemContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -179,8 +198,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.blockquoteContentItem.id}
         contentItem={dummyContentItemData.blockquoteContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -190,8 +208,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.codeContentItem.id}
         contentItem={dummyContentItemData.codeContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -201,8 +218,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.imageContentItem.id}
         contentItem={dummyContentItemData.imageContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -212,8 +228,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.videoContentItem.id}
         contentItem={dummyContentItemData.videoContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -223,8 +238,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.audioContentItem.id}
         contentItem={dummyContentItemData.audioContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -234,8 +248,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.iframeContentItem.id}
         contentItem={dummyContentItemData.iframeContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -245,8 +258,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.slideBreakContentItem.id}
         contentItem={dummyContentItemData.slideBreakContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -256,8 +268,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyTranslatorProps}
         contentItemId={dummyContentItemData.courseBreakContentItem.id}
         contentItem={dummyContentItemData.courseBreakContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
@@ -341,29 +352,79 @@ describe(`EditableDisplay`, (): void => {
 
   describe(`mapDispatchToProps`, (): void => {
 
-    it(`dispatches the correct EDIT action, when onEditPlainText is called`, (): void => {
+    it(`dispatches the correct TOGGLE_EDITING action, when onStartEditing is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
-      const dummyIsEditing = true;
-      const dummyText = 'Lorem ipsum';
       const dummyDispatch = jest.fn();
-      mapDispatchToProps(dummyDispatch, ({}: any)).onEditPlainText(dummyId, dummyText, dummyIsEditing);
-      expect(dummyDispatch).toHaveBeenCalledWith(edit(dummyId, { text: dummyText }, dummyIsEditing));
+      mapDispatchToProps(dummyDispatch, ({}: any)).onStartEditing(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(toggleEditing(dummyId, true));
     });
 
-    it(`dispatches the correct ADD action, when onAddEmptySubItem is called`, (): void => {
+    it(`dispatches the correct TOGGLE_EDITING action, when onEndEditing is called`, (): void => {
+      const dummyId = 'abcdefghijklmnopqrst';
+      const dummyDispatch = jest.fn();
+      mapDispatchToProps(dummyDispatch, ({}: any)).onEndEditing(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(toggleEditing(dummyId, false));
+    });
+
+    it(`dispatches the correct EDIT action, when onEditPlainText is called`, (): void => {
+      const dummyId = 'abcdefghijklmnopqrst';
+      const dummyText = 'Lorem ipsum';
+      const dummyDispatch = jest.fn();
+      mapDispatchToProps(dummyDispatch, ({}: any)).onEditPlainText(dummyId, dummyText);
+      expect(dummyDispatch).toHaveBeenCalledWith(edit(dummyId, { text: dummyText }));
+    });
+
+    it(`dispatches the correct TOGGLE_EDITING and ADD actions, when onAddEmptySubItem is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onAddEmptySubItem(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(toggleEditing(dummyId, false));
       expect(dummyDispatch).toHaveBeenCalledWith(add(
         contentItemTypes.PARAGRAPH,
-        { text: '' },
         {
-          contextType: t.actionPayloadSagaContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyId,
-          positionInSiblings: 0,
+          indexInSiblingItems: 0,
         },
-        true,
+        { text: '' },
       ));
+    });
+
+    it(`dispatches the correct TOGGLE_EDITING and ADD actions, when onAddEmptySiblingItemBelow is called`, (): void => {
+      const dummyId = 'abcdefghijklmnopqrst';
+      const dummyDispatch = jest.fn();
+      mapDispatchToProps(dummyDispatch, ({}: any)).onAddEmptySiblingItemBelow(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(toggleEditing(dummyId, false));
+      expect(dummyDispatch).toHaveBeenCalledWith(add(
+        contentItemTypes.PARAGRAPH,
+        {
+          contextType: contextTypes.SIBLING,
+          contextItemId: dummyId,
+          indexInSiblingItemsShift: 0,
+        },
+        { text: '' },
+      ));
+    });
+
+    it(`dispatches the correct REMOVE_AND_TOGGLE_PREVIOUS_ITEM action, when onRemove is called`, (): void => {
+      const dummyId = 'abcdefghijklmnopqrst';
+      const dummyDispatch = jest.fn();
+      mapDispatchToProps(dummyDispatch, ({}: any)).onRemove(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(removeAndTogglePreviousItem(dummyId));
+    });
+
+    it(`dispatches the correct INDENT action, when onIndent is called`, (): void => {
+      const dummyId = 'abcdefghijklmnopqrst';
+      const dummyDispatch = jest.fn();
+      mapDispatchToProps(dummyDispatch, ({}: any)).onIndent(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(indent(dummyId));
+    });
+
+    it(`dispatches the correct REVERSE_INDENT action, when onReverseIndent is called`, (): void => {
+      const dummyId = 'abcdefghijklmnopqrst';
+      const dummyDispatch = jest.fn();
+      mapDispatchToProps(dummyDispatch, ({}: any)).onReverseIndent(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(reverseIndent(dummyId));
     });
 
   });

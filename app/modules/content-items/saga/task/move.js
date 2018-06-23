@@ -1,12 +1,13 @@
 // @flow
 
-import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
+import { put } from 'redux-saga/effects';
 
 import * as t from '../../actionTypes';
+import { moveInState } from '../../actions';
 
-// eslint-disable-next-line require-yield
 const moveSaga = function* (action: t.MoveAction): Generator<*, *, *> {
-  throw new NotYetImplementedError();
+  const { id, nextContext } = action.payload;
+  yield put(moveInState(id, nextContext));
 };
 
 export default moveSaga;

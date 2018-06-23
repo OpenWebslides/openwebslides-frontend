@@ -6,32 +6,33 @@ import NotYetImplementedError from 'errors/implementation-errors/NotYetImplement
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import { editInState } from '../../actions';
+import { editPropsForTypeInState, remove } from '../../actions';
 import { getById } from '../../selectors';
 import {
   plainTextContentItemTypes,
 } from '../../model';
 
 const editSaga = function* (action: t.EditAction): Generator<*, *, *> {
-  const { id, propsForType, isEditing } = action.payload;
+  const { id, propsForType } = action.payload;
   const newPropsForType = { ...propsForType };
 
   const contentItemToEdit = yield select(getById, { id });
-
-  if (contentItemToEdit == null) {
-    throw new ObjectNotFoundError('contentItems:contentItem', id);
-  }
+  if (contentItemToEdit == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
 
   if (_.includes(plainTextContentItemTypes, contentItemToEdit.type)) {
-    if (propsForType.text != null && propsForType.text === '') {
-      newPropsForType.text = `*\\[Empty contentItems should be automatically deleted; delete functionality to be implemented later.\\]*`;
+    if (propsForType.text != null
+      && propsForType.text === ''
+      && contentItemToEdit.isEditing === false
+    ) {
+      yield put(remove(contentItemToEdit.id));
+    }
+    else {
+      yield put(editPropsForTypeInState(contentItemToEdit, newPropsForType));
     }
   }
   else {
     throw new NotYetImplementedError(`ContentItemType not yet supported`);
   }
-
-  yield put(editInState(id, contentItemToEdit.type, newPropsForType, isEditing));
 };
 
 export default editSaga;

@@ -1,81 +1,75 @@
 // @flow
 
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
 import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import reducer from '../../reducer';
 import * as t from '../../actionTypes';
-import { contentItemTypes } from '../../model';
+import {
+  contentItemTypes,
+  contextTypes,
+} from '../../model';
 import type {
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
-  ContentItemsById,
   ContentItemsState,
 } from '../../model';
-import * as dummyContentItemData from '../../lib/test-resources/dummyContentItemData';
+import * as dummyData from '../../lib/test-resources/dummyContentItemData';
+import edit from '../../lib/edit';
 
 describe(`ADD_TO_STATE`, (): void => {
 
-  const dummyParagraph4: $Exact<ParagraphContentItem> = {
-    ...dummyContentItemData.paragraphContentItem4,
-  };
-  const dummyParagraph3: $Exact<ParagraphContentItem> = {
-    ...dummyContentItemData.paragraphContentItem3,
-  };
-  const dummyHeading2: $Exact<HeadingContentItem> = {
-    ...dummyContentItemData.headingContentItem2,
-    subItemIds: [dummyParagraph3.id, dummyParagraph4.id],
-  };
-  const dummyParagraph2: $Exact<ParagraphContentItem> = {
-    ...dummyContentItemData.paragraphContentItem2,
-  };
-  const dummyParagraph1: $Exact<ParagraphContentItem> = {
-    ...dummyContentItemData.paragraphContentItem,
-  };
-  const dummyHeading1: $Exact<HeadingContentItem> = {
-    ...dummyContentItemData.headingContentItem,
-    subItemIds: [dummyParagraph1.id, dummyParagraph2.id],
-  };
-  const dummyRoot: $Exact<RootContentItem> = {
-    ...dummyContentItemData.rootContentItem,
-    childItemIds: [dummyHeading1.id, dummyHeading2.id],
-  };
-  const dummyContentItemsById: $Exact<ContentItemsById> = {
-    [dummyRoot.id]: dummyRoot,
-    [dummyHeading1.id]: dummyHeading1,
-    [dummyParagraph1.id]: dummyParagraph1,
-    [dummyParagraph2.id]: dummyParagraph2,
-    [dummyHeading2.id]: dummyHeading2,
-    [dummyParagraph3.id]: dummyParagraph3,
-    [dummyParagraph4.id]: dummyParagraph4,
-  };
+  let dummyNewRoot: $Exact<RootContentItem>;
+  let dummyNewHeading: $Exact<HeadingContentItem>;
+  let dummyNewParagraph: $Exact<ParagraphContentItem>;
 
-  const dummyNewRoot: $Exact<RootContentItem> = {
-    ...dummyContentItemData.rootContentItem2,
-  };
-  const dummyNewHeading: $Exact<HeadingContentItem> = {
-    ...dummyContentItemData.headingContentItem3,
-  };
-  const dummyNewParagraph: $Exact<ParagraphContentItem> = {
-    ...dummyContentItemData.paragraphContentItem5,
-  };
+  let dummyParagraph4: $Exact<ParagraphContentItem>;
+  let dummyParagraph3: $Exact<ParagraphContentItem>;
+  let dummyHeading2: $Exact<HeadingContentItem>;
+  let dummyParagraph2: $Exact<ParagraphContentItem>;
+  let dummyParagraph1: $Exact<ParagraphContentItem>;
+  let dummyHeading1: $Exact<HeadingContentItem>;
+  let dummyRoot: $Exact<RootContentItem>;
+
+  beforeEach((): void => {
+    jest.resetModules();
+
+    dummyNewRoot = { ...dummyData.rootContentItem2 };
+    dummyNewHeading = { ...dummyData.headingContentItem3 };
+    dummyNewParagraph = { ...dummyData.paragraphContentItem5 };
+
+    dummyParagraph4 = { ...dummyData.paragraphContentItem4 };
+    dummyParagraph3 = { ...dummyData.paragraphContentItem3 };
+    dummyHeading2 = { ...dummyData.headingContentItem2 };
+    dummyParagraph2 = { ...dummyData.paragraphContentItem2 };
+    dummyParagraph1 = { ...dummyData.paragraphContentItem };
+    dummyHeading1 = { ...dummyData.headingContentItem };
+    dummyRoot = { ...dummyData.rootContentItem };
+  });
 
   it(`adds a HeadingContentItem to the state, when the type is HEADING and the passed props are valid`, (): void => {
     const prevState: ContentItemsState = {
-      byId: dummyContentItemsById,
+      byId: {
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
+      },
     };
     const addToStateAction: t.AddToStateAction = {
       type: t.ADD_TO_STATE,
       payload: {
         id: dummyNewHeading.id,
         type: contentItemTypes.HEADING,
-        isEditing: false,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.PARENT,
+          contextType: contextTypes.PARENT,
           contextItemId: dummyRoot.id,
-          positionInSiblings: 2,
+          indexInSiblingItems: 2,
         },
         propsForType: {
           text: dummyNewHeading.text,
@@ -84,11 +78,13 @@ describe(`ADD_TO_STATE`, (): void => {
     };
     const nextState: ContentItemsState = {
       byId: {
-        ...dummyContentItemsById,
-        [dummyRoot.id]: {
-          ...dummyRoot,
-          childItemIds: [dummyHeading1.id, dummyHeading2.id, dummyNewHeading.id],
-        },
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id, dummyNewHeading.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
         [dummyNewHeading.id]: dummyNewHeading,
       },
     };
@@ -102,18 +98,25 @@ describe(`ADD_TO_STATE`, (): void => {
 
   it(`adds a ParagraphContentItem to the state, when the type is PARAGRAPH and the passed props are valid`, (): void => {
     const prevState: ContentItemsState = {
-      byId: dummyContentItemsById,
+      byId: {
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
+      },
     };
     const addToStateAction: t.AddToStateAction = {
       type: t.ADD_TO_STATE,
       payload: {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
-          positionInSiblings: 1,
+          indexInSiblingItems: 1,
         },
         propsForType: {
           text: dummyNewParagraph.text,
@@ -122,11 +125,13 @@ describe(`ADD_TO_STATE`, (): void => {
     };
     const nextState: ContentItemsState = {
       byId: {
-        ...dummyContentItemsById,
-        [dummyHeading1.id]: {
-          ...dummyHeading1,
-          subItemIds: [dummyParagraph1.id, dummyNewParagraph.id, dummyParagraph2.id],
-        },
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyNewParagraph.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
         [dummyNewParagraph.id]: dummyNewParagraph,
       },
     };
@@ -140,21 +145,34 @@ describe(`ADD_TO_STATE`, (): void => {
 
   it(`adds a RootContentItem to the state, when the type is ROOT and the passed props are valid`, (): void => {
     const prevState: ContentItemsState = {
-      byId: dummyContentItemsById,
+      byId: {
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
+      },
     };
     const addToStateAction: t.AddToStateAction = {
       type: t.ADD_TO_STATE,
       payload: {
         id: dummyNewRoot.id,
         type: contentItemTypes.ROOT,
-        isEditing: false,
         context: null,
         propsForType: {},
       },
     };
     const nextState: ContentItemsState = {
       byId: {
-        ...dummyContentItemsById,
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
         [dummyNewRoot.id]: dummyNewRoot,
       },
     };
@@ -165,18 +183,67 @@ describe(`ADD_TO_STATE`, (): void => {
     expect(resultState.byId).not.toBe(prevState.byId);
   });
 
-  it(`uses a default of 0 for context.positionInSiblings, when context.positionInSiblings is not set`, (): void => {
+  it(`uses a default of '' for the text prop of a PlainTextContentItem, when the type is a PlainTextContentItemType`, (): void => {
     const prevState: ContentItemsState = {
-      byId: dummyContentItemsById,
+      byId: {
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
+      },
     };
     const addToStateAction: t.AddToStateAction = {
       type: t.ADD_TO_STATE,
       payload: {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
+          contextItemId: dummyHeading1.id,
+          indexInSiblingItems: 1,
+        },
+        propsForType: {},
+      },
+    };
+    const nextState: ContentItemsState = {
+      byId: {
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyNewParagraph.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
+        [dummyNewParagraph.id]: { ...dummyNewParagraph, text: '' },
+      },
+    };
+    const resultState: ContentItemsState = reducer(prevState, addToStateAction);
+
+    expect(resultState).toEqual(nextState);
+  });
+
+  it(`uses a default of 0 for context.positionInSiblings, when context.positionInSiblings is not set`, (): void => {
+    const prevState: ContentItemsState = {
+      byId: {
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
+      },
+    };
+    const addToStateAction: t.AddToStateAction = {
+      type: t.ADD_TO_STATE,
+      payload: {
+        id: dummyNewParagraph.id,
+        type: contentItemTypes.PARAGRAPH,
+        context: {
+          contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
         },
         propsForType: {
@@ -186,11 +253,13 @@ describe(`ADD_TO_STATE`, (): void => {
     };
     const nextState: ContentItemsState = {
       byId: {
-        ...dummyContentItemsById,
-        [dummyHeading1.id]: {
-          ...dummyHeading1,
-          subItemIds: [dummyNewParagraph.id, dummyParagraph1.id, dummyParagraph2.id],
-        },
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyNewParagraph.id, dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
         [dummyNewParagraph.id]: dummyNewParagraph,
       },
     };
@@ -201,18 +270,25 @@ describe(`ADD_TO_STATE`, (): void => {
 
   it(`throws an InvalidArgumentError, when the type is not a valid contentItemType`, (): void => {
     const prevState: ContentItemsState = {
-      byId: dummyContentItemsById,
+      byId: {
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
+      },
     };
     const addToStateAction: any = {
       type: t.ADD_TO_STATE,
       payload: {
         id: 'abcdefghijklmnopqrst',
         type: 'DEFINITELY_NOT_A_VALID_TYPE',
-        isEditing: false,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
-          positionInSiblings: 1,
+          indexInSiblingItems: 1,
         },
         propsForType: {},
       },
@@ -224,14 +300,21 @@ describe(`ADD_TO_STATE`, (): void => {
 
   it(`throws an InvalidArgumentError, when the type is anything other than ROOT and there is no context defined`, (): void => {
     const prevState: ContentItemsState = {
-      byId: dummyContentItemsById,
+      byId: {
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
+      },
     };
     const addToStateAction: any = {
       type: t.ADD_TO_STATE,
       payload: {
         id: dummyNewParagraph.id,
         type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
         context: null,
         propsForType: {
           text: dummyNewParagraph.text,
@@ -243,120 +326,98 @@ describe(`ADD_TO_STATE`, (): void => {
     }).toThrow(InvalidArgumentError);
   });
 
-  it(`throws an ObjectNotFoundError, when the contentItem with id context.contextItemId could not be found`, (): void => {
+  it(`throws an UnsupportedOperationError, when attempting to move a HEADING before anything other than an existing HEADING in a list of siblings`, (): void => {
     const prevState: ContentItemsState = {
-      byId: dummyContentItemsById,
-    };
-    const addToStateAction: any = {
-      type: t.ADD_TO_STATE,
-      payload: {
-        id: dummyNewParagraph.id,
-        type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
-        context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
-          contextItemId: 'ThisIsAVeryInvalidId',
-          positionInSiblings: 1,
-        },
-        propsForType: {
-          text: dummyNewParagraph.text,
-        },
+      byId: {
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
       },
     };
-    expect((): void => {
-      reducer(prevState, addToStateAction);
-    }).toThrow(ObjectNotFoundError);
-  });
-
-  it(`throws an InvalidArgumentError, when the context.contextType is PARENT, but the contentItem with id context.contextItemId is not a container`, (): void => {
-    const prevState: ContentItemsState = {
-      byId: dummyContentItemsById,
-    };
-    const addToStateAction: any = {
+    const addToStateAction: t.AddToStateAction = {
       type: t.ADD_TO_STATE,
       payload: {
-        id: dummyNewParagraph.id,
-        type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
+        id: dummyHeading2.id,
+        type: contentItemTypes.HEADING,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.PARENT,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
-          positionInSiblings: 1,
+          indexInSiblingItems: 1,
         },
         propsForType: {
-          text: dummyNewParagraph.text,
+          text: dummyNewHeading.text,
         },
       },
     };
+
     expect((): void => {
       reducer(prevState, addToStateAction);
-    }).toThrow(InvalidArgumentError);
+    }).toThrow(UnsupportedOperationError);
   });
 
-  it(`throws an InvalidArgumentError, when the context.contextType is SUPER, but the contentItem with id context.contextItemId is not subable`, (): void => {
+  it(`re-throws any error from the validate function that is not a CorruptedInternalStateError`, (): void => {
+    const dummyMessage = 'Dummy error message for testing purposes.';
     const prevState: ContentItemsState = {
-      byId: dummyContentItemsById,
+      byId: {
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
+      },
     };
-    const addToStateAction: any = {
+    const addToStateAction: t.AddToStateAction = {
       type: t.ADD_TO_STATE,
       payload: {
-        id: dummyNewParagraph.id,
-        type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
+        id: dummyNewHeading.id,
+        type: contentItemTypes.HEADING,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.PARENT,
           contextItemId: dummyRoot.id,
-          positionInSiblings: 1,
+          indexInSiblingItems: 2,
         },
         propsForType: {
-          text: dummyNewParagraph.text,
+          text: dummyNewHeading.text,
         },
       },
     };
-    expect((): void => {
-      reducer(prevState, addToStateAction);
-    }).toThrow(InvalidArgumentError);
-  });
 
-  it(`throws an InvalidArgumentError, when the context.contextType is not a valid actionPayloadReducerContextType`, (): void => {
-    const prevState: ContentItemsState = {
-      byId: dummyContentItemsById,
-    };
-    const addToStateAction: any = {
-      type: t.ADD_TO_STATE,
-      payload: {
-        id: dummyNewParagraph.id,
-        type: contentItemTypes.PARAGRAPH,
-        isEditing: false,
-        context: {
-          contextType: 'InvalidContextType',
-          contextItemId: dummyHeading1.id,
-          positionInSiblings: 1,
-        },
-        propsForType: {
-          text: dummyNewParagraph.text,
-        },
-      },
-    };
+    edit.validateChildOrSubItemsInContext = jest.fn((): void => {
+      throw new Error(dummyMessage);
+    });
+
     expect((): void => {
       reducer(prevState, addToStateAction);
-    }).toThrow(InvalidArgumentError);
+    }).toThrow(dummyMessage);
   });
 
   it(`temporarily throws a NotYetImplementedError, when the type is anything other than HEADING or PARAGRAPH`, (): void => {
     const prevState: ContentItemsState = {
-      byId: dummyContentItemsById,
+      byId: {
+        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
+        [dummyParagraph1.id]: { ...dummyParagraph1 },
+        [dummyParagraph2.id]: { ...dummyParagraph2 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
+        [dummyParagraph3.id]: { ...dummyParagraph3 },
+        [dummyParagraph4.id]: { ...dummyParagraph4 },
+      },
     };
     const addToStateAction: t.AddToStateAction = {
       type: t.ADD_TO_STATE,
       payload: {
         id: 'abcdefghijklmnopqrst',
         type: contentItemTypes.LIST,
-        isEditing: false,
         context: {
-          contextType: t.actionPayloadReducerContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
-          positionInSiblings: 1,
+          indexInSiblingItems: 1,
         },
         propsForType: {},
       },

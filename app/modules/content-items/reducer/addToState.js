@@ -2,11 +2,12 @@
 /* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';
-import insertIntoArray from 'lib/insertIntoArray';
 
+import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
 import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+import type { Identifier } from 'types/model';
 
 import * as t from '../actionTypes';
 import {
@@ -17,28 +18,31 @@ import {
   containerContentItemTypes,
 } from '../model';
 import type {
+  ContentItem,
   BaseContentItem,
   PlainTextContentItem,
   TaggableContentItem,
   SubableContentItem,
   ContainerContentItem,
   ContentItemsState,
+  ContentItemType,
+  AllPropsForAllTypes,
 } from '../model';
+import edit from '../lib/edit';
 
-const addToState = (
-  state: ContentItemsState,
-  action: t.AddToStateAction,
-): ContentItemsState => {
-  const { id, type, context, propsForType, isEditing } = action.payload;
+const createNewContentItemFromPropsForType = (
+  id: Identifier,
+  type: ContentItemType,
+  propsForType: $Shape<AllPropsForAllTypes>,
+): ContentItem => {
   const newContentItem: BaseContentItem = {
     id,
     type,
-    isEditing,
+    isEditing: false,
   };
-  let newState: ContentItemsState = { ...state };
 
   if (_.includes(plainTextContentItemTypes, type)) {
-    ((newContentItem: any): PlainTextContentItem).text = (propsForType: Object).text;
+    ((newContentItem: any): PlainTextContentItem).text = propsForType.text || '';
   }
   if (_.includes(taggableContentItemTypes, type)) {
     ((newContentItem: any): TaggableContentItem).metadata = {
@@ -78,6 +82,18 @@ const addToState = (
       throw new InvalidArgumentError(`Invalid contentItem type. Type was: "${type}"`);
   }
 
+  return ((newContentItem: any): ContentItem);
+};
+
+const addToState = (
+  state: ContentItemsState,
+  action: t.AddToStateAction,
+): ContentItemsState => {
+  let newState: ContentItemsState = { ...state };
+
+  const { id, type, context, propsForType } = action.payload;
+  const newContentItem = createNewContentItemFromPropsForType(id, type, propsForType);
+
   newState = {
     ...newState,
     byId: {
@@ -92,46 +108,31 @@ const addToState = (
     }
   }
   else {
-    const positionInSiblings = context.positionInSiblings || 0;
-    const contextItemToEdit = state.byId[context.contextItemId];
-    if (contextItemToEdit == null) {
-      throw new ObjectNotFoundError('contentItems:contentItem', id);
-    }
-    let editedContextItem: any = { ...contextItemToEdit };
-
-    if (context.contextType === t.actionPayloadReducerContextTypes.PARENT) {
-      if (!_.includes(containerContentItemTypes, editedContextItem.type)) {
-        throw new InvalidArgumentError(`Can't add a child item to a contentItem that is not a container.`);
-      }
-      editedContextItem = (editedContextItem: ContainerContentItem);
-      editedContextItem.childItemIds = insertIntoArray(
-        editedContextItem.childItemIds,
-        newContentItem.id,
-        positionInSiblings,
-      );
-    }
-    else if (context.contextType === t.actionPayloadReducerContextTypes.SUPER) {
-      if (!_.includes(subableContentItemTypes, editedContextItem.type)) {
-        throw new InvalidArgumentError(`Can't add a sub item to a contentItem that is not subable.`);
-      }
-      editedContextItem = (editedContextItem: SubableContentItem);
-      editedContextItem.subItemIds = insertIntoArray(
-        editedContextItem.subItemIds,
-        newContentItem.id,
-        positionInSiblings,
-      );
-    }
-    else {
-      throw new InvalidArgumentError(`Invalid contexType. ContextType was "${context.contextType}"`);
-    }
+    const editedParentOrSuperItem = edit.addChildOrSubItemIdsToContext(
+      context,
+      newContentItem.id,
+      state.byId,
+    );
 
     newState = {
       ...newState,
       byId: {
         ...newState.byId,
-        [editedContextItem.id]: editedContextItem,
+        [editedParentOrSuperItem.id]: editedParentOrSuperItem,
       },
     };
+
+    try {
+      edit.validateChildOrSubItemsInContext(context, newState.byId);
+    }
+    catch (e) {
+      if (e instanceof CorruptedInternalStateError) {
+        throw new UnsupportedOperationError(e.message);
+      }
+      else {
+        throw e;
+      }
+    }
   }
 
   return newState;

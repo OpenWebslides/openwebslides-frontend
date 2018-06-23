@@ -11,20 +11,39 @@ import { PureHeading } from '../Heading';
 
 describe(`Heading`, (): void => {
 
+  let dummyOnStartEditing: any;
+  let dummyOnEndEditing: any;
   let dummyOnEditPlainText: any;
   let dummyOnAddEmptySubItem: any;
+  let dummyOnRemove: any;
+  let dummyOnIndent: any;
+  let dummyOnReverseIndent: any;
+  let dummyProps: any;
 
   beforeEach((): void => {
+    dummyOnStartEditing = jest.fn();
+    dummyOnEndEditing = jest.fn();
     dummyOnEditPlainText = jest.fn();
     dummyOnAddEmptySubItem = jest.fn();
+    dummyOnRemove = jest.fn();
+    dummyOnIndent = jest.fn();
+    dummyOnReverseIndent = jest.fn();
+    dummyProps = {
+      onStartEditing: dummyOnStartEditing,
+      onEndEditing: dummyOnEndEditing,
+      onEditPlainText: dummyOnEditPlainText,
+      onAddEmptySubItem: dummyOnAddEmptySubItem,
+      onRemove: dummyOnRemove,
+      onIndent: dummyOnIndent,
+      onReverseIndent: dummyOnReverseIndent,
+    };
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureHeading
         contentItem={dummyContentItemData.headingContentItem}
-        onEditPlainText={dummyOnEditPlainText}
-        onAddEmptySubItem={dummyOnAddEmptySubItem}
+        {...dummyProps}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -36,8 +55,7 @@ describe(`Heading`, (): void => {
         <PureHeading
           contentItem={dummyContentItemData.headingContentItem}
           baseClassName="BaseClassName"
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySubItem={dummyOnAddEmptySubItem}
+          {...dummyProps}
         />
       </I18nextProvider>,
     );
@@ -51,29 +69,43 @@ describe(`Heading`, (): void => {
       const enzymeWrapper = shallow(
         <PureHeading
           contentItem={dummyContentItemData.headingContentItem}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySubItem={dummyOnAddEmptySubItem}
+          {...dummyProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentInput(dummyText);
-      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id, dummyText, true);
+      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id, dummyText);
+    });
+
+  });
+
+  describe(`onEditableTextContentActivate`, (): void => {
+
+    it(`calls the passed onStartEditing function`, (): void => {
+      const dummyText = 'Lorem ipsum';
+      const enzymeWrapper = shallow(
+        <PureHeading
+          contentItem={dummyContentItemData.headingContentItem}
+          {...dummyProps}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentActivate(dummyText);
+      expect(dummyOnStartEditing).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
     });
 
   });
 
   describe(`onEditableTextContentDeactivate`, (): void => {
 
-    it(`calls the passed onEditPlainText function`, (): void => {
+    it(`calls the passed onEndEditing function`, (): void => {
       const dummyText = 'Lorem ipsum';
       const enzymeWrapper = shallow(
         <PureHeading
           contentItem={dummyContentItemData.headingContentItem}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySubItem={dummyOnAddEmptySubItem}
+          {...dummyProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentDeactivate(dummyText);
-      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id, dummyText, false);
+      expect(dummyOnEndEditing).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
     });
 
   });
@@ -84,24 +116,58 @@ describe(`Heading`, (): void => {
       const enzymeWrapper = shallow(
         <PureHeading
           contentItem={dummyContentItemData.headingContentItem}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySubItem={dummyOnAddEmptySubItem}
+          {...dummyProps}
         />,
       );
-      enzymeWrapper.instance().onEditableTextContentKeyDown('Enter', false, false, false);
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Enter', preventDefault: jest.fn() });
       expect(dummyOnAddEmptySubItem).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
     });
 
-    it(`does not call the onAddEmptySubItem function, when the pressed key is anything other than "Enter"`, (): void => {
+    it(`calls the passed onRemove function, when the pressed key was "Backspace" and the contentItem's text prop was empty`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureHeading
+          contentItem={{ ...dummyContentItemData.headingContentItem, text: '' }}
+          {...dummyProps}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Backspace', preventDefault: jest.fn() });
+      expect(dummyOnRemove).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
+    });
+
+    it(`calls the passed onIndent function, when the pressed key combination was "CTRL" + "ArrowRight"`, (): void => {
       const enzymeWrapper = shallow(
         <PureHeading
           contentItem={dummyContentItemData.headingContentItem}
-          onEditPlainText={dummyOnEditPlainText}
-          onAddEmptySubItem={dummyOnAddEmptySubItem}
+          {...dummyProps}
         />,
       );
-      enzymeWrapper.instance().onEditableTextContentKeyDown('A', false, false, false);
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'ArrowRight', ctrlKey: true, preventDefault: jest.fn() });
+      expect(dummyOnIndent).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
+    });
+
+    it(`calls the passed onReverseIndent function, when the pressed key combination was "CTRL" + "ArrowLeft"`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureHeading
+          contentItem={dummyContentItemData.headingContentItem}
+          {...dummyProps}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'ArrowLeft', ctrlKey: true, preventDefault: jest.fn() });
+      expect(dummyOnReverseIndent).toHaveBeenCalledWith(dummyContentItemData.headingContentItem.id);
+    });
+
+    it(`does not call any function, when the pressed key is anything other than the above key combinations`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureHeading
+          contentItem={dummyContentItemData.headingContentItem}
+          {...dummyProps}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'A' });
       expect(dummyOnAddEmptySubItem).toHaveBeenCalledTimes(0);
+      expect(dummyOnRemove).toHaveBeenCalledTimes(0);
+      expect(dummyOnIndent).toHaveBeenCalledTimes(0);
+      expect(dummyOnReverseIndent).toHaveBeenCalledTimes(0);
     });
 
   });

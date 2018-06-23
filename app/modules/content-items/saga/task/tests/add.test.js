@@ -1,10 +1,12 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
-import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
 
 import * as t from '../../../actionTypes';
-import { contentItemTypes } from '../../../model';
+import {
+  contentItemTypes,
+  contextTypes,
+} from '../../../model';
 import type {
   RootContentItem,
   HeadingContentItem,
@@ -64,11 +66,10 @@ describe(`addSaga`, (): void => {
       payload: {
         type: contentItemTypes.PARAGRAPH,
         context: {
-          contextType: t.actionPayloadSagaContextTypes.SUPER,
+          contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
-          positionInSiblings: 0,
+          indexInSiblingItems: 0,
         },
-        isEditing: false,
         propsForType: {
           text: 'Lorem ipsum dolor sit amet.',
         },
@@ -82,11 +83,31 @@ describe(`addSaga`, (): void => {
           payload: {
             type: dummyAddAction.payload.type,
             context: dummyAddAction.payload.context,
-            isEditing: dummyAddAction.payload.isEditing,
             propsForType: dummyAddAction.payload.propsForType,
           },
         },
       })
+      .run();
+  });
+
+  it(`puts a toggleEditing action`, (): void => {
+    const dummyAddAction: t.AddAction = {
+      type: t.ADD,
+      payload: {
+        type: contentItemTypes.PARAGRAPH,
+        context: {
+          contextType: contextTypes.SUPER,
+          contextItemId: dummyHeading1.id,
+          indexInSiblingItems: 0,
+        },
+        propsForType: {
+          text: 'Lorem ipsum dolor sit amet.',
+        },
+      },
+    };
+    return expectSaga(addSaga, dummyAddAction)
+      .withState(dummyState)
+      .put.actionType(t.TOGGLE_EDITING)
       .run();
   });
 
@@ -96,7 +117,6 @@ describe(`addSaga`, (): void => {
       payload: {
         type: contentItemTypes.ROOT,
         context: undefined,
-        isEditing: false,
         propsForType: {},
       },
     };
@@ -108,7 +128,6 @@ describe(`addSaga`, (): void => {
           payload: {
             type: dummyAddAction.payload.type,
             context: null,
-            isEditing: dummyAddAction.payload.isEditing,
             propsForType: dummyAddAction.payload.propsForType,
           },
         },
@@ -116,23 +135,72 @@ describe(`addSaga`, (): void => {
       .run();
   });
 
-  it(`temporarily throws a NotYetImplementedError, when context.contextType is SIBLING`, (): void => {
+  it(`converts a context with contextType.SIBLING to a context with contextType.PARENT, when the contentItem with id context.contextItemId is a childItem`, (): void => {
+    const dummyAddAction: t.AddAction = {
+      type: t.ADD,
+      payload: {
+        type: contentItemTypes.HEADING,
+        context: {
+          contextType: contextTypes.SIBLING,
+          contextItemId: dummyHeading1.id,
+          indexInSiblingItemsShift: 0,
+        },
+        propsForType: {
+          text: 'Lorem ipsum',
+        },
+      },
+    };
+    return expectSaga(addSaga, dummyAddAction)
+      .withState(dummyState)
+      .put.like({
+        action: {
+          type: t.ADD_TO_STATE,
+          payload: {
+            type: dummyAddAction.payload.type,
+            context: {
+              contextType: contextTypes.PARENT,
+              contextItemId: dummyRoot.id,
+              indexInSiblingItems: 1,
+            },
+            propsForType: dummyAddAction.payload.propsForType,
+          },
+        },
+      })
+      .run();
+  });
+
+  it(`converts a context with contextType.SIBLING to a context with contextType.SUPER, when the contentItem with id context.contextItemId is a subItem`, (): void => {
     const dummyAddAction: t.AddAction = {
       type: t.ADD,
       payload: {
         type: contentItemTypes.PARAGRAPH,
         context: {
-          contextType: t.actionPayloadSagaContextTypes.SIBLING,
-          contextItemId: dummyParagraph1.id,
-          positionInSiblings: 0,
+          contextType: contextTypes.SIBLING,
+          contextItemId: dummyParagraph4.id,
+          indexInSiblingItemsShift: 0,
         },
-        isEditing: false,
-        propsForType: {},
+        propsForType: {
+          text: 'Lorem ipsum',
+        },
       },
     };
-    expect((): void => {
-      expectSaga(addSaga, dummyAddAction).run();
-    }).toThrow(NotYetImplementedError);
+    return expectSaga(addSaga, dummyAddAction)
+      .withState(dummyState)
+      .put.like({
+        action: {
+          type: t.ADD_TO_STATE,
+          payload: {
+            type: dummyAddAction.payload.type,
+            context: {
+              contextType: contextTypes.SUPER,
+              contextItemId: dummyHeading2.id,
+              indexInSiblingItems: 2,
+            },
+            propsForType: dummyAddAction.payload.propsForType,
+          },
+        },
+      })
+      .run();
   });
 
 });

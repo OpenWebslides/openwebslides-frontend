@@ -206,12 +206,7 @@ describe(`EditableTextContent`, (): void => {
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('keyDown', dummyKeyDownEvent);
-    expect(dummyKeyDown).toHaveBeenCalledWith(
-      dummyKeyDownEvent.key,
-      dummyKeyDownEvent.ctrlKey,
-      dummyKeyDownEvent.shiftKey,
-      dummyKeyDownEvent.altKey,
-    );
+    expect(dummyKeyDown).toHaveBeenCalled();
   });
 
   it(`doesn't do anything, when there is no passed onKeyDown function and it is in input mode and receives a keyDown event`, (): void => {
@@ -230,7 +225,7 @@ describe(`EditableTextContent`, (): void => {
 
   describe(`getDerivedStateFromProps`, (): void => {
 
-    it(`returns an object containing the new initialText, when the new initialText prop is different from the previous text state`, (): void => {
+    it(`returns an object containing the new text, when the new initialText prop is different from the previous text state`, (): void => {
       const dummyNewText = `${dummyText}${dummyText}`;
       const dummyPrevState = {
         isActive: false,
@@ -239,6 +234,7 @@ describe(`EditableTextContent`, (): void => {
       const dummyNextProps = {
         multiline: false,
         initialText: dummyNewText,
+        initialIsActive: false,
         onInput: dummyInput,
         onActivate: dummyActivate,
         onDeactivate: dummyDeactivate,
@@ -252,6 +248,28 @@ describe(`EditableTextContent`, (): void => {
       });
     });
 
+    it(`returns an object containing the new isActive, when the new initialIsActive prop is different from the previous text state`, (): void => {
+      const dummyPrevState = {
+        isActive: false,
+        text: dummyText,
+      };
+      const dummyNextProps = {
+        multiline: false,
+        initialText: dummyText,
+        initialIsActive: true,
+        onInput: dummyInput,
+        onActivate: dummyActivate,
+        onDeactivate: dummyDeactivate,
+        className: dummyClassName,
+        textClassNameSuffix: dummyTextClassNameSuffix,
+        inputClassNameSuffix: dummyInputClassNameSuffix,
+      };
+      const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
+      expect(result).toEqual({
+        isActive: true,
+      });
+    });
+
     it(`returns an empty object, when the new initialText prop is the same as the previous text state`, (): void => {
       const dummyPrevState = {
         isActive: false,
@@ -260,6 +278,7 @@ describe(`EditableTextContent`, (): void => {
       const dummyNextProps = {
         multiline: false,
         initialText: dummyText,
+        initialIsActive: false,
         onInput: dummyInput,
         onActivate: dummyActivate,
         onDeactivate: dummyDeactivate,
