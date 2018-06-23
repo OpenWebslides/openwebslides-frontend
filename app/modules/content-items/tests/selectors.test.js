@@ -6,7 +6,7 @@ import {
   getAll,
   getCurrentlyEditing,
   getDenormalizedById,
-  getAllDescendantsById,
+  getSelfAndAllDescendantsById,
 } from '../selectors';
 import type {
   ContentItem,
@@ -120,7 +120,7 @@ describe(`selectors`, (): void => {
 
     it(`returns an empty array, when there are no contentItems in the state`, (): void => {
       const contentItems = getAll(dummyEmptyState);
-      expect(contentItems).toEqual([]);
+      expect(contentItems).toHaveLength(0);
     });
 
   });
@@ -183,10 +183,10 @@ describe(`selectors`, (): void => {
 
   });
 
-  describe(`getAllDescendantsById`, (): void => {
+  describe(`getSelfAndAllDescendantsById`, (): void => {
 
-    it(`returns the contentItem descendants for the given id, when the given id is valid`, (): void => {
-      const contentItemDescendants = getAllDescendantsById(dummyState, { id: dummyRoot.id });
+    it(`returns an array containing the contentItem itself and all its descendants, when the given id is valid`, (): void => {
+      const contentItemDescendants = getSelfAndAllDescendantsById(dummyState, { id: dummyRoot.id });
       const expectedResult: Array<ContentItem> = [
         dummyRoot,
         dummyHeading1,
@@ -200,9 +200,15 @@ describe(`selectors`, (): void => {
       expect(contentItemDescendants).toEqual(expectedResult);
     });
 
+    it(`returns an array containing only the contentItem, when the contentItem doesn't have any descendants`, (): void => {
+      const contentItemDescendants = getSelfAndAllDescendantsById(dummyState, { id: dummyParagraph1.id });
+      const expectedResult: Array<ContentItem> = [dummyParagraph1];
+      expect(contentItemDescendants).toEqual(expectedResult);
+    });
+
     it(`returns an empty array, when the given id is invalid`, (): void => {
-      const contentItemDescendants = getAllDescendantsById(dummyState, { id: 'DefinitelyNotValidId' });
-      expect(contentItemDescendants).toEqual([]);
+      const contentItemDescendants = getSelfAndAllDescendantsById(dummyState, { id: 'DefinitelyNotValidId' });
+      expect(contentItemDescendants).toHaveLength(0);
     });
 
   });
