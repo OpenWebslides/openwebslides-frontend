@@ -31,6 +31,9 @@ describe(`Event`, (): void => {
       predicate: predicate.CREATE,
       timestamp: 1511622599112,
     };
+    const dummyGetUser = jest.fn();
+    const dummyGetTopic = jest.fn();
+
     const enzymeWrapper = shallow(
       <PureEventWrapper
         {...dummyTranslatorProps}
@@ -38,8 +41,8 @@ describe(`Event`, (): void => {
         user={dummyUser}
         topic={dummyTopic}
         event={dummyEvent}
-        getUser={(): void => {}}
-        getTopic={(): void => {}}
+        getUser={dummyGetUser}
+        getTopic={dummyGetTopic}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

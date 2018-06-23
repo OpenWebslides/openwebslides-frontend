@@ -65,6 +65,8 @@ const PureSidebarWrapper = (props: Props): React.Node => {
           circular={true}
           inverted={true}
           className="sidebar__icon"
+          // #TODO
+          // eslint-disable-next-line react/jsx-no-bind
           onClick={() => toggle(sidebars[i])}
         />
         <Sidebar sidebarName={sidebars[i]} topicId={topicId} />

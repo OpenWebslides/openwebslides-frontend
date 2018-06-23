@@ -8,11 +8,12 @@ import { PureCardCollection } from '../CardCollection';
 describe(`CardCollection`, (): void => {
 
   it(`renders without errors`, (): void => {
+    const dummyHandleRequestTopics = jest.fn();
     const enzymeWrapper = shallow(
       <PureCardCollection
         topicIds={[]}
         userId="abcdefghij"
-        handleRequestTopics={(): void => {}}
+        handleRequestTopics={dummyHandleRequestTopics}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

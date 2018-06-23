@@ -21,9 +21,9 @@ class ObjectNotFoundError extends UsageError {
 
     // Temporary workaround for https://github.com/istanbuljs/babel-plugin-istanbul/issues/143 #TODO
     /* eslint-disable no-proto */
-    // $FlowFixMe
+    // $FlowFixMe Temporary workaround
     this.constructor = ObjectNotFoundError;
-    // $FlowFixMe
+    // $FlowFixMe Temporary workaround
     this.__proto__ = ObjectNotFoundError.prototype;
     /* eslint-enable */
   }

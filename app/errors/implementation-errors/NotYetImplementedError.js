@@ -23,9 +23,9 @@ class NotYetImplementedError extends ImplementationError {
 
     // Temporary workaround for https://github.com/istanbuljs/babel-plugin-istanbul/issues/143 #TODO
     /* eslint-disable no-proto */
-    // $FlowFixMe
+    // $FlowFixMe Temporary workaround
     this.constructor = NotYetImplementedError;
-    // $FlowFixMe
+    // $FlowFixMe Temporary workaround
     this.__proto__ = NotYetImplementedError.prototype;
     /* eslint-enable */
   }

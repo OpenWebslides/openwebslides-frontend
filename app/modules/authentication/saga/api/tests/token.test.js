@@ -38,8 +38,7 @@ describe(`token`, (): void => {
       });
     };
 
-    // $FlowFixMe
-    selectors.getToken = (): string => {
+    (selectors: any).getToken = (): string => {
       return 'foobartoken';
     };
   });

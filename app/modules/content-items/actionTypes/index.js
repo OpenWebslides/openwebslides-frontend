@@ -131,7 +131,7 @@ export type RemoveAction = {
   type: typeof REMOVE,
   payload: {
     id: Identifier,
-  };
+  },
 };
 
 export type RemoveAndTogglePreviousItemAction = {

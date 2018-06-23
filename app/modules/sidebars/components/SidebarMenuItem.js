@@ -61,6 +61,8 @@ const PureSidebarMenuItem = (props: Props): React.Node => {
         className="sidebar-menu__button"
         toggle={true}
         active={menuItemActive}
+        // #TODO
+        // eslint-disable-next-line react/jsx-no-bind
         onClick={() => toggle(sidebarName)}
       >
         <Icon name={icon} className="sidebar-menu__icon" />

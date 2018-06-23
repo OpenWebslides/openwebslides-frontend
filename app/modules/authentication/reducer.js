@@ -36,7 +36,6 @@ const reducer = (state: AuthState = initialState, action: t.AuthenticationAction
       return setToken(state, action);
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled
-      // eslint-disable-next-line no-unused-expressions
       (action: empty);
       return state;
   }

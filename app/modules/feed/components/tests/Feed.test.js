@@ -8,10 +8,11 @@ import { PureFeedWrapper } from '../Feed';
 describe(`Feed`, (): void => {
 
   it(`renders without errors`, (): void => {
+    const dummyHandleRequestFeed = jest.fn();
     const enzymeWrapper = shallow(
       <PureFeedWrapper
         eventIds={[]}
-        handleRequestFeed={(): void => {}}
+        handleRequestFeed={dummyHandleRequestFeed}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

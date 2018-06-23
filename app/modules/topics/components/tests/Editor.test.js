@@ -25,6 +25,8 @@ describe(`Editor`, (): void => {
       isEditing: false,
       childItems: [],
     };
+    const dummyOnSaveButtonClick = jest.fn();
+    const dummyOnLoadButtonClick = jest.fn();
 
     const enzymeWrapper = shallow(
       <PureEditor
@@ -32,8 +34,8 @@ describe(`Editor`, (): void => {
         topicId="abcdefghij"
         topic={dummyTopic}
         contentItemTreeRootItem={dummyDenormalizedContentItem}
-        onSaveButtonClick={(): void => {}}
-        onLoadButtonClick={(): void => {}}
+        onSaveButtonClick={dummyOnSaveButtonClick}
+        onLoadButtonClick={dummyOnLoadButtonClick}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
