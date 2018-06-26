@@ -9,6 +9,8 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import { History } from 'modules/history';
+
 import NotFoundPage from './components/NotFoundPage';
 import HomePage from './components/HomePage';
 import LibraryPage from './components/LibraryPage';
@@ -24,20 +26,25 @@ import ResetPage from './components/authentication/ResetPage';
 import ConfirmPage from './components/authentication/ConfirmPage';
 
 const routes = (
-  <Switch>
-    <Route path="/" exact={true} component={HomePage} />
-    <Route path="/library" component={LibraryPage} />
-    <Route path="/editor" component={EditorPage} />
-    <Route path="/topics/new" component={NewTopicPage} />
-    <Route path="/profile" component={ProfilePage} />
-    <Route path="/tempslidetest" component={TempSlideTestPage} />
-    <Route path="/generaterandomstring/:length?" component={GenerateRandomStringPage} />
-    <Route path="/auth/signin" exact={true} component={SigninPage} />
-    <Route path="/auth/signup" exact={true} component={SignupPage} />
-    <Route path="/auth/reset" exact={true} component={ResetPage} />
-    <Route path="/auth/confirm" exact={true} component={ConfirmPage} />
-    <Route component={NotFoundPage} />
-  </Switch>
+
+  <React.Fragment>
+    <History />
+
+    <Switch>
+      <Route path="/" exact={true} component={HomePage} />
+      <Route path="/library" component={LibraryPage} />
+      <Route path="/editor" component={EditorPage} />
+      <Route path="/topics/new" component={NewTopicPage} />
+      <Route path="/profile" component={ProfilePage} />
+      <Route path="/tempslidetest" component={TempSlideTestPage} />
+      <Route path="/generaterandomstring/:length?" component={GenerateRandomStringPage} />
+      <Route path="/auth/signin" exact={true} component={SigninPage} />
+      <Route path="/auth/signup" exact={true} component={SignupPage} />
+      <Route path="/auth/reset" exact={true} component={ResetPage} />
+      <Route path="/auth/confirm" exact={true} component={ConfirmPage} />
+      <Route component={NotFoundPage} />
+    </Switch>
+  </React.Fragment>
 );
 
 export default routes;
