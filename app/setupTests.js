@@ -10,9 +10,9 @@ configure({ adapter: new Adapter() });
 
 // Mock localStorage
 // eslint-disable-next-line flowtype/no-weak-types
-const localStorageMock = (): Object => {
+const localStorageMock = (): * => {
 // eslint-disable-next-line flowtype/no-weak-types
-  let store: Object = {};
+  let store: { [key: string]: string } = {};
   return {
     getItem(key: string): string {
       return store[key];
