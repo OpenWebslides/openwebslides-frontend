@@ -1,6 +1,8 @@
 // @flow
 
 import _ from 'lodash';
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
 
 import contentItems from 'modules/content-items';
 
@@ -25,7 +27,7 @@ export const addToState = (
   const newDescription = (description != null) ? _.trim(description) : '';
 
   if (newTitle === '') {
-    throw new Error(`"title" prop cannot be an empty string`);
+    throw new InvalidArgumentError(`"title" prop cannot be an empty string`);
   }
 
   return {
@@ -49,11 +51,11 @@ export const editInState = (
   const newDescription = (description != null) ? _.trim(description) : null;
 
   if (newTitle === '') {
-    throw new Error(`"title" prop cannot be an empty string`);
+    throw new InvalidArgumentError(`"title" prop cannot be an empty string`);
   }
 
   if (newTitle === null && newDescription === null) {
-    throw new Error(`Action must contain at least one edit`);
+    throw new UnsupportedOperationError(`Action must contain at least one edit`);
   }
 
   return {
@@ -100,7 +102,7 @@ export const add = (
   const newDescription = (description != null) ? _.trim(description) : '';
 
   if (newTitle === '') {
-    throw new Error(`"title" prop cannot be an empty string`);
+    throw new InvalidArgumentError(`"title" prop cannot be an empty string`);
   }
 
   return {
@@ -125,11 +127,11 @@ export const edit = (
   const newDescription = (description != null) ? _.trim(description) : null;
 
   if (newTitle === '') {
-    throw new Error(`"title" prop cannot be an empty string`);
+    throw new InvalidArgumentError(`"title" prop cannot be an empty string`);
   }
 
   if (newTitle === null && newDescription === null) {
-    throw new Error(`Action must contain at least one edit`);
+    throw new UnsupportedOperationError(`Action must contain at least one edit`);
   }
 
   return {

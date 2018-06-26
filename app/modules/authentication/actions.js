@@ -1,7 +1,7 @@
 // @flow
 
 import _ from 'lodash';
-
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import type { Token } from 'lib/api';
 
 import type { User } from 'modules/users';
@@ -41,11 +41,11 @@ export const signinEmail = (
   const newPassword = _.trim(password);
 
   if (newEmail === '') {
-    throw new Error(`"email" prop cannot be an empty string`);
+    throw new InvalidArgumentError(`"email" prop cannot be an empty string`);
   }
 
   if (newPassword === '') {
-    throw new Error(`"password" prop cannot be an empty string`);
+    throw new InvalidArgumentError(`"password" prop cannot be an empty string`);
   }
 
   return {
@@ -77,23 +77,23 @@ export const signup = (
   const newLastName = _.trim(lastName);
 
   if (newEmail === '') {
-    throw new Error(`"email" prop cannot be an empty string`);
+    throw new InvalidArgumentError(`"email" prop cannot be an empty string`);
   }
 
   if (newPassword.length < c.MIN_PASSWORD_LENGTH) {
-    throw new Error(`"password" prop cannot be shorter than ${c.MIN_PASSWORD_LENGTH} characters.`);
+    throw new InvalidArgumentError(`"password" prop cannot be shorter than ${c.MIN_PASSWORD_LENGTH} characters.`);
   }
 
   if (newPassword.length > c.MAX_PASSWORD_LENGTH) {
-    throw new Error(`"password" prop cannot be longer than ${c.MAX_PASSWORD_LENGTH} characters.`);
+    throw new InvalidArgumentError(`"password" prop cannot be longer than ${c.MAX_PASSWORD_LENGTH} characters.`);
   }
 
   if (newFirstName === '') {
-    throw new Error(`"firstName" prop cannot be an empty string`);
+    throw new InvalidArgumentError(`"firstName" prop cannot be an empty string`);
   }
 
   if (tosAccepted !== true) {
-    throw new Error(`"tosAccepted" prop must be true`);
+    throw new InvalidArgumentError(`"tosAccepted" prop must be true`);
   }
 
   return {
@@ -114,7 +114,7 @@ export const reset = (
   const newEmail = _.trim(email);
 
   if (newEmail === '') {
-    throw new Error(`"email" prop cannot be an empty string`);
+    throw new InvalidArgumentError(`"email" prop cannot be an empty string`);
   }
 
   return {
@@ -131,7 +131,7 @@ export const confirm = (
   const newEmail = _.trim(email);
 
   if (newEmail === '') {
-    throw new Error(`"email" prop cannot be an empty string`);
+    throw new InvalidArgumentError(`"email" prop cannot be an empty string`);
   }
 
   return {

@@ -1,5 +1,8 @@
 // @flow
 
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
+
 import * as actions from '../actions';
 import * as t from '../actionTypes';
 
@@ -36,7 +39,7 @@ describe(`actions`, (): void => {
       */
     });
 
-    it(`throws an error when title parameter is an empty string`, (): void => {
+    it(`throws an InvalidArgumentError when title parameter is an empty string`, (): void => {
       const id = 'testuserid';
       const userId = 'testtest12';
       const title = '';
@@ -45,7 +48,7 @@ describe(`actions`, (): void => {
 
       expect((): void => {
         actions.addToState(id, userId, title, description, rootContentItemId);
-      }).toThrow();
+      }).toThrow(InvalidArgumentError);
     });
 
     it(`returns a topic ADD_TO_STATE action with description an empty string, when description parameter is NULL`, (): void => {
@@ -107,14 +110,14 @@ describe(`actions`, (): void => {
       expect(actions.editInState(id, title, description)).toEqual(expectedAction);
     });
 
-    it(`throws an error when title parameter is an empty string`, (): void => {
+    it(`throws an InvalidArgumentError when title parameter is an empty string`, (): void => {
       const id = 'abcdefghij';
       const title = '';
       const description = null;
 
       expect((): void => {
         actions.editInState(id, title, description);
-      }).toThrow();
+      }).toThrow(InvalidArgumentError);
     });
 
     it(`returns a topic EDIT_IN_STATE action with description set to NULL, when description parameter is NULL`, (): void => {
@@ -149,14 +152,14 @@ describe(`actions`, (): void => {
       expect(actions.editInState(id, title, description)).toEqual(expectedAction);
     });
 
-    it(`throws an error when all editable properties are NULL`, (): void => {
+    it(`throws an UnsupportedOperationError when all editable properties are NULL`, (): void => {
       const id = 'abcdefghij';
       const title = null;
       const description = null;
 
       expect((): void => {
         actions.editInState(id, title, description);
-      }).toThrow();
+      }).toThrow(UnsupportedOperationError);
     });
 
   });
