@@ -4,13 +4,13 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { dummyTranslatorProps } from 'config/tests';
 
-import { PureNavigationBar } from '../NavigationBar';
+import { PureLogo } from '..';
 
-describe(`NavigationBar`, (): void => {
+describe(`Logo`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureNavigationBar
+      <PureLogo
         {...dummyTranslatorProps}
       />,
     );
