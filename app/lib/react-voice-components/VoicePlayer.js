@@ -1,5 +1,7 @@
 /* eslint-disable */
 
+// Copied from react-voice-components npm package
+
 import React, { Component } from 'react';
 
 class VoicePlayer extends Component {
