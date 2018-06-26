@@ -4,6 +4,8 @@ import reducer from '../reducer';
 import * as t from '../actionTypes';
 import type { Topic, TopicsState } from '../model';
 
+import { dummyTopicsById } from '../dummyData';
+
 describe(`reducer`, (): void => {
 
   const dummyTopic1: $Exact<Topic> = {
@@ -20,6 +22,16 @@ describe(`reducer`, (): void => {
     description: '',
     rootContentItemId: 'abcdefghij',
   };
+  const dummyInitialState: TopicsState = {
+    byId: dummyTopicsById,
+  };
+
+  it(`returns the initial state, when state parameter is undefined`, (): void => {
+    const dummyAction: any = {
+      type: 'DUMMY_ACTION',
+    };
+    expect(reducer(undefined, dummyAction)).toEqual(dummyInitialState);
+  });
 
   it(`handles topic ADD_TO_STATE action`, (): void => {
     const prevState: TopicsState = {
