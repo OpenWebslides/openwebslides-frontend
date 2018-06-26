@@ -1,5 +1,8 @@
 // @flow
 
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
+
 import * as actions from '../actions';
 import * as t from '../actionTypes';
 
@@ -36,20 +39,16 @@ describe(`actions`, (): void => {
       */
     });
 
-    it(`returns a topic ADD_TO_STATE_ERROR action, when title parameter is an empty string`, (): void => {
+    it(`throws an InvalidArgumentError when title parameter is an empty string`, (): void => {
       const id = 'testuserid';
       const userId = 'testtest12';
       const title = '';
       const description = null;
       const rootContentItemId = 'abcdefghij';
-      const expectedAction: t.AddToStateErrorAction = {
-        type: t.ADD_TO_STATE_ERROR,
-        error: {
-          message: 'Title cannot be empty.',
-        },
-      };
 
-      expect(actions.addToState(id, userId, title, description, rootContentItemId)).toEqual(expectedAction);
+      expect((): void => {
+        actions.addToState(id, userId, title, description, rootContentItemId);
+      }).toThrow(InvalidArgumentError);
     });
 
     it(`returns a topic ADD_TO_STATE action with description an empty string, when description parameter is NULL`, (): void => {
@@ -111,18 +110,14 @@ describe(`actions`, (): void => {
       expect(actions.editInState(id, title, description)).toEqual(expectedAction);
     });
 
-    it(`returns a topic EDIT_IN_STATE_ERROR action, when title parameter is an empty string`, (): void => {
+    it(`throws an InvalidArgumentError when title parameter is an empty string`, (): void => {
       const id = 'abcdefghij';
       const title = '';
       const description = null;
-      const expectedAction: t.EditInStateErrorAction = {
-        type: t.EDIT_IN_STATE_ERROR,
-        error: {
-          message: 'Title cannot be empty.',
-        },
-      };
 
-      expect(actions.editInState(id, title, description)).toEqual(expectedAction);
+      expect((): void => {
+        actions.editInState(id, title, description);
+      }).toThrow(InvalidArgumentError);
     });
 
     it(`returns a topic EDIT_IN_STATE action with description set to NULL, when description parameter is NULL`, (): void => {
@@ -157,18 +152,14 @@ describe(`actions`, (): void => {
       expect(actions.editInState(id, title, description)).toEqual(expectedAction);
     });
 
-    it(`returns a topic EDIT_IN_STATE_ERROR action, when all editable properties are NULL`, (): void => {
+    it(`throws an UnsupportedOperationError when all editable properties are NULL`, (): void => {
       const id = 'abcdefghij';
       const title = null;
       const description = null;
-      const expectedAction: t.EditInStateErrorAction = {
-        type: t.EDIT_IN_STATE_ERROR,
-        error: {
-          message: 'Action must contain at least one edit.',
-        },
-      };
 
-      expect(actions.editInState(id, title, description)).toEqual(expectedAction);
+      expect((): void => {
+        actions.editInState(id, title, description);
+      }).toThrow(UnsupportedOperationError);
     });
 
   });

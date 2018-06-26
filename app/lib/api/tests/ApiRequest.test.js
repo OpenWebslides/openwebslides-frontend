@@ -1,7 +1,9 @@
 // @flow
 
+import { API_URL } from 'config/api';
+
 import ApiRequest from '../ApiRequest';
-import { API_URL, MEDIA_TYPE } from '../constants';
+import { MEDIA_TYPE } from '../constants';
 
 import type { Request } from '../model';
 import { methodTypes } from '../model';

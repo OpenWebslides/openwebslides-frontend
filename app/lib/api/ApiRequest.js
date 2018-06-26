@@ -1,6 +1,8 @@
 // @flow
 
-import { API_URL, MEDIA_TYPE } from './constants';
+import { API_URL } from 'config/api';
+
+import { MEDIA_TYPE } from './constants';
 
 import asyncFetch from './asyncFetch';
 import type {

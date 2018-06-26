@@ -13,7 +13,9 @@ describe(`FlashMessages`, (): void => {
       id: 'abcd1234',
       message: 'Dummy flash',
       isError: false,
-      props: {},
+      props: {
+        title: 'foo',
+      },
     };
 
     const enzymeWrapper = shallow(
@@ -23,6 +25,16 @@ describe(`FlashMessages`, (): void => {
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+  });
+
+  it(`renders nothing without flash`, (): void => {
+    const enzymeWrapper = shallow(
+      <PureFlashMessages
+        {...dummyTranslatorProps}
+        flash={null}
+      />,
+    );
+    expect(enzymeWrapper.isEmptyRender()).toEqual(true);
   });
 
 });

@@ -28,3 +28,5 @@ export const saveState = (state: PersistedState): void => {
     throw Error(`Error saving to local storage: ${error}`);
   }
 };
+
+export type { PersistedState };

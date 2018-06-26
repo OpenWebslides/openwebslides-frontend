@@ -74,11 +74,6 @@ const reducer = (state: TopicsState = initialState, action: t.TopicReducerAction
       return removeFromState(state, action);
     case t.SET_ITEMS_IN_STATE:
       return setItemsInState(state, action);
-    case t.ADD_TO_STATE_ERROR:
-    case t.EDIT_IN_STATE_ERROR:
-    case t.REMOVE_FROM_STATE_ERROR:
-    case t.SET_ITEMS_IN_STATE_ERROR:
-      return state;
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled
       (action: empty);

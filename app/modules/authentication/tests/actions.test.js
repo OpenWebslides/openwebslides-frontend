@@ -1,11 +1,16 @@
 // @flow
 
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+
 import * as actions from '../actions';
 import * as t from '../actionTypes';
 
 describe(`actions`, (): void => {
+
   describe(`reducer actions`, (): void => {
+
     describe(`setAccountInState`, (): void => {
+
       it(`returns set account action`, (): void => {
         const user = {
           id: 'foo',
@@ -24,6 +29,7 @@ describe(`actions`, (): void => {
     });
 
     describe(`setTokenInState`, (): void => {
+
       it(`returns set token action`, (): void => {
         const action = actions.setTokenInState('foobar');
 
@@ -34,11 +40,15 @@ describe(`actions`, (): void => {
           },
         });
       });
+
     });
+
   });
 
   describe(`task saga actions`, (): void => {
+
     describe(`signinEmail`, (): void => {
+
       it(`returns signin email action on correct params`, (): void => {
         const action = actions.signinEmail('foo', 'bar');
 
@@ -51,20 +61,22 @@ describe(`actions`, (): void => {
         });
       });
 
-      it(`returns signin email error action on missing email`, (): void => {
-        const action = actions.signinEmail('', 'bar');
-
-        expect(action.type).toEqual(t.SIGNIN_EMAIL_ERROR);
+      it(`throws InvalidArgumentError on missing email`, (): void => {
+        expect((): void => {
+          actions.signinEmail('', 'bar');
+        }).toThrow(InvalidArgumentError);
       });
 
-      it(`returns signin email error action on missing password`, (): void => {
-        const action = actions.signinEmail('foo', '');
-
-        expect(action.type).toEqual(t.SIGNIN_EMAIL_ERROR);
+      it(`throws InvalidArgumentError on missing password`, (): void => {
+        expect((): void => {
+          actions.signinEmail('foo', '');
+        }).toThrow(InvalidArgumentError);
       });
+
     });
 
     describe(`signout`, (): void => {
+
       it(`returns signout action`, (): void => {
         const action = actions.signout();
 
@@ -72,9 +84,11 @@ describe(`actions`, (): void => {
           type: t.SIGNOUT,
         });
       });
+
     });
 
     describe(`signup`, (): void => {
+
       it(`returns signup action on correct params`, (): void => {
         const action = actions.signup('foo@bar', 'Foo', 'Bar', 'barbar', true);
 
@@ -105,44 +119,46 @@ describe(`actions`, (): void => {
         });
       });
 
-      it(`returns signup error action on missing email`, (): void => {
-        const action = actions.signup('', 'Foo', 'Bar', 'barbar', true);
-
-        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      it(`throws InvalidArgumentError on missing email`, (): void => {
+        expect((): void => {
+          actions.signup('', 'Foo', 'Bar', 'barbar', true);
+        }).toThrow(InvalidArgumentError);
       });
 
-      it(`returns signup error action on missing password`, (): void => {
-        const action = actions.signup('foo@bar', 'Foo', 'Bar', '', true);
-
-        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      it(`throws InvalidArgumentError on missing password`, (): void => {
+        expect((): void => {
+          actions.signup('foo@bar', 'Foo', 'Bar', '', true);
+        }).toThrow(InvalidArgumentError);
       });
 
-      it(`returns signup error action on too short password`, (): void => {
-        const action = actions.signup('foo@bar', 'Foo', 'Bar', 'bar', true);
-
-        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      it(`throws InvalidArgumentError on too short password`, (): void => {
+        expect((): void => {
+          actions.signup('', 'Foo', 'Bar', 'bar', true);
+        }).toThrow(InvalidArgumentError);
       });
 
-      it(`returns signup error action on too long password`, (): void => {
-        const action = actions.signup('foo@bar', 'Foo', 'Bar', 'barbarbarbarbarbarbarbar', true);
-
-        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      it(`throws InvalidArgumentError on too long password`, (): void => {
+        expect((): void => {
+          actions.signup('', 'Foo', 'Bar', 'barbarbarbarbarbarbarbar', true);
+        }).toThrow(InvalidArgumentError);
       });
 
-      it(`returns signup error action on missing firstName`, (): void => {
-        const action = actions.signup('foo@bar', '', 'Bar', 'barbar', true);
-
-        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      it(`throws InvalidArgumentError on missing firstName`, (): void => {
+        expect((): void => {
+          actions.signup('foo@bar', '', 'Bar', 'bar', true);
+        }).toThrow(InvalidArgumentError);
       });
 
-      it(`returns signup error action on false tosAccepted`, (): void => {
-        const action = actions.signup('foo@bar', 'Foo', 'Bar', 'barbar', false);
-
-        expect(action.type).toEqual(t.SIGNUP_ERROR);
+      it(`throws InvalidArgumentError on tos not accepted`, (): void => {
+        expect((): void => {
+          actions.signup('foo@bar', 'Foo', 'Bar', 'barbar', false);
+        }).toThrow(InvalidArgumentError);
       });
+
     });
 
     describe(`reset`, (): void => {
+
       it(`returns reset action on correct params`, (): void => {
         const action = actions.reset('foo');
 
@@ -154,14 +170,16 @@ describe(`actions`, (): void => {
         });
       });
 
-      it(`returns reset error action on missing email`, (): void => {
-        const action = actions.reset('');
-
-        expect(action.type).toEqual(t.RESET_ERROR);
+      it(`throws InvalidArgumentError on missing email`, (): void => {
+        expect((): void => {
+          actions.reset('');
+        }).toThrow(InvalidArgumentError);
       });
+
     });
 
     describe(`confirm`, (): void => {
+
       it(`returns confirm action on correct params`, (): void => {
         const action = actions.confirm('foo');
 
@@ -173,16 +191,19 @@ describe(`actions`, (): void => {
         });
       });
 
-      it(`returns confirm error action on missing email`, (): void => {
-        const action = actions.confirm('');
-
-        expect(action.type).toEqual(t.CONFIRM_ERROR);
+      it(`throws InvalidArgumentError on missing email`, (): void => {
+        expect((): void => {
+          actions.confirm('');
+        }).toThrow(InvalidArgumentError);
       });
     });
+
   });
 
   describe(`API saga actions`, (): void => {
+
     describe(`apiPostToken`, (): void => {
+
       it(`returns post token action`, (): void => {
         const action = actions.apiPostToken('email', 'password');
 
@@ -194,9 +215,11 @@ describe(`actions`, (): void => {
           },
         });
       });
+
     });
 
     describe(`apiDeleteToken`, (): void => {
+
       it(`returns delete token action`, (): void => {
         const action = actions.apiDeleteToken();
 
@@ -204,26 +227,31 @@ describe(`actions`, (): void => {
           type: t.API_DELETE_TOKEN,
         });
       });
+
     });
-  });
 
-  describe(`apiPostUsers`, (): void => {
-    it(`returns post users action`, (): void => {
-      const action = actions.apiPostUsers('email', 'firstName', 'lastName', 'password', true);
+    describe(`apiPostUsers`, (): void => {
 
-      expect(action).toEqual({
-        type: t.API_POST_USERS,
-        payload: {
-          email: 'email',
-          firstName: 'firstName',
-          lastName: 'lastName',
-          password: 'password',
-          tosAccepted: true,
-        },
+      it(`returns post users action`, (): void => {
+        const action = actions.apiPostUsers('email', 'firstName', 'lastName', 'password', true);
+
+        expect(action)
+          .toEqual({
+            type: t.API_POST_USERS,
+            payload: {
+              email: 'email',
+              firstName: 'firstName',
+              lastName: 'lastName',
+              password: 'password',
+              tosAccepted: true,
+            },
+          });
       });
+
     });
 
     describe(`apiPostPassword`, (): void => {
+
       it(`returns post password action`, (): void => {
         const action = actions.apiPostPassword('foo@bar');
 
@@ -236,6 +264,7 @@ describe(`actions`, (): void => {
       });
 
       describe(`apiPostConfirmation`, (): void => {
+
         it(`returns post confirmation action`, (): void => {
           const action = actions.apiPostConfirmation('foo@bar');
 
@@ -246,7 +275,11 @@ describe(`actions`, (): void => {
             },
           });
         });
+
       });
+
     });
+
   });
+
 });

@@ -1,7 +1,7 @@
 // @flow
 
 import _ from 'lodash';
-
+import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import type { Token } from 'lib/api';
 
 import type { User } from 'modules/users';
@@ -36,26 +36,16 @@ export const setTokenInState = (
 export const signinEmail = (
   email: string,
   password: string,
-): t.SigninEmailAction | t.SigninEmailErrorAction => {
+): t.SigninEmailAction => {
   const newEmail = _.trim(email);
   const newPassword = _.trim(password);
 
   if (newEmail === '') {
-    return {
-      type: t.SIGNIN_EMAIL_ERROR,
-      error: {
-        message: 'Email cannot be empty.',
-      },
-    };
+    throw new InvalidArgumentError(`"email" prop cannot be an empty string`);
   }
 
   if (newPassword === '') {
-    return {
-      type: t.SIGNIN_EMAIL_ERROR,
-      error: {
-        message: 'Password cannot be empty.',
-      },
-    };
+    throw new InvalidArgumentError(`"password" prop cannot be an empty string`);
   }
 
   return {
@@ -80,55 +70,30 @@ export const signup = (
   lastName: ?string,
   password: string,
   tosAccepted: boolean,
-): t.SignupAction | t.SignupErrorAction => {
+): t.SignupAction => {
   const newEmail = _.trim(email);
   const newPassword = _.trim(password);
   const newFirstName = _.trim(firstName);
   const newLastName = _.trim(lastName);
 
   if (newEmail === '') {
-    return {
-      type: t.SIGNUP_ERROR,
-      error: {
-        message: 'Email cannot be empty.',
-      },
-    };
+    throw new InvalidArgumentError(`"email" prop cannot be an empty string`);
   }
 
   if (newPassword.length < c.MIN_PASSWORD_LENGTH) {
-    return {
-      type: t.SIGNUP_ERROR,
-      error: {
-        message: `Password cannot be shorter than ${c.MIN_PASSWORD_LENGTH} characters.`,
-      },
-    };
+    throw new InvalidArgumentError(`"password" prop cannot be shorter than ${c.MIN_PASSWORD_LENGTH} characters.`);
   }
 
   if (newPassword.length > c.MAX_PASSWORD_LENGTH) {
-    return {
-      type: t.SIGNUP_ERROR,
-      error: {
-        message: `Password cannot be longer than ${c.MAX_PASSWORD_LENGTH} characters.`,
-      },
-    };
+    throw new InvalidArgumentError(`"password" prop cannot be longer than ${c.MAX_PASSWORD_LENGTH} characters.`);
   }
 
   if (newFirstName === '') {
-    return {
-      type: t.SIGNUP_ERROR,
-      error: {
-        message: 'First name cannot be empty.',
-      },
-    };
+    throw new InvalidArgumentError(`"firstName" prop cannot be an empty string`);
   }
 
   if (tosAccepted !== true) {
-    return {
-      type: t.SIGNUP_ERROR,
-      error: {
-        message: 'ToS must be accepted.',
-      },
-    };
+    throw new InvalidArgumentError(`"tosAccepted" prop must be true`);
   }
 
   return {
@@ -145,16 +110,11 @@ export const signup = (
 
 export const reset = (
   email: string,
-): t.ResetAction | t.ResetErrorAction => {
+): t.ResetAction => {
   const newEmail = _.trim(email);
 
   if (newEmail === '') {
-    return {
-      type: t.RESET_ERROR,
-      error: {
-        message: 'Email cannot be empty.',
-      },
-    };
+    throw new InvalidArgumentError(`"email" prop cannot be an empty string`);
   }
 
   return {
@@ -167,16 +127,11 @@ export const reset = (
 
 export const confirm = (
   email: string,
-): t.ConfirmAction | t.ConfirmErrorAction => {
+): t.ConfirmAction => {
   const newEmail = _.trim(email);
 
   if (newEmail === '') {
-    return {
-      type: t.CONFIRM_ERROR,
-      error: {
-        message: 'Email cannot be empty.',
-      },
-    };
+    throw new InvalidArgumentError(`"email" prop cannot be an empty string`);
   }
 
   return {
