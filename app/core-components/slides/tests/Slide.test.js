@@ -6,6 +6,10 @@ import { dummyTranslatorProps } from 'config/tests';
 
 import contentItems from 'modules/content-items';
 
+import type {
+  DenormalizedRootContentItem,
+} from 'modules/content-items';
+
 import { PureSlide } from '../Slide';
 
 const { contentItemTypes } = contentItems.model;
@@ -13,16 +17,11 @@ const { contentItemTypes } = contentItems.model;
 describe(`Slide`, (): void => {
 
   it(`renders without errors`, (): void => {
-    const dummyContentItem = {
+    const dummyContentItem: DenormalizedRootContentItem = {
       id: 'abcdefghij',
-      type: contentItemTypes.HEADING,
+      type: contentItemTypes.ROOT,
       isEditing: false,
-      text: 'Heading',
-      metadata: {
-        tags: [],
-        visibilityOverrides: {},
-      },
-      subItems: [],
+      childItems: [],
     };
 
     const enzymeWrapper = shallow(

@@ -6,13 +6,14 @@ import type {
 } from 'modules/content-items';
 
 import { contentItemTypes } from 'modules/content-items';
+import type { DenormalizedRootContentItem } from 'modules/content-items/model';
 
 /**
  * Automatic slide splitting algorithm
  * @param contentItem: ContentItem
  * @returns Array<DenormalizedContentItem>
  */
-const split = (
+const recursiveSplit = (
   contentItem: DenormalizedContentItem,
 ): Array<DenormalizedContentItem> => {
   switch (contentItem.type) {
@@ -22,7 +23,7 @@ const split = (
         .map((
           c: DenormalizedContentItem,
         ): Array<DenormalizedContentItem> => {
-          return split(c);
+          return recursiveSplit(c);
         })
         .reduce((
           arr: Array<DenormalizedContentItem>,
@@ -89,4 +90,20 @@ const split = (
   }
 };
 
+const split = (
+  rootContentItem: DenormalizedRootContentItem,
+): Array<DenormalizedRootContentItem> => {
+  return recursiveSplit(rootContentItem).map(
+    (item: DenormalizedContentItem, index: number): DenormalizedRootContentItem => {
+      return {
+        id: `${rootContentItem.id}-${index}`,
+        type: contentItemTypes.ROOT,
+        isEditing: false,
+        childItems: [item],
+      };
+    },
+  );
+};
+
+export { recursiveSplit };
 export default split;
