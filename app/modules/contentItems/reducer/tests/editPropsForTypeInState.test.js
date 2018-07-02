@@ -10,7 +10,7 @@ import type {
   HeadingContentItem,
   ContentItemsState,
 } from '../../model';
-import * as dummyData from '../../lib/test-resources/dummyContentItemData';
+import * as dummyData from '../../lib/testResources/dummyContentItemData';
 
 describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
 

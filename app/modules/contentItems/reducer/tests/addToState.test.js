@@ -16,7 +16,7 @@ import type {
   ParagraphContentItem,
   ContentItemsState,
 } from '../../model';
-import * as dummyData from '../../lib/test-resources/dummyContentItemData';
+import * as dummyData from '../../lib/testResources/dummyContentItemData';
 import edit from '../../lib/edit';
 
 describe(`ADD_TO_STATE`, (): void => {

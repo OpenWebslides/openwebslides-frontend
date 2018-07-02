@@ -6,7 +6,7 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../../actionTypes';
 import { editablePropsForType } from '../../../model';
-import * as dummyData from '../../../lib/test-resources/dummyContentItemData';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
 
 import toggleEditingSaga from '../toggleEditing';
 

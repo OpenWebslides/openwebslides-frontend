@@ -2,12 +2,10 @@
 
 import { put, select } from 'redux-saga/effects';
 
-import generateId from '../../lib/generate-id';
+import generateId from '../../lib/generateId';
 import * as t from '../../actionTypes';
 import { addToState, toggleEditing } from '../../actions';
 import { getAllById } from '../../selectors';
-import type {
-} from '../../model';
 import convertContextToVerticalContext from '../../lib/convertContextToVerticalContext';
 
 const addSaga = function* (action: t.AddAction): Generator<*, *, *> {

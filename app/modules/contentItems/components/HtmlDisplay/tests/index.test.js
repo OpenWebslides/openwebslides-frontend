@@ -9,7 +9,7 @@ import type {
   DenormalizedHeadingContentItem,
   DenormalizedParagraphContentItem,
 } from '../../../model';
-import { emptyMetadata } from '../../../lib/test-resources/dummyContentItemData';
+import { emptyMetadata } from '../../../lib/testResources/dummyContentItemData';
 
 import { PureHtmlDisplay, DummyDisplayComponent } from '..';
 

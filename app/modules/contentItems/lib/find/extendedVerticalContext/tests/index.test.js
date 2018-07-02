@@ -12,7 +12,7 @@ import type {
   ContentItemsById,
   ExtendedVerticalContext,
 } from '../../../../model';
-import * as dummyData from '../../../../lib/test-resources/dummyContentItemData';
+import * as dummyData from '../../../../lib/testResources/dummyContentItemData';
 
 import findExtendedVerticalContext from '..';
 

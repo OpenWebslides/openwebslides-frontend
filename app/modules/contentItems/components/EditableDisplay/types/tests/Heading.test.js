@@ -5,7 +5,7 @@ import { I18nextProvider } from 'react-i18next';
 import i18nextConfig from 'config/i18next';
 import { mount, shallow } from 'enzyme';
 
-import * as dummyContentItemData from '../../../../lib/test-resources/dummyContentItemData';
+import * as dummyContentItemData from '../../../../lib/testResources/dummyContentItemData';
 
 import { PureHeading } from '../Heading';
 

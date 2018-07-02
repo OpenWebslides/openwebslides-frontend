@@ -15,7 +15,7 @@ import type {
   ExtendedVerticalContext,
   HorizontalContext,
 } from '../../../model';
-import * as dummyData from '../../../lib/test-resources/dummyContentItemData';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
 
 import convertContextToVerticalContext from '..';
 

@@ -6,7 +6,7 @@ import type {
   HeadingContentItem,
   ContentItemsState,
 } from '../../model';
-import * as dummyContentItemData from '../../lib/test-resources/dummyContentItemData';
+import * as dummyContentItemData from '../../lib/testResources/dummyContentItemData';
 
 describe(`SET_MULTIPLE_IN_STATE`, (): void => {
   it(`leaves the state unchanged when the passed array is empty`, (): void => {

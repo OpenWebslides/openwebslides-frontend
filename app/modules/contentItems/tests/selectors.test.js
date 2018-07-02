@@ -18,7 +18,7 @@ import type {
   DenormalizedParagraphContentItem,
   ContentItemsById,
 } from '../model';
-import * as dummyContentItemData from '../lib/test-resources/dummyContentItemData';
+import * as dummyContentItemData from '../lib/testResources/dummyContentItemData';
 
 describe(`selectors`, (): void => {
 

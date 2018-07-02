@@ -14,7 +14,7 @@ import type {
   ContentItemsById,
   ContentItemsState,
 } from '../../../../model';
-import * as dummyContentItemData from '../../../../lib/test-resources/dummyContentItemData';
+import * as dummyContentItemData from '../../../../lib/testResources/dummyContentItemData';
 
 import { PureRoot } from '../Root';
 

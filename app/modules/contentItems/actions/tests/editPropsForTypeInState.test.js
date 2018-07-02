@@ -7,7 +7,7 @@ import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedO
 import * as t from '../../actionTypes';
 import { editPropsForTypeInState } from '../../actions';
 import type { HeadingContentItem } from '../../model';
-import * as dummyData from '../../lib/test-resources/dummyContentItemData';
+import * as dummyData from '../../lib/testResources/dummyContentItemData';
 
 describe(`editPropsForTypeInState`, (): void => {
 

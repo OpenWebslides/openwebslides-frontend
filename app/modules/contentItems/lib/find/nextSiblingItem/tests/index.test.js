@@ -9,7 +9,7 @@ import type {
   ParagraphContentItem,
   ContentItemsById,
 } from '../../../../model';
-import * as dummyData from '../../../../lib/test-resources/dummyContentItemData';
+import * as dummyData from '../../../../lib/testResources/dummyContentItemData';
 
 import findNextSiblingItem from '..';
 

@@ -1,7 +1,7 @@
 // @flow
 
-import EditableDisplay from './editable-display';
-import HtmlDisplay from './html-display';
+import EditableDisplay from './EditableDisplay';
+import HtmlDisplay from './HtmlDisplay';
 
 const index = {
   EditableDisplay,

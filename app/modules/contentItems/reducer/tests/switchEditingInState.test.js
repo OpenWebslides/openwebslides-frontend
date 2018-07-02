@@ -7,7 +7,7 @@ import * as t from '../../actionTypes';
 import type {
   ContentItemsState,
 } from '../../model';
-import * as dummyData from '../../lib/test-resources/dummyContentItemData';
+import * as dummyData from '../../lib/testResources/dummyContentItemData';
 
 import reducer from '..';
 
