@@ -4,9 +4,7 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 
-import type {
-  DenormalizedRootContentItem,
-} from 'modules/content-items';
+import type { DenormalizedRootContentItem } from 'modules/contentItems';
 
 import split from 'lib/content-item-split';
 

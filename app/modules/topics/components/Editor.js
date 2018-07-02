@@ -10,7 +10,7 @@ import FlashMessages from 'core-components/flash/FlashMessages';
 
 import { Button, Header } from 'semantic-ui-react';
 
-import contentItems from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 import api from 'modules/api';
 
 import type { State } from 'types/state';

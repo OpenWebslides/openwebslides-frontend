@@ -4,8 +4,8 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 
-import contentItems from 'modules/content-items';
-import type { DenormalizedRootContentItem } from 'modules/content-items';
+import contentItems from 'modules/contentItems';
+import type { DenormalizedRootContentItem } from 'modules/contentItems';
 
 type PassedProps = {
   // A denormalized ROOT content item containing the content to be displayed on this slide.

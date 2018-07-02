@@ -9,8 +9,8 @@ import { Checkbox, Segment } from 'semantic-ui-react';
 import type { CustomTranslatorProps } from 'types/translator';
 
 import type { State } from 'types/state';
-import contentItems, { contentItemTypes } from 'modules/content-items';
-import type { DenormalizedRootContentItem } from 'modules/content-items';
+import contentItems, { contentItemTypes } from 'modules/contentItems';
+import type { DenormalizedRootContentItem } from 'modules/contentItems';
 import Slide from 'core-components/slides/Slide';
 
 import VoicePlayerToggle from 'core-components/slides/VoicePlayerToggle';

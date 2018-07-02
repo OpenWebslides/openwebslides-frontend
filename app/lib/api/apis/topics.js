@@ -2,7 +2,7 @@
 
 import type { Identifier } from 'types/model';
 
-import contentItems from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 
 import {
   USERS_ENDPOINT,

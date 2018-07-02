@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 
 import type { Identifier } from 'types/model';
-import type { RootContentItem } from 'modules/content-items';
+import type { RootContentItem } from '../../../model';
 
 import ContentItemEditableDisplay, { passThroughProps } from '..';
 

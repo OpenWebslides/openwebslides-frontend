@@ -7,13 +7,13 @@ import { I18nextProvider } from 'react-i18next';
 import i18nextConfig from 'config/i18next';
 import { mount, shallow } from 'enzyme';
 
-import { contentItemTypes } from 'modules/content-items';
+import { contentItemTypes } from '../../../../model';
 import type {
   RootContentItem,
   HeadingContentItem,
   ContentItemsById,
   ContentItemsState,
-} from 'modules/content-items';
+} from '../../../../model';
 import * as dummyContentItemData from '../../../../lib/test-resources/dummyContentItemData';
 
 import { PureRoot } from '../Root';

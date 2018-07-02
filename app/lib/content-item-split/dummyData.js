@@ -4,9 +4,9 @@ import type {
   DenormalizedHeadingContentItem,
   DenormalizedParagraphContentItem,
   DenormalizedRootContentItem,
-} from 'modules/content-items';
+} from 'modules/contentItems';
 
-import { contentItemTypes } from 'modules/content-items/model';
+import { contentItemTypes } from 'modules/contentItems/model';
 
 // Paragraphs
 export const dummyParagraphContentItem1: DenormalizedParagraphContentItem = {

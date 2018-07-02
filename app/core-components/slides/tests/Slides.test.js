@@ -4,7 +4,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { dummyTranslatorProps } from 'config/tests';
 
-import * as contentItems from 'modules/content-items';
+import * as contentItems from 'modules/contentItems';
 
 import { PureSlides } from '../Slides';
 

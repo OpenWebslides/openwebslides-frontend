@@ -6,7 +6,7 @@ import { flashMessage, flashErrorMessage } from 'redux-flash';
 import ServerError from 'errors/api-errors/ServerError';
 
 import authentication from 'modules/authentication';
-import contentItems from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 
 import { TopicsApi } from 'lib/api';
 import api from 'modules/api';

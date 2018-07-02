@@ -3,7 +3,7 @@
 import { combineReducers } from 'redux';
 
 import topics from 'modules/topics';
-import contentItems from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 import feed from 'modules/feed';
 import sidebars from 'modules/sidebars';
 import users from 'modules/users';

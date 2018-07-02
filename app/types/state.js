@@ -1,7 +1,7 @@
 // @flow
 
 import type { TopicsState } from 'modules/topics';
-import type { ContentItemsState } from 'modules/content-items';
+import type { ContentItemsState } from 'modules/contentItems';
 import type { SidebarsState } from 'modules/sidebars';
 import type { FeedState } from 'modules/feed';
 import type { UsersState } from 'modules/users';
