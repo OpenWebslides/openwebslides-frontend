@@ -16,7 +16,7 @@ import type {
   ContentItem,
   SubableContentItem,
 } from '../../model';
-import { getById } from '../../selectors';
+import selectors from '../../selectors';
 import {
   add,
   edit,
@@ -87,7 +87,7 @@ const passThroughProps = [
 ];
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const contentItem = getById(state, { id: props.contentItemId });
+  const contentItem = selectors.getById(state, { id: props.contentItemId });
 
   if (contentItem == null) {
     throw new ObjectNotFoundError('contentItems:contentItem', props.contentItemId);

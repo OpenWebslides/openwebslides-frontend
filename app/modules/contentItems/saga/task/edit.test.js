@@ -13,7 +13,7 @@ import type {
   ContentItemsById,
   ContentItemsState,
 } from '../../model';
-import { getById } from '../../selectors';
+import selectors from '../../selectors';
 import * as dummyData from '../../lib/testResources/dummyContentItemData';
 
 import editSaga from './edit';
@@ -136,7 +136,7 @@ describe(`editSaga`, (): void => {
     expect((): void => {
       testSaga(editSaga, dummyEditAction)
         .next()
-        .select(getById, { id: dummyInvalidId })
+        .select(selectors.getById, { id: dummyInvalidId })
         .next(null);
     }).toThrow(ObjectNotFoundError);
   });
@@ -153,7 +153,7 @@ describe(`editSaga`, (): void => {
     expect((): void => {
       testSaga(editSaga, dummyEditAction)
         .next()
-        .select(getById, { id: dummyRoot.id })
+        .select(selectors.getById, { id: dummyRoot.id })
         .next(dummyRoot);
     }).toThrow(NotYetImplementedError);
   });

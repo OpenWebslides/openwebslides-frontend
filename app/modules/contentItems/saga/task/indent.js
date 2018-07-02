@@ -9,16 +9,16 @@ import * as t from '../../actionTypes';
 import { move } from '../../actions';
 import { subableContentItemTypes, contextTypes } from '../../model';
 import type { SubableContentItem } from '../../model';
-import { getById, getAllById } from '../../selectors';
+import selectors from '../../selectors';
 import find from '../../lib/find';
 
 const indentSaga = function* (action: t.IndentAction): Generator<*, *, *> {
   const { id } = action.payload;
 
-  const contentItemToIndent = yield select(getById, { id });
+  const contentItemToIndent = yield select(selectors.getById, { id });
   if (contentItemToIndent == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
 
-  const contentItemsById = yield select(getAllById);
+  const contentItemsById = yield select(selectors.getAllById);
   const previousSiblingItem = find.previousSiblingItem(contentItemToIndent, contentItemsById);
 
   if (

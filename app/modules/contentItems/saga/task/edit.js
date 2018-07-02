@@ -7,7 +7,7 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
 import { editPropsForTypeInState, remove } from '../../actions';
-import { getById } from '../../selectors';
+import selectors from '../../selectors';
 import {
   plainTextContentItemTypes,
 } from '../../model';
@@ -16,7 +16,7 @@ const editSaga = function* (action: t.EditAction): Generator<*, *, *> {
   const { id, propsForType } = action.payload;
   const newPropsForType = { ...propsForType };
 
-  const contentItemToEdit = yield select(getById, { id });
+  const contentItemToEdit = yield select(selectors.getById, { id });
   if (contentItemToEdit == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
 
   if (_.includes(plainTextContentItemTypes, contentItemToEdit.type)) {

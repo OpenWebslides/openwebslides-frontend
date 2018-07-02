@@ -7,17 +7,17 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import * as t from '../../actionTypes';
 import { switchEditingInState, edit } from '../../actions';
 import { editablePropsForType } from '../../model';
-import { getById, getCurrentlyEditing } from '../../selectors';
+import selectors from '../../selectors';
 
 const toggleEditingSaga = function* (action: t.ToggleEditingAction): Generator<*, *, *> {
   const { id, isEditing } = action.payload;
-  const contentItemToToggle = yield select(getById, { id });
+  const contentItemToToggle = yield select(selectors.getById, { id });
   if (contentItemToToggle == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
   const newIsEditing = (isEditing != null) ? isEditing : !contentItemToToggle.isEditing;
 
   if (newIsEditing !== contentItemToToggle.isEditing) {
     if (newIsEditing) {
-      const currentlyEditingItem = yield select(getCurrentlyEditing);
+      const currentlyEditingItem = yield select(selectors.getCurrentlyEditing);
       const previousEditingItemId = (currentlyEditingItem != null) ? currentlyEditingItem.id : null;
       yield put(switchEditingInState(previousEditingItemId, id));
     }

@@ -9,18 +9,18 @@ import * as t from '../../actionTypes';
 import { removeFromState, move } from '../../actions';
 import { contentItemTypes, contextTypes } from '../../model';
 import type { HeadingContentItem, VerticalContext } from '../../model';
-import { getById, getAllById } from '../../selectors';
+import selectors from '../../selectors';
 import find from '../../lib/find';
 
 const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
   const { id } = action.payload;
 
-  const contentItemToRemove = yield select(getById, { id });
+  const contentItemToRemove = yield select(selectors.getById, { id });
   if (contentItemToRemove == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
 
   // If the contentItemToRemove is a HEADING
   if (contentItemToRemove.type === contentItemTypes.HEADING) {
-    const contentItemsById = yield select(getAllById);
+    const contentItemsById = yield select(selectors.getAllById);
     const previousSiblingItem = find.previousSiblingItem(contentItemToRemove, contentItemsById);
     let moveContext: VerticalContext;
 
