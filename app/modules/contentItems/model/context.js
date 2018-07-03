@@ -6,29 +6,26 @@
 
 import type { Identifier } from 'types/model';
 
+
+// ContextTypes ------------------------------------------------------------------------------------
+
 const PARENT: 'contentItems/contextTypes/PARENT' = 'contentItems/contextTypes/PARENT';
 const SUPER: 'contentItems/contextTypes/SUPER' = 'contentItems/contextTypes/SUPER';
 const SIBLING: 'contentItems/contextTypes/SIBLING' = 'contentItems/contextTypes/SIBLING';
 
-export const contextTypes = {
+const contextTypes = {
   PARENT,
   SUPER,
   SIBLING,
 };
-export type ContextType = $Values<typeof contextTypes>;
+type ContextType = $Values<typeof contextTypes>;
 
-export const verticalContextTypes = {
-  PARENT,
-  SUPER,
-};
-export type VerticalContextType = $Values<typeof verticalContextTypes>;
 
-export const horizontalContextTypes = {
-  SIBLING,
-};
-export type HorizontalContextType = $Values<typeof horizontalContextTypes>;
+// Base context ------------------------------------------------------------------------------------
 
-export type BaseContext = {|
+// Base for all contextTypes.
+
+type BaseContext = {|
   // PARENT when defining a context for a childItem
   // SUPER when defining a context for a subItem
   // SIBLING when defining a context for a siblingItem
@@ -38,7 +35,21 @@ export type BaseContext = {|
   +contextItemId: Identifier,
 |};
 
-export type SimpleVerticalContext = {|
+
+// Vertical context --------------------------------------------------------------------------------
+
+// Refers to the 'vertical' parent/child or super/sub relationship when visualizing the contentItems
+// structure as a tree.
+
+const verticalContextTypes = {
+  PARENT,
+  SUPER,
+};
+type VerticalContextType = $Values<typeof verticalContextTypes>;
+
+// Can be used for specifying a position in the contentItems structure,
+// for example when adding a new contentItem at that position.
+type SimpleVerticalContext = {|
   ...BaseContext,
   // Limit the contextType to verticalContextTypes.
   +contextType: VerticalContextType,
@@ -49,7 +60,9 @@ export type SimpleVerticalContext = {|
   +indexInSiblingItems?: number,
 |};
 
-export type ExtendedVerticalContext = {|
+// Can be used to specify the position of an existing contentItem in the contentItems structure,
+// for example when traversing the contentItems structure.
+type ExtendedVerticalContext = {|
   ...SimpleVerticalContext,
   // Make this prop required.
   +indexInSiblingItems: number,
@@ -59,9 +72,20 @@ export type ExtendedVerticalContext = {|
   +siblingItemIds: Array<Identifier>,
 |};
 
-export type VerticalContext = SimpleVerticalContext | ExtendedVerticalContext;
+type VerticalContext = SimpleVerticalContext | ExtendedVerticalContext;
 
-export type HorizontalContext = {|
+
+// Horizontal context ------------------------------------------------------------------------------
+
+// Refers to the 'horizontal' sibling relationship when visualizing the contentItems structure as a
+// tree.
+
+const horizontalContextTypes = {
+  SIBLING,
+};
+type HorizontalContextType = $Values<typeof horizontalContextTypes>;
+
+type HorizontalContext = {|
   ...BaseContext,
   // Limit the contextType to horizontalContextTypes.
   +contextType: HorizontalContextType,
@@ -73,7 +97,30 @@ export type HorizontalContext = {|
   +indexInSiblingItemsShift?: number,
 |};
 
-export type Context =
+
+// Context -----------------------------------------------------------------------------------------
+
+type Context =
   | VerticalContext
   | ExtendedVerticalContext
   | HorizontalContext;
+
+
+// Exports -----------------------------------------------------------------------------------------
+
+export {
+  contextTypes,
+  verticalContextTypes,
+  horizontalContextTypes,
+};
+
+export type {
+  ContextType,
+  VerticalContextType,
+  SimpleVerticalContext,
+  ExtendedVerticalContext,
+  VerticalContext,
+  HorizontalContextType,
+  HorizontalContext,
+  Context,
+};

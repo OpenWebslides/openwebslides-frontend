@@ -4,10 +4,11 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { dummyTranslatorProps } from 'config/tests';
 
-import { contentItemTypes } from 'modules/contentItems';
-import type { DenormalizedRootContentItem } from 'modules/contentItems';
+import contentItems from 'modules/contentItems';
 
 import { PureEditor } from '../Editor';
+
+const { contentItemTypes, DenormalizedRootContentItem } = contentItems.model;
 
 describe(`Editor`, (): void => {
 

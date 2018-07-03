@@ -1,7 +1,6 @@
 // @flow
 
-// Weird syntax is necessary to avoid repeating string literals in flow types.
-// See https://github.com/facebook/flow/issues/2377#issuecomment-262894389
+// ContentItemType constants
 const ROOT: 'contentItemTypes/ROOT' = 'contentItemTypes/ROOT';
 const HEADING: 'contentItemTypes/HEADING' = 'contentItemTypes/HEADING';
 const PARAGRAPH: 'contentItemTypes/PARAGRAPH' = 'contentItemTypes/PARAGRAPH';

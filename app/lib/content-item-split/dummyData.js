@@ -1,12 +1,13 @@
 // @flow
 
-import type {
+import contentItems from 'modules/contentItems';
+
+const {
+  contentItemTypes,
+  DenormalizedRootContentItem,
   DenormalizedHeadingContentItem,
   DenormalizedParagraphContentItem,
-  DenormalizedRootContentItem,
-} from 'modules/contentItems';
-
-import { contentItemTypes } from 'modules/contentItems/model';
+} = contentItems.model;
 
 // Paragraphs
 export const dummyParagraphContentItem1: DenormalizedParagraphContentItem = {

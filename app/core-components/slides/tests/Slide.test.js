@@ -5,11 +5,10 @@ import { shallow } from 'enzyme';
 import { dummyTranslatorProps } from 'config/tests';
 
 import contentItems from 'modules/contentItems';
-import type { DenormalizedRootContentItem } from 'modules/contentItems';
 
 import { PureSlide } from '../Slide';
 
-const { contentItemTypes } = contentItems.model;
+const { contentItemTypes, DenormalizedRootContentItem } = contentItems.model;
 
 describe(`Slide`, (): void => {
 

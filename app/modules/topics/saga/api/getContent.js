@@ -7,12 +7,13 @@ import ServerError from 'errors/api-errors/ServerError';
 
 import authentication from 'modules/authentication';
 import contentItems from 'modules/contentItems';
-import type { ContentItem } from 'modules/contentItems';
 
 import { TopicsApi } from 'lib/api';
 import api from 'modules/api';
 
 import * as t from '../../actionTypes';
+
+const { ContentItem } = contentItems.model;
 
 const { setTokenInState } = authentication.actions;
 const { getToken } = authentication.selectors;
