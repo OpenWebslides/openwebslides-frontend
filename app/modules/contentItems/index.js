@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable import/no-duplicates */
 
-import * as actions from './actions';
+import actions from './actions';
 import * as model from './model';
 import selectors from './selectors';
 import components from './components';

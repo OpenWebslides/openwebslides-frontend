@@ -1,14 +1,23 @@
 // @flow
 
+import type { Identifier } from 'types/model';
+
 import * as t from '../actionTypes';
-import { edit } from '../actions';
+import type { AllPropsForAllTypes } from '../model';
+
+import actions from '.';
 
 describe(`edit`, (): void => {
 
-  const dummyId = 'abcdefghij';
-  const dummyTextProps = {
-    text: 'Lorem ipsum dolor sit amet.',
-  };
+  let dummyId: Identifier;
+  let dummyTextProps: $Shape<AllPropsForAllTypes>;
+
+  beforeEach((): void => {
+    dummyId = 'abcdefghij';
+    dummyTextProps = {
+      text: 'Lorem ipsum dolor sit amet.',
+    };
+  });
 
   it(`returns a contentItem EDIT action containing the passed props`, (): void => {
     const expectedAction: t.EditAction = {
@@ -18,7 +27,8 @@ describe(`edit`, (): void => {
         propsForType: dummyTextProps,
       },
     };
-    expect(edit(dummyId, dummyTextProps)).toEqual(expectedAction);
+    const actualAction = actions.edit(dummyId, dummyTextProps);
+    expect(actualAction).toEqual(expectedAction);
   });
 
 });

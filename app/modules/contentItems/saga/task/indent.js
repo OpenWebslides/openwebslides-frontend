@@ -6,7 +6,7 @@ import { put, select } from 'redux-saga/effects';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import { move } from '../../actions';
+import actions from '../../actions';
 import { subableContentItemTypes, contextTypes } from '../../model';
 import type { SubableContentItem } from '../../model';
 import selectors from '../../selectors';
@@ -26,7 +26,7 @@ const indentSaga = function* (action: t.IndentAction): Generator<*, *, *> {
     _.includes(subableContentItemTypes, previousSiblingItem.type)
   ) {
     const subItemsCount = ((previousSiblingItem: any): SubableContentItem).subItemIds.length;
-    yield put(move(
+    yield put(actions.move(
       contentItemToIndent.id,
       {
         contextType: contextTypes.SUPER,

@@ -6,7 +6,7 @@ import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedI
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import { removeFromState, move } from '../../actions';
+import actions from '../../actions';
 import { contentItemTypes, contextTypes } from '../../model';
 import type { HeadingContentItem, VerticalContext } from '../../model';
 import selectors from '../../selectors';
@@ -44,7 +44,7 @@ const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
 
     // Do this in reverse so we can use the same moveContext every time.
     for (let i: number = contentItemToRemove.subItemIds.length - 1; i >= 0; i -= 1) {
-      yield put(move(
+      yield put(actions.move(
         contentItemToRemove.subItemIds[i],
         moveContext,
       ));
@@ -52,7 +52,7 @@ const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
   }
 
   // Remove the contentItem
-  yield put(removeFromState(id));
+  yield put(actions.removeFromState(id));
 };
 
 export default removeSaga;

@@ -16,14 +16,7 @@ import EditableDisplay, {
   DummyDisplayComponent,
 } from '.';
 
-import {
-  add,
-  edit,
-  toggleEditing,
-  removeAndTogglePreviousItem,
-  indent,
-  reverseIndent,
-} from '../../actions';
+import actions from '../../actions';
 import {
   contentItemTypes,
   contextTypes,
@@ -356,14 +349,14 @@ describe(`EditableDisplay`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onStartEditing(dummyId);
-      expect(dummyDispatch).toHaveBeenCalledWith(toggleEditing(dummyId, true));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.toggleEditing(dummyId, true));
     });
 
     it(`dispatches the correct TOGGLE_EDITING action, when onEndEditing is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onEndEditing(dummyId);
-      expect(dummyDispatch).toHaveBeenCalledWith(toggleEditing(dummyId, false));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.toggleEditing(dummyId, false));
     });
 
     it(`dispatches the correct EDIT action, when onEditPlainText is called`, (): void => {
@@ -371,15 +364,15 @@ describe(`EditableDisplay`, (): void => {
       const dummyText = 'Lorem ipsum';
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onEditPlainText(dummyId, dummyText);
-      expect(dummyDispatch).toHaveBeenCalledWith(edit(dummyId, { text: dummyText }));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.edit(dummyId, { text: dummyText }));
     });
 
     it(`dispatches the correct TOGGLE_EDITING and ADD actions, when onAddEmptySubItem is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onAddEmptySubItem(dummyId);
-      expect(dummyDispatch).toHaveBeenCalledWith(toggleEditing(dummyId, false));
-      expect(dummyDispatch).toHaveBeenCalledWith(add(
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.toggleEditing(dummyId, false));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.add(
         contentItemTypes.PARAGRAPH,
         {
           contextType: contextTypes.SUPER,
@@ -394,8 +387,8 @@ describe(`EditableDisplay`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onAddEmptySiblingItemBelow(dummyId);
-      expect(dummyDispatch).toHaveBeenCalledWith(toggleEditing(dummyId, false));
-      expect(dummyDispatch).toHaveBeenCalledWith(add(
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.toggleEditing(dummyId, false));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.add(
         contentItemTypes.PARAGRAPH,
         {
           contextType: contextTypes.SIBLING,
@@ -410,21 +403,21 @@ describe(`EditableDisplay`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onRemove(dummyId);
-      expect(dummyDispatch).toHaveBeenCalledWith(removeAndTogglePreviousItem(dummyId));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.removeAndTogglePreviousItem(dummyId));
     });
 
     it(`dispatches the correct INDENT action, when onIndent is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onIndent(dummyId);
-      expect(dummyDispatch).toHaveBeenCalledWith(indent(dummyId));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.indent(dummyId));
     });
 
     it(`dispatches the correct REVERSE_INDENT action, when onReverseIndent is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onReverseIndent(dummyId);
-      expect(dummyDispatch).toHaveBeenCalledWith(reverseIndent(dummyId));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.reverseIndent(dummyId));
     });
 
   });

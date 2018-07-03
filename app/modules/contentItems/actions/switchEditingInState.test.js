@@ -1,15 +1,23 @@
 // @flow
 
+import type { Identifier } from 'types/model';
 import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
 
 import * as t from '../actionTypes';
-import switchEditingInState from './switchEditingInState';
+
+import actions from '.';
 
 describe(`switchEditingInState`, (): void => {
 
+  let dummyPrevId: Identifier;
+  let dummyNextId: Identifier;
+
+  beforeEach((): void => {
+    dummyPrevId = 'abcdefghijklmnopqrst';
+    dummyNextId = 'uvwxyzabcdefghijklmn';
+  });
+
   it(`returns a contentItem SWITCH_EDITING_IN_STATE action containing the passed arguments`, (): void => {
-    const dummyPrevId = 'abcdefghijklmnopqrst';
-    const dummyNextId = 'uvwxyzabcdefghijklmn';
     const expectedAction: t.SwitchEditingInStateAction = {
       type: t.SWITCH_EDITING_IN_STATE,
       payload: {
@@ -17,12 +25,11 @@ describe(`switchEditingInState`, (): void => {
         nextEditingItemId: dummyNextId,
       },
     };
-    expect(switchEditingInState(dummyPrevId, dummyNextId)).toEqual(expectedAction);
+    const actualAction = actions.switchEditingInState(dummyPrevId, dummyNextId);
+    expect(actualAction).toEqual(expectedAction);
   });
 
   it(`converts undefined id values to NULL`, (): void => {
-    const dummyPrevId = 'abcdefghijklmnopqrst';
-    const dummyNextId = 'uvwxyzabcdefghijklmn';
     const expectedAction1: t.SwitchEditingInStateAction = {
       type: t.SWITCH_EDITING_IN_STATE,
       payload: {
@@ -37,13 +44,15 @@ describe(`switchEditingInState`, (): void => {
         nextEditingItemId: null,
       },
     };
-    expect(switchEditingInState(undefined, dummyNextId)).toEqual(expectedAction1);
-    expect(switchEditingInState(dummyPrevId, undefined)).toEqual(expectedAction2);
+    const actualAction1 = actions.switchEditingInState(undefined, dummyNextId);
+    const actualAction2 = actions.switchEditingInState(dummyPrevId, undefined);
+    expect(actualAction1).toEqual(expectedAction1);
+    expect(actualAction2).toEqual(expectedAction2);
   });
 
   it(`throws an UnsupportedOperationError, when both ids are NULL`, (): void => {
     expect((): void => {
-      switchEditingInState(null, null);
+      actions.switchEditingInState(null, null);
     }).toThrow(UnsupportedOperationError);
   });
 

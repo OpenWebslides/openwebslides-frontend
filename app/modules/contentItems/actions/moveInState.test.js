@@ -1,18 +1,27 @@
 // @flow
 
+import type { Identifier } from 'types/model';
+
 import * as t from '../actionTypes';
 import { contextTypes } from '../model';
 import type { VerticalContext } from '../model';
-import { moveInState } from '../actions';
+
+import actions from '.';
 
 describe(`moveInState`, (): void => {
 
-  it(`returns a contentItem MOVE_IN_STATE action containing the passed props`, (): void => {
-    const dummyId = 'abcdefghijklmnopqrst';
-    const dummyNextContext: VerticalContext = {
+  let dummyId: Identifier;
+  let dummyNextContext: VerticalContext;
+
+  beforeEach((): void => {
+    dummyId = 'abcdefghijklmnopqrst';
+    dummyNextContext = {
       contextType: contextTypes.SUPER,
       contextItemId: 'opqrstuvwxyzabcdefgh',
     };
+  });
+
+  it(`returns a contentItem MOVE_IN_STATE action containing the passed props`, (): void => {
     const expectedAction: t.MoveInStateAction = {
       type: t.MOVE_IN_STATE,
       payload: {
@@ -20,7 +29,8 @@ describe(`moveInState`, (): void => {
         nextContext: dummyNextContext,
       },
     };
-    expect(moveInState(dummyId, dummyNextContext)).toEqual(expectedAction);
+    const actualAction = actions.moveInState(dummyId, dummyNextContext);
+    expect(actualAction).toEqual(expectedAction);
   });
 
 });

@@ -7,6 +7,7 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
+import actions from '../../actions';
 import {
   contentItemTypes,
   subableContentItemTypes,
@@ -17,14 +18,6 @@ import type {
   SubableContentItem,
 } from '../../model';
 import selectors from '../../selectors';
-import {
-  add,
-  edit,
-  toggleEditing,
-  removeAndTogglePreviousItem,
-  indent,
-  reverseIndent,
-} from '../../actions';
 
 import Root from './types/Root';
 import Heading from './types/Heading';
@@ -101,17 +94,17 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
   return {
     onStartEditing: (id: Identifier): void => {
-      dispatch(toggleEditing(id, true));
+      dispatch(actions.toggleEditing(id, true));
     },
     onEndEditing: (id: Identifier): void => {
-      dispatch(toggleEditing(id, false));
+      dispatch(actions.toggleEditing(id, false));
     },
     onEditPlainText: (id: Identifier, text: string): void => {
-      dispatch(edit(id, { text }));
+      dispatch(actions.edit(id, { text }));
     },
     onAddEmptySubItem: (id: Identifier): void => {
-      dispatch(toggleEditing(id, false));
-      dispatch(add(
+      dispatch(actions.toggleEditing(id, false));
+      dispatch(actions.add(
         contentItemTypes.PARAGRAPH,
         {
           contextType: contextTypes.SUPER,
@@ -122,8 +115,8 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
       ));
     },
     onAddEmptySiblingItemBelow: (id: Identifier): void => {
-      dispatch(toggleEditing(id, false));
-      dispatch(add(
+      dispatch(actions.toggleEditing(id, false));
+      dispatch(actions.add(
         contentItemTypes.PARAGRAPH,
         {
           contextType: contextTypes.SIBLING,
@@ -134,13 +127,13 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
       ));
     },
     onRemove: (id: Identifier): void => {
-      dispatch(removeAndTogglePreviousItem(id));
+      dispatch(actions.removeAndTogglePreviousItem(id));
     },
     onIndent: (id: Identifier): void => {
-      dispatch(indent(id));
+      dispatch(actions.indent(id));
     },
     onReverseIndent: (id: Identifier): void => {
-      dispatch(reverseIndent(id));
+      dispatch(actions.reverseIndent(id));
     },
   };
 };

@@ -1,20 +1,27 @@
 // @flow
 
 import * as t from '../actionTypes';
-import { add } from '../actions';
 import { contentItemTypes, contextTypes } from '../model';
-import type { Context } from '../model';
+import type { ContentItemType, AllPropsForAllTypes, Context } from '../model';
+
+import actions from '.';
 
 describe(`add`, (): void => {
 
-  const dummyType = contentItemTypes.HEADING;
-  const dummyContext: Context = {
-    contextType: contextTypes.SIBLING,
-    contextItemId: 'abcdefghijklmnopqrst',
-  };
-  const dummyProps = {
-    text: 'Lorem ipsum dolor sit amet.',
-  };
+  let dummyType: ContentItemType;
+  let dummyContext: Context;
+  let dummyProps: $Shape<AllPropsForAllTypes>;
+
+  beforeEach((): void => {
+    dummyType = contentItemTypes.HEADING;
+    dummyContext = {
+      contextType: contextTypes.SIBLING,
+      contextItemId: 'abcdefghijklmnopqrst',
+    };
+    dummyProps = {
+      text: 'Lorem ipsum dolor sit amet.',
+    };
+  });
 
   it(`returns a contentItem ADD action containing the passed props`, (): void => {
     const expectedAction: t.AddAction = {
@@ -25,7 +32,8 @@ describe(`add`, (): void => {
         propsForType: dummyProps,
       },
     };
-    expect(add(dummyType, dummyContext, dummyProps)).toEqual(expectedAction);
+    const actualAction = actions.add(dummyType, dummyContext, dummyProps);
+    expect(actualAction).toEqual(expectedAction);
   });
 
 });

@@ -4,7 +4,7 @@ import { put, select } from 'redux-saga/effects';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import { remove, toggleEditing } from '../../actions';
+import actions from '../../actions';
 import selectors from '../../selectors';
 import find from '../../lib/find';
 
@@ -21,11 +21,11 @@ const removeAndTogglePreviousItemSaga = function* (
   const previousEditorItem = find.previousEditorItem(contentItemToRemove, contentItemsById);
 
   // Remove the contentItem.
-  yield put(remove(id));
+  yield put(actions.remove(id));
 
   // Move the cursor to the previousEditorItem.
   if (previousEditorItem != null) {
-    yield put(toggleEditing(previousEditorItem.id, true));
+    yield put(actions.toggleEditing(previousEditorItem.id, true));
   }
 };
 

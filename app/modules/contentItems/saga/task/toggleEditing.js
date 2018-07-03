@@ -5,7 +5,7 @@ import { put, select } from 'redux-saga/effects';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import { switchEditingInState, edit } from '../../actions';
+import actions from '../../actions';
 import { editablePropsForType } from '../../model';
 import selectors from '../../selectors';
 
@@ -19,16 +19,16 @@ const toggleEditingSaga = function* (action: t.ToggleEditingAction): Generator<*
     if (newIsEditing) {
       const currentlyEditingItem = yield select(selectors.getCurrentlyEditing);
       const previousEditingItemId = (currentlyEditingItem != null) ? currentlyEditingItem.id : null;
-      yield put(switchEditingInState(previousEditingItemId, id));
+      yield put(actions.switchEditingInState(previousEditingItemId, id));
     }
     else {
-      yield put(switchEditingInState(id, null));
+      yield put(actions.switchEditingInState(id, null));
       // Perform an edit action in order to validate all editable props with isEditing === FALSE.
       const propsForType = _.pick(
         contentItemToToggle,
         editablePropsForType[contentItemToToggle.type],
       );
-      yield put(edit(id, propsForType));
+      yield put(actions.edit(id, propsForType));
     }
   }
 };

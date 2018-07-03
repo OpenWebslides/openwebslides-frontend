@@ -4,7 +4,7 @@ import { put, select } from 'redux-saga/effects';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import { move } from '../../actions';
+import actions from '../../actions';
 import { contentItemTypes } from '../../model';
 import selectors from '../../selectors';
 import find from '../../lib/find';
@@ -26,7 +26,7 @@ const reverseIndentSaga = function* (action: t.ReverseIndentAction): Generator<*
         contentItemToReverseIndent.type === contentItemTypes.HEADING ||
         parentOrSuperItem.type !== contentItemTypes.HEADING
       ) {
-        yield put(move(
+        yield put(actions.move(
           contentItemToReverseIndent.id,
           {
             contextType: parentOrSuperContext.contextType,

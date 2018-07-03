@@ -1,18 +1,27 @@
 // @flow
 
+import type { Identifier } from 'types/model';
+
 import * as t from '../actionTypes';
 import { contextTypes } from '../model';
 import type { VerticalContext } from '../model';
-import { move } from '../actions';
+
+import actions from '.';
 
 describe(`move`, (): void => {
 
-  it(`returns a contentItem MOVE action containing the passed props`, (): void => {
-    const dummyId = 'abcdefghijklmnopqrst';
-    const dummyNextContext: VerticalContext = {
+  let dummyId: Identifier;
+  let dummyNextContext: VerticalContext;
+
+  beforeEach((): void => {
+    dummyId = 'abcdefghijklmnopqrst';
+    dummyNextContext = {
       contextType: contextTypes.SUPER,
       contextItemId: 'opqrstuvwxyzabcdefgh',
     };
+  });
+
+  it(`returns a contentItem MOVE action containing the passed props`, (): void => {
     const expectedAction: t.MoveAction = {
       type: t.MOVE,
       payload: {
@@ -20,7 +29,8 @@ describe(`move`, (): void => {
         nextContext: dummyNextContext,
       },
     };
-    expect(move(dummyId, dummyNextContext)).toEqual(expectedAction);
+    const actualAction = actions.move(dummyId, dummyNextContext);
+    expect(actualAction).toEqual(expectedAction);
   });
 
 });

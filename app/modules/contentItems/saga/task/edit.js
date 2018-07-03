@@ -6,7 +6,7 @@ import NotYetImplementedError from 'errors/implementation-errors/NotYetImplement
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import { editPropsForTypeInState, remove } from '../../actions';
+import actions from '../../actions';
 import selectors from '../../selectors';
 import {
   plainTextContentItemTypes,
@@ -24,10 +24,10 @@ const editSaga = function* (action: t.EditAction): Generator<*, *, *> {
       && propsForType.text === ''
       && contentItemToEdit.isEditing === false
     ) {
-      yield put(remove(contentItemToEdit.id));
+      yield put(actions.remove(contentItemToEdit.id));
     }
     else {
-      yield put(editPropsForTypeInState(contentItemToEdit, newPropsForType));
+      yield put(actions.editPropsForTypeInState(contentItemToEdit, newPropsForType));
     }
   }
   else {

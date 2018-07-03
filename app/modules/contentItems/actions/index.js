@@ -15,7 +15,7 @@ import reverseIndent from './reverseIndent';
 import remove from './remove';
 import removeAndTogglePreviousItem from './removeAndTogglePreviousItem';
 
-export {
+const actions = {
   addToState,
   editPropsForTypeInState,
   switchEditingInState,
@@ -31,3 +31,5 @@ export {
   remove,
   removeAndTogglePreviousItem,
 };
+
+export default actions;
