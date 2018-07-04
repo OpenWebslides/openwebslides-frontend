@@ -8,21 +8,28 @@ export const emptyMetadata = {
 };
 
 export const rootContentItem: $Exact<model.RootContentItem> = {
-  id: 'g2bmuvvyuxg2bmuvvyux',
+  id: 'dummyRootContentItem',
   type: model.contentItemTypes.ROOT,
   isEditing: false,
   childItemIds: [],
 };
 
 export const rootContentItem2: $Exact<model.RootContentItem> = {
-  id: 'vt6uo2aoc6vt6uo2aoc6',
+  id: 'dummyRootContentItem2',
+  type: model.contentItemTypes.ROOT,
+  isEditing: false,
+  childItemIds: [],
+};
+
+export const rootContentItem3: $Exact<model.RootContentItem> = {
+  id: 'dummyRootContentItem3',
   type: model.contentItemTypes.ROOT,
   isEditing: false,
   childItemIds: [],
 };
 
 export const headingContentItem: $Exact<model.HeadingContentItem> = {
-  id: '5nbknerhtd5nbknerhtd',
+  id: 'dummyHeadingContentItem',
   type: model.contentItemTypes.HEADING,
   isEditing: false,
   text: 'Lorem ipsum dolor sit amet',
@@ -31,7 +38,7 @@ export const headingContentItem: $Exact<model.HeadingContentItem> = {
 };
 
 export const headingContentItem2: $Exact<model.HeadingContentItem> = {
-  id: 'u85icdizwhu85icdizwh',
+  id: 'dummyHeadingContentItem2',
   type: model.contentItemTypes.HEADING,
   isEditing: false,
   text: 'Duis non orci vitae eros vehicula placerat',
@@ -40,7 +47,7 @@ export const headingContentItem2: $Exact<model.HeadingContentItem> = {
 };
 
 export const headingContentItem3: $Exact<model.HeadingContentItem> = {
-  id: '186wy5tr29186wy5tr29',
+  id: 'dummyHeadingContentItem3',
   type: model.contentItemTypes.HEADING,
   isEditing: false,
   text: 'Mauris id tempus metus',
@@ -49,7 +56,7 @@ export const headingContentItem3: $Exact<model.HeadingContentItem> = {
 };
 
 export const headingContentItem4: $Exact<model.HeadingContentItem> = {
-  id: 'x353qq6cupx353qq6cup',
+  id: 'dummyHeadingContentItem4',
   type: model.contentItemTypes.HEADING,
   isEditing: false,
   text: 'Ut blandit nisi id sem rhoncus',
@@ -58,7 +65,7 @@ export const headingContentItem4: $Exact<model.HeadingContentItem> = {
 };
 
 export const headingContentItem5: $Exact<model.HeadingContentItem> = {
-  id: 'ks6y73p3i3ks6y73p3i3',
+  id: 'dummyHeadingContentItem5',
   type: model.contentItemTypes.HEADING,
   isEditing: false,
   text: 'A egestas odio eleifend',
@@ -67,7 +74,7 @@ export const headingContentItem5: $Exact<model.HeadingContentItem> = {
 };
 
 export const headingContentItem6: $Exact<model.HeadingContentItem> = {
-  id: '02odg0gllg02odg0gllg',
+  id: 'dummyHeadingContentItem6',
   type: model.contentItemTypes.HEADING,
   isEditing: false,
   text: 'Morbi molestie dui velit',
@@ -76,7 +83,7 @@ export const headingContentItem6: $Exact<model.HeadingContentItem> = {
 };
 
 export const paragraphContentItem: $Exact<model.ParagraphContentItem> = {
-  id: 'f0clvd9l27f0clvd9l27',
+  id: 'dummyParagraphContentItem',
   type: model.contentItemTypes.PARAGRAPH,
   isEditing: false,
   text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -85,7 +92,7 @@ export const paragraphContentItem: $Exact<model.ParagraphContentItem> = {
 };
 
 export const paragraphContentItem2: $Exact<model.ParagraphContentItem> = {
-  id: '2h7uq88frw2h7uq88frw',
+  id: 'dummyParagraphContentItem2',
   type: model.contentItemTypes.PARAGRAPH,
   isEditing: false,
   text: 'Ut facilisis tristique diam a consequat.',
@@ -94,7 +101,7 @@ export const paragraphContentItem2: $Exact<model.ParagraphContentItem> = {
 };
 
 export const paragraphContentItem3: $Exact<model.ParagraphContentItem> = {
-  id: 'iphf9bhggdiphf9bhggd',
+  id: 'dummyParagraphContentItem3',
   type: model.contentItemTypes.PARAGRAPH,
   isEditing: false,
   text: 'Ut facilisis tristique diam a consequat.',
@@ -103,7 +110,7 @@ export const paragraphContentItem3: $Exact<model.ParagraphContentItem> = {
 };
 
 export const paragraphContentItem4: $Exact<model.ParagraphContentItem> = {
-  id: 'nzn6a73afynzn6a73afy',
+  id: 'dummyParagraphContentItem4',
   type: model.contentItemTypes.PARAGRAPH,
   isEditing: false,
   text: 'Sed placerat porta tortor, ac dignissim sem vestibulum eget.',
@@ -112,7 +119,7 @@ export const paragraphContentItem4: $Exact<model.ParagraphContentItem> = {
 };
 
 export const paragraphContentItem5: $Exact<model.ParagraphContentItem> = {
-  id: 'kc2xawx7l1kc2xawx7l1',
+  id: 'dummyParagraphContentItem5',
   type: model.contentItemTypes.PARAGRAPH,
   isEditing: false,
   text: 'Nam elementum erat neque, sed bibendum purus rhoncus in.',
@@ -121,7 +128,7 @@ export const paragraphContentItem5: $Exact<model.ParagraphContentItem> = {
 };
 
 export const paragraphContentItem6: $Exact<model.ParagraphContentItem> = {
-  id: 'sgehzsovnssgehzsovns',
+  id: 'dummyParagraphContentItem6',
   type: model.contentItemTypes.PARAGRAPH,
   isEditing: false,
   text: 'Integer vel sodales justo. Fusce eu ex eget turpis venenatis condimentum sed eu urna.',
@@ -130,7 +137,7 @@ export const paragraphContentItem6: $Exact<model.ParagraphContentItem> = {
 };
 
 export const paragraphContentItem7: $Exact<model.ParagraphContentItem> = {
-  id: '1m7n6cqriw1m7n6cqriw',
+  id: 'dummyParagraphContentItem7',
   type: model.contentItemTypes.PARAGRAPH,
   isEditing: false,
   text: 'Vivamus ullamcorper malesuada erat.',
@@ -139,7 +146,7 @@ export const paragraphContentItem7: $Exact<model.ParagraphContentItem> = {
 };
 
 export const paragraphContentItem8: $Exact<model.ParagraphContentItem> = {
-  id: '6magcvyj9q6magcvyj9q',
+  id: 'dummyParagraphContentItem8',
   type: model.contentItemTypes.PARAGRAPH,
   isEditing: false,
   text: 'In fringilla, odio et varius placerat, sem purus venenatis purus, in imperdiet massa tellus in justo. ',
@@ -148,7 +155,7 @@ export const paragraphContentItem8: $Exact<model.ParagraphContentItem> = {
 };
 
 export const paragraphContentItem9: $Exact<model.ParagraphContentItem> = {
-  id: '6j0zi7atjl6j0zi7atjl',
+  id: 'dummyParagraphContentItem9',
   type: model.contentItemTypes.PARAGRAPH,
   isEditing: false,
   text: 'Mauris feugiat lacus non purus pellentesque, sed lobortis erat tincidunt.',
@@ -157,7 +164,7 @@ export const paragraphContentItem9: $Exact<model.ParagraphContentItem> = {
 };
 
 export const paragraphContentItem10: $Exact<model.ParagraphContentItem> = {
-  id: 'l5r9ymmi0el5r9ymmi0e',
+  id: 'dummyParagraphContentItem10',
   type: model.contentItemTypes.PARAGRAPH,
   isEditing: false,
   text: 'Nulla enim turpis, gravida eget malesuada eu, molestie at lorem.',
@@ -166,7 +173,7 @@ export const paragraphContentItem10: $Exact<model.ParagraphContentItem> = {
 };
 
 export const paragraphContentItem11: $Exact<model.ParagraphContentItem> = {
-  id: 't1sicfe8s9t1sicfe8s9',
+  id: 'dummyParagraphContentItem11',
   type: model.contentItemTypes.PARAGRAPH,
   isEditing: false,
   text: 'In sollicitudin erat ut eros molestie, at pellentesque diam blandit.',
@@ -175,7 +182,7 @@ export const paragraphContentItem11: $Exact<model.ParagraphContentItem> = {
 };
 
 export const paragraphContentItem12: $Exact<model.ParagraphContentItem> = {
-  id: 'rwa81w8aogrwa81w8aog',
+  id: 'dummyParagraphContentItem12',
   type: model.contentItemTypes.PARAGRAPH,
   isEditing: false,
   text: 'Phasellus luctus nunc nunc, ac vestibulum tortor pellentesque at.',
@@ -184,7 +191,7 @@ export const paragraphContentItem12: $Exact<model.ParagraphContentItem> = {
 };
 
 export const listContentItem: $Exact<model.ListContentItem> = {
-  id: 'g09fzfwsnpg09fzfwsnp',
+  id: 'dummyListContentItem',
   type: model.contentItemTypes.LIST,
   isEditing: false,
   metadata: emptyMetadata,
@@ -194,7 +201,7 @@ export const listContentItem: $Exact<model.ListContentItem> = {
 };
 
 export const listItemContentItem: $Exact<model.ListItemContentItem> = {
-  id: 'dnwy65sy7qdnwy65sy7q',
+  id: 'dummyListItemContentItem',
   type: model.contentItemTypes.LIST_ITEM,
   isEditing: false,
   text: 'This is a list item.',
@@ -202,7 +209,7 @@ export const listItemContentItem: $Exact<model.ListItemContentItem> = {
 };
 
 export const blockquoteContentItem: $Exact<model.BlockquoteContentItem> = {
-  id: 'nqak0qx8qunqak0qx8qu',
+  id: 'dummyBlockquoteContentItem',
   type: model.contentItemTypes.BLOCKQUOTE,
   isEditing: false,
   text: 'Do. Or do not. There is no try.',
@@ -213,7 +220,7 @@ export const blockquoteContentItem: $Exact<model.BlockquoteContentItem> = {
 };
 
 export const codeContentItem: $Exact<model.CodeContentItem> = {
-  id: 'wiwj9xqnf3wiwj9xqnf3',
+  id: 'dummyCodeContentItem',
   type: model.contentItemTypes.CODE,
   isEditing: false,
   text: 'console.log("Hello world!");',
@@ -223,7 +230,7 @@ export const codeContentItem: $Exact<model.CodeContentItem> = {
 };
 
 export const imageContentItem: $Exact<model.ImageContentItem> = {
-  id: 'lvlhptz3fylvlhptz3fy',
+  id: 'dummyImageContentItem',
   type: model.contentItemTypes.IMAGE,
   isEditing: false,
   metadata: emptyMetadata,
@@ -234,7 +241,7 @@ export const imageContentItem: $Exact<model.ImageContentItem> = {
 };
 
 export const videoContentItem: $Exact<model.VideoContentItem> = {
-  id: 'h7oys468auh7oys468au',
+  id: 'dummyVideoContentItem',
   type: model.contentItemTypes.VIDEO,
   isEditing: false,
   metadata: emptyMetadata,
@@ -245,7 +252,7 @@ export const videoContentItem: $Exact<model.VideoContentItem> = {
 };
 
 export const audioContentItem: $Exact<model.AudioContentItem> = {
-  id: 'ktnmk0b1qhktnmk0b1qh',
+  id: 'dummyAudioContentItem',
   type: model.contentItemTypes.AUDIO,
   isEditing: false,
   metadata: emptyMetadata,
@@ -256,7 +263,7 @@ export const audioContentItem: $Exact<model.AudioContentItem> = {
 };
 
 export const iframeContentItem: $Exact<model.IframeContentItem> = {
-  id: 'xo346zqvngxo346zqvng',
+  id: 'dummyIframeContentItem',
   type: model.contentItemTypes.IFRAME,
   isEditing: false,
   metadata: emptyMetadata,
@@ -267,13 +274,13 @@ export const iframeContentItem: $Exact<model.IframeContentItem> = {
 };
 
 export const slideBreakContentItem: $Exact<model.SlideBreakContentItem> = {
-  id: 'c3g2c30a0uc3g2c30a0u',
+  id: 'dummySlideBreakContentItem',
   type: model.contentItemTypes.SLIDE_BREAK,
   isEditing: false,
 };
 
 export const courseBreakContentItem: $Exact<model.CourseBreakContentItem> = {
-  id: 'pi149k8fwvpi149k8fwv',
+  id: 'dummyCourseBreakContentItem',
   type: model.contentItemTypes.COURSE_BREAK,
   isEditing: false,
 };
