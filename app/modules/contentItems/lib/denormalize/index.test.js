@@ -3,156 +3,99 @@
 import _ from 'lodash';
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 
+import * as model from '../../model';
+import * as dummyData from '../../lib/testResources/dummyContentItemData';
+
 import denormalize from '.';
 
-import { contentItemTypes } from '../../model';
-import type {
+const {
   RootContentItem,
   DenormalizedRootContentItem,
   HeadingContentItem,
   DenormalizedHeadingContentItem,
   ParagraphContentItem,
   DenormalizedParagraphContentItem,
-  ListContentItem,
-  DenormalizedListContentItem,
-  ListItemContentItem,
-  DenormalizedListItemContentItem,
-  ContentItemsById,
-} from '../../model';
+  SlideBreakContentItem,
+  DenormalizedSlideBreakContentItem,
+} = model;
 
 describe(`denormalize`, (): void => {
 
-  const dummyHeading2: $Exact<HeadingContentItem> = {
-    id: 'ua32xchh7q',
-    type: contentItemTypes.HEADING,
-    isEditing: false,
-    text: 'Phasellus posuere tincidunt enim',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-    subItemIds: [],
-  };
-  const dummyRoot2: $Exact<RootContentItem> = {
-    id: 'w4lg2u0p1h',
-    type: contentItemTypes.ROOT,
-    isEditing: false,
-    childItemIds: [dummyHeading2.id],
-  };
-  const dummyNestedParagraph3: $Exact<ParagraphContentItem> = {
-    id: 'cpi389s1e3',
-    type: contentItemTypes.PARAGRAPH,
-    isEditing: false,
-    text: 'Sed ut neque tristique, venenatis purus a, consequat orci. Aenean sed lectus et ante aliquet maximus. Integer hendrerit odio volutpat tincidunt consectetur. Cras venenatis, nibh a dignissim consectetur, augue tortor viverra nisi, quis euismod urna ligula ac turpis. Pellentesque eget faucibus urna, id sodales odio. Quisque ipsum ante, fringilla elementum mauris vel, tincidunt rhoncus augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-    subItemIds: [],
-  };
-  const dummyNestedParagraph2: $Exact<ParagraphContentItem> = {
-    id: 'vrci6v35s7',
-    type: contentItemTypes.PARAGRAPH,
-    isEditing: false,
-    text: 'Sed hendrerit eget metus nec elementum. Aenean commodo semper sapien, nec porta leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla blandit elit et metus tincidunt semper. Sed ac tellus odio. Sed placerat faucibus leo a convallis. Pellentesque eget libero at lacus rutrum pretium.',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-    subItemIds: [],
-  };
-  const dummyListItem2: $Exact<ListItemContentItem> = {
-    id: 'rqwnagv4ky',
-    type: contentItemTypes.LIST_ITEM,
-    isEditing: false,
-    text: 'This is a list item.',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-  };
-  const dummyListItem1: $Exact<ListItemContentItem> = {
-    id: 'dnwy65sy7q',
-    type: contentItemTypes.LIST_ITEM,
-    isEditing: false,
-    text: 'This is a list item.',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-  };
-  const dummyList1: $Exact<ListContentItem> = {
-    id: 'g09fzfwsnp',
-    type: contentItemTypes.LIST,
-    isEditing: false,
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-    subItemIds: [dummyNestedParagraph2.id, dummyNestedParagraph3.id],
-    childItemIds: [dummyListItem1.id, dummyListItem2.id],
-    ordered: false,
-  };
-  const dummyNestedParagraph1: $Exact<ParagraphContentItem> = {
-    id: 'uieqlbgnxb',
-    type: contentItemTypes.PARAGRAPH,
-    isEditing: false,
-    text: 'Morbi sed felis quis mi luctus malesuada at eu neque. Integer auctor lorem leo, ut semper massa dignissim et. Nulla dictum ullamcorper mattis. Suspendisse suscipit porttitor gravida. Aliquam porttitor tortor augue, sit amet lacinia ligula sodales sit amet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed vitae purus sed odio pulvinar sagittis egestas non est. Aliquam nisi urna, faucibus in tellus in, tristique suscipit justo. Etiam rutrum nisl sit amet venenatis euismod. Nullam dictum imperdiet libero, et ornare est semper eu. Aenean dui ligula, vulputate et nisi eu, bibendum tempus arcu. In ornare sem et nunc volutpat, eu elementum neque vestibulum. Nullam dictum ipsum in viverra blandit. Suspendisse potenti.',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-    subItemIds: [],
-  };
-  const dummyParagraph1: $Exact<ParagraphContentItem> = {
-    id: 'yp8bumunth',
-    type: contentItemTypes.PARAGRAPH,
-    isEditing: false,
-    text: 'Nullam ultrices rhoncus quam vulputate bibendum. Aliquam vehicula augue quis nibh iaculis semper.',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-    subItemIds: [dummyNestedParagraph1.id],
-  };
-  const dummyHeading1: $Exact<HeadingContentItem> = {
-    id: 'j0vcu0y7vk',
-    type: contentItemTypes.HEADING,
-    isEditing: false,
-    text: 'Nam malesuada fermentum',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-    subItemIds: [dummyParagraph1.id, dummyList1.id],
-  };
-  const dummyRoot1: $Exact<RootContentItem> = {
-    id: 'qyrgv0bcd6',
-    type: contentItemTypes.ROOT,
-    isEditing: false,
-    childItemIds: [dummyHeading1.id],
-  };
-  const dummyContentItemsById: ContentItemsById = {
-    [dummyRoot1.id]: dummyRoot1,
-    [dummyHeading1.id]: dummyHeading1,
-    [dummyParagraph1.id]: dummyParagraph1,
-    [dummyNestedParagraph1.id]: dummyNestedParagraph1,
-    [dummyList1.id]: dummyList1,
-    [dummyListItem1.id]: dummyListItem1,
-    [dummyListItem2.id]: dummyListItem2,
-    [dummyNestedParagraph2.id]: dummyNestedParagraph2,
-    [dummyNestedParagraph3.id]: dummyNestedParagraph3,
-    [dummyRoot2.id]: dummyRoot2,
-    [dummyHeading2.id]: dummyHeading2,
-  };
+  let dummySlideBreak32: $Exact<SlideBreakContentItem>;
+  let dummyParagraph314: $Exact<ParagraphContentItem>;
+  let dummyParagraph313: $Exact<ParagraphContentItem>;
+  let dummyParagraph312: $Exact<ParagraphContentItem>;
+  let dummyParagraph311: $Exact<ParagraphContentItem>;
+  let dummyTestParentAndSuperItem31: any;
+  let dummyRoot3: $Exact<RootContentItem>;
+  let dummyHeading22: $Exact<HeadingContentItem>;
+  let dummyHeading21: $Exact<HeadingContentItem>;
+  let dummyRoot2: $Exact<RootContentItem>;
+  let dummyParagraph122: $Exact<ParagraphContentItem>;
+  let dummyParagraph121: $Exact<ParagraphContentItem>;
+  let dummyHeading12: $Exact<HeadingContentItem>;
+  let dummyParagraph112: $Exact<ParagraphContentItem>;
+  let dummyParagraph111: $Exact<ParagraphContentItem>;
+  let dummyHeading11: $Exact<HeadingContentItem>;
+  let dummyRoot1: $Exact<RootContentItem>;
+  let dummyContentItemsById: any;
+
+  beforeEach((): void => {
+    dummySlideBreak32 = { ...dummyData.slideBreakContentItem };
+    dummyParagraph314 = { ...dummyData.paragraphContentItem8 };
+    dummyParagraph313 = { ...dummyData.paragraphContentItem7 };
+    dummyParagraph312 = { ...dummyData.paragraphContentItem6 };
+    dummyParagraph311 = { ...dummyData.paragraphContentItem5 };
+    dummyTestParentAndSuperItem31 = {
+      id: 'dummyTestParentAndSuperItem52',
+      type: 'TEST_PARENT_AND_SUPER_TYPE',
+      isEditing: false,
+      childItemIds: [dummyParagraph311.id, dummyParagraph312.id],
+      subItemIds: [dummyParagraph313.id, dummyParagraph314.id],
+    };
+    dummyRoot3 = { ...dummyData.rootContentItem3, childItemIds: [dummyTestParentAndSuperItem31.id, dummySlideBreak32.id] };
+    dummyHeading22 = { ...dummyData.headingContentItem4 };
+    dummyHeading21 = { ...dummyData.headingContentItem3 };
+    dummyRoot2 = { ...dummyData.rootContentItem2, childItemIds: [dummyHeading21.id, dummyHeading22.id] };
+    dummyParagraph122 = { ...dummyData.paragraphContentItem4 };
+    dummyParagraph121 = { ...dummyData.paragraphContentItem3 };
+    dummyHeading12 = { ...dummyData.headingContentItem2, subItemIds: [dummyParagraph121.id, dummyParagraph122.id] };
+    dummyParagraph112 = { ...dummyData.paragraphContentItem2 };
+    dummyParagraph111 = { ...dummyData.paragraphContentItem };
+    dummyHeading11 = { ...dummyData.headingContentItem, subItemIds: [dummyParagraph111.id, dummyParagraph112.id] };
+    dummyRoot1 = { ...dummyData.rootContentItem, childItemIds: [dummyHeading11.id, dummyHeading12.id] };
+    dummyContentItemsById = {
+      [dummyRoot1.id]: dummyRoot1,
+      [dummyHeading11.id]: dummyHeading11,
+      [dummyParagraph111.id]: dummyParagraph111,
+      [dummyParagraph112.id]: dummyParagraph112,
+      [dummyHeading12.id]: dummyHeading12,
+      [dummyParagraph121.id]: dummyParagraph121,
+      [dummyParagraph122.id]: dummyParagraph122,
+      [dummyRoot2.id]: dummyRoot2,
+      [dummyHeading21.id]: dummyHeading21,
+      [dummyHeading22.id]: dummyHeading22,
+      [dummyRoot3.id]: dummyRoot3,
+      [dummyTestParentAndSuperItem31.id]: dummyTestParentAndSuperItem31,
+      [dummyParagraph311.id]: dummyParagraph311,
+      [dummyParagraph312.id]: dummyParagraph312,
+      [dummyParagraph313.id]: dummyParagraph313,
+      [dummyParagraph314.id]: dummyParagraph314,
+      [dummySlideBreak32.id]: dummySlideBreak32,
+    };
+  });
 
   it(`returns a denormalized subable contentItem, when the passed contentItem is a subable contentItem`, (): void => {
-    const denormalizedContentItem = denormalize(dummyParagraph1, dummyContentItemsById);
-    const expectedResult: DenormalizedParagraphContentItem = {
-      ...dummyParagraph1,
+    const denormalizedContentItem = denormalize(dummyHeading11, dummyContentItemsById);
+    const expectedResult: DenormalizedHeadingContentItem = {
+      ...dummyHeading11,
       subItems: [
         ({
-          ...dummyNestedParagraph1,
+          ...dummyParagraph111,
+          subItems: [],
+        }: DenormalizedParagraphContentItem),
+        ({
+          ...dummyParagraph112,
           subItems: [],
         }: DenormalizedParagraphContentItem),
       ],
@@ -166,7 +109,11 @@ describe(`denormalize`, (): void => {
       ...dummyRoot2,
       childItems: [
         ({
-          ...dummyHeading2,
+          ...dummyHeading21,
+          subItems: [],
+        }: DenormalizedHeadingContentItem),
+        ({
+          ...dummyHeading22,
           subItems: [],
         }: DenormalizedHeadingContentItem),
       ],
@@ -175,24 +122,26 @@ describe(`denormalize`, (): void => {
   });
 
   it(`returns a denormalized subable / container contentItem, when the passed contentItem is a subable / container contentItem`, (): void => {
-    const denormalizedContentItem = denormalize(dummyList1, dummyContentItemsById);
-    const expectedResult: DenormalizedListContentItem = {
-      ...dummyList1,
+    const denormalizedContentItem = denormalize(dummyTestParentAndSuperItem31, dummyContentItemsById);
+    const expectedResult = {
+      ...dummyTestParentAndSuperItem31,
       childItems: [
         ({
-          ...dummyListItem1,
-        }: DenormalizedListItemContentItem),
-        ({
-          ...dummyListItem2,
-        }: DenormalizedListItemContentItem),
-      ],
-      subItems: [
-        ({
-          ...dummyNestedParagraph2,
+          ...dummyParagraph311,
           subItems: [],
         }: DenormalizedParagraphContentItem),
         ({
-          ...dummyNestedParagraph3,
+          ...dummyParagraph312,
+          subItems: [],
+        }: DenormalizedParagraphContentItem),
+      ],
+      subItems: [
+        ({
+          ...dummyParagraph313,
+          subItems: [],
+        }: DenormalizedParagraphContentItem),
+        ({
+          ...dummyParagraph314,
           subItems: [],
         }: DenormalizedParagraphContentItem),
       ],
@@ -201,8 +150,8 @@ describe(`denormalize`, (): void => {
   });
 
   it(`returns an unchanged contentItem, when the passed contentItem is neither subable nor a container`, (): void => {
-    const denormalizedContentItem = denormalize(dummyListItem1, dummyContentItemsById);
-    const expectedResult: DenormalizedListItemContentItem = { ...dummyListItem1 };
+    const denormalizedContentItem = denormalize(dummySlideBreak32, dummyContentItemsById);
+    const expectedResult: DenormalizedSlideBreakContentItem = { ...dummySlideBreak32 };
     expect(denormalizedContentItem).toEqual(expectedResult);
   });
 
@@ -213,38 +162,29 @@ describe(`denormalize`, (): void => {
       ...dummyRoot1,
       childItems: [
         ({
-          ...dummyHeading1,
+          ...dummyHeading11,
           subItems: [
             ({
-              ...dummyParagraph1,
-              subItems: [
-                ({
-                  ...dummyNestedParagraph1,
-                  subItems: [],
-                }: DenormalizedParagraphContentItem),
-              ],
+              ...dummyParagraph111,
+              subItems: [],
             }: DenormalizedParagraphContentItem),
             ({
-              ...dummyList1,
-              childItems: [
-                ({
-                  ...dummyListItem1,
-                }: DenormalizedListItemContentItem),
-                ({
-                  ...dummyListItem2,
-                }: DenormalizedListItemContentItem),
-              ],
-              subItems: [
-                ({
-                  ...dummyNestedParagraph2,
-                  subItems: [],
-                }: DenormalizedParagraphContentItem),
-                ({
-                  ...dummyNestedParagraph3,
-                  subItems: [],
-                }: DenormalizedParagraphContentItem),
-              ],
-            }: DenormalizedListContentItem),
+              ...dummyParagraph112,
+              subItems: [],
+            }: DenormalizedParagraphContentItem),
+          ],
+        }: DenormalizedHeadingContentItem),
+        ({
+          ...dummyHeading12,
+          subItems: [
+            ({
+              ...dummyParagraph121,
+              subItems: [],
+            }: DenormalizedParagraphContentItem),
+            ({
+              ...dummyParagraph122,
+              subItems: [],
+            }: DenormalizedParagraphContentItem),
           ],
         }: DenormalizedHeadingContentItem),
       ],
@@ -253,9 +193,9 @@ describe(`denormalize`, (): void => {
   });
 
   it(`throws a CorruptedInternalStateError, when the passed contentItemsById structure is corrupted`, (): void => {
-    const corruptedDummyContentItemsById = _.omit(dummyContentItemsById, dummyNestedParagraph3.id);
+    dummyContentItemsById = _.omit(dummyContentItemsById, dummyParagraph111.id);
     expect((): void => {
-      denormalize(dummyRoot1, corruptedDummyContentItemsById);
+      denormalize(dummyRoot1, dummyContentItemsById);
     }).toThrow(CorruptedInternalStateError);
   });
 

@@ -7,17 +7,17 @@ import _ from 'lodash';
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import type { Identifier } from 'types/model';
 
-import { subableContentItemTypes, containerContentItemTypes } from '../../model';
-import type {
+import * as model from '../../model';
+
+const {
   ContentItem,
   DenormalizedContentItem,
   ContentItemsById,
-} from '../../model';
+} = model;
 
 const denormalizeProp = (
   contentItem: ContentItem,
   contentItemsById: ContentItemsById,
-  denormalizableTypes: { +[string]: string },
   denormalizableIdsProp: string,
   denormalizedItemsProp: string,
 ): DenormalizedContentItem => {
@@ -27,7 +27,7 @@ const denormalizeProp = (
   };
 
   // If this contentItem is denormalizable
-  if (_.includes(denormalizableTypes, contentItem.type)) {
+  if (contentItem[denormalizableIdsProp] != null) {
     const descendantItems: Array<DenormalizedContentItem> = [];
     let descendantItem: any;
     // Iterate over all denormalizableIds.
@@ -68,7 +68,6 @@ const denormalize = (
     denormalizedContentItem = denormalizeProp(
       (denormalizedContentItem: any),
       contentItemsById,
-      subableContentItemTypes,
       'subItemIds',
       'subItems',
     );
@@ -77,7 +76,6 @@ const denormalize = (
     denormalizedContentItem = denormalizeProp(
       (denormalizedContentItem: any),
       contentItemsById,
-      containerContentItemTypes,
       'childItemIds',
       'childItems',
     );
