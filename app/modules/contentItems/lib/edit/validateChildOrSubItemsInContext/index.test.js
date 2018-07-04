@@ -4,15 +4,17 @@ import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedI
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
-import { contextTypes } from '../../../model';
-import type {
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+
+import edit from '..';
+
+const {
+  contextTypes,
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
-} from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
-
-import validateChildOrSubItemsInContext from '.';
+} = model;
 
 describe(`validateChildOrSubItemsInContext`, (): void => {
 
@@ -50,7 +52,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
     };
 
     expect((): void => {
-      validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
+      edit.validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
     }).not.toThrow();
   });
 
@@ -70,7 +72,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
     };
 
     expect((): void => {
-      validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
+      edit.validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
     }).not.toThrow();
   });
 
@@ -90,7 +92,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
     };
 
     expect((): void => {
-      validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
+      edit.validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
     }).toThrow(CorruptedInternalStateError);
   });
 
@@ -110,7 +112,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
     };
 
     expect((): void => {
-      validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
+      edit.validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
     }).toThrow(CorruptedInternalStateError);
   });
 
@@ -130,7 +132,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
     };
 
     expect((): void => {
-      validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
+      edit.validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
     }).toThrow(CorruptedInternalStateError);
   });
 
@@ -150,7 +152,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
     };
 
     expect((): void => {
-      validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
+      edit.validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
     }).toThrow(ObjectNotFoundError);
   });
 
@@ -170,7 +172,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
     };
 
     expect((): void => {
-      validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
+      edit.validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -190,7 +192,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
     };
 
     expect((): void => {
-      validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
+      edit.validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -210,7 +212,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
     };
 
     expect((): void => {
-      validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
+      edit.validateChildOrSubItemsInContext(dummyContext, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 

@@ -43,7 +43,7 @@ const moveInState = (
       contentItemToMove.id,
       state.byId,
     );
-    const editedNextParentOrSuperItem = edit.addChildOrSubItemIdsToContext(
+    const editedNextParentOrSuperItem = edit.addChildOrSubItemIdToContext(
       nextContext,
       contentItemToMove.id,
       state.byId,

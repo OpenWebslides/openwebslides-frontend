@@ -108,7 +108,7 @@ const addToState = (
     }
   }
   else {
-    const editedParentOrSuperItem = edit.addChildOrSubItemIdsToContext(
+    const editedParentOrSuperItem = edit.addChildOrSubItemIdToContext(
       context,
       newContentItem.id,
       state.byId,

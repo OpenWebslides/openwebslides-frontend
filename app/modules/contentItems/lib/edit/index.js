@@ -1,11 +1,11 @@
 // @flow
 
-import addChildOrSubItemIdsToContext from './addChildOrSubItemIdToContext';
+import addChildOrSubItemIdToContext from './addChildOrSubItemIdToContext';
 import removeChildOrSubItemIdFromContext from './removeChildOrSubItemIdFromContext';
 import validateChildOrSubItemsInContext from './validateChildOrSubItemsInContext';
 
 const edit = {
-  addChildOrSubItemIdsToContext,
+  addChildOrSubItemIdToContext,
   removeChildOrSubItemIdFromContext,
   validateChildOrSubItemsInContext,
 };

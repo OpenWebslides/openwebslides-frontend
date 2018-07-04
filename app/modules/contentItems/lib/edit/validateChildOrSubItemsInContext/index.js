@@ -6,15 +6,15 @@ import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentEr
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { Identifier } from 'types/model';
 
-import {
+import * as model from '../../../model';
+
+const {
   contentItemTypes,
   contextTypes,
-} from '../../../model';
-import type {
   ContentItem,
   ContentItemsById,
   VerticalContext,
-} from '../../../model';
+} = model;
 
 const validateChildOrSubItemsInContextByPropName = (
   context: VerticalContext,

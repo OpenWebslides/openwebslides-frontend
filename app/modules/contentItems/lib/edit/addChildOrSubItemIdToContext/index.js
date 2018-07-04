@@ -6,12 +6,14 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { Identifier } from 'types/model';
 import insertIntoArray from 'lib/insertIntoArray';
 
-import { contextTypes } from '../../../model';
-import type {
+import * as model from '../../../model';
+
+const {
+  contextTypes,
   ContentItem,
   ContentItemsById,
   VerticalContext,
-} from '../../../model';
+} = model;
 
 const addChildOrSubItemIdToContextByPropName = (
   context: VerticalContext,

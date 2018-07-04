@@ -6,12 +6,14 @@ import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentEr
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { Identifier } from 'types/model';
 
-import { contextTypes } from '../../../model';
-import type {
+import * as model from '../../../model';
+
+const {
+  contextTypes,
   ContentItem,
   ContentItemsById,
   VerticalContext,
-} from '../../../model';
+} = model;
 
 const removeChildOrSubItemIdFromContextByPropName = (
   context: VerticalContext,

@@ -4,18 +4,20 @@ import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentEr
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { Identifier } from 'types/model';
 
-import { contextTypes } from '../../../model';
-import type {
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+
+import edit from '..';
+
+const {
+  contextTypes,
   SubableContentItem,
   ContainerContentItem,
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
-} from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
-
-import addChildOrSubItemIdToContext from '.';
+} = model;
 
 describe(`addChildOrSubItemIdToContext`, (): void => {
 
@@ -55,7 +57,7 @@ describe(`addChildOrSubItemIdToContext`, (): void => {
       contextItemId: dummyHeading1.id,
       indexInSiblingItems: 1,
     };
-    const actualResult = addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
+    const actualResult = edit.addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
     const expectedResult = { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyId, dummyParagraph12.id] };
 
     expect(actualResult).toEqual(expectedResult);
@@ -69,7 +71,7 @@ describe(`addChildOrSubItemIdToContext`, (): void => {
       contextItemId: dummyRoot.id,
       indexInSiblingItems: 2,
     };
-    const actualResult = addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
+    const actualResult = edit.addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
     const expectedResult = { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id, dummyId] };
 
     expect(actualResult).toEqual(expectedResult);
@@ -83,7 +85,7 @@ describe(`addChildOrSubItemIdToContext`, (): void => {
       contextItemId: 'DefinitelyNotValidId',
     };
     expect((): void => {
-      addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
+      edit.addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
     }).toThrow(ObjectNotFoundError);
   });
 
@@ -93,7 +95,7 @@ describe(`addChildOrSubItemIdToContext`, (): void => {
       contextItemId: dummyRoot.id,
     };
     expect((): void => {
-      addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
+      edit.addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -103,7 +105,7 @@ describe(`addChildOrSubItemIdToContext`, (): void => {
       contextItemId: dummyHeading1.id,
     };
     expect((): void => {
-      addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
+      edit.addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -113,7 +115,7 @@ describe(`addChildOrSubItemIdToContext`, (): void => {
       contextItemId: dummyRoot.id,
     };
     expect((): void => {
-      addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
+      edit.addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 

@@ -3,18 +3,20 @@
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
-import { contextTypes } from '../../../model';
-import type {
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+
+import edit from '..';
+
+const {
+  contextTypes,
   SubableContentItem,
   ContainerContentItem,
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
-} from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
-
-import removeChildOrSubItemIdFromContext from '.';
+} = model;
 
 describe(`removeChildOrSubItemIdFromContext`, (): void => {
 
@@ -51,7 +53,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextType: contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
     };
-    const actualResult = removeChildOrSubItemIdFromContext(dummyContext, dummyParagraph11.id, dummyContentItemsById);
+    const actualResult = edit.removeChildOrSubItemIdFromContext(dummyContext, dummyParagraph11.id, dummyContentItemsById);
     const expectedResult = { ...dummyHeading1, subItemIds: [dummyParagraph12.id] };
 
     expect(actualResult).toEqual(expectedResult);
@@ -64,7 +66,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextType: contextTypes.PARENT,
       contextItemId: dummyRoot.id,
     };
-    const actualResult = removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
+    const actualResult = edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
     const expectedResult = { ...dummyRoot, childItemIds: [dummyHeading1.id] };
 
     expect(actualResult).toEqual(expectedResult);
@@ -78,7 +80,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextItemId: 'DefinitelyNotValidId',
     };
     expect((): void => {
-      removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
+      edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
     }).toThrow(ObjectNotFoundError);
   });
 
@@ -88,7 +90,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextItemId: dummyRoot.id,
     };
     expect((): void => {
-      removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
+      edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -98,7 +100,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextItemId: dummyHeading1.id,
     };
     expect((): void => {
-      removeChildOrSubItemIdFromContext(dummyContext, dummyParagraph11.id, dummyContentItemsById);
+      edit.removeChildOrSubItemIdFromContext(dummyContext, dummyParagraph11.id, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -110,7 +112,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextItemId: dummyHeading1.id,
     };
     expect((): void => {
-      removeChildOrSubItemIdFromContext(dummyContext, dummyParagraph11.id, dummyContentItemsById);
+      edit.removeChildOrSubItemIdFromContext(dummyContext, dummyParagraph11.id, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -122,7 +124,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextItemId: dummyRoot.id,
     };
     expect((): void => {
-      removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
+      edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -132,7 +134,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextItemId: dummyRoot.id,
     };
     expect((): void => {
-      removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
+      edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
