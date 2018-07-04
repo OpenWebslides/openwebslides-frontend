@@ -1,17 +1,18 @@
 // @flow
 
-import { contentItemTypes } from '../../../model';
-import type {
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+
+import find from '..';
+
+const {
+  contentItemTypes,
   ContentItem,
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
-} from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
-
-import find from '..';
-import findFurthest from '.';
+} = model;
 
 describe(`findFurthest`, (): void => {
 
@@ -79,33 +80,33 @@ describe(`findFurthest`, (): void => {
     };
   });
 
-  it(`returns the last recursive simpleFindFunction result, when no predicate is passed`, (): void => {
-    const actualResult = findFurthest(dummyParagraph1121, dummyContentItemsById, find.parentOrSuperItem);
+  it(`returns the last recursive singleFindFunction result, when no predicate is passed`, (): void => {
+    const actualResult = find.furthest(dummyParagraph1121, dummyContentItemsById, find.parentOrSuperItem);
     const expectedResult = dummyRoot;
     expect(actualResult).toBe(expectedResult);
   });
 
-  it(`returns the last recursive simpleFindFunction result for which the passed predicate returns TRUE`, (): void => {
+  it(`returns the last recursive singleFindFunction result for which the passed predicate returns TRUE`, (): void => {
     const dummyPredicate = (contentItem: ContentItem): boolean => (contentItem.type === contentItemTypes.HEADING);
-    const actualResult = findFurthest(dummyParagraph1121, dummyContentItemsById, find.parentOrSuperItem, dummyPredicate);
+    const actualResult = find.furthest(dummyParagraph1121, dummyContentItemsById, find.parentOrSuperItem, dummyPredicate);
     const expectedResult = dummyHeading1;
     expect(actualResult).toBe(expectedResult);
   });
 
-  it(`returns NULL, when there is no recursive simpleFindFunction result for which the passed predicate returns TRUE`, (): void => {
+  it(`returns NULL, when there is no recursive singleFindFunction result for which the passed predicate returns TRUE`, (): void => {
     const dummyPredicate = (contentItem: ContentItem): boolean => (contentItem.type === contentItemTypes.BLOCKQUOTE);
-    const actualResult = findFurthest(dummyParagraph1121, dummyContentItemsById, find.parentOrSuperItem, dummyPredicate);
+    const actualResult = find.furthest(dummyParagraph1121, dummyContentItemsById, find.parentOrSuperItem, dummyPredicate);
     expect(actualResult).toBeNull();
   });
 
   it(`returns NULL, when the passed contentItem is NULL`, (): void => {
-    const actualResult = findFurthest(null, dummyContentItemsById, find.parentOrSuperItem, jest.fn(() => true));
+    const actualResult = find.furthest(null, dummyContentItemsById, find.parentOrSuperItem, jest.fn(() => true));
     expect(actualResult).toBeNull();
   });
 
   it(`calls the passed precicate function with the correct arguments`, (): void => {
     const dummyPredicate = jest.fn(() => false);
-    findFurthest(dummyParagraph1121, dummyContentItemsById, find.parentOrSuperItem, dummyPredicate);
+    find.furthest(dummyParagraph1121, dummyContentItemsById, find.parentOrSuperItem, dummyPredicate);
     expect(dummyPredicate.mock.calls).toEqual([
       [dummyParagraph112, [dummyParagraph1121.id], dummyContentItemsById],
       [dummyHeading11, [dummyParagraph1121.id, dummyParagraph112.id], dummyContentItemsById],

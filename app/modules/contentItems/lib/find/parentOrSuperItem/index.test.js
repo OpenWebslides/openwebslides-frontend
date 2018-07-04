@@ -1,14 +1,16 @@
 // @flow
 
-import type {
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+
+import find from '..';
+
+const {
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
-} from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
-
-import findParentOrSuperItem from '.';
+} = model;
 
 describe(`findParentOrSuperItem`, (): void => {
 
@@ -53,24 +55,24 @@ describe(`findParentOrSuperItem`, (): void => {
   });
 
   it(`returns the parent item, when the passed contentItem is a childItem`, (): void => {
-    const actualResult = findParentOrSuperItem(dummyHeading2, dummyContentItemsById);
+    const actualResult = find.parentOrSuperItem(dummyHeading2, dummyContentItemsById);
     const expectedResult = dummyRoot;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns the super item, when the passed contentItem is a subItem`, (): void => {
-    const actualResult = findParentOrSuperItem(dummyParagraph21, dummyContentItemsById);
+    const actualResult = find.parentOrSuperItem(dummyParagraph21, dummyContentItemsById);
     const expectedResult = dummyHeading2;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns NULL, when no parent or super item could be found`, (): void => {
-    const actualResult = findParentOrSuperItem(dummyRoot, dummyContentItemsById);
+    const actualResult = find.parentOrSuperItem(dummyRoot, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
   it(`returns NULL, when the passed contentItem is NULL`, (): void => {
-    const actualResult = findParentOrSuperItem(null, dummyContentItemsById);
+    const actualResult = find.parentOrSuperItem(null, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 

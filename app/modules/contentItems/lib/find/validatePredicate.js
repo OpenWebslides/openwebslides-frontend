@@ -2,13 +2,15 @@
 
 import type { Identifier } from 'types/model';
 
-import type {
-  ContentItem,
-  ContentItemsById,
-} from '../../model';
+import * as model from '../../model';
 import type { FindFunctionPredicate } from './types';
 
-export const validatePredicate = (
+const {
+  ContentItem,
+  ContentItemsById,
+} = model;
+
+const validatePredicate = (
   predicate: ?FindFunctionPredicate,
   contentItem: ContentItem,
   processedItemIds: Array<Identifier>,
@@ -21,3 +23,5 @@ export const validatePredicate = (
     return predicate(contentItem, processedItemIds, contentItemsById);
   }
 };
+
+export default validatePredicate;

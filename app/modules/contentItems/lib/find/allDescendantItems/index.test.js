@@ -1,14 +1,16 @@
 // @flow
 
-import type {
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+
+import find from '..';
+
+const {
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
-} from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
-
-import findAllDescendantItems from '.';
+} = model;
 
 describe(`findAllDescendantItems`, (): void => {
 
@@ -77,7 +79,7 @@ describe(`findAllDescendantItems`, (): void => {
   });
 
   it(`returns an array containing all of the passed contentItem's descendant items in the correct order`, (): void => {
-    const actualResult = findAllDescendantItems(dummyRoot, dummyContentItemsById);
+    const actualResult = find.allDescendantItems(dummyRoot, dummyContentItemsById);
     expect(actualResult).toHaveLength(12);
     expect(actualResult[0]).toBe(dummyHeading1);
     expect(actualResult[1]).toBe(dummyHeading11);
@@ -94,12 +96,12 @@ describe(`findAllDescendantItems`, (): void => {
   });
 
   it(`returns an empty array, when the passed contentItem is neither a super- nor a parentItem`, (): void => {
-    const actualResult = findAllDescendantItems(dummyParagraph21, dummyContentItemsById);
+    const actualResult = find.allDescendantItems(dummyParagraph21, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });
 
   it(`returns an empty array, when the passed contentItem is NULL`, (): void => {
-    const actualResult = findAllDescendantItems(null, dummyContentItemsById);
+    const actualResult = find.allDescendantItems(null, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });
 

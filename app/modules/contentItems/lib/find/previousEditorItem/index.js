@@ -5,13 +5,13 @@
 
 import _ from 'lodash';
 
-import type {
-  ContentItem,
-  ContentItemsById,
-} from '../../../model';
+import * as model from '../../../model';
 import find from '..';
+import type { SingleFindFunction } from '../types';
 
-const findPreviousEditorItem = (
+const { ContentItem, ContentItemsById } = model;
+
+const findPreviousEditorItem: SingleFindFunction = (
   contentItem: ?ContentItem,
   contentItemsById: ContentItemsById,
 ): ?ContentItem => {

@@ -3,14 +3,16 @@
 import _ from 'lodash';
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 
-import type {
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+
+import find from '..';
+
+const {
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
-} from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
-
-import findAllChildOrSubItems from '.';
+} = model;
 
 describe(`findAllChildOrSubItems`, (): void => {
 
@@ -85,14 +87,14 @@ describe(`findAllChildOrSubItems`, (): void => {
   });
 
   it(`returns an array containing all subItems, when the passed contentItem is a superItem`, (): void => {
-    const actualResult = findAllChildOrSubItems(dummyHeading3, dummyContentItemsById);
+    const actualResult = find.allChildOrSubItems(dummyHeading3, dummyContentItemsById);
     expect(actualResult).toHaveLength(2);
     expect(actualResult[0]).toBe(dummyParagraph31);
     expect(actualResult[1]).toBe(dummyParagraph32);
   });
 
   it(`returns an array containing all childItems, when the passed contentItem is a parentItem`, (): void => {
-    const actualResult = findAllChildOrSubItems(dummyRoot, dummyContentItemsById);
+    const actualResult = find.allChildOrSubItems(dummyRoot, dummyContentItemsById);
     expect(actualResult).toHaveLength(5);
     expect(actualResult[0]).toBe(dummyParagraph1);
     expect(actualResult[1]).toBe(dummyParagraph2);
@@ -102,7 +104,7 @@ describe(`findAllChildOrSubItems`, (): void => {
   });
 
   it(`returns an array containg all childItems and subItems with the childItems before the subItems, when the passed contentItem is a superItem as well as a parentItem`, (): void => {
-    const actualResult = findAllChildOrSubItems(dummyTestParentAndSuperItem52, dummyContentItemsById);
+    const actualResult = find.allChildOrSubItems(dummyTestParentAndSuperItem52, dummyContentItemsById);
     expect(actualResult).toHaveLength(4);
     expect(actualResult[0]).toBe(dummyParagraph521);
     expect(actualResult[1]).toBe(dummyParagraph522);
@@ -111,12 +113,12 @@ describe(`findAllChildOrSubItems`, (): void => {
   });
 
   it(`returns an empty array, when the passed contentItem is neither a superItem nor a parentItem`, (): void => {
-    const actualResult = findAllChildOrSubItems(dummyParagraph41, dummyContentItemsById);
+    const actualResult = find.allChildOrSubItems(dummyParagraph41, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });
 
   it(`returns an empty array, when the passed contentItem is NULL`, (): void => {
-    const actualResult = findAllChildOrSubItems(null, dummyContentItemsById);
+    const actualResult = find.allChildOrSubItems(null, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });
 
@@ -124,7 +126,7 @@ describe(`findAllChildOrSubItems`, (): void => {
     dummyContentItemsById = _.omit(dummyContentItemsById, dummyParagraph31.id);
 
     expect((): void => {
-      findAllChildOrSubItems(dummyHeading3, dummyContentItemsById);
+      find.allChildOrSubItems(dummyHeading3, dummyContentItemsById);
     }).toThrow(CorruptedInternalStateError);
   });
 

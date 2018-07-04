@@ -5,13 +5,13 @@
  * of the passed contentItem is immediately followed by its own nested descendants.
  */
 
-import type {
-  ContentItem,
-  ContentItemsById,
-} from '../../../model';
+import * as model from '../../../model';
 import find from '..';
+import type { MultipleFindFunction } from '../types';
 
-const findAllDescendantItems = (
+const { ContentItem, ContentItemsById } = model;
+
+const findAllDescendantItems: MultipleFindFunction = (
   contentItem: ?ContentItem,
   contentItemsById: ContentItemsById,
 ): Array<ContentItem> => {

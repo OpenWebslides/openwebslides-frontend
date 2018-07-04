@@ -13,16 +13,16 @@ import _ from 'lodash';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import type { Identifier } from 'types/model';
 
-import {
+import * as model from '../../../model';
+
+const {
   contextTypes,
-} from '../../../model';
-import type {
   ContentItem,
   SubableContentItem,
   ContainerContentItem,
   ContentItemsById,
   ExtendedVerticalContext,
-} from '../../../model';
+} = model;
 
 const getContextFromCandidateParentOrSuperItem = (
   contentItem: ContentItem,

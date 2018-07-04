@@ -3,15 +3,17 @@
 import _ from 'lodash';
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 
-import type {
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+
+import find from '..';
+
+const {
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
-} from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
-
-import findPreviousSiblingItem from '.';
+} = model;
 
 describe(`findPreviousSiblingItem`, (): void => {
 
@@ -53,29 +55,29 @@ describe(`findPreviousSiblingItem`, (): void => {
   });
 
   it(`returns the previous siblingItem, when the passed contentItem is a subItem and not the first in its list of siblings`, (): void => {
-    const actualResult = findPreviousSiblingItem(dummyParagraph12, dummyContentItemsById);
+    const actualResult = find.previousSiblingItem(dummyParagraph12, dummyContentItemsById);
     const expectedResult = dummyParagraph11;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns the previous siblingItem, when the passed contentItem is a childItem and not the first in its list of siblings`, (): void => {
-    const actualResult = findPreviousSiblingItem(dummyHeading2, dummyContentItemsById);
+    const actualResult = find.previousSiblingItem(dummyHeading2, dummyContentItemsById);
     const expectedResult = dummyHeading1;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns NULL, when the passed contentItem is the first in its list of siblings`, (): void => {
-    const actualResult = findPreviousSiblingItem(dummyParagraph11, dummyContentItemsById);
+    const actualResult = find.previousSiblingItem(dummyParagraph11, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
   it(`returns NULL, when the passed contentItem is neither a child- nor a subItem (i.e. is a ROOT)`, (): void => {
-    const actualResult = findPreviousSiblingItem(dummyRoot, dummyContentItemsById);
+    const actualResult = find.previousSiblingItem(dummyRoot, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
   it(`returns NULL, when the passed contentItem is NULL`, (): void => {
-    const actualResult = findPreviousSiblingItem(null, dummyContentItemsById);
+    const actualResult = find.previousSiblingItem(null, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
@@ -83,7 +85,7 @@ describe(`findPreviousSiblingItem`, (): void => {
     dummyContentItemsById = _.omit(dummyContentItemsById, dummyParagraph11.id);
 
     expect((): void => {
-      findPreviousSiblingItem(dummyParagraph12, dummyContentItemsById);
+      find.previousSiblingItem(dummyParagraph12, dummyContentItemsById);
     }).toThrow(CorruptedInternalStateError);
   });
 

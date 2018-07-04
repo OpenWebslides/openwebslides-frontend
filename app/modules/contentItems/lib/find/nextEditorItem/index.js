@@ -3,12 +3,11 @@
  * Finds the contentItem that comes directly after the passed contentItem in editor order.
  */
 
-import type {
-  ContentItem,
-  ContentItemsById,
-  ExtendedVerticalContext,
-} from '../../../model';
+import * as model from '../../../model';
 import find from '..';
+import type { SingleFindFunction } from '../types';
+
+const { ContentItem, ContentItemsById, ExtendedVerticalContext } = model;
 
 const findClosestAncestorThatHasNextSiblingItem = (
   contentItem: ContentItem,
@@ -32,7 +31,7 @@ const findClosestAncestorThatHasNextSiblingItem = (
   return closestValidAncestor;
 };
 
-const findNextEditorItem = (
+const findNextEditorItem: SingleFindFunction = (
   contentItem: ?ContentItem,
   contentItemsById: ContentItemsById,
 ): ?ContentItem => {

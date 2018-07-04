@@ -11,13 +11,13 @@
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import type { Identifier } from 'types/model';
 
-import type {
-  ContentItem,
-  ContentItemsById,
-} from '../../../model';
+import * as model from '../../../model';
 import find from '..';
+import type { MultipleFindFunction } from '../types';
 
-const findAllSiblingItems = (
+const { ContentItem, ContentItemsById } = model;
+
+const findAllSiblingItems: MultipleFindFunction = (
   contentItem: ?ContentItem,
   contentItemsById: ContentItemsById,
 ): Array<ContentItem> => {

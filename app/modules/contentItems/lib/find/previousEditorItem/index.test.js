@@ -1,14 +1,16 @@
 // @flow
 
-import type {
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+
+import find from '..';
+
+const {
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
-} from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
-
-import findPreviousEditorItem from '.';
+} = model;
 
 describe(`findPreviousEditorItem`, (): void => {
 
@@ -68,36 +70,36 @@ describe(`findPreviousEditorItem`, (): void => {
   });
 
   it(`returns the superItem, when the passed contentItem is the first in its list of siblings but has a superItem`, (): void => {
-    const actualResult = findPreviousEditorItem(dummyParagraph131, dummyContentItemsById);
+    const actualResult = find.previousEditorItem(dummyParagraph131, dummyContentItemsById);
     const expectedResult = dummyHeading13;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns the parentItem, when the passed contentItem is the first in its list of siblings but has a parentItem`, (): void => {
-    const actualResult = findPreviousEditorItem(dummyParagraph11, dummyContentItemsById);
+    const actualResult = find.previousEditorItem(dummyParagraph11, dummyContentItemsById);
     const expectedResult = dummyHeading1;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns the previous sibling, when the passed contentItem is not the first in its list of siblings and the previous sibling has no subItems or childItems`, (): void => {
-    const actualResult = findPreviousEditorItem(dummyParagraph142, dummyContentItemsById);
+    const actualResult = find.previousEditorItem(dummyParagraph142, dummyContentItemsById);
     const expectedResult = dummyParagraph141;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns the previous sibling's last nested subItem or childItem, when the passed contentItem is not the first in its list of siblings and the previous sibling has subItems or childItems`, (): void => {
-    const actualResult = findPreviousEditorItem(dummyHeading2, dummyContentItemsById);
+    const actualResult = find.previousEditorItem(dummyHeading2, dummyContentItemsById);
     const expectedResult = dummyParagraph142;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns NULL, if no previous item can be found`, (): void => {
-    const actualResult = findPreviousEditorItem(dummyRoot, dummyContentItemsById);
+    const actualResult = find.previousEditorItem(dummyRoot, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
   it(`returns NULL, when the passed contentItem is NULL`, (): void => {
-    const actualResult = findPreviousEditorItem(null, dummyContentItemsById);
+    const actualResult = find.previousEditorItem(null, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 

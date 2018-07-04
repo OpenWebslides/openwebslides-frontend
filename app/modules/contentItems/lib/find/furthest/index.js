@@ -1,28 +1,27 @@
 // @flow
 /* eslint-disable no-lonely-if */
 /**
- * Takes another (simple) find function as an argument and recursively calls it until the furthest
+ * Takes another (single) find function as an argument and recursively calls it until the furthest
  * contentItem for which the passed predicate function returns TRUE is found.
  */
 
 import type { Identifier } from 'types/model';
 
-import type {
-  ContentItem,
-  ContentItemsById,
-} from '../../../model';
-import { validatePredicate } from '../predicate';
-import type { SimpleFindFunction, FindFunctionPredicate } from '../types';
+import * as model from '../../../model';
+import validatePredicate from '../validatePredicate';
+import type { SingleFindFunction, FindFunctionPredicate, RecursiveFindFunction } from '../types';
+
+const { ContentItem, ContentItemsById } = model;
 
 const findFurthestRecursive = (
   contentItem: ContentItem,
   contentItemsById: ContentItemsById,
-  simpleFindFunction: SimpleFindFunction,
+  singleFindFunction: SingleFindFunction,
   predicate: ?FindFunctionPredicate,
   processedItemIds: Array<Identifier>,
 ): ?ContentItem => {
-  const simpleFindResult: ?ContentItem = simpleFindFunction(contentItem, contentItemsById);
-  let furtherSimpleFindResult: ?ContentItem = null;
+  const singleFindResult: ?ContentItem = singleFindFunction(contentItem, contentItemsById);
+  let furtherSingleFindResult: ?ContentItem = null;
 
   // Determine current contentItem validity before the recursive function call
   // in order to make sure that the predicate function calls happen in the correct order.
@@ -41,21 +40,21 @@ const findFurthestRecursive = (
     );
   }
 
-  // If the previous result is not the furthest simpleFindResult,
+  // If the previous result is not the furthest singleFindResult,
   // see if there is a valid further result.
-  if (simpleFindResult != null) {
-    furtherSimpleFindResult = findFurthestRecursive(
-      simpleFindResult,
+  if (singleFindResult != null) {
+    furtherSingleFindResult = findFurthestRecursive(
+      singleFindResult,
       contentItemsById,
-      simpleFindFunction,
+      singleFindFunction,
       predicate,
       [...processedItemIds, contentItem.id],
     );
   }
 
   // If a valid further nested item was found, return that.
-  if (furtherSimpleFindResult != null) {
-    return furtherSimpleFindResult;
+  if (furtherSingleFindResult != null) {
+    return furtherSingleFindResult;
   }
   // If there is no further valid nested item, see what to do with the current contentItem.
   else {
@@ -70,17 +69,17 @@ const findFurthestRecursive = (
   }
 };
 
-const findFurthest = (
+const findFurthest: RecursiveFindFunction = (
   contentItem: ?ContentItem,
   contentItemsById: ContentItemsById,
-  simpleFindFunction: SimpleFindFunction,
+  singleFindFunction: SingleFindFunction,
   predicate: ?FindFunctionPredicate = null,
 ): ?ContentItem => {
   if (contentItem == null) {
     return null;
   }
   else {
-    return findFurthestRecursive(contentItem, contentItemsById, simpleFindFunction, predicate, []);
+    return findFurthestRecursive(contentItem, contentItemsById, singleFindFunction, predicate, []);
   }
 };
 

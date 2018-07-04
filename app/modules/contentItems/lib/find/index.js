@@ -36,3 +36,4 @@ const find = {
 };
 
 export default find;
+export * from './types';

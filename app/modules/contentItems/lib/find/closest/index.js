@@ -1,60 +1,59 @@
 // @flow
 /**
- * Takes another (simple) find function as an argument and recursively calls it until the closest
+ * Takes another (single) find function as an argument and recursively calls it until the closest
  * contentItem for which the passed predicate function returns TRUE is found.
  */
 
 import type { Identifier } from 'types/model';
 
-import type {
-  ContentItem,
-  ContentItemsById,
-} from '../../../model';
-import { validatePredicate } from '../predicate';
-import type { SimpleFindFunction, FindFunctionPredicate } from '../types';
+import * as model from '../../../model';
+import validatePredicate from '../validatePredicate';
+import type { SingleFindFunction, FindFunctionPredicate, RecursiveFindFunction } from '../types';
+
+const { ContentItem, ContentItemsById } = model;
 
 const findClosestRecursive = (
   contentItem: ContentItem,
   contentItemsById: ContentItemsById,
-  simpleFindFunction: SimpleFindFunction,
-  predicate: FindFunctionPredicate,
+  singleFindFunction: SingleFindFunction,
+  predicate: ?FindFunctionPredicate,
   processedItemIds: Array<Identifier>,
 ): ?ContentItem => {
-  const simpleFindResult: ?ContentItem = simpleFindFunction(contentItem, contentItemsById);
+  const singleFindResult: ?ContentItem = singleFindFunction(contentItem, contentItemsById);
 
-  if (simpleFindResult == null) {
+  if (singleFindResult == null) {
     return null;
   }
   else if (validatePredicate(
     predicate,
-    simpleFindResult,
+    singleFindResult,
     [...processedItemIds, contentItem.id],
     contentItemsById,
   )) {
-    return simpleFindResult;
+    return singleFindResult;
   }
   else {
     return findClosestRecursive(
-      simpleFindResult,
+      singleFindResult,
       contentItemsById,
-      simpleFindFunction,
+      singleFindFunction,
       predicate,
       [...processedItemIds, contentItem.id],
     );
   }
 };
 
-const findClosest = (
+const findClosest: RecursiveFindFunction = (
   contentItem: ?ContentItem,
   contentItemsById: ContentItemsById,
-  simpleFindFunction: SimpleFindFunction,
-  predicate: FindFunctionPredicate,
+  singleFindFunction: SingleFindFunction,
+  predicate: ?FindFunctionPredicate = null,
 ): ?ContentItem => {
   if (contentItem == null) {
     return null;
   }
   else {
-    return findClosestRecursive(contentItem, contentItemsById, simpleFindFunction, predicate, []);
+    return findClosestRecursive(contentItem, contentItemsById, singleFindFunction, predicate, []);
   }
 };
 

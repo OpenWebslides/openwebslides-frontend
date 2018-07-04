@@ -8,14 +8,17 @@
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import type { Identifier } from 'types/model';
 
-import type {
+import * as model from '../../../model';
+import type { MultipleFindFunction } from '../types';
+
+const {
   ContentItem,
   SubableContentItem,
   ContainerContentItem,
   ContentItemsById,
-} from '../../../model';
+} = model;
 
-const findAllChildOrSubItems = (
+const findAllChildOrSubItems: MultipleFindFunction = (
   contentItem: ?ContentItem,
   contentItemsById: ContentItemsById,
 ): Array<ContentItem> => {

@@ -3,14 +3,16 @@
 import _ from 'lodash';
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 
-import type {
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+
+import find from '..';
+
+const {
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
-} from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
-
-import findAllSiblingItems from '.';
+} = model;
 
 describe(`findAllSiblingItems`, (): void => {
 
@@ -85,14 +87,14 @@ describe(`findAllSiblingItems`, (): void => {
   });
 
   it(`returns an array containing all subItems of the passed contentItem's superItem, when the passed contentItem is a subItem`, (): void => {
-    const actualResult = findAllSiblingItems(dummyParagraph32, dummyContentItemsById);
+    const actualResult = find.allSiblingItems(dummyParagraph32, dummyContentItemsById);
     expect(actualResult).toHaveLength(2);
     expect(actualResult[0]).toBe(dummyParagraph31);
     expect(actualResult[1]).toBe(dummyParagraph32);
   });
 
   it(`returns an array containing all childItems of the passed contentItem's parentItem, when the passed contentItem is a childItem`, (): void => {
-    const actualResult = findAllSiblingItems(dummyHeading4, dummyContentItemsById);
+    const actualResult = find.allSiblingItems(dummyHeading4, dummyContentItemsById);
     expect(actualResult).toHaveLength(5);
     expect(actualResult[0]).toBe(dummyParagraph1);
     expect(actualResult[1]).toBe(dummyParagraph2);
@@ -102,32 +104,32 @@ describe(`findAllSiblingItems`, (): void => {
   });
 
   it(`returns an array containg all subItems of the passed contentItem's superItem, when the passed contentItem's parentOrSuperItem is a superItem as well as a parentItem`, (): void => {
-    const actualResult = findAllSiblingItems(dummyParagraph523, dummyContentItemsById);
+    const actualResult = find.allSiblingItems(dummyParagraph523, dummyContentItemsById);
     expect(actualResult).toHaveLength(2);
     expect(actualResult[0]).toBe(dummyParagraph523);
     expect(actualResult[1]).toBe(dummyParagraph524);
   });
 
   it(`returns an array containg all childItems of the passed contentItem's parentItem, when the passed contentItem's parentOrSuperItem is a superItem as well as a parentItem`, (): void => {
-    const actualResult = findAllSiblingItems(dummyParagraph521, dummyContentItemsById);
+    const actualResult = find.allSiblingItems(dummyParagraph521, dummyContentItemsById);
     expect(actualResult).toHaveLength(2);
     expect(actualResult[0]).toBe(dummyParagraph521);
     expect(actualResult[1]).toBe(dummyParagraph522);
   });
 
   it(`returns an array containing only the passed contentItem itself, when the passed contentItem doesn't have siblings`, (): void => {
-    const actualResult = findAllSiblingItems(dummyParagraph41, dummyContentItemsById);
+    const actualResult = find.allSiblingItems(dummyParagraph41, dummyContentItemsById);
     expect(actualResult).toHaveLength(1);
     expect(actualResult[0]).toBe(dummyParagraph41);
   });
 
   it(`returns an empty array, when the passed contentItem is NULL`, (): void => {
-    const actualResult = findAllSiblingItems(null, dummyContentItemsById);
+    const actualResult = find.allSiblingItems(null, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });
 
   it(`returns an empty array, when the passed contentItem is neither a child- nor a subItem (i.e. is a ROOT)`, (): void => {
-    const actualResult = findAllSiblingItems(dummyRoot, dummyContentItemsById);
+    const actualResult = find.allSiblingItems(dummyRoot, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });
 
@@ -135,7 +137,7 @@ describe(`findAllSiblingItems`, (): void => {
     dummyContentItemsById = _.omit(dummyContentItemsById, dummyParagraph31.id);
 
     expect((): void => {
-      findAllSiblingItems(dummyParagraph32, dummyContentItemsById);
+      find.allSiblingItems(dummyParagraph32, dummyContentItemsById);
     }).toThrow(CorruptedInternalStateError);
   });
 

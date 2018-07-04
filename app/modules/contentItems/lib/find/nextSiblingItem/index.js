@@ -9,13 +9,13 @@
 
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 
-import type {
-  ContentItem,
-  ContentItemsById,
-} from '../../../model';
+import * as model from '../../../model';
 import find from '..';
+import type { SingleFindFunction } from '../types';
 
-const findNextSiblingItem = (
+const { ContentItem, ContentItemsById } = model;
+
+const findNextSiblingItem: SingleFindFunction = (
   contentItem: ?ContentItem,
   contentItemsById: ContentItemsById,
 ): ?ContentItem => {

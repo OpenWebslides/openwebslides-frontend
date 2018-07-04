@@ -2,19 +2,19 @@
 
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 
-import {
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+
+import find from '..';
+
+const {
   contextTypes,
-} from '../../../model';
-import type {
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
   ExtendedVerticalContext,
-} from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
-
-import findExtendedVerticalContext from '.';
+} = model;
 
 describe(`findExtendedVerticalContext`, (): void => {
 
@@ -59,7 +59,7 @@ describe(`findExtendedVerticalContext`, (): void => {
   });
 
   it(`returns the correct context, when the passed contentItem is a subItem`, (): void => {
-    const actualResult = findExtendedVerticalContext(dummyParagraph11, dummyContentItemsById);
+    const actualResult = find.extendedVerticalContext(dummyParagraph11, dummyContentItemsById);
     const expectedResult: ExtendedVerticalContext = {
       contextType: contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
@@ -70,7 +70,7 @@ describe(`findExtendedVerticalContext`, (): void => {
   });
 
   it(`returns the correct context, when the passed contentItem is a childItem`, (): void => {
-    const actualResult = findExtendedVerticalContext(dummyHeading2, dummyContentItemsById);
+    const actualResult = find.extendedVerticalContext(dummyHeading2, dummyContentItemsById);
     const expectedResult: ExtendedVerticalContext = {
       contextType: contextTypes.PARENT,
       contextItemId: dummyRoot.id,
@@ -81,7 +81,7 @@ describe(`findExtendedVerticalContext`, (): void => {
   });
 
   it(`returns the correct context, when the passed contentItem is the first in its list of siblings`, (): void => {
-    const actualResult = findExtendedVerticalContext(dummyParagraph21, dummyContentItemsById);
+    const actualResult = find.extendedVerticalContext(dummyParagraph21, dummyContentItemsById);
     const expectedResult: ExtendedVerticalContext = {
       contextType: contextTypes.SUPER,
       contextItemId: dummyHeading2.id,
@@ -92,7 +92,7 @@ describe(`findExtendedVerticalContext`, (): void => {
   });
 
   it(`returns the correct context, when the passed contentItem is the last in its list of siblings`, (): void => {
-    const actualResult = findExtendedVerticalContext(dummyParagraph23, dummyContentItemsById);
+    const actualResult = find.extendedVerticalContext(dummyParagraph23, dummyContentItemsById);
     const expectedResult: ExtendedVerticalContext = {
       contextType: contextTypes.SUPER,
       contextItemId: dummyHeading2.id,
@@ -103,7 +103,7 @@ describe(`findExtendedVerticalContext`, (): void => {
   });
 
   it(`returns the correct context, when the passed contentItem is neither the first nor the last in its list of siblings`, (): void => {
-    const actualResult = findExtendedVerticalContext(dummyParagraph22, dummyContentItemsById);
+    const actualResult = find.extendedVerticalContext(dummyParagraph22, dummyContentItemsById);
     const expectedResult: ExtendedVerticalContext = {
       contextType: contextTypes.SUPER,
       contextItemId: dummyHeading2.id,
@@ -114,7 +114,7 @@ describe(`findExtendedVerticalContext`, (): void => {
   });
 
   it(`returns the correct context, when the parentOrSuperItem is passed as a argument`, (): void => {
-    const actualResult = findExtendedVerticalContext(dummyParagraph11, dummyContentItemsById, dummyHeading1);
+    const actualResult = find.extendedVerticalContext(dummyParagraph11, dummyContentItemsById, dummyHeading1);
     const expectedResult: ExtendedVerticalContext = {
       contextType: contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
@@ -126,17 +126,17 @@ describe(`findExtendedVerticalContext`, (): void => {
 
   it(`throws an InvalidArgumentError, when the passed parentOrSuperItem doesn't contain the passed contentItem as a subItem or childItem`, (): void => {
     expect((): void => {
-      findExtendedVerticalContext(dummyParagraph11, dummyContentItemsById, dummyHeading2);
+      find.extendedVerticalContext(dummyParagraph11, dummyContentItemsById, dummyHeading2);
     }).toThrow(InvalidArgumentError);
   });
 
   it(`returns NULL, when the passed contentItem is neither a child- nor a subItem (i.e. is a ROOT)`, (): void => {
-    const actualResult = findExtendedVerticalContext(dummyRoot, dummyContentItemsById);
+    const actualResult = find.extendedVerticalContext(dummyRoot, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
   it(`returns NULL, when the passed contentItem is NULL`, (): void => {
-    const actualResult = findExtendedVerticalContext(null, dummyContentItemsById);
+    const actualResult = find.extendedVerticalContext(null, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 

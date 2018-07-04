@@ -1,14 +1,16 @@
 // @flow
 
-import type {
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+
+import find from '..';
+
+const {
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
-} from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
-
-import findNextEditorItem from '.';
+} = model;
 
 describe(`findNextEditorItem`, (): void => {
 
@@ -68,42 +70,42 @@ describe(`findNextEditorItem`, (): void => {
   });
 
   it(`returns the first childItem, when the passed contentItem is a parentItem`, (): void => {
-    const actualResult = findNextEditorItem(dummyRoot, dummyContentItemsById);
+    const actualResult = find.nextEditorItem(dummyRoot, dummyContentItemsById);
     const expectedResult = dummyHeading1;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns the first subItem, when the passed contentItem is a superItem`, (): void => {
-    const actualResult = findNextEditorItem(dummyHeading1, dummyContentItemsById);
+    const actualResult = find.nextEditorItem(dummyHeading1, dummyContentItemsById);
     const expectedResult = dummyParagraph11;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns the next sibling, when the passed contentItem has no subItems or childItems and is not the last in its list of siblings`, (): void => {
-    const actualResult = findNextEditorItem(dummyParagraph11, dummyContentItemsById);
+    const actualResult = find.nextEditorItem(dummyParagraph11, dummyContentItemsById);
     const expectedResult = dummyParagraph12;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns the parent- or superItem's next sibling, when the passed contentItem has no subItems or childItems and is the last in its list of siblings and its parent- or superItem is not the last in its list of siblings`, (): void => {
-    const actualResult = findNextEditorItem(dummyParagraph132, dummyContentItemsById);
+    const actualResult = find.nextEditorItem(dummyParagraph132, dummyContentItemsById);
     const expectedResult = dummyHeading14;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns the next sibling of the first ancestorItem that has one, when the passed contentItem has no subItems or childItems and is the last in its list of siblings and its parent- or superItem is the last in its list of siblings`, (): void => {
-    const actualResult = findNextEditorItem(dummyParagraph142, dummyContentItemsById);
+    const actualResult = find.nextEditorItem(dummyParagraph142, dummyContentItemsById);
     const expectedResult = dummyHeading2;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns NULL, if no next item can be found`, (): void => {
-    const actualResult = findNextEditorItem(dummyHeading3, dummyContentItemsById);
+    const actualResult = find.nextEditorItem(dummyHeading3, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
   it(`returns NULL, when the passed contentItem is NULL`, (): void => {
-    const actualResult = findNextEditorItem(null, dummyContentItemsById);
+    const actualResult = find.nextEditorItem(null, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
