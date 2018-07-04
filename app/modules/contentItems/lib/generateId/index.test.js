@@ -8,7 +8,11 @@ jest.mock('lib/generate-random-string');
 
 describe(`generateId`, (): void => {
 
-  const dummyRandomString = 'abcdefghij';
+  let dummyRandomString: string;
+
+  beforeEach((): void => {
+    dummyRandomString = 'abcdefghij';
+  });
 
   it(`calls generateRandomString`, (): void => {
     (generateRandomString: any).mockReturnValue(dummyRandomString);
