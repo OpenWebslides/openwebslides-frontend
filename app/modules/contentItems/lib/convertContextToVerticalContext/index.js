@@ -5,17 +5,17 @@ import _ from 'lodash';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
-import {
+import * as model from '../../model';
+import find from '../../lib/find';
+
+const {
   verticalContextTypes,
   horizontalContextTypes,
-} from '../../model';
-import type {
   ContentItemsById,
   Context,
   VerticalContext,
   HorizontalContext,
-} from '../../model';
-import find from '../../lib/find';
+} = model;
 
 const convertContextToVerticalContext = (
   context: ?Context,

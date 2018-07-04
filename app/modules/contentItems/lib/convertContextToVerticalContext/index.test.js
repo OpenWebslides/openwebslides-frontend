@@ -3,10 +3,13 @@
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
-import {
+import * as model from '../../model';
+import * as dummyData from '../../lib/testResources/dummyContentItemData';
+
+import convertContextToVerticalContext from '.';
+
+const {
   contextTypes,
-} from '../../model';
-import type {
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
@@ -14,10 +17,7 @@ import type {
   VerticalContext,
   ExtendedVerticalContext,
   HorizontalContext,
-} from '../../model';
-import * as dummyData from '../../lib/testResources/dummyContentItemData';
-
-import convertContextToVerticalContext from '.';
+} = model;
 
 describe(`convertContextToVerticalContext`, (): void => {
 
