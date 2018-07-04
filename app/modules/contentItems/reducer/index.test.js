@@ -1,14 +1,20 @@
 // @flow
 
 import reducer from '../reducer';
-import type { ContentItemsState } from '../model';
+import * as model from '../model';
 import { dummyContentItemsById } from '../dummyData';
+
+const { ContentItemsState } = model;
 
 describe(`index`, (): void => {
 
-  const dummyInitialState: ContentItemsState = {
-    byId: dummyContentItemsById,
-  };
+  let dummyInitialState: ContentItemsState;
+
+  beforeEach((): void => {
+    dummyInitialState = {
+      byId: dummyContentItemsById,
+    };
+  });
 
   it(`returns the initial state, when state parameter is undefined`, (): void => {
     const dummyAction: any = {

@@ -7,19 +7,19 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { Identifier } from 'types/model';
 
 import * as t from '../actionTypes';
-import {
+import * as model from '../model';
+import find from '../lib/find';
+import edit from '../lib/edit';
+
+const {
   contentItemTypes,
   subableContentItemTypes,
   containerContentItemTypes,
-} from '../model';
-import type {
   ContentItem,
   SubableContentItem,
   ContainerContentItem,
   ContentItemsState,
-} from '../model';
-import find from '../lib/find';
-import edit from '../lib/edit';
+} = model;
 
 const removeChildrenAndSubItemsFromState = (
   state: ContentItemsState,

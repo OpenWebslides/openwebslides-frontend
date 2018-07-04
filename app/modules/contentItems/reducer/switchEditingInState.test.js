@@ -4,12 +4,12 @@ import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedO
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../actionTypes';
-import type {
-  ContentItemsState,
-} from '../model';
+import * as model from '../model';
 import * as dummyData from '../lib/testResources/dummyContentItemData';
 
 import reducer from '.';
+
+const { ContentItemsState } = model;
 
 describe(`switchEditingInState`, (): void => {
 

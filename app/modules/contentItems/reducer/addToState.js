@@ -2,7 +2,6 @@
 /* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';
-
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
@@ -10,14 +9,15 @@ import NotYetImplementedError from 'errors/implementation-errors/NotYetImplement
 import type { Identifier } from 'types/model';
 
 import * as t from '../actionTypes';
-import {
+import * as model from '../model';
+import edit from '../lib/edit';
+
+const {
   contentItemTypes,
   plainTextContentItemTypes,
   taggableContentItemTypes,
   subableContentItemTypes,
   containerContentItemTypes,
-} from '../model';
-import type {
   ContentItem,
   BaseContentItem,
   PlainTextContentItem,
@@ -27,8 +27,7 @@ import type {
   ContentItemsState,
   ContentItemType,
   AllPropsForAllTypes,
-} from '../model';
-import edit from '../lib/edit';
+} = model;
 
 const createNewContentItemFromPropsForType = (
   id: Identifier,

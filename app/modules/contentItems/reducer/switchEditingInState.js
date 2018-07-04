@@ -5,9 +5,9 @@ import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedO
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../actionTypes';
-import type {
-  ContentItemsState,
-} from '../model';
+import * as model from '../model';
+
+const { ContentItemsState } = model;
 
 const switchEditingInState = (
   state: ContentItemsState,

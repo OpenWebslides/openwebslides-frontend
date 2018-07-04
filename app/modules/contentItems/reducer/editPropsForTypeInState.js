@@ -5,14 +5,15 @@ import _ from 'lodash';
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+
 import * as t from '../actionTypes';
-import {
+import * as model from '../model';
+
+const {
   plainTextContentItemTypes,
-} from '../model';
-import type {
   PlainTextContentItem,
   ContentItemsState,
-} from '../model';
+} = model;
 
 const editPropsForTypeInState = (
   state: ContentItemsState,

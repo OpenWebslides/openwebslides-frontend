@@ -1,7 +1,9 @@
 // @flow
 
 import * as t from '../actionTypes';
-import type { ContentItem, ContentItemsById, ContentItemsState } from '../model';
+import * as model from '../model';
+
+const { ContentItem, ContentItemsById, ContentItemsState } = model;
 
 const setMultipleInState = (
   state: ContentItemsState,

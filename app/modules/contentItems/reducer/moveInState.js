@@ -5,14 +5,11 @@ import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedO
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../actionTypes';
-import {
-  contentItemTypes,
-} from '../model';
-import type {
-  ContentItemsState,
-} from '../model';
+import * as model from '../model';
 import find from '../lib/find';
 import edit from '../lib/edit';
+
+const { contentItemTypes, ContentItemsState } = model;
 
 const moveInState = (
   state: ContentItemsState,

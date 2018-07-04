@@ -5,38 +5,36 @@ import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedO
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../actionTypes';
-import {
-  contextTypes,
-} from '../model';
-import type {
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsState,
-} from '../model';
+import * as model from '../model';
 import * as dummyData from '../lib/testResources/dummyContentItemData';
 import edit from '../lib/edit';
 
 import reducer from '.';
 
+const {
+  contextTypes,
+  RootContentItem,
+  HeadingContentItem,
+  ParagraphContentItem,
+  ContentItemsState,
+} = model;
+
 describe(`moveInState`, (): void => {
 
-  let dummyParagraph4: $Exact<ParagraphContentItem>;
-  let dummyParagraph3: $Exact<ParagraphContentItem>;
+  let dummyParagraph22: $Exact<ParagraphContentItem>;
+  let dummyParagraph21: $Exact<ParagraphContentItem>;
   let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph2: $Exact<ParagraphContentItem>;
-  let dummyParagraph1: $Exact<ParagraphContentItem>;
+  let dummyParagraph12: $Exact<ParagraphContentItem>;
+  let dummyParagraph11: $Exact<ParagraphContentItem>;
   let dummyHeading1: $Exact<HeadingContentItem>;
   let dummyRoot: $Exact<RootContentItem>;
 
   beforeEach((): void => {
-    jest.resetModules();
-
-    dummyParagraph4 = { ...dummyData.paragraphContentItem4 };
-    dummyParagraph3 = { ...dummyData.paragraphContentItem3 };
+    dummyParagraph22 = { ...dummyData.paragraphContentItem4 };
+    dummyParagraph21 = { ...dummyData.paragraphContentItem3 };
     dummyHeading2 = { ...dummyData.headingContentItem2 };
-    dummyParagraph2 = { ...dummyData.paragraphContentItem2 };
-    dummyParagraph1 = { ...dummyData.paragraphContentItem };
+    dummyParagraph12 = { ...dummyData.paragraphContentItem2 };
+    dummyParagraph11 = { ...dummyData.paragraphContentItem };
     dummyHeading1 = { ...dummyData.headingContentItem };
     dummyRoot = { ...dummyData.rootContentItem };
   });
@@ -45,18 +43,18 @@ describe(`moveInState`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
-        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
-        [dummyParagraph1.id]: { ...dummyParagraph1 },
-        [dummyParagraph2.id]: { ...dummyParagraph2 },
-        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
-        [dummyParagraph3.id]: { ...dummyParagraph3 },
-        [dummyParagraph4.id]: { ...dummyParagraph4 },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
+        [dummyParagraph11.id]: { ...dummyParagraph11 },
+        [dummyParagraph12.id]: { ...dummyParagraph12 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] },
+        [dummyParagraph21.id]: { ...dummyParagraph21 },
+        [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
     const moveInStateAction: t.MoveInStateAction = {
       type: t.MOVE_IN_STATE,
       payload: {
-        id: dummyParagraph3.id,
+        id: dummyParagraph21.id,
         nextContext: {
           contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
@@ -67,12 +65,12 @@ describe(`moveInState`, (): void => {
     const nextState: ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
-        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph3.id, dummyParagraph2.id] },
-        [dummyParagraph1.id]: { ...dummyParagraph1 },
-        [dummyParagraph2.id]: { ...dummyParagraph2 },
-        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph4.id] },
-        [dummyParagraph3.id]: { ...dummyParagraph3 },
-        [dummyParagraph4.id]: { ...dummyParagraph4 },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph21.id, dummyParagraph12.id] },
+        [dummyParagraph11.id]: { ...dummyParagraph11 },
+        [dummyParagraph12.id]: { ...dummyParagraph12 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph22.id] },
+        [dummyParagraph21.id]: { ...dummyParagraph21 },
+        [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
     const resultState = reducer(prevState, moveInStateAction);
@@ -84,19 +82,19 @@ describe(`moveInState`, (): void => {
     expect((resultState.byId[dummyHeading1.id]: any).subItemIds).not.toBe((prevState.byId[dummyHeading1.id]: any).subItemIds);
     expect(resultState.byId[dummyHeading2.id]).not.toBe(prevState.byId[dummyHeading2.id]);
     expect((resultState.byId[dummyHeading2.id]: any).subItemIds).not.toBe((prevState.byId[dummyHeading2.id]: any).subItemIds);
-    expect(resultState.byId[dummyParagraph3.id]).toBe(prevState.byId[dummyParagraph3.id]);
+    expect(resultState.byId[dummyParagraph21.id]).toBe(prevState.byId[dummyParagraph21.id]);
   });
 
   it(`removes the contentItem from its previousContext and adds it to the nextContext, when the contentItem was a childItem`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
-        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
-        [dummyParagraph1.id]: { ...dummyParagraph1 },
-        [dummyParagraph2.id]: { ...dummyParagraph2 },
-        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
-        [dummyParagraph3.id]: { ...dummyParagraph3 },
-        [dummyParagraph4.id]: { ...dummyParagraph4 },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
+        [dummyParagraph11.id]: { ...dummyParagraph11 },
+        [dummyParagraph12.id]: { ...dummyParagraph12 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] },
+        [dummyParagraph21.id]: { ...dummyParagraph21 },
+        [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
     const moveInStateAction: t.MoveInStateAction = {
@@ -113,12 +111,12 @@ describe(`moveInState`, (): void => {
     const nextState: ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id] },
-        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading2.id] },
-        [dummyParagraph1.id]: { ...dummyParagraph1 },
-        [dummyParagraph2.id]: { ...dummyParagraph2 },
-        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
-        [dummyParagraph3.id]: { ...dummyParagraph3 },
-        [dummyParagraph4.id]: { ...dummyParagraph4 },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id, dummyHeading2.id] },
+        [dummyParagraph11.id]: { ...dummyParagraph11 },
+        [dummyParagraph12.id]: { ...dummyParagraph12 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] },
+        [dummyParagraph21.id]: { ...dummyParagraph21 },
+        [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
     const resultState = reducer(prevState, moveInStateAction);
@@ -137,18 +135,18 @@ describe(`moveInState`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
-        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
-        [dummyParagraph1.id]: { ...dummyParagraph1 },
-        [dummyParagraph2.id]: { ...dummyParagraph2 },
-        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
-        [dummyParagraph3.id]: { ...dummyParagraph3 },
-        [dummyParagraph4.id]: { ...dummyParagraph4 },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
+        [dummyParagraph11.id]: { ...dummyParagraph11 },
+        [dummyParagraph12.id]: { ...dummyParagraph12 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] },
+        [dummyParagraph21.id]: { ...dummyParagraph21 },
+        [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
     const moveInStateAction: t.MoveInStateAction = {
       type: t.MOVE_IN_STATE,
       payload: {
-        id: dummyParagraph3.id,
+        id: dummyParagraph21.id,
         nextContext: {
           contextType: contextTypes.SUPER,
           contextItemId: dummyHeading2.id,
@@ -166,12 +164,12 @@ describe(`moveInState`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
-        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
-        [dummyParagraph1.id]: { ...dummyParagraph1 },
-        [dummyParagraph2.id]: { ...dummyParagraph2 },
-        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
-        [dummyParagraph3.id]: { ...dummyParagraph3 },
-        [dummyParagraph4.id]: { ...dummyParagraph4 },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
+        [dummyParagraph11.id]: { ...dummyParagraph11 },
+        [dummyParagraph12.id]: { ...dummyParagraph12 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] },
+        [dummyParagraph21.id]: { ...dummyParagraph21 },
+        [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
     const moveInStateAction: t.MoveInStateAction = {
@@ -195,18 +193,18 @@ describe(`moveInState`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
-        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
-        [dummyParagraph1.id]: { ...dummyParagraph1 },
-        [dummyParagraph2.id]: { ...dummyParagraph2 },
-        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph4.id] },
-        [dummyParagraph3.id]: { ...dummyParagraph3 },
-        [dummyParagraph4.id]: { ...dummyParagraph4 },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
+        [dummyParagraph11.id]: { ...dummyParagraph11 },
+        [dummyParagraph12.id]: { ...dummyParagraph12 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph22.id] },
+        [dummyParagraph21.id]: { ...dummyParagraph21 },
+        [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
     const moveInStateAction: t.MoveInStateAction = {
       type: t.MOVE_IN_STATE,
       payload: {
-        id: dummyParagraph3.id,
+        id: dummyParagraph21.id,
         nextContext: {
           contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
@@ -224,12 +222,12 @@ describe(`moveInState`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
-        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
-        [dummyParagraph1.id]: { ...dummyParagraph1 },
-        [dummyParagraph2.id]: { ...dummyParagraph2 },
-        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
-        [dummyParagraph3.id]: { ...dummyParagraph3 },
-        [dummyParagraph4.id]: { ...dummyParagraph4 },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
+        [dummyParagraph11.id]: { ...dummyParagraph11 },
+        [dummyParagraph12.id]: { ...dummyParagraph12 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] },
+        [dummyParagraph21.id]: { ...dummyParagraph21 },
+        [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
     const moveInStateAction: t.MoveInStateAction = {
@@ -253,18 +251,18 @@ describe(`moveInState`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
-        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
-        [dummyParagraph1.id]: { ...dummyParagraph1 },
-        [dummyParagraph2.id]: { ...dummyParagraph2 },
-        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
-        [dummyParagraph3.id]: { ...dummyParagraph3 },
-        [dummyParagraph4.id]: { ...dummyParagraph4 },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
+        [dummyParagraph11.id]: { ...dummyParagraph11 },
+        [dummyParagraph12.id]: { ...dummyParagraph12 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] },
+        [dummyParagraph21.id]: { ...dummyParagraph21 },
+        [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
     const moveInStateAction: t.MoveInStateAction = {
       type: t.MOVE_IN_STATE,
       payload: {
-        id: dummyParagraph3.id,
+        id: dummyParagraph21.id,
         nextContext: {
           contextType: contextTypes.PARENT,
           contextItemId: dummyRoot.id,
@@ -282,12 +280,12 @@ describe(`moveInState`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
-        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
-        [dummyParagraph1.id]: { ...dummyParagraph1 },
-        [dummyParagraph2.id]: { ...dummyParagraph2 },
-        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
-        [dummyParagraph3.id]: { ...dummyParagraph3 },
-        [dummyParagraph4.id]: { ...dummyParagraph4 },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
+        [dummyParagraph11.id]: { ...dummyParagraph11 },
+        [dummyParagraph12.id]: { ...dummyParagraph12 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] },
+        [dummyParagraph21.id]: { ...dummyParagraph21 },
+        [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
     const moveInStateAction: t.MoveInStateAction = {
@@ -312,18 +310,18 @@ describe(`moveInState`, (): void => {
     const prevState: ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
-        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph1.id, dummyParagraph2.id] },
-        [dummyParagraph1.id]: { ...dummyParagraph1 },
-        [dummyParagraph2.id]: { ...dummyParagraph2 },
-        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph3.id, dummyParagraph4.id] },
-        [dummyParagraph3.id]: { ...dummyParagraph3 },
-        [dummyParagraph4.id]: { ...dummyParagraph4 },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
+        [dummyParagraph11.id]: { ...dummyParagraph11 },
+        [dummyParagraph12.id]: { ...dummyParagraph12 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] },
+        [dummyParagraph21.id]: { ...dummyParagraph21 },
+        [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
     const moveInStateAction: t.MoveInStateAction = {
       type: t.MOVE_IN_STATE,
       payload: {
-        id: dummyParagraph3.id,
+        id: dummyParagraph21.id,
         nextContext: {
           contextType: contextTypes.SUPER,
           contextItemId: dummyHeading1.id,

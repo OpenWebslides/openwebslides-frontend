@@ -1,10 +1,7 @@
 // @flow
 
 import * as t from '../actionTypes';
-import type {
-  ContentItemsState,
-} from '../model';
-
+import * as model from '../model';
 import { dummyContentItemsById } from '../dummyData';
 
 import addToState from './addToState';
@@ -13,6 +10,8 @@ import switchEditingInState from './switchEditingInState';
 import moveInState from './moveInState';
 import removeFromState from './removeFromState';
 import setMultipleInState from './setMultipleInState';
+
+const { ContentItemsState } = model;
 
 const initialState: ContentItemsState = {
   byId: dummyContentItemsById,
