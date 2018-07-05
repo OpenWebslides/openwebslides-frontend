@@ -3,13 +3,15 @@
 import { expectSaga } from 'redux-saga-test-plan';
 
 import * as t from '../../actionTypes';
-import { contextTypes } from '../../model';
+import * as model from '../../model';
 
 import moveSaga from './move';
 
+const { contextTypes } = model;
+
 describe(`moveSaga`, (): void => {
 
-  it(`puts a moveInState action`, (): void => {
+  it(`puts a MOVE_IN_STATE action`, (): void => {
     const dummyMoveAction: t.MoveAction = {
       type: t.MOVE,
       payload: {

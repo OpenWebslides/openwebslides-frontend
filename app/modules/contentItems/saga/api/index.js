@@ -1,7 +1,7 @@
 // @flow
 
 const apiSaga = function* (): Generator<*, *, *> {
-  // #TODO
+  // placeholder
 };
 
 export default apiSaga;

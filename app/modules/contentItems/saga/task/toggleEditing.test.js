@@ -5,10 +5,12 @@ import { expectSaga } from 'redux-saga-test-plan';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import { editablePropsForType } from '../../model';
+import * as model from '../../model';
 import * as dummyData from '../../lib/testResources/dummyContentItemData';
 
 import toggleEditingSaga from './toggleEditing';
+
+const { editablePropsForType } = model;
 
 describe(`toggleEditingSaga`, (): void => {
 
@@ -38,7 +40,7 @@ describe(`toggleEditingSaga`, (): void => {
     };
   });
 
-  it(`puts a switchEditingInState action switching the contentItem's isEditing value from TRUE to FALSE, when no explicit value was passed`, (): void => {
+  it(`puts a SWITCH_EDITING_IN_STATE action switching the contentItem's isEditing value from TRUE to FALSE, when no explicit value was passed`, (): void => {
     dummyState.modules.contentItems.byId[dummyData.headingContentItem.id].isEditing = true;
 
     const toggleEditingAction: t.ToggleEditingAction = {
@@ -61,7 +63,7 @@ describe(`toggleEditingSaga`, (): void => {
       .run();
   });
 
-  it(`puts a switchEditingInState action switching the contentItem's isEditing value from FALSE to TRUE, when no explicit value was passed`, (): void => {
+  it(`puts a SWITCH_EDITING_IN_STATE action switching the contentItem's isEditing value from FALSE to TRUE, when no explicit value was passed`, (): void => {
     const toggleEditingAction: t.ToggleEditingAction = {
       type: t.TOGGLE_EDITING,
       payload: {
@@ -82,7 +84,7 @@ describe(`toggleEditingSaga`, (): void => {
       .run();
   });
 
-  it(`puts a switchEditingInState action switching the contentItem's isEditing value to TRUE, when the passed value was TRUE`, (): void => {
+  it(`puts a SWITCH_EDITING_IN_STATE action switching the contentItem's isEditing value to TRUE, when the passed value was TRUE`, (): void => {
     const toggleEditingAction: t.ToggleEditingAction = {
       type: t.TOGGLE_EDITING,
       payload: {
@@ -104,7 +106,7 @@ describe(`toggleEditingSaga`, (): void => {
       .run();
   });
 
-  it(`puts a switchEditingInState action switching the contentItem's isEditing value to FALSE, when the passed value was FALSE`, (): void => {
+  it(`puts a SWITCH_EDITING_IN_STATE action switching the contentItem's isEditing value to FALSE, when the passed value was FALSE`, (): void => {
     dummyState.modules.contentItems.byId[dummyData.headingContentItem.id].isEditing = true;
 
     const toggleEditingAction: t.ToggleEditingAction = {
@@ -128,7 +130,7 @@ describe(`toggleEditingSaga`, (): void => {
       .run();
   });
 
-  it(`puts an edit action containing all the contentItem's editablePropsForType, when toggling from TRUE to FALSE`, (): void => {
+  it(`puts an EDIT action containing all the contentItem's editablePropsForType, when toggling from TRUE to FALSE`, (): void => {
     dummyState.modules.contentItems.byId[dummyData.headingContentItem.id].isEditing = true;
 
     const toggleEditingAction: t.ToggleEditingAction = {
@@ -153,7 +155,7 @@ describe(`toggleEditingSaga`, (): void => {
       .run();
   });
 
-  it(`does not put a switchEditingInState action, when the contentItem's new isEditing value equals the previous one`, (): void => {
+  it(`does not put a SWITCH_EDITING_IN_STATE action, when the contentItem's new isEditing value equals the previous one`, (): void => {
     const toggleEditingAction: t.ToggleEditingAction = {
       type: t.TOGGLE_EDITING,
       payload: {
@@ -168,7 +170,7 @@ describe(`toggleEditingSaga`, (): void => {
       .run();
   });
 
-  it(`correctly sets the switchEditingInState action's previousEditingItemId, when another item was previously active`, (): void => {
+  it(`correctly sets the SWITCH_EDITING_IN_STATE action's previousEditingItemId, when another item was previously active`, (): void => {
     dummyState.modules.contentItems.byId[dummyData.headingContentItem2.id].isEditing = true;
 
     const toggleEditingAction: t.ToggleEditingAction = {

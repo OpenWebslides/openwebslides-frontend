@@ -6,8 +6,10 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
 import actions from '../../actions';
-import { editablePropsForType } from '../../model';
+import * as model from '../../model';
 import selectors from '../../selectors';
+
+const { editablePropsForType } = model;
 
 const toggleEditingSaga = function* (action: t.ToggleEditingAction): Generator<*, *, *> {
   const { id, isEditing } = action.payload;

@@ -3,64 +3,59 @@
 import { expectSaga } from 'redux-saga-test-plan';
 
 import * as t from '../../actionTypes';
-import {
-  contentItemTypes,
-  contextTypes,
-} from '../../model';
-import type {
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsById,
-} from '../../model';
+import * as model from '../../model';
 import * as dummyContentItemData from '../../lib/testResources/dummyContentItemData';
 
 import addSaga from './add';
 
+const {
+  contentItemTypes,
+  contextTypes,
+  RootContentItem,
+  HeadingContentItem,
+  ParagraphContentItem,
+  ContentItemsById,
+} = model;
+
 describe(`addSaga`, (): void => {
 
-  const dummyParagraph4: $Exact<ParagraphContentItem> = {
-    ...dummyContentItemData.paragraphContentItem4,
-  };
-  const dummyParagraph3: $Exact<ParagraphContentItem> = {
-    ...dummyContentItemData.paragraphContentItem3,
-  };
-  const dummyHeading2: $Exact<HeadingContentItem> = {
-    ...dummyContentItemData.headingContentItem2,
-    subItemIds: [dummyParagraph3.id, dummyParagraph4.id],
-  };
-  const dummyParagraph2: $Exact<ParagraphContentItem> = {
-    ...dummyContentItemData.paragraphContentItem2,
-  };
-  const dummyParagraph1: $Exact<ParagraphContentItem> = {
-    ...dummyContentItemData.paragraphContentItem,
-  };
-  const dummyHeading1: $Exact<HeadingContentItem> = {
-    ...dummyContentItemData.headingContentItem,
-    subItemIds: [dummyParagraph1.id, dummyParagraph2.id],
-  };
-  const dummyRoot: $Exact<RootContentItem> = {
-    ...dummyContentItemData.rootContentItem,
-    childItemIds: [dummyHeading1.id, dummyHeading2.id],
-  };
-  const dummyContentItemsById: $Exact<ContentItemsById> = {
-    [dummyRoot.id]: dummyRoot,
-    [dummyHeading1.id]: dummyHeading1,
-    [dummyParagraph1.id]: dummyParagraph1,
-    [dummyParagraph2.id]: dummyParagraph2,
-    [dummyHeading2.id]: dummyHeading2,
-    [dummyParagraph3.id]: dummyParagraph3,
-    [dummyParagraph4.id]: dummyParagraph4,
-  };
-  const dummyState: any = {
-    modules: {
-      contentItems: {
-        byId: dummyContentItemsById,
-      },
-    },
-  };
+  let dummyParagraph22: $Exact<ParagraphContentItem>;
+  let dummyParagraph21: $Exact<ParagraphContentItem>;
+  let dummyHeading2: $Exact<HeadingContentItem>;
+  let dummyParagraph12: $Exact<ParagraphContentItem>;
+  let dummyParagraph11: $Exact<ParagraphContentItem>;
+  let dummyHeading1: $Exact<HeadingContentItem>;
+  let dummyRoot: $Exact<RootContentItem>;
+  let dummyContentItemsById: $Exact<ContentItemsById>;
+  let dummyState: any;
 
-  it(`puts an addToState action`, (): void => {
+  beforeEach((): void => {
+    dummyParagraph22 = { ...dummyContentItemData.paragraphContentItem4 };
+    dummyParagraph21 = { ...dummyContentItemData.paragraphContentItem3 };
+    dummyHeading2 = { ...dummyContentItemData.headingContentItem2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] };
+    dummyParagraph12 = { ...dummyContentItemData.paragraphContentItem2 };
+    dummyParagraph11 = { ...dummyContentItemData.paragraphContentItem };
+    dummyHeading1 = { ...dummyContentItemData.headingContentItem, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] };
+    dummyRoot = { ...dummyContentItemData.rootContentItem, childItemIds: [dummyHeading1.id, dummyHeading2.id] };
+    dummyContentItemsById = {
+      [dummyRoot.id]: dummyRoot,
+      [dummyHeading1.id]: dummyHeading1,
+      [dummyParagraph11.id]: dummyParagraph11,
+      [dummyParagraph12.id]: dummyParagraph12,
+      [dummyHeading2.id]: dummyHeading2,
+      [dummyParagraph21.id]: dummyParagraph21,
+      [dummyParagraph22.id]: dummyParagraph22,
+    };
+    dummyState = {
+      modules: {
+        contentItems: {
+          byId: dummyContentItemsById,
+        },
+      },
+    };
+  });
+
+  it(`puts an ADD_TO_STATE action`, (): void => {
     const dummyAddAction: t.AddAction = {
       type: t.ADD,
       payload: {
@@ -90,7 +85,7 @@ describe(`addSaga`, (): void => {
       .run();
   });
 
-  it(`puts a toggleEditing action`, (): void => {
+  it(`puts a TOGGLE_EDITING action`, (): void => {
     const dummyAddAction: t.AddAction = {
       type: t.ADD,
       payload: {
@@ -135,7 +130,7 @@ describe(`addSaga`, (): void => {
       .run();
   });
 
-  it(`converts a context with contextType.SIBLING to a context with contextType.PARENT, when the contentItem with id context.contextItemId is a childItem`, (): void => {
+  it(`converts the passed context to a VerticalContext before putting an ADD_TO_STATE action, when the passed context is a HorizontalContext`, (): void => {
     const dummyAddAction: t.AddAction = {
       type: t.ADD,
       payload: {
@@ -161,40 +156,6 @@ describe(`addSaga`, (): void => {
               contextType: contextTypes.PARENT,
               contextItemId: dummyRoot.id,
               indexInSiblingItems: 1,
-            },
-            propsForType: dummyAddAction.payload.propsForType,
-          },
-        },
-      })
-      .run();
-  });
-
-  it(`converts a context with contextType.SIBLING to a context with contextType.SUPER, when the contentItem with id context.contextItemId is a subItem`, (): void => {
-    const dummyAddAction: t.AddAction = {
-      type: t.ADD,
-      payload: {
-        type: contentItemTypes.PARAGRAPH,
-        context: {
-          contextType: contextTypes.SIBLING,
-          contextItemId: dummyParagraph4.id,
-          indexInSiblingItemsShift: 0,
-        },
-        propsForType: {
-          text: 'Lorem ipsum',
-        },
-      },
-    };
-    return expectSaga(addSaga, dummyAddAction)
-      .withState(dummyState)
-      .put.like({
-        action: {
-          type: t.ADD_TO_STATE,
-          payload: {
-            type: dummyAddAction.payload.type,
-            context: {
-              contextType: contextTypes.SUPER,
-              contextItemId: dummyHeading2.id,
-              indexInSiblingItems: 2,
             },
             propsForType: dummyAddAction.payload.propsForType,
           },

@@ -7,10 +7,16 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
 import actions from '../../actions';
-import { contentItemTypes, contextTypes } from '../../model';
-import type { HeadingContentItem, VerticalContext } from '../../model';
+import * as model from '../../model';
 import selectors from '../../selectors';
 import find from '../../lib/find';
+
+const {
+  contentItemTypes,
+  contextTypes,
+  HeadingContentItem,
+  VerticalContext,
+} = model;
 
 const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
   const { id } = action.payload;

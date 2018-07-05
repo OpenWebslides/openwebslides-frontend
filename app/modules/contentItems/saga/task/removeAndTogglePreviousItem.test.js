@@ -4,15 +4,17 @@ import { expectSaga } from 'redux-saga-test-plan';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import type {
+import * as model from '../../model';
+import * as dummyData from '../../lib/testResources/dummyContentItemData';
+
+import removeAndTogglePreviousItemSaga from './removeAndTogglePreviousItem';
+
+const {
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
-} from '../../model';
-import * as dummyData from '../../lib/testResources/dummyContentItemData';
-
-import removeAndTogglePreviousItemSaga from './removeAndTogglePreviousItem';
+} = model;
 
 describe(`removeAndTogglePreviousItemSaga`, (): void => {
 
@@ -46,7 +48,7 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
     };
   });
 
-  it(`puts a remove action`, (): void => {
+  it(`puts a REMOVE action`, (): void => {
     const dummyRemoveAndTogglePreviousItemAction: t.RemoveAndTogglePreviousItemAction = {
       type: t.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
       payload: {
@@ -66,7 +68,7 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
       .run();
   });
 
-  it(`puts a toggleEditing action which moves the isEditing state to the removed contentItem's previousEditorItem, when the removed contentItem has a previousEditorItem`, (): void => {
+  it(`puts a TOGGLE_EDITING action which moves the isEditing state to the removed contentItem's previousEditorItem, when the removed contentItem has a previousEditorItem`, (): void => {
     const dummyRemoveAndTogglePreviousItemAction: t.RemoveAndTogglePreviousItemAction = {
       type: t.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
       payload: {
@@ -87,7 +89,7 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
       .run();
   });
 
-  it(`does not put a toggleEditing action, when the removed contentItem does not have a previousEditorItem`, (): void => {
+  it(`does not put a TOGGLE_EDITING action, when the removed contentItem does not have a previousEditorItem`, (): void => {
     const dummyRemoveAndTogglePreviousItemAction: t.RemoveAndTogglePreviousItemAction = {
       type: t.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
       payload: {

@@ -5,17 +5,19 @@ import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedI
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import { contextTypes } from '../../model';
-import type {
+import * as model from '../../model';
+import * as dummyData from '../../lib/testResources/dummyContentItemData';
+
+import removeSaga from './remove';
+
+const {
+  contextTypes,
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
   ContentItemsState,
-} from '../../model';
-import * as dummyData from '../../lib/testResources/dummyContentItemData';
-
-import removeSaga from './remove';
+} = model;
 
 describe(`removeSaga`, (): void => {
 

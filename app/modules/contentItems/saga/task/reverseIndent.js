@@ -5,9 +5,11 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
 import actions from '../../actions';
-import { contentItemTypes } from '../../model';
+import * as model from '../../model';
 import selectors from '../../selectors';
 import find from '../../lib/find';
+
+const { contentItemTypes } = model;
 
 const reverseIndentSaga = function* (action: t.ReverseIndentAction): Generator<*, *, *> {
   const { id } = action.payload;

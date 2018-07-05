@@ -2,7 +2,7 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import taskSaga from '.';
+import * as t from '../../actionTypes';
 import addSaga from './add';
 import editSaga from './edit';
 import toggleEditingSaga from './toggleEditing';
@@ -12,7 +12,7 @@ import reverseIndentSaga from './reverseIndent';
 import removeSaga from './remove';
 import removeAndTogglePreviousItemSaga from './removeAndTogglePreviousItem';
 
-import * as t from '../../actionTypes';
+import taskSaga from '.';
 
 describe(`taskSaga`, (): void => {
 

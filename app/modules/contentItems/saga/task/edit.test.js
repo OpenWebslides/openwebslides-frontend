@@ -6,17 +6,19 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
 import type { EditAction } from '../../actionTypes';
-import type {
+import * as model from '../../model';
+import selectors from '../../selectors';
+import * as dummyData from '../../lib/testResources/dummyContentItemData';
+
+import editSaga from './edit';
+
+const {
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
   ContentItemsState,
-} from '../../model';
-import selectors from '../../selectors';
-import * as dummyData from '../../lib/testResources/dummyContentItemData';
-
-import editSaga from './edit';
+} = model;
 
 describe(`editSaga`, (): void => {
 
@@ -55,7 +57,7 @@ describe(`editSaga`, (): void => {
     };
   });
 
-  it(`puts an editPropsForTypeInState action`, (): void => {
+  it(`puts an EDIT_PROPS_FOR_TYPE_IN_STATE action`, (): void => {
     const dummyEditAction: $Exact<EditAction> = {
       type: t.EDIT,
       payload: {
@@ -81,7 +83,7 @@ describe(`editSaga`, (): void => {
       .run();
   });
 
-  it(`puts a remove action, when a plainText contentItem's isEditing state is FALSE and its text property is being set to an empty string`, (): void => {
+  it(`puts a REMOVE action, when a plainText contentItem's isEditing state is FALSE and its text property is being set to an empty string`, (): void => {
     const dummyEditAction: $Exact<EditAction> = {
       type: t.EDIT,
       payload: {
@@ -104,7 +106,7 @@ describe(`editSaga`, (): void => {
       .run();
   });
 
-  it(`does not put a remove action, when a plainText contentItem's isEditing state is TRUE and its text property is being set to an empty string`, (): void => {
+  it(`does not put a REMOVE action, when a plainText contentItem's isEditing state is TRUE and its text property is being set to an empty string`, (): void => {
     dummyParagraph11.isEditing = true;
 
     const dummyEditAction: $Exact<EditAction> = {
