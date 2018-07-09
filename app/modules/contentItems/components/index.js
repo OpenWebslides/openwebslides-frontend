@@ -3,9 +3,9 @@
 import EditableDisplay from './EditableDisplay';
 import HtmlDisplay from './HtmlDisplay';
 
-const index = {
+const components = {
   EditableDisplay,
   HtmlDisplay,
 };
 
-export default index;
+export default components;
