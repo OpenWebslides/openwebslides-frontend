@@ -6,7 +6,7 @@ import { Form, Input, TextArea } from 'semantic-ui-react';
 
 import InlineMarkdown from 'core-components/inline-markdown';
 
-type Props = {
+type PassedProps = {
   multiline: boolean,
   initialText: string,
   initialIsActive: boolean,
@@ -14,10 +14,9 @@ type Props = {
   onActivate?: () => void,
   onDeactivate?: (text: string) => void,
   onKeyDown?: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void,
-  className: string,
-  textClassNameSuffix: string,
-  inputClassNameSuffix: string,
 };
+
+type Props = PassedProps;
 
 type ComponentState = {
   initialIsActive: boolean,
@@ -35,9 +34,6 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     onActivate: undefined,
     onDeactivate: undefined,
     onKeyDown: undefined,
-    className: 'editable-text-content',
-    textClassNameSuffix: '__text',
-    inputClassNameSuffix: '__input',
   };
 
   state: ComponentState = {
@@ -106,7 +102,8 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
           (this.props.multiline)
             ? (
               <TextArea
-                className={`${this.props.className}${this.props.inputClassNameSuffix} ${this.props.className}${this.props.inputClassNameSuffix}--multiline`}
+                className="editable-text-content__input editable-text-content__input--multiline"
+                data-test-id="editable-text-content__input"
                 autoHeight={true}
                 value={this.state.text}
                 autoFocus={this.state.isActive}
@@ -118,7 +115,8 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
             )
             : (
               <Input
-                className={`${this.props.className}${this.props.inputClassNameSuffix} ${this.props.className}${this.props.inputClassNameSuffix}--singleline`}
+                className="editable-text-content__input editable-text-content__input--singleline"
+                data-test-id="editable-text-content__input"
                 fluid={true}
                 value={this.state.text}
                 autoFocus={this.state.isActive}
@@ -137,7 +135,8 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     return (
       <div
-        className={`${this.props.className}${this.props.textClassNameSuffix}`}
+        className="editable-text-content__text"
+        data-test-id="editable-text-content__text"
         role="link"
         tabIndex={0}
         onClick={this.handleActivate}
@@ -151,7 +150,10 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
 
   render = (): React.Node => {
     return (
-      <div className={this.props.className}>
+      <div
+        className="editable-text-content"
+        data-test-id="editable-text-content"
+      >
         {
           (this.state.isActive)
             ? this.renderAsInput()

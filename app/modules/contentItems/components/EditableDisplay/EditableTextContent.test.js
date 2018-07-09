@@ -12,10 +12,6 @@ describe(`EditableTextContent`, (): void => {
   let dummyActivate: *;
   let dummyDeactivate: *;
   let dummyKeyDown: *;
-  let dummyClassName: string;
-  let dummyTextClassNameSuffix: string;
-  let dummyInputClassNameSuffix: string;
-  let dummyTextClassName: string;
   let textSelector: string;
   let inputSelector: string;
 
@@ -25,16 +21,11 @@ describe(`EditableTextContent`, (): void => {
     dummyActivate = jest.fn();
     dummyDeactivate = jest.fn();
     dummyKeyDown = jest.fn();
-    dummyClassName = 'editable-text-content';
-    dummyTextClassNameSuffix = '__text';
-    dummyInputClassNameSuffix = '__input';
-    dummyTextClassName = `${dummyClassName}${dummyTextClassNameSuffix}`;
-    // dummyInputClassName = `${dummyClassName}${dummyInputClassNameSuffix}`;
-    textSelector = `.${dummyTextClassName}`;
-    // Using dummyInputClassName as a selector won't work if the element is in singleline mode
-    // because Semantic UI wraps the <input> element in a <div>.
+    textSelector = `[data-test-id="editable-text-content__text"]`;
+    // Using [data-test-id="editable-text-content__input"] as a selector won't work if the element
+    // is in singleline mode because Semantic UI wraps the <input> element in a <div>.
     // Selecting the element that has an [onBlur] attribute seems like a good way to make sure
-    // the form element itself is selected, and works for both <input> and <textarea>.
+    // the form element itself is selected, and works for both <input> and <textarea>. #TODO
     inputSelector = '[onBlur]';
   });
 
@@ -58,12 +49,7 @@ describe(`EditableTextContent`, (): void => {
 
   it(`renders itself in text mode, when it has not been interacted with yet`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent
-        initialText={dummyText}
-        className={dummyClassName}
-        textClassNameSuffix={dummyTextClassNameSuffix}
-        inputClassNameSuffix={dummyInputClassNameSuffix}
-      />,
+      <EditableTextContent initialText={dummyText} />,
     );
     expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(1);
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
@@ -71,26 +57,16 @@ describe(`EditableTextContent`, (): void => {
 
   it(`renders itself in input mode, when it is in text mode and receives a click event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent
-        initialText={dummyText}
-        className={dummyClassName}
-        textClassNameSuffix={dummyTextClassNameSuffix}
-        inputClassNameSuffix={dummyInputClassNameSuffix}
-      />,
+      <EditableTextContent initialText={dummyText} />,
     );
-    enzymeWrapper.find(`.${dummyTextClassName}`).hostNodes().simulate('click');
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click');
     expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(0);
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(1);
   });
 
   it(`renders itself in input mode, when it is in text mode and receives a focus event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent
-        initialText={dummyText}
-        className={dummyClassName}
-        textClassNameSuffix={dummyTextClassNameSuffix}
-        inputClassNameSuffix={dummyInputClassNameSuffix}
-      />,
+      <EditableTextContent initialText={dummyText} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(0);
@@ -99,12 +75,7 @@ describe(`EditableTextContent`, (): void => {
 
   it(`renders itself in text mode, when it is in singleline input mode and receives a blur event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent
-        initialText={dummyText}
-        className={dummyClassName}
-        textClassNameSuffix={dummyTextClassNameSuffix}
-        inputClassNameSuffix={dummyInputClassNameSuffix}
-      />,
+      <EditableTextContent initialText={dummyText} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('blur');
@@ -114,13 +85,7 @@ describe(`EditableTextContent`, (): void => {
 
   it(`renders itself in text mode, when it is in multiline input mode and receives a blur event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent
-        multiline={true}
-        initialText={dummyText}
-        className={dummyClassName}
-        textClassNameSuffix={dummyTextClassNameSuffix}
-        inputClassNameSuffix={dummyInputClassNameSuffix}
-      />,
+      <EditableTextContent initialText={dummyText} multiline={true} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('blur');
@@ -130,12 +95,7 @@ describe(`EditableTextContent`, (): void => {
 
   it(`rerenders itself, when it is in input mode and receives an input event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent
-        initialText={dummyText}
-        className={dummyClassName}
-        textClassNameSuffix={dummyTextClassNameSuffix}
-        inputClassNameSuffix={dummyInputClassNameSuffix}
-      />,
+      <EditableTextContent initialText={dummyText} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
 
@@ -146,13 +106,7 @@ describe(`EditableTextContent`, (): void => {
 
   it(`calls the passed onActivate function, when it is in text mode and receives a click event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent
-        initialText={dummyText}
-        onActivate={dummyActivate}
-        className={dummyClassName}
-        textClassNameSuffix={dummyTextClassNameSuffix}
-        inputClassNameSuffix={dummyInputClassNameSuffix}
-      />,
+      <EditableTextContent initialText={dummyText} onActivate={dummyActivate} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click');
     expect(dummyActivate).toHaveBeenCalled();
@@ -160,13 +114,7 @@ describe(`EditableTextContent`, (): void => {
 
   it(`calls the passed onActivate function, when it is in text mode and receives a focus event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent
-        initialText={dummyText}
-        onActivate={dummyActivate}
-        className={dummyClassName}
-        textClassNameSuffix={dummyTextClassNameSuffix}
-        inputClassNameSuffix={dummyInputClassNameSuffix}
-      />,
+      <EditableTextContent initialText={dummyText} onActivate={dummyActivate} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     expect(dummyActivate).toHaveBeenCalled();
@@ -174,13 +122,7 @@ describe(`EditableTextContent`, (): void => {
 
   it(`calls the passed onDeactivate function, when it is in input mode and receives a blur event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent
-        initialText={dummyText}
-        onDeactivate={dummyDeactivate}
-        className={dummyClassName}
-        textClassNameSuffix={dummyTextClassNameSuffix}
-        inputClassNameSuffix={dummyInputClassNameSuffix}
-      />,
+      <EditableTextContent initialText={dummyText} onDeactivate={dummyDeactivate} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('blur');
@@ -189,13 +131,7 @@ describe(`EditableTextContent`, (): void => {
 
   it(`calls the passed onInput function, when it is in input mode and receives an input event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent
-        initialText={dummyText}
-        onInput={dummyInput}
-        className={dummyClassName}
-        textClassNameSuffix={dummyTextClassNameSuffix}
-        inputClassNameSuffix={dummyInputClassNameSuffix}
-      />,
+      <EditableTextContent initialText={dummyText} onInput={dummyInput} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('input');
@@ -210,13 +146,7 @@ describe(`EditableTextContent`, (): void => {
       altKey: false,
     };
     const enzymeWrapper = mount(
-      <EditableTextContent
-        initialText={dummyText}
-        onKeyDown={dummyKeyDown}
-        className={dummyClassName}
-        textClassNameSuffix={dummyTextClassNameSuffix}
-        inputClassNameSuffix={dummyInputClassNameSuffix}
-      />,
+      <EditableTextContent initialText={dummyText} onKeyDown={dummyKeyDown} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('keyDown', dummyKeyDownEvent);
@@ -226,12 +156,7 @@ describe(`EditableTextContent`, (): void => {
   it(`doesn't do anything, when there is no passed onKeyDown function and it is in input mode and receives a keyDown event`, (): void => {
     // Pointless but needed for 100% coverage...
     const enzymeWrapper = mount(
-      <EditableTextContent
-        initialText={dummyText}
-        className={dummyClassName}
-        textClassNameSuffix={dummyTextClassNameSuffix}
-        inputClassNameSuffix={dummyInputClassNameSuffix}
-      />,
+      <EditableTextContent initialText={dummyText} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('keyDown');
@@ -254,9 +179,6 @@ describe(`EditableTextContent`, (): void => {
         onInput: dummyInput,
         onActivate: dummyActivate,
         onDeactivate: dummyDeactivate,
-        className: dummyClassName,
-        textClassNameSuffix: dummyTextClassNameSuffix,
-        inputClassNameSuffix: dummyInputClassNameSuffix,
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
       expect(result).toEqual({
@@ -279,9 +201,6 @@ describe(`EditableTextContent`, (): void => {
         onInput: dummyInput,
         onActivate: dummyActivate,
         onDeactivate: dummyDeactivate,
-        className: dummyClassName,
-        textClassNameSuffix: dummyTextClassNameSuffix,
-        inputClassNameSuffix: dummyInputClassNameSuffix,
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
       expect(result).toEqual({
@@ -304,9 +223,6 @@ describe(`EditableTextContent`, (): void => {
         onInput: dummyInput,
         onActivate: dummyActivate,
         onDeactivate: dummyDeactivate,
-        className: dummyClassName,
-        textClassNameSuffix: dummyTextClassNameSuffix,
-        inputClassNameSuffix: dummyInputClassNameSuffix,
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
       expect(result).toEqual({});
