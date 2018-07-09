@@ -4,11 +4,12 @@ import _ from 'lodash';
 import * as React from 'react';
 
 import type { Identifier } from 'types/model';
+import EditableTextContent from 'core-components/EditableTextContent';
+
 import type { HeadingContentItem } from '../../../model';
 
 import { passThroughProps } from '..';
 import DisplayBlockWrapper from '../DisplayBlockWrapper';
-import EditableTextContent from '../EditableTextContent';
 
 type PassedProps = {
   contentItem: HeadingContentItem,
