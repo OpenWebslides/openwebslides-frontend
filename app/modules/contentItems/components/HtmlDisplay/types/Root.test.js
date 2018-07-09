@@ -3,46 +3,27 @@
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
-import { contentItemTypes } from '../../../model';
-import type {
-  DenormalizedRootContentItem,
-  DenormalizedHeadingContentItem,
-} from '../../../model';
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
 
 import { PureRoot } from './Root';
 
+const {
+  DenormalizedRootContentItem,
+  DenormalizedHeadingContentItem,
+} = model;
+
 describe(`Root`, (): void => {
 
-  const dummyHeading2Text = 'Dolor sit amet';
-  const dummyHeading1Text = 'Lorem ipsum';
-  const dummyHeading2: $Exact<DenormalizedHeadingContentItem> = {
-    id: 'vqj12bqawx',
-    type: contentItemTypes.HEADING,
-    isEditing: false,
-    text: dummyHeading2Text,
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-    subItems: [],
-  };
-  const dummyHeading1: $Exact<DenormalizedHeadingContentItem> = {
-    id: 'o365j96prm',
-    type: contentItemTypes.HEADING,
-    isEditing: false,
-    text: dummyHeading1Text,
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-    subItems: [],
-  };
-  const dummyRoot: $Exact<DenormalizedRootContentItem> = {
-    id: 'jptgampe2x',
-    type: contentItemTypes.ROOT,
-    isEditing: false,
-    childItems: [dummyHeading1, dummyHeading2],
-  };
+  let dummyHeading2: DenormalizedHeadingContentItem;
+  let dummyHeading1: DenormalizedHeadingContentItem;
+  let dummyRoot: DenormalizedRootContentItem;
+
+  beforeEach((): void => {
+    dummyHeading2 = { ...dummyData.headingContentItem4, subItems: [] };
+    dummyHeading1 = { ...dummyData.headingContentItem, subItems: [] };
+    dummyRoot = { ...dummyData.rootContentItem, childItems: [dummyHeading1, dummyHeading2] };
+  });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
@@ -61,8 +42,8 @@ describe(`Root`, (): void => {
         headingLevel={1}
       />,
     );
-    expect(enzymeWrapper.text()).toContain(dummyHeading1Text);
-    expect(enzymeWrapper.text()).toContain(dummyHeading2Text);
+    expect(enzymeWrapper.text()).toContain(dummyHeading1.text);
+    expect(enzymeWrapper.text()).toContain(dummyHeading2.text);
   });
 
 });

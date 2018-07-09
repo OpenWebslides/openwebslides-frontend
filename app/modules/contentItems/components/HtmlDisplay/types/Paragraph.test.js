@@ -3,31 +3,26 @@
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
-import { contentItemTypes } from '../../../model';
-import type { DenormalizedParagraphContentItem } from '../../../model';
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
 
 import { PureParagraph } from './Paragraph';
 
+const { DenormalizedParagraphContentItem } = model;
+
 describe(`Paragraph`, (): void => {
 
-  const dummyParagraph: $Exact<DenormalizedParagraphContentItem> = {
-    id: 'plqfm799be',
-    type: contentItemTypes.PARAGRAPH,
-    isEditing: false,
-    text: 'Lorem ipsum dolor sit amet.',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-    subItems: [],
-  };
+  let dummyParagraph: DenormalizedParagraphContentItem;
+
+  beforeEach((): void => {
+    dummyParagraph = { ...dummyData.paragraphContentItem, subItems: [] };
+  });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureParagraph
         contentItem={dummyParagraph}
         headingLevel={1}
-        containerClassName="ows_container"
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -38,7 +33,6 @@ describe(`Paragraph`, (): void => {
       <PureParagraph
         contentItem={dummyParagraph}
         headingLevel={1}
-        containerClassName="ows_container"
       />,
     );
     const paragraphTags = enzymeWrapper.find('p');

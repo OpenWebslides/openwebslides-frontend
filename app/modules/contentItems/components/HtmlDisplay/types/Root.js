@@ -1,11 +1,11 @@
 // @flow
 
-import _ from 'lodash';
 import * as React from 'react';
 
-import type { DenormalizedContentItem, DenormalizedRootContentItem } from '../../../model';
+import * as model from '../../../model';
+import HtmlDisplay from '..';
 
-import HtmlDisplay, { passThroughProps } from '..';
+const { DenormalizedContentItem, DenormalizedRootContentItem } = model;
 
 type PassedProps = {
   contentItem: DenormalizedRootContentItem,
@@ -15,14 +15,14 @@ type PassedProps = {
 type Props = PassedProps;
 
 const PureRoot = (props: Props): React.Node => {
-  const { contentItem } = props;
+  const { contentItem, headingLevel } = props;
 
   return contentItem.childItems.map((childItem: DenormalizedContentItem): React.Node => {
     return (
       <HtmlDisplay
-        {..._.pick(props, passThroughProps)}
         key={childItem.id}
         contentItem={childItem}
+        headingLevel={headingLevel}
       />
     );
   });

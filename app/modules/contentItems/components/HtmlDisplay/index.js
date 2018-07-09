@@ -43,22 +43,12 @@ type PassedProps = {
   contentItem: DenormalizedContentItem,
   // Used to automatically calculate the HTML heading level of nested HEADING contentItems.
   headingLevel: number,
-  // Used to keep container class names consistent between components. Defaults to 'ows_container'.
-  containerClassName: string,
-  // Used to make sub-items selectable in tests. Defaults to '__sub-items'.
-  subItemsClassNameSuffix: string,
 };
 
 type Props = PassedProps;
 
-const passThroughProps = [
-  'headingLevel',
-  'containerClassName',
-  'subItemsClassNameSuffix',
-];
-
 const SubItemsHtmlDisplay = (props: Props): React.Node => {
-  const { contentItem, headingLevel, containerClassName, subItemsClassNameSuffix } = props;
+  const { contentItem, headingLevel } = props;
 
   if (!_.includes(subableContentItemTypes, contentItem.type)) {
     return null;
@@ -76,11 +66,10 @@ const SubItemsHtmlDisplay = (props: Props): React.Node => {
         : headingLevel;
 
       return (
-        <div className={`${containerClassName}${subItemsClassNameSuffix}`}>
+        <div className="ows_container__sub-items">
           {subableContentItem.subItems.map(
             (subItem: DenormalizedContentItem): React.Node => (
               <HtmlDisplay
-                {..._.pick(props, passThroughProps)}
                 key={subItem.id}
                 contentItem={subItem}
                 headingLevel={subItemsHeadingLevel}
@@ -94,26 +83,21 @@ const SubItemsHtmlDisplay = (props: Props): React.Node => {
 };
 
 const PureHtmlDisplay = (props: Props): React.Node => {
-  const { contentItem } = props;
+  const { contentItem, headingLevel } = props;
   const DisplayComponent = contentItemTypesToDisplayComponentMap[contentItem.type];
 
   return (
     <DisplayComponent
-      {..._.pick(props, passThroughProps)}
       // eslint-disable-next-line flowtype/no-weak-types
       contentItem={(contentItem: any)}
+      headingLevel={headingLevel}
     >
       <SubItemsHtmlDisplay {...props} />
     </DisplayComponent>
   );
 };
 
-PureHtmlDisplay.defaultProps = {
-  containerClassName: 'ows_container',
-  subItemsClassNameSuffix: '__sub-items',
-};
-
 const HtmlDisplay = PureHtmlDisplay;
 
-export { PureHtmlDisplay, passThroughProps, DummyDisplayComponent };
+export { PureHtmlDisplay, DummyDisplayComponent };
 export default HtmlDisplay;

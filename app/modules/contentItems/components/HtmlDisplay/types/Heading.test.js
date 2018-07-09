@@ -3,79 +3,38 @@
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
-import { contentItemTypes } from '../../../model';
-import type { DenormalizedHeadingContentItem } from '../../../model';
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
 
 import { PureHeading } from './Heading';
 
+const { DenormalizedHeadingContentItem } = model;
+
 describe(`Heading`, (): void => {
 
-  const dummyHeading: $Exact<DenormalizedHeadingContentItem> = {
-    id: '6o6qy5dz0a',
-    type: contentItemTypes.HEADING,
-    isEditing: false,
-    text: 'Lorem ipsum dolor sit amet',
-    metadata: {
-      tags: [],
-      visibilityOverrides: {},
-    },
-    subItems: [],
-  };
+  let dummyHeading: DenormalizedHeadingContentItem;
+
+  beforeEach((): void => {
+    dummyHeading = { ...dummyData.headingContentItem, subItems: [] };
+  });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureHeading
         contentItem={dummyHeading}
         headingLevel={1}
-        containerClassName="ows_container"
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });
 
   it(`renders its text prop inside a heading tag of the appropriate level`, (): void => {
-    const enzymeWrapperLevel1 = render(
-      <PureHeading
-        contentItem={dummyHeading}
-        headingLevel={1}
-        containerClassName="ows_container"
-      />,
-    );
-    const enzymeWrapperLevel2 = render(
-      <PureHeading
-        contentItem={dummyHeading}
-        headingLevel={2}
-        containerClassName="ows_container"
-      />,
-    );
-    const enzymeWrapperLevel3 = render(
-      <PureHeading
-        contentItem={dummyHeading}
-        headingLevel={3}
-        containerClassName="ows_container"
-      />,
-    );
-    const enzymeWrapperLevel4 = render(
-      <PureHeading
-        contentItem={dummyHeading}
-        headingLevel={4}
-        containerClassName="ows_container"
-      />,
-    );
-    const enzymeWrapperLevel5 = render(
-      <PureHeading
-        contentItem={dummyHeading}
-        headingLevel={5}
-        containerClassName="ows_container"
-      />,
-    );
-    const enzymeWrapperLevel6 = render(
-      <PureHeading
-        contentItem={dummyHeading}
-        headingLevel={6}
-        containerClassName="ows_container"
-      />,
-    );
+    const enzymeWrapperLevel1 = render(<PureHeading contentItem={dummyHeading} headingLevel={1} />);
+    const enzymeWrapperLevel2 = render(<PureHeading contentItem={dummyHeading} headingLevel={2} />);
+    const enzymeWrapperLevel3 = render(<PureHeading contentItem={dummyHeading} headingLevel={3} />);
+    const enzymeWrapperLevel4 = render(<PureHeading contentItem={dummyHeading} headingLevel={4} />);
+    const enzymeWrapperLevel5 = render(<PureHeading contentItem={dummyHeading} headingLevel={5} />);
+    const enzymeWrapperLevel6 = render(<PureHeading contentItem={dummyHeading} headingLevel={6} />);
     const h1Tags = enzymeWrapperLevel1.find('h1');
     const h2Tags = enzymeWrapperLevel2.find('h2');
     const h3Tags = enzymeWrapperLevel3.find('h3');
@@ -101,7 +60,6 @@ describe(`Heading`, (): void => {
       <PureHeading
         contentItem={dummyHeading}
         headingLevel={7}
-        containerClassName="ows_container"
       />,
     );
     expect(enzymeWrapper.find('h6')).toHaveLength(1);

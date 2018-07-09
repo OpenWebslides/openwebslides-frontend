@@ -1,24 +1,25 @@
 // @flow
 
 import * as React from 'react';
-
 import InlineMarkdown from 'core-components/inline-markdown';
-import type { DenormalizedParagraphContentItem } from '../../../model';
+
+import * as model from '../../../model';
+
+const { DenormalizedParagraphContentItem } = model;
 
 type PassedProps = {
   contentItem: DenormalizedParagraphContentItem,
   children?: React.Node,
-  containerClassName: string,
 };
 
 type Props = PassedProps;
 
 const PureParagraph = (props: Props): React.Node => {
-  const { contentItem, children, containerClassName } = props;
+  const { contentItem, children } = props;
 
   return (
-    <div className={`${containerClassName} ${containerClassName}--paragraph`}>
-      <p className={`${containerClassName}__item ows_paragraph`}>
+    <div className="ows-container ows-container--paragraph">
+      <p className="ows-container__item ows_paragraph">
         <InlineMarkdown text={contentItem.text} />
       </p>
       {children}
