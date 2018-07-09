@@ -1,6 +1,11 @@
 // @flow
 
-import type {
+import * as model from '../model';
+import * as dummyData from '../lib/testResources/dummyContentItemData';
+
+import selectors from '.';
+
+const {
   RootContentItem,
   DenormalizedRootContentItem,
   HeadingContentItem,
@@ -8,10 +13,7 @@ import type {
   ParagraphContentItem,
   DenormalizedParagraphContentItem,
   ContentItemsById,
-} from '../model';
-import * as dummyContentItemData from '../lib/testResources/dummyContentItemData';
-
-import selectors from '.';
+} = model;
 
 describe(`getDenormalizedById`, (): void => {
 
@@ -26,13 +28,13 @@ describe(`getDenormalizedById`, (): void => {
   let dummyState: any;
 
   beforeEach((): void => {
-    dummyParagraph22 = { ...dummyContentItemData.paragraphContentItem4 };
-    dummyParagraph21 = { ...dummyContentItemData.paragraphContentItem3 };
-    dummyHeading2 = { ...dummyContentItemData.headingContentItem2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] };
-    dummyParagraph12 = { ...dummyContentItemData.paragraphContentItem2 };
-    dummyParagraph11 = { ...dummyContentItemData.paragraphContentItem };
-    dummyHeading1 = { ...dummyContentItemData.headingContentItem, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] };
-    dummyRoot = { ...dummyContentItemData.rootContentItem, childItemIds: [dummyHeading1.id, dummyHeading2.id] };
+    dummyParagraph22 = { ...dummyData.paragraphContentItem4 };
+    dummyParagraph21 = { ...dummyData.paragraphContentItem3 };
+    dummyHeading2 = { ...dummyData.headingContentItem2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] };
+    dummyParagraph12 = { ...dummyData.paragraphContentItem2 };
+    dummyParagraph11 = { ...dummyData.paragraphContentItem };
+    dummyHeading1 = { ...dummyData.headingContentItem, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] };
+    dummyRoot = { ...dummyData.rootContentItem, childItemIds: [dummyHeading1.id, dummyHeading2.id] };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
       [dummyHeading1.id]: dummyHeading1,
