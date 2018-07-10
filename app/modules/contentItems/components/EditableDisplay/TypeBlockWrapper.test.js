@@ -4,9 +4,9 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { dummyTranslatorProps } from 'config/tests';
 
-import { PureDisplayBlockWrapper } from './DisplayBlockWrapper';
+import { PureTypeBlockWrapper } from './TypeBlockWrapper';
 
-describe(`DisplayBlockWrapper`, (): void => {
+describe(`TypeBlockWrapper`, (): void => {
 
   const dummyBaseClassName = 'DisplayBlockWrapperBaseClass';
   const dummyIconName = 'paragraph';
@@ -17,39 +17,39 @@ describe(`DisplayBlockWrapper`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureDisplayBlockWrapper
+      <PureTypeBlockWrapper
         {...dummyTranslatorProps}
         iconName={dummyIconName}
         baseClassName={dummyBaseClassName}
       >
         <DummyChildComponent />
-      </PureDisplayBlockWrapper>,
+      </PureTypeBlockWrapper>,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });
 
   it(`renders an icon with the given iconName`, (): void => {
     const enzymeWrapper = mount(
-      <PureDisplayBlockWrapper
+      <PureTypeBlockWrapper
         {...dummyTranslatorProps}
         iconName={dummyIconName}
         baseClassName={dummyBaseClassName}
       >
         <DummyChildComponent />
-      </PureDisplayBlockWrapper>,
+      </PureTypeBlockWrapper>,
     );
     expect(enzymeWrapper.find(`.icon.${dummyIconName}`).hostNodes()).toHaveLength(1);
   });
 
   it(`renders its children`, (): void => {
     const enzymeWrapper = mount(
-      <PureDisplayBlockWrapper
+      <PureTypeBlockWrapper
         {...dummyTranslatorProps}
         iconName={dummyIconName}
         baseClassName={dummyBaseClassName}
       >
         <DummyChildComponent />
-      </PureDisplayBlockWrapper>,
+      </PureTypeBlockWrapper>,
     );
     expect(enzymeWrapper.find(DummyChildComponent)).toHaveLength(1);
   });

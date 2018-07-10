@@ -9,7 +9,7 @@ import EditableTextContent from 'core-components/EditableTextContent';
 import type { ParagraphContentItem } from '../../../model';
 
 import { passThroughProps } from '..';
-import DisplayBlockWrapper from '../DisplayBlockWrapper';
+import TypeBlockWrapper from '../TypeBlockWrapper';
 
 type PassedProps = {
   contentItem: ParagraphContentItem,
@@ -60,7 +60,7 @@ class PureParagraph extends React.Component<Props> {
     const { contentItem } = this.props;
 
     return (
-      <DisplayBlockWrapper
+      <TypeBlockWrapper
         {..._.pick(this.props, passThroughProps)}
         iconName="paragraph"
       >
@@ -73,7 +73,7 @@ class PureParagraph extends React.Component<Props> {
           onInput={this.onEditableTextContentInput}
           onKeyDown={this.onEditableTextContentKeyDown}
         />
-      </DisplayBlockWrapper>
+      </TypeBlockWrapper>
     );
   };
 }

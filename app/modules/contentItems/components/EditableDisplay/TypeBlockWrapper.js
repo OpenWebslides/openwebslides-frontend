@@ -14,7 +14,7 @@ type PassedProps = {
 
 type Props = CustomTranslatorProps & PassedProps;
 
-const PureDisplayBlockWrapper = (props: Props): React.Node => {
+const PureTypeBlockWrapper = (props: Props): React.Node => {
   const { iconName, children, baseClassName } = props;
   const blockClassName = `${baseClassName}-block`;
 
@@ -32,11 +32,11 @@ const PureDisplayBlockWrapper = (props: Props): React.Node => {
   );
 };
 
-PureDisplayBlockWrapper.defaultProps = {
+PureTypeBlockWrapper.defaultProps = {
   children: null,
 };
 
-const DisplayBlockWrapper = translate()(PureDisplayBlockWrapper);
+const TypeBlockWrapper = translate()(PureTypeBlockWrapper);
 
-export { PureDisplayBlockWrapper };
-export default DisplayBlockWrapper;
+export { PureTypeBlockWrapper };
+export default TypeBlockWrapper;
