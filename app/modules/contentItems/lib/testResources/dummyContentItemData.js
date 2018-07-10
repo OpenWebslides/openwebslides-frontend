@@ -86,7 +86,7 @@ export const paragraphContentItem: $Exact<model.ParagraphContentItem> = {
   id: 'dummyParagraphContentItem',
   type: model.contentItemTypes.PARAGRAPH,
   isEditing: false,
-  text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  text: 'Donec gravida est bibendum mi aliquam, ac luctus risus blandit.',
   metadata: emptyMetadata,
   subItemIds: [],
 };
