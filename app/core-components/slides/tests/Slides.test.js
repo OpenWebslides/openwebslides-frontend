@@ -4,21 +4,23 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { dummyTranslatorProps } from 'config/tests';
 
-import * as contentItems from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 
 import { PureSlides } from '../Slides';
+
+const { contentItemTypes } = contentItems.model;
 
 describe(`Slides`, (): void => {
 
   it(`renders without errors`, (): void => {
     const dummyContentItemTreeRoot = {
       id: 'abcdefghij',
-      type: contentItems.contentItemTypes.ROOT,
+      type: contentItemTypes.ROOT,
       isEditing: false,
       childItemIds: ['hd83riji8c'],
       childItems: [{
         id: 'hd83riji8c',
-        type: contentItems.contentItemTypes.HEADING,
+        type: contentItemTypes.HEADING,
         isEditing: false,
         text: 'Heading',
         metadata: {

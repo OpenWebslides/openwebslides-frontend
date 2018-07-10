@@ -4,15 +4,11 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { dummyTranslatorProps } from 'config/tests';
 
-import contentItems from 'modules/content-items';
-
-import type {
-  DenormalizedRootContentItem,
-} from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 
 import { PureSlide } from '../Slide';
 
-const { contentItemTypes } = contentItems.model;
+const { contentItemTypes, DenormalizedRootContentItem } = contentItems.model;
 
 describe(`Slide`, (): void => {
 

@@ -8,8 +8,9 @@ import Slides from 'core-components/slides/Slides';
 
 import topics from 'modules/topics';
 
-import contentItems, { contentItemTypes } from 'modules/content-items';
-import type { DenormalizedRootContentItem } from 'modules/content-items';
+import contentItems from 'modules/contentItems';
+
+const { contentItemTypes, DenormalizedRootContentItem } = contentItems.model;
 
 type Topic = topics.model.Topic;
 

@@ -4,10 +4,11 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { dummyTranslatorProps } from 'config/tests';
 
-import { contentItemTypes } from 'modules/content-items';
-import type { DenormalizedRootContentItem } from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 
 import { PureTempSlideTestPage } from '../TempSlideTestPage';
+
+const { contentItemTypes, DenormalizedRootContentItem } = contentItems.model;
 
 describe(`TempSlideTestPage`, (): void => {
 

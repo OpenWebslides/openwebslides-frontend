@@ -1,6 +1,6 @@
 // @flow
 
-import contentItems from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 
 import { put, select } from 'redux-saga/effects';
 import * as t from '../../actionTypes';

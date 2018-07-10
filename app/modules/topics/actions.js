@@ -4,7 +4,7 @@ import _ from 'lodash';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
 
-import contentItems from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 
 import type { Identifier } from 'types/model';
 import type { RouterHistory } from 'react-router-dom';

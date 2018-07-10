@@ -1,7 +1,7 @@
 // @flow
 
 import type { TopicsState } from 'modules/topics';
-import type { ContentItemsState } from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 import type { SidebarsState } from 'modules/sidebars';
 import type { FeedState } from 'modules/feed';
 import type { UsersState } from 'modules/users';
@@ -18,7 +18,7 @@ export type State = {
     +topics: TopicsState,
     +feed: FeedState,
     +sidebars: SidebarsState,
-    +contentItems: ContentItemsState,
+    +contentItems: contentItems.model.ContentItemsState,
     +users: UsersState,
     +authentication: AuthState,
     +api: ApiState,

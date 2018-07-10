@@ -3,7 +3,7 @@
 import { createStore } from 'redux';
 
 import topics from 'modules/topics';
-import contentItems from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 import feed from 'modules/feed';
 import users from 'modules/users';
 import authentication from 'modules/authentication';

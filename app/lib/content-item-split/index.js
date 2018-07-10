@@ -1,12 +1,13 @@
 // @flow
 /* eslint-disable flowtype/no-weak-types */
 
-import type {
-  DenormalizedContentItem,
-} from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 
-import { contentItemTypes } from 'modules/content-items';
-import type { DenormalizedRootContentItem } from 'modules/content-items/model';
+const {
+  contentItemTypes,
+  DenormalizedContentItem,
+  DenormalizedRootContentItem,
+} = contentItems.model;
 
 /**
  * Automatic slide splitting algorithm

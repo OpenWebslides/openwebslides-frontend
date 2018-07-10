@@ -6,21 +6,20 @@ import { flashMessage, flashErrorMessage } from 'redux-flash';
 import ServerError from 'errors/api-errors/ServerError';
 
 import authentication from 'modules/authentication';
-import contentItems from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 
 import { TopicsApi } from 'lib/api';
 import api from 'modules/api';
 
 import * as t from '../../actionTypes';
 
+const { ContentItem } = contentItems.model;
+
 const { setTokenInState } = authentication.actions;
 const { getToken } = authentication.selectors;
 
 const { setStatusInState } = api.actions;
 const { statusTypes } = api.model;
-
-const { setMultipleInState } = contentItems.actions;
-const { ContentItem } = contentItems.model;
 
 export const apiGetContentSaga = function* (
   action: t.ApiGetTopicContentAction,
@@ -35,7 +34,7 @@ export const apiGetContentSaga = function* (
 
     // TODO: validate response
     const items: Array<ContentItem> = response.body.data.attributes.content;
-    yield put(setMultipleInState(items));
+    yield put(contentItems.actions.setMultipleInState(items));
 
     yield put(setTokenInState(response.token));
     yield put(setStatusInState(t.API_GET_CONTENT, statusTypes.SUCCESS));

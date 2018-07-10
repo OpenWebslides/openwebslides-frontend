@@ -10,7 +10,7 @@ import FlashMessages from 'core-components/flash/FlashMessages';
 
 import { Button, Header } from 'semantic-ui-react';
 
-import contentItems from 'modules/content-items';
+import contentItems from 'modules/contentItems';
 import api from 'modules/api';
 
 import type { State } from 'types/state';
@@ -114,7 +114,6 @@ class PureEditor extends React.Component<Props> {
         </p>
 
         <Link to="/tempslidetest">Temp slide test page</Link>
-        {/* $FlowFixMe See: https://github.com/facebook/flow/issues/4644 */}
         <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
       </div>
     );
