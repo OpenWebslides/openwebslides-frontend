@@ -5,7 +5,6 @@
  * rendered as HTML as well, and passed to the display omponent as its children.
  */
 
-import _ from 'lodash';
 import * as React from 'react';
 
 import * as model from '../../model';
@@ -13,9 +12,7 @@ import typesToComponentsMap from './helpers/typesToComponentsMap';
 
 const {
   contentItemTypes,
-  subableContentItemTypes,
   DenormalizedContentItem,
-  DenormalizedSubableContentItem,
 } = model;
 
 type PassedProps = {
@@ -30,35 +27,31 @@ type Props = PassedProps;
 const SubItemsHtmlDisplay = (props: Props): React.Node => {
   const { contentItem, headingLevel } = props;
 
-  if (!_.includes(subableContentItemTypes, contentItem.type)) {
+  if (contentItem.subItems == null) {
+    return null;
+  }
+  else if (contentItem.subItems.length === 0) {
     return null;
   }
   else {
-    // eslint-disable-next-line flowtype/no-weak-types
-    const subableContentItem = (((contentItem: any): DenormalizedSubableContentItem));
+    const subItemsHeadingLevel = (contentItem.type === contentItemTypes.HEADING)
+      ? headingLevel + 1
+      : headingLevel;
 
-    if (subableContentItem.subItems.length === 0) {
-      return null;
-    }
-    else {
-      const subItemsHeadingLevel = (contentItem.type === contentItemTypes.HEADING)
-        ? headingLevel + 1
-        : headingLevel;
-
-      return (
-        <div className="ows_container__sub-items">
-          {subableContentItem.subItems.map(
-            (subItem: DenormalizedContentItem): React.Node => (
-              <HtmlDisplay
-                key={subItem.id}
-                contentItem={subItem}
-                headingLevel={subItemsHeadingLevel}
-              />
-            ),
-          )}
-        </div>
-      );
-    }
+    return (
+      <div className="ows_container__sub-items">
+        { /* $FlowFixMe Technically, flow has all the information needed; probably a bug */ }
+        {contentItem.subItems.map(
+          (subItem: DenormalizedContentItem): React.Node => (
+            <HtmlDisplay
+              key={subItem.id}
+              contentItem={subItem}
+              headingLevel={subItemsHeadingLevel}
+            />
+          ),
+        )}
+      </div>
+    );
   }
 };
 
@@ -68,8 +61,8 @@ const PureHtmlDisplay = (props: Props): React.Node => {
 
   return (
     <DisplayComponent
-      // eslint-disable-next-line flowtype/no-weak-types
-      contentItem={(contentItem: any)}
+      // $FlowFixMe Flow doesn't currently parse the mapping to see that the types are correct.
+      contentItem={contentItem}
       headingLevel={headingLevel}
     >
       <SubItemsHtmlDisplay {...props} />
