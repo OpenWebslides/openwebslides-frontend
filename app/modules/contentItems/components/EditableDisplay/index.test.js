@@ -13,7 +13,6 @@ import { dummyTranslatorProps } from 'config/tests';
 import EditableDisplay, {
   PureEditableDisplay,
   mapDispatchToProps,
-  DummyDisplayComponent,
 } from '.';
 
 import actions from '../../actions';
@@ -51,10 +50,7 @@ describe(`EditableDisplay`, (): void => {
     onIndent: dummyOnIndent,
     onReverseIndent: dummyOnReverseIndent,
   };
-  const dummyBaseClassName = 'EditableDisplayBaseClassName';
-  const dummySubItemsClassNameSuffix = 'EditableDisplaySubItemsClassNameSuffix';
-  // const baseSelector = `.${dummyBaseClassName}`;
-  const subItemsSelector = `.${dummyBaseClassName}${dummySubItemsClassNameSuffix}`;
+  const subItemsSelector = `[data-test-id="content-item-editable-display__sub-items"]`;
 
   const dummyRoot2: $Exact<RootContentItem> = {
     id: 'ua32xchh7q',
@@ -274,8 +270,6 @@ describe(`EditableDisplay`, (): void => {
         <EditableDisplay
           store={dummyStore}
           contentItemId={dummyInvalidId}
-          baseClassName={dummyBaseClassName}
-          subItemsClassNameSuffix={dummySubItemsClassNameSuffix}
         />,
       );
     }).toThrow(ObjectNotFoundError);
@@ -287,8 +281,6 @@ describe(`EditableDisplay`, (): void => {
         <I18nextProvider i18n={i18nextConfig}>
           <EditableDisplay
             contentItemId={dummyRoot1.id}
-            baseClassName={dummyBaseClassName}
-            subItemsClassNameSuffix={dummySubItemsClassNameSuffix}
           />
         </I18nextProvider>
       </Provider>,
@@ -317,8 +309,6 @@ describe(`EditableDisplay`, (): void => {
         <I18nextProvider i18n={i18nextConfig}>
           <EditableDisplay
             contentItemId={dummyRoot2.id}
-            baseClassName={dummyBaseClassName}
-            subItemsClassNameSuffix={dummySubItemsClassNameSuffix}
           />
         </I18nextProvider>
       </Provider>,
@@ -333,8 +323,6 @@ describe(`EditableDisplay`, (): void => {
         <I18nextProvider i18n={i18nextConfig}>
           <EditableDisplay
             contentItemId={dummyNestedParagraph1.id}
-            baseClassName={dummyBaseClassName}
-            subItemsClassNameSuffix={dummySubItemsClassNameSuffix}
           />
         </I18nextProvider>
       </Provider>,
@@ -418,17 +406,6 @@ describe(`EditableDisplay`, (): void => {
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onReverseIndent(dummyId);
       expect(dummyDispatch).toHaveBeenCalledWith(actions.reverseIndent(dummyId));
-    });
-
-  });
-
-  describe(`DummyDisplayComponent`, (): void => {
-
-    it(`renders without errors`, (): void => {
-      const enzymeWrapper = shallow(
-        <DummyDisplayComponent />,
-      );
-      expect(enzymeWrapper.isEmptyRender()).toEqual(false);
     });
 
   });

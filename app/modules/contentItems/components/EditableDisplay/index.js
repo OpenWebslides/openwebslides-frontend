@@ -8,45 +8,20 @@ import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
 import actions from '../../actions';
-import {
+import * as model from '../../model';
+import selectors from '../../selectors';
+import typesToComponentMap from './typesToComponentMap';
+
+const {
   contentItemTypes,
   subableContentItemTypes,
   contextTypes,
-} from '../../model';
-import type {
   ContentItem,
   SubableContentItem,
-} from '../../model';
-import selectors from '../../selectors';
-
-import Root from './types/Root';
-import Heading from './types/Heading';
-import Paragraph from './types/Paragraph';
-
-const DummyDisplayComponent = (): React.Node => (
-  <p>Not implemented yet.</p>
-);
-
-const contentItemTypesToDisplayComponentMap = {
-  [contentItemTypes.ROOT]: Root,
-  [contentItemTypes.HEADING]: Heading,
-  [contentItemTypes.PARAGRAPH]: Paragraph,
-  [contentItemTypes.LIST]: DummyDisplayComponent,
-  [contentItemTypes.LIST_ITEM]: DummyDisplayComponent,
-  [contentItemTypes.BLOCKQUOTE]: DummyDisplayComponent,
-  [contentItemTypes.CODE]: DummyDisplayComponent,
-  [contentItemTypes.IMAGE]: DummyDisplayComponent,
-  [contentItemTypes.VIDEO]: DummyDisplayComponent,
-  [contentItemTypes.AUDIO]: DummyDisplayComponent,
-  [contentItemTypes.IFRAME]: DummyDisplayComponent,
-  [contentItemTypes.SLIDE_BREAK]: DummyDisplayComponent,
-  [contentItemTypes.COURSE_BREAK]: DummyDisplayComponent,
-};
+} = model;
 
 type PassedProps = {
   contentItemId: Identifier,
-  baseClassName: string,
-  subItemsClassNameSuffix: string,
 };
 
 type StateProps = {
@@ -67,8 +42,6 @@ type DispatchProps = {
 type Props = PassedProps & StateProps & DispatchProps;
 
 const passThroughProps = [
-  'baseClassName',
-  'subItemsClassNameSuffix',
   'onStartEditing',
   'onEndEditing',
   'onEditPlainText',
@@ -139,7 +112,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
 };
 
 const SubItemsEditableDisplay = (props: Props): React.Node => {
-  const { contentItem, baseClassName, subItemsClassNameSuffix } = props;
+  const { contentItem } = props;
 
   if (!_.includes(subableContentItemTypes, contentItem.type)) {
     return null;
@@ -153,7 +126,10 @@ const SubItemsEditableDisplay = (props: Props): React.Node => {
     }
     else {
       return (
-        <div className={`${baseClassName}${subItemsClassNameSuffix}`}>
+        <div
+          className="content-item-editable-display__sub-items"
+          data-test-id="content-item-editable-display__sub-items"
+        >
           {subableContentItem.subItemIds.map(
             (subItemId: Identifier): React.Node => (
               <EditableDisplay
@@ -170,11 +146,14 @@ const SubItemsEditableDisplay = (props: Props): React.Node => {
 };
 
 const PureEditableDisplay = (props: Props): React.Node => {
-  const { contentItem, baseClassName } = props;
-  const DisplayComponent = contentItemTypesToDisplayComponentMap[contentItem.type];
+  const { contentItem } = props;
+  const DisplayComponent = typesToComponentMap[contentItem.type];
 
   return (
-    <div className={baseClassName}>
+    <div
+      className="content-item-editable-display"
+      data-test-id="content-item-editable-display"
+    >
       <DisplayComponent
         {..._.pick(props, passThroughProps)}
         // eslint-disable-next-line flowtype/no-weak-types
@@ -185,12 +164,7 @@ const PureEditableDisplay = (props: Props): React.Node => {
   );
 };
 
-PureEditableDisplay.defaultProps = {
-  baseClassName: 'content-item-editable-display',
-  subItemsClassNameSuffix: '__sub-items',
-};
-
 const EditableDisplay = connect(mapStateToProps, mapDispatchToProps)(PureEditableDisplay);
 
-export { PureEditableDisplay, passThroughProps, mapDispatchToProps, DummyDisplayComponent };
+export { PureEditableDisplay, passThroughProps, mapDispatchToProps };
 export default EditableDisplay;
