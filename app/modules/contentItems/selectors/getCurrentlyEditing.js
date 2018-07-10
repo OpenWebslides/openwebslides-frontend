@@ -10,8 +10,8 @@ const getCurrentlyEditing = createSelector(
   [getAllById],
   (contentItemsById: ContentItemsById): ?ContentItem => {
     const currentlyEditingItem = _.find(
-      // eslint-disable-next-line flowtype/no-weak-types
-      (contentItemsById: any),
+      // $FlowFixMe See https://github.com/flow-typed/flow-typed/issues/1099
+      contentItemsById,
       (contentItem: ContentItem): boolean => {
         return contentItem.isEditing;
       },

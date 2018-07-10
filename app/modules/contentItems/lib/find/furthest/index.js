@@ -1,5 +1,4 @@
 // @flow
-/* eslint-disable no-lonely-if */
 /**
  * Takes another (single) find function as an argument and recursively calls it until the furthest
  * contentItem for which the passed predicate function returns TRUE is found.
@@ -59,6 +58,7 @@ const findFurthestRecursive = (
   // If there is no further valid nested item, see what to do with the current contentItem.
   else {
     // If the current contentItem is valid, return it.
+    // eslint-disable-next-line no-lonely-if
     if (isContentItemValid) {
       return contentItem;
     }
