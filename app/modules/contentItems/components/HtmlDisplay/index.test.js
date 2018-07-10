@@ -6,7 +6,7 @@ import { mount, shallow } from 'enzyme';
 import * as model from '../../model';
 import * as dummyData from '../../lib/testResources/dummyContentItemData';
 
-import { PureHtmlDisplay, DummyDisplayComponent } from '.';
+import { PureHtmlDisplay } from '.';
 
 const {
   DenormalizedRootContentItem,
@@ -125,17 +125,6 @@ describe(`HtmlDisplay`, (): void => {
     expect(h2Tags).toHaveLength(2);
     expect(h2Tags.at(0).text()).toEqual(dummyHeading11.text);
     expect(h2Tags.at(1).text()).toEqual(dummyHeading12.text);
-  });
-
-  describe(`DummyDisplayComponent`, (): void => {
-
-    it(`renders without errors`, (): void => {
-      const enzymeWrapper = shallow(
-        <DummyDisplayComponent />,
-      );
-      expect(enzymeWrapper.isEmptyRender()).toEqual(false);
-    });
-
   });
 
 });

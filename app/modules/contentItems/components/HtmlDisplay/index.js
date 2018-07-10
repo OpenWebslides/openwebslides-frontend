@@ -8,35 +8,15 @@
 import _ from 'lodash';
 import * as React from 'react';
 
-import { contentItemTypes, subableContentItemTypes } from '../../model';
-import type {
+import * as model from '../../model';
+import typesToComponentsMap from './helpers/typesToComponentsMap';
+
+const {
+  contentItemTypes,
+  subableContentItemTypes,
   DenormalizedContentItem,
   DenormalizedSubableContentItem,
-} from '../../model';
-
-import Root from './types/Root';
-import Heading from './types/Heading';
-import Paragraph from './types/Paragraph';
-
-const DummyDisplayComponent = (): React.Node => (
-  <p>Not implemented yet.</p>
-);
-
-const contentItemTypesToDisplayComponentMap = {
-  [contentItemTypes.ROOT]: Root,
-  [contentItemTypes.HEADING]: Heading,
-  [contentItemTypes.PARAGRAPH]: Paragraph,
-  [contentItemTypes.LIST]: DummyDisplayComponent,
-  [contentItemTypes.LIST_ITEM]: DummyDisplayComponent,
-  [contentItemTypes.BLOCKQUOTE]: DummyDisplayComponent,
-  [contentItemTypes.CODE]: DummyDisplayComponent,
-  [contentItemTypes.IMAGE]: DummyDisplayComponent,
-  [contentItemTypes.VIDEO]: DummyDisplayComponent,
-  [contentItemTypes.AUDIO]: DummyDisplayComponent,
-  [contentItemTypes.IFRAME]: DummyDisplayComponent,
-  [contentItemTypes.SLIDE_BREAK]: DummyDisplayComponent,
-  [contentItemTypes.COURSE_BREAK]: DummyDisplayComponent,
-};
+} = model;
 
 type PassedProps = {
   // The contentItem to be displayed.
@@ -84,7 +64,7 @@ const SubItemsHtmlDisplay = (props: Props): React.Node => {
 
 const PureHtmlDisplay = (props: Props): React.Node => {
   const { contentItem, headingLevel } = props;
-  const DisplayComponent = contentItemTypesToDisplayComponentMap[contentItem.type];
+  const DisplayComponent = typesToComponentsMap[contentItem.type];
 
   return (
     <DisplayComponent
@@ -99,5 +79,5 @@ const PureHtmlDisplay = (props: Props): React.Node => {
 
 const HtmlDisplay = PureHtmlDisplay;
 
-export { PureHtmlDisplay, DummyDisplayComponent };
+export { PureHtmlDisplay };
 export default HtmlDisplay;
