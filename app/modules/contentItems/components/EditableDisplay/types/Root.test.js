@@ -3,62 +3,50 @@
 import * as React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { I18nextProvider } from 'react-i18next';
-import i18nextConfig from 'config/i18next';
 import { mount, shallow } from 'enzyme';
 
-import { contentItemTypes } from '../../../model';
-import type {
-  RootContentItem,
-  HeadingContentItem,
-  ContentItemsById,
-  ContentItemsState,
-} from '../../../model';
-import * as dummyContentItemData from '../../../lib/testResources/dummyContentItemData';
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
 
 import { PureRoot } from './Root';
 
+const {
+  RootContentItem,
+  HeadingContentItem,
+  ContentItemsById,
+} = model;
+
 describe(`Root`, (): void => {
 
-  const dummyHeading2: $Exact<HeadingContentItem> = {
-    id: 'vqj12bqawx',
-    type: contentItemTypes.HEADING,
-    isEditing: false,
-    text: 'Dolor sit amet',
-    metadata: dummyContentItemData.emptyMetadata,
-    subItemIds: [],
-  };
-  const dummyHeading1: $Exact<HeadingContentItem> = {
-    id: 'o365j96prm',
-    type: contentItemTypes.HEADING,
-    isEditing: false,
-    text: 'Lorem ipsum',
-    metadata: dummyContentItemData.emptyMetadata,
-    subItemIds: [],
-  };
-  const dummyRoot: $Exact<RootContentItem> = {
-    id: 'jptgampe2x',
-    type: contentItemTypes.ROOT,
-    isEditing: false,
-    childItemIds: [dummyHeading1.id, dummyHeading2.id],
-  };
-  const dummyContentItemsById: ContentItemsById = {
-    [dummyRoot.id]: dummyRoot,
-    [dummyHeading1.id]: dummyHeading1,
-    [dummyHeading2.id]: dummyHeading2,
-  };
-  const dummyContentItemsState: ContentItemsState = {
-    byId: dummyContentItemsById,
-  };
-  const dummyState: any = {
-    modules: {
-      contentItems: dummyContentItemsState,
-    },
-  };
+  let dummyHeading2: $Exact<HeadingContentItem>;
+  let dummyHeading1: $Exact<HeadingContentItem>;
+  let dummyRoot: $Exact<RootContentItem>;
+  let dummyContentItemsById: $Exact<ContentItemsById>;
+  let dummyState: any;
 
-  // eslint-disable-next-line no-unused-vars
-  const dummyReducer = (state: any = {}, action: any): any => state;
-  const dummyStore = createStore(dummyReducer, dummyState);
+  let dummyReducer: *;
+  let dummyStore: *;
+
+  beforeEach((): void => {
+    dummyHeading2 = { ...dummyData.headingContentItem2 };
+    dummyHeading1 = { ...dummyData.headingContentItem };
+    dummyRoot = { ...dummyData.rootContentItem, childItemIds: [dummyHeading1.id, dummyHeading2.id] };
+    dummyContentItemsById = {
+      [dummyRoot.id]: dummyRoot,
+      [dummyHeading1.id]: dummyHeading1,
+      [dummyHeading2.id]: dummyHeading2,
+    };
+    dummyState = {
+      modules: {
+        contentItems: {
+          byId: dummyContentItemsById,
+        },
+      },
+    };
+
+    dummyReducer = (state: any = {}, action: any): any => state;
+    dummyStore = createStore(dummyReducer, dummyState);
+  });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
@@ -70,9 +58,7 @@ describe(`Root`, (): void => {
   it(`renders all of its child items`, (): void => {
     const enzymeWrapper = mount(
       <Provider store={dummyStore}>
-        <I18nextProvider i18n={i18nextConfig}>
-          <PureRoot contentItem={dummyRoot} />
-        </I18nextProvider>
+        <PureRoot contentItem={dummyRoot} />
       </Provider>,
     );
     expect(enzymeWrapper.find('PureHeading')).toHaveLength(2);

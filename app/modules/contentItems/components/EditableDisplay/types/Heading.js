@@ -2,14 +2,14 @@
 
 import _ from 'lodash';
 import * as React from 'react';
-
 import type { Identifier } from 'types/model';
 import EditableTextContent from 'core-components/EditableTextContent';
 
-import type { HeadingContentItem } from '../../../model';
-
-import { passThroughProps } from '..';
+import * as model from '../../../model';
 import TypeBlockWrapper from '../TypeBlockWrapper';
+import { passThroughProps } from '..';
+
+const { HeadingContentItem } = model;
 
 type PassedProps = {
   contentItem: HeadingContentItem,
@@ -61,6 +61,7 @@ class PureHeading extends React.Component<Props> {
 
     return (
       <TypeBlockWrapper
+        data-test-id="content-item-editable-display-heading"
         {..._.pick(this.props, passThroughProps)}
         iconName="header"
       >

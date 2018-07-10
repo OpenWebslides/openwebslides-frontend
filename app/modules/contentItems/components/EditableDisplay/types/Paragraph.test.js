@@ -1,49 +1,38 @@
 // @flow
 
 import * as React from 'react';
-import { I18nextProvider } from 'react-i18next';
-import i18nextConfig from 'config/i18next';
 import { mount, shallow } from 'enzyme';
 
-import * as dummyContentItemData from '../../../lib/testResources/dummyContentItemData';
+import * as model from '../../../model';
+import * as dummyData from '../../../lib/testResources/dummyContentItemData';
 
 import { PureParagraph } from './Paragraph';
 
+const { ParagraphContentItem } = model;
+
 describe(`Paragraph`, (): void => {
 
-  let dummyOnStartEditing: any;
-  let dummyOnEndEditing: any;
-  let dummyOnEditPlainText: any;
-  let dummyOnAddEmptySiblingItemBelow: any;
-  let dummyOnRemove: any;
-  let dummyOnIndent: any;
-  let dummyOnReverseIndent: any;
-  let dummyProps: any;
+  let dummyParagraph: $Exact<ParagraphContentItem>;
+  let dummyFunctionProps: any;
 
   beforeEach((): void => {
-    dummyOnStartEditing = jest.fn();
-    dummyOnEndEditing = jest.fn();
-    dummyOnEditPlainText = jest.fn();
-    dummyOnAddEmptySiblingItemBelow = jest.fn();
-    dummyOnRemove = jest.fn();
-    dummyOnIndent = jest.fn();
-    dummyOnReverseIndent = jest.fn();
-    dummyProps = {
-      onStartEditing: dummyOnStartEditing,
-      onEndEditing: dummyOnEndEditing,
-      onEditPlainText: dummyOnEditPlainText,
-      onAddEmptySiblingItemBelow: dummyOnAddEmptySiblingItemBelow,
-      onRemove: dummyOnRemove,
-      onIndent: dummyOnIndent,
-      onReverseIndent: dummyOnReverseIndent,
+    dummyParagraph = { ...dummyData.paragraphContentItem };
+    dummyFunctionProps = {
+      onStartEditing: jest.fn(),
+      onEndEditing: jest.fn(),
+      onEditPlainText: jest.fn(),
+      onAddEmptySiblingItemBelow: jest.fn(),
+      onRemove: jest.fn(),
+      onIndent: jest.fn(),
+      onReverseIndent: jest.fn(),
     };
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureParagraph
-        contentItem={dummyContentItemData.paragraphContentItem}
-        {...dummyProps}
+        contentItem={dummyParagraph}
+        {...dummyFunctionProps}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -51,15 +40,12 @@ describe(`Paragraph`, (): void => {
 
   it(`renders its text prop`, (): void => {
     const enzymeWrapper = mount(
-      <I18nextProvider i18n={i18nextConfig}>
-        <PureParagraph
-          contentItem={dummyContentItemData.paragraphContentItem}
-          baseClassName="BaseClassName"
-          {...dummyProps}
-        />
-      </I18nextProvider>,
+      <PureParagraph
+        contentItem={dummyParagraph}
+        {...dummyFunctionProps}
+      />,
     );
-    expect(enzymeWrapper.text()).toContain(dummyContentItemData.paragraphContentItem.text);
+    expect(enzymeWrapper.text()).toContain(dummyParagraph.text);
   });
 
   describe(`onEditableTextContentInput`, (): void => {
@@ -68,12 +54,12 @@ describe(`Paragraph`, (): void => {
       const dummyText = 'Lorem ipsum';
       const enzymeWrapper = shallow(
         <PureParagraph
-          contentItem={dummyContentItemData.paragraphContentItem}
-          {...dummyProps}
+          contentItem={dummyParagraph}
+          {...dummyFunctionProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentInput(dummyText);
-      expect(dummyOnEditPlainText).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id, dummyText);
+      expect(dummyFunctionProps.onEditPlainText).toHaveBeenCalledWith(dummyParagraph.id, dummyText);
     });
 
   });
@@ -84,12 +70,12 @@ describe(`Paragraph`, (): void => {
       const dummyText = 'Lorem ipsum';
       const enzymeWrapper = shallow(
         <PureParagraph
-          contentItem={dummyContentItemData.paragraphContentItem}
-          {...dummyProps}
+          contentItem={dummyParagraph}
+          {...dummyFunctionProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentActivate(dummyText);
-      expect(dummyOnStartEditing).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id);
+      expect(dummyFunctionProps.onStartEditing).toHaveBeenCalledWith(dummyParagraph.id);
     });
 
   });
@@ -100,12 +86,12 @@ describe(`Paragraph`, (): void => {
       const dummyText = 'Lorem ipsum';
       const enzymeWrapper = shallow(
         <PureParagraph
-          contentItem={dummyContentItemData.paragraphContentItem}
-          {...dummyProps}
+          contentItem={dummyParagraph}
+          {...dummyFunctionProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentDeactivate(dummyText);
-      expect(dummyOnEndEditing).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id);
+      expect(dummyFunctionProps.onEndEditing).toHaveBeenCalledWith(dummyParagraph.id);
     });
 
   });
@@ -115,59 +101,58 @@ describe(`Paragraph`, (): void => {
     it(`calls the passed onAddEmptySubItem function, when the pressed key was "Enter"`, (): void => {
       const enzymeWrapper = shallow(
         <PureParagraph
-          contentItem={dummyContentItemData.paragraphContentItem}
-          {...dummyProps}
+          contentItem={dummyParagraph}
+          {...dummyFunctionProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Enter', preventDefault: jest.fn() });
-      expect(dummyOnAddEmptySiblingItemBelow).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id);
+      expect(dummyFunctionProps.onAddEmptySiblingItemBelow).toHaveBeenCalledWith(dummyParagraph.id);
     });
 
     it(`calls the passed onRemove function, when the pressed key was "Backspace" and the contentItem's text prop was empty`, (): void => {
       const enzymeWrapper = shallow(
         <PureParagraph
-          contentItem={{ ...dummyContentItemData.paragraphContentItem, text: '' }}
-          {...dummyProps}
+          contentItem={{ ...dummyParagraph, text: '' }}
+          {...dummyFunctionProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Backspace', preventDefault: jest.fn() });
-      expect(dummyOnRemove).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id);
+      expect(dummyFunctionProps.onRemove).toHaveBeenCalledWith(dummyParagraph.id);
     });
 
     it(`calls the passed onIndent function, when the pressed key combination was "CTRL" + "ArrowRight"`, (): void => {
       const enzymeWrapper = shallow(
         <PureParagraph
-          contentItem={dummyContentItemData.paragraphContentItem}
-          {...dummyProps}
+          contentItem={dummyParagraph}
+          {...dummyFunctionProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'ArrowRight', ctrlKey: true, preventDefault: jest.fn() });
-      expect(dummyOnIndent).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id);
+      expect(dummyFunctionProps.onIndent).toHaveBeenCalledWith(dummyParagraph.id);
     });
 
     it(`calls the passed onReverseIndent function, when the pressed key combination was "CTRL" + "ArrowLeft"`, (): void => {
       const enzymeWrapper = shallow(
         <PureParagraph
-          contentItem={dummyContentItemData.paragraphContentItem}
-          {...dummyProps}
+          contentItem={dummyParagraph}
+          {...dummyFunctionProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'ArrowLeft', ctrlKey: true, preventDefault: jest.fn() });
-      expect(dummyOnReverseIndent).toHaveBeenCalledWith(dummyContentItemData.paragraphContentItem.id);
+      expect(dummyFunctionProps.onReverseIndent).toHaveBeenCalledWith(dummyParagraph.id);
     });
 
     it(`does not call any function, when the pressed key is anything other than the above key combinations`, (): void => {
       const enzymeWrapper = shallow(
         <PureParagraph
-          contentItem={dummyContentItemData.paragraphContentItem}
-          {...dummyProps}
+          contentItem={dummyParagraph}
+          {...dummyFunctionProps}
         />,
       );
       enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'A' });
-      expect(dummyOnAddEmptySiblingItemBelow).toHaveBeenCalledTimes(0);
-      expect(dummyOnRemove).toHaveBeenCalledTimes(0);
-      expect(dummyOnIndent).toHaveBeenCalledTimes(0);
-      expect(dummyOnReverseIndent).toHaveBeenCalledTimes(0);
+      Object.values(dummyFunctionProps).forEach((value: any): void => {
+        expect(value).toHaveBeenCalledTimes(0);
+      });
     });
 
   });
