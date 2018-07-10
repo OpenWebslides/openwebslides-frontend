@@ -1,30 +1,26 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 
 import { Icon } from 'semantic-ui-react';
 
 type PassedProps = {
   iconName: string,
   children?: React.Node,
-  baseClassName: string,
 };
 
-type Props = CustomTranslatorProps & PassedProps;
+type Props = PassedProps;
 
 const PureTypeBlockWrapper = (props: Props): React.Node => {
-  const { iconName, children, baseClassName } = props;
-  const blockClassName = `${baseClassName}-block`;
+  const { iconName, children } = props;
 
   return (
-    <div className={`${blockClassName}`}>
-      <div className={`${blockClassName}__wrapper`}>
-        <div className={`${blockClassName}__icon`}>
+    <div className="content-item-editable-display-block">
+      <div className="content-item-editable-display-block__wrapper">
+        <div className="content-item-editable-display-block__icon">
           <Icon name={iconName} color="grey" />
         </div>
-        <div className={`${blockClassName}__content`}>
+        <div className="content-item-editable-display-block__content">
           { children }
         </div>
       </div>
@@ -36,7 +32,7 @@ PureTypeBlockWrapper.defaultProps = {
   children: null,
 };
 
-const TypeBlockWrapper = translate()(PureTypeBlockWrapper);
+const TypeBlockWrapper = PureTypeBlockWrapper;
 
 export { PureTypeBlockWrapper };
 export default TypeBlockWrapper;
