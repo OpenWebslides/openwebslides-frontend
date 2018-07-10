@@ -14,10 +14,8 @@ import typesToComponentMap from './typesToComponentMap';
 
 const {
   contentItemTypes,
-  subableContentItemTypes,
   contextTypes,
   ContentItem,
-  SubableContentItem,
 } = model;
 
 type PassedProps = {
@@ -114,34 +112,30 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
 const SubItemsEditableDisplay = (props: Props): React.Node => {
   const { contentItem } = props;
 
-  if (!_.includes(subableContentItemTypes, contentItem.type)) {
+  if (contentItem.subItemIds == null) {
+    return null;
+  }
+  else if (contentItem.subItemIds.length === 0) {
     return null;
   }
   else {
-    // eslint-disable-next-line flowtype/no-weak-types
-    const subableContentItem = (((contentItem: any): SubableContentItem));
-
-    if (subableContentItem.subItemIds.length === 0) {
-      return null;
-    }
-    else {
-      return (
-        <div
-          className="content-item-editable-display__sub-items"
-          data-test-id="content-item-editable-display__sub-items"
-        >
-          {subableContentItem.subItemIds.map(
-            (subItemId: Identifier): React.Node => (
-              <EditableDisplay
-                {..._.pick(props, passThroughProps)}
-                key={subItemId}
-                contentItemId={subItemId}
-              />
-            ),
-          )}
-        </div>
-      );
-    }
+    return (
+      <div
+        className="content-item-editable-display__sub-items"
+        data-test-id="content-item-editable-display__sub-items"
+      >
+        { /* $FlowFixMe Technically, flow has all the information needed; probably a bug */ }
+        {contentItem.subItemIds.map(
+          (subItemId: Identifier): React.Node => (
+            <EditableDisplay
+              {..._.pick(props, passThroughProps)}
+              key={subItemId}
+              contentItemId={subItemId}
+            />
+          ),
+        )}
+      </div>
+    );
   }
 };
 
@@ -156,8 +150,7 @@ const PureEditableDisplay = (props: Props): React.Node => {
     >
       <DisplayComponent
         {..._.pick(props, passThroughProps)}
-        // eslint-disable-next-line flowtype/no-weak-types
-        contentItem={(contentItem: any)}
+        contentItem={contentItem}
       />
       <SubItemsEditableDisplay {...props} />
     </div>

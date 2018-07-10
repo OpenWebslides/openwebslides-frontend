@@ -114,7 +114,6 @@ class PureEditor extends React.Component<Props> {
         </p>
 
         <Link to="/tempslidetest">Temp slide test page</Link>
-        {/* $FlowFixMe See: https://github.com/facebook/flow/issues/4644 */}
         <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
       </div>
     );
