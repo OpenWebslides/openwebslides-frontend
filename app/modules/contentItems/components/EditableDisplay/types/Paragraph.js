@@ -6,7 +6,7 @@ import type { Identifier } from 'types/model';
 import EditableTextContent from 'core-components/EditableTextContent';
 
 import * as model from '../../../model';
-import TypeBlockWrapper from '../TypeBlockWrapper';
+import TypeBlockWrapper from '../helpers/TypeBlockWrapper';
 import { passThroughProps } from '..';
 
 const { ParagraphContentItem } = model;

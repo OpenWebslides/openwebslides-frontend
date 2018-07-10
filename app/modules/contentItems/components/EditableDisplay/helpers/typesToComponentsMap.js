@@ -2,11 +2,11 @@
 
 import * as React from 'react';
 
-import * as model from '../../model';
+import * as model from '../../../model';
 
-import Root from './types/Root';
-import Heading from './types/Heading';
-import Paragraph from './types/Paragraph';
+import Root from '../types/Root';
+import Heading from '../types/Heading';
+import Paragraph from '../types/Paragraph';
 
 const { contentItemTypes } = model;
 
@@ -14,7 +14,7 @@ const DummyDisplayComponent = (): React.Node => (
   <p>Not implemented yet.</p>
 );
 
-const typesToComponentMap = {
+const typesToComponentsMap = {
   [contentItemTypes.ROOT]: Root,
   [contentItemTypes.HEADING]: Heading,
   [contentItemTypes.PARAGRAPH]: Paragraph,
@@ -31,4 +31,4 @@ const typesToComponentMap = {
 };
 
 export { DummyDisplayComponent };
-export default typesToComponentMap;
+export default typesToComponentsMap;

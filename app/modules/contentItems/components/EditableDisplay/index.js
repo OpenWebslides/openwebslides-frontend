@@ -10,7 +10,7 @@ import type { Identifier } from 'types/model';
 import actions from '../../actions';
 import * as model from '../../model';
 import selectors from '../../selectors';
-import typesToComponentMap from './typesToComponentMap';
+import typesToComponentsMap from './helpers/typesToComponentsMap';
 
 const {
   contentItemTypes,
@@ -141,7 +141,7 @@ const SubItemsEditableDisplay = (props: Props): React.Node => {
 
 const PureEditableDisplay = (props: Props): React.Node => {
   const { contentItem } = props;
-  const DisplayComponent = typesToComponentMap[contentItem.type];
+  const DisplayComponent = typesToComponentsMap[contentItem.type];
 
   return (
     <div

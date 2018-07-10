@@ -3,9 +3,9 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { DummyDisplayComponent } from './typesToComponentMap';
+import { DummyDisplayComponent } from './typesToComponentsMap';
 
-describe(`typesToComponentMap`, (): void => {
+describe(`typesToComponentsMap`, (): void => {
 
   describe(`DummyDisplayComponent`, (): void => {
 
