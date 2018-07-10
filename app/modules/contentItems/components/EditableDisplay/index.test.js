@@ -1,275 +1,151 @@
 // @flow
 
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { I18nextProvider } from 'react-i18next';
-import i18nextConfig from 'config/i18next';
 import { mount, shallow } from 'enzyme';
-import { dummyTranslatorProps } from 'config/tests';
-
-import EditableDisplay, {
-  PureEditableDisplay,
-  mapDispatchToProps,
-} from '.';
+import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import actions from '../../actions';
-import {
+import * as model from '../../model';
+import * as dummyData from '../../lib/testResources/dummyContentItemData';
+
+import EditableDisplay, { PureEditableDisplay, mapDispatchToProps } from '.';
+import type { DispatchProps } from '.';
+
+const {
   contentItemTypes,
   contextTypes,
-} from '../../model';
-import type {
   RootContentItem,
   HeadingContentItem,
   ParagraphContentItem,
   ContentItemsById,
-  ContentItemsState,
-} from '../../model';
+} = model;
 
-import * as dummyContentItemData from '../../lib/testResources/dummyContentItemData';
 
 describe(`EditableDisplay`, (): void => {
 
-  const dummyOnStartEditing = (): void => {};
-  const dummyOnEndEditing = (): void => {};
-  const dummyOnEditPlainText = (): void => {};
-  const dummyOnAddEmptySubItem = (): void => {};
-  const dummyOnAddEmptySiblingItemBelow = (): void => {};
-  const dummyOnRemove = (): void => {};
-  const dummyOnIndent = (): void => {};
-  const dummyOnReverseIndent = (): void => {};
-  const dummyProps = {
-    onStartEditing: dummyOnStartEditing,
-    onEndEditing: dummyOnEndEditing,
-    onEditPlainText: dummyOnEditPlainText,
-    onAddEmptySubItem: dummyOnAddEmptySubItem,
-    onAddEmptySiblingItemBelow: dummyOnAddEmptySiblingItemBelow,
-    onRemove: dummyOnRemove,
-    onIndent: dummyOnIndent,
-    onReverseIndent: dummyOnReverseIndent,
-  };
-  const subItemsSelector = `[data-test-id="content-item-editable-display__sub-items"]`;
+  let dummyRoot2: $Exact<RootContentItem>;
+  let dummyParagraph1132: $Exact<ParagraphContentItem>;
+  let dummyParagraph1131: $Exact<ParagraphContentItem>;
+  let dummyHeading113: $Exact<HeadingContentItem>;
+  let dummyParagraph112: $Exact<ParagraphContentItem>;
+  let dummyParagraph111: $Exact<ParagraphContentItem>;
+  let dummyHeading11: $Exact<HeadingContentItem>;
+  let dummyRoot1: $Exact<RootContentItem>;
+  let dummyContentItemsById: $Exact<ContentItemsById>;
+  let dummyState: any;
 
-  const dummyRoot2: $Exact<RootContentItem> = {
-    id: 'ua32xchh7q',
-    type: contentItemTypes.ROOT,
-    isEditing: false,
-    childItemIds: [],
-  };
-  const dummyNestedParagraph2: $Exact<ParagraphContentItem> = {
-    id: 'cpi389s1e3',
-    type: contentItemTypes.PARAGRAPH,
-    isEditing: false,
-    text: 'Sed ut neque tristique, venenatis purus a, consequat orci. Aenean sed lectus et ante aliquet maximus.',
-    metadata: dummyContentItemData.emptyMetadata,
-    subItemIds: [],
-  };
-  const dummyNestedParagraph1: $Exact<ParagraphContentItem> = {
-    id: 'vrci6v35s7',
-    type: contentItemTypes.PARAGRAPH,
-    isEditing: false,
-    text: 'Sed hendrerit eget metus nec elementum. Aenean commodo semper sapien, nec porta leo.',
-    metadata: dummyContentItemData.emptyMetadata,
-    subItemIds: [],
-  };
-  const dummyLevel2Heading: $Exact<HeadingContentItem> = {
-    id: 'qbpm9mgn6b',
-    type: contentItemTypes.HEADING,
-    isEditing: false,
-    text: 'Level 2 heading',
-    metadata: dummyContentItemData.emptyMetadata,
-    subItemIds: [dummyNestedParagraph1.id, dummyNestedParagraph2.id],
-  };
-  const dummyLevel1Heading: $Exact<HeadingContentItem> = {
-    id: '6o6qy5dz0a',
-    type: contentItemTypes.HEADING,
-    isEditing: false,
-    text: 'Level 1 heading',
-    metadata: dummyContentItemData.emptyMetadata,
-    subItemIds: [dummyLevel2Heading.id],
-  };
-  const dummyRoot1: $Exact<RootContentItem> = {
-    id: 'jptgampe2x',
-    type: contentItemTypes.ROOT,
-    isEditing: false,
-    childItemIds: [dummyLevel1Heading.id],
-  };
-  const dummyContentItemsById: ContentItemsById = {
-    [dummyRoot1.id]: dummyRoot1,
-    [dummyLevel1Heading.id]: dummyLevel1Heading,
-    [dummyLevel2Heading.id]: dummyLevel2Heading,
-    [dummyNestedParagraph1.id]: dummyNestedParagraph1,
-    [dummyNestedParagraph2.id]: dummyNestedParagraph2,
-    [dummyRoot2.id]: dummyRoot2,
-  };
-  const dummyContentItemsState: ContentItemsState = {
-    byId: dummyContentItemsById,
-  };
-  const dummyState: any = {
-    modules: {
-      contentItems: dummyContentItemsState,
-    },
-  };
+  let dummyDispatchProps: DispatchProps;
+  let subItemsSelector: string;
 
-  // eslint-disable-next-line no-unused-vars
-  const dummyReducer = (state: any = {}, action: any): any => state;
-  const dummyStore = createStore(dummyReducer, dummyState);
+  let dummyReducer: *;
+  let dummyStore: *;
+
+  beforeEach((): void => {
+    dummyRoot2 = { ...dummyData.rootContentItem2 };
+    dummyParagraph1132 = { ...dummyData.paragraphContentItem4 };
+    dummyParagraph1131 = { ...dummyData.paragraphContentItem3 };
+    dummyHeading113 = { ...dummyData.headingContentItem2, subItemIds: [dummyParagraph1131.id, dummyParagraph1132.id] };
+    dummyParagraph112 = { ...dummyData.paragraphContentItem2 };
+    dummyParagraph111 = { ...dummyData.paragraphContentItem };
+    dummyHeading11 = { ...dummyData.headingContentItem, subItemIds: [dummyParagraph111.id, dummyParagraph112.id, dummyHeading113.id] };
+    dummyRoot1 = { ...dummyData.rootContentItem, childItemIds: [dummyHeading11.id] };
+    dummyContentItemsById = {
+      [dummyRoot1.id]: dummyRoot1,
+      [dummyHeading11.id]: dummyHeading11,
+      [dummyParagraph111.id]: dummyParagraph111,
+      [dummyParagraph112.id]: dummyParagraph112,
+      [dummyHeading113.id]: dummyHeading113,
+      [dummyParagraph1131.id]: dummyParagraph1131,
+      [dummyParagraph1132.id]: dummyParagraph1132,
+      [dummyRoot2.id]: dummyRoot2,
+    };
+    dummyState = {
+      modules: {
+        contentItems: {
+          byId: dummyContentItemsById,
+        },
+      },
+    };
+
+    dummyDispatchProps = {
+      onStartEditing: jest.fn(),
+      onEndEditing: jest.fn(),
+      onEditPlainText: jest.fn(),
+      onAddEmptySubItem: jest.fn(),
+      onAddEmptySiblingItemBelow: jest.fn(),
+      onRemove: jest.fn(),
+      onIndent: jest.fn(),
+      onReverseIndent: jest.fn(),
+    };
+    subItemsSelector = `[data-test-id="content-item-editable-display__sub-items"]`;
+
+    dummyReducer = (state: any = {}, action: any): any => state;
+    dummyStore = createStore(dummyReducer, dummyState);
+  });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureEditableDisplay
-        {...dummyTranslatorProps}
         contentItemId="abcdefghij"
         contentItem={{ id: 'abcdefghij', type: contentItemTypes.ROOT, isEditing: false, childItemIds: [] }}
-        {...dummyProps}
+        {...dummyDispatchProps}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });
 
   it(`renders a the correct type component for the type of the passed contentItem`, (): void => {
-    let enzymeWrapper: any;
+    let enzymeWrapper: *;
 
-    enzymeWrapper = shallow(
-      <PureEditableDisplay
-        {...dummyTranslatorProps}
-        contentItemId={dummyContentItemData.rootContentItem.id}
-        contentItem={dummyContentItemData.rootContentItem}
-        {...dummyProps}
-      />,
-    );
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.rootContentItem} />);
     expect(enzymeWrapper.find('PureRoot')).toHaveLength(1);
 
-    enzymeWrapper = shallow(
-      <PureEditableDisplay
-        {...dummyTranslatorProps}
-        contentItemId={dummyContentItemData.headingContentItem.id}
-        contentItem={dummyContentItemData.headingContentItem}
-        {...dummyProps}
-      />,
-    );
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.headingContentItem} />);
     expect(enzymeWrapper.find('PureHeading')).toHaveLength(1);
 
-    enzymeWrapper = shallow(
-      <PureEditableDisplay
-        {...dummyTranslatorProps}
-        contentItemId={dummyContentItemData.paragraphContentItem.id}
-        contentItem={dummyContentItemData.paragraphContentItem}
-        {...dummyProps}
-      />,
-    );
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.paragraphContentItem} />);
     expect(enzymeWrapper.find('PureParagraph')).toHaveLength(1);
 
-    enzymeWrapper = shallow(
-      <PureEditableDisplay
-        {...dummyTranslatorProps}
-        contentItemId={dummyContentItemData.listContentItem.id}
-        contentItem={dummyContentItemData.listContentItem}
-        {...dummyProps}
-      />,
-    );
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.listContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(
-      <PureEditableDisplay
-        {...dummyTranslatorProps}
-        contentItemId={dummyContentItemData.listItemContentItem.id}
-        contentItem={dummyContentItemData.listItemContentItem}
-        {...dummyProps}
-      />,
-    );
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.listItemContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(
-      <PureEditableDisplay
-        {...dummyTranslatorProps}
-        contentItemId={dummyContentItemData.blockquoteContentItem.id}
-        contentItem={dummyContentItemData.blockquoteContentItem}
-        {...dummyProps}
-      />,
-    );
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.blockquoteContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(
-      <PureEditableDisplay
-        {...dummyTranslatorProps}
-        contentItemId={dummyContentItemData.codeContentItem.id}
-        contentItem={dummyContentItemData.codeContentItem}
-        {...dummyProps}
-      />,
-    );
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.codeContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(
-      <PureEditableDisplay
-        {...dummyTranslatorProps}
-        contentItemId={dummyContentItemData.imageContentItem.id}
-        contentItem={dummyContentItemData.imageContentItem}
-        {...dummyProps}
-      />,
-    );
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.imageContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(
-      <PureEditableDisplay
-        {...dummyTranslatorProps}
-        contentItemId={dummyContentItemData.videoContentItem.id}
-        contentItem={dummyContentItemData.videoContentItem}
-        {...dummyProps}
-      />,
-    );
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.videoContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(
-      <PureEditableDisplay
-        {...dummyTranslatorProps}
-        contentItemId={dummyContentItemData.audioContentItem.id}
-        contentItem={dummyContentItemData.audioContentItem}
-        {...dummyProps}
-      />,
-    );
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.audioContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(
-      <PureEditableDisplay
-        {...dummyTranslatorProps}
-        contentItemId={dummyContentItemData.iframeContentItem.id}
-        contentItem={dummyContentItemData.iframeContentItem}
-        {...dummyProps}
-      />,
-    );
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.iframeContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(
-      <PureEditableDisplay
-        {...dummyTranslatorProps}
-        contentItemId={dummyContentItemData.slideBreakContentItem.id}
-        contentItem={dummyContentItemData.slideBreakContentItem}
-        {...dummyProps}
-      />,
-    );
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.slideBreakContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(
-      <PureEditableDisplay
-        {...dummyTranslatorProps}
-        contentItemId={dummyContentItemData.courseBreakContentItem.id}
-        contentItem={dummyContentItemData.courseBreakContentItem}
-        {...dummyProps}
-      />,
-    );
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.courseBreakContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
   });
 
   it(`throws an ObjectNotFoundError, when the passed contentItemId is invalid`, (): void => {
-    const dummyInvalidId = 'abcdefghij';
     expect((): void => {
       shallow(
         <EditableDisplay
           store={dummyStore}
-          contentItemId={dummyInvalidId}
+          contentItemId="DefinitelyNotValidId"
         />,
       );
     }).toThrow(ObjectNotFoundError);
@@ -278,39 +154,36 @@ describe(`EditableDisplay`, (): void => {
   it(`renders all of the contentItem's sub items, when the contentItem is subable and has sub items`, (): void => {
     const enzymeWrapper = mount(
       <Provider store={dummyStore}>
-        <I18nextProvider i18n={i18nextConfig}>
-          <EditableDisplay
-            contentItemId={dummyRoot1.id}
-          />
-        </I18nextProvider>
+        <EditableDisplay
+          contentItemId={dummyRoot1.id}
+        />
       </Provider>,
     );
 
     const subItemsTags = enzymeWrapper.find(subItemsSelector).hostNodes();
     expect(subItemsTags).toHaveLength(2);
 
-    const level1SubItemsTag = subItemsTags.first();
-    expect(level1SubItemsTag.text()).toContain(dummyLevel2Heading.text);
-    expect(level1SubItemsTag.text()).toContain(dummyNestedParagraph1.text);
-    expect(level1SubItemsTag.text()).toContain(dummyNestedParagraph2.text);
+    const dummyHeading11SubItemsTag = subItemsTags.first();
+    expect(dummyHeading11SubItemsTag.text()).not.toContain(dummyHeading11.text);
+    expect(dummyHeading11SubItemsTag.text()).toContain(dummyParagraph111.text);
+    expect(dummyHeading11SubItemsTag.text()).toContain(dummyParagraph111.text);
+    expect(dummyHeading11SubItemsTag.text()).toContain(dummyHeading113.text);
 
-    const level2SubItemsTags = level1SubItemsTag.children().find(subItemsSelector).hostNodes();
-    expect(level2SubItemsTags).toHaveLength(1);
+    const dummyHeading113SubItemsTags = dummyHeading11SubItemsTag.children().find(subItemsSelector).hostNodes();
+    expect(dummyHeading113SubItemsTags).toHaveLength(1);
 
-    const level2SubItemsTag = level2SubItemsTags.first();
-    expect(level2SubItemsTag.text()).not.toContain(dummyLevel2Heading.text);
-    expect(level2SubItemsTag.text()).toContain(dummyNestedParagraph1.text);
-    expect(level2SubItemsTag.text()).toContain(dummyNestedParagraph2.text);
+    const dummyHeading113SubItemsTag = dummyHeading113SubItemsTags.first();
+    expect(dummyHeading113SubItemsTag.text()).not.toContain(dummyHeading113.text);
+    expect(dummyHeading113SubItemsTag.text()).toContain(dummyParagraph1131.text);
+    expect(dummyHeading113SubItemsTag.text()).toContain(dummyParagraph1132.text);
   });
 
   it(`does not render an empty sub items container, when the contentItem is not subable`, (): void => {
     const enzymeWrapper = mount(
       <Provider store={dummyStore}>
-        <I18nextProvider i18n={i18nextConfig}>
-          <EditableDisplay
-            contentItemId={dummyRoot2.id}
-          />
-        </I18nextProvider>
+        <EditableDisplay
+          contentItemId={dummyRoot2.id}
+        />
       </Provider>,
     );
     const subItemsTags = enzymeWrapper.find(subItemsSelector).hostNodes();
@@ -320,11 +193,9 @@ describe(`EditableDisplay`, (): void => {
   it(`does not render an empty sub items container, when the contentItem is subable but does not contain any sub items`, (): void => {
     const enzymeWrapper = mount(
       <Provider store={dummyStore}>
-        <I18nextProvider i18n={i18nextConfig}>
-          <EditableDisplay
-            contentItemId={dummyNestedParagraph1.id}
-          />
-        </I18nextProvider>
+        <EditableDisplay
+          contentItemId={dummyParagraph111.id}
+        />
       </Provider>,
     );
     const subItemsTags = enzymeWrapper.find(subItemsSelector).hostNodes();

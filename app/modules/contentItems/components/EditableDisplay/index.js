@@ -160,4 +160,5 @@ const PureEditableDisplay = (props: Props): React.Node => {
 const EditableDisplay = connect(mapStateToProps, mapDispatchToProps)(PureEditableDisplay);
 
 export { PureEditableDisplay, passThroughProps, mapDispatchToProps };
+export type { DispatchProps };
 export default EditableDisplay;
