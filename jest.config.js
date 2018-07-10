@@ -11,7 +11,6 @@ module.exports = {
     'node_modules',
     'app/index.js',
     'app/lib/react-voice-components',
-    'app/modules/content-items/examples.js',
   ],
   // Use the app folder as an additional root for imports, to match webpack's resolve.modules.
   moduleDirectories: [
