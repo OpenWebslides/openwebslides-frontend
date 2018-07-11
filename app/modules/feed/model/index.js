@@ -1,7 +1,6 @@
 // @flow
 
 import type { Identifier } from 'types/model';
-import generateRandomString from 'lib/generate-random-string';
 
 import {
   predicate,
@@ -10,13 +9,6 @@ import {
 import type {
   Predicate,
 } from './predicate';
-
-// #TODO optimal id length / generation method?
-const ID_LENGTH = 10;
-
-export const generateId = (): Identifier => {
-  return generateRandomString(ID_LENGTH);
-};
 
 export type Event = {
   +id: Identifier,
