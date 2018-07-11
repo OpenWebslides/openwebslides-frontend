@@ -1,5 +1,5 @@
 // @flow
-/* eslint-disable flowtype/no-weak-types */
+/* eslint-disable flowtype/no-weak-types, react/destructuring-assignment */
 
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';

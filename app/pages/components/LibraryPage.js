@@ -49,4 +49,3 @@ const LibraryPage = translate()(PureLibraryPage);
 
 export { PureLibraryPage };
 export default LibraryPage;
-

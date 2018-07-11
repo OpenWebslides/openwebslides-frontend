@@ -23,8 +23,9 @@ type PassedProps = {
 type Props = CustomTranslatorProps & StateProps & PassedProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  const { userId } = props;
   return {
-    topicIds: getAllTopicIdsByUserId(state, props.userId),
+    topicIds: getAllTopicIdsByUserId(state, userId),
   };
 };
 

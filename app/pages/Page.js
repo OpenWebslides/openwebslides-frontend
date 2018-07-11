@@ -47,7 +47,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
     needsSidebar,
   } = props;
 
-  let amountOfSidebars:number = 0;
+  let amountOfSidebars: number = 0;
 
   if (needsSidebar) {
     const activeSidebars = getAllActiveSidebars(state);
@@ -75,11 +75,11 @@ const SidebarComponent = (props: SidebarProps): React.Node => {
 
   return (
     <React.Fragment>
-      { amountOfCols > 0 &&
+      { amountOfCols > 0 && (
         <Grid.Column className="sidebar-column-wrapper" width={amountOfCols}>
           <SidebarWrapper topicId={topicId} />
         </Grid.Column>
-      }
+      )}
     </React.Fragment>
   );
 };
@@ -89,6 +89,8 @@ const PurePage = (props: Props): React.Node => {
     authenticated,
     amountOfSidebars,
     needsSidebar,
+    children,
+    match,
   } = props;
 
   if (!authenticated) {
@@ -107,11 +109,11 @@ const PurePage = (props: Props): React.Node => {
         <Grid stretched={true}>
           <Grid.Column width={contentCols}>
             <div>
-              {props.children}
+              {children}
             </div>
           </Grid.Column>
           <Route
-            path={`${props.match.url}/:id`}
+            path={`${match.url}/:id`}
             // #TODO
             // eslint-disable-next-line react/jsx-no-bind
             render={(sidebarProps) => (
@@ -119,9 +121,7 @@ const PurePage = (props: Props): React.Node => {
             )}
           />
         </Grid>
-        { needsSidebar &&
-          <SidebarMenu />
-        }
+        { needsSidebar && <SidebarMenu />}
       </div>
     </React.Fragment>
   );

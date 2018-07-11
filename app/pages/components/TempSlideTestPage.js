@@ -65,10 +65,10 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
     toggle: false,
   };
 
-  slideRef;
-
   toggleRead = (): void => {
-    if (this.state.toggle) {
+    const { toggle } = this.state;
+
+    if (toggle) {
       this.setState({ toggle: false });
     }
     else {
@@ -95,14 +95,17 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
     }
   };
 
+  slideRef;
+
   render = (): React.Node => {
     const { contentItemTreeRootItem } = this.props;
+    const { toggle, contentToBeRead } = this.state;
 
     let VoicePlayerToggleNode: ?(typeof VoicePlayerToggle);
-    if (this.state.toggle) {
+    if (toggle) {
       VoicePlayerToggleNode = (
         <VoicePlayerToggle
-          content={this.state.contentToBeRead}
+          content={contentToBeRead}
         />);
     }
     else {
@@ -116,7 +119,7 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
         <div className="Voice">
           {VoicePlayerToggleNode}
           <Segment compact={true}>
-            <Checkbox slider={true} onClick={this.toggleRead} checked={this.state.toggle} />
+            <Checkbox slider={true} onClick={this.toggleRead} checked={toggle} />
           </Segment>
         </div>
       </Page>

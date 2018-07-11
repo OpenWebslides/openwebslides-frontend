@@ -1,8 +1,9 @@
 // @flow
 
-import reducer from '../reducer';
 import * as model from '../model';
 import { dummyContentItemsById } from '../dummyData';
+
+import reducer from '.';
 
 const { ContentItemsState } = model;
 

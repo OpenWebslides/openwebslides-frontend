@@ -22,9 +22,7 @@ type Props = CustomTranslatorProps & RouteProps;
 const TopicEditor = topics.components.Editor;
 
 const PureTopicEditorForId = (props: Props): React.Node => {
-  const {
-    match,
-  } = props;
+  const { match } = props;
 
   const topicId = match.params.id;
   if (topicId == null) { // Null check necessary for flow
@@ -60,10 +58,12 @@ const DummyContent = (props: RouteProps): React.Node => {
 };
 
 const PureEditorPage = (props: RouteProps): React.Node => {
+  const { match } = props;
+
   return (
     <Page needsAuth={true} needsSidebar={true}>
       <Switch>
-        <Route path={`${props.match.url}/:id`} component={TopicEditorForId} />
+        <Route path={`${match.url}/:id`} component={TopicEditorForId} />
         <Route component={DummyContent} />
       </Switch>
     </Page>

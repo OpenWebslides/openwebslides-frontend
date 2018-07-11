@@ -5,7 +5,7 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { Identifier } from 'types/model';
 
 import * as model from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+import * as dummyData from '../../testResources/dummyContentItemData';
 
 import edit from '..';
 

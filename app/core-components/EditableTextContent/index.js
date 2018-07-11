@@ -43,6 +43,13 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     text: '',
   };
 
+  componentDidUpdate(): void {
+    const { isActive } = this.state;
+    if (isActive && this.fieldRef != null) {
+      this.fieldRef.focus();
+    }
+  }
+
   static getDerivedStateFromProps = (
     props: Props,
     state: ComponentState,
@@ -62,76 +69,75 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     return nextState;
   };
 
-  componentDidUpdate = (): void => {
-    if (this.state.isActive && this.fieldRef != null) {
-      this.fieldRef.focus();
-    }
-  };
-
-  fieldRef: ?HTMLInputElement;
-
   handleRef = (c: ?HTMLInputElement): void => {
     this.fieldRef = c;
   };
 
   handleInput = (event: SyntheticInputEvent<HTMLInputElement>): void => {
+    const { onInput } = this.props;
     this.setState({ text: event.currentTarget.value });
-    if (this.props.onInput) {
-      this.props.onInput(event.currentTarget.value);
-    }
+    if (onInput) onInput(event.currentTarget.value);
   };
 
   handleActivate = (): void => {
+    const { onActivate } = this.props;
     this.setState({ isActive: true });
-    if (this.props.onActivate) this.props.onActivate();
+    if (onActivate) onActivate();
   };
 
   handleDeactivate = (event: SyntheticEvent<HTMLInputElement>): void => {
+    const { onDeactivate } = this.props;
     this.setState({ isActive: false });
-    if (this.props.onDeactivate) this.props.onDeactivate(event.currentTarget.value);
+    if (onDeactivate) onDeactivate(event.currentTarget.value);
   };
 
   handleKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
-    if (this.props.onKeyDown) this.props.onKeyDown(event);
+    const { onKeyDown } = this.props;
+    if (onKeyDown) onKeyDown(event);
   };
 
-  renderAsInput = (): React.Node => {
+  fieldRef: ?HTMLInputElement;
+
+  renderAsInput(): React.Node {
+    const { multiline } = this.props;
+    const { text, isActive } = this.state;
+
     return (
       <Form>
-        {
-          (this.props.multiline)
-            ? (
-              <TextArea
-                className="editable-text-content__input editable-text-content__input--multiline"
-                data-test-id="editable-text-content__input"
-                autoHeight={true}
-                value={this.state.text}
-                autoFocus={this.state.isActive}
-                onInput={this.handleInput}
-                onBlur={this.handleDeactivate}
-                onKeyDown={this.handleKeyDown}
-                ref={this.handleRef}
-              />
-            )
-            : (
-              <Input
-                className="editable-text-content__input editable-text-content__input--singleline"
-                data-test-id="editable-text-content__input"
-                fluid={true}
-                value={this.state.text}
-                autoFocus={this.state.isActive}
-                onInput={this.handleInput}
-                onBlur={this.handleDeactivate}
-                onKeyDown={this.handleKeyDown}
-                ref={this.handleRef}
-              />
-            )
-        }
+        {(multiline)
+          ? (
+            <TextArea
+              className="editable-text-content__input editable-text-content__input--multiline"
+              data-test-id="editable-text-content__input"
+              autoHeight={true}
+              value={text}
+              autoFocus={isActive}
+              onInput={this.handleInput}
+              onBlur={this.handleDeactivate}
+              onKeyDown={this.handleKeyDown}
+              ref={this.handleRef}
+            />
+          )
+          : (
+            <Input
+              className="editable-text-content__input editable-text-content__input--singleline"
+              data-test-id="editable-text-content__input"
+              fluid={true}
+              value={text}
+              autoFocus={isActive}
+              onInput={this.handleInput}
+              onBlur={this.handleDeactivate}
+              onKeyDown={this.handleKeyDown}
+              ref={this.handleRef}
+            />
+          )}
       </Form>
     );
-  };
+  }
 
-  renderAsText = (): React.Node => {
+  renderAsText(): React.Node {
+    const { text } = this.state;
+
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     return (
       <div
@@ -142,26 +148,24 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
         onClick={this.handleActivate}
         onFocus={this.handleActivate}
       >
-        <InlineMarkdown text={this.state.text} />
+        <InlineMarkdown text={text} />
       </div>
     );
     /* eslint-enable */
-  };
+  }
 
-  render = (): React.Node => {
+  render(): React.Node {
+    const { isActive } = this.state;
+
     return (
       <div
         className="editable-text-content"
         data-test-id="editable-text-content"
       >
-        {
-          (this.state.isActive)
-            ? this.renderAsInput()
-            : this.renderAsText()
-        }
+        {(isActive) ? this.renderAsInput() : this.renderAsText()}
       </div>
     );
-  };
+  }
 }
 
 export default EditableTextContent;

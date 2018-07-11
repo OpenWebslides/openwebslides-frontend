@@ -48,8 +48,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
 
 class PureCardCollection extends React.Component<Props, State> {
   componentDidMount = (): void => {
-    this.props.handleRequestTopics(this.props.userId);
-  }
+    const { userId, handleRequestTopics } = this.props;
+    handleRequestTopics(userId);
+  };
 
   render = (): React.Node => {
     const {

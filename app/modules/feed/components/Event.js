@@ -46,7 +46,8 @@ type DispatchProps = {
 type Props = CustomTranslatorProps & PassedProps & StateProps & DispatchProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const event = getById(state, props.eventId);
+  const { eventId } = props;
+  const event = getById(state, eventId);
   const topic = getTitleById(state, { id: event.topicId });
   const user = getUserById(state, event.userId);
 
@@ -131,8 +132,7 @@ class PureEventWrapper extends React.Component<Props, State> {
           <Feed.Meta>
             <Feed.Date>
               {
-                moment(event.timestamp)
-                .fromNow()
+                moment(event.timestamp).fromNow()
               }
             </Feed.Date>
           </Feed.Meta>

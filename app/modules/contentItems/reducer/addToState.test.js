@@ -9,7 +9,7 @@ import * as model from '../model';
 import * as dummyData from '../lib/testResources/dummyContentItemData';
 import edit from '../lib/edit';
 
-import reducer from '../reducer';
+import reducer from '.';
 
 const {
   contentItemTypes,

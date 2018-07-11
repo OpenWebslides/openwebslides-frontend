@@ -26,33 +26,44 @@ type Props = PassedProps;
 
 class PureParagraph extends React.Component<Props> {
   onEditableTextContentActivate = (): void => {
-    this.props.onStartEditing(this.props.contentItem.id);
+    const { contentItem, onStartEditing } = this.props;
+    onStartEditing(contentItem.id);
   };
 
   onEditableTextContentDeactivate = (): void => {
-    this.props.onEndEditing(this.props.contentItem.id);
+    const { contentItem, onEndEditing } = this.props;
+    onEndEditing(contentItem.id);
   };
 
   onEditableTextContentInput = (text: string): void => {
-    this.props.onEditPlainText(this.props.contentItem.id, text);
+    const { contentItem, onEditPlainText } = this.props;
+    onEditPlainText(contentItem.id, text);
   };
 
   onEditableTextContentKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
+    const {
+      contentItem,
+      onAddEmptySiblingItemBelow,
+      onRemove,
+      onIndent,
+      onReverseIndent,
+    } = this.props;
+
     if (event.key === 'Enter') {
       event.preventDefault();
-      this.props.onAddEmptySiblingItemBelow(this.props.contentItem.id);
+      onAddEmptySiblingItemBelow(contentItem.id);
     }
-    else if (event.key === 'Backspace' && this.props.contentItem.text === '') {
+    else if (event.key === 'Backspace' && contentItem.text === '') {
       event.preventDefault();
-      this.props.onRemove(this.props.contentItem.id);
+      onRemove(contentItem.id);
     }
     else if (event.key === 'ArrowRight' && event.ctrlKey === true) {
       event.preventDefault();
-      this.props.onIndent(this.props.contentItem.id);
+      onIndent(contentItem.id);
     }
     else if (event.key === 'ArrowLeft' && event.ctrlKey === true) {
       event.preventDefault();
-      this.props.onReverseIndent(this.props.contentItem.id);
+      onReverseIndent(contentItem.id);
     }
   };
 

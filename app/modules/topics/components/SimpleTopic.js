@@ -21,7 +21,8 @@ type StateProps = {
 type Props = PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const topic = getById(state, { id: props.topicId });
+  const { topicId } = props;
+  const topic = getById(state, { id: topicId });
 
   if (topic == null) {
     throw new ObjectNotFoundError('topics:topic', props.topicId);

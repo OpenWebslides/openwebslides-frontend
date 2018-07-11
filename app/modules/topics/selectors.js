@@ -22,7 +22,8 @@ export const getAll = createSelector(
 );
 
 export const getById = (state: State, props: { id: Identifier }): Topic => {
-  return _.get(getAllById(state), props.id, null);
+  const { id } = props;
+  return _.get(getAllById(state), id, null);
 };
 
 // #TODO delete this; just select the entire topic instead and get the title from that

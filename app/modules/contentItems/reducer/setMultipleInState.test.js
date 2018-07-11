@@ -1,9 +1,10 @@
 // @flow
 
-import reducer from '../reducer';
 import * as t from '../actionTypes';
 import * as model from '../model';
 import * as dummyData from '../lib/testResources/dummyContentItemData';
+
+import reducer from '.';
 
 const { HeadingContentItem, ContentItemsState } = model;
 

@@ -41,4 +41,3 @@ const findAllChildOrSubItems: MultipleFindFunction = (
 };
 
 export default findAllChildOrSubItems;
-

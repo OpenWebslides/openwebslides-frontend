@@ -51,7 +51,8 @@ const passThroughProps = [
 ];
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const contentItem = selectors.getById(state, { id: props.contentItemId });
+  const { contentItemId } = props;
+  const contentItem = selectors.getById(state, { id: contentItemId });
 
   if (contentItem == null) {
     throw new ObjectNotFoundError('contentItems:contentItem', props.contentItemId);

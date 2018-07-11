@@ -3,7 +3,7 @@
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 
 import * as model from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+import * as dummyData from '../../testResources/dummyContentItemData';
 
 import find from '..';
 

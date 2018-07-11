@@ -21,6 +21,7 @@ const getSelfAndAllDescendantsById = createCachedSelector(
     ];
   },
 )(
+  // eslint-disable-next-line react/destructuring-assignment
   (state: State, props: { id: Identifier }) => props.id,
 );
 

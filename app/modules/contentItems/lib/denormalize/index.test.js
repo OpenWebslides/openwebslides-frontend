@@ -4,7 +4,7 @@ import _ from 'lodash';
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 
 import * as model from '../../model';
-import * as dummyData from '../../lib/testResources/dummyContentItemData';
+import * as dummyData from '../testResources/dummyContentItemData';
 
 import denormalize from '.';
 

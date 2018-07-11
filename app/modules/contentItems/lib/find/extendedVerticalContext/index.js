@@ -33,8 +33,8 @@ const getContextFromCandidateParentOrSuperItem = (
 
   // If the current candidate is the superItem of the passed contentItem
   if (
-    candidateParentOrSuperItem.subItemIds != null &&
-    _.includes(
+    candidateParentOrSuperItem.subItemIds != null
+    && _.includes(
       ((candidateParentOrSuperItem: any): SubableContentItem).subItemIds,
       contentItem.id,
     )
@@ -49,8 +49,8 @@ const getContextFromCandidateParentOrSuperItem = (
   }
   // If the current candidate is the parentItem of the passed contentItem
   else if (
-    candidateParentOrSuperItem.childItemIds != null &&
-    _.includes(
+    candidateParentOrSuperItem.childItemIds != null
+    && _.includes(
       ((candidateParentOrSuperItem: any): ContainerContentItem).childItemIds,
       contentItem.id,
     )

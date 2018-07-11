@@ -26,9 +26,9 @@ const moveInState = (
 
   // If the previousContext is the same as the nextContext
   if (
-    previousContext.contextType === nextContext.contextType &&
-    previousContext.contextItemId === nextContext.contextItemId &&
-    previousContext.indexInSiblingItems === (nextContext.indexInSiblingItems || 0)
+    previousContext.contextType === nextContext.contextType
+    && previousContext.contextItemId === nextContext.contextItemId
+    && previousContext.indexInSiblingItems === (nextContext.indexInSiblingItems || 0)
   ) {
     // Return the state object unchanged.
     return state;

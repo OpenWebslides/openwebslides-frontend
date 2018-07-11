@@ -39,8 +39,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
 
 class PureFeedWrapper extends React.Component<Props, State> {
   componentDidMount = (): void => {
-    this.props.handleRequestFeed();
-  }
+    const { handleRequestFeed } = this.props;
+    handleRequestFeed();
+  };
 
   render = (): React.Node => {
     const {

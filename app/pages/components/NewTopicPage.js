@@ -30,4 +30,3 @@ const NewTopicPage = translate()(PureNewTopicPage);
 
 export { PureNewTopicPage };
 export default NewTopicPage;
-

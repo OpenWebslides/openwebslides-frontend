@@ -21,9 +21,10 @@ type StateProps = {
 type Props = CustomTranslatorProps & PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  const { request } = props;
   let active: boolean = false;
 
-  [].concat(props.request).forEach((req: string): void => {
+  [].concat(request).forEach((req: string): void => {
     active = active || isPending(state, { request: req });
   });
 

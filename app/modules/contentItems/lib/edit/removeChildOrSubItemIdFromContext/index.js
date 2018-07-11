@@ -1,5 +1,5 @@
 // @flow
-/* eslint-disable flowtype/no-weak-types */
+/* eslint-disable flowtype/no-weak-types, react/destructuring-assignment */
 
 import _ from 'lodash';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';

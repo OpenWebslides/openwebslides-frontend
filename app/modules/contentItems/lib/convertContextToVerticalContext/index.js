@@ -1,12 +1,12 @@
 // @flow
-/* eslint-disable flowtype/no-weak-types */
+/* eslint-disable flowtype/no-weak-types, react/destructuring-assignment */
 
 import _ from 'lodash';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as model from '../../model';
-import find from '../../lib/find';
+import find from '../find';
 
 const {
   verticalContextTypes,
@@ -40,8 +40,8 @@ const convertContextToVerticalContext = (
       + (horizontalContext.indexInSiblingItemsShift || 0);
 
     if (
-      shiftedIndexInSiblingItems < 0 ||
-      shiftedIndexInSiblingItems > verticalContext.siblingItemIds.length
+      shiftedIndexInSiblingItems < 0
+      || shiftedIndexInSiblingItems > verticalContext.siblingItemIds.length
     ) {
       throw new InvalidArgumentError('Shifted index out of bounds.');
     }

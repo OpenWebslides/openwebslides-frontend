@@ -28,9 +28,10 @@ type StateProps = {
 type Props = PassedProps & DispatchProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  const { sidebarName } = props;
   const sidebars = getAllActiveSidebars(state);
 
-  const menuItemActive = _.indexOf(sidebars, props.sidebarName) !== -1;
+  const menuItemActive = _.indexOf(sidebars, sidebarName) !== -1;
 
   return {
     menuItemActive,

@@ -25,8 +25,8 @@ const reverseIndentSaga = function* (action: t.ReverseIndentAction): Generator<*
 
     if (parentOrSuperContext != null) {
       if (
-        contentItemToReverseIndent.type === contentItemTypes.HEADING ||
-        parentOrSuperItem.type !== contentItemTypes.HEADING
+        contentItemToReverseIndent.type === contentItemTypes.HEADING
+        || parentOrSuperItem.type !== contentItemTypes.HEADING
       ) {
         yield put(actions.move(
           contentItemToReverseIndent.id,

@@ -21,14 +21,14 @@ const PureRoot = (props: Props): React.Node => {
   return (
     <div data-test-id="content-item-editable-display-root">
       {contentItem.childItemIds.map((childItemId: Identifier): React.Node => {
-      return (
-        <ContentItemEditableDisplay
-          {..._.pick(props, passThroughProps)}
-          key={childItemId}
-          contentItemId={childItemId}
-        />
-      );
-    })}
+        return (
+          <ContentItemEditableDisplay
+            {..._.pick(props, passThroughProps)}
+            key={childItemId}
+            contentItemId={childItemId}
+          />
+        );
+      })}
     </div>
   );
 };
