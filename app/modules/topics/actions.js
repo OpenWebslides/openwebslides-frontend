@@ -1,17 +1,16 @@
 // @flow
 
 import _ from 'lodash';
+import type { RouterHistory } from 'react-router-dom';
+
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
-
 import contentItems from 'modules/contentItems';
-
 import type { Identifier } from 'types/model';
-import type { RouterHistory } from 'react-router-dom';
-import type { Topic } from './model';
 
 import * as t from './actionTypes';
 import { generateId } from './model';
+import type { Topic } from './model';
 
 // Reducer actions
 export const addToState = (

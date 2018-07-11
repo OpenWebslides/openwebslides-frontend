@@ -4,7 +4,6 @@ import type { Identifier } from 'types/model';
 
 import { methodTypes } from '../model';
 import type { Response } from '../model';
-
 import ApiRequest from '../ApiRequest';
 
 import { USERS_ENDPOINT } from './constants';

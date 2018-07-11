@@ -2,11 +2,10 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 import { Grid } from 'semantic-ui-react';
 
+import type { CustomTranslatorProps } from 'types/translator';
 import FlashMessages from 'core-components/flash/FlashMessages';
-
 import authentication from 'modules/authentication';
 
 import Page from '../../Page';

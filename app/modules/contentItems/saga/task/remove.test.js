@@ -1,6 +1,7 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 

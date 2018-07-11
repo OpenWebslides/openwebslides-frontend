@@ -1,9 +1,9 @@
 // @flow
 
-import contentItems from 'modules/contentItems';
-
-import type { Identifier } from 'types/model';
 import type { RouterHistory } from 'react-router-dom';
+
+import contentItems from 'modules/contentItems';
+import type { Identifier } from 'types/model';
 
 import type { Topic } from './model';
 

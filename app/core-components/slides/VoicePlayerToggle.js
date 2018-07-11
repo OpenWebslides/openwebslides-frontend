@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
 import { translate } from 'react-i18next';
+
 import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
 
 

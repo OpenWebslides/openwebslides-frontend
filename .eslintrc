@@ -189,6 +189,15 @@
     // See https://github.com/benmosher/eslint-plugin-import/issues/1098
     "import/no-cycle": "off",
 
+    // Enforce consistend ordering and spacing of imports.
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "newlines-between": "always"
+      }
+    ],
+
     // Doesn't play wel with semantic-ui-react; #TODO look for a way to fix this; perhaps write wrapper for label?
     "jsx-a11y/label-has-for": "off",
 

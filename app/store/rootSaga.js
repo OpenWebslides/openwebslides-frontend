@@ -1,7 +1,6 @@
 // @flow
 
 import { all, call } from 'redux-saga/effects';
-
 import contentItems from 'modules/contentItems';
 import feed from 'modules/feed';
 import authentication from 'modules/authentication';

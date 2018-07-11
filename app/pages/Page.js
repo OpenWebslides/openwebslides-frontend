@@ -1,14 +1,14 @@
 // @flow
 
 import * as React from 'react';
-import type { CustomTranslatorProps } from 'types/translator';
 import { translate } from 'react-i18next';
 import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Redirect, Route, withRouter } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
-import type { State } from 'types/state';
 
+import type { CustomTranslatorProps } from 'types/translator';
+import type { State } from 'types/state';
 import NavigationBar from 'core-components/navigation/NavigationBar';
 import authentication from 'modules/authentication';
 import sidebars from 'modules/sidebars';

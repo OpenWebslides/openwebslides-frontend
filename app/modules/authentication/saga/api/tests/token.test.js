@@ -7,7 +7,6 @@ import type { Response } from 'lib/api';
 
 import * as t from '../../../actionTypes';
 import { apiPostTokenSaga, apiDeleteTokenSaga } from '../token';
-
 import * as selectors from '../../../selectors';
 
 describe(`token`, (): void => {

@@ -2,11 +2,13 @@
 
 import _ from 'lodash';
 import * as React from 'react';
+
 import type { Identifier } from 'types/model';
 import EditableTextContent from 'core-components/EditableTextContent';
 
 import * as m from '../../../model';
 import TypeBlockWrapper from '../helpers/TypeBlockWrapper';
+
 import { passThroughProps } from '..';
 
 type PassedProps = {

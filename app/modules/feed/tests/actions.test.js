@@ -2,7 +2,6 @@
 
 import * as actions from '../actions';
 import * as t from '../actionTypes';
-
 import { predicate } from '../model';
 
 describe(`actions`, (): void => {

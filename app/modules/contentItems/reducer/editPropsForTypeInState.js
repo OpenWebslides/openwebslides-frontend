@@ -2,6 +2,7 @@
 /* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';
+
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';

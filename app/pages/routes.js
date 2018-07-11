@@ -19,7 +19,6 @@ import NewTopicPage from './components/NewTopicPage';
 import ProfilePage from './components/ProfilePage';
 import TempSlideTestPage from './components/TempSlideTestPage';
 import GenerateRandomStringPage from './components/GenerateRandomStringPage';
-
 import SigninPage from './components/authentication/SigninPage';
 import SignupPage from './components/authentication/SignupPage';
 import ResetPage from './components/authentication/ResetPage';

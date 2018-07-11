@@ -1,6 +1,7 @@
 // @flow
 
 import type { State } from 'types/state';
+
 import type { HistoryState } from './model';
 
 const getModule = (state: State): HistoryState => {

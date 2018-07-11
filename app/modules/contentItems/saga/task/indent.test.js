@@ -1,6 +1,7 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';

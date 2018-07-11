@@ -2,16 +2,16 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 import { Link } from 'react-router-dom';
+import { translate } from 'react-i18next';
 import { Dropdown, Menu, Icon } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
+import type { CustomTranslatorProps } from 'types/translator';
 import type { User } from 'modules/users';
 
-import { isAuthenticated, getAccount } from '../selectors';
 import { signout } from '../actions';
+import { isAuthenticated, getAccount } from '../selectors';
 
 type StateProps = {
   authenticated: boolean,

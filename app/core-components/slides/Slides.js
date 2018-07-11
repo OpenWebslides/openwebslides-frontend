@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 
+import type { CustomTranslatorProps } from 'types/translator';
 import contentItems from 'modules/contentItems';
 import split from 'lib/content-item-split';
 

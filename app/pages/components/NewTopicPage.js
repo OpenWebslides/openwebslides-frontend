@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
+
 import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
 

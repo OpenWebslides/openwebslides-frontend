@@ -6,7 +6,6 @@ import * as selectors from './selectors';
 import components from './components';
 import reducer from './reducer';
 import saga from './saga';
-
 import type { Event, FeedState } from './model';
 
 const feedItems = {

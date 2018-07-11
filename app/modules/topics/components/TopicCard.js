@@ -4,9 +4,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card, Button, Modal } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { translate } from 'react-i18next';
+
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 

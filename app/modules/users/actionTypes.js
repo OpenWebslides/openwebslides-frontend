@@ -1,6 +1,7 @@
 // @flow
 
 import type { Identifier } from 'types/model';
+
 import type { User } from './model';
 
 /* Action constants */

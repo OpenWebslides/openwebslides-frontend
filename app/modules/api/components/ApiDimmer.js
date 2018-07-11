@@ -3,8 +3,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 import { Dimmer, Loader } from 'semantic-ui-react';
+
+import type { CustomTranslatorProps } from 'types/translator';
 import type { State } from 'types/state';
 
 import { isPending } from '../selectors';

@@ -1,6 +1,7 @@
 // @flow
 
 import _ from 'lodash';
+
 import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 

@@ -1,6 +1,7 @@
 // @flow
 
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
+
 import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 

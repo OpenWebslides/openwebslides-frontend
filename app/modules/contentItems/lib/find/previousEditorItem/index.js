@@ -6,7 +6,9 @@
 import _ from 'lodash';
 
 import * as m from '../../../model';
+
 import find from '..';
+
 import type { SingleFindFunction } from '../types';
 
 const findPreviousEditorItem: SingleFindFunction = (

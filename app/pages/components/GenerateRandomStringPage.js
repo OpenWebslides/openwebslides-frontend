@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import type { Match } from 'react-router-dom';
+
 import generateRandomString from 'lib/generate-random-string';
 
 import Page from '../Page';

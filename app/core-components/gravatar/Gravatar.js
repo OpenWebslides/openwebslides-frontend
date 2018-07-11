@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { Image } from 'semantic-ui-react';
 import _ from 'lodash';
-
 import md5 from 'blueimp-md5';
 
 type PassedProps = {

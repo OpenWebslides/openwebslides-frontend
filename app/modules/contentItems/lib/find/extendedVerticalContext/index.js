@@ -10,6 +10,7 @@
  */
 
 import _ from 'lodash';
+
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import type { Identifier } from 'types/model';
 

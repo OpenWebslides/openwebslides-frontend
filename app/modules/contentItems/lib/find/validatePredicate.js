@@ -3,6 +3,7 @@
 import type { Identifier } from 'types/model';
 
 import * as m from '../../model';
+
 import type { FindFunctionPredicate } from './types';
 
 const validatePredicate = (

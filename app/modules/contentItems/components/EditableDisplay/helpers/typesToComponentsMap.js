@@ -3,7 +3,6 @@
 import * as React from 'react';
 
 import * as m from '../../../model';
-
 import Root from '../types/Root';
 import Heading from '../types/Heading';
 import Paragraph from '../types/Paragraph';

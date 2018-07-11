@@ -1,9 +1,11 @@
 // @flow
 
 import _ from 'lodash';
+
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 
 import validateActionArguments from '..';
+
 import type { ActionArgumentsValidationOptions } from '..';
 
 describe(`validateActionArguments`, (): void => {

@@ -5,7 +5,6 @@ import type { Identifier } from 'types/model';
 import {
   predicate,
 } from './predicate';
-
 import type {
   Predicate,
 } from './predicate';

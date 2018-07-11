@@ -3,6 +3,7 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
+
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
@@ -10,6 +11,7 @@ import type { Identifier } from 'types/model';
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
+
 import typesToComponentsMap from './helpers/typesToComponentsMap';
 
 type PassedProps = {

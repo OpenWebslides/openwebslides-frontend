@@ -3,9 +3,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'semantic-ui-react';
+
 import type { State } from 'types/state';
 import Gravatar from 'core-components/gravatar/Gravatar';
-
 import topics from 'modules/topics';
 
 import type { User } from '../model';

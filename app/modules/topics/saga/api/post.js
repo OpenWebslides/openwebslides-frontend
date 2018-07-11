@@ -2,7 +2,6 @@
 
 import { call, select } from 'redux-saga/effects';
 import authentication from 'modules/authentication';
-
 import { TopicsApi } from 'lib/api';
 
 import * as t from '../../actionTypes';

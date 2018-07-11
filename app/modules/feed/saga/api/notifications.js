@@ -1,14 +1,11 @@
 // @flow
 
 import { call, put } from 'redux-saga/effects';
-
 import { NotificationsApi } from 'lib/api';
 
 import * as t from '../../actionTypes';
-
 import { predicate } from '../../model';
 import type { Event } from '../../model';
-
 import { setEventsInState } from '../../actions';
 
 // TODO: change this to topic once backend is deployed

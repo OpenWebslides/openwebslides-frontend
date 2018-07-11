@@ -5,7 +5,6 @@ import { expectSaga } from 'redux-saga-test-plan';
 import apiSaga from '..';
 
 import { apiGetUserSaga } from '../users';
-
 import * as t from '../../../actionTypes';
 
 describe(`apiSaga`, (): void => {

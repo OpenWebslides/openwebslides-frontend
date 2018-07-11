@@ -1,6 +1,7 @@
 // @flow
 
 import _ from 'lodash';
+
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 
 import * as m from '../../model';

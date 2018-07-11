@@ -3,7 +3,6 @@
 import reducer from '../reducer';
 import * as t from '../actionTypes';
 import type { Topic, TopicsState } from '../model';
-
 import { dummyTopicsById } from '../dummyData';
 
 describe(`reducer`, (): void => {

@@ -1,11 +1,11 @@
 // @flow
 
-import { TOKEN_ENDPOINT } from './constants';
 
 import { methodTypes } from '../model';
 import type { Response, Token } from '../model';
-
 import ApiRequest from '../ApiRequest';
+
+import { TOKEN_ENDPOINT } from './constants';
 
 const post = (email: string, password: string): Promise<Response> => {
   const request = new ApiRequest();

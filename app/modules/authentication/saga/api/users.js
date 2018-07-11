@@ -1,7 +1,6 @@
 // @flow
 
 import { UsersApi } from 'lib/api';
-
 import { call } from 'redux-saga/effects';
 
 import * as t from '../../actionTypes';

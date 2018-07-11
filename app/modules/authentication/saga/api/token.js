@@ -4,11 +4,9 @@ import { flashErrorMessage } from 'redux-flash';
 
 import { TokenApi } from 'lib/api';
 import api from 'modules/api';
-
 import { call, put, select } from 'redux-saga/effects';
 
 import * as t from '../../actionTypes';
-
 import {
   setAccountInState,
   setTokenInState,

@@ -5,6 +5,7 @@ import * as React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { mount, shallow } from 'enzyme';
+
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import actions from '../../actions';

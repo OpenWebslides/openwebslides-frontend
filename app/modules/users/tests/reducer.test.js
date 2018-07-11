@@ -2,7 +2,6 @@
 
 import reducer from '../reducer';
 import * as t from '../actionTypes';
-
 import type { UsersState } from '../model';
 
 describe(`reducer`, (): void => {

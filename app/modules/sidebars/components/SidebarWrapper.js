@@ -4,14 +4,16 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import type { Dispatch } from 'redux';
 import { Grid, Icon } from 'semantic-ui-react';
+
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
 import type { SidebarName } from '../model';
 import { getAllActiveSidebars } from '../selectors';
-import Sidebar from './sidebars/Sidebar';
 import { AMOUNT_OF_COLS_IN_GRID } from '../constants';
 import { toggle as toggleAction } from '../actions';
+
+import Sidebar from './sidebars/Sidebar';
 
 type DispatchProps = {
   toggle: (SidebarName) => void,

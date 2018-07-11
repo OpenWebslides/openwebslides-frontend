@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+
 import InlineMarkdown from 'core-components/inline-markdown';
 
 import * as m from '../../../model';

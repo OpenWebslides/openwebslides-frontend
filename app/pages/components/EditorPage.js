@@ -2,11 +2,11 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 import { Link, Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 
+import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
 
 import Page from '../Page';

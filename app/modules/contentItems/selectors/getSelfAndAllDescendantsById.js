@@ -1,11 +1,13 @@
 // @flow
 
 import createCachedSelector from 're-reselect';
+
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
 import type { ContentItem, ContentItemsById } from '../model';
 import find from '../lib/find';
+
 import getById from './getById';
 import getAllById from './getAllById';
 

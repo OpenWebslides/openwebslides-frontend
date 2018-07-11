@@ -4,13 +4,14 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Header } from 'semantic-ui-react';
 import { translate } from 'react-i18next';
+
 import type { CustomTranslatorProps } from 'types/translator';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
-import SimpleTopic from './SimpleTopic';
-
 import { getAllTopicIdsByUserId } from '../selectors';
+
+import SimpleTopic from './SimpleTopic';
 
 
 type StateProps = {

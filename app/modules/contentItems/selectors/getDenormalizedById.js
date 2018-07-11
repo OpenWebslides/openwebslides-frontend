@@ -1,5 +1,6 @@
 // @flow
 import createCachedSelector from 're-reselect';
+
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
@@ -9,6 +10,7 @@ import type {
   DenormalizedContentItem,
   ContentItemsById,
 } from '../model';
+
 import getById from './getById';
 import getAllById from './getAllById';
 

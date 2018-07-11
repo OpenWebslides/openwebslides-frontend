@@ -1,10 +1,10 @@
 // @flow
 
 import * as React from 'react';
-
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 import { Header, Item } from 'semantic-ui-react';
+
+import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
 
 type Topic = topics.model.Topic;

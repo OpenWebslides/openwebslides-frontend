@@ -1,13 +1,11 @@
 // @flow
 
-import { call, put, select } from 'redux-saga/effects';
 import { flashMessage, flashErrorMessage } from 'redux-flash';
 
+import { call, put, select } from 'redux-saga/effects';
 import ServerError from 'errors/api-errors/ServerError';
-
 import authentication from 'modules/authentication';
 import contentItems from 'modules/contentItems';
-
 import { TopicsApi } from 'lib/api';
 import api from 'modules/api';
 

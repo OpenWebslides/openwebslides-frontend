@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { dummyTranslatorProps } from 'config/tests';
 
+import { dummyTranslatorProps } from 'config/tests';
 import contentItems from 'modules/contentItems';
 
 import { PureEditor } from '../Editor';

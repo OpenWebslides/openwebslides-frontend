@@ -2,17 +2,14 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import FlashMessages from 'core-components/flash/FlashMessages';
-
 import { Button, Header } from 'semantic-ui-react';
 
+import FlashMessages from 'core-components/flash/FlashMessages';
+import type { CustomTranslatorProps } from 'types/translator';
 import contentItems from 'modules/contentItems';
 import api from 'modules/api';
-
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 

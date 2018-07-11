@@ -3,10 +3,10 @@
 import { expectSaga } from 'redux-saga-test-plan';
 
 import taskSaga from '..';
+
 import signinEmailSaga from '../signinEmail';
 import signoutSaga from '../signout';
 import resetSaga from '../reset';
-
 import * as t from '../../../actionTypes';
 
 describe(`taskSaga`, (): void => {

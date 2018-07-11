@@ -2,8 +2,9 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 import { Grid } from 'semantic-ui-react';
+
+import type { CustomTranslatorProps } from 'types/translator';
 import feed from 'modules/feed';
 
 import Page from '../Page';

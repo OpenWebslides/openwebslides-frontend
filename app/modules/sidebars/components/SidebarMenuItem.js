@@ -2,13 +2,13 @@
 
 import * as React from 'react';
 import _ from 'lodash';
-import type { State } from 'types/state';
 import { connect } from 'react-redux';
 import { Icon, Button } from 'semantic-ui-react';
 import type { Dispatch } from 'redux';
 
-import type { SidebarName } from '../model';
+import type { State } from 'types/state';
 
+import type { SidebarName } from '../model';
 import { toggle as toggleAction } from '../actions';
 import { getAllActiveSidebars } from '../selectors';
 

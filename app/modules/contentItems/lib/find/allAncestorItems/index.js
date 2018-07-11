@@ -5,7 +5,9 @@
  */
 
 import * as m from '../../../model';
+
 import find from '..';
+
 import type { MultipleFindFunction } from '../types';
 
 const findAllAncestorItems: MultipleFindFunction = (

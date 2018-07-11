@@ -12,7 +12,9 @@ import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedI
 import type { Identifier } from 'types/model';
 
 import * as m from '../../../model';
+
 import find from '..';
+
 import type { MultipleFindFunction } from '../types';
 
 const findAllSiblingItems: MultipleFindFunction = (

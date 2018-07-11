@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-
 import { Form, Input, TextArea } from 'semantic-ui-react';
 
 import InlineMarkdown from 'core-components/inline-markdown';

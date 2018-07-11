@@ -2,12 +2,10 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+
 import type { State } from 'types/state';
-
 import Slides from 'core-components/slides/Slides';
-
 import topics from 'modules/topics';
-
 import contentItems from 'modules/contentItems';
 
 type Topic = topics.model.Topic;

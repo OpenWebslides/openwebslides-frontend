@@ -2,9 +2,10 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
+import { Card } from 'semantic-ui-react';
+
 import type { CustomTranslatorProps } from 'types/translator';
 
-import { Card } from 'semantic-ui-react';
 
 import ConfirmForm from './forms/ConfirmForm';
 

@@ -5,6 +5,7 @@
  */
 
 import i18next from 'config/i18next';
+
 import UsageError from '../UsageError';
 
 class ObjectNotFoundError extends UsageError {

@@ -10,7 +10,9 @@
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 
 import * as m from '../../../model';
+
 import find from '..';
+
 import type { SingleFindFunction } from '../types';
 
 const findNextSiblingItem: SingleFindFunction = (

@@ -1,8 +1,7 @@
 // @flow
 
-import type { Event } from './model';
-
 import * as t from './actionTypes';
+import type { Event } from './model';
 
 // Reducer actions
 export const setEventsInState = (

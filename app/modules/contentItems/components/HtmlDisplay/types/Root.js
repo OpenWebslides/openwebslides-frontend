@@ -3,6 +3,7 @@
 import * as React from 'react';
 
 import * as m from '../../../model';
+
 import HtmlDisplay from '..';
 
 type PassedProps = {

@@ -5,7 +5,6 @@ import _ from 'lodash';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 
 import * as t from './actionTypes';
-
 import type { StatusType } from './model';
 
 // Reducer actions

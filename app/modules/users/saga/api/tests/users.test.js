@@ -4,7 +4,6 @@ import { expectSaga } from 'redux-saga-test-plan';
 
 import { UsersApi } from 'lib/api';
 import type { Response } from 'lib/api';
-
 import * as selectors from 'modules/authentication/selectors';
 
 import * as t from '../../../actionTypes';

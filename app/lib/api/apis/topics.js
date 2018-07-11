@@ -1,18 +1,17 @@
 // @flow
 
 import type { Identifier } from 'types/model';
-
 import contentItems from 'modules/contentItems';
+
+
+import * as m from '../model';
+import ApiRequest from '../ApiRequest';
 
 import {
   USERS_ENDPOINT,
   TOPICS_ENDPOINT,
   TOPICS_CONTENT_ENDPOINT,
 } from './constants';
-
-import * as m from '../model';
-
-import ApiRequest from '../ApiRequest';
 
 const destroy = (
   id: Identifier,

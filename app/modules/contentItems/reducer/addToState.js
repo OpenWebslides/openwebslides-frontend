@@ -2,6 +2,7 @@
 /* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';
+
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';

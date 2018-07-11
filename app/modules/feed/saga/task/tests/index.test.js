@@ -3,8 +3,8 @@
 import { expectSaga } from 'redux-saga-test-plan';
 
 import taskSaga from '..';
-import fetchSaga from '../fetch';
 
+import fetchSaga from '../fetch';
 import * as t from '../../../actionTypes';
 
 describe(`taskSaga`, (): void => {

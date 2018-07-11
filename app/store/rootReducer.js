@@ -5,7 +5,6 @@
 
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-
 import { reducer as flashReducer } from 'redux-flash';
 
 import modulesReducer from './modulesReducer';
