@@ -87,6 +87,9 @@
     // See https://github.com/facebook/flow/issues/235 #TODO
     "prefer-destructuring": "off",
 
+    // Discourage the use of Object.assign() in reducers; prefer using spread operator.
+    "prefer-object-spread": "error",
+
     // Require quotes around numbers used as props,
     // for compatibility with external libraries which may not support unquoted numbers (e.g. i18next).
     "quote-props": [
