@@ -5,16 +5,14 @@
 
 import _ from 'lodash';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import find from '..';
 import type { SingleFindFunction } from '../types';
 
-const { ContentItem, ContentItemsById } = model;
-
 const findPreviousEditorItem: SingleFindFunction = (
-  contentItem: ?ContentItem,
-  contentItemsById: ContentItemsById,
-): ?ContentItem => {
+  contentItem: ?m.ContentItem,
+  contentItemsById: m.ContentItemsById,
+): ?m.ContentItem => {
   if (contentItem == null) return null;
 
   const context = find.extendedVerticalContext(contentItem, contentItemsById);

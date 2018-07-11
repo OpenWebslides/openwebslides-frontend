@@ -5,35 +5,26 @@ import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedI
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import * as model from '../../model';
+import * as m from '../../model';
 import * as dummyData from '../../lib/testResources/dummyContentItemData';
 
 import removeSaga from './remove';
 
-const {
-  contextTypes,
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsById,
-  ContentItemsState,
-} = model;
-
 describe(`removeSaga`, (): void => {
 
-  let dummyParagraph22: $Exact<ParagraphContentItem>;
-  let dummyParagraph21: $Exact<ParagraphContentItem>;
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph122: $Exact<ParagraphContentItem>;
-  let dummyParagraph121: $Exact<ParagraphContentItem>;
-  let dummyHeading12: $Exact<HeadingContentItem>;
-  let dummyParagraph112: $Exact<ParagraphContentItem>;
-  let dummyParagraph111: $Exact<ParagraphContentItem>;
-  let dummyHeading11: $Exact<HeadingContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: ContentItemsById;
-  let dummyContentItemsState: ContentItemsState;
+  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyParagraph122: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph121: $Exact<m.ParagraphContentItem>;
+  let dummyHeading12: $Exact<m.HeadingContentItem>;
+  let dummyParagraph112: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph111: $Exact<m.ParagraphContentItem>;
+  let dummyHeading11: $Exact<m.HeadingContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: m.ContentItemsById;
+  let dummyContentItemsState: m.ContentItemsState;
   let dummyState: Object;
 
   beforeEach((): void => {
@@ -117,7 +108,7 @@ describe(`removeSaga`, (): void => {
           payload: {
             id: dummyParagraph122.id,
             nextContext: {
-              contextType: contextTypes.SUPER,
+              contextType: m.contextTypes.SUPER,
               contextItemId: dummyHeading11.id,
               indexInSiblingItems: 2,
             },
@@ -130,7 +121,7 @@ describe(`removeSaga`, (): void => {
           payload: {
             id: dummyParagraph121.id,
             nextContext: {
-              contextType: contextTypes.SUPER,
+              contextType: m.contextTypes.SUPER,
               contextItemId: dummyHeading11.id,
               indexInSiblingItems: 2,
             },
@@ -164,7 +155,7 @@ describe(`removeSaga`, (): void => {
           payload: {
             id: dummyParagraph112.id,
             nextContext: {
-              contextType: contextTypes.SUPER,
+              contextType: m.contextTypes.SUPER,
               contextItemId: dummyHeading1.id,
               indexInSiblingItems: 0,
             },
@@ -177,7 +168,7 @@ describe(`removeSaga`, (): void => {
           payload: {
             id: dummyParagraph111.id,
             nextContext: {
-              contextType: contextTypes.SUPER,
+              contextType: m.contextTypes.SUPER,
               contextItemId: dummyHeading1.id,
               indexInSiblingItems: 0,
             },

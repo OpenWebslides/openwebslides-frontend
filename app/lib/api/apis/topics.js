@@ -10,22 +10,19 @@ import {
   TOPICS_CONTENT_ENDPOINT,
 } from './constants';
 
-import { methodTypes } from '../model';
-import type { Response, Token } from '../model';
+import * as m from '../model';
 
 import ApiRequest from '../ApiRequest';
 
-const { ContentItem } = contentItems.model;
-
 const destroy = (
   id: Identifier,
-  token: Token,
-): Promise<Response> => {
+  token: m.Token,
+): Promise<m.Response> => {
   const request = new ApiRequest();
 
   request
     .setEndpoint(TOPICS_ENDPOINT)
-    .setMethod(methodTypes.DELETE)
+    .setMethod(m.methodTypes.DELETE)
     .setResource(id)
     .setToken(token);
 
@@ -34,12 +31,12 @@ const destroy = (
 
 const get = async (
   id: Identifier,
-): Promise<Response> => {
+): Promise<m.Response> => {
   const request = new ApiRequest();
 
   request
     .setEndpoint(TOPICS_ENDPOINT)
-    .setMethod(methodTypes.GET)
+    .setMethod(m.methodTypes.GET)
     .setResource(id)
     .setParameter('include', 'user');
 
@@ -48,14 +45,14 @@ const get = async (
 
 const getAllByUserId = async (
   userId: Identifier,
-): Promise<Response> => {
+): Promise<m.Response> => {
   const request = new ApiRequest();
 
   request
     .setEndpoint(USERS_ENDPOINT)
     .setResource(userId)
     .setSubEndpoint(TOPICS_ENDPOINT)
-    .setMethod(methodTypes.GET);
+    .setMethod(m.methodTypes.GET);
 
   return request.execute();
 };
@@ -64,8 +61,8 @@ const post = (
   userId: Identifier,
   title: string,
   description: ?string,
-  token: Token,
-): Promise<Response> => {
+  token: m.Token,
+): Promise<m.Response> => {
   const request = new ApiRequest();
 
   const body = JSON.stringify({
@@ -89,7 +86,7 @@ const post = (
 
   request
     .setEndpoint(TOPICS_ENDPOINT)
-    .setMethod(methodTypes.POST)
+    .setMethod(m.methodTypes.POST)
     .setBody(body)
     .setToken(token);
 
@@ -98,9 +95,9 @@ const post = (
 
 const patchContent = (
   topicId: Identifier,
-  content: Array<ContentItem>,
+  content: Array<contentItems.model.ContentItem>,
   token: string,
-): Promise<Response> => {
+): Promise<m.Response> => {
   const request = new ApiRequest();
 
   const body = JSON.stringify({
@@ -116,7 +113,7 @@ const patchContent = (
     .setEndpoint(TOPICS_ENDPOINT)
     .setResource(topicId)
     .setSubEndpoint(TOPICS_CONTENT_ENDPOINT)
-    .setMethod(methodTypes.PATCH)
+    .setMethod(m.methodTypes.PATCH)
     .setBody(body)
     .setToken(token);
 
@@ -126,14 +123,14 @@ const patchContent = (
 const getContent = (
   topicId: Identifier,
   token: string,
-): Promise<Response> => {
+): Promise<m.Response> => {
   const request = new ApiRequest();
 
   request
     .setEndpoint(TOPICS_ENDPOINT)
     .setResource(topicId)
     .setSubEndpoint(TOPICS_CONTENT_ENDPOINT)
-    .setMethod(methodTypes.GET)
+    .setMethod(m.methodTypes.GET)
     .setToken(token);
 
   return request.execute();

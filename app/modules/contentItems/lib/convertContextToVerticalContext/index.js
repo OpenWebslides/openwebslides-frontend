@@ -5,30 +5,21 @@ import _ from 'lodash';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
-import * as model from '../../model';
+import * as m from '../../model';
 import find from '../find';
 
-const {
-  verticalContextTypes,
-  horizontalContextTypes,
-  ContentItemsById,
-  Context,
-  VerticalContext,
-  HorizontalContext,
-} = model;
-
 const convertContextToVerticalContext = (
-  context: ?Context,
-  contentItemsById: ContentItemsById,
-): ?VerticalContext => {
+  context: ?m.Context,
+  contentItemsById: m.ContentItemsById,
+): ?m.VerticalContext => {
   if (context == null) return null;
-  let verticalContext: ?VerticalContext;
+  let verticalContext: ?m.VerticalContext;
 
-  if (_.includes(verticalContextTypes, context.contextType)) {
-    verticalContext = ((context: any): VerticalContext);
+  if (_.includes(m.verticalContextTypes, context.contextType)) {
+    verticalContext = ((context: any): m.VerticalContext);
   }
-  else if (_.includes(horizontalContextTypes, context.contextType)) {
-    const horizontalContext = ((context: any): HorizontalContext);
+  else if (_.includes(m.horizontalContextTypes, context.contextType)) {
+    const horizontalContext = ((context: any): m.HorizontalContext);
     const contextItem = contentItemsById[horizontalContext.contextItemId];
     if (contextItem == null) throw new ObjectNotFoundError('contentItems:contentItem', horizontalContext.contextItemId);
 

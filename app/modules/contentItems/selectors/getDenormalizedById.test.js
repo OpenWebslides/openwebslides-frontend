@@ -1,30 +1,20 @@
 // @flow
 
-import * as model from '../model';
+import * as m from '../model';
 import * as dummyData from '../lib/testResources/dummyContentItemData';
 
 import selectors from '.';
 
-const {
-  RootContentItem,
-  DenormalizedRootContentItem,
-  HeadingContentItem,
-  DenormalizedHeadingContentItem,
-  ParagraphContentItem,
-  DenormalizedParagraphContentItem,
-  ContentItemsById,
-} = model;
-
 describe(`getDenormalizedById`, (): void => {
 
-  let dummyParagraph22: $Exact<ParagraphContentItem>;
-  let dummyParagraph21: $Exact<ParagraphContentItem>;
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph12: $Exact<ParagraphContentItem>;
-  let dummyParagraph11: $Exact<ParagraphContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: $Exact<ContentItemsById>;
+  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: $Exact<m.ContentItemsById>;
   let dummyState: any;
 
   beforeEach((): void => {
@@ -55,7 +45,7 @@ describe(`getDenormalizedById`, (): void => {
 
   it(`returns the correct denormalized contentItem for the given id, when the given id is valid`, (): void => {
     const denormalizedContentItem = selectors.getDenormalizedById(dummyState, { id: dummyRoot.id });
-    const expectedResult: DenormalizedRootContentItem = {
+    const expectedResult: m.DenormalizedRootContentItem = {
       ...dummyRoot,
       childItems: [
         ({
@@ -64,26 +54,26 @@ describe(`getDenormalizedById`, (): void => {
             ({
               ...dummyParagraph11,
               subItems: [],
-            }: DenormalizedParagraphContentItem),
+            }: m.DenormalizedParagraphContentItem),
             ({
               ...dummyParagraph12,
               subItems: [],
-            }: DenormalizedParagraphContentItem),
+            }: m.DenormalizedParagraphContentItem),
           ],
-        }: DenormalizedHeadingContentItem),
+        }: m.DenormalizedHeadingContentItem),
         ({
           ...dummyHeading2,
           subItems: [
             ({
               ...dummyParagraph21,
               subItems: [],
-            }: DenormalizedParagraphContentItem),
+            }: m.DenormalizedParagraphContentItem),
             ({
               ...dummyParagraph22,
               subItems: [],
-            }: DenormalizedParagraphContentItem),
+            }: m.DenormalizedParagraphContentItem),
           ],
-        }: DenormalizedHeadingContentItem),
+        }: m.DenormalizedHeadingContentItem),
       ],
     };
     expect(denormalizedContentItem).toEqual(expectedResult);

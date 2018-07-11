@@ -3,34 +3,28 @@
 import _ from 'lodash';
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import * as dummyData from '../../testResources/dummyContentItemData';
 
 import find from '..';
 
-const {
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-} = model;
-
 describe(`findAllChildOrSubItems`, (): void => {
 
-  let dummyParagraph524: $Exact<ParagraphContentItem>;
-  let dummyParagraph523: $Exact<ParagraphContentItem>;
-  let dummyParagraph522: $Exact<ParagraphContentItem>;
-  let dummyParagraph521: $Exact<ParagraphContentItem>;
+  let dummyParagraph524: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph523: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph522: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph521: $Exact<m.ParagraphContentItem>;
   let dummyTestParentAndSuperItem52: any;
-  let dummyParagraph51: $Exact<ParagraphContentItem>;
-  let dummyHeading5: $Exact<HeadingContentItem>;
-  let dummyParagraph41: $Exact<ParagraphContentItem>;
-  let dummyHeading4: $Exact<HeadingContentItem>;
-  let dummyParagraph32: $Exact<ParagraphContentItem>;
-  let dummyParagraph31: $Exact<ParagraphContentItem>;
-  let dummyHeading3: $Exact<HeadingContentItem>;
-  let dummyParagraph2: $Exact<ParagraphContentItem>;
-  let dummyParagraph1: $Exact<ParagraphContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
+  let dummyParagraph51: $Exact<m.ParagraphContentItem>;
+  let dummyHeading5: $Exact<m.HeadingContentItem>;
+  let dummyParagraph41: $Exact<m.ParagraphContentItem>;
+  let dummyHeading4: $Exact<m.HeadingContentItem>;
+  let dummyParagraph32: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph31: $Exact<m.ParagraphContentItem>;
+  let dummyHeading3: $Exact<m.HeadingContentItem>;
+  let dummyParagraph2: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph1: $Exact<m.ParagraphContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
   let dummyContentItemsById: any;
 
   beforeEach((): void => {

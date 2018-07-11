@@ -13,8 +13,6 @@ import type { Topic } from './model';
 import * as t from './actionTypes';
 import { generateId } from './model';
 
-const { ContentItem } = contentItems.model;
-
 // Reducer actions
 export const addToState = (
   id: Identifier,
@@ -251,7 +249,7 @@ export const apiPost = (
 
 export const apiPatchContent = (
   id: Identifier,
-  content: Array<ContentItem>,
+  content: Array<contentItems.model.ContentItem>,
 ): t.ApiPatchTopicContentAction => {
   return {
     type: t.API_PATCH_CONTENT,

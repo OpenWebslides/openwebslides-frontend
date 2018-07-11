@@ -11,16 +11,14 @@
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import type { Identifier } from 'types/model';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import find from '..';
 import type { MultipleFindFunction } from '../types';
 
-const { ContentItem, ContentItemsById } = model;
-
 const findAllSiblingItems: MultipleFindFunction = (
-  contentItem: ?ContentItem,
-  contentItemsById: ContentItemsById,
-): Array<ContentItem> => {
+  contentItem: ?m.ContentItem,
+  contentItemsById: m.ContentItemsById,
+): Array<m.ContentItem> => {
   if (contentItem == null) return [];
 
   const extendedVerticalContext = find.extendedVerticalContext(contentItem, contentItemsById);
@@ -28,7 +26,7 @@ const findAllSiblingItems: MultipleFindFunction = (
 
   const siblingItems = extendedVerticalContext.siblingItemIds.map((
     siblingItemId: Identifier,
-  ): ContentItem => {
+  ): m.ContentItem => {
     const siblingItem = contentItemsById[siblingItemId];
     if (siblingItem == null) throw new CorruptedInternalStateError(`ContentItemsById object contains inconsistencies; this shouldn't happen.`);
     return siblingItem;

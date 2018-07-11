@@ -5,29 +5,20 @@ import NotYetImplementedError from 'errors/implementation-errors/NotYetImplement
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import type { EditAction } from '../../actionTypes';
-import * as model from '../../model';
+import * as m from '../../model';
 import selectors from '../../selectors';
 import * as dummyData from '../../lib/testResources/dummyContentItemData';
 
 import editSaga from './edit';
 
-const {
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsById,
-  ContentItemsState,
-} = model;
-
 describe(`editSaga`, (): void => {
 
-  let dummyParagraph12: $Exact<ParagraphContentItem>;
-  let dummyParagraph11: $Exact<ParagraphContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: ContentItemsById;
-  let dummyContentItemsState: ContentItemsState;
+  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: m.ContentItemsById;
+  let dummyContentItemsState: m.ContentItemsState;
   let dummyState: any;
 
   beforeEach((): void => {
@@ -58,7 +49,7 @@ describe(`editSaga`, (): void => {
   });
 
   it(`puts an EDIT_PROPS_FOR_TYPE_IN_STATE action`, (): void => {
-    const dummyEditAction: $Exact<EditAction> = {
+    const dummyEditAction: $Exact<t.EditAction> = {
       type: t.EDIT,
       payload: {
         id: dummyParagraph11.id,
@@ -84,7 +75,7 @@ describe(`editSaga`, (): void => {
   });
 
   it(`puts a REMOVE action, when a plainText contentItem's isEditing state is FALSE and its text property is being set to an empty string`, (): void => {
-    const dummyEditAction: $Exact<EditAction> = {
+    const dummyEditAction: $Exact<t.EditAction> = {
       type: t.EDIT,
       payload: {
         id: dummyParagraph11.id,
@@ -109,7 +100,7 @@ describe(`editSaga`, (): void => {
   it(`does not put a REMOVE action, when a plainText contentItem's isEditing state is TRUE and its text property is being set to an empty string`, (): void => {
     dummyParagraph11.isEditing = true;
 
-    const dummyEditAction: $Exact<EditAction> = {
+    const dummyEditAction: $Exact<t.EditAction> = {
       type: t.EDIT,
       payload: {
         id: dummyParagraph11.id,
@@ -126,7 +117,7 @@ describe(`editSaga`, (): void => {
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, (): void => {
     const dummyInvalidId = 'ExtremelyUnlikelyIdX';
-    const dummyEditAction: $Exact<EditAction> = {
+    const dummyEditAction: $Exact<t.EditAction> = {
       type: t.EDIT,
       payload: {
         id: dummyInvalidId,
@@ -144,7 +135,7 @@ describe(`editSaga`, (): void => {
   });
 
   it(`temporarily throws a NotYetImplementedError, when the contentItem's type is not a plainTextContentItemType`, (): void => {
-    const dummyEditAction: $Exact<EditAction> = {
+    const dummyEditAction: $Exact<t.EditAction> = {
       type: t.EDIT,
       payload: {
         id: dummyRoot.id,

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
+import type { Dispatch } from 'redux';
 import { Grid, Icon } from 'semantic-ui-react';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';

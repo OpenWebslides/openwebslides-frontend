@@ -11,7 +11,6 @@ import topics from 'modules/topics';
 
 import Page from '../Page';
 
-
 type RouteProps = {
   match: Match,
 };
@@ -61,6 +60,7 @@ const PureEditorPage = (props: RouteProps): React.Node => {
   const { match } = props;
 
   return (
+    // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
     <Page needsAuth={true} needsSidebar={true}>
       <Switch>
         <Route path={`${match.url}/:id`} component={TopicEditorForId} />

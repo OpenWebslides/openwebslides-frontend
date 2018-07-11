@@ -5,21 +5,19 @@ import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedO
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../actionTypes';
-import * as model from '../model';
+import * as m from '../model';
 import find from '../lib/find';
 import edit from '../lib/edit';
 
-const { contentItemTypes, ContentItemsState } = model;
-
 const moveInState = (
-  state: ContentItemsState,
+  state: m.ContentItemsState,
   action: t.MoveInStateAction,
-): ContentItemsState => {
+): m.ContentItemsState => {
   const { id, nextContext } = action.payload;
 
   const contentItemToMove = state.byId[id];
   if (contentItemToMove == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
-  if (contentItemToMove.type === contentItemTypes.ROOT) throw new UnsupportedOperationError(`Can't move a ROOT.`);
+  if (contentItemToMove.type === m.contentItemTypes.ROOT) throw new UnsupportedOperationError(`Can't move a ROOT.`);
 
   const previousContext = find.extendedVerticalContext(contentItemToMove, state.byId);
   if (previousContext == null) throw new CorruptedInternalStateError(`Invalid contentItemsById: could not find parentOrSuperItem for a non-ROOT contentItem.`);

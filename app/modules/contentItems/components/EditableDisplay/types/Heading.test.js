@@ -3,16 +3,14 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import * as dummyData from '../../../lib/testResources/dummyContentItemData';
 
 import { PureHeading } from './Heading';
 
-const { HeadingContentItem } = model;
-
 describe(`Heading`, (): void => {
 
-  let dummyHeading: $Exact<HeadingContentItem>;
+  let dummyHeading: $Exact<m.HeadingContentItem>;
   let dummyFunctionProps: any;
 
   beforeEach((): void => {

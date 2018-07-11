@@ -3,16 +3,14 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import * as dummyData from '../../../lib/testResources/dummyContentItemData';
 
 import { PureParagraph } from './Paragraph';
 
-const { ParagraphContentItem } = model;
-
 describe(`Paragraph`, (): void => {
 
-  let dummyParagraph: $Exact<ParagraphContentItem>;
+  let dummyParagraph: $Exact<m.ParagraphContentItem>;
   let dummyFunctionProps: any;
 
   beforeEach((): void => {

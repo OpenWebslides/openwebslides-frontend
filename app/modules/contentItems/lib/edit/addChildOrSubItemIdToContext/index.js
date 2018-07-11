@@ -6,21 +6,14 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { Identifier } from 'types/model';
 import insertIntoArray from 'lib/insertIntoArray';
 
-import * as model from '../../../model';
-
-const {
-  contextTypes,
-  ContentItem,
-  ContentItemsById,
-  VerticalContext,
-} = model;
+import * as m from '../../../model';
 
 const addChildOrSubItemIdToContextByPropName = (
-  context: VerticalContext,
+  context: m.VerticalContext,
   childOrSubItemId: Identifier,
-  contentItemsById: ContentItemsById,
+  contentItemsById: m.ContentItemsById,
   propName: ('childItemIds' | 'subItemIds'),
-): ContentItem => {
+): m.ContentItem => {
   const parentOrSuperItem: any = contentItemsById[context.contextItemId];
   if (parentOrSuperItem == null) throw new ObjectNotFoundError('contentItems:contentItem', context.contextItemId);
   if (parentOrSuperItem[propName] == null) throw new InvalidArgumentError(`The passed contextType doesn't match the contentItems type.`);
@@ -37,14 +30,14 @@ const addChildOrSubItemIdToContextByPropName = (
 };
 
 const addChildOrSubItemIdToContext = (
-  context: VerticalContext,
+  context: m.VerticalContext,
   childOrSubItemId: Identifier,
-  contentItemsById: ContentItemsById,
-): ContentItem => {
+  contentItemsById: m.ContentItemsById,
+): m.ContentItem => {
   switch (context.contextType) {
-    case contextTypes.SUPER:
+    case m.contextTypes.SUPER:
       return addChildOrSubItemIdToContextByPropName(context, childOrSubItemId, contentItemsById, 'subItemIds');
-    case contextTypes.PARENT:
+    case m.contextTypes.PARENT:
       return addChildOrSubItemIdToContextByPropName(context, childOrSubItemId, contentItemsById, 'childItemIds');
     default:
       throw new InvalidArgumentError(`Invalid contextType.`);

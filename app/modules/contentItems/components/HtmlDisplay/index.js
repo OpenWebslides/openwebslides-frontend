@@ -7,17 +7,12 @@
 
 import * as React from 'react';
 
-import * as model from '../../model';
+import * as m from '../../model';
 import typesToComponentsMap from './helpers/typesToComponentsMap';
-
-const {
-  contentItemTypes,
-  DenormalizedContentItem,
-} = model;
 
 type PassedProps = {
   // The contentItem to be displayed.
-  contentItem: DenormalizedContentItem,
+  contentItem: m.DenormalizedContentItem,
   // Used to automatically calculate the HTML heading level of nested HEADING contentItems.
   headingLevel: number,
 };
@@ -34,7 +29,7 @@ const SubItemsHtmlDisplay = (props: Props): React.Node => {
     return null;
   }
   else {
-    const subItemsHeadingLevel = (contentItem.type === contentItemTypes.HEADING)
+    const subItemsHeadingLevel = (contentItem.type === m.contentItemTypes.HEADING)
       ? headingLevel + 1
       : headingLevel;
 
@@ -42,7 +37,7 @@ const SubItemsHtmlDisplay = (props: Props): React.Node => {
       <div className="ows_container__sub-items">
         { /* $FlowFixMe Technically, flow has all the information needed; probably a bug */ }
         {contentItem.subItems.map(
-          (subItem: DenormalizedContentItem): React.Node => (
+          (subItem: m.DenormalizedContentItem): React.Node => (
             <HtmlDisplay
               key={subItem.id}
               contentItem={subItem}

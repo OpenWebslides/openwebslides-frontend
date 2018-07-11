@@ -8,22 +8,16 @@ import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
 import actions from '../../actions';
-import * as model from '../../model';
+import * as m from '../../model';
 import selectors from '../../selectors';
 import typesToComponentsMap from './helpers/typesToComponentsMap';
-
-const {
-  contentItemTypes,
-  contextTypes,
-  ContentItem,
-} = model;
 
 type PassedProps = {
   contentItemId: Identifier,
 };
 
 type StateProps = {
-  contentItem: ContentItem,
+  contentItem: m.ContentItem,
 };
 
 type DispatchProps = {
@@ -77,9 +71,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
     onAddEmptySubItem: (id: Identifier): void => {
       dispatch(actions.toggleEditing(id, false));
       dispatch(actions.add(
-        contentItemTypes.PARAGRAPH,
+        m.contentItemTypes.PARAGRAPH,
         {
-          contextType: contextTypes.SUPER,
+          contextType: m.contextTypes.SUPER,
           contextItemId: id,
           indexInSiblingItems: 0,
         },
@@ -89,9 +83,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
     onAddEmptySiblingItemBelow: (id: Identifier): void => {
       dispatch(actions.toggleEditing(id, false));
       dispatch(actions.add(
-        contentItemTypes.PARAGRAPH,
+        m.contentItemTypes.PARAGRAPH,
         {
-          contextType: contextTypes.SIBLING,
+          contextType: m.contextTypes.SIBLING,
           contextItemId: id,
           indexInSiblingItemsShift: 0,
         },

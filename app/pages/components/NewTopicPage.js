@@ -17,6 +17,7 @@ const PureNewTopicPage = (props: Props): React.Node => {
   } = props;
 
   return (
+    // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
     <Page needsAuth={true}>
       <React.Fragment>
         <h1>{t('global:title.createNewTopic')}</h1>

@@ -8,14 +8,12 @@ import contentItems from 'modules/contentItems';
 
 import { PureSlide } from '../Slide';
 
-const { contentItemTypes, DenormalizedRootContentItem } = contentItems.model;
-
 describe(`Slide`, (): void => {
 
   it(`renders without errors`, (): void => {
-    const dummyContentItem: DenormalizedRootContentItem = {
+    const dummyContentItem: contentItems.model.DenormalizedRootContentItem = {
       id: 'abcdefghij',
-      type: contentItemTypes.ROOT,
+      type: contentItems.model.contentItemTypes.ROOT,
       isEditing: false,
       childItems: [],
     };

@@ -16,8 +16,6 @@ import VoicePlayerToggle from 'core-components/slides/VoicePlayerToggle';
 
 import Page from '../Page';
 
-const { contentItemTypes, DenormalizedRootContentItem } = contentItems.model;
-
 type PassedProps = {};
 
 type StateProps = {
@@ -25,7 +23,7 @@ type StateProps = {
   // later stage the contentItem tree passed to the slide needs to be transformed further
   // (for example, by splitting up sections and inserting repeated headers if a section is longer
   // than a single slide) and the contentItem tree can't just be extracted from the state directly.
-  contentItemTreeRootItem: DenormalizedRootContentItem,
+  contentItemTreeRootItem: contentItems.model.DenormalizedRootContentItem,
 };
 
 type Props = CustomTranslatorProps & StateProps & PassedProps;
@@ -45,7 +43,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   if (contentItemTreeRootItem == null) {
     throw new Error(`ContentItem with id "${contentItemTreeRootItemId}" could not be found.`);
   }
-  else if (contentItemTreeRootItem.type !== contentItemTypes.ROOT) {
+  else if (contentItemTreeRootItem.type !== contentItems.model.contentItemTypes.ROOT) {
     throw new Error('Not a ROOT contentItem.');
   }
 
@@ -112,6 +110,7 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
       VoicePlayerToggleNode = null;
     }
     return (
+      // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
       <Page>
         <div ref={this.slideRef}>
           <Slide contentItem={contentItemTreeRootItem} />

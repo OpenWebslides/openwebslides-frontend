@@ -49,7 +49,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const renderCheckBox = ({ input, label }: *): Field => {
+const renderCheckBox = ({ input, label }: *): React.Node => {
   return (
     <Checkbox
       label={label}

@@ -18,6 +18,7 @@ const PureHomePage = (props: Props): React.Node => {
   } = props;
 
   return (
+    // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
     <Page>
       <Grid.Row>
         <Grid padded="vertically">

@@ -5,14 +5,12 @@ import * as React from 'react';
 import type { Identifier } from 'types/model';
 import EditableTextContent from 'core-components/EditableTextContent';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import TypeBlockWrapper from '../helpers/TypeBlockWrapper';
 import { passThroughProps } from '..';
 
-const { HeadingContentItem } = model;
-
 type PassedProps = {
-  contentItem: HeadingContentItem,
+  contentItem: m.HeadingContentItem,
   onStartEditing: (id: Identifier) => void,
   onEndEditing: (id: Identifier) => void,
   onEditPlainText: (id: Identifier, text: string) => void,

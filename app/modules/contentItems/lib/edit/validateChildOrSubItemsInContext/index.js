@@ -6,19 +6,11 @@ import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentEr
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { Identifier } from 'types/model';
 
-import * as model from '../../../model';
-
-const {
-  contentItemTypes,
-  contextTypes,
-  ContentItem,
-  ContentItemsById,
-  VerticalContext,
-} = model;
+import * as m from '../../../model';
 
 const validateChildOrSubItemsInContextByPropName = (
-  context: VerticalContext,
-  contentItemsById: ContentItemsById,
+  context: m.VerticalContext,
+  contentItemsById: m.ContentItemsById,
   propName: ('childItemIds' | 'subItemIds'),
 ): void => {
   const parentOrSuperItem: any = contentItemsById[context.contextItemId];
@@ -26,14 +18,14 @@ const validateChildOrSubItemsInContextByPropName = (
   if (parentOrSuperItem[propName] == null) throw new InvalidArgumentError(`The passed contextType doesn't match the contentItems type.`);
 
   const siblingItemIds = parentOrSuperItem[propName];
-  let siblingItem: ContentItem;
+  let siblingItem: m.ContentItem;
   let hasEncounteredHeading: boolean = false;
 
   siblingItemIds.forEach((siblingItemId: Identifier): void => {
     siblingItem = contentItemsById[siblingItemId];
     if (siblingItem == null) throw new CorruptedInternalStateError(`ContentItemsById object contains inconsistencies; this shouldn't happen.`);
 
-    if (siblingItem.type === contentItemTypes.HEADING) {
+    if (siblingItem.type === m.contentItemTypes.HEADING) {
       hasEncounteredHeading = true;
     }
     else if (hasEncounteredHeading) {
@@ -43,14 +35,14 @@ const validateChildOrSubItemsInContextByPropName = (
 };
 
 const validateChildOrSubItemsInContext = (
-  context: VerticalContext,
-  contentItemsById: ContentItemsById,
+  context: m.VerticalContext,
+  contentItemsById: m.ContentItemsById,
 ): void => {
   switch (context.contextType) {
-    case contextTypes.SUPER:
+    case m.contextTypes.SUPER:
       validateChildOrSubItemsInContextByPropName(context, contentItemsById, 'subItemIds');
       break;
-    case contextTypes.PARENT:
+    case m.contextTypes.PARENT:
       validateChildOrSubItemsInContextByPropName(context, contentItemsById, 'childItemIds');
       break;
     default:

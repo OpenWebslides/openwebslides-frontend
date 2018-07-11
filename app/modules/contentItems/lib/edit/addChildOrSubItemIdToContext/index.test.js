@@ -4,30 +4,20 @@ import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentEr
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { Identifier } from 'types/model';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import * as dummyData from '../../testResources/dummyContentItemData';
 
 import edit from '..';
 
-const {
-  contextTypes,
-  SubableContentItem,
-  ContainerContentItem,
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsById,
-} = model;
-
 describe(`addChildOrSubItemIdToContext`, (): void => {
 
   let dummyId: Identifier;
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph12: $Exact<ParagraphContentItem>;
-  let dummyParagraph11: $Exact<ParagraphContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: ContentItemsById;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: m.ContentItemsById;
 
   beforeEach((): void => {
     dummyId = 'abcdefghijklmnopqrst';
@@ -53,7 +43,7 @@ describe(`addChildOrSubItemIdToContext`, (): void => {
 
   it(`returns a copy of the contextItem with the passed childOrSubItemId added to it at the correct index, when the contextType is SUPER`, (): void => {
     const dummyContext = {
-      contextType: contextTypes.SUPER,
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
       indexInSiblingItems: 1,
     };
@@ -62,12 +52,12 @@ describe(`addChildOrSubItemIdToContext`, (): void => {
 
     expect(actualResult).toEqual(expectedResult);
     expect(actualResult).not.toBe(dummyHeading1);
-    expect(((actualResult: any): SubableContentItem).subItemIds).not.toBe(((dummyHeading1: any): SubableContentItem).subItemIds);
+    expect(((actualResult: any): m.SubableContentItem).subItemIds).not.toBe(((dummyHeading1: any): m.SubableContentItem).subItemIds);
   });
 
   it(`returns a copy of the passed contentItem with the passed childOrSubItem added to it at the correct index, when the contextType is PARENT`, (): void => {
     const dummyContext = {
-      contextType: contextTypes.PARENT,
+      contextType: m.contextTypes.PARENT,
       contextItemId: dummyRoot.id,
       indexInSiblingItems: 2,
     };
@@ -76,12 +66,12 @@ describe(`addChildOrSubItemIdToContext`, (): void => {
 
     expect(actualResult).toEqual(expectedResult);
     expect(actualResult).not.toBe(dummyHeading1);
-    expect(((actualResult: any): ContainerContentItem).childItemIds).not.toBe(((dummyHeading1: any): ContainerContentItem).childItemIds);
+    expect(((actualResult: any): m.ContainerContentItem).childItemIds).not.toBe(((dummyHeading1: any): m.ContainerContentItem).childItemIds);
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed contextItemId could not be found`, (): void => {
     const dummyContext = {
-      contextType: contextTypes.PARENT,
+      contextType: m.contextTypes.PARENT,
       contextItemId: 'DefinitelyNotValidId',
     };
     expect((): void => {
@@ -91,7 +81,7 @@ describe(`addChildOrSubItemIdToContext`, (): void => {
 
   it(`throws an InvalidArgumentError, when the contextType is SUPER and the passed contentItem is not a subableContentItem`, (): void => {
     const dummyContext = {
-      contextType: contextTypes.SUPER,
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyRoot.id,
     };
     expect((): void => {
@@ -101,7 +91,7 @@ describe(`addChildOrSubItemIdToContext`, (): void => {
 
   it(`throws an InvalidArgumentError, when the contextType is PARENT and the passed contentItem is not a containerContentItem`, (): void => {
     const dummyContext = {
-      contextType: contextTypes.PARENT,
+      contextType: m.contextTypes.PARENT,
       contextItemId: dummyHeading1.id,
     };
     expect((): void => {

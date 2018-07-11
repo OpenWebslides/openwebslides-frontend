@@ -10,8 +10,6 @@ import topics from 'modules/topics';
 
 import contentItems from 'modules/contentItems';
 
-const { contentItemTypes, DenormalizedRootContentItem } = contentItems.model;
-
 type Topic = topics.model.Topic;
 
 type StateProps = {
@@ -19,7 +17,7 @@ type StateProps = {
   // later stage the contentItem tree passed to the slide needs to be transformed further
   // (for example, by splitting up sections and inserting repeated headers if a section is longer
   // than a single slide) and the contentItem tree can't just be extracted from the state directly.
-  contentItemTreeRootItem: DenormalizedRootContentItem,
+  contentItemTreeRootItem: contentItems.model.DenormalizedRootContentItem,
 };
 
 type PassedProps = {
@@ -41,7 +39,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   if (contentItemTreeRootItem == null) {
     throw new Error(`ContentItem with id "${contentItemTreeRootItemId}" could not be found.`);
   }
-  else if (contentItemTreeRootItem.type !== contentItemTypes.ROOT) {
+  else if (contentItemTreeRootItem.type !== contentItems.model.contentItemTypes.ROOT) {
     throw new Error('Not a ROOT contentItem.');
   }
 

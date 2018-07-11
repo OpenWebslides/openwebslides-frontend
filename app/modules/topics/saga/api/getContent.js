@@ -13,8 +13,6 @@ import api from 'modules/api';
 
 import * as t from '../../actionTypes';
 
-const { ContentItem } = contentItems.model;
-
 const { setTokenInState } = authentication.actions;
 const { getToken } = authentication.selectors;
 
@@ -33,7 +31,7 @@ export const apiGetContentSaga = function* (
     const response = yield call(TopicsApi.getContent, id, token);
 
     // TODO: validate response
-    const items: Array<ContentItem> = response.body.data.attributes.content;
+    const items: Array<contentItems.model.ContentItem> = response.body.data.attributes.content;
     yield put(contentItems.actions.setMultipleInState(items));
 
     yield put(setTokenInState(response.token));

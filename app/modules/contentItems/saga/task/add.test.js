@@ -3,30 +3,21 @@
 import { expectSaga } from 'redux-saga-test-plan';
 
 import * as t from '../../actionTypes';
-import * as model from '../../model';
+import * as m from '../../model';
 import * as dummyContentItemData from '../../lib/testResources/dummyContentItemData';
 
 import addSaga from './add';
 
-const {
-  contentItemTypes,
-  contextTypes,
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsById,
-} = model;
-
 describe(`addSaga`, (): void => {
 
-  let dummyParagraph22: $Exact<ParagraphContentItem>;
-  let dummyParagraph21: $Exact<ParagraphContentItem>;
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph12: $Exact<ParagraphContentItem>;
-  let dummyParagraph11: $Exact<ParagraphContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: $Exact<ContentItemsById>;
+  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: $Exact<m.ContentItemsById>;
   let dummyState: any;
 
   beforeEach((): void => {
@@ -59,9 +50,9 @@ describe(`addSaga`, (): void => {
     const dummyAddAction: t.AddAction = {
       type: t.ADD,
       payload: {
-        type: contentItemTypes.PARAGRAPH,
+        type: m.contentItemTypes.PARAGRAPH,
         context: {
-          contextType: contextTypes.SUPER,
+          contextType: m.contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
           indexInSiblingItems: 0,
         },
@@ -89,9 +80,9 @@ describe(`addSaga`, (): void => {
     const dummyAddAction: t.AddAction = {
       type: t.ADD,
       payload: {
-        type: contentItemTypes.PARAGRAPH,
+        type: m.contentItemTypes.PARAGRAPH,
         context: {
-          contextType: contextTypes.SUPER,
+          contextType: m.contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
           indexInSiblingItems: 0,
         },
@@ -110,7 +101,7 @@ describe(`addSaga`, (): void => {
     const dummyAddAction: t.AddAction = {
       type: t.ADD,
       payload: {
-        type: contentItemTypes.ROOT,
+        type: m.contentItemTypes.ROOT,
         context: undefined,
         propsForType: {},
       },
@@ -134,9 +125,9 @@ describe(`addSaga`, (): void => {
     const dummyAddAction: t.AddAction = {
       type: t.ADD,
       payload: {
-        type: contentItemTypes.HEADING,
+        type: m.contentItemTypes.HEADING,
         context: {
-          contextType: contextTypes.SIBLING,
+          contextType: m.contextTypes.SIBLING,
           contextItemId: dummyHeading1.id,
           indexInSiblingItemsShift: 0,
         },
@@ -153,7 +144,7 @@ describe(`addSaga`, (): void => {
           payload: {
             type: dummyAddAction.payload.type,
             context: {
-              contextType: contextTypes.PARENT,
+              contextType: m.contextTypes.PARENT,
               contextItemId: dummyRoot.id,
               indexInSiblingItems: 1,
             },

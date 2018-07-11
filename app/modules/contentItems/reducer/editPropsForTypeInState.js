@@ -7,18 +7,12 @@ import NotYetImplementedError from 'errors/implementation-errors/NotYetImplement
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../actionTypes';
-import * as model from '../model';
-
-const {
-  plainTextContentItemTypes,
-  PlainTextContentItem,
-  ContentItemsState,
-} = model;
+import * as m from '../model';
 
 const editPropsForTypeInState = (
-  state: ContentItemsState,
+  state: m.ContentItemsState,
   action: t.EditPropsForTypeInStateAction,
-): ContentItemsState => {
+): m.ContentItemsState => {
   const { contentItem, propsForType } = action.payload;
   const contentItemToEdit = state.byId[contentItem.id];
   if (contentItemToEdit == null) throw new ObjectNotFoundError('contentItems:contentItem', contentItem.id);
@@ -26,9 +20,9 @@ const editPropsForTypeInState = (
 
   const editedContentItem: any = { ...contentItemToEdit };
 
-  if (_.includes(plainTextContentItemTypes, contentItemToEdit.type)) {
+  if (_.includes(m.plainTextContentItemTypes, contentItemToEdit.type)) {
     if (propsForType.text != null) {
-      (editedContentItem: PlainTextContentItem).text = propsForType.text;
+      (editedContentItem: m.PlainTextContentItem).text = propsForType.text;
     }
   }
   else {

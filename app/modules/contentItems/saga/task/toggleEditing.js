@@ -6,10 +6,8 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
 import actions from '../../actions';
-import * as model from '../../model';
+import * as m from '../../model';
 import selectors from '../../selectors';
-
-const { editablePropsForType } = model;
 
 const toggleEditingSaga = function* (action: t.ToggleEditingAction): Generator<*, *, *> {
   const { id, isEditing } = action.payload;
@@ -28,7 +26,7 @@ const toggleEditingSaga = function* (action: t.ToggleEditingAction): Generator<*
       // Perform an edit action in order to validate all editable props with isEditing === FALSE.
       const propsForType = _.pick(
         contentItemToToggle,
-        editablePropsForType[contentItemToToggle.type],
+        m.editablePropsForType[contentItemToToggle.type],
       );
       yield put(actions.edit(id, propsForType));
     }

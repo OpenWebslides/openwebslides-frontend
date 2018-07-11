@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { Dispatch } from 'redux';
+import type { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import type { State } from 'types/state';
@@ -19,23 +19,14 @@ import type { Event } from '../model';
 
 import { getById } from '../selectors';
 
-const getUserById = users.selectors.getById;
-const { User } = users.model;
-const { GRAVATAR_SIZE_SMALL } = users.constants;
-const getUserAction = users.actions.get;
-
-const getTitleById = topics.selectors.getById;
-const { Topic } = topics.model;
-const getTopicAction = topics.actions.get;
-
 type PassedProps = {
   eventId: Identifier,
 };
 
 type StateProps = {
   event: Event,
-  user: ?User,
-  topic: ?Topic,
+  user: ?users.model.User,
+  topic: ?topics.model.Topic,
 };
 
 type DispatchProps = {
@@ -48,8 +39,8 @@ type Props = CustomTranslatorProps & PassedProps & StateProps & DispatchProps;
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { eventId } = props;
   const event = getById(state, eventId);
-  const topic = getTitleById(state, { id: event.topicId });
-  const user = getUserById(state, event.userId);
+  const topic = topics.selectors.getById(state, { id: event.topicId });
+  const user = users.selectors.getById(state, event.userId);
 
   return {
     event,
@@ -62,12 +53,12 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     getTopic: (id: string): void => {
       dispatch(
-        getTopicAction(id),
+        topics.actions.get(id),
       );
     },
     getUser: (id: string): void => {
       dispatch(
-        getUserAction(id),
+        users.actions.get(id),
       );
     },
   };
@@ -114,7 +105,7 @@ class PureEventWrapper extends React.Component<Props, State> {
       <Feed.Event>
         <Feed.Label>
           <Link to={`/profile/${user.id}`}>
-            <Gravatar email={user.email} size={GRAVATAR_SIZE_SMALL} />
+            <Gravatar email={user.email} size={users.constants.GRAVATAR_SIZE_SMALL} />
           </Link>
         </Feed.Label>
         <Feed.Content>

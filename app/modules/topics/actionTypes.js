@@ -7,8 +7,6 @@ import type { RouterHistory } from 'react-router-dom';
 
 import type { Topic } from './model';
 
-const { ContentItem } = contentItems.model;
-
 /* Action constants */
 
 // Reducer actions
@@ -163,7 +161,7 @@ export type ApiPatchTopicContentAction = {
   type: typeof API_PATCH_CONTENT,
   payload: {
     id: Identifier,
-    content: Array<ContentItem>,
+    content: Array<contentItems.model.ContentItem>,
   },
 };
 

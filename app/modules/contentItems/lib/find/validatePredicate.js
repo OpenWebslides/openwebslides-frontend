@@ -2,19 +2,14 @@
 
 import type { Identifier } from 'types/model';
 
-import * as model from '../../model';
+import * as m from '../../model';
 import type { FindFunctionPredicate } from './types';
-
-const {
-  ContentItem,
-  ContentItemsById,
-} = model;
 
 const validatePredicate = (
   predicate: ?FindFunctionPredicate,
-  contentItem: ContentItem,
+  contentItem: m.ContentItem,
   processedItemIds: Array<Identifier>,
-  contentItemsById: ContentItemsById,
+  contentItemsById: m.ContentItemsById,
 ): boolean => {
   if (predicate == null) {
     return true;

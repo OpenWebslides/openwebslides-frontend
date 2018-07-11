@@ -4,13 +4,11 @@ import _ from 'lodash';
 import * as React from 'react';
 import type { Identifier } from 'types/model';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import ContentItemEditableDisplay, { passThroughProps } from '..';
 
-const { RootContentItem } = model;
-
 type PassedProps = {
-  contentItem: RootContentItem,
+  contentItem: m.RootContentItem,
 };
 
 type Props = PassedProps;

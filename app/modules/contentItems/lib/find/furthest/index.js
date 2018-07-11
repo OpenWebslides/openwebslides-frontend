@@ -6,21 +6,19 @@
 
 import type { Identifier } from 'types/model';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import validatePredicate from '../validatePredicate';
 import type { SingleFindFunction, FindFunctionPredicate, RecursiveFindFunction } from '../types';
 
-const { ContentItem, ContentItemsById } = model;
-
 const findFurthestRecursive = (
-  contentItem: ContentItem,
-  contentItemsById: ContentItemsById,
+  contentItem: m.ContentItem,
+  contentItemsById: m.ContentItemsById,
   singleFindFunction: SingleFindFunction,
   predicate: ?FindFunctionPredicate,
   processedItemIds: Array<Identifier>,
-): ?ContentItem => {
-  const singleFindResult: ?ContentItem = singleFindFunction(contentItem, contentItemsById);
-  let furtherSingleFindResult: ?ContentItem = null;
+): ?m.ContentItem => {
+  const singleFindResult: ?m.ContentItem = singleFindFunction(contentItem, contentItemsById);
+  let furtherSingleFindResult: ?m.ContentItem = null;
 
   // Determine current contentItem validity before the recursive function call
   // in order to make sure that the predicate function calls happen in the correct order.
@@ -70,11 +68,11 @@ const findFurthestRecursive = (
 };
 
 const findFurthest: RecursiveFindFunction = (
-  contentItem: ?ContentItem,
-  contentItemsById: ContentItemsById,
+  contentItem: ?m.ContentItem,
+  contentItemsById: m.ContentItemsById,
   singleFindFunction: SingleFindFunction,
   predicate: ?FindFunctionPredicate = null,
-): ?ContentItem => {
+): ?m.ContentItem => {
   if (contentItem == null) {
     return null;
   }

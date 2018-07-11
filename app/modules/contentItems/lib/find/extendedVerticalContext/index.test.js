@@ -2,31 +2,22 @@
 
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import * as dummyData from '../../testResources/dummyContentItemData';
 
 import find from '..';
 
-const {
-  contextTypes,
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsById,
-  ExtendedVerticalContext,
-} = model;
-
 describe(`findExtendedVerticalContext`, (): void => {
 
-  let dummyParagraph23: $Exact<ParagraphContentItem>;
-  let dummyParagraph22: $Exact<ParagraphContentItem>;
-  let dummyParagraph21: $Exact<ParagraphContentItem>;
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph12: $Exact<ParagraphContentItem>;
-  let dummyParagraph11: $Exact<ParagraphContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: $Exact<ContentItemsById>;
+  let dummyParagraph23: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: $Exact<m.ContentItemsById>;
 
   beforeEach((): void => {
     dummyParagraph23 = { ...dummyData.paragraphContentItem5 };
@@ -60,8 +51,8 @@ describe(`findExtendedVerticalContext`, (): void => {
 
   it(`returns the correct context, when the passed contentItem is a subItem`, (): void => {
     const actualResult = find.extendedVerticalContext(dummyParagraph11, dummyContentItemsById);
-    const expectedResult: ExtendedVerticalContext = {
-      contextType: contextTypes.SUPER,
+    const expectedResult: m.ExtendedVerticalContext = {
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
       siblingItemIds: [dummyParagraph11.id, dummyParagraph12.id],
       indexInSiblingItems: 0,
@@ -71,8 +62,8 @@ describe(`findExtendedVerticalContext`, (): void => {
 
   it(`returns the correct context, when the passed contentItem is a childItem`, (): void => {
     const actualResult = find.extendedVerticalContext(dummyHeading2, dummyContentItemsById);
-    const expectedResult: ExtendedVerticalContext = {
-      contextType: contextTypes.PARENT,
+    const expectedResult: m.ExtendedVerticalContext = {
+      contextType: m.contextTypes.PARENT,
       contextItemId: dummyRoot.id,
       siblingItemIds: [dummyHeading1.id, dummyHeading2.id],
       indexInSiblingItems: 1,
@@ -82,8 +73,8 @@ describe(`findExtendedVerticalContext`, (): void => {
 
   it(`returns the correct context, when the passed contentItem is the first in its list of siblings`, (): void => {
     const actualResult = find.extendedVerticalContext(dummyParagraph21, dummyContentItemsById);
-    const expectedResult: ExtendedVerticalContext = {
-      contextType: contextTypes.SUPER,
+    const expectedResult: m.ExtendedVerticalContext = {
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading2.id,
       siblingItemIds: [dummyParagraph21.id, dummyParagraph22.id, dummyParagraph23.id],
       indexInSiblingItems: 0,
@@ -93,8 +84,8 @@ describe(`findExtendedVerticalContext`, (): void => {
 
   it(`returns the correct context, when the passed contentItem is the last in its list of siblings`, (): void => {
     const actualResult = find.extendedVerticalContext(dummyParagraph23, dummyContentItemsById);
-    const expectedResult: ExtendedVerticalContext = {
-      contextType: contextTypes.SUPER,
+    const expectedResult: m.ExtendedVerticalContext = {
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading2.id,
       siblingItemIds: [dummyParagraph21.id, dummyParagraph22.id, dummyParagraph23.id],
       indexInSiblingItems: 2,
@@ -104,8 +95,8 @@ describe(`findExtendedVerticalContext`, (): void => {
 
   it(`returns the correct context, when the passed contentItem is neither the first nor the last in its list of siblings`, (): void => {
     const actualResult = find.extendedVerticalContext(dummyParagraph22, dummyContentItemsById);
-    const expectedResult: ExtendedVerticalContext = {
-      contextType: contextTypes.SUPER,
+    const expectedResult: m.ExtendedVerticalContext = {
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading2.id,
       siblingItemIds: [dummyParagraph21.id, dummyParagraph22.id, dummyParagraph23.id],
       indexInSiblingItems: 1,
@@ -115,8 +106,8 @@ describe(`findExtendedVerticalContext`, (): void => {
 
   it(`returns the correct context, when the parentOrSuperItem is passed as a argument`, (): void => {
     const actualResult = find.extendedVerticalContext(dummyParagraph11, dummyContentItemsById, dummyHeading1);
-    const expectedResult: ExtendedVerticalContext = {
-      contextType: contextTypes.SUPER,
+    const expectedResult: m.ExtendedVerticalContext = {
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
       siblingItemIds: [dummyParagraph11.id, dummyParagraph12.id],
       indexInSiblingItems: 0,

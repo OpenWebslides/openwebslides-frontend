@@ -3,36 +3,30 @@
 
 import contentItems from 'modules/contentItems';
 
-const {
-  contentItemTypes,
-  DenormalizedContentItem,
-  DenormalizedRootContentItem,
-} = contentItems.model;
-
 /**
  * Automatic slide splitting algorithm
  * @param contentItem: ContentItem
  * @returns Array<DenormalizedContentItem>
  */
 const recursiveSplit = (
-  contentItem: DenormalizedContentItem,
-): Array<DenormalizedContentItem> => {
+  contentItem: contentItems.model.DenormalizedContentItem,
+): Array<contentItems.model.DenormalizedContentItem> => {
   switch (contentItem.type) {
-    case contentItemTypes.ROOT:
+    case contentItems.model.contentItemTypes.ROOT:
       // ROOT content item: split into childItems and recurse
       return contentItem.childItems
         .map((
-          c: DenormalizedContentItem,
-        ): Array<DenormalizedContentItem> => {
+          c: contentItems.model.DenormalizedContentItem,
+        ): Array<contentItems.model.DenormalizedContentItem> => {
           return recursiveSplit(c);
         })
         .reduce((
-          arr: Array<DenormalizedContentItem>,
-          c: Array<DenormalizedContentItem>,
-        ): Array<DenormalizedContentItem> => {
+          arr: Array<contentItems.model.DenormalizedContentItem>,
+          c: Array<contentItems.model.DenormalizedContentItem>,
+        ): Array<contentItems.model.DenormalizedContentItem> => {
           return arr.concat(c);
         }, []);
-    case contentItemTypes.HEADING: {
+    case contentItems.model.contentItemTypes.HEADING: {
       /**
        * Algorithm for splitting subheadings, while duplicating the top-level heading
        *
@@ -70,9 +64,12 @@ const recursiveSplit = (
       // duplicating the top-level heading where necessary.
       return contentItem.subItems.reduce((
         arr: Array<any>,
-        item: DenormalizedContentItem,
-      ): Array<DenormalizedContentItem> => {
-        if (item.type === contentItemTypes.HEADING && arr[arr.length - 1].subItems.length !== 0) {
+        item: contentItems.model.DenormalizedContentItem,
+      ): Array<contentItems.model.DenormalizedContentItem> => {
+        if (
+          item.type === contentItems.model.contentItemTypes.HEADING
+          && arr[arr.length - 1].subItems.length !== 0
+        ) {
           // If child is a heading, create and push a new top-level heading
           // Except if the previous top-level heading has no children (which means that
           // the current subheading is a direct child of the top-level heading)
@@ -92,18 +89,19 @@ const recursiveSplit = (
 };
 
 const split = (
-  rootContentItem: DenormalizedRootContentItem,
-): Array<DenormalizedRootContentItem> => {
-  return recursiveSplit(rootContentItem).map(
-    (item: DenormalizedContentItem, index: number): DenormalizedRootContentItem => {
-      return {
-        id: `${rootContentItem.id}-${index}`,
-        type: contentItemTypes.ROOT,
-        isEditing: false,
-        childItems: [item],
-      };
-    },
-  );
+  rootContentItem: contentItems.model.DenormalizedRootContentItem,
+): Array<contentItems.model.DenormalizedRootContentItem> => {
+  return recursiveSplit(rootContentItem).map((
+    item: contentItems.model.DenormalizedContentItem,
+    index: number,
+  ): contentItems.model.DenormalizedRootContentItem => {
+    return {
+      id: `${rootContentItem.id}-${index}`,
+      type: contentItems.model.contentItemTypes.ROOT,
+      isEditing: false,
+      childItems: [item],
+    };
+  });
 };
 
 export { recursiveSplit };

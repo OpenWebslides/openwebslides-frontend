@@ -1,15 +1,13 @@
 // @flow
 
-import * as model from '../model';
+import * as m from '../model';
 import { dummyContentItemsById } from '../dummyData';
 
 import reducer from '.';
 
-const { ContentItemsState } = model;
-
 describe(`index`, (): void => {
 
-  let dummyInitialState: ContentItemsState;
+  let dummyInitialState: m.ContentItemsState;
 
   beforeEach((): void => {
     dummyInitialState = {

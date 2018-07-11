@@ -1,33 +1,26 @@
 // @flow
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import * as dummyData from '../../testResources/dummyContentItemData';
 
 import find from '..';
 
-const {
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsById,
-} = model;
-
 describe(`findAllAncestorItems`, (): void => {
 
-  let dummyParagraph22: $Exact<ParagraphContentItem>;
-  let dummyParagraph21: $Exact<ParagraphContentItem>;
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph122: $Exact<ParagraphContentItem>;
-  let dummyParagraph121: $Exact<ParagraphContentItem>;
-  let dummyHeading12: $Exact<HeadingContentItem>;
-  let dummyParagraph1122: $Exact<ParagraphContentItem>;
-  let dummyParagraph1121: $Exact<ParagraphContentItem>;
-  let dummyParagraph112: $Exact<ParagraphContentItem>;
-  let dummyParagraph111: $Exact<ParagraphContentItem>;
-  let dummyHeading11: $Exact<HeadingContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: ContentItemsById;
+  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyParagraph122: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph121: $Exact<m.ParagraphContentItem>;
+  let dummyHeading12: $Exact<m.HeadingContentItem>;
+  let dummyParagraph1122: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph1121: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph112: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph111: $Exact<m.ParagraphContentItem>;
+  let dummyHeading11: $Exact<m.HeadingContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: m.ContentItemsById;
 
   beforeEach((): void => {
     dummyParagraph22 = { ...dummyData.paragraphContentItem8 };

@@ -3,41 +3,30 @@
 import _ from 'lodash';
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 
-import * as model from '../../model';
+import * as m from '../../model';
 import * as dummyData from '../testResources/dummyContentItemData';
 
 import denormalize from '.';
 
-const {
-  RootContentItem,
-  DenormalizedRootContentItem,
-  HeadingContentItem,
-  DenormalizedHeadingContentItem,
-  ParagraphContentItem,
-  DenormalizedParagraphContentItem,
-  SlideBreakContentItem,
-  DenormalizedSlideBreakContentItem,
-} = model;
-
 describe(`denormalize`, (): void => {
 
-  let dummySlideBreak32: $Exact<SlideBreakContentItem>;
-  let dummyParagraph314: $Exact<ParagraphContentItem>;
-  let dummyParagraph313: $Exact<ParagraphContentItem>;
-  let dummyParagraph312: $Exact<ParagraphContentItem>;
-  let dummyParagraph311: $Exact<ParagraphContentItem>;
+  let dummySlideBreak32: $Exact<m.SlideBreakContentItem>;
+  let dummyParagraph314: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph313: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph312: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph311: $Exact<m.ParagraphContentItem>;
   let dummyTestParentAndSuperItem31: any;
-  let dummyRoot3: $Exact<RootContentItem>;
-  let dummyHeading22: $Exact<HeadingContentItem>;
-  let dummyHeading21: $Exact<HeadingContentItem>;
-  let dummyRoot2: $Exact<RootContentItem>;
-  let dummyParagraph122: $Exact<ParagraphContentItem>;
-  let dummyParagraph121: $Exact<ParagraphContentItem>;
-  let dummyHeading12: $Exact<HeadingContentItem>;
-  let dummyParagraph112: $Exact<ParagraphContentItem>;
-  let dummyParagraph111: $Exact<ParagraphContentItem>;
-  let dummyHeading11: $Exact<HeadingContentItem>;
-  let dummyRoot1: $Exact<RootContentItem>;
+  let dummyRoot3: $Exact<m.RootContentItem>;
+  let dummyHeading22: $Exact<m.HeadingContentItem>;
+  let dummyHeading21: $Exact<m.HeadingContentItem>;
+  let dummyRoot2: $Exact<m.RootContentItem>;
+  let dummyParagraph122: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph121: $Exact<m.ParagraphContentItem>;
+  let dummyHeading12: $Exact<m.HeadingContentItem>;
+  let dummyParagraph112: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph111: $Exact<m.ParagraphContentItem>;
+  let dummyHeading11: $Exact<m.HeadingContentItem>;
+  let dummyRoot1: $Exact<m.RootContentItem>;
   let dummyContentItemsById: any;
 
   beforeEach((): void => {
@@ -87,17 +76,17 @@ describe(`denormalize`, (): void => {
 
   it(`returns a denormalized subable contentItem, when the passed contentItem is a subable contentItem`, (): void => {
     const denormalizedContentItem = denormalize(dummyHeading11, dummyContentItemsById);
-    const expectedResult: DenormalizedHeadingContentItem = {
+    const expectedResult: m.DenormalizedHeadingContentItem = {
       ...dummyHeading11,
       subItems: [
         ({
           ...dummyParagraph111,
           subItems: [],
-        }: DenormalizedParagraphContentItem),
+        }: m.DenormalizedParagraphContentItem),
         ({
           ...dummyParagraph112,
           subItems: [],
-        }: DenormalizedParagraphContentItem),
+        }: m.DenormalizedParagraphContentItem),
       ],
     };
     expect(denormalizedContentItem).toEqual(expectedResult);
@@ -105,17 +94,17 @@ describe(`denormalize`, (): void => {
 
   it(`returns a denormalized container contentItem, when the passed contentItem is a container contentItem`, (): void => {
     const denormalizedContentItem = denormalize(dummyRoot2, dummyContentItemsById);
-    const expectedResult: DenormalizedRootContentItem = {
+    const expectedResult: m.DenormalizedRootContentItem = {
       ...dummyRoot2,
       childItems: [
         ({
           ...dummyHeading21,
           subItems: [],
-        }: DenormalizedHeadingContentItem),
+        }: m.DenormalizedHeadingContentItem),
         ({
           ...dummyHeading22,
           subItems: [],
-        }: DenormalizedHeadingContentItem),
+        }: m.DenormalizedHeadingContentItem),
       ],
     };
     expect(denormalizedContentItem).toEqual(expectedResult);
@@ -129,21 +118,21 @@ describe(`denormalize`, (): void => {
         ({
           ...dummyParagraph311,
           subItems: [],
-        }: DenormalizedParagraphContentItem),
+        }: m.DenormalizedParagraphContentItem),
         ({
           ...dummyParagraph312,
           subItems: [],
-        }: DenormalizedParagraphContentItem),
+        }: m.DenormalizedParagraphContentItem),
       ],
       subItems: [
         ({
           ...dummyParagraph313,
           subItems: [],
-        }: DenormalizedParagraphContentItem),
+        }: m.DenormalizedParagraphContentItem),
         ({
           ...dummyParagraph314,
           subItems: [],
-        }: DenormalizedParagraphContentItem),
+        }: m.DenormalizedParagraphContentItem),
       ],
     };
     expect(denormalizedContentItem).toEqual(expectedResult);
@@ -151,14 +140,14 @@ describe(`denormalize`, (): void => {
 
   it(`returns an unchanged contentItem, when the passed contentItem is neither subable nor a container`, (): void => {
     const denormalizedContentItem = denormalize(dummySlideBreak32, dummyContentItemsById);
-    const expectedResult: DenormalizedSlideBreakContentItem = { ...dummySlideBreak32 };
+    const expectedResult: m.DenormalizedSlideBreakContentItem = { ...dummySlideBreak32 };
     expect(denormalizedContentItem).toEqual(expectedResult);
   });
 
 
   it(`returns a multilevel denormalized contentItem, when the passed contentItem has multiple levels of descendants`, (): void => {
     const denormalizedContentItem = denormalize(dummyRoot1, dummyContentItemsById);
-    const expectedResult: DenormalizedRootContentItem = {
+    const expectedResult: m.DenormalizedRootContentItem = {
       ...dummyRoot1,
       childItems: [
         ({
@@ -167,26 +156,26 @@ describe(`denormalize`, (): void => {
             ({
               ...dummyParagraph111,
               subItems: [],
-            }: DenormalizedParagraphContentItem),
+            }: m.DenormalizedParagraphContentItem),
             ({
               ...dummyParagraph112,
               subItems: [],
-            }: DenormalizedParagraphContentItem),
+            }: m.DenormalizedParagraphContentItem),
           ],
-        }: DenormalizedHeadingContentItem),
+        }: m.DenormalizedHeadingContentItem),
         ({
           ...dummyHeading12,
           subItems: [
             ({
               ...dummyParagraph121,
               subItems: [],
-            }: DenormalizedParagraphContentItem),
+            }: m.DenormalizedParagraphContentItem),
             ({
               ...dummyParagraph122,
               subItems: [],
-            }: DenormalizedParagraphContentItem),
+            }: m.DenormalizedParagraphContentItem),
           ],
-        }: DenormalizedHeadingContentItem),
+        }: m.DenormalizedHeadingContentItem),
       ],
     };
     expect(denormalizedContentItem).toEqual(expectedResult);

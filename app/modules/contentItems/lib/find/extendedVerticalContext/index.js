@@ -13,35 +13,26 @@ import _ from 'lodash';
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import type { Identifier } from 'types/model';
 
-import * as model from '../../../model';
-
-const {
-  contextTypes,
-  ContentItem,
-  SubableContentItem,
-  ContainerContentItem,
-  ContentItemsById,
-  ExtendedVerticalContext,
-} = model;
+import * as m from '../../../model';
 
 const getContextFromCandidateParentOrSuperItem = (
-  contentItem: ContentItem,
-  candidateParentOrSuperItem: ContentItem,
-): ?ExtendedVerticalContext => {
-  let context: ?ExtendedVerticalContext = null;
+  contentItem: m.ContentItem,
+  candidateParentOrSuperItem: m.ContentItem,
+): ?m.ExtendedVerticalContext => {
+  let context: ?m.ExtendedVerticalContext = null;
   let siblingItemIds: Array<Identifier>;
 
   // If the current candidate is the superItem of the passed contentItem
   if (
     candidateParentOrSuperItem.subItemIds != null
     && _.includes(
-      ((candidateParentOrSuperItem: any): SubableContentItem).subItemIds,
+      ((candidateParentOrSuperItem: any): m.SubableContentItem).subItemIds,
       contentItem.id,
     )
   ) {
-    siblingItemIds = ((candidateParentOrSuperItem: any): SubableContentItem).subItemIds;
+    siblingItemIds = ((candidateParentOrSuperItem: any): m.SubableContentItem).subItemIds;
     context = {
-      contextType: contextTypes.SUPER,
+      contextType: m.contextTypes.SUPER,
       contextItemId: candidateParentOrSuperItem.id,
       siblingItemIds,
       indexInSiblingItems: _.indexOf(siblingItemIds, contentItem.id),
@@ -51,13 +42,13 @@ const getContextFromCandidateParentOrSuperItem = (
   else if (
     candidateParentOrSuperItem.childItemIds != null
     && _.includes(
-      ((candidateParentOrSuperItem: any): ContainerContentItem).childItemIds,
+      ((candidateParentOrSuperItem: any): m.ContainerContentItem).childItemIds,
       contentItem.id,
     )
   ) {
-    siblingItemIds = ((candidateParentOrSuperItem: any): ContainerContentItem).childItemIds;
+    siblingItemIds = ((candidateParentOrSuperItem: any): m.ContainerContentItem).childItemIds;
     context = {
-      contextType: contextTypes.PARENT,
+      contextType: m.contextTypes.PARENT,
       contextItemId: candidateParentOrSuperItem.id,
       siblingItemIds,
       indexInSiblingItems: _.indexOf(siblingItemIds, contentItem.id),
@@ -68,15 +59,15 @@ const getContextFromCandidateParentOrSuperItem = (
 };
 
 const findExtendedVerticalContext = (
-  contentItem: ?ContentItem,
-  contentItemsById: ContentItemsById,
+  contentItem: ?m.ContentItem,
+  contentItemsById: m.ContentItemsById,
   // If the parentOrSuperItem is known, it can be passed in order to avoid having to loop through
   // all contentItems.
-  parentOrSuperItem: ?ContentItem = null,
-): ?ExtendedVerticalContext => {
+  parentOrSuperItem: ?m.ContentItem = null,
+): ?m.ExtendedVerticalContext => {
   if (contentItem == null) return null;
 
-  let context: ?ExtendedVerticalContext = null;
+  let context: ?m.ExtendedVerticalContext = null;
 
   // If the parentOrSuperItem wasn't previously known
   if (parentOrSuperItem == null) {

@@ -9,86 +9,69 @@ import NotYetImplementedError from 'errors/implementation-errors/NotYetImplement
 import type { Identifier } from 'types/model';
 
 import * as t from '../actionTypes';
-import * as model from '../model';
+import * as m from '../model';
 import edit from '../lib/edit';
-
-const {
-  contentItemTypes,
-  plainTextContentItemTypes,
-  taggableContentItemTypes,
-  subableContentItemTypes,
-  containerContentItemTypes,
-  ContentItem,
-  BaseContentItem,
-  PlainTextContentItem,
-  TaggableContentItem,
-  SubableContentItem,
-  ContainerContentItem,
-  ContentItemsState,
-  ContentItemType,
-  AllPropsForAllTypes,
-} = model;
 
 const createNewContentItemFromPropsForType = (
   id: Identifier,
-  type: ContentItemType,
-  propsForType: $Shape<AllPropsForAllTypes>,
-): ContentItem => {
-  const newContentItem: BaseContentItem = {
+  type: m.ContentItemType,
+  propsForType: $Shape<m.AllPropsForAllTypes>,
+): m.ContentItem => {
+  const newContentItem: m.BaseContentItem = {
     id,
     type,
     isEditing: false,
   };
 
-  if (_.includes(plainTextContentItemTypes, type)) {
-    ((newContentItem: any): PlainTextContentItem).text = propsForType.text || '';
+  if (_.includes(m.plainTextContentItemTypes, type)) {
+    ((newContentItem: any): m.PlainTextContentItem).text = propsForType.text || '';
   }
-  if (_.includes(taggableContentItemTypes, type)) {
-    ((newContentItem: any): TaggableContentItem).metadata = {
+  if (_.includes(m.taggableContentItemTypes, type)) {
+    ((newContentItem: any): m.TaggableContentItem).metadata = {
       tags: [],
       visibilityOverrides: {},
     };
   }
-  if (_.includes(subableContentItemTypes, type)) {
-    ((newContentItem: any): SubableContentItem).subItemIds = [];
+  if (_.includes(m.subableContentItemTypes, type)) {
+    ((newContentItem: any): m.SubableContentItem).subItemIds = [];
   }
-  if (_.includes(containerContentItemTypes, type)) {
-    ((newContentItem: any): ContainerContentItem).childItemIds = [];
+  if (_.includes(m.containerContentItemTypes, type)) {
+    ((newContentItem: any): m.ContainerContentItem).childItemIds = [];
   }
 
   switch (type) {
-    case contentItemTypes.HEADING:
+    case m.contentItemTypes.HEADING:
       // Extra heading props should be processed here.
       break;
-    case contentItemTypes.PARAGRAPH:
+    case m.contentItemTypes.PARAGRAPH:
       // Extra paragraph props should be processed here.
       break;
-    case contentItemTypes.ROOT:
+    case m.contentItemTypes.ROOT:
       // Extra root props should be processed here.
       break;
-    case contentItemTypes.LIST:
-    case contentItemTypes.LIST_ITEM:
-    case contentItemTypes.BLOCKQUOTE:
-    case contentItemTypes.CODE:
-    case contentItemTypes.IMAGE:
-    case contentItemTypes.VIDEO:
-    case contentItemTypes.AUDIO:
-    case contentItemTypes.IFRAME:
-    case contentItemTypes.SLIDE_BREAK:
-    case contentItemTypes.COURSE_BREAK:
+    case m.contentItemTypes.LIST:
+    case m.contentItemTypes.LIST_ITEM:
+    case m.contentItemTypes.BLOCKQUOTE:
+    case m.contentItemTypes.CODE:
+    case m.contentItemTypes.IMAGE:
+    case m.contentItemTypes.VIDEO:
+    case m.contentItemTypes.AUDIO:
+    case m.contentItemTypes.IFRAME:
+    case m.contentItemTypes.SLIDE_BREAK:
+    case m.contentItemTypes.COURSE_BREAK:
       throw new NotYetImplementedError(`ContentItem type not supported yet.`);
     default:
       throw new InvalidArgumentError(`Invalid contentItem type. Type was: "${type}"`);
   }
 
-  return ((newContentItem: any): ContentItem);
+  return ((newContentItem: any): m.ContentItem);
 };
 
 const addToState = (
-  state: ContentItemsState,
+  state: m.ContentItemsState,
   action: t.AddToStateAction,
-): ContentItemsState => {
-  let newState: ContentItemsState = { ...state };
+): m.ContentItemsState => {
+  let newState: m.ContentItemsState = { ...state };
 
   const { id, type, context, propsForType } = action.payload;
   const newContentItem = createNewContentItemFromPropsForType(id, type, propsForType);
@@ -102,7 +85,7 @@ const addToState = (
   };
 
   if (context == null) {
-    if (type !== contentItemTypes.ROOT) {
+    if (type !== m.contentItemTypes.ROOT) {
       throw new InvalidArgumentError(`Adding a new contentItem of a type other than ROOT requires a context to be defined.`);
     }
   }

@@ -6,20 +6,18 @@
 
 import type { Identifier } from 'types/model';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import validatePredicate from '../validatePredicate';
 import type { SingleFindFunction, FindFunctionPredicate, RecursiveFindFunction } from '../types';
 
-const { ContentItem, ContentItemsById } = model;
-
 const findClosestRecursive = (
-  contentItem: ContentItem,
-  contentItemsById: ContentItemsById,
+  contentItem: m.ContentItem,
+  contentItemsById: m.ContentItemsById,
   singleFindFunction: SingleFindFunction,
   predicate: ?FindFunctionPredicate,
   processedItemIds: Array<Identifier>,
-): ?ContentItem => {
-  const singleFindResult: ?ContentItem = singleFindFunction(contentItem, contentItemsById);
+): ?m.ContentItem => {
+  const singleFindResult: ?m.ContentItem = singleFindFunction(contentItem, contentItemsById);
 
   if (singleFindResult == null) {
     return null;
@@ -44,11 +42,11 @@ const findClosestRecursive = (
 };
 
 const findClosest: RecursiveFindFunction = (
-  contentItem: ?ContentItem,
-  contentItemsById: ContentItemsById,
+  contentItem: ?m.ContentItem,
+  contentItemsById: m.ContentItemsById,
   singleFindFunction: SingleFindFunction,
   predicate: ?FindFunctionPredicate = null,
-): ?ContentItem => {
+): ?m.ContentItem => {
   if (contentItem == null) {
     return null;
   }

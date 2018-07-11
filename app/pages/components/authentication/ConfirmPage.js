@@ -17,6 +17,7 @@ const { ConfirmCard } = authentication.components;
 
 const PureConfirmPage = (props: Props): React.Node => {
   return (
+    // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
     <Page>
       <Grid centered={true} verticalAlign="middle">
         <Grid.Column width={6}>

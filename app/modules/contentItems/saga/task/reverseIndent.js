@@ -5,11 +5,9 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
 import actions from '../../actions';
-import * as model from '../../model';
+import * as m from '../../model';
 import selectors from '../../selectors';
 import find from '../../lib/find';
-
-const { contentItemTypes } = model;
 
 const reverseIndentSaga = function* (action: t.ReverseIndentAction): Generator<*, *, *> {
   const { id } = action.payload;
@@ -25,8 +23,8 @@ const reverseIndentSaga = function* (action: t.ReverseIndentAction): Generator<*
 
     if (parentOrSuperContext != null) {
       if (
-        contentItemToReverseIndent.type === contentItemTypes.HEADING
-        || parentOrSuperItem.type !== contentItemTypes.HEADING
+        contentItemToReverseIndent.type === m.contentItemTypes.HEADING
+        || parentOrSuperItem.type !== m.contentItemTypes.HEADING
       ) {
         yield put(actions.move(
           contentItemToReverseIndent.id,

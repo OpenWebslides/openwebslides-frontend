@@ -9,19 +9,16 @@ import split from 'lib/content-item-split';
 
 import Slide from './Slide';
 
-const { DenormalizedRootContentItem } = contentItems.model;
-
 type PassedProps = {
   // A denormalized ROOT item containing the content to be displayed on this slide.
-  contentItemTreeRootItem: DenormalizedRootContentItem,
+  contentItemTreeRootItem: contentItems.model.DenormalizedRootContentItem,
 };
 
 type Props = CustomTranslatorProps & PassedProps;
 
 const PureSlides = (props: Props): React.Node => {
   const { contentItemTreeRootItem } = props;
-
-  const contentItemsArray: Array<DenormalizedRootContentItem> = split(contentItemTreeRootItem);
+  const contentItemsArray = split(contentItemTreeRootItem);
 
   return (
     <div className="ows_slides_container">

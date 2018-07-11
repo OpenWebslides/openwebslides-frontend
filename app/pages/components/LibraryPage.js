@@ -21,6 +21,7 @@ const PureLibraryPage = (props: Props): React.Node => {
   } = props;
 
   return (
+    // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
     <Page needsAuth={true}>
       <Grid>
         <Grid.Row>

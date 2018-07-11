@@ -4,20 +4,18 @@
  * The ancestors are ordered from closest to furthest from the passed contentItem.
  */
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import find from '..';
 import type { MultipleFindFunction } from '../types';
 
-const { ContentItem, ContentItemsById } = model;
-
 const findAllAncestorItems: MultipleFindFunction = (
-  contentItem: ?ContentItem,
-  contentItemsById: ContentItemsById,
-): Array<ContentItem> => {
+  contentItem: ?m.ContentItem,
+  contentItemsById: m.ContentItemsById,
+): Array<m.ContentItem> => {
   if (contentItem == null) return [];
 
-  const allAncestorItems: Array<ContentItem> = [];
-  let parentOrSuperItem: ?ContentItem = contentItem;
+  const allAncestorItems: Array<m.ContentItem> = [];
+  let parentOrSuperItem: ?m.ContentItem = contentItem;
 
   while (parentOrSuperItem !== null) {
     parentOrSuperItem = find.parentOrSuperItem(parentOrSuperItem, contentItemsById);

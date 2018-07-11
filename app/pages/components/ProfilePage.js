@@ -80,6 +80,7 @@ const PureProfilePage = (props: Props): React.Node => {
   const CURRENT_USER = account != null ? account.id : 'jantje1234';
 
   return (
+    // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
     <Page>
       <React.Fragment>
         <h1>{t('global:title.profile')}</h1>

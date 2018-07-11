@@ -5,7 +5,7 @@ import _ from 'lodash';
 import type { State } from 'types/state';
 import { connect } from 'react-redux';
 import { Icon, Button } from 'semantic-ui-react';
-import { Dispatch } from 'redux';
+import type { Dispatch } from 'redux';
 
 import type { SidebarName } from '../model';
 

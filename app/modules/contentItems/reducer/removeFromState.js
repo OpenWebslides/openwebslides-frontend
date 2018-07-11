@@ -7,30 +7,20 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { Identifier } from 'types/model';
 
 import * as t from '../actionTypes';
-import * as model from '../model';
+import * as m from '../model';
 import find from '../lib/find';
 import edit from '../lib/edit';
 
-const {
-  contentItemTypes,
-  subableContentItemTypes,
-  containerContentItemTypes,
-  ContentItem,
-  SubableContentItem,
-  ContainerContentItem,
-  ContentItemsState,
-} = model;
-
 const removeChildrenAndSubItemsFromState = (
-  state: ContentItemsState,
-  contentItem: ContentItem,
-): ContentItemsState => {
-  let newState: ContentItemsState = {
+  state: m.ContentItemsState,
+  contentItem: m.ContentItem,
+): m.ContentItemsState => {
+  let newState: m.ContentItemsState = {
     ...state,
   };
 
-  if (_.includes(subableContentItemTypes, contentItem.type)) {
-    ((contentItem: any): SubableContentItem).subItemIds.forEach(
+  if (_.includes(m.subableContentItemTypes, contentItem.type)) {
+    ((contentItem: any): m.SubableContentItem).subItemIds.forEach(
       (subItemId: Identifier): void => {
         const subItem = state.byId[subItemId];
         if (subItem == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
@@ -43,8 +33,8 @@ const removeChildrenAndSubItemsFromState = (
     );
   }
 
-  if (_.includes(containerContentItemTypes, contentItem.type)) {
-    ((contentItem: any): ContainerContentItem).childItemIds.forEach(
+  if (_.includes(m.containerContentItemTypes, contentItem.type)) {
+    ((contentItem: any): m.ContainerContentItem).childItemIds.forEach(
       (childItemId: Identifier): void => {
         const childItem = state.byId[childItemId];
         if (childItem == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
@@ -61,11 +51,11 @@ const removeChildrenAndSubItemsFromState = (
 };
 
 const removeFromState = (
-  state: ContentItemsState,
+  state: m.ContentItemsState,
   action: t.RemoveFromStateAction,
-): ContentItemsState => {
+): m.ContentItemsState => {
   const { id } = action.payload;
-  let newState: ContentItemsState = {
+  let newState: m.ContentItemsState = {
     ...state,
   };
 
@@ -87,7 +77,7 @@ const removeFromState = (
 
   // Update the removed contentItem's context, if there is one
   if (context == null) {
-    if (contentItemToRemove.type !== contentItemTypes.ROOT) {
+    if (contentItemToRemove.type !== m.contentItemTypes.ROOT) {
       throw new CorruptedInternalStateError(`Invalid contentItemsById: could not find parentOrSuperItem for a non-ROOT contentItem.`);
     }
   }
