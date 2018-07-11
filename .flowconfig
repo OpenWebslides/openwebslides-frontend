@@ -1,5 +1,7 @@
-[ignore]
+[declarations]
 <PROJECT_ROOT>/node_modules/.*
+
+[ignore]
 
 [include]
 
