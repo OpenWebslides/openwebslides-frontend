@@ -6,7 +6,6 @@ import { Card } from 'semantic-ui-react';
 
 import type { CustomTranslatorProps } from 'types/translator';
 
-
 import SignupForm from './forms/SignupForm';
 
 type Props = CustomTranslatorProps;

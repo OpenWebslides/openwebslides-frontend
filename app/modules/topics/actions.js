@@ -208,7 +208,6 @@ export const apiDelete = (
   };
 };
 
-
 export const apiGetAllByUserId = (
   userId: Identifier,
 ): t.ApiGetAllTopicsByUserIdAction => {

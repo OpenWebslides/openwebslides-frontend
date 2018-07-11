@@ -1,6 +1,5 @@
 // @flow
 
-
 import { methodTypes } from '../model';
 import type { Response } from '../model';
 import ApiRequest from '../ApiRequest';

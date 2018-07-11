@@ -60,7 +60,6 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-
 const SidebarComponent = (props: SidebarProps): React.Node => {
   const {
     match,

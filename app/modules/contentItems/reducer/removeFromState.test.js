@@ -238,7 +238,6 @@ describe(`removeFromState`, (): void => {
     }).toThrow(CorruptedInternalStateError);
   });
 
-
   it(`throws a CorruptedInternalStateError, when a parentOrSuperItem cannot be found for a non-root contentItem`, async (): Promise<*> => {
     const prevState: m.ContentItemsState = {
       byId: {

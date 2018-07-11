@@ -34,7 +34,6 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-
 const PureProfileCard = (props: Props): React.Node => {
   const { user } = props;
 

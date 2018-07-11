@@ -17,7 +17,6 @@ type RouteProps = {
 
 type Props = CustomTranslatorProps & RouteProps;
 
-
 const TopicEditor = topics.components.Editor;
 
 const PureTopicEditorForId = (props: Props): React.Node => {
@@ -40,7 +39,6 @@ const PureTopicEditorForId = (props: Props): React.Node => {
 };
 
 const TopicEditorForId = PureTopicEditorForId;
-
 
 const DummyContent = (props: RouteProps): React.Node => {
   const { match } = props;

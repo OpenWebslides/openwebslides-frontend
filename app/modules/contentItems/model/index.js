@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable no-multiple-empty-lines */
 
 import type { Identifier } from 'types/model';
 

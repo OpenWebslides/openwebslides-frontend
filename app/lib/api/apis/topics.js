@@ -3,7 +3,6 @@
 import type { Identifier } from 'types/model';
 import contentItems from 'modules/contentItems';
 
-
 import * as m from '../model';
 import ApiRequest from '../ApiRequest';
 

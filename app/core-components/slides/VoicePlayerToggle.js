@@ -4,7 +4,6 @@ import { translate } from 'react-i18next';
 
 import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
 
-
 type PassedProps = {
   // A denormalized ROOT item containing the content to be displayed on this slide.
   content: string,

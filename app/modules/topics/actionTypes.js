@@ -178,7 +178,6 @@ export type TopicReducerAction =
   | RemoveFromStateAction
   | SetItemsInStateAction;
 
-
 export type TopicTaskSagaAction =
   | AddAction
   | EditAction

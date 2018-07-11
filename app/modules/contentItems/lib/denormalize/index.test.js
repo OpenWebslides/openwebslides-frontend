@@ -145,7 +145,6 @@ describe(`denormalize`, (): void => {
     expect(denormalizedContentItem).toEqual(expectedResult);
   });
 
-
   it(`returns a multilevel denormalized contentItem, when the passed contentItem has multiple levels of descendants`, (): void => {
     const denormalizedContentItem = denormalize(dummyRoot1, dummyContentItemsById);
     const expectedResult: m.DenormalizedRootContentItem = {

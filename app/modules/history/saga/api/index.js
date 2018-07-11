@@ -2,7 +2,6 @@
 
 import { all } from 'redux-saga/effects';
 
-
 const apiSaga = function* (): Generator<*, *, *> {
   yield all([
   ]);

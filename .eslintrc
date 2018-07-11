@@ -59,6 +59,16 @@
     // Allow programmer to decide which formatting is more readable on a case-by-case basis.
     "no-else-return": "off",
 
+    // Disallow more than one empty line between code blocks.
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1,
+        "maxEOF": 1,
+        "maxBOF": 0
+      }
+    ],
+
     // Turn this off so that we can use flowtype/no-unused-expressions instead.
     "no-unused-expressions": "off",
 

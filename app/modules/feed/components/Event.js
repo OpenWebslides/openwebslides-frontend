@@ -15,7 +15,6 @@ import topics from 'modules/topics';
 import users from 'modules/users';
 import Gravatar from 'core-components/gravatar/Gravatar';
 
-
 import type { Event } from '../model';
 import { getById } from '../selectors';
 

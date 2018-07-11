@@ -15,9 +15,7 @@ import type { User } from 'modules/users';
 import { isAuthenticated, getAccount } from '../../selectors';
 import { reset } from '../../actions';
 
-type PassedProps = {
-};
-
+type PassedProps = {};
 
 type StateProps = {
   authenticated: boolean,

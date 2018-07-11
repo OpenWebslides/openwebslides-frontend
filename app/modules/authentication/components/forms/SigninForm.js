@@ -18,7 +18,6 @@ import { signinEmail } from '../../actions';
 type PassedProps = {
 };
 
-
 type StateProps = {
   authenticated: boolean,
   account: ?User,

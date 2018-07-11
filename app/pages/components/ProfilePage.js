@@ -68,7 +68,6 @@ const UserProfile = (props: RouteProps): React.Node => {
   );
 };
 
-
 const PureProfilePage = (props: Props): React.Node => {
   const {
     t,

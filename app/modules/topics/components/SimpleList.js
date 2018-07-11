@@ -13,7 +13,6 @@ import { getAllTopicIdsByUserId } from '../selectors';
 
 import SimpleTopic from './SimpleTopic';
 
-
 type StateProps = {
   topicIds: Array<Identifier>,
 };

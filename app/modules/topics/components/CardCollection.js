@@ -8,7 +8,6 @@ import type { Identifier } from 'types/model';
 import type { State } from 'types/state';
 import authentication from 'modules/authentication';
 
-
 import { getAllTopicIdsByUserId } from '../selectors';
 import { getAllByUserId } from '../actions';
 

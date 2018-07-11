@@ -7,7 +7,6 @@ import { Feed } from 'semantic-ui-react';
 import type { Identifier } from 'types/model';
 import type { State } from 'types/state';
 
-
 import { getAll } from '../selectors';
 import { fetch } from '../actions';
 
@@ -20,7 +19,6 @@ type StateProps = {
 type DispatchProps = {
   handleRequestFeed: () => void,
 };
-
 
 type Props = DispatchProps & StateProps;
 
