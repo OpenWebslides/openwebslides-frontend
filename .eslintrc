@@ -195,6 +195,15 @@
     // Rule causes conflicts with module structure.
     "import/prefer-default-export": "off",
 
+    // #TODO look into enabling this if it becomes possible to exclude flow `import type` statements from the max count
+    // See https://github.com/benmosher/eslint-plugin-import/issues/1136
+    // "import/max-dependencies": [
+    //  "error",
+    //  {
+    //    "max": 10
+    //  }
+    //],
+
     // Encourage placing default exports of components on a separate line at the bottom of the file.
     "import/no-anonymous-default-export": "error",
 
@@ -276,7 +285,8 @@
       "rules": {
         "max-len": "off",
         "padded-blocks": "off",
-        "flowtype/no-weak-types": "off"
+        "flowtype/no-weak-types": "off",
+        "import/max-dependencies": "off"
       }
     }
   ]
