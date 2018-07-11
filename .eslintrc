@@ -186,6 +186,10 @@
     // Encourage placing default exports of components on a separate line at the bottom of the file.
     "import/no-anonymous-default-export": "error",
 
+    // #TODO Currently not usable due to it not making an exception for flow type imports.
+    // See https://github.com/benmosher/eslint-plugin-import/issues/1098
+    "import/no-cycle": "off",
+
     // See https://github.com/airbnb/javascript/pull/1648
     // #TODO remove this override as soon as the specialLink: "to" change makes it into eslint-config-airbnb
     "jsx-a11y/anchor-is-valid": [
@@ -194,6 +198,9 @@
         "specialLink": ["to"] // Prevents eslint from throwing errors on react-router-dom <Link to="" /> elements
       }
     ],
+
+    // Doesn't play wel with semantic-ui-react; #TODO look for a way to fix this; perhaps write wrapper for label?
+    "jsx-a11y/label-has-for": "off",
 
     // Currently doesn't work correctly in combination with Flow.
     // See https://github.com/yannickcr/eslint-plugin-react/issues/1593
@@ -233,9 +240,21 @@
       }
     ],
 
+    // Currently too strict to be usable.
+    // #TODO See https://github.com/yannickcr/eslint-plugin-react/issues/1848
+    "react/jsx-one-expression-per-line": "off",
+
     // Generates false positives when props are immediately passed to other function
     // Example: in a mapStateToProps function where prop is passed to selector function
-    "react/no-unused-prop-types": "off"
+    "react/no-unused-prop-types": "off",
+
+    // Turn off forbidDefaultForRequired, since it doesn't work well with the way Flow handles defaultProps.
+    "react/require-default-props": [
+      "error",
+      {
+        "forbidDefaultForRequired": false
+      }
+    ]
   },
   "overrides": [
     {
