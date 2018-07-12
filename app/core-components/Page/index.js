@@ -1,0 +1,132 @@
+// @flow
+
+import * as React from 'react';
+import { translate, type TranslatorProps } from 'react-i18next';
+import { Grid } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { Redirect, Route, withRouter, type ContextRouter as RouterProps } from 'react-router-dom';
+
+import type { State } from 'types/state';
+import NavigationBar from 'core-components/navigation/NavigationBar';
+import authentication from 'modules/authentication';
+import sidebars from 'modules/sidebars';
+
+const { isAuthenticated } = authentication.selectors;
+
+const { SidebarMenu, SidebarWrapper } = sidebars.components;
+const { getAllActiveSidebars } = sidebars.selectors;
+const { SIDEBAR_LENGTH, AMOUNT_OF_COLS_IN_GRID } = sidebars.constants;
+
+type StateProps = {|
+  authenticated: boolean,
+  amountOfSidebars: number,
+|};
+
+type PassedProps = {|
+  needsAuth: boolean,
+  needsSidebar: boolean,
+  children: React.Node,
+|};
+
+type Props = {|
+  ...TranslatorProps,
+  ...RouterProps,
+  ...StateProps,
+  ...PassedProps,
+|};
+
+type SidebarProps = {|
+  ...Props,
+  amountOfCols: number,
+|};
+
+const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  const {
+    needsAuth,
+    needsSidebar,
+  } = props;
+
+  let amountOfSidebars: number = 0;
+
+  if (needsSidebar) {
+    const activeSidebars = getAllActiveSidebars(state);
+    amountOfSidebars = activeSidebars != null ? activeSidebars.length : 0;
+  }
+
+  return {
+    authenticated: needsAuth ? isAuthenticated(state) : true,
+    amountOfSidebars,
+  };
+};
+
+const SidebarComponent = (props: SidebarProps): React.Node => {
+  const {
+    match,
+    amountOfCols,
+  } = props;
+
+  const topicId = match.params.id;
+
+  if (topicId == null) { // Null check necessary for flow
+    return null;
+  }
+
+  return (
+    <React.Fragment>
+      { amountOfCols > 0 && (
+        <Grid.Column className="sidebar-column-wrapper" width={amountOfCols}>
+          <SidebarWrapper topicId={topicId} />
+        </Grid.Column>
+      )}
+    </React.Fragment>
+  );
+};
+
+const PurePage = (props: Props): React.Node => {
+  const {
+    authenticated,
+    amountOfSidebars,
+    needsSidebar,
+    children,
+    match,
+  } = props;
+
+  if (!authenticated) {
+    return <Redirect to="/auth/signin" />;
+  }
+
+  const sidebarWrapperCols = SIDEBAR_LENGTH * amountOfSidebars;
+  // TODO: find better solution (also change sidebar width constant back to 5)
+  // -1 for better padding between columns
+  const contentCols = AMOUNT_OF_COLS_IN_GRID - sidebarWrapperCols - 1;
+
+  return (
+    <React.Fragment>
+      <NavigationBar />
+      <div className="page-layout__grid">
+        <Grid stretched={true}>
+          <Grid.Column width={contentCols}>
+            <div>
+              {children}
+            </div>
+          </Grid.Column>
+          <Route
+            path={`${match.url}/:id`}
+            // #TODO
+            // eslint-disable-next-line react/jsx-no-bind
+            render={() => (
+              <SidebarComponent {...props} amountOfCols={sidebarWrapperCols} />
+            )}
+          />
+        </Grid>
+        { needsSidebar && <SidebarMenu />}
+      </div>
+    </React.Fragment>
+  );
+};
+
+const connectedPage = connect(mapStateToProps)(translate()(PurePage));
+const Page = withRouter(connectedPage);
+
+export { PurePage };
+export default Page;

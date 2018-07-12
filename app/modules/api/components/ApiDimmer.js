@@ -2,24 +2,27 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 import { Dimmer, Loader } from 'semantic-ui-react';
 
-import type { CustomTranslatorProps } from 'types/translator';
 import type { State } from 'types/state';
 
 import { isPending } from '../selectors';
 
-type PassedProps = {
+type PassedProps = {|
   children?: React.Node,
   request: string | Array<string>,
-};
+|};
 
-type StateProps = {
+type StateProps = {|
   active: boolean,
-};
+|};
 
-type Props = CustomTranslatorProps & PassedProps & StateProps;
+type Props = {|
+  ...TranslatorProps,
+  ...PassedProps,
+  ...StateProps,
+|};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { request } = props;

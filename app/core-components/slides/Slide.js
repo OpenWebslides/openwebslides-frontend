@@ -1,19 +1,21 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 
-import type { CustomTranslatorProps } from 'types/translator';
 import contentItems from 'modules/contentItems';
 
-type PassedProps = {
+type PassedProps = {|
   // A denormalized ROOT content item containing the content to be displayed on this slide.
   contentItem: contentItems.model.DenormalizedRootContentItem,
   // The heading level of the top level headings on the slide. Defaults to 1.
   rootHeadingLevel: number,
-};
+|};
 
-type Props = CustomTranslatorProps & PassedProps;
+type Props = {|
+  ...TranslatorProps,
+  ...PassedProps,
+|};
 
 const ContentItemHtmlDisplay = contentItems.components.HtmlDisplay;
 

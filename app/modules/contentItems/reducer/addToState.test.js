@@ -6,7 +6,7 @@ import NotYetImplementedError from 'errors/implementation-errors/NotYetImplement
 
 import * as t from '../actionTypes';
 import * as m from '../model';
-import * as dummyData from '../lib/testResources/dummyContentItemData';
+import { dummyContentItemData as dummyData } from '../lib/testResources';
 import edit from '../lib/edit';
 
 import reducer from '.';

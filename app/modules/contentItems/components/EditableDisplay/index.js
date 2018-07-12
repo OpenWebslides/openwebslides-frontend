@@ -12,17 +12,17 @@ import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
-import typesToComponentsMap from './helpers/typesToComponentsMap';
+import typesToComponentsMap from './typesToComponentsMap';
 
-type PassedProps = {
+type PassedProps = {|
   contentItemId: Identifier,
-};
+|};
 
-type StateProps = {
+type StateProps = {|
   contentItem: m.ContentItem,
-};
+|};
 
-type DispatchProps = {
+type DispatchProps = {|
   onStartEditing: (id: Identifier) => void,
   onEndEditing: (id: Identifier) => void,
   onEditPlainText: (id: Identifier, text: string) => void,
@@ -31,9 +31,13 @@ type DispatchProps = {
   onRemove: (id: Identifier) => void,
   onIndent: (id: Identifier) => void,
   onReverseIndent: (id: Identifier) => void,
-};
+|};
 
-type Props = PassedProps & StateProps & DispatchProps;
+type Props = {|
+  ...PassedProps,
+  ...StateProps,
+  ...DispatchProps,
+|};
 
 const passThroughProps = [
   'onStartEditing',

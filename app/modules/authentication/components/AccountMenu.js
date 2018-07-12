@@ -3,26 +3,29 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 import { Dropdown, Menu, Icon } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
-import type { CustomTranslatorProps } from 'types/translator';
 import type { User } from 'modules/users';
 
 import { signout } from '../actions';
 import { isAuthenticated, getAccount } from '../selectors';
 
-type StateProps = {
+type StateProps = {|
   authenticated: boolean,
   account: ?User,
-};
+|};
 
-type DispatchProps = {
+type DispatchProps = {|
   handleSignout: () => void,
-};
+|};
 
-type Props = CustomTranslatorProps & StateProps & DispatchProps;
+type Props = {|
+  ...TranslatorProps,
+  ...StateProps,
+  ...DispatchProps,
+|};
 
 const mapStateToProps = (state: State): StateProps => {
   return {

@@ -1,14 +1,14 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 import { Card } from 'semantic-ui-react';
 
-import type { CustomTranslatorProps } from 'types/translator';
+import formComponents from './forms';
 
-import ConfirmForm from './forms/ConfirmForm';
+const ConfirmForm = formComponents.ConfirmForm;
 
-type Props = CustomTranslatorProps;
+type Props = TranslatorProps;
 
 const PureConfirmCard = (props: Props): React.Node => {
   const { t } = props;

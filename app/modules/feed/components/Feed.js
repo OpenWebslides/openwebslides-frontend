@@ -12,15 +12,18 @@ import { fetch } from '../actions';
 
 import Event from './Event';
 
-type StateProps = {
+type StateProps = {|
   eventIds: Array<Identifier>,
-};
+|};
 
-type DispatchProps = {
+type DispatchProps = {|
   handleRequestFeed: () => void,
-};
+|};
 
-type Props = DispatchProps & StateProps;
+type Props = {|
+  ...StateProps,
+  ...DispatchProps,
+|};
 
 const mapStateToProps = (state: State): StateProps => {
   return {

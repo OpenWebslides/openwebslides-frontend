@@ -3,11 +3,11 @@
 import reducer from '../reducer';
 import * as t from '../actionTypes';
 import type { SidebarsState } from '../model';
-import { sidebar } from '../model';
+import { sidebarNames } from '../model';
 
 describe(`reducer`, (): void => {
-  const dummySidebar1 = sidebar.SLIDE;
-  const dummySidebar2 = sidebar.INFO;
+  const dummySidebar1 = sidebarNames.SLIDE;
+  const dummySidebar2 = sidebarNames.INFO;
 
   const dummySidebarsByName = [dummySidebar1];
 

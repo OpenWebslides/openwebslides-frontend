@@ -2,7 +2,7 @@
 
 import * as t from '../actionTypes';
 import type { ContentItem } from '../model';
-import * as dummyData from '../lib/testResources/dummyContentItemData';
+import { dummyContentItemData as dummyData } from '../lib/testResources';
 
 import actions from '.';
 

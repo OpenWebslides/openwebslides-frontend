@@ -9,7 +9,7 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import actions from '../../actions';
 import * as m from '../../model';
-import * as dummyData from '../../lib/testResources/dummyContentItemData';
+import { dummyContentItemData as dummyData } from '../../lib/testResources';
 
 import EditableDisplay, { PureEditableDisplay, mapDispatchToProps } from '.';
 import type { DispatchProps } from '.';

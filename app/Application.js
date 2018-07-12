@@ -9,7 +9,8 @@ import { I18nextProvider } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
 
 import i18nextConfig from 'config/i18next';
-import pageRoutes from 'pages/routes';
+
+import pageRoutes from './routes';
 
 const PureApplication = (): React.Node => {
   return (

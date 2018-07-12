@@ -1,19 +1,21 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 import { Header, Item } from 'semantic-ui-react';
 
-import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
 
 type Topic = topics.model.Topic;
 
-type PassedProps = {
+type PassedProps = {|
   topic: Topic,
-};
+|};
 
-type Props = CustomTranslatorProps & PassedProps;
+type Props = {|
+  ...TranslatorProps,
+  ...PassedProps,
+|};
 
 const PureInfoSidebar = (props: Props): React.Node => {
   const {

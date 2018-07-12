@@ -4,13 +4,12 @@ import * as React from 'react';
 import type { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 import moment from 'moment';
 import { Feed } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
 import users from 'modules/users';
 import Gravatar from 'core-components/gravatar/Gravatar';
@@ -18,22 +17,27 @@ import Gravatar from 'core-components/gravatar/Gravatar';
 import type { Event } from '../model';
 import { getById } from '../selectors';
 
-type PassedProps = {
+type PassedProps = {|
   eventId: Identifier,
-};
+|};
 
-type StateProps = {
+type StateProps = {|
   event: Event,
   user: ?users.model.User,
   topic: ?topics.model.Topic,
-};
+|};
 
-type DispatchProps = {
+type DispatchProps = {|
   getTopic: (string) => void,
   getUser: (string) => void,
-};
+|};
 
-type Props = CustomTranslatorProps & PassedProps & StateProps & DispatchProps;
+type Props = {|
+  ...TranslatorProps,
+  ...PassedProps,
+  ...StateProps,
+  ...DispatchProps,
+|};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { eventId } = props;

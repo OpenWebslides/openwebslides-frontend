@@ -3,31 +3,31 @@
 import * as React from 'react';
 import type { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 import { Field, reduxForm } from 'redux-form';
 import { Form, Input, Button } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 
-import type { CustomTranslatorProps } from 'types/translator';
 import type { State } from 'types/state';
 import type { User } from 'modules/users';
 
 import { isAuthenticated, getAccount } from '../../selectors';
 import { reset } from '../../actions';
 
-type PassedProps = {
-};
-
-type StateProps = {
+type StateProps = {|
   authenticated: boolean,
   account: ?User,
-};
+|};
 
-type DispatchProps = {
+type DispatchProps = {|
   handleSubmit: () => void,
-};
+|};
 
-type Props = CustomTranslatorProps & PassedProps & StateProps & DispatchProps;
+type Props = {|
+  ...TranslatorProps,
+  ...StateProps,
+  ...DispatchProps,
+|};
 
 type ValuesType = {
   email: string,
@@ -38,7 +38,7 @@ const handleConfirm = (values: ValuesType, dispatch: Dispatch<*>): void => {
   dispatch(reset(values.email));
 };
 
-const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+const mapStateToProps = (state: State): StateProps => {
   return {
     authenticated: isAuthenticated(state),
     account: getAccount(state),

@@ -4,7 +4,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 
 import * as t from '../../actionTypes';
 import * as m from '../../model';
-import * as dummyContentItemData from '../../lib/testResources/dummyContentItemData';
+import { dummyContentItemData as dummyData } from '../../lib/testResources';
 
 import addSaga from './add';
 
@@ -21,13 +21,13 @@ describe(`addSaga`, (): void => {
   let dummyState: any;
 
   beforeEach((): void => {
-    dummyParagraph22 = { ...dummyContentItemData.paragraphContentItem4 };
-    dummyParagraph21 = { ...dummyContentItemData.paragraphContentItem3 };
-    dummyHeading2 = { ...dummyContentItemData.headingContentItem2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] };
-    dummyParagraph12 = { ...dummyContentItemData.paragraphContentItem2 };
-    dummyParagraph11 = { ...dummyContentItemData.paragraphContentItem };
-    dummyHeading1 = { ...dummyContentItemData.headingContentItem, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] };
-    dummyRoot = { ...dummyContentItemData.rootContentItem, childItemIds: [dummyHeading1.id, dummyHeading2.id] };
+    dummyParagraph22 = { ...dummyData.paragraphContentItem4 };
+    dummyParagraph21 = { ...dummyData.paragraphContentItem3 };
+    dummyHeading2 = { ...dummyData.headingContentItem2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] };
+    dummyParagraph12 = { ...dummyData.paragraphContentItem2 };
+    dummyParagraph11 = { ...dummyData.paragraphContentItem };
+    dummyHeading1 = { ...dummyData.headingContentItem, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] };
+    dummyRoot = { ...dummyData.rootContentItem, childItemIds: [dummyHeading1.id, dummyHeading2.id] };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
       [dummyHeading1.id]: dummyHeading1,

@@ -13,21 +13,27 @@ import { getAllActiveSidebars } from '../selectors';
 import { AMOUNT_OF_COLS_IN_GRID } from '../constants';
 import { toggle as toggleAction } from '../actions';
 
-import Sidebar from './sidebars/Sidebar';
+import sidebarComponents from './sidebars';
 
-type DispatchProps = {
-  toggle: (SidebarName) => void,
-};
+const Sidebar = sidebarComponents.Sidebar;
 
-type PassedProps = {
+type PassedProps = {|
   topicId: Identifier,
-};
+|};
 
-type StateProps = {
+type StateProps = {|
   sidebars: Array<SidebarName>,
-};
+|};
 
-type Props = PassedProps & StateProps & DispatchProps;
+type DispatchProps = {|
+  toggle: (SidebarName) => void,
+|};
+
+type Props = {|
+  ...PassedProps,
+  ...StateProps,
+  ...DispatchProps,
+|};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const sidebars = getAllActiveSidebars(state);

@@ -1,14 +1,13 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Image, Menu, Grid } from 'semantic-ui-react';
 
-import type { CustomTranslatorProps } from 'types/translator';
 import logo from 'assets/images/logo_white.png';
 
-type Props = CustomTranslatorProps;
+type Props = TranslatorProps;
 
 const PureLogo = (props: Props): React.Node => {
   const { t } = props;

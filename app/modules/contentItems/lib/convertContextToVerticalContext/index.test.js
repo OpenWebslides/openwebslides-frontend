@@ -4,7 +4,7 @@ import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentEr
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as m from '../../model';
-import * as dummyData from '../testResources/dummyContentItemData';
+import { dummyContentItemData as dummyData } from '../testResources';
 
 import convertContextToVerticalContext from '.';
 

@@ -1,7 +1,7 @@
 // @flow
 
 import * as m from '../../model';
-import * as dummyData from '../testResources/dummyContentItemData';
+import { dummyContentItemData as dummyData } from '../testResources';
 
 import validatePredicate from './validatePredicate';
 

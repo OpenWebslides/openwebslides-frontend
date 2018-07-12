@@ -1,7 +1,7 @@
 // @flow
 
 import * as m from '../model';
-import * as dummyData from '../lib/testResources/dummyContentItemData';
+import { dummyContentItemData as dummyData } from '../lib/testResources';
 
 import selectors from '.';
 

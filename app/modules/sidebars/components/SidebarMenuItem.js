@@ -12,20 +12,24 @@ import type { SidebarName } from '../model';
 import { toggle as toggleAction } from '../actions';
 import { getAllActiveSidebars } from '../selectors';
 
-type PassedProps = {
+type PassedProps = {|
   icon: string,
   sidebarName: SidebarName,
-};
+|};
 
-type DispatchProps = {
-  toggle: (SidebarName) => void,
-};
-
-type StateProps = {
+type StateProps = {|
   menuItemActive: boolean,
-};
+|};
 
-type Props = PassedProps & DispatchProps & StateProps;
+type DispatchProps = {|
+  toggle: (SidebarName) => void,
+|};
+
+type Props = {|
+  ...PassedProps,
+  ...StateProps,
+  ...DispatchProps,
+|};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { sidebarName } = props;

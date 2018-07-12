@@ -211,6 +211,31 @@
     // See https://github.com/benmosher/eslint-plugin-import/issues/1098
     "import/no-cycle": "off",
 
+    // Enforce correct use of module index files;
+    // prohibit paths that contain more than one non-(dot|double-dot) part, except for those whitelisted below.
+    // #TODO update whitelist while refactoring modules
+    "import/no-internal-modules": [
+      "error",
+      {
+        "allow": [
+          "redux-saga/**",
+          "assets/**",
+          "config/**",
+          "core-components/**",
+          "errors/**",
+          "i18n/**",
+          "pages/**",
+          "store/**",
+          "types/error",
+          "types/model",
+          "types/state",
+          "modules/*",
+          "helpers/*",
+          "lib/*"
+        ]
+      }
+    ],
+
     // Disallow importing a module without assigning it to a variable.
     "import/no-unassigned-import": [
       "error",
@@ -234,12 +259,7 @@
     // Currently doesn't work correctly in combination with Flow.
     // See https://github.com/yannickcr/eslint-plugin-react/issues/1593
     // #TODO delete this override as soon as the above issue is resolved
-    "react/default-props-match-prop-types": [
-      "error",
-      {
-        "allowRequiredDefaults": true
-      }
-    ],
+    "react/default-props-match-prop-types": "off",
 
     // Always explicitly write out a boolean property's value
     // for better readability / consistency with other properties.

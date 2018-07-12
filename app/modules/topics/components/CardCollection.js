@@ -15,16 +15,19 @@ import TopicCard from './TopicCard';
 
 const { getAccount } = authentication.selectors;
 
-type StateProps = {
+type StateProps = {|
   topicIds: Array<Identifier>,
   userId: Identifier,
-};
+|};
 
-type DispatchProps = {
+type DispatchProps = {|
   handleRequestTopics: (userId: Identifier) => void,
-};
+|};
 
-type Props = StateProps & DispatchProps;
+type Props = {|
+  ...StateProps,
+  ...DispatchProps,
+|};
 
 const mapStateToProps = (state: State): StateProps => {
   const account = getAccount(state);

@@ -1,15 +1,15 @@
 // @flow
 
-import authentication from './namespaces/authentication';
-import common from './namespaces/common';
-import contentItems from './namespaces/contentItems';
-import errors from './namespaces/errors';
-import editor from './namespaces/editor';
-import global from './namespaces/global';
-import feed from './namespaces/feed';
-import flash from './namespaces/flash';
-import sidebar from './namespaces/sidebar';
-import topics from './namespaces/topics';
+import authentication from './authentication';
+import common from './common';
+import contentItems from './contentItems';
+import errors from './errors';
+import editor from './editor';
+import global from './global';
+import feed from './feed';
+import flash from './flash';
+import sidebar from './sidebar';
+import topics from './topics';
 
 const index = {
   authentication,
