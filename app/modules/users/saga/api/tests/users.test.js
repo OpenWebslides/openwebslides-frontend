@@ -4,7 +4,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 
 import { UsersApi } from 'lib/api';
 import type { Response } from 'lib/api';
-import * as selectors from 'modules/authentication/selectors';
+import authentication from 'modules/authentication';
 
 import * as t from '../../../actionTypes';
 import { apiGetUserSaga } from '../users';
@@ -29,7 +29,7 @@ describe(`users`, (): void => {
       });
     };
 
-    (selectors: any).getToken = (): string => {
+    (authentication.selectors: any).getToken = (): string => {
       return 'foobartoken';
     };
   });
