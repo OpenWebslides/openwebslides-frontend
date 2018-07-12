@@ -6,7 +6,9 @@ import { Card } from 'semantic-ui-react';
 
 import type { CustomTranslatorProps } from 'types/translator';
 
-import ConfirmForm from './forms/ConfirmForm';
+import formComponents from './forms';
+
+const ConfirmForm = formComponents.ConfirmForm;
 
 type Props = CustomTranslatorProps;
 

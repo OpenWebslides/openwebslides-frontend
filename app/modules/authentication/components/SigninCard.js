@@ -10,9 +10,10 @@ import api from 'modules/api';
 
 import { API_POST_TOKEN } from '../actionTypes';
 
-import SigninForm from './forms/SigninForm';
+import formComponents from './forms';
 
 const { ApiDimmer } = api.components;
+const SigninForm = formComponents.SigninForm;
 
 type Props = CustomTranslatorProps;
 

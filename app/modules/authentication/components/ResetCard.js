@@ -6,7 +6,9 @@ import { Card } from 'semantic-ui-react';
 
 import type { CustomTranslatorProps } from 'types/translator';
 
-import ResetForm from './forms/ResetForm';
+import formComponents from './forms';
+
+const ResetForm = formComponents.ResetForm;
 
 type Props = CustomTranslatorProps;
 
