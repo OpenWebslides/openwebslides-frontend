@@ -211,6 +211,14 @@
     // See https://github.com/benmosher/eslint-plugin-import/issues/1098
     "import/no-cycle": "off",
 
+    // Disallow importing a module without assigning it to a variable.
+    "import/no-unassigned-import": [
+      "error",
+      {
+        "allow": ["**/*.css", "**/*.less", "**/*.scss"]
+      }
+    ],
+
     // Enforce consistend ordering and spacing of imports.
     "import/order": [
       "error",
