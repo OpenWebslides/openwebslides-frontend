@@ -3,16 +3,14 @@
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import * as dummyData from '../../../lib/testResources/dummyContentItemData';
 
 import { PureHeading } from './Heading';
 
-const { DenormalizedHeadingContentItem } = model;
-
 describe(`Heading`, (): void => {
 
-  let dummyHeading: DenormalizedHeadingContentItem;
+  let dummyHeading: m.DenormalizedHeadingContentItem;
 
   beforeEach((): void => {
     dummyHeading = { ...dummyData.headingContentItem, subItems: [] };

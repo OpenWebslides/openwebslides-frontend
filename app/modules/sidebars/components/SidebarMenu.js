@@ -2,8 +2,10 @@
 
 import * as React from 'react';
 import { Rail } from 'semantic-ui-react';
-import SidebarMenuItem from './SidebarMenuItem';
+
 import { sidebar } from '../model';
+
+import SidebarMenuItem from './SidebarMenuItem';
 
 const PureSidebarMenu = (): React.Node => {
   return (

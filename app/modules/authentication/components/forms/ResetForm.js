@@ -4,20 +4,18 @@ import * as React from 'react';
 import type { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 import { Field, reduxForm } from 'redux-form';
 import { Form, Input, Button } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 
+import type { CustomTranslatorProps } from 'types/translator';
 import type { State } from 'types/state';
 import type { User } from 'modules/users';
 
 import { isAuthenticated, getAccount } from '../../selectors';
 import { reset } from '../../actions';
 
-type PassedProps = {
-};
-
+type PassedProps = {};
 
 type StateProps = {
   authenticated: boolean,

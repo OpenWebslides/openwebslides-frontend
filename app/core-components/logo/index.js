@@ -2,10 +2,10 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 import { Link } from 'react-router-dom';
 import { Image, Menu, Grid } from 'semantic-ui-react';
 
+import type { CustomTranslatorProps } from 'types/translator';
 import logo from 'assets/images/logo_white.png';
 
 type Props = CustomTranslatorProps;

@@ -11,7 +11,8 @@ const getModule = (state: State): ApiState => {
 };
 
 const getRequest = (state: State, props: { request: string }): RequestStatus => {
-  return getModule(state)[props.request];
+  const { request } = props;
+  return getModule(state)[request];
 };
 
 export const isPending = (state: State, props: { request: string }): boolean => {

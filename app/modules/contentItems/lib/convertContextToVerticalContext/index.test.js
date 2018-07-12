@@ -3,32 +3,21 @@
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
-import * as model from '../../model';
-import * as dummyData from '../../lib/testResources/dummyContentItemData';
+import * as m from '../../model';
+import * as dummyData from '../testResources/dummyContentItemData';
 
 import convertContextToVerticalContext from '.';
 
-const {
-  contextTypes,
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsById,
-  VerticalContext,
-  ExtendedVerticalContext,
-  HorizontalContext,
-} = model;
-
 describe(`convertContextToVerticalContext`, (): void => {
 
-  let dummyParagraph22: $Exact<ParagraphContentItem>;
-  let dummyParagraph21: $Exact<ParagraphContentItem>;
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph12: $Exact<ParagraphContentItem>;
-  let dummyParagraph11: $Exact<ParagraphContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: $Exact<ContentItemsById>;
+  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: $Exact<m.ContentItemsById>;
 
   beforeEach((): void => {
     dummyParagraph22 = { ...dummyData.paragraphContentItem4 };
@@ -59,13 +48,13 @@ describe(`convertContextToVerticalContext`, (): void => {
   });
 
   it(`returns the correct VerticalContext, when the passed context is a HorizontalContext and the contextItem is a subItem`, (): void => {
-    const dummyContext: HorizontalContext = {
-      contextType: contextTypes.SIBLING,
+    const dummyContext: m.HorizontalContext = {
+      contextType: m.contextTypes.SIBLING,
       contextItemId: dummyParagraph11.id,
     };
     const actualResult = convertContextToVerticalContext(dummyContext, dummyContentItemsById);
-    const expectedResult: ExtendedVerticalContext = {
-      contextType: contextTypes.SUPER,
+    const expectedResult: m.ExtendedVerticalContext = {
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
       indexInSiblingItems: 1,
       siblingItemIds: dummyHeading1.subItemIds,
@@ -74,13 +63,13 @@ describe(`convertContextToVerticalContext`, (): void => {
   });
 
   it(`returns the correct VerticalContext, when the passed context is a HorizontalContext and the contextItem is a childItem`, (): void => {
-    const dummyContext: HorizontalContext = {
-      contextType: contextTypes.SIBLING,
+    const dummyContext: m.HorizontalContext = {
+      contextType: m.contextTypes.SIBLING,
       contextItemId: dummyHeading2.id,
     };
     const actualResult = convertContextToVerticalContext(dummyContext, dummyContentItemsById);
-    const expectedResult: ExtendedVerticalContext = {
-      contextType: contextTypes.PARENT,
+    const expectedResult: m.ExtendedVerticalContext = {
+      contextType: m.contextTypes.PARENT,
       contextItemId: dummyRoot.id,
       indexInSiblingItems: 2,
       siblingItemIds: dummyRoot.childItemIds,
@@ -89,14 +78,14 @@ describe(`convertContextToVerticalContext`, (): void => {
   });
 
   it(`returns the correct VerticalContext, when the passed context is a HorizontalContext and indexInSiblingItemsShift is 0`, (): void => {
-    const dummyContext: HorizontalContext = {
-      contextType: contextTypes.SIBLING,
+    const dummyContext: m.HorizontalContext = {
+      contextType: m.contextTypes.SIBLING,
       contextItemId: dummyParagraph12.id,
       indexInSiblingItemsShift: 0,
     };
     const actualResult = convertContextToVerticalContext(dummyContext, dummyContentItemsById);
-    const expectedResult: ExtendedVerticalContext = {
-      contextType: contextTypes.SUPER,
+    const expectedResult: m.ExtendedVerticalContext = {
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
       indexInSiblingItems: 2,
       siblingItemIds: dummyHeading1.subItemIds,
@@ -105,14 +94,14 @@ describe(`convertContextToVerticalContext`, (): void => {
   });
 
   it(`returns the correct VerticalContext, when the passed context is a HorizontalContext and indexInSiblingItemsShift is a positive number different from 0`, (): void => {
-    const dummyContext: HorizontalContext = {
-      contextType: contextTypes.SIBLING,
+    const dummyContext: m.HorizontalContext = {
+      contextType: m.contextTypes.SIBLING,
       contextItemId: dummyParagraph11.id,
       indexInSiblingItemsShift: 1,
     };
     const actualResult = convertContextToVerticalContext(dummyContext, dummyContentItemsById);
-    const expectedResult: ExtendedVerticalContext = {
-      contextType: contextTypes.SUPER,
+    const expectedResult: m.ExtendedVerticalContext = {
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
       indexInSiblingItems: 2,
       siblingItemIds: dummyHeading1.subItemIds,
@@ -121,14 +110,14 @@ describe(`convertContextToVerticalContext`, (): void => {
   });
 
   it(`returns the correct VerticalContext, when the passed context is a HorizontalContext and indexInSiblingItemsShift is a negative number`, (): void => {
-    const dummyContext: HorizontalContext = {
-      contextType: contextTypes.SIBLING,
+    const dummyContext: m.HorizontalContext = {
+      contextType: m.contextTypes.SIBLING,
       contextItemId: dummyParagraph12.id,
       indexInSiblingItemsShift: -2,
     };
     const actualResult = convertContextToVerticalContext(dummyContext, dummyContentItemsById);
-    const expectedResult: ExtendedVerticalContext = {
-      contextType: contextTypes.SUPER,
+    const expectedResult: m.ExtendedVerticalContext = {
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
       indexInSiblingItems: 0,
       siblingItemIds: dummyHeading1.subItemIds,
@@ -137,8 +126,8 @@ describe(`convertContextToVerticalContext`, (): void => {
   });
 
   it(`returns the passed context unchanged, when the passed context already is a VerticalContext`, (): void => {
-    const dummyContext: VerticalContext = {
-      contextType: contextTypes.PARENT,
+    const dummyContext: m.VerticalContext = {
+      contextType: m.contextTypes.PARENT,
       contextItemId: dummyRoot.id,
     };
     const actualResult = convertContextToVerticalContext(dummyContext, dummyContentItemsById);
@@ -151,8 +140,8 @@ describe(`convertContextToVerticalContext`, (): void => {
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem with id contextItemId could not be found`, (): void => {
-    const dummyContext: HorizontalContext = {
-      contextType: contextTypes.SIBLING,
+    const dummyContext: m.HorizontalContext = {
+      contextType: m.contextTypes.SIBLING,
       contextItemId: 'DefinitelyNotValidId',
     };
     expect((): void => {
@@ -161,8 +150,8 @@ describe(`convertContextToVerticalContext`, (): void => {
   });
 
   it(`throws an InvalidArgumentError, when the calculated indexInSiblingItems is less than 0`, (): void => {
-    const dummyContext: HorizontalContext = {
-      contextType: contextTypes.SIBLING,
+    const dummyContext: m.HorizontalContext = {
+      contextType: m.contextTypes.SIBLING,
       contextItemId: dummyParagraph12.id,
       indexInSiblingItemsShift: -3,
     };
@@ -172,8 +161,8 @@ describe(`convertContextToVerticalContext`, (): void => {
   });
 
   it(`throws an InvalidArgumentError, when the calculated indexInSiblingItems i greater than the length of the siblingItemIds array`, (): void => {
-    const dummyContext: HorizontalContext = {
-      contextType: contextTypes.SIBLING,
+    const dummyContext: m.HorizontalContext = {
+      contextType: m.contextTypes.SIBLING,
       contextItemId: dummyParagraph12.id,
       indexInSiblingItemsShift: 1,
     };
@@ -183,8 +172,8 @@ describe(`convertContextToVerticalContext`, (): void => {
   });
 
   it(`throws an InvalidArgumentError, when the passed context is a HorizontalContext and the contextItem does not have a parentOrSuperItem`, (): void => {
-    const dummyContext: HorizontalContext = {
-      contextType: contextTypes.SIBLING,
+    const dummyContext: m.HorizontalContext = {
+      contextType: m.contextTypes.SIBLING,
       contextItemId: dummyRoot.id,
     };
     expect((): void => {

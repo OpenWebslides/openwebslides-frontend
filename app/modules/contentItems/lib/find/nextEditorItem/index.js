@@ -3,22 +3,22 @@
  * Finds the contentItem that comes directly after the passed contentItem in editor order.
  */
 
-import * as model from '../../../model';
+import * as m from '../../../model';
+
 import find from '..';
+
 import type { SingleFindFunction } from '../types';
 
-const { ContentItem, ContentItemsById, ExtendedVerticalContext } = model;
-
 const findClosestAncestorThatHasNextSiblingItem = (
-  contentItem: ContentItem,
-  contentItemsById: ContentItemsById,
-): ?ContentItem => {
-  let currentContentItem: ContentItem = contentItem;
-  let candidateContext: ?ExtendedVerticalContext = find.extendedVerticalContext(
+  contentItem: m.ContentItem,
+  contentItemsById: m.ContentItemsById,
+): ?m.ContentItem => {
+  let currentContentItem: m.ContentItem = contentItem;
+  let candidateContext: ?m.ExtendedVerticalContext = find.extendedVerticalContext(
     currentContentItem,
     contentItemsById,
   );
-  let closestValidAncestor: ?ContentItem = null;
+  let closestValidAncestor: ?m.ContentItem = null;
 
   while (closestValidAncestor == null && candidateContext != null) {
     if (candidateContext.indexInSiblingItems !== candidateContext.siblingItemIds.length - 1) {
@@ -32,9 +32,9 @@ const findClosestAncestorThatHasNextSiblingItem = (
 };
 
 const findNextEditorItem: SingleFindFunction = (
-  contentItem: ?ContentItem,
-  contentItemsById: ContentItemsById,
-): ?ContentItem => {
+  contentItem: ?m.ContentItem,
+  contentItemsById: m.ContentItemsById,
+): ?m.ContentItem => {
   if (contentItem == null) return null;
 
   // First, see if the contentItem has subItems or childItems.

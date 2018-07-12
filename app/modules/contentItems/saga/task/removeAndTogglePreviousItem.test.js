@@ -1,27 +1,21 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import * as model from '../../model';
+import * as m from '../../model';
 import * as dummyData from '../../lib/testResources/dummyContentItemData';
 
 import removeAndTogglePreviousItemSaga from './removeAndTogglePreviousItem';
 
-const {
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsById,
-} = model;
-
 describe(`removeAndTogglePreviousItemSaga`, (): void => {
 
-  let dummyParagraph11: $Exact<ParagraphContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: $Exact<ContentItemsById>;
+  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: $Exact<m.ContentItemsById>;
   let dummyState: any;
 
   beforeEach((): void => {

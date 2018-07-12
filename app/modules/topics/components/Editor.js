@@ -2,17 +2,14 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import FlashMessages from 'core-components/flash/FlashMessages';
-
 import { Button, Header } from 'semantic-ui-react';
 
+import FlashMessages from 'core-components/flash/FlashMessages';
+import type { CustomTranslatorProps } from 'types/translator';
 import contentItems from 'modules/contentItems';
 import api from 'modules/api';
-
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
@@ -42,7 +39,8 @@ type StateProps = {
 type Props = CustomTranslatorProps & DispatchProps & PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const topic = getById(state, { id: props.topicId });
+  const { topicId } = props;
+  const topic = getById(state, { id: topicId });
 
   return {
     topic,
@@ -64,12 +62,14 @@ const ContentItemEditableDisplay = contentItems.components.EditableDisplay;
 
 class PureEditor extends React.Component<Props> {
   onLoadButtonClick = (): void => {
-    this.props.onLoadButtonClick(this.props.topicId);
-  }
+    const { topic, onLoadButtonClick } = this.props;
+    onLoadButtonClick(topic.id);
+  };
 
   onSaveButtonClick = (): void => {
-    this.props.onSaveButtonClick(this.props.topicId);
-  }
+    const { topic, onSaveButtonClick } = this.props;
+    onSaveButtonClick(topic.id);
+  };
 
   // const {
   //   t,
@@ -80,10 +80,7 @@ class PureEditor extends React.Component<Props> {
   // } = props;
 
   render = (): React.Node => {
-    const {
-      t,
-      topic,
-    } = this.props;
+    const { t, topic } = this.props;
 
     if (!topic) {
       this.onLoadButtonClick();
@@ -97,7 +94,7 @@ class PureEditor extends React.Component<Props> {
 
     return (
       <div>
-        <Header as="h1">{this.props.topic.title}</Header>
+        <Header as="h1">{topic.title}</Header>
 
         <FlashMessages />
 

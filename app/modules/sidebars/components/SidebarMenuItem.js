@@ -2,13 +2,13 @@
 
 import * as React from 'react';
 import _ from 'lodash';
-import type { State } from 'types/state';
 import { connect } from 'react-redux';
 import { Icon, Button } from 'semantic-ui-react';
-import { Dispatch } from 'redux';
+import type { Dispatch } from 'redux';
+
+import type { State } from 'types/state';
 
 import type { SidebarName } from '../model';
-
 import { toggle as toggleAction } from '../actions';
 import { getAllActiveSidebars } from '../selectors';
 
@@ -28,9 +28,10 @@ type StateProps = {
 type Props = PassedProps & DispatchProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  const { sidebarName } = props;
   const sidebars = getAllActiveSidebars(state);
 
-  const menuItemActive = _.indexOf(sidebars, props.sidebarName) !== -1;
+  const menuItemActive = _.indexOf(sidebars, sidebarName) !== -1;
 
   return {
     menuItemActive,

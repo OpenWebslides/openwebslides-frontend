@@ -5,22 +5,22 @@
  * of the passed contentItem is immediately followed by its own nested descendants.
  */
 
-import * as model from '../../../model';
+import * as m from '../../../model';
+
 import find from '..';
+
 import type { MultipleFindFunction } from '../types';
 
-const { ContentItem, ContentItemsById } = model;
-
 const findAllDescendantItems: MultipleFindFunction = (
-  contentItem: ?ContentItem,
-  contentItemsById: ContentItemsById,
-): Array<ContentItem> => {
+  contentItem: ?m.ContentItem,
+  contentItemsById: m.ContentItemsById,
+): Array<m.ContentItem> => {
   if (contentItem == null) return [];
 
   const allChildOrSubItems = find.allChildOrSubItems(contentItem, contentItemsById);
   const allDescendantItems = [];
 
-  allChildOrSubItems.forEach((childOrSubItem: ContentItem): void => {
+  allChildOrSubItems.forEach((childOrSubItem: m.ContentItem): void => {
     allDescendantItems.push(childOrSubItem);
     allDescendantItems.push(...(findAllDescendantItems(childOrSubItem, contentItemsById)));
   });

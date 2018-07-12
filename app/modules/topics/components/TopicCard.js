@@ -4,9 +4,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card, Button, Modal } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { translate } from 'react-i18next';
+
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import { translate } from 'react-i18next';
 import type { CustomTranslatorProps } from 'types/translator';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
@@ -33,7 +34,8 @@ type LocalState = {
 type Props = CustomTranslatorProps & PassedProps & StateProps & DispatchProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const topic = getById(state, { id: props.topicId });
+  const { topicId } = props;
+  const topic = getById(state, { id: topicId });
 
   if (topic == null) {
     throw new ObjectNotFoundError('topics:topic', props.topicId);
@@ -68,8 +70,9 @@ class PureTopicCard extends React.Component<Props, LocalState> {
   };
 
   yes = (): void => {
+    const { topic, onRemoveButtonClick } = this.props;
     this.setState({ open: false });
-    this.props.onRemoveButtonClick(this.props.topic.id);
+    onRemoveButtonClick(topic.id);
   };
 
   render = (): React.Node => {

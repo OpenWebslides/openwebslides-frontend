@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable no-multiple-empty-lines */
 /**
  * Describes a contentItem in relation to its parent / siblings; this can be used to traverse the
  * contentItem tree, add/remove/move contentItems, etc.

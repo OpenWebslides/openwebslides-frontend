@@ -3,16 +3,14 @@
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import * as dummyData from '../../../lib/testResources/dummyContentItemData';
 
 import { PureParagraph } from './Paragraph';
 
-const { DenormalizedParagraphContentItem } = model;
-
 describe(`Paragraph`, (): void => {
 
-  let dummyParagraph: DenormalizedParagraphContentItem;
+  let dummyParagraph: m.DenormalizedParagraphContentItem;
 
   beforeEach((): void => {
     dummyParagraph = { ...dummyData.paragraphContentItem, subItems: [] };

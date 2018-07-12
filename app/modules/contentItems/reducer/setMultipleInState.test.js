@@ -1,16 +1,15 @@
 // @flow
 
-import reducer from '../reducer';
 import * as t from '../actionTypes';
-import * as model from '../model';
+import * as m from '../model';
 import * as dummyData from '../lib/testResources/dummyContentItemData';
 
-const { HeadingContentItem, ContentItemsState } = model;
+import reducer from '.';
 
 describe(`SET_MULTIPLE_IN_STATE`, (): void => {
 
   it(`leaves the state unchanged, when the passed array is empty`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
       },
@@ -28,7 +27,7 @@ describe(`SET_MULTIPLE_IN_STATE`, (): void => {
   });
 
   it(`adds new content items to the state`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
       },
@@ -39,7 +38,7 @@ describe(`SET_MULTIPLE_IN_STATE`, (): void => {
         contentItems: [dummyData.headingContentItem],
       },
     };
-    const nextState: ContentItemsState = {
+    const nextState: m.ContentItemsState = {
       byId: {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
         [dummyData.headingContentItem.id]: dummyData.headingContentItem,
@@ -53,13 +52,13 @@ describe(`SET_MULTIPLE_IN_STATE`, (): void => {
   });
 
   it(`replaces existing content items in the state`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
         [dummyData.headingContentItem.id]: dummyData.headingContentItem,
       },
     };
-    const newContentItem: HeadingContentItem = {
+    const newContentItem: m.HeadingContentItem = {
       ...dummyData.headingContentItem,
       text: 'This is a new, replaced heading!!!',
     };
@@ -69,7 +68,7 @@ describe(`SET_MULTIPLE_IN_STATE`, (): void => {
         contentItems: [newContentItem],
       },
     };
-    const nextState: ContentItemsState = {
+    const nextState: m.ContentItemsState = {
       byId: {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
         [dummyData.headingContentItem.id]: newContentItem,

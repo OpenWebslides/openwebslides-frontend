@@ -1,6 +1,7 @@
 // @flow
 
 import { loadState, saveState } from '..';
+
 import type { PersistedState } from '..';
 
 describe(`localStorage`, (): void => {

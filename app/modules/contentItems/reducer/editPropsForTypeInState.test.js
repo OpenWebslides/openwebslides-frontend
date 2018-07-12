@@ -5,19 +5,14 @@ import NotYetImplementedError from 'errors/implementation-errors/NotYetImplement
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../actionTypes';
-import * as model from '../model';
+import * as m from '../model';
 import * as dummyData from '../lib/testResources/dummyContentItemData';
 
-import reducer from '../reducer';
-
-const {
-  HeadingContentItem,
-  ContentItemsState,
-} = model;
+import reducer from '.';
 
 describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
 
-  let dummyPlainTextContentItem: HeadingContentItem;
+  let dummyPlainTextContentItem: m.HeadingContentItem;
 
   beforeEach((): void => {
     dummyPlainTextContentItem = {
@@ -27,11 +22,11 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
 
   it(`changes a plainText contentItem's props, when the passed props are valid`, (): void => {
     const editedText = 'This text has been edited.';
-    const editedPlainTextContentItem: HeadingContentItem = {
+    const editedPlainTextContentItem: m.HeadingContentItem = {
       ...dummyPlainTextContentItem,
       text: editedText,
     };
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
@@ -45,7 +40,7 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
         },
       },
     };
-    const nextState: ContentItemsState = {
+    const nextState: m.ContentItemsState = {
       byId: {
         [dummyPlainTextContentItem.id]: editedPlainTextContentItem,
       },
@@ -59,7 +54,7 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
   });
 
   it(`leaves the state unchanged, when all propsForType are undefined`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
@@ -79,7 +74,7 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
   });
 
   it(`leaves the state unchanged, when the action contains no meaninful changes`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
@@ -101,7 +96,7 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
   });
 
   it(`throws an ObjectNotFoundError, when the passed contentItem could not be found in the state`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {},
     };
     const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
@@ -120,7 +115,7 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
   });
 
   it(`throws a CorruptedInternalStateError, when the passed contentItem does not match the contentItem with the same id fetched from the state`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
@@ -131,7 +126,7 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
         contentItem: ({
           ...dummyPlainTextContentItem,
           text: 'Text should not be edited outside of a reducer. This will throw an error.',
-        }: HeadingContentItem),
+        }: m.HeadingContentItem),
         propsForType: {
           text: 'Lorem ipsum',
         },
@@ -144,7 +139,7 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
   });
 
   it(`temporarily throws a NotYetImplementedError, when the contentItem's type is not a plainTextContentItemType`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
       },

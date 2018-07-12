@@ -1,13 +1,11 @@
 // @flow
 
-import contentItems from 'modules/contentItems';
-
-import type { Identifier } from 'types/model';
 import type { RouterHistory } from 'react-router-dom';
 
-import type { Topic } from './model';
+import contentItems from 'modules/contentItems';
+import type { Identifier } from 'types/model';
 
-const { ContentItem } = contentItems.model;
+import type { Topic } from './model';
 
 /* Action constants */
 
@@ -163,7 +161,7 @@ export type ApiPatchTopicContentAction = {
   type: typeof API_PATCH_CONTENT,
   payload: {
     id: Identifier,
-    content: Array<ContentItem>,
+    content: Array<contentItems.model.ContentItem>,
   },
 };
 
@@ -179,7 +177,6 @@ export type TopicReducerAction =
   | EditInStateAction
   | RemoveFromStateAction
   | SetItemsInStateAction;
-
 
 export type TopicTaskSagaAction =
   | AddAction

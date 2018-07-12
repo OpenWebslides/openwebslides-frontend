@@ -1,20 +1,19 @@
 // @flow
 
 import _ from 'lodash';
+
 import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../actionTypes';
-import * as model from '../model';
-
-const { ContentItemsState } = model;
+import * as m from '../model';
 
 const switchEditingInState = (
-  state: ContentItemsState,
+  state: m.ContentItemsState,
   action: t.SwitchEditingInStateAction,
-): ContentItemsState => {
+): m.ContentItemsState => {
   const { previousEditingItemId, nextEditingItemId } = action.payload;
-  let newState: ContentItemsState = { ...state };
+  let newState: m.ContentItemsState = { ...state };
 
   if (previousEditingItemId != null) {
     const previousEditingItem = state.byId[previousEditingItemId];

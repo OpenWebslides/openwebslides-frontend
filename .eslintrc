@@ -59,6 +59,16 @@
     // Allow programmer to decide which formatting is more readable on a case-by-case basis.
     "no-else-return": "off",
 
+    // Disallow more than one empty line between code blocks.
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1,
+        "maxEOF": 1,
+        "maxBOF": 0
+      }
+    ],
+
     // Turn this off so that we can use flowtype/no-unused-expressions instead.
     "no-unused-expressions": "off",
 
@@ -76,6 +86,9 @@
     // Flow currently does not support typing destructured objects.
     // See https://github.com/facebook/flow/issues/235 #TODO
     "prefer-destructuring": "off",
+
+    // Discourage the use of Object.assign() in reducers; prefer using spread operator.
+    "prefer-object-spread": "error",
 
     // Require quotes around numbers used as props,
     // for compatibility with external libraries which may not support unquoted numbers (e.g. i18next).
@@ -103,8 +116,7 @@
     ],
 
     // Consistency with airbnb's 'no-dupe-keys' rule.
-    // Note: temporarily turned of until https://github.com/gajus/eslint-plugin-flowtype/pull/318 has been merged #TODO
-    // "flowtype/no-dupe-keys": "error",
+    "flowtype/no-dupe-keys": "error",
 
     // Disallow $FlowFixMe comments that don't have a reason specified.
     "flowtype/no-flow-fix-me-comments": [
@@ -183,17 +195,41 @@
     // Rule causes conflicts with module structure.
     "import/prefer-default-export": "off",
 
+    // #TODO look into enabling this if it becomes possible to exclude flow `import type` statements from the max count
+    // See https://github.com/benmosher/eslint-plugin-import/issues/1136
+    // "import/max-dependencies": [
+    //  "error",
+    //  {
+    //    "max": 10
+    //  }
+    //],
+
     // Encourage placing default exports of components on a separate line at the bottom of the file.
     "import/no-anonymous-default-export": "error",
 
-    // See https://github.com/airbnb/javascript/pull/1648
-    // #TODO remove this override as soon as the specialLink: "to" change makes it into eslint-config-airbnb
-    "jsx-a11y/anchor-is-valid": [
+    // #TODO Currently not usable due to it not making an exception for flow type imports.
+    // See https://github.com/benmosher/eslint-plugin-import/issues/1098
+    "import/no-cycle": "off",
+
+    // Disallow importing a module without assigning it to a variable.
+    "import/no-unassigned-import": [
       "error",
       {
-        "specialLink": ["to"] // Prevents eslint from throwing errors on react-router-dom <Link to="" /> elements
+        "allow": ["**/*.css", "**/*.less", "**/*.scss"]
       }
     ],
+
+    // Enforce consistend ordering and spacing of imports.
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "newlines-between": "always"
+      }
+    ],
+
+    // Doesn't play wel with semantic-ui-react; #TODO look for a way to fix this; perhaps write wrapper for label?
+    "jsx-a11y/label-has-for": "off",
 
     // Currently doesn't work correctly in combination with Flow.
     // See https://github.com/yannickcr/eslint-plugin-react/issues/1593
@@ -233,9 +269,21 @@
       }
     ],
 
+    // Currently too strict to be usable.
+    // #TODO See https://github.com/yannickcr/eslint-plugin-react/issues/1848
+    "react/jsx-one-expression-per-line": "off",
+
     // Generates false positives when props are immediately passed to other function
     // Example: in a mapStateToProps function where prop is passed to selector function
-    "react/no-unused-prop-types": "off"
+    "react/no-unused-prop-types": "off",
+
+    // Turn off forbidDefaultForRequired, since it doesn't work well with the way Flow handles defaultProps.
+    "react/require-default-props": [
+      "error",
+      {
+        "forbidDefaultForRequired": false
+      }
+    ]
   },
   "overrides": [
     {
@@ -245,7 +293,8 @@
       "rules": {
         "max-len": "off",
         "padded-blocks": "off",
-        "flowtype/no-weak-types": "off"
+        "flowtype/no-weak-types": "off",
+        "import/max-dependencies": "off"
       }
     }
   ]

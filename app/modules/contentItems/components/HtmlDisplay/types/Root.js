@@ -2,13 +2,12 @@
 
 import * as React from 'react';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
+
 import HtmlDisplay from '..';
 
-const { DenormalizedContentItem, DenormalizedRootContentItem } = model;
-
 type PassedProps = {
-  contentItem: DenormalizedRootContentItem,
+  contentItem: m.DenormalizedRootContentItem,
   headingLevel: number,
 };
 
@@ -17,7 +16,7 @@ type Props = PassedProps;
 const PureRoot = (props: Props): React.Node => {
   const { contentItem, headingLevel } = props;
 
-  return contentItem.childItems.map((childItem: DenormalizedContentItem): React.Node => {
+  return contentItem.childItems.map((childItem: m.DenormalizedContentItem): React.Node => {
     return (
       <HtmlDisplay
         key={childItem.id}

@@ -2,15 +2,15 @@
 
 import _ from 'lodash';
 import * as React from 'react';
+
 import type { Identifier } from 'types/model';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
+
 import ContentItemEditableDisplay, { passThroughProps } from '..';
 
-const { RootContentItem } = model;
-
 type PassedProps = {
-  contentItem: RootContentItem,
+  contentItem: m.RootContentItem,
 };
 
 type Props = PassedProps;
@@ -21,14 +21,14 @@ const PureRoot = (props: Props): React.Node => {
   return (
     <div data-test-id="content-item-editable-display-root">
       {contentItem.childItemIds.map((childItemId: Identifier): React.Node => {
-      return (
-        <ContentItemEditableDisplay
-          {..._.pick(props, passThroughProps)}
-          key={childItemId}
-          contentItemId={childItemId}
-        />
-      );
-    })}
+        return (
+          <ContentItemEditableDisplay
+            {..._.pick(props, passThroughProps)}
+            key={childItemId}
+            contentItemId={childItemId}
+          />
+        );
+      })}
     </div>
   );
 };

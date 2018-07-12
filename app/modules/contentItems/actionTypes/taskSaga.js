@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable no-multiple-empty-lines */
 
 import type { Identifier } from 'types/model';
 
@@ -8,6 +9,7 @@ import type {
   VerticalContext,
   AllPropsForAllTypes,
 } from '../model';
+
 
 // Action constants --------------------------------------------------------------------------------
 

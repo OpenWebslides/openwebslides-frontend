@@ -7,16 +7,12 @@ import { Checkbox, Segment } from 'semantic-ui-react';
 
 // import Color, { TwitterPicker } from 'react-color';
 import type { CustomTranslatorProps } from 'types/translator';
-
 import type { State } from 'types/state';
 import contentItems from 'modules/contentItems';
 import Slide from 'core-components/slides/Slide';
-
 import VoicePlayerToggle from 'core-components/slides/VoicePlayerToggle';
 
 import Page from '../Page';
-
-const { contentItemTypes, DenormalizedRootContentItem } = contentItems.model;
 
 type PassedProps = {};
 
@@ -25,7 +21,7 @@ type StateProps = {
   // later stage the contentItem tree passed to the slide needs to be transformed further
   // (for example, by splitting up sections and inserting repeated headers if a section is longer
   // than a single slide) and the contentItem tree can't just be extracted from the state directly.
-  contentItemTreeRootItem: DenormalizedRootContentItem,
+  contentItemTreeRootItem: contentItems.model.DenormalizedRootContentItem,
 };
 
 type Props = CustomTranslatorProps & StateProps & PassedProps;
@@ -45,7 +41,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   if (contentItemTreeRootItem == null) {
     throw new Error(`ContentItem with id "${contentItemTreeRootItemId}" could not be found.`);
   }
-  else if (contentItemTreeRootItem.type !== contentItemTypes.ROOT) {
+  else if (contentItemTreeRootItem.type !== contentItems.model.contentItemTypes.ROOT) {
     throw new Error('Not a ROOT contentItem.');
   }
 
@@ -65,10 +61,10 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
     toggle: false,
   };
 
-  slideRef;
-
   toggleRead = (): void => {
-    if (this.state.toggle) {
+    const { toggle } = this.state;
+
+    if (toggle) {
       this.setState({ toggle: false });
     }
     else {
@@ -95,20 +91,24 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
     }
   };
 
+  slideRef;
+
   render = (): React.Node => {
     const { contentItemTreeRootItem } = this.props;
+    const { toggle, contentToBeRead } = this.state;
 
     let VoicePlayerToggleNode: ?(typeof VoicePlayerToggle);
-    if (this.state.toggle) {
+    if (toggle) {
       VoicePlayerToggleNode = (
         <VoicePlayerToggle
-          content={this.state.contentToBeRead}
+          content={contentToBeRead}
         />);
     }
     else {
       VoicePlayerToggleNode = null;
     }
     return (
+      // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
       <Page>
         <div ref={this.slideRef}>
           <Slide contentItem={contentItemTreeRootItem} />
@@ -116,7 +116,7 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
         <div className="Voice">
           {VoicePlayerToggleNode}
           <Segment compact={true}>
-            <Checkbox slider={true} onClick={this.toggleRead} checked={this.state.toggle} />
+            <Checkbox slider={true} onClick={this.toggleRead} checked={toggle} />
           </Segment>
         </div>
       </Page>

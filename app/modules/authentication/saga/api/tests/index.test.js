@@ -8,11 +8,9 @@ import {
   apiPostTokenSaga,
   apiDeleteTokenSaga,
 } from '../token';
-
 import { apiPostUsersSaga } from '../users';
 import { apiPostPasswordSaga } from '../password';
 import { apiPostConfirmationSaga } from '../confirmation';
-
 import * as t from '../../../actionTypes';
 
 describe(`apiSaga`, (): void => {

@@ -3,21 +3,16 @@
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import * as dummyData from '../../../lib/testResources/dummyContentItemData';
 
 import { PureRoot } from './Root';
 
-const {
-  DenormalizedRootContentItem,
-  DenormalizedHeadingContentItem,
-} = model;
-
 describe(`Root`, (): void => {
 
-  let dummyHeading2: DenormalizedHeadingContentItem;
-  let dummyHeading1: DenormalizedHeadingContentItem;
-  let dummyRoot: DenormalizedRootContentItem;
+  let dummyHeading2: m.DenormalizedHeadingContentItem;
+  let dummyHeading1: m.DenormalizedHeadingContentItem;
+  let dummyRoot: m.DenormalizedRootContentItem;
 
   beforeEach((): void => {
     dummyHeading2 = { ...dummyData.headingContentItem4, subItems: [] };

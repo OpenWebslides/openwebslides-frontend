@@ -1,27 +1,20 @@
 // @flow
 
-import * as model from '../model';
+import * as m from '../model';
 import * as dummyData from '../lib/testResources/dummyContentItemData';
 
 import selectors from '.';
 
-const {
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsById,
-} = model;
-
 describe(`getAllById`, (): void => {
 
-  let dummyParagraph22: $Exact<ParagraphContentItem>;
-  let dummyParagraph21: $Exact<ParagraphContentItem>;
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph12: $Exact<ParagraphContentItem>;
-  let dummyParagraph11: $Exact<ParagraphContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: $Exact<ContentItemsById>;
+  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: $Exact<m.ContentItemsById>;
   let dummyState: any;
   let dummyEmptyState: any;
 

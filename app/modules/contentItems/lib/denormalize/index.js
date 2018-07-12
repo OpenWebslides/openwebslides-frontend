@@ -4,23 +4,18 @@
 /* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';
+
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 import type { Identifier } from 'types/model';
 
-import * as model from '../../model';
-
-const {
-  ContentItem,
-  DenormalizedContentItem,
-  ContentItemsById,
-} = model;
+import * as m from '../../model';
 
 const denormalizeProp = (
-  contentItem: ContentItem,
-  contentItemsById: ContentItemsById,
+  contentItem: m.ContentItem,
+  contentItemsById: m.ContentItemsById,
   denormalizableIdsProp: string,
   denormalizedItemsProp: string,
-): DenormalizedContentItem => {
+): m.DenormalizedContentItem => {
   // Create copy of contentItem
   const denormalizedContentItem: any = {
     ...contentItem,
@@ -28,7 +23,7 @@ const denormalizeProp = (
 
   // If this contentItem is denormalizable
   if (contentItem[denormalizableIdsProp] != null) {
-    const descendantItems: Array<DenormalizedContentItem> = [];
+    const descendantItems: Array<m.DenormalizedContentItem> = [];
     let descendantItem: any;
     // Iterate over all denormalizableIds.
     denormalizedContentItem[denormalizableIdsProp].forEach(
@@ -55,9 +50,9 @@ const denormalizeProp = (
 };
 
 const denormalize = (
-  contentItem: ?ContentItem,
-  contentItemsById: ContentItemsById,
-): ?DenormalizedContentItem => {
+  contentItem: ?m.ContentItem,
+  contentItemsById: m.ContentItemsById,
+): ?m.DenormalizedContentItem => {
   if (contentItem == null) {
     return null;
   }

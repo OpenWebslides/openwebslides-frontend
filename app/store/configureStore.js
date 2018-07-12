@@ -8,11 +8,10 @@ import type { Store } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import _ from 'lodash';
 import { middleware as flashMiddleware } from 'redux-flash';
-
-import { saveState, loadState } from 'lib/localStorage';
-
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { composeWithDevTools } from 'redux-devtools-extension';
+
+import { saveState, loadState } from 'lib/localStorage';
 
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';

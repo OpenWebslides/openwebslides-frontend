@@ -3,11 +3,9 @@
 import { expectSaga } from 'redux-saga-test-plan';
 
 import * as t from '../../actionTypes';
-import * as model from '../../model';
+import * as m from '../../model';
 
 import moveSaga from './move';
-
-const { contextTypes } = model;
 
 describe(`moveSaga`, (): void => {
 
@@ -17,7 +15,7 @@ describe(`moveSaga`, (): void => {
       payload: {
         id: 'abcdefghijklmnoprst',
         nextContext: {
-          contextType: contextTypes.SUPER,
+          contextType: m.contextTypes.SUPER,
           contextItemId: 'uvwxyzabcdefghijklmn',
         },
       },

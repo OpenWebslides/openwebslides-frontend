@@ -5,29 +5,21 @@ import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedO
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../actionTypes';
-import * as model from '../model';
+import * as m from '../model';
 import * as dummyData from '../lib/testResources/dummyContentItemData';
 import edit from '../lib/edit';
 
 import reducer from '.';
 
-const {
-  contextTypes,
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsState,
-} = model;
-
 describe(`moveInState`, (): void => {
 
-  let dummyParagraph22: $Exact<ParagraphContentItem>;
-  let dummyParagraph21: $Exact<ParagraphContentItem>;
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph12: $Exact<ParagraphContentItem>;
-  let dummyParagraph11: $Exact<ParagraphContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
+  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
 
   beforeEach((): void => {
     dummyParagraph22 = { ...dummyData.paragraphContentItem4 };
@@ -40,7 +32,7 @@ describe(`moveInState`, (): void => {
   });
 
   it(`removes the contentItem from its previousContext and adds it to the nextContext, when the contentItem was a subItem`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
         [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
@@ -56,13 +48,13 @@ describe(`moveInState`, (): void => {
       payload: {
         id: dummyParagraph21.id,
         nextContext: {
-          contextType: contextTypes.SUPER,
+          contextType: m.contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
           indexInSiblingItems: 1,
         },
       },
     };
-    const nextState: ContentItemsState = {
+    const nextState: m.ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
         [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph21.id, dummyParagraph12.id] },
@@ -86,7 +78,7 @@ describe(`moveInState`, (): void => {
   });
 
   it(`removes the contentItem from its previousContext and adds it to the nextContext, when the contentItem was a childItem`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
         [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
@@ -102,13 +94,13 @@ describe(`moveInState`, (): void => {
       payload: {
         id: dummyHeading2.id,
         nextContext: {
-          contextType: contextTypes.SUPER,
+          contextType: m.contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
           indexInSiblingItems: 2,
         },
       },
     };
-    const nextState: ContentItemsState = {
+    const nextState: m.ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id] },
         [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id, dummyHeading2.id] },
@@ -132,7 +124,7 @@ describe(`moveInState`, (): void => {
   });
 
   it(`does not change the state object, when the contentItem's previousContext is equal to the nextContext`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
         [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
@@ -148,7 +140,7 @@ describe(`moveInState`, (): void => {
       payload: {
         id: dummyParagraph21.id,
         nextContext: {
-          contextType: contextTypes.SUPER,
+          contextType: m.contextTypes.SUPER,
           contextItemId: dummyHeading2.id,
           indexInSiblingItems: 0,
         },
@@ -161,7 +153,7 @@ describe(`moveInState`, (): void => {
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
         [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
@@ -177,7 +169,7 @@ describe(`moveInState`, (): void => {
       payload: {
         id: 'DefinitelyNotValidId',
         nextContext: {
-          contextType: contextTypes.SUPER,
+          contextType: m.contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
           indexInSiblingItems: 1,
         },
@@ -190,7 +182,7 @@ describe(`moveInState`, (): void => {
   });
 
   it(`throws a CorruptedInternalStateError, when the passed contentItemsById object contains inconsistencies`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
         [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
@@ -206,7 +198,7 @@ describe(`moveInState`, (): void => {
       payload: {
         id: dummyParagraph21.id,
         nextContext: {
-          contextType: contextTypes.SUPER,
+          contextType: m.contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
           indexInSiblingItems: 1,
         },
@@ -219,7 +211,7 @@ describe(`moveInState`, (): void => {
   });
 
   it(`throws an UnsupportedOperationError, when attempting to move a ROOT`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
         [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
@@ -235,7 +227,7 @@ describe(`moveInState`, (): void => {
       payload: {
         id: dummyRoot.id,
         nextContext: {
-          contextType: contextTypes.PARENT,
+          contextType: m.contextTypes.PARENT,
           contextItemId: dummyRoot.id,
           indexInSiblingItems: 1,
         },
@@ -248,7 +240,7 @@ describe(`moveInState`, (): void => {
   });
 
   it(`throws an UnsupportedOperationError, when attempting to move anything other than a HEADING after an existing HEADING in a list of siblings`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
         [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
@@ -264,7 +256,7 @@ describe(`moveInState`, (): void => {
       payload: {
         id: dummyParagraph21.id,
         nextContext: {
-          contextType: contextTypes.PARENT,
+          contextType: m.contextTypes.PARENT,
           contextItemId: dummyRoot.id,
           indexInSiblingItems: 1,
         },
@@ -277,7 +269,7 @@ describe(`moveInState`, (): void => {
   });
 
   it(`throws an UnsupportedOperationError, when attempting to move a HEADING before anything other than an existing HEADING in a list of siblings`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
         [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
@@ -293,7 +285,7 @@ describe(`moveInState`, (): void => {
       payload: {
         id: dummyHeading2.id,
         nextContext: {
-          contextType: contextTypes.SUPER,
+          contextType: m.contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
           indexInSiblingItems: 1,
         },
@@ -307,7 +299,7 @@ describe(`moveInState`, (): void => {
 
   it(`re-throws any error from the validate function that is not a CorruptedInternalStateError`, (): void => {
     const dummyMessage = 'Dummy error message for testing purposes.';
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id] },
         [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
@@ -323,7 +315,7 @@ describe(`moveInState`, (): void => {
       payload: {
         id: dummyParagraph21.id,
         nextContext: {
-          contextType: contextTypes.SUPER,
+          contextType: m.contextTypes.SUPER,
           contextItemId: dummyHeading1.id,
           indexInSiblingItems: 1,
         },

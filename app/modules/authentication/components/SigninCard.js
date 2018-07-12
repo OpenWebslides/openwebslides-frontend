@@ -1,17 +1,16 @@
 // @flow
 
-import api from 'modules/api';
-
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
-
 import { Card, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-import SigninForm from './forms/SigninForm';
+import type { CustomTranslatorProps } from 'types/translator';
+import api from 'modules/api';
 
 import { API_POST_TOKEN } from '../actionTypes';
+
+import SigninForm from './forms/SigninForm';
 
 const { ApiDimmer } = api.components;
 

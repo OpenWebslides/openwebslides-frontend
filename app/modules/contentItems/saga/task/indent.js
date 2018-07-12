@@ -2,6 +2,7 @@
 /* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';
+
 import { put, select } from 'redux-saga/effects';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
@@ -22,8 +23,8 @@ const indentSaga = function* (action: t.IndentAction): Generator<*, *, *> {
   const previousSiblingItem = find.previousSiblingItem(contentItemToIndent, contentItemsById);
 
   if (
-    previousSiblingItem != null &&
-    _.includes(subableContentItemTypes, previousSiblingItem.type)
+    previousSiblingItem != null
+    && _.includes(subableContentItemTypes, previousSiblingItem.type)
   ) {
     const subItemsCount = ((previousSiblingItem: any): SubableContentItem).subItemIds.length;
     yield put(actions.move(

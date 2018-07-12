@@ -2,11 +2,12 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Segment } from 'semantic-ui-react';
 
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import { Segment } from 'semantic-ui-react';
+
 import type { Topic } from '../model';
 import { getById } from '../selectors';
 
@@ -21,7 +22,8 @@ type StateProps = {
 type Props = PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const topic = getById(state, { id: props.topicId });
+  const { topicId } = props;
+  const topic = getById(state, { id: topicId });
 
   if (topic == null) {
     throw new ObjectNotFoundError('topics:topic', props.topicId);

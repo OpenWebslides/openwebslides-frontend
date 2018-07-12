@@ -7,7 +7,6 @@ import * as constants from './constants';
 import components from './components';
 import reducer from './reducer';
 import saga from './saga';
-
 import type { User, UsersState } from './model';
 
 const users = {

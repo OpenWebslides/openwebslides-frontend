@@ -1,40 +1,30 @@
 // @flow
 
-
 import * as React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { mount, shallow } from 'enzyme';
+
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import actions from '../../actions';
-import * as model from '../../model';
+import * as m from '../../model';
 import * as dummyData from '../../lib/testResources/dummyContentItemData';
 
 import EditableDisplay, { PureEditableDisplay, mapDispatchToProps } from '.';
 import type { DispatchProps } from '.';
 
-const {
-  contentItemTypes,
-  contextTypes,
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsById,
-} = model;
-
-
 describe(`EditableDisplay`, (): void => {
 
-  let dummyRoot2: $Exact<RootContentItem>;
-  let dummyParagraph1132: $Exact<ParagraphContentItem>;
-  let dummyParagraph1131: $Exact<ParagraphContentItem>;
-  let dummyHeading113: $Exact<HeadingContentItem>;
-  let dummyParagraph112: $Exact<ParagraphContentItem>;
-  let dummyParagraph111: $Exact<ParagraphContentItem>;
-  let dummyHeading11: $Exact<HeadingContentItem>;
-  let dummyRoot1: $Exact<RootContentItem>;
-  let dummyContentItemsById: $Exact<ContentItemsById>;
+  let dummyRoot2: $Exact<m.RootContentItem>;
+  let dummyParagraph1132: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph1131: $Exact<m.ParagraphContentItem>;
+  let dummyHeading113: $Exact<m.HeadingContentItem>;
+  let dummyParagraph112: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph111: $Exact<m.ParagraphContentItem>;
+  let dummyHeading11: $Exact<m.HeadingContentItem>;
+  let dummyRoot1: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: $Exact<m.ContentItemsById>;
   let dummyState: any;
 
   let dummyDispatchProps: DispatchProps;
@@ -90,7 +80,7 @@ describe(`EditableDisplay`, (): void => {
     const enzymeWrapper = shallow(
       <PureEditableDisplay
         contentItemId="abcdefghij"
-        contentItem={{ id: 'abcdefghij', type: contentItemTypes.ROOT, isEditing: false, childItemIds: [] }}
+        contentItem={{ id: 'abcdefghij', type: m.contentItemTypes.ROOT, isEditing: false, childItemIds: [] }}
         {...dummyDispatchProps}
       />,
     );
@@ -232,9 +222,9 @@ describe(`EditableDisplay`, (): void => {
       mapDispatchToProps(dummyDispatch, ({}: any)).onAddEmptySubItem(dummyId);
       expect(dummyDispatch).toHaveBeenCalledWith(actions.toggleEditing(dummyId, false));
       expect(dummyDispatch).toHaveBeenCalledWith(actions.add(
-        contentItemTypes.PARAGRAPH,
+        m.contentItemTypes.PARAGRAPH,
         {
-          contextType: contextTypes.SUPER,
+          contextType: m.contextTypes.SUPER,
           contextItemId: dummyId,
           indexInSiblingItems: 0,
         },
@@ -248,9 +238,9 @@ describe(`EditableDisplay`, (): void => {
       mapDispatchToProps(dummyDispatch, ({}: any)).onAddEmptySiblingItemBelow(dummyId);
       expect(dummyDispatch).toHaveBeenCalledWith(actions.toggleEditing(dummyId, false));
       expect(dummyDispatch).toHaveBeenCalledWith(actions.add(
-        contentItemTypes.PARAGRAPH,
+        m.contentItemTypes.PARAGRAPH,
         {
-          contextType: contextTypes.SIBLING,
+          contextType: m.contextTypes.SIBLING,
           contextItemId: dummyId,
           indexInSiblingItemsShift: 0,
         },

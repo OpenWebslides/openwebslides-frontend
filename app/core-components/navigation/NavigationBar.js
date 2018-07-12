@@ -4,7 +4,6 @@ import * as React from 'react';
 import { Menu } from 'semantic-ui-react';
 
 import Logo from 'core-components/logo';
-
 import authentication from 'modules/authentication';
 
 const { AccountMenu } = authentication.components;

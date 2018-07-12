@@ -2,17 +2,10 @@
 
 import contentItems from 'modules/contentItems';
 
-const {
-  contentItemTypes,
-  DenormalizedRootContentItem,
-  DenormalizedHeadingContentItem,
-  DenormalizedParagraphContentItem,
-} = contentItems.model;
-
 // Paragraphs
-export const dummyParagraphContentItem1: DenormalizedParagraphContentItem = {
+export const dummyParagraphContentItem1: contentItems.model.DenormalizedParagraphContentItem = {
   id: 'guweco5ijd',
-  type: contentItemTypes.PARAGRAPH,
+  type: contentItems.model.contentItemTypes.PARAGRAPH,
   isEditing: false,
   text: 'Paragraph',
   metadata: {
@@ -22,7 +15,7 @@ export const dummyParagraphContentItem1: DenormalizedParagraphContentItem = {
   subItemIds: ['3yfivbpo4v'],
   subItems: [{
     id: '3yfivbpo4v',
-    type: contentItemTypes.PARAGRAPH,
+    type: contentItems.model.contentItemTypes.PARAGRAPH,
     isEditing: false,
     text: 'Paragraph 2',
     metadata: {
@@ -35,9 +28,9 @@ export const dummyParagraphContentItem1: DenormalizedParagraphContentItem = {
 };
 
 // Subheadings
-export const dummySubHeadingContentItem1: DenormalizedHeadingContentItem = {
+export const dummySubHeadingContentItem1: contentItems.model.DenormalizedHeadingContentItem = {
   id: 'odo8vj3ivu',
-  type: contentItemTypes.HEADING,
+  type: contentItems.model.contentItemTypes.HEADING,
   isEditing: false,
   text: 'Subheading 1',
   metadata: {
@@ -48,9 +41,9 @@ export const dummySubHeadingContentItem1: DenormalizedHeadingContentItem = {
   subItems: [],
 };
 
-export const dummySubHeadingContentItem2: DenormalizedHeadingContentItem = {
+export const dummySubHeadingContentItem2: contentItems.model.DenormalizedHeadingContentItem = {
   id: 'qocj4o9vco',
-  type: contentItemTypes.HEADING,
+  type: contentItems.model.contentItemTypes.HEADING,
   isEditing: false,
   text: 'Subheading 2',
   metadata: {
@@ -62,9 +55,9 @@ export const dummySubHeadingContentItem2: DenormalizedHeadingContentItem = {
 };
 
 // Headings
-export const dummyHeadingContentItem1: DenormalizedHeadingContentItem = {
+export const dummyHeadingContentItem1: contentItems.model.DenormalizedHeadingContentItem = {
   id: 'ko3ucudn9l',
-  type: contentItemTypes.HEADING,
+  type: contentItems.model.contentItemTypes.HEADING,
   isEditing: false,
   text: 'Heading 1',
   metadata: {
@@ -75,9 +68,9 @@ export const dummyHeadingContentItem1: DenormalizedHeadingContentItem = {
   subItems: [],
 };
 
-export const dummyHeadingContentItem2: DenormalizedHeadingContentItem = {
+export const dummyHeadingContentItem2: contentItems.model.DenormalizedHeadingContentItem = {
   id: 'iidk2kfcp2',
-  type: contentItemTypes.HEADING,
+  type: contentItems.model.contentItemTypes.HEADING,
   isEditing: false,
   text: 'Heading 2',
   metadata: {
@@ -88,9 +81,9 @@ export const dummyHeadingContentItem2: DenormalizedHeadingContentItem = {
   subItems: [],
 };
 
-export const dummyHeadingContentItem3: DenormalizedHeadingContentItem = {
+export const dummyHeadingContentItem3: contentItems.model.DenormalizedHeadingContentItem = {
   id: 'vckiiek3ld',
-  type: contentItemTypes.HEADING,
+  type: contentItems.model.contentItemTypes.HEADING,
   isEditing: false,
   text: 'Heading 3',
   metadata: {
@@ -101,9 +94,9 @@ export const dummyHeadingContentItem3: DenormalizedHeadingContentItem = {
   subItems: [],
 };
 
-export const dummyHeadingContentItem4: DenormalizedHeadingContentItem = {
+export const dummyHeadingContentItem4: contentItems.model.DenormalizedHeadingContentItem = {
   id: 'kdivjd3eju',
-  type: contentItemTypes.HEADING,
+  type: contentItems.model.contentItemTypes.HEADING,
   isEditing: false,
   text: 'Heading 4',
   metadata: {
@@ -114,9 +107,9 @@ export const dummyHeadingContentItem4: DenormalizedHeadingContentItem = {
   subItems: [dummySubHeadingContentItem1, dummySubHeadingContentItem2],
 };
 
-export const dummyHeadingContentItem5: DenormalizedHeadingContentItem = {
+export const dummyHeadingContentItem5: contentItems.model.DenormalizedHeadingContentItem = {
   id: 'dkhjedy2lc',
-  type: contentItemTypes.HEADING,
+  type: contentItems.model.contentItemTypes.HEADING,
   isEditing: false,
   text: 'Heading 5',
   metadata: {
@@ -136,9 +129,9 @@ export const dummyHeadingContentItem5: DenormalizedHeadingContentItem = {
 };
 
 // Root content items
-export const dummyRootContentItem1: DenormalizedRootContentItem = {
+export const dummyRootContentItem1: contentItems.model.DenormalizedRootContentItem = {
   id: 'ldoivik3dh',
-  type: contentItemTypes.ROOT,
+  type: contentItems.model.contentItemTypes.ROOT,
   isEditing: false,
   childItemIds: [dummyHeadingContentItem1.id, dummyParagraphContentItem1.id],
   childItems: [
@@ -147,9 +140,9 @@ export const dummyRootContentItem1: DenormalizedRootContentItem = {
   ],
 };
 
-export const dummyRootContentItem2: DenormalizedRootContentItem = {
+export const dummyRootContentItem2: contentItems.model.DenormalizedRootContentItem = {
   id: 'ivjdoieo3k',
-  type: contentItemTypes.ROOT,
+  type: contentItems.model.contentItemTypes.ROOT,
   isEditing: false,
   childItemIds: [dummyHeadingContentItem2.id, dummyHeadingContentItem3.id],
   childItems: [
@@ -158,9 +151,9 @@ export const dummyRootContentItem2: DenormalizedRootContentItem = {
   ],
 };
 
-export const dummyRootContentItem3: DenormalizedRootContentItem = {
+export const dummyRootContentItem3: contentItems.model.DenormalizedRootContentItem = {
   id: 'ivjdoieo3k',
-  type: contentItemTypes.ROOT,
+  type: contentItems.model.contentItemTypes.ROOT,
   isEditing: false,
   childItemIds: [dummyHeadingContentItem4.id],
   childItems: [
@@ -168,9 +161,9 @@ export const dummyRootContentItem3: DenormalizedRootContentItem = {
   ],
 };
 
-export const dummyRootContentItem4: DenormalizedRootContentItem = {
+export const dummyRootContentItem4: contentItems.model.DenormalizedRootContentItem = {
   id: 'ocodk2fdoi',
-  type: contentItemTypes.ROOT,
+  type: contentItems.model.contentItemTypes.ROOT,
   isEditing: false,
   childItemIds: [dummyHeadingContentItem5.id],
   childItems: [

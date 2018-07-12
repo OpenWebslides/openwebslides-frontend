@@ -1,12 +1,10 @@
 // @flow
 
 import { call, put } from 'redux-saga/effects';
-
 import { TopicsApi } from 'lib/api';
 
 import * as t from '../../actionTypes';
 import type { Topic } from '../../model';
-
 import { addToState, setItemsInState } from '../../actions';
 
 export const apiGetSaga = function* (action: t.GetAction): Generator<*, *, *> {

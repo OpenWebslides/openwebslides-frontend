@@ -1,19 +1,15 @@
 // @flow
 
-import { call, put, select } from 'redux-saga/effects';
 import { flashMessage, flashErrorMessage } from 'redux-flash';
 
+import { call, put, select } from 'redux-saga/effects';
 import ServerError from 'errors/api-errors/ServerError';
-
 import authentication from 'modules/authentication';
 import contentItems from 'modules/contentItems';
-
 import { TopicsApi } from 'lib/api';
 import api from 'modules/api';
 
 import * as t from '../../actionTypes';
-
-const { ContentItem } = contentItems.model;
 
 const { setTokenInState } = authentication.actions;
 const { getToken } = authentication.selectors;
@@ -33,7 +29,7 @@ export const apiGetContentSaga = function* (
     const response = yield call(TopicsApi.getContent, id, token);
 
     // TODO: validate response
-    const items: Array<ContentItem> = response.body.data.attributes.content;
+    const items: Array<contentItems.model.ContentItem> = response.body.data.attributes.content;
     yield put(contentItems.actions.setMultipleInState(items));
 
     yield put(setTokenInState(response.token));

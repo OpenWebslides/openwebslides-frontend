@@ -3,6 +3,7 @@
 import { expectSaga } from 'redux-saga-test-plan';
 
 import contentItems from 'modules/contentItems';
+
 import rootSaga from '../rootSaga';
 
 describe(`rootSaga`, (): void => {

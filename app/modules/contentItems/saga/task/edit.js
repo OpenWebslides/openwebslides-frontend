@@ -1,16 +1,15 @@
 // @flow
 
 import _ from 'lodash';
+
 import { put, select } from 'redux-saga/effects';
 import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
 import actions from '../../actions';
-import * as model from '../../model';
+import * as m from '../../model';
 import selectors from '../../selectors';
-
-const { plainTextContentItemTypes } = model;
 
 const editSaga = function* (action: t.EditAction): Generator<*, *, *> {
   const { id, propsForType } = action.payload;
@@ -19,7 +18,7 @@ const editSaga = function* (action: t.EditAction): Generator<*, *, *> {
   const contentItemToEdit = yield select(selectors.getById, { id });
   if (contentItemToEdit == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
 
-  if (_.includes(plainTextContentItemTypes, contentItemToEdit.type)) {
+  if (_.includes(m.plainTextContentItemTypes, contentItemToEdit.type)) {
     if (propsForType.text != null
       && propsForType.text === ''
       && contentItemToEdit.isEditing === false

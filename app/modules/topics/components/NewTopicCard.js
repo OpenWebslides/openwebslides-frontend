@@ -5,13 +5,15 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import type { FormProps } from 'redux-form';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
-import type { State } from 'types/state';
-import type { Identifier } from 'types/model';
 import { Link, withRouter } from 'react-router-dom';
 import { Form, Button } from 'semantic-ui-react';
 import type { RouterHistory } from 'react-router-dom';
+
+import type { CustomTranslatorProps } from 'types/translator';
+import type { State } from 'types/state';
+import type { Identifier } from 'types/model';
 import authentication from 'modules/authentication';
+
 import { add } from '../actions';
 
 const { getAccount } = authentication.selectors;

@@ -1,7 +1,8 @@
 // @flow
 
-import type { CustomTranslatorProps } from 'types/translator';
 import type { Match } from 'react-router-dom';
+
+import type { CustomTranslatorProps } from 'types/translator';
 
 export const dummyTranslatorProps: CustomTranslatorProps = {
   t: (key: ?string): string => key || 'string',

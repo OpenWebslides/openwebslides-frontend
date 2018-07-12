@@ -8,7 +8,6 @@ import {
   PasswordApi,
   ConfirmationApi,
 } from './apis';
-
 import type {
   Response,
   Token,

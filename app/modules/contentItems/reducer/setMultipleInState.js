@@ -1,20 +1,18 @@
 // @flow
 
 import * as t from '../actionTypes';
-import * as model from '../model';
-
-const { ContentItem, ContentItemsById, ContentItemsState } = model;
+import * as m from '../model';
 
 const setMultipleInState = (
-  state: ContentItemsState,
+  state: m.ContentItemsState,
   action: t.SetMultipleInStateAction,
-): ContentItemsState => {
+): m.ContentItemsState => {
   if (action.payload.contentItems.length === 0) {
     return state;
   }
 
-  const contentItemsById: ContentItemsById = action.payload.contentItems.reduce(
-    (map: ContentItemsById, contentItem: ContentItem): ContentItemsById => {
+  const contentItemsById: m.ContentItemsById = action.payload.contentItems.reduce(
+    (map: m.ContentItemsById, contentItem: m.ContentItem): m.ContentItemsById => {
       return {
         ...map,
         [contentItem.id]: contentItem,

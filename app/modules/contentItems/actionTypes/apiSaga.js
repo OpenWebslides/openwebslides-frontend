@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable no-multiple-empty-lines */
 
 
 // Action constants --------------------------------------------------------------------------------

@@ -1,26 +1,20 @@
 // @flow
-/* eslint-disable flowtype/no-weak-types */
+/* eslint-disable flowtype/no-weak-types, react/destructuring-assignment */
 
 import _ from 'lodash';
+
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { Identifier } from 'types/model';
 
-import * as model from '../../../model';
-
-const {
-  contextTypes,
-  ContentItem,
-  ContentItemsById,
-  VerticalContext,
-} = model;
+import * as m from '../../../model';
 
 const removeChildOrSubItemIdFromContextByPropName = (
-  context: VerticalContext,
+  context: m.VerticalContext,
   childOrSubItemId: Identifier,
-  contentItemsById: ContentItemsById,
+  contentItemsById: m.ContentItemsById,
   propName: ('childItemIds' | 'subItemIds'),
-): ContentItem => {
+): m.ContentItem => {
   const parentOrSuperItem: any = contentItemsById[context.contextItemId];
   if (parentOrSuperItem == null) throw new ObjectNotFoundError('contentItems:contentItem', context.contextItemId);
   if (parentOrSuperItem[propName] == null) throw new InvalidArgumentError(`The passed contextType doesn't match the contentItems type.`);
@@ -37,14 +31,14 @@ const removeChildOrSubItemIdFromContextByPropName = (
 };
 
 const removeChildOrSubItemIdFromContext = (
-  context: VerticalContext,
+  context: m.VerticalContext,
   childOrSubItemId: Identifier,
-  contentItemsById: ContentItemsById,
-): ContentItem => {
+  contentItemsById: m.ContentItemsById,
+): m.ContentItem => {
   switch (context.contextType) {
-    case contextTypes.SUPER:
+    case m.contextTypes.SUPER:
       return removeChildOrSubItemIdFromContextByPropName(context, childOrSubItemId, contentItemsById, 'subItemIds');
-    case contextTypes.PARENT:
+    case m.contextTypes.PARENT:
       return removeChildOrSubItemIdFromContextByPropName(context, childOrSubItemId, contentItemsById, 'childItemIds');
     default:
       throw new InvalidArgumentError(`Invalid contextType.`);

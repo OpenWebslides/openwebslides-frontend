@@ -2,10 +2,10 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Feed } from 'semantic-ui-react';
+
 import type { Identifier } from 'types/model';
 import type { State } from 'types/state';
-
-import { Feed } from 'semantic-ui-react';
 
 import { getAll } from '../selectors';
 import { fetch } from '../actions';
@@ -19,7 +19,6 @@ type StateProps = {
 type DispatchProps = {
   handleRequestFeed: () => void,
 };
-
 
 type Props = DispatchProps & StateProps;
 
@@ -39,8 +38,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
 
 class PureFeedWrapper extends React.Component<Props, State> {
   componentDidMount = (): void => {
-    this.props.handleRequestFeed();
-  }
+    const { handleRequestFeed } = this.props;
+    handleRequestFeed();
+  };
 
   render = (): React.Node => {
     const {

@@ -2,6 +2,7 @@
 
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
+
 import type { Event, FeedState } from './model';
 
 const getModule = (state: State): FeedState => {

@@ -1,37 +1,28 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import * as model from '../../model';
+import * as m from '../../model';
 import * as dummyData from '../../lib/testResources/dummyContentItemData';
 
 import indentSaga from './indent';
 
-const {
-  contextTypes,
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  SlideBreakContentItem,
-  ContentItemsById,
-  ContentItemsState,
-} = model;
-
 describe(`indentSaga`, (): void => {
 
-  let dummyParagraph24: $Exact<ParagraphContentItem>;
-  let dummySlideBreak23: $Exact<SlideBreakContentItem>;
-  let dummyParagraph22: $Exact<ParagraphContentItem>;
-  let dummyParagraph21: $Exact<ParagraphContentItem>;
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph12: $Exact<ParagraphContentItem>;
-  let dummyParagraph11: $Exact<ParagraphContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: ContentItemsById;
-  let dummyContentItemsState: ContentItemsState;
+  let dummyParagraph24: $Exact<m.ParagraphContentItem>;
+  let dummySlideBreak23: $Exact<m.SlideBreakContentItem>;
+  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: m.ContentItemsById;
+  let dummyContentItemsState: m.ContentItemsState;
   let dummyState: Object;
 
   beforeEach((): void => {
@@ -83,7 +74,7 @@ describe(`indentSaga`, (): void => {
           payload: {
             id: dummyParagraph12.id,
             nextContext: {
-              contextType: contextTypes.SUPER,
+              contextType: m.contextTypes.SUPER,
               contextItemId: dummyParagraph11.id,
               indexInSiblingItems: 0,
             },
@@ -108,7 +99,7 @@ describe(`indentSaga`, (): void => {
           payload: {
             id: dummyHeading2.id,
             nextContext: {
-              contextType: contextTypes.SUPER,
+              contextType: m.contextTypes.SUPER,
               contextItemId: dummyHeading1.id,
               indexInSiblingItems: 2,
             },

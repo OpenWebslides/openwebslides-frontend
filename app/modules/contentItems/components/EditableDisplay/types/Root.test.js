@@ -5,23 +5,17 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { mount, shallow } from 'enzyme';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import * as dummyData from '../../../lib/testResources/dummyContentItemData';
 
 import { PureRoot } from './Root';
 
-const {
-  RootContentItem,
-  HeadingContentItem,
-  ContentItemsById,
-} = model;
-
 describe(`Root`, (): void => {
 
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: $Exact<ContentItemsById>;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: $Exact<m.ContentItemsById>;
   let dummyState: any;
 
   let dummyReducer: *;

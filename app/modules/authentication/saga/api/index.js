@@ -8,7 +8,6 @@ import {
   apiPostTokenSaga,
   apiDeleteTokenSaga,
 } from './token';
-
 import { apiPostUsersSaga } from './users';
 import { apiPostPasswordSaga } from './password';
 import { apiPostConfirmationSaga } from './confirmation';

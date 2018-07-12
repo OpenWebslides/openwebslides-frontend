@@ -2,7 +2,6 @@
 
 import * as actions from '../actions';
 import * as t from '../actionTypes';
-
 import { statusTypes } from '../model';
 
 describe(`actions`, (): void => {

@@ -2,20 +2,18 @@
 
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { dummyTranslatorProps } from 'config/tests';
 
+import { dummyTranslatorProps } from 'config/tests';
 import contentItems from 'modules/contentItems';
 
 import { PureTempSlideTestPage } from '../TempSlideTestPage';
 
-const { contentItemTypes, DenormalizedRootContentItem } = contentItems.model;
-
 describe(`TempSlideTestPage`, (): void => {
 
   it(`renders without errors`, (): void => {
-    const dummyDenormalizedContentItem: $Exact<DenormalizedRootContentItem> = {
+    const dummyDenormalizedContentItem: $Exact<contentItems.model.DenormalizedRootContentItem> = {
       id: 'abcdefghij',
-      type: contentItemTypes.ROOT,
+      type: contentItems.model.contentItemTypes.ROOT,
       isEditing: false,
       childItems: [],
     };

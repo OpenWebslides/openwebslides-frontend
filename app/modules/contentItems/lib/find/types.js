@@ -2,29 +2,27 @@
 
 import type { Identifier } from 'types/model';
 
-import * as model from '../../model';
-
-const { ContentItem, ContentItemsById } = model;
+import * as m from '../../model';
 
 export type FindFunctionPredicate = (
-  contentItem: ContentItem,
+  contentItem: m.ContentItem,
   processedItemIds: Array<Identifier>,
-  contentItemsById: ContentItemsById,
+  contentItemsById: m.ContentItemsById,
 ) => boolean;
 
 export type SingleFindFunction = (
-  contentItem: ?ContentItem,
-  contentItemsById: ContentItemsById,
-) => ?ContentItem;
+  contentItem: ?m.ContentItem,
+  contentItemsById: m.ContentItemsById,
+) => ?m.ContentItem;
 
 export type MultipleFindFunction = (
-  contentItem: ?ContentItem,
-  contentItemsById: ContentItemsById,
-) => Array<ContentItem>;
+  contentItem: ?m.ContentItem,
+  contentItemsById: m.ContentItemsById,
+) => Array<m.ContentItem>;
 
 export type RecursiveFindFunction = (
-  contentItem: ?ContentItem,
-  contentItemsById: ContentItemsById,
+  contentItem: ?m.ContentItem,
+  contentItemsById: m.ContentItemsById,
   singleFindFunction: SingleFindFunction,
   predicate?: FindFunctionPredicate,
-) => ?ContentItem;
+) => ?m.ContentItem;

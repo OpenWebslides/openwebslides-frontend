@@ -1,33 +1,24 @@
 // @flow
 
-import * as model from '../../model';
-import * as dummyData from '../../lib/testResources/dummyContentItemData';
+import * as m from '../../model';
+import * as dummyData from '../testResources/dummyContentItemData';
 
 import validatePredicate from './validatePredicate';
-
-const {
-  contentItemTypes,
-  ContentItem,
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsById,
-} = model;
 
 describe(`validatePredicate`, (): void => {
 
   let dummyPredicate: any;
-  let dummyParagraph22: $Exact<ParagraphContentItem>;
-  let dummyParagraph21: $Exact<ParagraphContentItem>;
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph12: $Exact<ParagraphContentItem>;
-  let dummyParagraph11: $Exact<ParagraphContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: ContentItemsById;
+  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: m.ContentItemsById;
 
   beforeEach((): void => {
-    dummyPredicate = jest.fn((contentItem: ContentItem): boolean => (contentItem.type === contentItemTypes.HEADING));
+    dummyPredicate = jest.fn((contentItem: m.ContentItem): boolean => (contentItem.type === m.contentItemTypes.HEADING));
 
     dummyParagraph22 = { ...dummyData.paragraphContentItem4 };
     dummyParagraph21 = { ...dummyData.paragraphContentItem3 };

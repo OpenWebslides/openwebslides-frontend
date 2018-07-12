@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { createSelector } from 'reselect';
 
 import type { ContentItem, ContentItemsById } from '../model';
+
 import getAllById from './getAllById';
 
 const getCurrentlyEditing = createSelector(

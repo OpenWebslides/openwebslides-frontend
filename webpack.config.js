@@ -4,13 +4,13 @@
   flowtype/require-return-type
 */
 
+// Use path package from Node.js
+const path = require('path');
+
 // Allows accessing built-in plugins
 const webpack = require('webpack');
 // Allows merging base / dev / prod configs together
 const merge = require('webpack-merge');
-// Use path package from Node.js
-const path = require('path');
-
 // Require plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');

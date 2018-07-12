@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { shallow } from 'enzyme';
+
 import { dummyTranslatorProps, dummyRouterMatchProps } from 'config/tests';
 
 import { PureEditorPage } from '../EditorPage';

@@ -1,19 +1,16 @@
 // @flow
 
 import _ from 'lodash';
+import type { RouterHistory } from 'react-router-dom';
+
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
-
 import contentItems from 'modules/contentItems';
-
 import type { Identifier } from 'types/model';
-import type { RouterHistory } from 'react-router-dom';
-import type { Topic } from './model';
 
 import * as t from './actionTypes';
 import { generateId } from './model';
-
-const { ContentItem } = contentItems.model;
+import type { Topic } from './model';
 
 // Reducer actions
 export const addToState = (
@@ -211,7 +208,6 @@ export const apiDelete = (
   };
 };
 
-
 export const apiGetAllByUserId = (
   userId: Identifier,
 ): t.ApiGetAllTopicsByUserIdAction => {
@@ -251,7 +247,7 @@ export const apiPost = (
 
 export const apiPatchContent = (
   id: Identifier,
-  content: Array<ContentItem>,
+  content: Array<contentItems.model.ContentItem>,
 ): t.ApiPatchTopicContentAction => {
   return {
     type: t.API_PATCH_CONTENT,

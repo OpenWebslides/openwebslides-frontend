@@ -3,8 +3,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 import { Dimmer, Loader } from 'semantic-ui-react';
+
+import type { CustomTranslatorProps } from 'types/translator';
 import type { State } from 'types/state';
 
 import { isPending } from '../selectors';
@@ -21,9 +22,10 @@ type StateProps = {
 type Props = CustomTranslatorProps & PassedProps & StateProps;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  const { request } = props;
   let active: boolean = false;
 
-  [].concat(props.request).forEach((req: string): void => {
+  [].concat(request).forEach((req: string): void => {
     active = active || isPending(state, { request: req });
   });
 

@@ -1,23 +1,10 @@
 // @flow
+/* eslint-disable no-multiple-empty-lines */
 
 import type { Identifier } from 'types/model';
 
-import * as contentItemTypes from './contentItemTypes';
+import * as types from './contentItemTypes';
 import * as metadata from './metadata';
-
-const {
-  contentItemTypes: types,
-  ContentItemType,
-  SymbolContentItemType,
-  PlainTextContentItemType,
-  MediaContentItemType,
-  TaggableContentItemType,
-  SubableContentItemType,
-  ContainerContentItemType,
-} = contentItemTypes;
-const {
-  Metadata,
-} = metadata;
 
 
 // BASE --------------------------------------------------------------------------------------------
@@ -27,7 +14,7 @@ export type BaseContentItem = {
   // Unique identifier for the contentItem.
   +id: Identifier,
   // Type of the contentItem.
-  +type: ContentItemType,
+  +type: types.ContentItemType,
   // TRUE if the contentItem is currently being edited, FALSE if not.
   // Has consequences for validation - e.g. empty text is ok while editing, but not otherwise.
   +isEditing: boolean,
@@ -45,7 +32,7 @@ export const editablePropsForBaseContentItem = [
 export type SymbolContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to symbolContentItemTypes.
-  +type: SymbolContentItemType,
+  +type: types.SymbolContentItemType,
 };
 
 // List of 'symbol' contentItem props that can be edited through propsForType.
@@ -60,7 +47,7 @@ export const editablePropsForSymbolContentItem = [
 export type PlainTextContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to plainTextContentItemTypes.
-  +type: PlainTextContentItemType,
+  +type: types.PlainTextContentItemType,
   // The text content of the contentItem.
   // May contain markdown to create emphasized / linked elements.
   +text: string,
@@ -79,7 +66,7 @@ export const editablePropsForPlainTextContentItem = [
 export type MediaContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to mediaContentItemTypes.
-  +type: MediaContentItemType,
+  +type: types.MediaContentItemType,
   // The source url of the media.
   +src: string,
   // The alt text in case the media doesn't load.
@@ -100,9 +87,9 @@ export const editablePropsForMediaContentItem = [
 export type TaggableContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to taggableContentItemTypes.
-  +type: TaggableContentItemType,
+  +type: types.TaggableContentItemType,
   // ContentItem metadata.
-  +metadata: Metadata,
+  +metadata: metadata.Metadata,
 };
 
 // List of 'taggable' contentItem props that can be edited through propsForType.
@@ -117,7 +104,7 @@ export const editablePropsForTaggableContentItem = [
 export type SubableContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to subableContentItemTypes.
-  +type: SubableContentItemType,
+  +type: types.SubableContentItemType,
   // Ids of contentItems directly nested under this contentItem.
   +subItemIds: Array<Identifier>,
 };
@@ -126,7 +113,7 @@ export type SubableContentItem = {
 export type DenormalizedSubableContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to subableContentItemTypes.
-  +type: SubableContentItemType,
+  +type: types.SubableContentItemType,
   // ContentItems directly nested under this contentItem.
   // eslint-disable-next-line no-use-before-define
   +subItems: Array<DenormalizedContentItem>,
@@ -144,7 +131,7 @@ export const editablePropsForSubableContentItem = [
 export type ContainerContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to containerContentItemTypes.
-  +type: ContainerContentItemType,
+  +type: types.ContainerContentItemType,
   // Ids of contentItems that are direct children of this container.
   +childItemIds: Array<Identifier>,
 };
@@ -153,7 +140,7 @@ export type ContainerContentItem = {
 export type DenormalizedContainerContentItem = {
   ...$Exact<BaseContentItem>,
   // Limit contentItem type to containerContentItemTypes.
-  +type: ContainerContentItemType,
+  +type: types.ContainerContentItemType,
   // ContentItems that are direct children of this container.
   // eslint-disable-next-line no-use-before-define
   +childItems: Array<DenormalizedContentItem>,
@@ -170,7 +157,7 @@ export const editablePropsForContainerContentItem = [
 // Additional props for ROOT contentItems.
 export type RootContentItemProps = {
   // Limit contentItem type to ROOT.
-  +type: typeof types.ROOT,
+  +type: typeof types.contentItemTypes.ROOT,
   // Custom ROOT props go here.
 };
 
@@ -200,7 +187,7 @@ export const editablePropsForRootContentItem = [
 // Additional props for HEADING contentItems.
 export type HeadingContentItemProps = {
   // Limit contentItem type to HEADING.
-  +type: typeof types.HEADING,
+  +type: typeof types.contentItemTypes.HEADING,
   // Custom HEADING props go here.
 };
 
@@ -233,7 +220,7 @@ export const editablePropsForHeadingContentItem = [
 // Additional props for PARAGRAPH contentItems.
 export type ParagraphContentItemProps = {
   // Limit contentItem type to PARAGRAPH.
-  +type: typeof types.PARAGRAPH,
+  +type: typeof types.contentItemTypes.PARAGRAPH,
   // Custom PARAGRAPH props go here.
 };
 
@@ -266,7 +253,7 @@ export const editablePropsForParagraphContentItem = [
 // Additional props for LIST contentItems.
 export type ListContentItemProps = {
   // Limit contentItem type to LIST.
-  +type: typeof types.LIST,
+  +type: typeof types.contentItemTypes.LIST,
   // TRUE if the list contains ordered items, FALSE if not.
   +ordered: boolean,
 };
@@ -300,7 +287,7 @@ export const editablePropsForListContentItem = [
 // Additional props for LIST_ITEM contentItems.
 export type ListItemContentItemProps = {
   // Limit contentItem type to LIST_ITEM.
-  +type: typeof types.LIST_ITEM,
+  +type: typeof types.contentItemTypes.LIST_ITEM,
   // Custom LIST_ITEM props go here.
 };
 
@@ -330,7 +317,7 @@ export const editablePropsForListItemContentItem = [
 // Additional props for BLOCKQUOTE contentItems.
 export type BlockquoteContentItemProps = {
   // Limit contentItem type to BLOCKQUOTE.
-  +type: typeof types.BLOCKQUOTE,
+  +type: typeof types.contentItemTypes.BLOCKQUOTE,
   // The person / organisation / etc. that is the source of the quote.
   +cite: string,
   // The url to the source of the quote.
@@ -366,7 +353,7 @@ export const editablePropsForBlockquoteContentItem = [
 // Additional props for CODE contentItems.
 export type CodeContentItemProps = {
   // Limit contentItem type to CODE.
-  +type: typeof types.CODE,
+  +type: typeof types.contentItemTypes.CODE,
   // The language (e.g. JavaScript, JSON, ...) that the code is written in.
   +language: string,
 };
@@ -400,7 +387,7 @@ export const editablePropsForCodeContentItem = [
 // Additional props for IMAGE contentItems.
 export type ImageContentItemProps = {
   // Limit contentItem type to IMAGE.
-  +type: typeof types.IMAGE,
+  +type: typeof types.contentItemTypes.IMAGE,
   // Custom IMAGE props go here.
 };
 
@@ -433,7 +420,7 @@ export const editablePropsForImageContentItem = [
 // Additional props for VIDEO contentItems.
 export type VideoContentItemProps = {
   // Limit contentItem type to VIDEO.
-  +type: typeof types.VIDEO,
+  +type: typeof types.contentItemTypes.VIDEO,
   // Custom VIDEO props go here.
 };
 
@@ -466,7 +453,7 @@ export const editablePropsForVideoContentItem = [
 // Additional props for AUDIO contentItems.
 export type AudioContentItemProps = {
   // Limit contentItem type to AUDIO,
-  +type: typeof types.AUDIO,
+  +type: typeof types.contentItemTypes.AUDIO,
   // Custom AUDIO props go here.
 };
 
@@ -499,7 +486,7 @@ export const editablePropsForAudioContentItem = [
 // Additional props for IFRAME contentItems.
 export type IframeContentItemProps = {
   // Limit contentItem type to IFRAME.
-  +type: typeof types.IFRAME,
+  +type: typeof types.contentItemTypes.IFRAME,
   // Custom IFRAME props go here.
 };
 
@@ -532,7 +519,7 @@ export const editablePropsForIframeContentItem = [
 // Additional props for SLIDE_BREAK contentItems.
 export type SlideBreakContentItemProps = {
   // Limit contentItem type to SLIDE_BREAK.
-  +type: typeof types.SLIDE_BREAK,
+  +type: typeof types.contentItemTypes.SLIDE_BREAK,
   // Custom SLIDE_BREAK props go here.
 };
 
@@ -559,7 +546,7 @@ export const editablePropsForSlideBreakContentItem = [
 // Additional props for COURSE_BREAK contentItems.
 export type CourseBreakContentItemProps = {
   // Limit contentItem type to COURSE_BREAK.
-  +type: typeof types.COURSE_BREAK,
+  +type: typeof types.contentItemTypes.COURSE_BREAK,
   // Custom COURSE_BREAK props go here.
 };
 
@@ -617,19 +604,19 @@ export type DenormalizedContentItem =
 
 // Map contentItemTypes to their editable props lists.
 export const editablePropsForType = {
-  [types.ROOT]: editablePropsForRootContentItem,
-  [types.HEADING]: editablePropsForHeadingContentItem,
-  [types.PARAGRAPH]: editablePropsForParagraphContentItem,
-  [types.LIST]: editablePropsForListContentItem,
-  [types.LIST_ITEM]: editablePropsForListItemContentItem,
-  [types.BLOCKQUOTE]: editablePropsForBlockquoteContentItem,
-  [types.CODE]: editablePropsForCodeContentItem,
-  [types.IMAGE]: editablePropsForImageContentItem,
-  [types.VIDEO]: editablePropsForVideoContentItem,
-  [types.AUDIO]: editablePropsForAudioContentItem,
-  [types.IFRAME]: editablePropsForIframeContentItem,
-  [types.SLIDE_BREAK]: editablePropsForSlideBreakContentItem,
-  [types.COURSE_BREAK]: editablePropsForCourseBreakContentItem,
+  [types.contentItemTypes.ROOT]: editablePropsForRootContentItem,
+  [types.contentItemTypes.HEADING]: editablePropsForHeadingContentItem,
+  [types.contentItemTypes.PARAGRAPH]: editablePropsForParagraphContentItem,
+  [types.contentItemTypes.LIST]: editablePropsForListContentItem,
+  [types.contentItemTypes.LIST_ITEM]: editablePropsForListItemContentItem,
+  [types.contentItemTypes.BLOCKQUOTE]: editablePropsForBlockquoteContentItem,
+  [types.contentItemTypes.CODE]: editablePropsForCodeContentItem,
+  [types.contentItemTypes.IMAGE]: editablePropsForImageContentItem,
+  [types.contentItemTypes.VIDEO]: editablePropsForVideoContentItem,
+  [types.contentItemTypes.AUDIO]: editablePropsForAudioContentItem,
+  [types.contentItemTypes.IFRAME]: editablePropsForIframeContentItem,
+  [types.contentItemTypes.SLIDE_BREAK]: editablePropsForSlideBreakContentItem,
+  [types.contentItemTypes.COURSE_BREAK]: editablePropsForCourseBreakContentItem,
 };
 
 // Type object containing all possible props for all possible types.
@@ -648,7 +635,7 @@ export type AllPropsForAllTypes = {
   ...$Exact<SlideBreakContentItem>,
   ...$Exact<CourseBreakContentItem>,
   // Reset this to the generic contentItemType
-  +type: ContentItemType,
+  +type: types.ContentItemType,
 };
 
 

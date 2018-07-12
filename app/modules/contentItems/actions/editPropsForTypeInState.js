@@ -1,6 +1,7 @@
 // @flow
 
 import _ from 'lodash';
+
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
 import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';

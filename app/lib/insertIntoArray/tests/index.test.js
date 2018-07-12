@@ -1,6 +1,7 @@
 // @flow
 
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+
 import insertIntoArray from '..';
 
 describe(`insertIntoArray`, (): void => {

@@ -2,15 +2,13 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
+
 import type { CustomTranslatorProps } from 'types/translator';
-
 import contentItems from 'modules/contentItems';
-
-const { DenormalizedRootContentItem } = contentItems.model;
 
 type PassedProps = {
   // A denormalized ROOT content item containing the content to be displayed on this slide.
-  contentItem: DenormalizedRootContentItem,
+  contentItem: contentItems.model.DenormalizedRootContentItem,
   // The heading level of the top level headings on the slide. Defaults to 1.
   rootHeadingLevel: number,
 };

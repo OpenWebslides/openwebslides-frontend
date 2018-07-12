@@ -3,7 +3,6 @@
 import { API_URL } from 'config/api';
 
 import { MEDIA_TYPE } from './constants';
-
 import asyncFetch from './asyncFetch';
 import type {
   Request,
@@ -11,7 +10,6 @@ import type {
   MethodType,
   Token,
 } from './model';
-
 import { methodTypes } from './model';
 
 const ApiRequest = (): Request => {

@@ -2,15 +2,14 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
 import { Link, Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 
+import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
 
 import Page from '../Page';
-
 
 type RouteProps = {
   match: Match,
@@ -18,13 +17,10 @@ type RouteProps = {
 
 type Props = CustomTranslatorProps & RouteProps;
 
-
 const TopicEditor = topics.components.Editor;
 
 const PureTopicEditorForId = (props: Props): React.Node => {
-  const {
-    match,
-  } = props;
+  const { match } = props;
 
   const topicId = match.params.id;
   if (topicId == null) { // Null check necessary for flow
@@ -44,7 +40,6 @@ const PureTopicEditorForId = (props: Props): React.Node => {
 
 const TopicEditorForId = PureTopicEditorForId;
 
-
 const DummyContent = (props: RouteProps): React.Node => {
   const { match } = props;
 
@@ -60,10 +55,13 @@ const DummyContent = (props: RouteProps): React.Node => {
 };
 
 const PureEditorPage = (props: RouteProps): React.Node => {
+  const { match } = props;
+
   return (
+    // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
     <Page needsAuth={true} needsSidebar={true}>
       <Switch>
-        <Route path={`${props.match.url}/:id`} component={TopicEditorForId} />
+        <Route path={`${match.url}/:id`} component={TopicEditorForId} />
         <Route component={DummyContent} />
       </Switch>
     </Page>

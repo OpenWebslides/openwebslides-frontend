@@ -2,9 +2,8 @@
 
 import type { Identifier } from 'types/model';
 
-import type { User } from './model';
-
 import * as t from './actionTypes';
+import type { User } from './model';
 
 // Reducer actions
 export const addToState = (

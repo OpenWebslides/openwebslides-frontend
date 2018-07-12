@@ -1,11 +1,10 @@
 // @flow
 
-import { CONFIRMATION_ENDPOINT } from './constants';
-
 import { methodTypes } from '../model';
 import type { Response } from '../model';
-
 import ApiRequest from '../ApiRequest';
+
+import { CONFIRMATION_ENDPOINT } from './constants';
 
 const post = (
   email: string,

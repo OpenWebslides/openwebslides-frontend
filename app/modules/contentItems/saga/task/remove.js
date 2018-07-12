@@ -7,16 +7,9 @@ import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
 import actions from '../../actions';
-import * as model from '../../model';
+import * as m from '../../model';
 import selectors from '../../selectors';
 import find from '../../lib/find';
-
-const {
-  contentItemTypes,
-  contextTypes,
-  HeadingContentItem,
-  VerticalContext,
-} = model;
 
 const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
   const { id } = action.payload;
@@ -25,17 +18,17 @@ const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
   if (contentItemToRemove == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
 
   // If the contentItemToRemove is a HEADING
-  if (contentItemToRemove.type === contentItemTypes.HEADING) {
+  if (contentItemToRemove.type === m.contentItemTypes.HEADING) {
     const contentItemsById = yield select(selectors.getAllById);
     const previousSiblingItem = find.previousSiblingItem(contentItemToRemove, contentItemsById);
-    let moveContext: VerticalContext;
+    let moveContext: m.VerticalContext;
 
     // Move its subItems to either the end of the previous HEADING, if there is one
-    if (previousSiblingItem != null && previousSiblingItem.type === contentItemTypes.HEADING) {
-      const subItemsCount = ((previousSiblingItem: any): HeadingContentItem).subItemIds.length;
+    if (previousSiblingItem != null && previousSiblingItem.type === m.contentItemTypes.HEADING) {
+      const subItemsCount = ((previousSiblingItem: any): m.HeadingContentItem).subItemIds.length;
 
       moveContext = {
-        contextType: contextTypes.SUPER,
+        contextType: m.contextTypes.SUPER,
         contextItemId: previousSiblingItem.id,
         indexInSiblingItems: subItemsCount,
       };

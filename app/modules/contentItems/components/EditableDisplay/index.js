@@ -3,27 +3,23 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
+
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
 import actions from '../../actions';
-import * as model from '../../model';
+import * as m from '../../model';
 import selectors from '../../selectors';
-import typesToComponentsMap from './helpers/typesToComponentsMap';
 
-const {
-  contentItemTypes,
-  contextTypes,
-  ContentItem,
-} = model;
+import typesToComponentsMap from './helpers/typesToComponentsMap';
 
 type PassedProps = {
   contentItemId: Identifier,
 };
 
 type StateProps = {
-  contentItem: ContentItem,
+  contentItem: m.ContentItem,
 };
 
 type DispatchProps = {
@@ -51,7 +47,8 @@ const passThroughProps = [
 ];
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const contentItem = selectors.getById(state, { id: props.contentItemId });
+  const { contentItemId } = props;
+  const contentItem = selectors.getById(state, { id: contentItemId });
 
   if (contentItem == null) {
     throw new ObjectNotFoundError('contentItems:contentItem', props.contentItemId);
@@ -76,9 +73,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
     onAddEmptySubItem: (id: Identifier): void => {
       dispatch(actions.toggleEditing(id, false));
       dispatch(actions.add(
-        contentItemTypes.PARAGRAPH,
+        m.contentItemTypes.PARAGRAPH,
         {
-          contextType: contextTypes.SUPER,
+          contextType: m.contextTypes.SUPER,
           contextItemId: id,
           indexInSiblingItems: 0,
         },
@@ -88,9 +85,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
     onAddEmptySiblingItemBelow: (id: Identifier): void => {
       dispatch(actions.toggleEditing(id, false));
       dispatch(actions.add(
-        contentItemTypes.PARAGRAPH,
+        m.contentItemTypes.PARAGRAPH,
         {
-          contextType: contextTypes.SIBLING,
+          contextType: m.contextTypes.SIBLING,
           contextItemId: id,
           indexInSiblingItemsShift: 0,
         },

@@ -4,27 +4,20 @@ import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedI
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
-import * as model from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+import * as m from '../../../model';
+import * as dummyData from '../../testResources/dummyContentItemData';
 
 import edit from '..';
 
-const {
-  contextTypes,
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-} = model;
-
 describe(`validateChildOrSubItemsInContext`, (): void => {
 
-  let dummyParagraph4: $Exact<ParagraphContentItem>;
-  let dummyParagraph3: $Exact<ParagraphContentItem>;
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph2: $Exact<ParagraphContentItem>;
-  let dummyParagraph1: $Exact<ParagraphContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
+  let dummyParagraph4: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph3: $Exact<m.ParagraphContentItem>;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyParagraph2: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph1: $Exact<m.ParagraphContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
 
   beforeEach((): void => {
     dummyParagraph4 = { ...dummyData.paragraphContentItem4 };
@@ -38,7 +31,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
 
   it(`doesn't throw any error, when the contextType is SUPER and the subItems don't contain any irregularities`, (): void => {
     const dummyContext = {
-      contextType: contextTypes.SUPER,
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
     };
     const dummyContentItemsById = {
@@ -58,7 +51,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
 
   it(`doesn't throw any error, when the contextType is PARENT and the childItems don't contain any irregularities`, (): void => {
     const dummyContext = {
-      contextType: contextTypes.PARENT,
+      contextType: m.contextTypes.PARENT,
       contextItemId: dummyRoot.id,
     };
     const dummyContentItemsById = {
@@ -78,7 +71,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
 
   it(`throws an CorruptedInternalStateError, when the contextType is SUPER and the list of subItems contains a HEADING followed by a non-HEADING`, (): void => {
     const dummyContext = {
-      contextType: contextTypes.SUPER,
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
     };
     const dummyContentItemsById = {
@@ -98,7 +91,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
 
   it(`throws an CorruptedInternalStateError, when the contextType is PARENT and the list of childItems contains a HEADING followed by a non-HEADING`, (): void => {
     const dummyContext = {
-      contextType: contextTypes.PARENT,
+      contextType: m.contextTypes.PARENT,
       contextItemId: dummyRoot.id,
     };
     const dummyContentItemsById = {
@@ -118,7 +111,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
 
   it(`throws a CorruptedInternalStateError, when the passed contentItemsById object contains inconsistencies`, (): void => {
     const dummyContext = {
-      contextType: contextTypes.SUPER,
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
     };
     const dummyContentItemsById = {
@@ -138,7 +131,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed contextItemId could not be found`, (): void => {
     const dummyContext = {
-      contextType: contextTypes.PARENT,
+      contextType: m.contextTypes.PARENT,
       contextItemId: 'DefinitelyNotValidId',
     };
     const dummyContentItemsById = {
@@ -158,7 +151,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
 
   it(`throws an InvalidArgumentError, when the contextType is SUPER and the passed contentItem is not a subableContentItem`, (): void => {
     const dummyContext = {
-      contextType: contextTypes.SUPER,
+      contextType: m.contextTypes.SUPER,
       contextItemId: dummyRoot.id,
     };
     const dummyContentItemsById = {
@@ -178,7 +171,7 @@ describe(`validateChildOrSubItemsInContext`, (): void => {
 
   it(`throws an InvalidArgumentError, when the contextType is PARENT and the passed contentItem is not a containerContentItem`, (): void => {
     const dummyContext = {
-      contextType: contextTypes.PARENT,
+      contextType: m.contextTypes.PARENT,
       contextItemId: dummyHeading1.id,
     };
     const dummyContentItemsById = {

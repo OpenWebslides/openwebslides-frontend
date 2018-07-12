@@ -2,15 +2,14 @@
 
 import _ from 'lodash';
 import { expectSaga } from 'redux-saga-test-plan';
+
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../../actionTypes';
-import * as model from '../../model';
+import * as m from '../../model';
 import * as dummyData from '../../lib/testResources/dummyContentItemData';
 
 import toggleEditingSaga from './toggleEditing';
-
-const { editablePropsForType } = model;
 
 describe(`toggleEditingSaga`, (): void => {
 
@@ -148,7 +147,7 @@ describe(`toggleEditingSaga`, (): void => {
           type: t.EDIT,
           payload: {
             id: dummyData.headingContentItem.id,
-            propsForType: _.pick(dummyData.headingContentItem, editablePropsForType[dummyData.headingContentItem.type]),
+            propsForType: _.pick(dummyData.headingContentItem, m.editablePropsForType[dummyData.headingContentItem.type]),
           },
         },
       })

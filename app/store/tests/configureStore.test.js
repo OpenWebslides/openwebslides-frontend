@@ -18,6 +18,7 @@ describe(`configureStore`, (): void => {
       },
     };
     const configuredStore = configureStore();
+    // $FlowFixMe Google search returned multiple possible bugs but nothing concrete #TODO re-google
     const rootReducerStore = createStore(rootReducer, persistedState);
     expect(configuredStore.getState()).toEqual(rootReducerStore.getState());
   });

@@ -2,17 +2,17 @@
 
 import _ from 'lodash';
 import * as React from 'react';
+
 import type { Identifier } from 'types/model';
 import EditableTextContent from 'core-components/EditableTextContent';
 
-import * as model from '../../../model';
+import * as m from '../../../model';
 import TypeBlockWrapper from '../helpers/TypeBlockWrapper';
+
 import { passThroughProps } from '..';
 
-const { HeadingContentItem } = model;
-
 type PassedProps = {
-  contentItem: HeadingContentItem,
+  contentItem: m.HeadingContentItem,
   onStartEditing: (id: Identifier) => void,
   onEndEditing: (id: Identifier) => void,
   onEditPlainText: (id: Identifier, text: string) => void,
@@ -26,33 +26,44 @@ type Props = PassedProps;
 
 class PureHeading extends React.Component<Props> {
   onEditableTextContentActivate = (): void => {
-    this.props.onStartEditing(this.props.contentItem.id);
+    const { contentItem, onStartEditing } = this.props;
+    onStartEditing(contentItem.id);
   };
 
   onEditableTextContentDeactivate = (): void => {
-    this.props.onEndEditing(this.props.contentItem.id);
+    const { contentItem, onEndEditing } = this.props;
+    onEndEditing(contentItem.id);
   };
 
   onEditableTextContentInput = (text: string): void => {
-    this.props.onEditPlainText(this.props.contentItem.id, text);
+    const { contentItem, onEditPlainText } = this.props;
+    onEditPlainText(contentItem.id, text);
   };
 
   onEditableTextContentKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
+    const {
+      contentItem,
+      onAddEmptySubItem,
+      onRemove,
+      onIndent,
+      onReverseIndent,
+    } = this.props;
+
     if (event.key === 'Enter') {
       event.preventDefault();
-      this.props.onAddEmptySubItem(this.props.contentItem.id);
+      onAddEmptySubItem(contentItem.id);
     }
-    else if (event.key === 'Backspace' && this.props.contentItem.text === '') {
+    else if (event.key === 'Backspace' && contentItem.text === '') {
       event.preventDefault();
-      this.props.onRemove(this.props.contentItem.id);
+      onRemove(contentItem.id);
     }
     else if (event.key === 'ArrowRight' && event.ctrlKey === true) {
       event.preventDefault();
-      this.props.onIndent(this.props.contentItem.id);
+      onIndent(contentItem.id);
     }
     else if (event.key === 'ArrowLeft' && event.ctrlKey === true) {
       event.preventDefault();
-      this.props.onReverseIndent(this.props.contentItem.id);
+      onReverseIndent(contentItem.id);
     }
   };
 

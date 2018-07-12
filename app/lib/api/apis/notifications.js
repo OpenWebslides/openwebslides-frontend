@@ -1,11 +1,10 @@
 // @flow
 
-import { NOTIFICATIONS_ENDPOINT } from './constants';
-
 import { methodTypes } from '../model';
 import type { Response } from '../model';
-
 import ApiRequest from '../ApiRequest';
+
+import { NOTIFICATIONS_ENDPOINT } from './constants';
 
 const getAll = async (): Promise<Response> => {
   const request = new ApiRequest();

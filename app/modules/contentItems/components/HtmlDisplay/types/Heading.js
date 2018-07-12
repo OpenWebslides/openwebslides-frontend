@@ -1,14 +1,13 @@
 // @flow
 
 import * as React from 'react';
+
 import InlineMarkdown from 'core-components/inline-markdown';
 
-import * as model from '../../../model';
-
-const { DenormalizedHeadingContentItem } = model;
+import * as m from '../../../model';
 
 type PassedProps = {
-  contentItem: DenormalizedHeadingContentItem,
+  contentItem: m.DenormalizedHeadingContentItem,
   children?: React.Node,
   headingLevel: number,
 };

@@ -3,32 +3,26 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import * as model from '../../model';
+import * as m from '../../model';
 import * as dummyData from '../../lib/testResources/dummyContentItemData';
 
 import { PureHtmlDisplay } from '.';
 
-const {
-  DenormalizedRootContentItem,
-  DenormalizedHeadingContentItem,
-  DenormalizedParagraphContentItem,
-} = model;
-
 describe(`HtmlDisplay`, (): void => {
 
-  let dummyParagraph22: DenormalizedParagraphContentItem;
-  let dummyParagraph21: DenormalizedParagraphContentItem;
-  let dummyHeading2: DenormalizedHeadingContentItem;
-  let dummyParagraph122: DenormalizedParagraphContentItem;
-  let dummyParagraph121: DenormalizedParagraphContentItem;
-  let dummyHeading12: DenormalizedHeadingContentItem;
-  let dummyParagraph1122: DenormalizedParagraphContentItem;
-  let dummyParagraph1121: DenormalizedParagraphContentItem;
-  let dummyParagraph112: DenormalizedParagraphContentItem;
-  let dummyParagraph111: DenormalizedParagraphContentItem;
-  let dummyHeading11: DenormalizedHeadingContentItem;
-  let dummyHeading1: DenormalizedHeadingContentItem;
-  let dummyRoot: DenormalizedRootContentItem;
+  let dummyParagraph22: m.DenormalizedParagraphContentItem;
+  let dummyParagraph21: m.DenormalizedParagraphContentItem;
+  let dummyHeading2: m.DenormalizedHeadingContentItem;
+  let dummyParagraph122: m.DenormalizedParagraphContentItem;
+  let dummyParagraph121: m.DenormalizedParagraphContentItem;
+  let dummyHeading12: m.DenormalizedHeadingContentItem;
+  let dummyParagraph1122: m.DenormalizedParagraphContentItem;
+  let dummyParagraph1121: m.DenormalizedParagraphContentItem;
+  let dummyParagraph112: m.DenormalizedParagraphContentItem;
+  let dummyParagraph111: m.DenormalizedParagraphContentItem;
+  let dummyHeading11: m.DenormalizedHeadingContentItem;
+  let dummyHeading1: m.DenormalizedHeadingContentItem;
+  let dummyRoot: m.DenormalizedRootContentItem;
 
   beforeEach((): void => {
     dummyParagraph22 = { ...dummyData.paragraphContentItem8, subItems: [] };

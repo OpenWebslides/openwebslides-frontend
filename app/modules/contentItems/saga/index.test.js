@@ -2,9 +2,10 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import saga from '.';
 import apiSaga from './api';
 import taskSaga from './task';
+
+import saga from '.';
 
 describe(`saga`, (): void => {
 

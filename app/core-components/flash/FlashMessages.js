@@ -7,7 +7,6 @@ import { Message } from 'semantic-ui-react';
 import { getLatestMessage } from 'redux-flash';
 
 import type { CustomTranslatorProps } from 'types/translator';
-
 import type { State } from 'types/state';
 
 import type { Flash } from './model';

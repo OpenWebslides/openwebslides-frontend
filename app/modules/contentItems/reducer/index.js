@@ -1,7 +1,7 @@
 // @flow
 
 import * as t from '../actionTypes';
-import * as model from '../model';
+import * as m from '../model';
 import { dummyContentItemsById } from '../dummyData';
 
 import addToState from './addToState';
@@ -11,16 +11,14 @@ import moveInState from './moveInState';
 import removeFromState from './removeFromState';
 import setMultipleInState from './setMultipleInState';
 
-const { ContentItemsState } = model;
-
-const initialState: ContentItemsState = {
+const initialState: m.ContentItemsState = {
   byId: dummyContentItemsById,
 };
 
 const reducer = (
-  state: ContentItemsState = initialState,
+  state: m.ContentItemsState = initialState,
   action: t.ReducerAction,
-): ContentItemsState => {
+): m.ContentItemsState => {
   switch (action.type) {
     case t.ADD_TO_STATE:
       return addToState(state, action);

@@ -2,11 +2,10 @@
 
 import * as React from 'react';
 import { translate } from 'react-i18next';
-import type { CustomTranslatorProps } from 'types/translator';
-
 import { Button, Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
+import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
 
 import Page from '../Page';
@@ -21,6 +20,7 @@ const PureLibraryPage = (props: Props): React.Node => {
   } = props;
 
   return (
+    // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
     <Page needsAuth={true}>
       <Grid>
         <Grid.Row>
@@ -49,4 +49,3 @@ const LibraryPage = translate()(PureLibraryPage);
 
 export { PureLibraryPage };
 export default LibraryPage;
-

@@ -2,16 +2,16 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import type { Identifier } from 'types/model';
 import { Card } from 'semantic-ui-react';
+
+import type { Identifier } from 'types/model';
 import type { State } from 'types/state';
-
 import authentication from 'modules/authentication';
-
-import TopicCard from './TopicCard';
 
 import { getAllTopicIdsByUserId } from '../selectors';
 import { getAllByUserId } from '../actions';
+
+import TopicCard from './TopicCard';
 
 const { getAccount } = authentication.selectors;
 
@@ -48,8 +48,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
 
 class PureCardCollection extends React.Component<Props, State> {
   componentDidMount = (): void => {
-    this.props.handleRequestTopics(this.props.userId);
-  }
+    const { userId, handleRequestTopics } = this.props;
+    handleRequestTopics(userId);
+  };
 
   render = (): React.Node => {
     const {

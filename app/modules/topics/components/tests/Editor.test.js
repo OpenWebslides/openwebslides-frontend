@@ -2,13 +2,11 @@
 
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { dummyTranslatorProps } from 'config/tests';
 
+import { dummyTranslatorProps } from 'config/tests';
 import contentItems from 'modules/contentItems';
 
 import { PureEditor } from '../Editor';
-
-const { contentItemTypes, DenormalizedRootContentItem } = contentItems.model;
 
 describe(`Editor`, (): void => {
 
@@ -20,9 +18,9 @@ describe(`Editor`, (): void => {
       description: '',
       rootContentItemId: 'abcdefghij',
     };
-    const dummyDenormalizedContentItem: $Exact<DenormalizedRootContentItem> = {
+    const dummyDenormalizedContentItem: $Exact<contentItems.model.DenormalizedRootContentItem> = {
       id: 'abcdefghij',
-      type: contentItemTypes.ROOT,
+      type: contentItems.model.contentItemTypes.ROOT,
       isEditing: false,
       childItems: [],
     };

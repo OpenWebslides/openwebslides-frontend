@@ -1,28 +1,20 @@
 // @flow
 
-import * as model from '../model';
+import * as m from '../model';
 import * as dummyData from '../lib/testResources/dummyContentItemData';
 
 import selectors from '.';
 
-const {
-  ContentItem,
-  RootContentItem,
-  HeadingContentItem,
-  ParagraphContentItem,
-  ContentItemsById,
-} = model;
-
 describe(`getSelfAndAllDescendantsById`, (): void => {
 
-  let dummyParagraph22: $Exact<ParagraphContentItem>;
-  let dummyParagraph21: $Exact<ParagraphContentItem>;
-  let dummyHeading2: $Exact<HeadingContentItem>;
-  let dummyParagraph12: $Exact<ParagraphContentItem>;
-  let dummyParagraph11: $Exact<ParagraphContentItem>;
-  let dummyHeading1: $Exact<HeadingContentItem>;
-  let dummyRoot: $Exact<RootContentItem>;
-  let dummyContentItemsById: $Exact<ContentItemsById>;
+  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
+  let dummyHeading2: $Exact<m.HeadingContentItem>;
+  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
+  let dummyHeading1: $Exact<m.HeadingContentItem>;
+  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyContentItemsById: $Exact<m.ContentItemsById>;
   let dummyState: any;
 
   beforeEach((): void => {
@@ -53,7 +45,7 @@ describe(`getSelfAndAllDescendantsById`, (): void => {
 
   it(`returns an array containing the contentItem itself and all its descendants, when the given id is valid`, (): void => {
     const contentItemDescendants = selectors.getSelfAndAllDescendantsById(dummyState, { id: dummyRoot.id });
-    const expectedResult: Array<ContentItem> = [
+    const expectedResult: Array<m.ContentItem> = [
       dummyRoot,
       dummyHeading1,
       dummyParagraph11,
@@ -68,7 +60,7 @@ describe(`getSelfAndAllDescendantsById`, (): void => {
 
   it(`returns an array containing only the contentItem, when the contentItem doesn't have any descendants`, (): void => {
     const contentItemDescendants = selectors.getSelfAndAllDescendantsById(dummyState, { id: dummyParagraph11.id });
-    const expectedResult: Array<ContentItem> = [dummyParagraph11];
+    const expectedResult: Array<m.ContentItem> = [dummyParagraph11];
     expect(contentItemDescendants).toEqual(expectedResult);
   });
 

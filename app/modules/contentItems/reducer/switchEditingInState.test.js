@@ -4,17 +4,15 @@ import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedO
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import * as t from '../actionTypes';
-import * as model from '../model';
+import * as m from '../model';
 import * as dummyData from '../lib/testResources/dummyContentItemData';
 
 import reducer from '.';
 
-const { ContentItemsState } = model;
-
 describe(`switchEditingInState`, (): void => {
 
   it(`sets the previousEditingItem's isEditing value to FALSE and the nextEditingItem's isEditing value to TRUE, when both ids are passed`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
@@ -38,7 +36,7 @@ describe(`switchEditingInState`, (): void => {
         nextEditingItemId: dummyData.headingContentItem2.id,
       },
     };
-    const nextState: ContentItemsState = {
+    const nextState: m.ContentItemsState = {
       byId: {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
@@ -65,7 +63,7 @@ describe(`switchEditingInState`, (): void => {
   });
 
   it(`does not change the state object, when neither id is passed`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
@@ -95,7 +93,7 @@ describe(`switchEditingInState`, (): void => {
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed previousEditingItemId could not be found`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
@@ -126,7 +124,7 @@ describe(`switchEditingInState`, (): void => {
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed nextEditingItemId could not be found`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
@@ -157,7 +155,7 @@ describe(`switchEditingInState`, (): void => {
   });
 
   it(`throws an UnsupportedOperationError, when the previousEditingItem's isEditing value was already FALSE`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
@@ -188,7 +186,7 @@ describe(`switchEditingInState`, (): void => {
   });
 
   it(`throws an UnsupportedOperationError, when the nextEditingItem's isEditing value was already TRUE`, (): void => {
-    const prevState: ContentItemsState = {
+    const prevState: m.ContentItemsState = {
       byId: {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
