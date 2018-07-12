@@ -1,12 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 
 import Page from 'core-components/Page';
-import type { CustomTranslatorProps } from 'types/translator';
 
-type Props = CustomTranslatorProps & { /* new props go here */ };
+type Props = TranslatorProps;
 
 const PureNotFoundPage = (props: Props): React.Node => {
   const { t } = props;

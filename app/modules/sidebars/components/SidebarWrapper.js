@@ -17,19 +17,23 @@ import sidebarComponents from './sidebars';
 
 const Sidebar = sidebarComponents.Sidebar;
 
-type DispatchProps = {
-  toggle: (SidebarName) => void,
-};
-
-type PassedProps = {
+type PassedProps = {|
   topicId: Identifier,
-};
+|};
 
-type StateProps = {
+type StateProps = {|
   sidebars: Array<SidebarName>,
-};
+|};
 
-type Props = PassedProps & StateProps & DispatchProps;
+type DispatchProps = {|
+  toggle: (SidebarName) => void,
+|};
+
+type Props = {|
+  ...PassedProps,
+  ...StateProps,
+  ...DispatchProps,
+|};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const sidebars = getAllActiveSidebars(state);

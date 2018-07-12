@@ -1,20 +1,22 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 
-import type { CustomTranslatorProps } from 'types/translator';
 import contentItems from 'modules/contentItems';
 import split from 'lib/content-item-split';
 
 import Slide from './Slide';
 
-type PassedProps = {
+type PassedProps = {|
   // A denormalized ROOT item containing the content to be displayed on this slide.
   contentItemTreeRootItem: contentItems.model.DenormalizedRootContentItem,
-};
+|};
 
-type Props = CustomTranslatorProps & PassedProps;
+type Props = {|
+  ...TranslatorProps,
+  ...PassedProps,
+|};
 
 const PureSlides = (props: Props): React.Node => {
   const { contentItemTreeRootItem } = props;

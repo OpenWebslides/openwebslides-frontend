@@ -2,35 +2,35 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 import { Checkbox, Segment } from 'semantic-ui-react';
 
 import Page from 'core-components/Page';
 // import Color, { TwitterPicker } from 'react-color';
-import type { CustomTranslatorProps } from 'types/translator';
 import type { State } from 'types/state';
 import contentItems from 'modules/contentItems';
 import Slide from 'core-components/slides/Slide';
 import VoicePlayerToggle from 'core-components/slides/VoicePlayerToggle';
 
-type PassedProps = {};
-
-type StateProps = {
+type StateProps = {|
   // Slide takes a denormalized root contentItem instead of a root contentItem id, because in a
   // later stage the contentItem tree passed to the slide needs to be transformed further
   // (for example, by splitting up sections and inserting repeated headers if a section is longer
   // than a single slide) and the contentItem tree can't just be extracted from the state directly.
   contentItemTreeRootItem: contentItems.model.DenormalizedRootContentItem,
-};
+|};
 
-type Props = CustomTranslatorProps & StateProps & PassedProps;
+type Props = {|
+  ...TranslatorProps,
+  ...StateProps,
+|};
 
 type ComponentState = {
   contentToBeRead: string,
   toggle: boolean,
 };
 
-const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+const mapStateToProps = (state: State): StateProps => {
   const contentItemTreeRootItemId = 'qyrgv0bcd6'; // 'w4lg2u0p1h'; // #TODO stub
   const contentItemTreeRootItem = contentItems.selectors.getDenormalizedById(
     state,

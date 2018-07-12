@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps, dummyRouterMatchProps } from 'config/tests';
+import { dummyTranslatorProps, dummyRouterProps } from 'config/tests';
 
 import { PureEditorPage } from '../EditorPage';
 
@@ -13,8 +13,7 @@ describe(`EditorPage`, (): void => {
     const enzymeWrapper = shallow(
       <PureEditorPage
         {...dummyTranslatorProps}
-        {...dummyRouterMatchProps}
-        amountOfSidebars={0}
+        {...dummyRouterProps}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

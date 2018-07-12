@@ -1,20 +1,17 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
-import { Link, Route, Switch } from 'react-router-dom';
-import type { Match } from 'react-router-dom';
+import { translate, type TranslatorProps } from 'react-i18next';
+import { Link, Route, Switch, type ContextRouter as RouterProps } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 
 import Page from 'core-components/Page';
-import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
 
-type RouteProps = {
-  match: Match,
-};
-
-type Props = CustomTranslatorProps & RouteProps;
+type Props = {|
+  ...TranslatorProps,
+  ...RouterProps,
+|};
 
 const TopicEditor = topics.components.Editor;
 
@@ -39,7 +36,7 @@ const PureTopicEditorForId = (props: Props): React.Node => {
 
 const TopicEditorForId = PureTopicEditorForId;
 
-const DummyContent = (props: RouteProps): React.Node => {
+const DummyContent = (props: Props): React.Node => {
   const { match } = props;
 
   return (
@@ -53,7 +50,7 @@ const DummyContent = (props: RouteProps): React.Node => {
   );
 };
 
-const PureEditorPage = (props: RouteProps): React.Node => {
+const PureEditorPage = (props: Props): React.Node => {
   const { match } = props;
 
   return (

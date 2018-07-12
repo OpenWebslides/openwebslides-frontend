@@ -4,34 +4,34 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card, Button, Modal } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import type { CustomTranslatorProps } from 'types/translator';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import { getById } from '../selectors';
 import type { Topic } from '../model';
 import { remove } from '../actions';
 
-type PassedProps = {
+type PassedProps = {|
   topicId: Identifier,
-};
+|};
 
-type StateProps = {
+type StateProps = {|
   topic: Topic,
-};
+|};
 
-type DispatchProps = {
+type DispatchProps = {|
   onRemoveButtonClick: (string) => void,
-};
+|};
 
-type LocalState = {
-  open: boolean,
-};
-
-type Props = CustomTranslatorProps & PassedProps & StateProps & DispatchProps;
+type Props = {|
+  ...TranslatorProps,
+  ...PassedProps,
+  ...StateProps,
+  ...DispatchProps,
+|};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;
@@ -54,6 +54,10 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
       );
     },
   };
+};
+
+type LocalState = {
+  open: boolean,
 };
 
 class PureTopicCard extends React.Component<Props, LocalState> {

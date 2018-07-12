@@ -1,17 +1,16 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 import { Button, Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import Page from 'core-components/Page';
-import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
 
 const { CardCollection } = topics.components;
 
-type Props = CustomTranslatorProps;
+type Props = TranslatorProps;
 
 const PureLibraryPage = (props: Props): React.Node => {
   const {

@@ -4,7 +4,6 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import { dummyTranslatorProps } from 'config/tests';
-import contentItems from 'modules/contentItems';
 
 import { PureEditor } from '../Editor';
 
@@ -18,12 +17,6 @@ describe(`Editor`, (): void => {
       description: '',
       rootContentItemId: 'abcdefghij',
     };
-    const dummyDenormalizedContentItem: $Exact<contentItems.model.DenormalizedRootContentItem> = {
-      id: 'abcdefghij',
-      type: contentItems.model.contentItemTypes.ROOT,
-      isEditing: false,
-      childItems: [],
-    };
     const dummyOnSaveButtonClick = jest.fn();
     const dummyOnLoadButtonClick = jest.fn();
 
@@ -32,7 +25,6 @@ describe(`Editor`, (): void => {
         {...dummyTranslatorProps}
         topicId="abcdefghij"
         topic={dummyTopic}
-        contentItemTreeRootItem={dummyDenormalizedContentItem}
         onSaveButtonClick={dummyOnSaveButtonClick}
         onLoadButtonClick={dummyOnLoadButtonClick}
       />,

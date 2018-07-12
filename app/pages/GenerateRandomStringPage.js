@@ -1,16 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import type { Match } from 'react-router-dom';
+import type { ContextRouter as RouterProps } from 'react-router-dom';
 
 import Page from 'core-components/Page';
 import generateRandomString from 'lib/generate-random-string';
 
-type RouteProps = {
-  match: Match,
-};
-
-type Props = RouteProps & {};
+type Props = RouterProps;
 
 const PureGenerateRandomStringPage = (props: Props): React.Node => {
   const { match } = props;

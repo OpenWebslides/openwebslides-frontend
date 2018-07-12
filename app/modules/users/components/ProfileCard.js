@@ -14,17 +14,20 @@ import { GRAVATAR_SIZE_LARGE } from '../constants';
 
 const { SimpleList } = topics.components;
 
-type PassedProps = {
+type PassedProps = {|
   // TODO: change to identifier once fallback option for
   // erroneous input in /users/:id is implemented
   userId: string,
-};
+|};
 
-type StateProps = {
+type StateProps = {|
   user: User,
-};
+|};
 
-type Props = PassedProps & StateProps;
+type Props = {|
+  ...PassedProps,
+  ...StateProps,
+|};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { userId } = props;

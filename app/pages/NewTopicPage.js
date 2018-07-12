@@ -1,15 +1,14 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 
 import Page from 'core-components/Page';
-import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
 
 const { NewTopicCard } = topics.components;
 
-type Props = CustomTranslatorProps;
+type Props = TranslatorProps;
 
 const PureNewTopicPage = (props: Props): React.Node => {
   const {

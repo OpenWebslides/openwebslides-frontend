@@ -1,16 +1,14 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 import { Card } from 'semantic-ui-react';
-
-import type { CustomTranslatorProps } from 'types/translator';
 
 import formComponents from './forms';
 
 const ResetForm = formComponents.ResetForm;
 
-type Props = CustomTranslatorProps;
+type Props = TranslatorProps;
 
 const PureResetCard = (props: Props): React.Node => {
   const { t } = props;

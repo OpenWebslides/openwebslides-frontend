@@ -10,19 +10,22 @@ import contentItems from 'modules/contentItems';
 
 type Topic = topics.model.Topic;
 
-type StateProps = {
+type PassedProps = {|
+  topic: Topic,
+|};
+
+type StateProps = {|
   // Slide takes a denormalized root contentItem instead of a root contentItem id, because in a
   // later stage the contentItem tree passed to the slide needs to be transformed further
   // (for example, by splitting up sections and inserting repeated headers if a section is longer
   // than a single slide) and the contentItem tree can't just be extracted from the state directly.
   contentItemTreeRootItem: contentItems.model.DenormalizedRootContentItem,
-};
+|};
 
-type PassedProps = {
-  topic: Topic,
-};
-
-type Props = StateProps & PassedProps;
+type Props = {|
+  ...PassedProps,
+  ...StateProps,
+|};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topic } = props;

@@ -1,13 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Header } from 'semantic-ui-react';
 
 import FlashMessages from 'core-components/flash/FlashMessages';
-import type { CustomTranslatorProps } from 'types/translator';
 import contentItems from 'modules/contentItems';
 import api from 'modules/api';
 import type { State } from 'types/state';
@@ -23,20 +22,25 @@ import {
 
 const { ApiDimmer } = api.components;
 
-type DispatchProps = {
+type PassedProps = {|
+  topicId: Identifier,
+|};
+
+type StateProps = {|
+  topic: Topic,
+|};
+
+type DispatchProps = {|
   onSaveButtonClick: (Identifier) => void,
   onLoadButtonClick: (Identifier) => void,
-};
+|};
 
-type PassedProps = {
-  topicId: Identifier,
-};
-
-type StateProps = {
-  topic: Topic,
-};
-
-type Props = CustomTranslatorProps & DispatchProps & PassedProps & StateProps;
+type Props = {|
+  ...TranslatorProps,
+  ...PassedProps,
+  ...StateProps,
+  ...DispatchProps,
+|};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;

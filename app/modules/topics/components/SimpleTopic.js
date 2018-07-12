@@ -11,15 +11,18 @@ import type { Identifier } from 'types/model';
 import type { Topic } from '../model';
 import { getById } from '../selectors';
 
-type PassedProps = {
+type PassedProps = {|
   topicId: Identifier,
-};
+|};
 
-type StateProps = {
+type StateProps = {|
   topic: Topic,
-};
+|};
 
-type Props = PassedProps & StateProps;
+type Props = {|
+  ...PassedProps,
+  ...StateProps,
+|};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;

@@ -14,16 +14,19 @@ import namesToComponentsMap from './helpers/namesToComponentsMap';
 
 type Topic = topics.model.Topic;
 
-type PassedProps = {
+type PassedProps = {|
   sidebarName: SidebarName,
   topicId: Identifier,
-};
+|};
 
-type StateProps = {
+type StateProps = {|
   topic: Topic,
-};
+|};
 
-type Props = PassedProps & StateProps;
+type Props = {|
+  ...PassedProps,
+  ...StateProps,
+|};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;

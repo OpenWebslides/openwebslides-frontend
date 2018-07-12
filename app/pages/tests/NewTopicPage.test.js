@@ -13,7 +13,6 @@ describe(`NewTopicPage`, (): void => {
     const enzymeWrapper = shallow(
       <PureNewTopicPage
         {...dummyTranslatorProps}
-        topicIds={[]}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

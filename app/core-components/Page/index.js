@@ -1,13 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { Redirect, Route, withRouter } from 'react-router-dom';
-import type { Match } from 'react-router-dom';
+import { Redirect, Route, withRouter, type ContextRouter as RouterProps } from 'react-router-dom';
 
-import type { CustomTranslatorProps } from 'types/translator';
 import type { State } from 'types/state';
 import NavigationBar from 'core-components/navigation/NavigationBar';
 import authentication from 'modules/authentication';
@@ -19,27 +17,28 @@ const { SidebarMenu, SidebarWrapper } = sidebars.components;
 const { getAllActiveSidebars } = sidebars.selectors;
 const { SIDEBAR_LENGTH, AMOUNT_OF_COLS_IN_GRID } = sidebars.constants;
 
-type RouterProps = {
-  match: Match,
-};
-
-type StateProps = {
+type StateProps = {|
   authenticated: boolean,
   amountOfSidebars: number,
-};
+|};
 
-type PassedProps = {
+type PassedProps = {|
   needsAuth: boolean,
   needsSidebar: boolean,
   children: React.Node,
-};
+|};
 
-type SidebarProps = {
-  match: Match,
+type Props = {|
+  ...TranslatorProps,
+  ...RouterProps,
+  ...StateProps,
+  ...PassedProps,
+|};
+
+type SidebarProps = {|
+  ...Props,
   amountOfCols: number,
-};
-
-type Props = CustomTranslatorProps & PassedProps & StateProps & RouterProps;
+|};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const {
@@ -115,8 +114,8 @@ const PurePage = (props: Props): React.Node => {
             path={`${match.url}/:id`}
             // #TODO
             // eslint-disable-next-line react/jsx-no-bind
-            render={(sidebarProps) => (
-              <SidebarComponent {...sidebarProps} amountOfCols={sidebarWrapperCols} />
+            render={() => (
+              <SidebarComponent {...props} amountOfCols={sidebarWrapperCols} />
             )}
           />
         </Grid>

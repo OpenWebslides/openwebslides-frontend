@@ -1,11 +1,10 @@
 // @flow
 
 import * as React from 'react';
-import { translate } from 'react-i18next';
+import { translate, type TranslatorProps } from 'react-i18next';
 import { Card, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-import type { CustomTranslatorProps } from 'types/translator';
 import api from 'modules/api';
 
 import { API_POST_TOKEN } from '../actionTypes';
@@ -15,7 +14,7 @@ import formComponents from './forms';
 const { ApiDimmer } = api.components;
 const SigninForm = formComponents.SigninForm;
 
-type Props = CustomTranslatorProps;
+type Props = TranslatorProps;
 
 const PureSigninCard = (props: Props): React.Node => {
   const { t } = props;
