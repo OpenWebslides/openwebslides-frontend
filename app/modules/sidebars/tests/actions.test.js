@@ -2,14 +2,14 @@
 
 import * as actions from '../actions';
 import * as t from '../actionTypes';
-import { sidebar } from '../model';
+import { sidebarNames } from '../model';
 
 describe(`actions`, (): void => {
 
   describe(`toggle`, (): void => {
 
     it(`returns a sidebar TOGGLE action, when parameters are valid`, (): void => {
-      const sidebarName = sidebar.SLIDE;
+      const sidebarName = sidebarNames.SLIDE;
 
       const expectedAction: t.ToggleAction = {
         type: t.TOGGLE,

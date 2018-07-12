@@ -2,12 +2,12 @@
 
 import { getAllActiveSidebars } from '../selectors';
 import type { SidebarName, SidebarsState } from '../model';
-import { sidebar } from '../model';
+import { sidebarNames } from '../model';
 
 describe(`selectors`, (): void => {
 
-  const dummySidebarName1: SidebarName = sidebar.SLIDE;
-  const dummySidebarName2: SidebarName = sidebar.INFO;
+  const dummySidebarName1: SidebarName = sidebarNames.SLIDE;
+  const dummySidebarName2: SidebarName = sidebarNames.INFO;
 
   const dummyActiveSidebars: Array<SidebarName> = [dummySidebarName1, dummySidebarName2];
   const dummySidebarsState: SidebarsState = {

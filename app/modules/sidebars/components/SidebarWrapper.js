@@ -13,7 +13,9 @@ import { getAllActiveSidebars } from '../selectors';
 import { AMOUNT_OF_COLS_IN_GRID } from '../constants';
 import { toggle as toggleAction } from '../actions';
 
-import Sidebar from './sidebars/Sidebar';
+import sidebarComponents from './sidebars';
+
+const Sidebar = sidebarComponents.Sidebar;
 
 type DispatchProps = {
   toggle: (SidebarName) => void,

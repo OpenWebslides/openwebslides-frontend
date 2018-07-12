@@ -4,10 +4,10 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import { PureSidebarMenuItem } from '../SidebarMenuItem';
-import { sidebar } from '../../model';
+import { sidebarNames } from '../../model';
 
 describe(`SidebarMenuItem`, (): void => {
-  const dummySidebar = sidebar.SLIDE;
+  const dummySidebar = sidebarNames.SLIDE;
 
   it(`renders without errors`, (): void => {
     const dummyToggle = jest.fn();

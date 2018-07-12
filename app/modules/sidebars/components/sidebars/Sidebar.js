@@ -8,8 +8,9 @@ import type { State } from 'types/state';
 import topics from 'modules/topics';
 import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
-import { sidebarMapping } from '../../model';
 import type { SidebarName } from '../../model';
+
+import namesToComponentsMap from './helpers/namesToComponentsMap';
 
 type Topic = topics.model.Topic;
 
@@ -43,7 +44,7 @@ const PureSidebar = (props: Props): React.Node => {
     topic,
   } = props;
 
-  const SidebarComponent = sidebarMapping[sidebarName];
+  const SidebarComponent = namesToComponentsMap[sidebarName];
 
   return (
     <div className="sidebar">
