@@ -24,10 +24,8 @@ import ResetPage from 'pages/authentication/ResetPage';
 import ConfirmPage from 'pages/authentication/ConfirmPage';
 
 const routes = (
-
   <React.Fragment>
     <History />
-
     <Switch>
       <Route path="/" exact={true} component={HomePage} />
       <Route path="/library" component={LibraryPage} />
