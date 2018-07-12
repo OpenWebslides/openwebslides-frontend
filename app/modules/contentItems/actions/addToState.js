@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
 import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
-import validateActionArguments from 'lib/validate/actionArguments';
+import validate from 'lib/validate';
 import type { Identifier } from 'types/model';
 
 import * as t from '../actionTypes';
@@ -20,7 +20,7 @@ const addToState = (
   if (!(_.includes(plainTextContentItemTypes, type) || type === contentItemTypes.ROOT)) throw new NotYetImplementedError(`ContentItemType not yet supported`);
   if (!_.isEmpty(_.omit(propsForType, editablePropsForType[type]))) throw new InvalidArgumentError(`"props" object contains invalid props for this contentItem type. Type was: "${type}". Invalid props were: "${JSON.stringify(_.omit(propsForType, editablePropsForType[type]))}"`);
 
-  const validatedPropsForType = validateActionArguments(
+  const validatedPropsForType = validate.actionArguments(
     propsForType,
     editablePropsForType[type],
     {

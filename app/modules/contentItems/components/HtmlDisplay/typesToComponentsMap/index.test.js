@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { DummyDisplayComponent } from './typesToComponentsMap';
+import { DummyDisplayComponent } from '.';
 
 describe(`typesToComponentsMap`, (): void => {
 

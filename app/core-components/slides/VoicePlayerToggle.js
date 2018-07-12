@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { translate } from 'react-i18next';
 
+// eslint-disable-next-line import/no-internal-modules
 import VoicePlayer from 'lib/react-voice-components/VoicePlayer';
 
 type PassedProps = {

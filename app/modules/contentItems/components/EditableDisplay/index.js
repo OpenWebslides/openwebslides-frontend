@@ -12,7 +12,7 @@ import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
-import typesToComponentsMap from './helpers/typesToComponentsMap';
+import typesToComponentsMap from './typesToComponentsMap';
 
 type PassedProps = {|
   contentItemId: Identifier,

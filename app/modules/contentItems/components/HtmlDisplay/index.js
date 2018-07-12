@@ -9,7 +9,7 @@ import * as React from 'react';
 
 import * as m from '../../model';
 
-import typesToComponentsMap from './helpers/typesToComponentsMap';
+import typesToComponentsMap from './typesToComponentsMap';
 
 type PassedProps = {
   // The contentItem to be displayed.
