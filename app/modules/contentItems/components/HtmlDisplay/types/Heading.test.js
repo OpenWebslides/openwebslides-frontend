@@ -4,7 +4,7 @@ import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
 import * as m from '../../../model';
-import * as dummyData from '../../../lib/testResources/dummyContentItemData';
+import { dummyContentItemData as dummyData } from '../../../lib/testResources';
 
 import { PureHeading } from './Heading';
 

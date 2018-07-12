@@ -2,7 +2,7 @@
 
 import * as t from '../actionTypes';
 import * as m from '../model';
-import * as dummyData from '../lib/testResources/dummyContentItemData';
+import { dummyContentItemData as dummyData } from '../lib/testResources';
 
 import reducer from '.';
 

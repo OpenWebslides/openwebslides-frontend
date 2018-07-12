@@ -5,7 +5,7 @@ import _ from 'lodash';
 import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
 
 import * as m from '../../../model';
-import * as dummyData from '../../testResources/dummyContentItemData';
+import { dummyContentItemData as dummyData } from '../../testResources';
 
 import find from '..';
 

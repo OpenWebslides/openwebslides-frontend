@@ -6,7 +6,7 @@ import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedO
 
 import * as t from '../actionTypes';
 import type { HeadingContentItem } from '../model';
-import * as dummyData from '../lib/testResources/dummyContentItemData';
+import { dummyContentItemData as dummyData } from '../lib/testResources';
 
 import actions from '.';
 
