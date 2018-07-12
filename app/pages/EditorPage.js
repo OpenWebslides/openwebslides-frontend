@@ -6,10 +6,9 @@ import { Link, Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 
+import Page from 'core-components/Page';
 import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
-
-import Page from '../Page';
 
 type RouteProps = {
   match: Match,

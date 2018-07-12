@@ -4,10 +4,9 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import { Grid } from 'semantic-ui-react';
 
+import Page from 'core-components/Page';
 import type { CustomTranslatorProps } from 'types/translator';
 import feed from 'modules/feed';
-
-import Page from '../Page';
 
 const SocialFeed = feed.components.Feed;
 

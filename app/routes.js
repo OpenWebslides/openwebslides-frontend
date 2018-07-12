@@ -10,19 +10,18 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { History } from 'modules/history';
-
-import NotFoundPage from './components/NotFoundPage';
-import HomePage from './components/HomePage';
-import LibraryPage from './components/LibraryPage';
-import EditorPage from './components/EditorPage';
-import NewTopicPage from './components/NewTopicPage';
-import ProfilePage from './components/ProfilePage';
-import TempSlideTestPage from './components/TempSlideTestPage';
-import GenerateRandomStringPage from './components/GenerateRandomStringPage';
-import SigninPage from './components/authentication/SigninPage';
-import SignupPage from './components/authentication/SignupPage';
-import ResetPage from './components/authentication/ResetPage';
-import ConfirmPage from './components/authentication/ConfirmPage';
+import NotFoundPage from 'pages/NotFoundPage';
+import HomePage from 'pages/HomePage';
+import LibraryPage from 'pages/LibraryPage';
+import EditorPage from 'pages/EditorPage';
+import NewTopicPage from 'pages/NewTopicPage';
+import ProfilePage from 'pages/ProfilePage';
+import TempSlideTestPage from 'pages/TempSlideTestPage';
+import GenerateRandomStringPage from 'pages/GenerateRandomStringPage';
+import SigninPage from 'pages/authentication/SigninPage';
+import SignupPage from 'pages/authentication/SignupPage';
+import ResetPage from 'pages/authentication/ResetPage';
+import ConfirmPage from 'pages/authentication/ConfirmPage';
 
 const routes = (
 

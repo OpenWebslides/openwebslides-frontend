@@ -4,17 +4,16 @@ import * as React from 'react';
 import { translate } from 'react-i18next';
 import { Grid } from 'semantic-ui-react';
 
+import Page from 'core-components/Page';
 import type { CustomTranslatorProps } from 'types/translator';
 import FlashMessages from 'core-components/flash/FlashMessages';
 import authentication from 'modules/authentication';
 
-import Page from '../../Page';
-
 type Props = CustomTranslatorProps & { /* new props go here */ };
 
-const { SignupCard } = authentication.components;
+const { ConfirmCard } = authentication.components;
 
-const PureSignupPage = (props: Props): React.Node => {
+const PureConfirmPage = (props: Props): React.Node => {
   return (
     // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
     <Page>
@@ -22,14 +21,14 @@ const PureSignupPage = (props: Props): React.Node => {
         <Grid.Column width={6}>
           <FlashMessages />
 
-          <SignupCard />
+          <ConfirmCard />
         </Grid.Column>
       </Grid>
     </Page>
   );
 };
 
-const SignupPage = translate()(PureSignupPage);
+const ConfirmPage = translate()(PureConfirmPage);
 
-export { PureSignupPage };
-export default SignupPage;
+export { PureConfirmPage };
+export default ConfirmPage;

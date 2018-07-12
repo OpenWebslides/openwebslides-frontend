@@ -3,9 +3,8 @@
 import * as React from 'react';
 import { translate } from 'react-i18next';
 
+import Page from 'core-components/Page';
 import type { CustomTranslatorProps } from 'types/translator';
-
-import Page from '../Page';
 
 type Props = CustomTranslatorProps & { /* new props go here */ };
 

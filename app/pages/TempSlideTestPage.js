@@ -5,14 +5,13 @@ import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import { Checkbox, Segment } from 'semantic-ui-react';
 
+import Page from 'core-components/Page';
 // import Color, { TwitterPicker } from 'react-color';
 import type { CustomTranslatorProps } from 'types/translator';
 import type { State } from 'types/state';
 import contentItems from 'modules/contentItems';
 import Slide from 'core-components/slides/Slide';
 import VoicePlayerToggle from 'core-components/slides/VoicePlayerToggle';
-
-import Page from '../Page';
 
 type PassedProps = {};
 

@@ -5,10 +5,9 @@ import { translate } from 'react-i18next';
 import { Button, Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
+import Page from 'core-components/Page';
 import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
-
-import Page from '../Page';
 
 const { CardCollection } = topics.components;
 

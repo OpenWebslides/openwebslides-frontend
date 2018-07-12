@@ -3,10 +3,9 @@
 import * as React from 'react';
 import { translate } from 'react-i18next';
 
+import Page from 'core-components/Page';
 import type { CustomTranslatorProps } from 'types/translator';
 import topics from 'modules/topics';
-
-import Page from '../Page';
 
 const { NewTopicCard } = topics.components;
 

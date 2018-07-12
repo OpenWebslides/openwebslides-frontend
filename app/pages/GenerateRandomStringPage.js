@@ -3,9 +3,8 @@
 import * as React from 'react';
 import type { Match } from 'react-router-dom';
 
+import Page from 'core-components/Page';
 import generateRandomString from 'lib/generate-random-string';
-
-import Page from '../Page';
 
 type RouteProps = {
   match: Match,

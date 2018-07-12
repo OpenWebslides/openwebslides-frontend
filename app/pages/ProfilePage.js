@@ -6,14 +6,13 @@ import { Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 import { translate } from 'react-i18next';
 
+import Page from 'core-components/Page';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import type { CustomTranslatorProps } from 'types/translator';
 import type { User } from 'modules/users';
 import users from 'modules/users';
 import authentication from 'modules/authentication';
-
-import Page from '../Page';
 
 const { ProfileCard } = users.components;
 const { getAccount } = authentication.selectors;
