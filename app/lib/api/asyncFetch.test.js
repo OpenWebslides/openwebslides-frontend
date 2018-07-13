@@ -8,7 +8,7 @@ import {
   UnexpectedHttpStatusError,
 } from 'errors';
 
-import asyncFetch from '../asyncFetch';
+import asyncFetch from './asyncFetch';
 
 const mockFetch = (response: Object): void => {
   global.fetch = jest.fn().mockImplementation((): Promise<Object> => {
