@@ -61,7 +61,7 @@ describe(`split`, (): void => {
   it(`splits rootContentItems into more rootContentItems`, (): void => {
     const result = split(data.dummyRootContentItem1);
 
-    expect(result.length).toEqual(2);
+    expect(result).toHaveLength(2);
     expect(result[0].childItems).toEqual([data.dummyHeadingContentItem1]);
     expect(result[1].childItems).toEqual([data.dummyParagraphContentItem1]);
   });

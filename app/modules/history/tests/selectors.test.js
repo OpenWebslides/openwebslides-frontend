@@ -24,7 +24,7 @@ describe(`selectors`, (): void => {
     });
 
     it(`returns null when the state is empty`, (): void => {
-      expect(getLocation(dummyEmptyState)).toEqual(null);
+      expect(getLocation(dummyEmptyState)).toBeNull();
     });
   });
 });

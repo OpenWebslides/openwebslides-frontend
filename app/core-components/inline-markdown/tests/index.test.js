@@ -60,7 +60,7 @@ describe(`InlineMarkdown`, (): void => {
     );
     const emElements = enzymeWrapper.children().filter('em');
 
-    expect(emElements.length).toEqual(dummyTextEm.length);
+    expect(emElements).toHaveLength(dummyTextEm.length);
 
     for (let i: number = 0; i < emElements.length; i += 1) {
       expect(emElements.eq(i).text()).toEqual(dummyTextEm[i]);
@@ -75,7 +75,7 @@ describe(`InlineMarkdown`, (): void => {
     );
     const strongElements = enzymeWrapper.children().filter('strong');
 
-    expect(strongElements.length).toEqual(dummyTextStrong.length);
+    expect(strongElements).toHaveLength(dummyTextStrong.length);
 
     for (let i: number = 0; i < strongElements.length; i += 1) {
       expect(strongElements.eq(i).text()).toEqual(dummyTextStrong[i]);
@@ -90,7 +90,7 @@ describe(`InlineMarkdown`, (): void => {
     );
     const codeElements = enzymeWrapper.children().filter('code');
 
-    expect(codeElements.length).toEqual(dummyTextCode.length);
+    expect(codeElements).toHaveLength(dummyTextCode.length);
 
     for (let i: number = 0; i < codeElements.length; i += 1) {
       expect(codeElements.eq(i).text()).toEqual(dummyTextCode[i]);
@@ -105,7 +105,7 @@ describe(`InlineMarkdown`, (): void => {
     );
     const anchorElements = enzymeWrapper.children().filter('a');
 
-    expect(anchorElements.length).toEqual(dummyTextAnchor.length);
+    expect(anchorElements).toHaveLength(dummyTextAnchor.length);
 
     for (let i: number = 0; i < anchorElements.length; i += 1) {
       expect(anchorElements.eq(i).text()).toEqual(dummyTextAnchor[i]);

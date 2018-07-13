@@ -11,7 +11,7 @@ describe(`localStorage`, (): void => {
 
   describe(`loadState`, (): void => {
     it(`returns undefined`, (): void => {
-      expect(loadState()).toEqual(undefined);
+      expect(loadState()).toBeUndefined();
     });
 
     it(`returns local state`, (): void => {

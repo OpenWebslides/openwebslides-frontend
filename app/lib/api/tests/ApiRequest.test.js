@@ -23,7 +23,7 @@ describe(`ApiRequest`, (): void => {
     it(`has a default config`, (): void => {
       expect(request.config.url).toEqual(API_URL);
       expect(request.config.endpoint).toEqual('');
-      expect(request.config.resource).toEqual(null);
+      expect(request.config.resource).toBeNull();
       expect(request.config.headers).toEqual(defaultHeaders);
       expect(request.config.parameters).toEqual({});
       expect(request.config.method).toEqual(methodTypes.GET);
@@ -120,7 +120,7 @@ describe(`ApiRequest`, (): void => {
 
   describe(`setToken`, (): void => {
     it(`sets token`, (): void => {
-      expect(request.config.headers.Authorization).toEqual(undefined);
+      expect(request.config.headers.Authorization).toBeUndefined();
 
       request.setToken('foobar');
 
@@ -132,7 +132,7 @@ describe(`ApiRequest`, (): void => {
 
       request.setToken(null);
 
-      expect(request.config.headers.Authorization).toEqual(undefined);
+      expect(request.config.headers.Authorization).toBeUndefined();
     });
 
     it(`unsets empty token`, (): void => {
@@ -140,7 +140,7 @@ describe(`ApiRequest`, (): void => {
 
       request.setToken('');
 
-      expect(request.config.headers.Authorization).toEqual(undefined);
+      expect(request.config.headers.Authorization).toBeUndefined();
     });
   });
 

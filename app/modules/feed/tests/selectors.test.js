@@ -34,7 +34,7 @@ describe(`selectors`, (): void => {
     });
 
     it(`gets nothing from the state`, (): void => {
-      expect(getById(exampleState, '2')).toEqual(undefined);
+      expect(getById(exampleState, '2')).toBeUndefined();
     });
   });
 

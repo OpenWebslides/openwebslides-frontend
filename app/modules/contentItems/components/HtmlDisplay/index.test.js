@@ -77,7 +77,7 @@ describe(`HtmlDisplay`, (): void => {
       />,
     );
     const subItemsHtmlDisplayWrapper = enzymeWrapper.find('SubItemsHtmlDisplay').dive();
-    expect(subItemsHtmlDisplayWrapper.instance()).toEqual(null);
+    expect(subItemsHtmlDisplayWrapper.instance()).toBeNull();
   });
 
   it(`does not render an empty sub items container, when the contentItem is subable but does not contain any sub items`, (): void => {
@@ -88,7 +88,7 @@ describe(`HtmlDisplay`, (): void => {
       />,
     );
     const subItemsHtmlDisplayWrapper = enzymeWrapper.find('SubItemsHtmlDisplay').dive();
-    expect(subItemsHtmlDisplayWrapper.instance()).toEqual(null);
+    expect(subItemsHtmlDisplayWrapper.instance()).toBeNull();
   });
 
   it(`renders a heading and its sub items wrapped inside a section tag`, (): void => {
