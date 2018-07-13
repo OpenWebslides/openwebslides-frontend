@@ -83,13 +83,13 @@ describe(`selectors`, (): void => {
     });
 
     it(`returns null on other request`, (): void => {
-      expect(getError(dummyState, { request: 'dummy1' })).toEqual(null);
-      expect(getError(dummyState, { request: 'dummy2' })).toEqual(null);
-      expect(getError(dummyState, { request: 'dummy3' })).toEqual(null);
+      expect(getError(dummyState, { request: 'dummy1' })).toBeNull();
+      expect(getError(dummyState, { request: 'dummy2' })).toBeNull();
+      expect(getError(dummyState, { request: 'dummy3' })).toBeNull();
     });
 
     it(`returns null on non-existant request`, (): void => {
-      expect(getError(dummyState, { request: 'dummy0' })).toEqual(null);
+      expect(getError(dummyState, { request: 'dummy0' })).toBeNull();
     });
   });
 });

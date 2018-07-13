@@ -30,7 +30,7 @@ describe(`actions`, (): void => {
       const generatedAction: t.AddToStateAction = ((actions.addToState(id, userId, title, description, rootContentItemId): any): t.AddToStateAction);
 
       expect(generatedAction.type).toEqual(expectedAction.type);
-      expect(generatedAction.payload.id.length).toEqual(10);
+      expect(generatedAction.payload.id).toHaveLength(10);
       expect(generatedAction.payload.title).toEqual(expectedAction.payload.title);
       expect(generatedAction.payload.description).toEqual(expectedAction.payload.description);
       /* TODO uncomment when rootcontentItemId are created with new topic
