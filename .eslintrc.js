@@ -1,27 +1,27 @@
 module.exports = {
   'extends': [
     'airbnb',
-    'plugin:flowtype/recommended'
+    'plugin:flowtype/recommended',
   ],
   'env': {
     // Don't throw error when using global browser variables such as 'document' or 'window'.
     'browser': true,
     // Don't throw error when using jest functions such as 'descibe' or 'it'.
-    'jest': true
+    'jest': true,
   },
   'plugins': [
     // ESLint checking for Flow.
     'flowtype',
     // ESLint checking for Jest tests.
-    'jest'
+    'jest',
   ],
   'settings': {
     // Enables eslint-plugin-import to check import paths using webpack resolver aliases.
     'import/resolver': {
       'webpack': {
-        'config': './webpack.resolver.dummy.config.js'
-      }
-    }
+        'config': './webpack.resolver.dummy.config.js',
+      },
+    },
   },
   'rules': {
 
@@ -31,25 +31,25 @@ module.exports = {
     // Enforce consistent use of parentheses around arrow function parameters.
     'arrow-parens': [
       'error',
-      'always'
+      'always',
     ],
 
     // 'stroustrup' is the only style that allows for comments between the 'if' and the 'else' block.
     'brace-style': [
       'error',
-      'stroustrup'
+      'stroustrup',
     ],
 
     // Only require function expressions to be named if the name can't be derived from the variable they're assigned to.
     'func-names': [
       'error',
-      'as-needed'
+      'as-needed',
     ],
 
     // Enforce consistent use of function expressions over function declarations.
     'func-style': [
       'error',
-      'expression'
+      'expression',
     ],
 
     // Allow programmer to decide which formatting is more readable on a case-by-case basis.
@@ -67,8 +67,8 @@ module.exports = {
       {
         'max': 1,
         'maxEOF': 1,
-        'maxBOF': 0
-      }
+        'maxBOF': 0,
+      },
     ],
 
     // Turn this off so that we can use flowtype/no-unused-expressions instead.
@@ -78,8 +78,8 @@ module.exports = {
     'no-unused-vars': [
       'error',
       {
-        'argsIgnorePattern': 'props|state|dispatch|action'
-      }
+        'argsIgnorePattern': 'props|state|dispatch|action',
+      },
     ],
 
     // `max-len` already takes care of too many object props on a single line.
@@ -98,8 +98,8 @@ module.exports = {
       'error',
       'as-needed',
       {
-        'numbers': true
-      }
+        'numbers': true,
+      },
     ],
 
     // Allow template literals in addition to single quoted strings.
@@ -107,14 +107,14 @@ module.exports = {
       'error',
       'single',
       {
-        'allowTemplateLiterals': true
-      }
+        'allowTemplateLiterals': true,
+      },
     ],
 
     // Consistency with airbnb's 'comma-dangle' rule.
     'flowtype/delimiter-dangle': [
       'error',
-      'always-multiline'
+      'always-multiline',
     ],
 
     // Consistency with airbnb's 'no-dupe-keys' rule.
@@ -123,7 +123,7 @@ module.exports = {
     // Disallow $FlowFixMe comments that don't have a reason specified.
     'flowtype/no-flow-fix-me-comments': [
       'error',
-      ' .+' // Allows $FlowFixMe followed by a space and one or more characters to pass without error
+      ' .+', // Allows $FlowFixMe followed by a space and one or more characters to pass without error
     ],
 
     // Prevent typos.
@@ -135,8 +135,8 @@ module.exports = {
       {
         'allowShortCircuit': false,
         'allowTernary': false,
-        'allowTaggedTemplates': false
-      }
+        'allowTaggedTemplates': false,
+      },
     ],
 
     // Prevent lazy typing.
@@ -153,8 +153,8 @@ module.exports = {
     'flowtype/require-parameter-type': [
       'error',
       {
-        'excludeArrowFunctions': 'expressionsOnly'
-      }
+        'excludeArrowFunctions': 'expressionsOnly',
+      },
     ],
 
     // Enforce explicitly typing function return values.
@@ -163,8 +163,8 @@ module.exports = {
       'always',
       {
         'annotateUndefined': 'always',
-        'excludeArrowFunctions': 'expressionsOnly'
-      }
+        'excludeArrowFunctions': 'expressionsOnly',
+      },
     ],
 
     // Enforce using flow in all JS files.
@@ -172,8 +172,8 @@ module.exports = {
       'error',
       'always',
       {
-        'annotationStyle': 'line'
-      }
+        'annotationStyle': 'line',
+      },
     ],
 
     // Enforce explicitly typing variables,
@@ -183,9 +183,9 @@ module.exports = {
       'error',
       {
         'excludeVariableTypes': {
-          'const': true
-        }
-      }
+          'const': true,
+        },
+      },
     ],
 
     // Consistency with airbnb's 'semi' rule.
@@ -233,17 +233,17 @@ module.exports = {
           'types/state',
           'modules/*',
           'helpers/*',
-          'lib/*'
-        ]
-      }
+          'lib/*',
+        ],
+      },
     ],
 
     // Disallow importing a module without assigning it to a variable.
     'import/no-unassigned-import': [
       'error',
       {
-        'allow': ['**/*.css', '**/*.less', '**/*.scss']
-      }
+        'allow': ['**/*.css', '**/*.less', '**/*.scss'],
+      },
     ],
 
     // Enforce consistend ordering and spacing of imports.
@@ -251,8 +251,8 @@ module.exports = {
       'error',
       {
         'groups': ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-        'newlines-between': 'always'
-      }
+        'newlines-between': 'always',
+      },
     ],
 
     // Doesn't play wel with semantic-ui-react; #TODO look for a way to fix this; perhaps write wrapper for label?
@@ -267,7 +267,7 @@ module.exports = {
     // for better readability / consistency with other properties.
     'react/jsx-boolean-value': [
       'error',
-      'always'
+      'always',
     ],
 
     // Consistently use .js extensions for all JavaScript files no matter their content;
@@ -275,8 +275,8 @@ module.exports = {
     'react/jsx-filename-extension': [
       'error',
       {
-        'extensions': ['.js']
-      }
+        'extensions': ['.js'],
+      },
     ],
 
     // Prevent unnecessary re-rendering by never using .bind() or lambda's in jsx properties;
@@ -287,8 +287,8 @@ module.exports = {
         'ignoreRefs': false,
         'allowArrowFunctions': false,
         'allowFunctions': false,
-        'allowBind': false
-      }
+        'allowBind': false,
+      },
     ],
 
     // Currently too strict to be usable.
@@ -303,14 +303,14 @@ module.exports = {
     'react/require-default-props': [
       'error',
       {
-        'forbidDefaultForRequired': false
-      }
-    ]
+        'forbidDefaultForRequired': false,
+      },
+    ],
   },
   'overrides': [
     {
       'files': [
-        '*.test.js'
+        '*.test.js',
       ],
       'rules': {
         'max-len': 'off',
@@ -319,7 +319,7 @@ module.exports = {
         'import/max-dependencies': 'off',
         // #TODO check https://github.com/jest-community/eslint-plugin-jest/issues/113
         'jest/consistent-test-it': ['error', { 'fn': 'test', 'withinDescribe': 'it' }],
-        'jest/lowercase-name': ['error',  { 'ignore': ['describe'] }],
+        'jest/lowercase-name': ['error', { 'ignore': ['describe'] }],
         'jest/no-disabled-tests': 'error',
         'jest/no-focused-tests': 'error',
         'jest/no-identical-title': 'error',
@@ -333,8 +333,8 @@ module.exports = {
         'jest/prefer-to-have-length': 'error',
         'jest/valid-describe': 'error',
         'jest/valid-expect-in-promise': 'error',
-        'jest/valid-expect': 'error'
-      }
-    }
-  ]
+        'jest/valid-expect': 'error',
+      },
+    },
+  ],
 };
