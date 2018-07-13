@@ -8,7 +8,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+import { ObjectNotFoundError } from 'errors';
 
 import { getById } from '../selectors';
 import type { Topic } from '../model';

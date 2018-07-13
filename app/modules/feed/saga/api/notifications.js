@@ -1,6 +1,7 @@
 // @flow
 
 import { call, put } from 'redux-saga/effects';
+
 import { NotificationsApi } from 'lib/api';
 
 import * as t from '../../actionTypes';

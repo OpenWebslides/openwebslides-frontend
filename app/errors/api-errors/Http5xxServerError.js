@@ -1,22 +1,23 @@
 // @flow
 /**
- * An error caused by an unauthorized API call
+ * An error caused by an HTTP response containing a 5xx status code.
+ * A server-side exception occurred.
  */
 
 import ApiError from '../ApiError';
 
-class ServerError extends ApiError {
+class Http5xxServerError extends ApiError {
   constructor(message: string, isTranslatable: boolean = false): void {
     super(message, isTranslatable);
 
     // Temporary workaround for https://github.com/istanbuljs/babel-plugin-istanbul/issues/143 #TODO
     /* eslint-disable no-proto */
     // $FlowFixMe Temporary workaround
-    this.constructor = ServerError;
+    this.constructor = Http5xxServerError;
     // $FlowFixMe Temporary workaround
-    this.__proto__ = ServerError.prototype;
+    this.__proto__ = Http5xxServerError.prototype;
     /* eslint-enable */
   }
 }
 
-export default ServerError;
+export default Http5xxServerError;

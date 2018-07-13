@@ -1,8 +1,6 @@
 // @flow
 
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
-import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
-import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
+import { InvalidArgumentError, NotYetImplementedError, UnsupportedOperationError } from 'errors';
 
 import * as t from '../actionTypes';
 import type { HeadingContentItem } from '../model';

@@ -2,8 +2,7 @@
 
 import _ from 'lodash';
 
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
-import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
+import { InvalidArgumentError, NotYetImplementedError } from 'errors';
 import validate from 'lib/validate';
 import type { Identifier } from 'types/model';
 

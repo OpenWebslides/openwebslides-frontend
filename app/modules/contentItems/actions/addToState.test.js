@@ -1,7 +1,6 @@
 // @flow
 
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
-import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
+import { InvalidArgumentError, NotYetImplementedError } from 'errors';
 import type { Identifier } from 'types/model';
 
 import * as t from '../actionTypes';

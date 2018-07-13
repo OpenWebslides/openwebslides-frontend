@@ -1,8 +1,7 @@
 // @flow
 /* eslint-disable flowtype/no-weak-types, react/destructuring-assignment */
 
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+import { InvalidArgumentError, ObjectNotFoundError } from 'errors';
 import type { Identifier } from 'types/model';
 import insertIntoArray from 'lib/insertIntoArray';
 

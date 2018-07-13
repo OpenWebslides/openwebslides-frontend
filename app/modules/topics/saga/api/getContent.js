@@ -1,12 +1,12 @@
 // @flow
 
 import { flashMessage, flashErrorMessage } from 'redux-flash';
-
 import { call, put, select } from 'redux-saga/effects';
-import ServerError from 'errors/api-errors/ServerError';
+
+import { Http5xxServerError } from 'errors';
+import { TopicsApi } from 'lib/api';
 import authentication from 'modules/authentication';
 import contentItems from 'modules/contentItems';
-import { TopicsApi } from 'lib/api';
 import api from 'modules/api';
 
 import * as t from '../../actionTypes';
@@ -37,7 +37,7 @@ export const apiGetContentSaga = function* (
     yield put(flashMessage('editor:api.load.success'));
   }
   catch (error) {
-    if (!(error instanceof ServerError)) {
+    if (!(error instanceof Http5xxServerError)) {
       throw error;
     }
 

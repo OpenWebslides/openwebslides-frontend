@@ -11,7 +11,7 @@
 
 import _ from 'lodash';
 
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import { InvalidArgumentError } from 'errors';
 import type { Identifier } from 'types/model';
 
 import * as m from '../../../model';

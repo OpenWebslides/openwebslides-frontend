@@ -1,8 +1,6 @@
 // @flow
 
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
-import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
-import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
+import { InvalidArgumentError, NotYetImplementedError, UnsupportedOperationError } from 'errors';
 
 import * as t from '../actionTypes';
 import * as m from '../model';

@@ -1,7 +1,8 @@
 // @flow
 
-import { ConfirmationApi } from 'lib/api';
 import { call } from 'redux-saga/effects';
+
+import { ConfirmationApi } from 'lib/api';
 
 import * as t from '../../actionTypes';
 

@@ -1,6 +1,7 @@
 // @flow
 
 import { call, put, select } from 'redux-saga/effects';
+
 import { UsersApi } from 'lib/api';
 import authentication from 'modules/authentication';
 

@@ -1,6 +1,6 @@
 // @flow
 
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import { InvalidArgumentError } from 'errors';
 
 import * as actions from '../actions';
 import * as t from '../actionTypes';

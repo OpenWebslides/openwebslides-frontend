@@ -5,7 +5,7 @@
 
 import _ from 'lodash';
 
-import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
+import { CorruptedInternalStateError } from 'errors';
 import type { Identifier } from 'types/model';
 
 import * as m from '../../model';

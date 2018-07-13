@@ -1,10 +1,9 @@
 // @flow
 
 import _ from 'lodash';
-
 import { put, select } from 'redux-saga/effects';
-import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+
+import { NotYetImplementedError, ObjectNotFoundError } from 'errors';
 
 import * as t from '../../actionTypes';
 import actions from '../../actions';

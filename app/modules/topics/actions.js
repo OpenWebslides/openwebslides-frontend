@@ -3,8 +3,7 @@
 import _ from 'lodash';
 import type { RouterHistory } from 'react-router-dom';
 
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
-import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
+import { InvalidArgumentError, UnsupportedOperationError } from 'errors';
 import contentItems from 'modules/contentItems';
 import type { Identifier } from 'types/model';
 
