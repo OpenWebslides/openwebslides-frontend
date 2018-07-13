@@ -2,7 +2,7 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+import { ObjectNotFoundError } from 'errors';
 
 import * as t from '../../actionTypes';
 import * as m from '../../model';

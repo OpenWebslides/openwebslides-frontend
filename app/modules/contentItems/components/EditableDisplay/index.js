@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+import { ObjectNotFoundError } from 'errors';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 

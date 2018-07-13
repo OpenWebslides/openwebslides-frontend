@@ -1,10 +1,12 @@
 // @flow
 
-import UnauthorizedError from 'errors/api-errors/UnauthorizedError';
-import ForbiddenError from 'errors/api-errors/ForbiddenError';
-import ValidationError from 'errors/api-errors/ValidationError';
-import ServerError from 'errors/api-errors/ServerError';
-import ApiError from 'errors/ApiError';
+import {
+  Http401UnauthorizedError,
+  Http403ForbiddenError,
+  Http422ValidationError,
+  Http5xxServerError,
+  UnexpectedHttpStatusError,
+} from 'errors';
 
 import type { Response } from './model';
 
@@ -25,17 +27,17 @@ const asyncFetch = async (url: string, options: RequestOptions): Promise<Respons
       }).catch((error) => error);
     }
     case (status === 401):
-      throw new UnauthorizedError();
+      throw new Http401UnauthorizedError();
     case (status === 403):
-      throw new ForbiddenError();
+      throw new Http403ForbiddenError();
     case (status === 422): {
       const responseBody = await response.json();
-      throw new ValidationError(responseBody.errors);
+      throw new Http422ValidationError(responseBody.errors);
     }
     case (status > 500):
-      throw new ServerError(response.statusText);
+      throw new Http5xxServerError(response.statusText);
     default:
-      throw new ApiError(response.statusText);
+      throw new UnexpectedHttpStatusError(response.statusText);
   }
 };
 

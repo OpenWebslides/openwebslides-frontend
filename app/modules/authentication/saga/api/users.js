@@ -1,7 +1,8 @@
 // @flow
 
-import { UsersApi } from 'lib/api';
 import { call } from 'redux-saga/effects';
+
+import { UsersApi } from 'lib/api';
 
 import * as t from '../../actionTypes';
 

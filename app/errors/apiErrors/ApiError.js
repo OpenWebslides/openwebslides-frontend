@@ -1,9 +1,9 @@
 // @flow
 /**
- * An error that was thrown by a remote server.
+ * An error caused by an HTTP response containing a 4xx or 5xx status code.
  */
 
-import CustomError from './CustomError';
+import CustomError from '../CustomError';
 
 class ApiError extends CustomError {
   // ApiErrors are usually not translatable, since the remote system can't know about the local

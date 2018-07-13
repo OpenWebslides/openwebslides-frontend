@@ -3,7 +3,7 @@
  * An error caused by a developer misusing existing code.
  */
 
-import CustomError from './CustomError';
+import CustomError from '../CustomError';
 
 class ImplementationError extends CustomError {
   // Implementation errors are usually not translatable, since they are only meant for developers

@@ -7,7 +7,7 @@
  * is a childItem.
  */
 
-import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
+import { CorruptedInternalStateError } from 'errors';
 
 import * as m from '../../../model';
 

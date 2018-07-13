@@ -1,10 +1,12 @@
 // @flow
 
-import UnauthorizedError from 'errors/api-errors/UnauthorizedError';
-import ForbiddenError from 'errors/api-errors/ForbiddenError';
-import ValidationError from 'errors/api-errors/ValidationError';
-import ServerError from 'errors/api-errors/ServerError';
-import ApiError from 'errors/ApiError';
+import {
+  Http401UnauthorizedError,
+  Http403ForbiddenError,
+  Http422ValidationError,
+  Http5xxServerError,
+  UnexpectedHttpStatusError,
+} from 'errors';
 
 import asyncFetch from '../asyncFetch';
 
@@ -39,7 +41,7 @@ describe(`asyncFetch`, (): void => {
 
     await expect(asyncFetch('', {}))
       .rejects
-      .toThrow(new UnauthorizedError());
+      .toThrow(Http401UnauthorizedError);
   });
 
   it(`throws ForbiddenError on 403`, async (): Promise<void> => {
@@ -47,7 +49,7 @@ describe(`asyncFetch`, (): void => {
 
     await expect(asyncFetch('', {}))
       .rejects
-      .toThrow(new ForbiddenError());
+      .toThrow(Http403ForbiddenError);
   });
 
   it(`throws ClientError on 422`, async (): Promise<void> => {
@@ -62,7 +64,7 @@ describe(`asyncFetch`, (): void => {
 
     await expect(asyncFetch('', {}))
       .rejects
-      .toThrow(new ValidationError('foo'));
+      .toThrow(Http422ValidationError);
   });
 
   it(`throws ServerError on > 500`, async (): Promise<void> => {
@@ -70,7 +72,7 @@ describe(`asyncFetch`, (): void => {
 
     await expect(asyncFetch('', {}))
       .rejects
-      .toThrow(new ServerError('Service Unavailable'));
+      .toThrow(Http5xxServerError);
   });
 
   it(`throws ServerError on other 4xx errors`, async (): Promise<void> => {
@@ -78,6 +80,6 @@ describe(`asyncFetch`, (): void => {
 
     await expect(asyncFetch('', {}))
       .rejects
-      .toThrow(new ApiError('I\'m a teapot'));
+      .toThrow(UnexpectedHttpStatusError);
   });
 });

@@ -16,6 +16,10 @@ module.exports = {
     'jest',
   ],
   'settings': {
+    // Temporary workaround for https://github.com/benmosher/eslint-plugin-import/issues/793 #TODO
+    'import/core-modules': [
+      'redux-saga/effects',
+    ],
     // Enables eslint-plugin-import to check import paths using webpack resolver aliases.
     'import/resolver': {
       'webpack': {
@@ -224,7 +228,6 @@ module.exports = {
           'assets/**',
           'config/**',
           'core-components/**',
-          'errors/**',
           'i18n/**',
           'pages/**',
           'store/**',

@@ -1,8 +1,8 @@
 // @flow
 
 import { flashMessage, flashErrorMessage } from 'redux-flash';
-
 import { call, put, select } from 'redux-saga/effects';
+
 import authentication from 'modules/authentication';
 import { TopicsApi } from 'lib/api';
 import api from 'modules/api';

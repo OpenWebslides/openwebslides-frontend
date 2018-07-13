@@ -2,8 +2,8 @@
 /* eslint-disable flowtype/no-weak-types */
 
 import { put, select } from 'redux-saga/effects';
-import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+
+import { CorruptedInternalStateError, ObjectNotFoundError } from 'errors';
 
 import * as t from '../../actionTypes';
 import actions from '../../actions';

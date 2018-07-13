@@ -8,7 +8,7 @@
  * The siblings are ordered the same as in the parent- or superItem's [child|sub]ItemIds array.
  */
 
-import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
+import { CorruptedInternalStateError } from 'errors';
 import type { Identifier } from 'types/model';
 
 import * as m from '../../../model';

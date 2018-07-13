@@ -3,10 +3,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import { ObjectNotFoundError } from 'errors';
 import type { Identifier } from 'types/model';
 import type { State } from 'types/state';
 import topics from 'modules/topics';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
 
 import type { SidebarName } from '../../model';
 

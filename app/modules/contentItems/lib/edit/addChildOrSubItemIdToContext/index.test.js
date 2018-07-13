@@ -1,7 +1,6 @@
 // @flow
 
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+import { InvalidArgumentError, ObjectNotFoundError } from 'errors';
 import type { Identifier } from 'types/model';
 
 import * as m from '../../../model';

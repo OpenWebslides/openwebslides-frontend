@@ -2,8 +2,7 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+import { CorruptedInternalStateError, ObjectNotFoundError } from 'errors';
 
 import * as t from '../../actionTypes';
 import * as m from '../../model';

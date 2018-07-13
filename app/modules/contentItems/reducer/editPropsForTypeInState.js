@@ -3,9 +3,7 @@
 
 import _ from 'lodash';
 
-import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
-import NotYetImplementedError from 'errors/implementation-errors/NotYetImplementedError';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+import { CorruptedInternalStateError, NotYetImplementedError, ObjectNotFoundError } from 'errors';
 
 import * as t from '../actionTypes';
 import * as m from '../model';

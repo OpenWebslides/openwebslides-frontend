@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { mount, shallow } from 'enzyme';
 
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+import { ObjectNotFoundError } from 'errors';
 
 import actions from '../../actions';
 import * as m from '../../model';

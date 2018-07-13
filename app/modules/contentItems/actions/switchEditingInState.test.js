@@ -1,7 +1,7 @@
 // @flow
 
 import type { Identifier } from 'types/model';
-import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
+import { UnsupportedOperationError } from 'errors';
 
 import * as t from '../actionTypes';
 

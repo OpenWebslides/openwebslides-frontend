@@ -2,7 +2,7 @@
 
 import _ from 'lodash';
 
-import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
+import { CorruptedInternalStateError } from 'errors';
 
 import * as m from '../../model';
 import { dummyContentItemData as dummyData } from '../testResources';

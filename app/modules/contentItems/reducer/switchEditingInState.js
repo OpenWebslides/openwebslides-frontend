@@ -2,8 +2,7 @@
 
 import _ from 'lodash';
 
-import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+import { UnsupportedOperationError, ObjectNotFoundError } from 'errors';
 
 import * as t from '../actionTypes';
 import * as m from '../model';

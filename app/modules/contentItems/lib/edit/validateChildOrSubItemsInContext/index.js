@@ -1,9 +1,7 @@
 // @flow
 /* eslint-disable flowtype/no-weak-types, react/destructuring-assignment */
 
-import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+import { CorruptedInternalStateError, InvalidArgumentError, ObjectNotFoundError } from 'errors';
 import type { Identifier } from 'types/model';
 
 import * as m from '../../../model';

@@ -1,8 +1,6 @@
 // @flow
 
-import CorruptedInternalStateError from 'errors/implementation-errors/CorruptedInternalStateError';
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+import { CorruptedInternalStateError, InvalidArgumentError, ObjectNotFoundError } from 'errors';
 
 import * as m from '../../../model';
 import { dummyContentItemData as dummyData } from '../../testResources';

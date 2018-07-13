@@ -1,23 +1,23 @@
 // @flow
-
 /**
- * An error caused by the internal state of the application having become corrupted somehow.
+ * An error caused by an HTTP response containing a 5xx status code.
+ * A server-side exception occurred.
  */
 
-import ImplementationError from '../ImplementationError';
+import ApiError from '../ApiError';
 
-class CorruptedInternalStateError extends ImplementationError {
+class Http5xxServerError extends ApiError {
   constructor(message: string, isTranslatable: boolean = false): void {
     super(message, isTranslatable);
 
     // Temporary workaround for https://github.com/istanbuljs/babel-plugin-istanbul/issues/143 #TODO
     /* eslint-disable no-proto */
     // $FlowFixMe Temporary workaround
-    this.constructor = CorruptedInternalStateError;
+    this.constructor = Http5xxServerError;
     // $FlowFixMe Temporary workaround
-    this.__proto__ = CorruptedInternalStateError.prototype;
+    this.__proto__ = Http5xxServerError.prototype;
     /* eslint-enable */
   }
 }
 
-export default CorruptedInternalStateError;
+export default Http5xxServerError;

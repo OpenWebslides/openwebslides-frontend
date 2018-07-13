@@ -1,22 +1,22 @@
 // @flow
 /**
- * An error caused by an unauthorized API call
+ * An error caused by the internal state of the application having become corrupted somehow.
  */
 
-import ApiError from '../ApiError';
+import ImplementationError from '../ImplementationError';
 
-class ServerError extends ApiError {
+class CorruptedInternalStateError extends ImplementationError {
   constructor(message: string, isTranslatable: boolean = false): void {
     super(message, isTranslatable);
 
     // Temporary workaround for https://github.com/istanbuljs/babel-plugin-istanbul/issues/143 #TODO
     /* eslint-disable no-proto */
     // $FlowFixMe Temporary workaround
-    this.constructor = ServerError;
+    this.constructor = CorruptedInternalStateError;
     // $FlowFixMe Temporary workaround
-    this.__proto__ = ServerError.prototype;
+    this.__proto__ = CorruptedInternalStateError.prototype;
     /* eslint-enable */
   }
 }
 
-export default ServerError;
+export default CorruptedInternalStateError;

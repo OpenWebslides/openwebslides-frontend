@@ -1,7 +1,6 @@
 // @flow
 
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
-import UnsupportedOperationError from 'errors/implementation-errors/UnsupportedOperationError';
+import { InvalidArgumentError, UnsupportedOperationError } from 'errors';
 
 import * as actions from '../actions';
 import * as t from '../actionTypes';

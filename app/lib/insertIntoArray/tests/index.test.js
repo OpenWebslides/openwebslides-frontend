@@ -1,6 +1,6 @@
 // @flow
 
-import InvalidArgumentError from 'errors/implementation-errors/InvalidArgumentError';
+import { InvalidArgumentError } from 'errors';
 
 import insertIntoArray from '..';
 

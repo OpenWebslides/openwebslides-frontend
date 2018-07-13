@@ -1,7 +1,8 @@
 // @flow
 
 import { put, select } from 'redux-saga/effects';
-import ObjectNotFoundError from 'errors/usage-errors/ObjectNotFoundError';
+
+import { ObjectNotFoundError } from 'errors';
 
 import * as t from '../../actionTypes';
 import actions from '../../actions';
