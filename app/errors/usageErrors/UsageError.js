@@ -3,7 +3,7 @@
  * An error caused by a user taking an invalid action.
  */
 
-import CustomError from './CustomError';
+import CustomError from '../CustomError';
 
 class UsageError extends CustomError {
   // UsageErrors should always be translatable, since they need to be displayed to the user.
