@@ -2,7 +2,7 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import apis from 'apis';
+import api from 'api';
 
 import * as t from '../../../actionTypes';
 import { apiPostTokenSaga, apiDeleteTokenSaga } from '../token';
@@ -44,7 +44,7 @@ describe(`token`, (): void => {
       };
 
       return expectSaga(apiPostTokenSaga, dummyPostTokenAction)
-        .call(apis.token.post, 'foo@bar', 'foobar')
+        .call(api.token.post, 'foo@bar', 'foobar')
         .put.like({ action: { type: t.SET_ACCOUNT } })
         .put.like({ action: { type: t.SET_TOKEN } })
         .run();
@@ -66,7 +66,7 @@ describe(`token`, (): void => {
       };
 
       return expectSaga(apiDeleteTokenSaga, dummyDeleteTokenAction)
-        .call(apis.token.destroy, 'foobarToken')
+        .call(api.token.destroy, 'foobarToken')
         .put.like({ action: { type: t.SET_ACCOUNT } })
         .put.like({ action: { type: t.SET_TOKEN } })
         .run();

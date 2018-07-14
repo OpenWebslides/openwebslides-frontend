@@ -3,7 +3,7 @@
 import { call, put, select } from 'redux-saga/effects';
 import { flashErrorMessage } from 'redux-flash';
 
-import apis from 'apis';
+import api from 'api';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import * as t from '../../actionTypes';
@@ -21,7 +21,7 @@ export const apiPostTokenSaga = function* (action: t.ApiPostTokenAction): Genera
 
   try {
     const { email, password } = action.payload;
-    const response = yield call(apis.token.post, email, password);
+    const response = yield call(api.token.post, email, password);
 
     const account = {
       id: response.body.data.id,
@@ -44,7 +44,7 @@ export const apiDeleteTokenSaga = function* (action: t.ApiDeleteTokenAction): Ge
   try {
     const token = yield select(getToken);
 
-    yield call(apis.token.destroy, token);
+    yield call(api.token.destroy, token);
 
     yield put(setAccountInState(null));
     yield put(setTokenInState(null));

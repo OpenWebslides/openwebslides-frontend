@@ -2,7 +2,7 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import apis from 'apis';
+import api from 'api';
 
 import * as t from '../../../actionTypes';
 import { apiPostUsersSaga } from '../users';
@@ -30,7 +30,7 @@ describe(`users`, (): void => {
       };
 
       return expectSaga(apiPostUsersSaga, dummyPostUsersAction)
-        .call(apis.users.post, 'foo@bar', 'Foo', 'Bar', 'foobar', true)
+        .call(api.users.post, 'foo@bar', 'Foo', 'Bar', 'foobar', true)
         .run();
     });
 

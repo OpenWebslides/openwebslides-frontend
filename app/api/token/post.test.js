@@ -3,9 +3,9 @@
 import { API_URL } from 'config/api';
 import { httpMethods } from 'lib/ApiRequest';
 
-import apis from '..';
+import api from '..';
 
-describe(`apis.users.post`, (): void => {
+describe(`api.token.post`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
@@ -14,29 +14,22 @@ describe(`apis.users.post`, (): void => {
   it(`executes the correct fetch call`, async (): Promise<*> => {
     const dummyEmail = 'test@test.be';
     const dummyPassword = 'mahpasswordy0';
-    const dummyFirstName = 'Test';
-    const dummyLastName = 'Tester';
-    const dummyTosAccepted = true;
-
     fetch.mockResponseOnce(null, { status: 200 });
-    await apis.users.post(dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted);
+    await api.token.post(dummyEmail, dummyPassword);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
     const mockUrl = fetch.mock.calls[0][0];
     const mockOptions = fetch.mock.calls[0][1];
 
-    expect(mockUrl).toBe(`${API_URL}/users`);
+    expect(mockUrl).toBe(`${API_URL}/token`);
     expect(mockOptions.method).toBe(httpMethods.POST);
     expect(JSON.parse(mockOptions.body)).toEqual({
       data: {
-        type: 'users',
+        type: 'tokens',
         attributes: {
           email: dummyEmail,
-          firstName: dummyFirstName,
-          lastName: dummyLastName,
           password: dummyPassword,
-          tosAccepted: dummyTosAccepted,
         },
       },
     });

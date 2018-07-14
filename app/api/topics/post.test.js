@@ -3,9 +3,9 @@
 import { API_URL } from 'config/api';
 import { httpMethods } from 'lib/ApiRequest';
 
-import apis from '..';
+import api from '..';
 
-describe(`apis.topics.post`, (): void => {
+describe(`api.topics.post`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
@@ -17,7 +17,7 @@ describe(`apis.topics.post`, (): void => {
     const dummyDescription = 'Topic description goes here';
     const dummyToken = 'foobarToken';
     fetch.mockResponseOnce(null, { status: 200 });
-    await apis.topics.post(dummyUserId, dummyTitle, dummyDescription, dummyToken);
+    await api.topics.post(dummyUserId, dummyTitle, dummyDescription, dummyToken);
 
     expect(fetch.mock.calls).toHaveLength(1);
 

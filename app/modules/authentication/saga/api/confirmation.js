@@ -2,7 +2,7 @@
 
 import { call } from 'redux-saga/effects';
 
-import apis from 'apis';
+import api from 'api';
 
 import * as t from '../../actionTypes';
 
@@ -11,7 +11,7 @@ export const apiPostConfirmationSaga = function* (
 ): Generator<*, *, *> {
   try {
     const { email } = action.payload;
-    yield call(apis.confirmation.post, email);
+    yield call(api.confirmation.post, email);
   }
   catch (error) {
     // TODO: fix saga error handling

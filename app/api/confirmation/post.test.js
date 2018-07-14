@@ -3,9 +3,9 @@
 import { API_URL } from 'config/api';
 import { httpMethods } from 'lib/ApiRequest';
 
-import apis from '..';
+import api from '..';
 
-describe(`apis.password.post`, (): void => {
+describe(`api.confirmation.post`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
@@ -14,18 +14,18 @@ describe(`apis.password.post`, (): void => {
   it(`executes the correct fetch call`, async (): Promise<*> => {
     const dummyEmail = 'test@test.be';
     fetch.mockResponseOnce(null, { status: 200 });
-    await apis.password.post(dummyEmail);
+    await api.confirmation.post(dummyEmail);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
     const mockUrl = fetch.mock.calls[0][0];
     const mockOptions = fetch.mock.calls[0][1];
 
-    expect(mockUrl).toBe(`${API_URL}/password`);
+    expect(mockUrl).toBe(`${API_URL}/confirmation`);
     expect(mockOptions.method).toBe(httpMethods.POST);
     expect(JSON.parse(mockOptions.body)).toEqual({
       data: {
-        type: 'passwords',
+        type: 'confirmations',
         attributes: {
           email: dummyEmail,
         },

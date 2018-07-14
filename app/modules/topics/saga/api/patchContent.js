@@ -4,7 +4,7 @@ import { flashMessage, flashErrorMessage } from 'redux-flash';
 import { call, put, select } from 'redux-saga/effects';
 
 import authentication from 'modules/authentication';
-import apis from 'apis';
+import api from 'api';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import * as t from '../../actionTypes';
@@ -24,7 +24,7 @@ export const apiPatchContentSaga = function* (
     const { id, content } = action.payload;
     const token = yield select(getToken);
 
-    const response = yield call(apis.topics.patchContent, id, content, token);
+    const response = yield call(api.topics.patchContent, id, content, token);
 
     yield put(setTokenInState(response.token));
     yield put(setStatusInState(t.API_PATCH_CONTENT, statusTypes.SUCCESS));

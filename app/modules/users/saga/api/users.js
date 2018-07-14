@@ -2,7 +2,7 @@
 
 import { call, put, select } from 'redux-saga/effects';
 
-import apis from 'apis';
+import api from 'api';
 import authentication from 'modules/authentication';
 
 import * as t from '../../actionTypes';
@@ -13,7 +13,7 @@ export const apiGetUserSaga = function* (action: t.ApiGetUserAction): Generator<
     const { id } = action.payload;
     const token = yield select(authentication.selectors.getToken);
 
-    const response = yield call(apis.users.get, id, token);
+    const response = yield call(api.users.get, id, token);
     const { attributes } = response.body.data;
 
     yield put(addToState(

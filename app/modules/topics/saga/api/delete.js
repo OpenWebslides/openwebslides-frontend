@@ -3,7 +3,7 @@
 import { call, put, select } from 'redux-saga/effects';
 
 import authentication from 'modules/authentication';
-import apis from 'apis';
+import api from 'api';
 
 import * as t from '../../actionTypes';
 import { removeFromState } from '../../actions';
@@ -15,7 +15,7 @@ export const apiDeleteSaga = function* (action: t.ApiDeleteTopicAction): Generat
     const { id } = action.payload;
     const token = yield select(getToken);
 
-    yield call(apis.topics.destroy, id, token);
+    yield call(api.topics.destroy, id, token);
     yield put(removeFromState(id));
   }
   catch (error) {

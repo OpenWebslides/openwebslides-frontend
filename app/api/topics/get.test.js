@@ -3,9 +3,9 @@
 import { API_URL } from 'config/api';
 import { httpMethods } from 'lib/ApiRequest';
 
-import apis from '..';
+import api from '..';
 
-describe(`apis.topics.destroy`, (): void => {
+describe(`api.topics.get`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
@@ -13,19 +13,17 @@ describe(`apis.topics.destroy`, (): void => {
 
   it(`executes the correct fetch call`, async (): Promise<*> => {
     const dummyTopicId = 'ThisIsAnId';
-    const dummyToken = 'foobarToken';
     fetch.mockResponseOnce(null, { status: 200 });
-    await apis.topics.destroy(dummyTopicId, dummyToken);
+    await api.topics.get(dummyTopicId);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
     const mockUrl = fetch.mock.calls[0][0];
     const mockOptions = fetch.mock.calls[0][1];
 
-    expect(mockUrl).toBe(`${API_URL}/topics/${dummyTopicId}`);
-    expect(mockOptions.method).toBe(httpMethods.DELETE);
+    expect(mockUrl).toBe(`${API_URL}/topics/${dummyTopicId}?include=user`);
+    expect(mockOptions.method).toBe(httpMethods.GET);
     expect(mockOptions.body).toBeNull();
-    expect(mockOptions.headers.Authorization).toBe(`Bearer ${dummyToken}`);
   });
 
 });

@@ -2,11 +2,10 @@
 
 import { API_URL } from 'config/api';
 import { httpMethods } from 'lib/ApiRequest';
-import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import apis from '..';
+import api from '..';
 
-describe(`apis.topics.patchContent`, (): void => {
+describe(`api.topics.getContent`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
@@ -15,9 +14,8 @@ describe(`apis.topics.patchContent`, (): void => {
   it(`executes the correct fetch call`, async (): Promise<*> => {
     const dummyTopicId = 'ThisIsAnId';
     const dummyToken = 'foobarToken';
-    const dummyContent = [dummyData.rootContentItem, dummyData.headingContentItem];
     fetch.mockResponseOnce(null, { status: 200 });
-    await apis.topics.patchContent(dummyTopicId, dummyContent, dummyToken);
+    await api.topics.getContent(dummyTopicId, dummyToken);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
@@ -25,15 +23,8 @@ describe(`apis.topics.patchContent`, (): void => {
     const mockOptions = fetch.mock.calls[0][1];
 
     expect(mockUrl).toBe(`${API_URL}/topics/${dummyTopicId}/content`);
-    expect(mockOptions.method).toBe(httpMethods.PATCH);
-    expect(JSON.parse(mockOptions.body)).toEqual({
-      data: {
-        type: 'contents',
-        attributes: {
-          content: dummyContent,
-        },
-      },
-    });
+    expect(mockOptions.method).toBe(httpMethods.GET);
+    expect(mockOptions.body).toBeNull();
     expect(mockOptions.headers.Authorization).toBe(`Bearer ${dummyToken}`);
   });
 
