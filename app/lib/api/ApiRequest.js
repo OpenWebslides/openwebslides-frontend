@@ -3,7 +3,7 @@
 import { API_URL } from 'config/api';
 
 import { MEDIA_TYPE } from './constants';
-import fetchApiResponseData from './fetchApiResponseData';
+import fetchApiResponseData from './helpers/fetchApiResponseData';
 import * as m from './model';
 
 const ApiRequest = (): m.Request => {

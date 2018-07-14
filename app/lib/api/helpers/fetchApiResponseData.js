@@ -8,7 +8,7 @@ import {
   UnexpectedHttpStatusError,
 } from 'errors';
 
-import * as m from './model';
+import * as m from '../model';
 
 const extractTokenFromAuthHeader = (authHeader: ?string): ?string => {
   return (authHeader) ? authHeader.slice(7) : null;
