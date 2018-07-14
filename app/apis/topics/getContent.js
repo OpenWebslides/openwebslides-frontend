@@ -9,16 +9,12 @@ import ApiRequest, { httpMethods, type ApiResponseData, type ApiToken } from 'li
 import { TOPICS_ENDPOINT, TOPICS_CONTENT_ENDPOINT } from '../endpoints';
 
 const getContent = (topicId: Identifier, token: ApiToken): Promise<ApiResponseData> => {
-  const request = new ApiRequest();
-
-  request
-    .setEndpoint(TOPICS_ENDPOINT)
-    .setResource(topicId)
-    .setSubEndpoint(TOPICS_CONTENT_ENDPOINT)
-    .setMethod(httpMethods.GET)
-    .setToken(token);
-
-  return request.execute();
+  return new ApiRequest(httpMethods.GET)
+    .addPathSegment(TOPICS_ENDPOINT)
+    .addPathSegment(topicId)
+    .addPathSegment(TOPICS_CONTENT_ENDPOINT)
+    .setToken(token)
+    .execute();
 };
 
 export default getContent;

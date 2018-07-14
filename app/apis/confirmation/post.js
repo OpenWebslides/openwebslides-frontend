@@ -7,11 +7,7 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 
 import { CONFIRMATION_ENDPOINT } from '../endpoints';
 
-const post = (
-  email: string,
-): Promise<ApiResponseData> => {
-  const request = new ApiRequest();
-
+const post = (email: string): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
       type: 'confirmations',
@@ -21,12 +17,10 @@ const post = (
     },
   });
 
-  request
-    .setEndpoint(CONFIRMATION_ENDPOINT)
-    .setMethod(httpMethods.POST)
-    .setBody(body);
-
-  return request.execute();
+  return new ApiRequest(httpMethods.POST)
+    .addPathSegment(CONFIRMATION_ENDPOINT)
+    .setBody(body)
+    .execute();
 };
 
 export default post;

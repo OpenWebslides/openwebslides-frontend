@@ -1,247 +1,226 @@
 // @flow
+/* eslint-disable quote-props */
 
 import { API_URL } from 'config/api';
+import { UnsupportedOperationError } from 'errors';
 
-import ApiRequest, { MEDIA_TYPE } from './ApiRequest';
+import fetchApiResponseData from './helpers/fetchApiResponseData';
+import ApiRequest, { defaultConfig } from './ApiRequest';
 import * as m from './model';
 
-const defaultHeaders = {
-  'Content-Type': MEDIA_TYPE,
-  Accept: MEDIA_TYPE,
-};
+jest.mock('./helpers/fetchApiResponseData');
 
 describe(`ApiRequest`, (): void => {
-  let request: ApiRequest;
+
+  let dummyFetchApiResponseData: *;
 
   beforeEach((): void => {
-    request = new ApiRequest();
+    jest.restoreAllMocks();
+
+    dummyFetchApiResponseData = jest.fn();
+    (fetchApiResponseData: any).mockImplementation(dummyFetchApiResponseData);
   });
 
-  describe(`config`, (): void => {
-    it(`has a default config`, (): void => {
-      expect(request.config.url).toEqual(API_URL);
-      expect(request.config.endpoint).toEqual('');
-      expect(request.config.resource).toBeNull();
-      expect(request.config.headers).toEqual(defaultHeaders);
-      expect(request.config.parameters).toEqual({});
-      expect(request.config.method).toEqual(m.httpMethods.GET);
-      expect(request.config.body).toEqual('');
-    });
-  });
-
-  describe(`setEndpoint`, (): void => {
-    it(`sets endpoint without slash`, (): void => {
-      request.setEndpoint('foobar');
-
-      expect(request.config.endpoint).toEqual('/foobar');
-    });
-
-    it(`sets endpoint with slash`, (): void => {
-      request.setEndpoint('/foobar');
-
-      expect(request.config.endpoint).toEqual('/foobar');
+  it(`correctly sets the method and uses defaults for the rest of the config, when it is created`, (): void => {
+    const dummyRequest = new ApiRequest(m.httpMethods.GET);
+    expect(dummyRequest.config).toEqual({
+      ...defaultConfig,
+      method: m.httpMethods.GET,
     });
   });
 
-  describe(`setResource`, (): void => {
-    it(`sets resource`, (): void => {
-      request.setResource('foobar');
+  it(`calls fetchApiResponseData with the correct arguments, when it is executed`, (): void => {
+    new ApiRequest(m.httpMethods.GET)
+      .addPathSegment('test')
+      .execute();
 
-      expect(request.config.resource).toEqual('foobar');
-    });
+    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
+      `${API_URL}/test`,
+      {
+        method: m.httpMethods.GET,
+        headers: defaultConfig.headers,
+        body: null,
+      },
+    );
   });
 
-  describe(`setSubEndpoint`, (): void => {
-    it(`sets subEndpoint without slash`, (): void => {
-      request.setSubEndpoint('foobar');
+  it(`executes with extra headers, when extra headers are passed before execution`, (): void => {
+    new ApiRequest(m.httpMethods.GET)
+      .addPathSegment('test')
+      .setHeader('Host', 'localhost')
+      .setHeader('Accept-Charset', 'utf-8')
+      .execute();
 
-      expect(request.config.subEndpoint).toEqual('/foobar');
-    });
-
-    it(`sets subEndpoint with slash`, (): void => {
-      request.setSubEndpoint('/foobar');
-
-      expect(request.config.subEndpoint).toEqual('/foobar');
-    });
-  });
-
-  describe(`setSubResource`, (): void => {
-    it(`sets subResource`, (): void => {
-      request.setSubResource('foobar');
-
-      expect(request.config.subResource).toEqual('foobar');
-    });
-  });
-
-  describe(`setMethod`, (): void => {
-    it(`sets method`, (): void => {
-      request.setMethod(m.httpMethods.DELETE);
-
-      expect(request.config.method).toEqual(m.httpMethods.DELETE);
-    });
-  });
-
-  describe(`setParameter`, (): void => {
-    it(`sets parameter`, (): void => {
-      request.setParameter('foo', 'bar');
-
-      expect(request.config.parameters).toEqual({
-        foo: 'bar',
-      });
-    });
-  });
-
-  describe(`setHeader`, (): void => {
-    it(`sets header`, (): void => {
-      request.setHeader('Accept', 'application/json');
-
-      expect(request.config.headers.Accept).toEqual('application/json');
-    });
-
-    it(`adds header`, (): void => {
-      request.setHeader('Host', 'localhost');
-
-      expect(request.config.headers).toEqual({
-        ...defaultHeaders,
-        Host: 'localhost',
-      });
-    });
-  });
-
-  describe(`setBody`, (): void => {
-    it(`sets body`, (): void => {
-      request.setBody('foobar');
-
-      expect(request.config.body).toEqual('foobar');
-    });
-  });
-
-  describe(`setToken`, (): void => {
-    it(`sets token`, (): void => {
-      expect(request.config.headers.Authorization).toBeUndefined();
-
-      request.setToken('foobar');
-
-      expect(request.config.headers.Authorization).toEqual('Bearer foobar');
-    });
-
-    it(`unsets null token`, (): void => {
-      request.config.headers.Authorization = 'Bearer foobar';
-
-      request.setToken(null);
-
-      expect(request.config.headers.Authorization).toBeUndefined();
-    });
-
-    it(`unsets empty token`, (): void => {
-      request.config.headers.Authorization = 'Bearer foobar';
-
-      request.setToken('');
-
-      expect(request.config.headers.Authorization).toBeUndefined();
-    });
-  });
-
-  describe(`getUrl`, (): void => {
-    it(`generates correct url without parameters`, (): void => {
-      request.setEndpoint('/endpoint');
-
-      expect(request.getUrl()).toEqual(`${API_URL}/endpoint`);
-    });
-
-    it(`generates correct url with one parameter`, (): void => {
-      request.setEndpoint('/endpoint');
-      request.setParameter('param1', 'value1');
-
-      expect(request.getUrl()).toEqual(`${API_URL}/endpoint?param1=value1`);
-    });
-
-    it(`generates correct url with two parameters`, (): void => {
-      request.setEndpoint('/endpoint');
-      request.setParameter('param1', 'value1');
-      request.setParameter('param2', 'value2');
-
-      expect(request.getUrl()).toEqual(`${API_URL}/endpoint?param1=value1&param2=value2`);
-    });
-
-    it(`generates correct url with resource`, (): void => {
-      request.setEndpoint('/endpoint');
-      request.setResource('1');
-      request.setParameter('param', 'value');
-
-      expect(request.getUrl()).toEqual(`${API_URL}/endpoint/1?param=value`);
-    });
-
-    it(`generates correct url with resource and subEndpoint`, (): void => {
-      request.setEndpoint('/endpoint');
-      request.setResource('1');
-      request.setSubEndpoint('/subendpoint');
-      request.setParameter('param', 'value');
-
-      expect(request.getUrl()).toEqual(`${API_URL}/endpoint/1/subendpoint?param=value`);
-    });
-
-    it(`generates correct url with resource, subEndpoint and subResource`, (): void => {
-      request.setEndpoint('/endpoint');
-      request.setResource('1');
-      request.setSubEndpoint('/subendpoint');
-      request.setSubResource('2');
-      request.setParameter('param', 'value');
-
-      expect(request.getUrl()).toEqual(`${API_URL}/endpoint/1/subendpoint/2?param=value`);
-    });
-
-    it(`generates correct url with resource and subResource`, (): void => {
-      request.setEndpoint('/endpoint');
-      request.setResource('1');
-      request.setSubResource('2');
-      request.setParameter('param', 'value');
-
-      expect(request.getUrl()).toEqual(`${API_URL}/endpoint/1?param=value`);
-    });
-
-    it(`generates correct url with subEndpoint and subResource`, (): void => {
-      request.setSubEndpoint('/subendpoint');
-      request.setSubResource('2');
-      request.setParameter('param', 'value');
-
-      expect(request.getUrl()).toEqual(`${API_URL}?param=value`);
-    });
-  });
-
-  describe(`getOptions`, (): void => {
-    it(`generates correct options with POST request`, (): void => {
-      request.setMethod(m.httpMethods.POST);
-      request.setBody('foobar');
-      request.setHeader('User-Agent', 'jest');
-
-      expect(request.getOptions()).toEqual({
-        method: m.httpMethods.POST,
-        body: 'foobar',
-        headers: {
-          ...defaultHeaders,
-          'User-Agent': 'jest',
-        },
-      });
-    });
-
-    it(`generates correct options with GET request`, (): void => {
-      request.setMethod(m.httpMethods.GET);
-      request.setBody('foobar');
-      request.setHeader('User-Agent', 'jest');
-
-      // No body in GET requests
-      expect(request.getOptions()).toEqual({
+    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
+      `${API_URL}/test`,
+      {
         method: m.httpMethods.GET,
         headers: {
-          ...defaultHeaders,
-          'User-Agent': 'jest',
+          ...defaultConfig.headers,
+          'Host': 'localhost',
+          'Accept-Charset': 'utf-8',
         },
-      });
-    });
-
-    describe(`execute`, (): void => {
-      // TODO
-    });
+        body: null,
+      },
+    );
   });
+
+  it(`allows default headers to be overridden with new values`, (): void => {
+    new ApiRequest(m.httpMethods.GET)
+      .addPathSegment('test')
+      .setHeader('Content-Type', 'text/html')
+      .execute();
+
+    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
+      `${API_URL}/test`,
+      {
+        method: m.httpMethods.GET,
+        headers: {
+          ...defaultConfig.headers,
+          'Content-Type': 'text/html',
+        },
+        body: null,
+      },
+    );
+  });
+
+  it(`executes with extra parameters, when extra parameters are passed before execution`, (): void => {
+    new ApiRequest(m.httpMethods.GET)
+      .addPathSegment('test')
+      .setParameter('page', '5')
+      .setParameter('filter', 'foobar')
+      .execute();
+
+    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
+      `${API_URL}/test?page=5&filter=foobar`,
+      {
+        method: m.httpMethods.GET,
+        headers: defaultConfig.headers,
+        body: null,
+      },
+    );
+  });
+
+  it(`allows previously set parameters to be overridden with new values`, (): void => {
+    new ApiRequest(m.httpMethods.GET)
+      .addPathSegment('test')
+      .setParameter('page', '5')
+      .setParameter('page', '8')
+      .execute();
+
+    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
+      `${API_URL}/test?page=8`,
+      {
+        method: m.httpMethods.GET,
+        headers: defaultConfig.headers,
+        body: null,
+      },
+    );
+  });
+
+  it(`executes with the correct url, when multiple pathSegments and parameters are passed`, (): void => {
+    new ApiRequest(m.httpMethods.GET)
+      .addPathSegment('lorem')
+      .addPathSegment('ipsum')
+      .setParameter('page', '5')
+      .setParameter('filter', 'foobar')
+      .execute();
+
+    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
+      `${API_URL}/lorem/ipsum?page=5&filter=foobar`,
+      {
+        method: m.httpMethods.GET,
+        headers: defaultConfig.headers,
+        body: null,
+      },
+    );
+  });
+
+  it(`throws an UnsupportedOperationError, when attempting to execute without having added any pathSegments`, (): void => {
+    expect((): void => {
+      new ApiRequest(m.httpMethods.GET)
+        .execute();
+    }).toThrow(UnsupportedOperationError);
+  });
+
+  it(`executes with the correct body, when a body is passed before execution`, (): void => {
+    const dummyBody = JSON.stringify({ data: { foo: 'bar' } });
+    new ApiRequest(m.httpMethods.POST)
+      .addPathSegment('test')
+      .setBody(dummyBody)
+      .execute();
+
+    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
+      `${API_URL}/test`,
+      {
+        method: m.httpMethods.POST,
+        headers: defaultConfig.headers,
+        body: dummyBody,
+      },
+    );
+  });
+
+  it(`throws an UnsupportedOperationError, when attempting to set a body on a GET request`, (): void => {
+    const dummyBody = JSON.stringify({ data: { foo: 'bar' } });
+
+    expect((): void => {
+      new ApiRequest(m.httpMethods.GET)
+        .addPathSegment('test')
+        .setBody(dummyBody);
+    }).toThrow(UnsupportedOperationError);
+  });
+
+  it(`executes with the correct Auth header, when a token is passed before execution`, (): void => {
+    new ApiRequest(m.httpMethods.POST)
+      .addPathSegment('test')
+      .setToken('foobarToken')
+      .execute();
+
+    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
+      `${API_URL}/test`,
+      {
+        method: m.httpMethods.POST,
+        headers: {
+          ...defaultConfig.headers,
+          'Authorization': 'Bearer foobarToken',
+        },
+        body: null,
+      },
+    );
+  });
+
+  it(`allows unsetting the Auth header by passing null as a token`, (): void => {
+    new ApiRequest(m.httpMethods.POST)
+      .addPathSegment('test')
+      .setToken('foobarToken')
+      .setToken(null)
+      .execute();
+
+    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
+      `${API_URL}/test`,
+      {
+        method: m.httpMethods.POST,
+        headers: defaultConfig.headers,
+        body: null,
+      },
+    );
+  });
+
+  it(`allows unsetting the Auth header by passing an empty string as a token`, (): void => {
+    new ApiRequest(m.httpMethods.POST)
+      .addPathSegment('test')
+      .setToken('foobarToken')
+      .setToken('')
+      .execute();
+
+    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
+      `${API_URL}/test`,
+      {
+        method: m.httpMethods.POST,
+        headers: defaultConfig.headers,
+        body: null,
+      },
+    );
+  });
+
 });

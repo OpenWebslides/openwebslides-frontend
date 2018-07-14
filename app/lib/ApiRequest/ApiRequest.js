@@ -1,6 +1,10 @@
 // @flow
+/* eslint-disable quote-props */
+
+import _ from 'lodash';
 
 import { API_URL } from 'config/api';
+import { UnsupportedOperationError } from 'errors';
 
 import fetchApiResponseData from './helpers/fetchApiResponseData';
 import * as m from './model';
@@ -8,111 +12,79 @@ import * as m from './model';
 // JSON API media type
 const MEDIA_TYPE = 'application/vnd.api+json';
 
+const defaultConfig = {
+  url: API_URL,
+  pathSegments: [],
+  headers: {
+    'Content-Type': MEDIA_TYPE,
+    'Accept': MEDIA_TYPE,
+  },
+  parameters: {},
+  body: null,
+};
+
 class ApiRequest {
-  config: m.ApiRequestConfig = {
-    url: API_URL,
-    endpoint: '',
-    resource: null,
-    subEndpoint: null,
-    subResource: null,
-    headers: {
-      'Content-Type': MEDIA_TYPE,
-      Accept: MEDIA_TYPE,
-    },
-    parameters: {},
-    method: m.httpMethods.GET,
-    body: '',
-  };
+  config: m.ApiRequestConfig;
 
-  setEndpoint = (endpoint: string): ApiRequest => {
-    if (endpoint.startsWith('/')) {
-      this.config.endpoint = endpoint;
-    }
-    else {
-      this.config.endpoint = `/${endpoint}`;
-    }
+  constructor(method: m.HttpMethod): void {
+    this.config = {
+      ..._.cloneDeep(defaultConfig),
+      method,
+    };
+  }
 
-    return this;
-  };
-
-  setResource = (id: string): ApiRequest => {
-    this.config.resource = id;
-
-    return this;
-  };
-
-  setSubEndpoint = (subEndpoint: string): ApiRequest => {
-    if (subEndpoint.startsWith('/')) {
-      this.config.subEndpoint = subEndpoint;
-    }
-    else {
-      this.config.subEndpoint = `/${subEndpoint}`;
-    }
-
-    return this;
-  };
-
-  setSubResource = (id: string): ApiRequest => {
-    this.config.subResource = id;
-
+  addPathSegment = (segment: string): ApiRequest => {
+    this.config.pathSegments.push(segment);
     return this;
   };
 
   setHeader = (header: string, value: string): ApiRequest => {
     this.config.headers[header] = value;
+    return this;
+  };
 
+  removeHeader = (header: string): ApiRequest => {
+    this.config.headers = _.omit(this.config.headers, header);
     return this;
   };
 
   setParameter = (parameter: string, value: string): ApiRequest => {
     this.config.parameters[parameter] = value;
-
-    return this;
-  };
-
-  setMethod = (method: m.HttpMethod): ApiRequest => {
-    this.config.method = method;
-
     return this;
   };
 
   setBody = (body: string): ApiRequest => {
-    this.config.body = body;
+    if (this.config.method === m.httpMethods.GET) {
+      throw new UnsupportedOperationError(`GET request cannot have a body.`);
+    }
 
+    this.config.body = body;
     return this;
   };
 
   setToken = (token: ?m.ApiToken): ApiRequest => {
-    if (token && token.length !== 0) {
-      this.config.headers.Authorization = `Bearer ${token}`;
-    }
-    else {
-      delete this.config.headers.Authorization;
-    }
+    if (token) this.setHeader('Authorization', `Bearer ${token}`);
+    else this.removeHeader('Authorization');
 
     return this;
   };
 
   getUrl = (): string => {
-    let url: string = `${this.config.url}${this.config.endpoint}`;
-
-    if (this.config.resource) {
-      url += `/${this.config.resource}`;
-
-      if (this.config.subEndpoint) {
-        url += `${this.config.subEndpoint}`;
-
-        if (this.config.subResource) {
-          url += `/${this.config.subResource}`;
-        }
-      }
+    if (this.config.pathSegments.length === 0) {
+      throw new UnsupportedOperationError(`Must add at least one pathSegment.`);
     }
 
+    // Concat the url and path
+    let url: string = `${this.config.url}/${this.config.pathSegments.join('/')}`;
+
+    // If there are parameters
     if (Object.keys(this.config.parameters).length !== 0) {
+      // Concat the parameters into a query
       const query = Object.keys(this.config.parameters).map((k: string): string => {
         return `${encodeURIComponent(k)}=${encodeURIComponent(this.config.parameters[k])}`;
       }).join('&');
 
+      // Append the query to the url
       url += `?${query}`;
     }
 
@@ -120,16 +92,11 @@ class ApiRequest {
   };
 
   getOptions = (): RequestOptions => {
-    const options: RequestOptions = {
+    return {
       method: this.config.method,
       headers: this.config.headers,
+      body: this.config.body,
     };
-
-    if (this.config.body && this.config.method !== m.httpMethods.GET) {
-      options.body = this.config.body;
-    }
-
-    return options;
   };
 
   execute = (): Promise<m.ApiResponseData> => {
@@ -137,5 +104,5 @@ class ApiRequest {
   };
 }
 
-export { MEDIA_TYPE };
+export { MEDIA_TYPE, defaultConfig };
 export default ApiRequest;

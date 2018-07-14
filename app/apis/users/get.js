@@ -10,15 +10,11 @@ import { USERS_ENDPOINT } from '../endpoints';
 
 // #TODO why use ?Token here and Token everywhere else? @florian
 const get = (id: Identifier, token: ?ApiToken): Promise<ApiResponseData> => {
-  const request = new ApiRequest();
-
-  request
-    .setEndpoint(USERS_ENDPOINT)
-    .setMethod(httpMethods.GET)
-    .setResource(id)
-    .setToken(token);
-
-  return request.execute();
+  return new ApiRequest(httpMethods.GET)
+    .addPathSegment(USERS_ENDPOINT)
+    .addPathSegment(id)
+    .setToken(token)
+    .execute();
 };
 
 export default get;

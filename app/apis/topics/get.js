@@ -9,15 +9,11 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 import { TOPICS_ENDPOINT } from '../endpoints';
 
 const get = async (id: Identifier): Promise<ApiResponseData> => {
-  const request = new ApiRequest();
-
-  request
-    .setEndpoint(TOPICS_ENDPOINT)
-    .setMethod(httpMethods.GET)
-    .setResource(id)
-    .setParameter('include', 'user');
-
-  return request.execute();
+  return new ApiRequest(httpMethods.GET)
+    .addPathSegment(TOPICS_ENDPOINT)
+    .addPathSegment(id)
+    .setParameter('include', 'user')
+    .execute();
 };
 
 export default get;

@@ -14,8 +14,6 @@ const post = (
   password: string,
   tosAccepted: boolean,
 ): Promise<ApiResponseData> => {
-  const request = new ApiRequest();
-
   const body = JSON.stringify({
     data: {
       type: 'users',
@@ -29,12 +27,10 @@ const post = (
     },
   });
 
-  request
-    .setEndpoint(USERS_ENDPOINT)
-    .setMethod(httpMethods.POST)
-    .setBody(body);
-
-  return request.execute();
+  return new ApiRequest(httpMethods.POST)
+    .addPathSegment(USERS_ENDPOINT)
+    .setBody(body)
+    .execute();
 };
 
 export default post;

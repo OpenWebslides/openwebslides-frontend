@@ -8,8 +8,6 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 import { TOKEN_ENDPOINT } from '../endpoints';
 
 const post = (email: string, password: string): Promise<ApiResponseData> => {
-  const request = new ApiRequest();
-
   const body = JSON.stringify({
     data: {
       type: 'tokens',
@@ -20,12 +18,10 @@ const post = (email: string, password: string): Promise<ApiResponseData> => {
     },
   });
 
-  request
-    .setEndpoint(TOKEN_ENDPOINT)
-    .setMethod(httpMethods.POST)
-    .setBody(body);
-
-  return request.execute();
+  return new ApiRequest(httpMethods.POST)
+    .addPathSegment(TOKEN_ENDPOINT)
+    .setBody(body)
+    .execute();
 };
 
 export default post;

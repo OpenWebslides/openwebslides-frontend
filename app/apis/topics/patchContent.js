@@ -14,8 +14,6 @@ const patchContent = (
   content: Array<contentItems.model.ContentItem>,
   token: ApiToken,
 ): Promise<ApiResponseData> => {
-  const request = new ApiRequest();
-
   const body = JSON.stringify({
     data: {
       type: 'contents',
@@ -25,15 +23,13 @@ const patchContent = (
     },
   });
 
-  request
-    .setEndpoint(TOPICS_ENDPOINT)
-    .setResource(topicId)
-    .setSubEndpoint(TOPICS_CONTENT_ENDPOINT)
-    .setMethod(httpMethods.PATCH)
+  return new ApiRequest(httpMethods.PATCH)
+    .addPathSegment(TOPICS_ENDPOINT)
+    .addPathSegment(topicId)
+    .addPathSegment(TOPICS_CONTENT_ENDPOINT)
     .setBody(body)
-    .setToken(token);
-
-  return request.execute();
+    .setToken(token)
+    .execute();
 };
 
 export default patchContent;

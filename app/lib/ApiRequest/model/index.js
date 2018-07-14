@@ -13,15 +13,12 @@ export type ApiRequestParameters = {
 };
 
 export type ApiRequestConfig = {
-  url: string, // Request URL (base)
-  endpoint: string, // Request endpoint
-  resource: ?string, // Request resource ID
-  subEndpoint: ?string, // Request nested endpoint
-  subResource: ?string, // Request nested endpoint resource ID
+  url: string,
+  pathSegments: Array<string>,
   headers: ApiRequestHeaders,
   parameters: ApiRequestParameters,
   method: httpMethods.HttpMethod,
-  body: string,
+  body: ?string,
 };
 
 export type ApiResponseData = {

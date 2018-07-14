@@ -14,8 +14,6 @@ const post = (
   description: ?string,
   token: ApiToken,
 ): Promise<ApiResponseData> => {
-  const request = new ApiRequest();
-
   const body = JSON.stringify({
     data: {
       type: 'topics',
@@ -35,13 +33,11 @@ const post = (
     },
   });
 
-  request
-    .setEndpoint(TOPICS_ENDPOINT)
-    .setMethod(httpMethods.POST)
+  return new ApiRequest(httpMethods.POST)
+    .addPathSegment(TOPICS_ENDPOINT)
     .setBody(body)
-    .setToken(token);
-
-  return request.execute();
+    .setToken(token)
+    .execute();
 };
 
 export default post;
