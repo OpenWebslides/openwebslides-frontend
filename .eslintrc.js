@@ -2,6 +2,7 @@ module.exports = {
   'extends': [
     'airbnb',
     'plugin:flowtype/recommended',
+    'plugin:promise/recommended',
   ],
   'env': {
     // Don't throw error when using global browser variables such as 'document' or 'window'.
@@ -14,6 +15,8 @@ module.exports = {
     'flowtype',
     // ESLint checking for Jest tests.
     'jest',
+    // ESLint checking for correct use of Promise / async features.
+    'promise',
   ],
   'settings': {
     // Temporary workaround for https://github.com/benmosher/eslint-plugin-import/issues/793 #TODO
@@ -257,6 +260,10 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
+
+    // Enforce using ES2017 async/await syntax for asynchronous functionality.
+    'promise/prefer-await-to-then': 'error',
+    'promise/prefer-await-to-callbacks': 'error',
 
     // Doesn't play wel with semantic-ui-react; #TODO look for a way to fix this; perhaps write wrapper for label?
     'jsx-a11y/label-has-for': 'off',
