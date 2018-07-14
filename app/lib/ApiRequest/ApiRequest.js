@@ -13,7 +13,7 @@ import * as m from './model';
 const MEDIA_TYPE = 'application/vnd.api+json';
 
 const defaultConfig = {
-  url: API_URL,
+  apiUrl: API_URL,
   pathSegments: [],
   headers: {
     'Content-Type': MEDIA_TYPE,
@@ -75,7 +75,7 @@ class ApiRequest {
     }
 
     // Concat the url and path
-    let url: string = `${this.config.url}/${this.config.pathSegments.join('/')}`;
+    let url: string = `${this.config.apiUrl}/${this.config.pathSegments.join('/')}`;
 
     // If there are parameters
     if (Object.keys(this.config.parameters).length !== 0) {

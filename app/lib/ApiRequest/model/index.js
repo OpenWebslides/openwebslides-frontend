@@ -14,8 +14,8 @@ export type ApiRequestParameters = {
 
 export type ApiRequestConfig = {|
   method: httpMethods.HttpMethod,
-  url: string,
-  pathSegments: Array<string>,
+  apiUrl: string, // Base api url
+  pathSegments: Array<string>, // Endpoints, resource ids, ...
   parameters: ApiRequestParameters,
   headers: ApiRequestHeaders,
   body: ?string,
