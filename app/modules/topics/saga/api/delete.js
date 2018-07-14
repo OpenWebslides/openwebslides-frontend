@@ -3,7 +3,7 @@
 import { call, put, select } from 'redux-saga/effects';
 
 import authentication from 'modules/authentication';
-import apis from 'lib/api';
+import apis from 'apis';
 
 import * as t from '../../actionTypes';
 import { removeFromState } from '../../actions';

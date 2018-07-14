@@ -4,17 +4,16 @@
  */
 
 import type { Identifier } from 'types/model';
+import ApiRequest, { httpMethods, type ApiResponseData, type Token } from 'lib/ApiRequest';
 
-import * as m from '../../model';
-import ApiRequest from '../../ApiRequest';
 import { TOPICS_ENDPOINT } from '../endpoints';
 
-const destroy = (id: Identifier, token: m.Token): Promise<m.ApiResponseData> => {
+const destroy = (id: Identifier, token: Token): Promise<ApiResponseData> => {
   const request = new ApiRequest();
 
   request
     .setEndpoint(TOPICS_ENDPOINT)
-    .setMethod(m.httpMethods.DELETE)
+    .setMethod(httpMethods.DELETE)
     .setResource(id)
     .setToken(token);
 

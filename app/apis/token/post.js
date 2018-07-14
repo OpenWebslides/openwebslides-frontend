@@ -3,11 +3,11 @@
  * API docs: https://openwebslides.github.io/documentation/#token-api
  */
 
-import * as m from '../../model';
-import ApiRequest from '../../ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+
 import { TOKEN_ENDPOINT } from '../endpoints';
 
-const post = (email: string, password: string): Promise<m.ApiResponseData> => {
+const post = (email: string, password: string): Promise<ApiResponseData> => {
   const request = new ApiRequest();
 
   const body = JSON.stringify({
@@ -22,7 +22,7 @@ const post = (email: string, password: string): Promise<m.ApiResponseData> => {
 
   request
     .setEndpoint(TOKEN_ENDPOINT)
-    .setMethod(m.httpMethods.POST)
+    .setMethod(httpMethods.POST)
     .setBody(body);
 
   return request.execute();

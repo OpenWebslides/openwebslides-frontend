@@ -3,7 +3,7 @@
 import { call, put, select } from 'redux-saga/effects';
 import { flashErrorMessage } from 'redux-flash';
 
-import apis from 'lib/api';
+import apis from 'apis';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import * as t from '../../actionTypes';

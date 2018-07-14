@@ -2,7 +2,7 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import apis from 'lib/api';
+import apis from 'apis';
 
 import * as t from '../../../actionTypes';
 import { apiGetNotificationsSaga } from '../notifications';

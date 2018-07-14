@@ -5,16 +5,15 @@
 
 import type { Identifier } from 'types/model';
 import contentItems from 'modules/contentItems';
+import ApiRequest, { httpMethods, type ApiResponseData, type Token } from 'lib/ApiRequest';
 
-import * as m from '../../model';
-import ApiRequest from '../../ApiRequest';
 import { TOPICS_ENDPOINT, TOPICS_CONTENT_ENDPOINT } from '../endpoints';
 
 const patchContent = (
   topicId: Identifier,
   content: Array<contentItems.model.ContentItem>,
-  token: string,
-): Promise<m.ApiResponseData> => {
+  token: Token,
+): Promise<ApiResponseData> => {
   const request = new ApiRequest();
 
   const body = JSON.stringify({
@@ -30,7 +29,7 @@ const patchContent = (
     .setEndpoint(TOPICS_ENDPOINT)
     .setResource(topicId)
     .setSubEndpoint(TOPICS_CONTENT_ENDPOINT)
-    .setMethod(m.httpMethods.PATCH)
+    .setMethod(httpMethods.PATCH)
     .setBody(body)
     .setToken(token);
 

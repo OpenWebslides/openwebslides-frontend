@@ -3,7 +3,7 @@
 import _ from 'lodash';
 
 import { InvalidArgumentError } from 'errors';
-import type { Token } from 'lib/api';
+import type { Token } from 'lib/ApiRequest';
 import type { User } from 'modules/users';
 
 import * as t from './actionTypes';

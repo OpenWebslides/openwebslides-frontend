@@ -2,7 +2,7 @@
 
 import { call, put } from 'redux-saga/effects';
 
-import apis from 'lib/api';
+import apis from 'apis';
 
 import * as t from '../../actionTypes';
 import type { Topic } from '../../model';

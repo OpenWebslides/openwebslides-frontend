@@ -2,7 +2,7 @@
 
 import { call, put, select } from 'redux-saga/effects';
 
-import apis from 'lib/api';
+import apis from 'apis';
 import authentication from 'modules/authentication';
 
 import * as t from '../../actionTypes';

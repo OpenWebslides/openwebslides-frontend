@@ -3,8 +3,8 @@
  * API docs: https://openwebslides.github.io/documentation/#users-api
  */
 
-import * as m from '../../model';
-import ApiRequest from '../../ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+
 import { USERS_ENDPOINT } from '../endpoints';
 
 const post = (
@@ -13,7 +13,7 @@ const post = (
   lastName: ?string,
   password: string,
   tosAccepted: boolean,
-): Promise<m.ApiResponseData> => {
+): Promise<ApiResponseData> => {
   const request = new ApiRequest();
 
   const body = JSON.stringify({
@@ -31,7 +31,7 @@ const post = (
 
   request
     .setEndpoint(USERS_ENDPOINT)
-    .setMethod(m.httpMethods.POST)
+    .setMethod(httpMethods.POST)
     .setBody(body);
 
   return request.execute();

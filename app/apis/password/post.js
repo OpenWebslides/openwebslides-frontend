@@ -3,18 +3,18 @@
  * API docs: #TODO
  */
 
-import * as m from '../../model';
-import ApiRequest from '../../ApiRequest';
-import { CONFIRMATION_ENDPOINT } from '../endpoints';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+
+import { PASSWORD_ENDPOINT } from '../endpoints';
 
 const post = (
   email: string,
-): Promise<m.ApiResponseData> => {
+): Promise<ApiResponseData> => {
   const request = new ApiRequest();
 
   const body = JSON.stringify({
     data: {
-      type: 'confirmations',
+      type: 'passwords',
       attributes: {
         email,
       },
@@ -22,8 +22,8 @@ const post = (
   });
 
   request
-    .setEndpoint(CONFIRMATION_ENDPOINT)
-    .setMethod(m.httpMethods.POST)
+    .setEndpoint(PASSWORD_ENDPOINT)
+    .setMethod(httpMethods.POST)
     .setBody(body);
 
   return request.execute();

@@ -4,7 +4,7 @@ import { flashMessage, flashErrorMessage } from 'redux-flash';
 import { call, put, select } from 'redux-saga/effects';
 
 import { Http5xxServerError } from 'errors';
-import apis from 'lib/api';
+import apis from 'apis';
 import authentication from 'modules/authentication';
 import contentItems from 'modules/contentItems';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
