@@ -2,11 +2,11 @@
 
 import * as httpMethods from './httpMethods';
 
-export type Headers = {
+export type ApiRequestHeaders = {
   [name: string]: string,
 };
 
-export type Parameters = {
+export type ApiRequestParameters = {
   [name: string]: string,
 };
 
@@ -16,18 +16,18 @@ export type ApiRequestConfig = {
   resource: ?string, // Request resource ID
   subEndpoint: ?string, // Request nested endpoint
   subResource: ?string, // Request nested endpoint resource ID
-  headers: Headers,
-  parameters: Parameters,
+  headers: ApiRequestHeaders,
+  parameters: ApiRequestParameters,
   method: httpMethods.HttpMethod,
   body: string,
 };
 
-export type Token = string;
+export type ApiToken = string;
 
 export type ApiResponseData = {
   +body: {},
   +status: number,
-  +token: ?Token,
+  +token: ?ApiToken,
 };
 
 export * from './httpMethods';

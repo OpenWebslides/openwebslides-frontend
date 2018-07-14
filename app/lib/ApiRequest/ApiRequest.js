@@ -82,7 +82,7 @@ class ApiRequest {
     return this;
   };
 
-  setToken = (token: ?m.Token): ApiRequest => {
+  setToken = (token: ?m.ApiToken): ApiRequest => {
     if (token && token.length !== 0) {
       this.config.headers.Authorization = `Bearer ${token}`;
     }

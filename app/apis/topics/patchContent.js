@@ -5,14 +5,14 @@
 
 import type { Identifier } from 'types/model';
 import contentItems from 'modules/contentItems';
-import ApiRequest, { httpMethods, type ApiResponseData, type Token } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData, type ApiToken } from 'lib/ApiRequest';
 
 import { TOPICS_ENDPOINT, TOPICS_CONTENT_ENDPOINT } from '../endpoints';
 
 const patchContent = (
   topicId: Identifier,
   content: Array<contentItems.model.ContentItem>,
-  token: Token,
+  token: ApiToken,
 ): Promise<ApiResponseData> => {
   const request = new ApiRequest();
 
