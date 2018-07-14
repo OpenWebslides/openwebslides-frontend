@@ -12,19 +12,19 @@ export type ApiRequestParameters = {
   [name: string]: string,
 };
 
-export type ApiRequestConfig = {
+export type ApiRequestConfig = {|
   url: string,
   pathSegments: Array<string>,
   headers: ApiRequestHeaders,
   parameters: ApiRequestParameters,
   method: httpMethods.HttpMethod,
   body: ?string,
-};
+|};
 
-export type ApiResponseData = {
+export type ApiResponseData = {|
   +body: {},
   +status: number,
   +token: ?ApiToken,
-};
+|};
 
 export * from './httpMethods';
