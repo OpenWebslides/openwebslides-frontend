@@ -9,7 +9,7 @@ import {
   ConfirmationApi,
 } from './apis';
 import type {
-  Response,
+  ApiResponseData,
   Token,
 } from './model';
 
@@ -23,6 +23,6 @@ export {
 };
 
 export type {
-  Response,
+  ApiResponseData,
   Token,
 };

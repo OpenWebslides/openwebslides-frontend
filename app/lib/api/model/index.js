@@ -25,9 +25,8 @@ export type RequestConfig = {
 
 export type Token = string;
 
-export type Response = {
-  // eslint-disable-next-line flowtype/no-weak-types
-  +body: Object,
+export type ApiResponseData = {
+  +body: {},
   +status: number,
   +token: ?Token,
 };
@@ -43,7 +42,7 @@ export type Request = {
   +setHeader: (header: string, value: string) => Request,
   +setBody: (body: string) => Request,
   +setToken: (token: ?Token) => Request,
-  +execute: () => Promise<Response>,
+  +execute: () => Promise<ApiResponseData>,
 
   +getUrl: () => string,
   +getOptions: () => RequestOptions,

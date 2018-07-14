@@ -2,18 +2,17 @@
 
 import type { Identifier } from 'types/model';
 
-import { methodTypes } from '../model';
-import type { Response } from '../model';
+import * as m from '../model';
 import ApiRequest from '../ApiRequest';
 
 import { USERS_ENDPOINT } from './constants';
 
-const get = (id: Identifier, token: ?string): Promise<Response> => {
+const get = (id: Identifier, token: ?string): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();
 
   request
     .setEndpoint(USERS_ENDPOINT)
-    .setMethod(methodTypes.GET)
+    .setMethod(m.methodTypes.GET)
     .setResource(id)
     .setToken(token);
 
@@ -26,7 +25,7 @@ const post = (
   lastName: ?string,
   password: string,
   tosAccepted: boolean,
-): Promise<Response> => {
+): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();
 
   const body = JSON.stringify({
@@ -44,7 +43,7 @@ const post = (
 
   request
     .setEndpoint(USERS_ENDPOINT)
-    .setMethod(methodTypes.POST)
+    .setMethod(m.methodTypes.POST)
     .setBody(body);
 
   return request.execute();

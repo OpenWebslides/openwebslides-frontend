@@ -10,76 +10,82 @@ import {
 
 import asyncFetch from './asyncFetch';
 
-const mockFetch = (response: Object): void => {
-  global.fetch = jest.fn().mockImplementation((): Promise<Object> => {
-    return new Promise((resolve: Function): void => {
-      resolve(response);
-    });
-  });
-};
-
 describe(`asyncFetch`, (): void => {
 
-  // #TODO fix failing test!
-  // it(`fetches successfully`, async (): Promise<*> => {
-  //   mockFetch({
-  //     status: 200,
-  //     json: (): Object => {
-  //       return { foo: 'bar' };
-  //     },
-  //   });
-  //
-  //   const response = asyncFetch('', {});
-  //
-  //   return response.then((result: Object): void => {
-  //     expect(result).toEqual({ foo: 'bar' });
-  //   });
-  // });
+  beforeEach((): void => {
+    fetch.resetMocks();
+  });
 
-  it(`throws UnauthorizedError on 401`, async (): Promise<void> => {
-    mockFetch({ status: 401 });
+  it(`returns a ResponseData object with the correct body data`, async (): Promise<*> => {
+    const dummyBody = { foo: 'bar' };
+    fetch.mockResponseOnce(JSON.stringify(dummyBody), { status: 200 });
+
+    await expect(asyncFetch('', {}))
+      .resolves
+      .toEqual({
+        body: dummyBody,
+        status: 200,
+        token: null,
+      });
+  });
+
+  it(`returns a ResponseData object with the correct token`, async (): Promise<*> => {
+    const dummyToken = 'foobarToken';
+    fetch.mockResponseOnce(
+      null,
+      { status: 200, headers: { Authorization: `Bearer ${dummyToken}` } },
+    );
+
+    await expect(asyncFetch('', {}))
+      .resolves
+      .toEqual({
+        body: {},
+        status: 200,
+        token: dummyToken,
+      });
+  });
+
+  it(`throws an Http401UnauthorizedError, when the response contains a 401 status code`, async (): Promise<*> => {
+    fetch.mockResponseOnce(null, { status: 401 });
 
     await expect(asyncFetch('', {}))
       .rejects
       .toThrow(Http401UnauthorizedError);
   });
 
-  it(`throws ForbiddenError on 403`, async (): Promise<void> => {
-    mockFetch({ status: 403 });
+  it(`throws an Http403ForbiddenError, when the response contains a 403 status code`, async (): Promise<*> => {
+    fetch.mockResponseOnce(null, { status: 403 });
 
     await expect(asyncFetch('', {}))
       .rejects
       .toThrow(Http403ForbiddenError);
   });
 
-  it(`throws ClientError on 422`, async (): Promise<void> => {
-    mockFetch({
-      status: 422,
-      json: (): Object => {
-        return {
-          errors: 'foo',
-        };
-      },
-    });
+  it(`throws an Http422ValidationError, when the response contains a 422 status code`, async (): Promise<*> => {
+    const dummyErrorText = `foo`;
+    fetch.mockResponseOnce(JSON.stringify({ errors: dummyErrorText }), { status: 422 });
 
     await expect(asyncFetch('', {}))
       .rejects
-      .toThrow(Http422ValidationError);
+      .toThrow(new Http422ValidationError(dummyErrorText));
   });
 
-  it(`throws ServerError on > 500`, async (): Promise<void> => {
-    mockFetch({ status: 503, statusText: 'Service Unavailable' });
+  it(`throws an Http5xxServerError, when the response contains a 5xx status code`, async (): Promise<*> => {
+    const dummyErrorText = `Service unavailable`;
+    fetch.mockResponseOnce(null, { status: 503, statusText: dummyErrorText });
 
     await expect(asyncFetch('', {}))
       .rejects
-      .toThrow(Http5xxServerError);
+      .toThrow(new Http5xxServerError(dummyErrorText));
   });
 
-  it(`throws ServerError on other 4xx errors`, async (): Promise<void> => {
-    mockFetch({ status: 418, statusText: 'I\'m a teapot' });
+  it(`throws an UnexpectedHttpStatusError, when the response contains a status code that is not otherwise handled`, async (): Promise<*> => {
+    const dummyErrorText = `I'm a teapot`;
+    fetch.mockResponseOnce(null, { status: 418, statusText: dummyErrorText });
 
     await expect(asyncFetch('', {}))
       .rejects
-      .toThrow(UnexpectedHttpStatusError);
+      .toThrow(new UnexpectedHttpStatusError(dummyErrorText));
   });
+
 });

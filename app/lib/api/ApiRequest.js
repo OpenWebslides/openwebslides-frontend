@@ -4,16 +4,10 @@ import { API_URL } from 'config/api';
 
 import { MEDIA_TYPE } from './constants';
 import asyncFetch from './asyncFetch';
-import type {
-  Request,
-  Response,
-  MethodType,
-  Token,
-} from './model';
-import { methodTypes } from './model';
+import * as m from './model';
 
-const ApiRequest = (): Request => {
-  const request: Request = {
+const ApiRequest = (): m.Request => {
+  const request: m.Request = {
     config: {
       // Request URL (base)
       url: API_URL,
@@ -40,13 +34,13 @@ const ApiRequest = (): Request => {
       parameters: {},
 
       // Request HTTP method
-      method: methodTypes.GET,
+      method: m.methodTypes.GET,
 
       // Request body
       body: '',
     },
 
-    setEndpoint: (endpoint: string): Request => {
+    setEndpoint: (endpoint: string): m.Request => {
       if (endpoint.startsWith('/')) {
         request.config.endpoint = endpoint;
       }
@@ -57,13 +51,13 @@ const ApiRequest = (): Request => {
       return request;
     },
 
-    setResource: (id: string): Request => {
+    setResource: (id: string): m.Request => {
       request.config.resource = id;
 
       return request;
     },
 
-    setSubEndpoint: (subEndpoint: string): Request => {
+    setSubEndpoint: (subEndpoint: string): m.Request => {
       if (subEndpoint.startsWith('/')) {
         request.config.subEndpoint = subEndpoint;
       }
@@ -74,37 +68,37 @@ const ApiRequest = (): Request => {
       return request;
     },
 
-    setSubResource: (id: string): Request => {
+    setSubResource: (id: string): m.Request => {
       request.config.subResource = id;
 
       return request;
     },
 
-    setParameter: (parameter: string, value: string): Request => {
+    setParameter: (parameter: string, value: string): m.Request => {
       request.config.parameters[parameter] = value;
 
       return request;
     },
 
-    setHeader: (header: string, value: string): Request => {
+    setHeader: (header: string, value: string): m.Request => {
       request.config.headers[header] = value;
 
       return request;
     },
 
-    setMethod: (method: MethodType): Request => {
+    setMethod: (method: m.MethodType): m.Request => {
       request.config.method = method;
 
       return request;
     },
 
-    setBody: (body: string): Request => {
+    setBody: (body: string): m.Request => {
       request.config.body = body;
 
       return request;
     },
 
-    setToken: (token: ?Token): Request => {
+    setToken: (token: ?m.Token): m.Request => {
       if (token && token.length !== 0) {
         request.config.headers.Authorization = `Bearer ${token}`;
       }
@@ -116,7 +110,7 @@ const ApiRequest = (): Request => {
     },
 
     // Execute HTTP request
-    execute: (): Promise<Response> => {
+    execute: (): Promise<m.ApiResponseData> => {
       return asyncFetch(request.getUrl(), request.getOptions());
     },
 
@@ -152,7 +146,7 @@ const ApiRequest = (): Request => {
         headers: request.config.headers,
       };
 
-      if (request.config.body && request.config.method !== methodTypes.GET) {
+      if (request.config.body && request.config.method !== m.methodTypes.GET) {
         options.body = request.config.body;
       }
 

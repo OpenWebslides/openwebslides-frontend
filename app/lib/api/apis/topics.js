@@ -15,7 +15,7 @@ import {
 const destroy = (
   id: Identifier,
   token: m.Token,
-): Promise<m.Response> => {
+): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();
 
   request
@@ -29,7 +29,7 @@ const destroy = (
 
 const get = async (
   id: Identifier,
-): Promise<m.Response> => {
+): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();
 
   request
@@ -43,7 +43,7 @@ const get = async (
 
 const getAllByUserId = async (
   userId: Identifier,
-): Promise<m.Response> => {
+): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();
 
   request
@@ -60,7 +60,7 @@ const post = (
   title: string,
   description: ?string,
   token: m.Token,
-): Promise<m.Response> => {
+): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();
 
   const body = JSON.stringify({
@@ -95,7 +95,7 @@ const patchContent = (
   topicId: Identifier,
   content: Array<contentItems.model.ContentItem>,
   token: string,
-): Promise<m.Response> => {
+): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();
 
   const body = JSON.stringify({
@@ -121,7 +121,7 @@ const patchContent = (
 const getContent = (
   topicId: Identifier,
   token: string,
-): Promise<m.Response> => {
+): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();
 
   request

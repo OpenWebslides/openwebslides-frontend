@@ -8,36 +8,46 @@ import {
   UnexpectedHttpStatusError,
 } from 'errors';
 
-import type { Response } from './model';
+import * as m from './model';
 
-const asyncFetch = async (url: string, options: RequestOptions): Promise<Response> => {
+const extractTokenFromAuthHeader = (authHeader: ?string): ?string => {
+  return (authHeader) ? authHeader.slice(7) : null;
+};
+
+const getDataFromResponse = async (response: Response): Promise<m.ApiResponseData> => {
+  const responseBody = (response.body)
+    ? await response.json()
+    : {};
+  return {
+    body: responseBody,
+    status: response.status,
+    token: extractTokenFromAuthHeader(response.headers.get('Authorization')),
+  };
+};
+
+// #TODO rename
+const asyncFetch = async (url: string, options: RequestOptions): Promise<m.ApiResponseData> => {
   const response = await fetch(url, options);
   const { status } = response;
 
-  switch (true) {
-    case (status < 400): {
-      const authHeader = response.headers.get('Authorization');
-
-      // eslint-disable-next-line flowtype/no-weak-types
-      return response.json().then((data: Object): Object => {
-        return {
-          token: (authHeader ? authHeader.slice(7) : null),
-          body: data,
-        };
-      }).catch((error) => error);
-    }
-    case (status === 401):
-      throw new Http401UnauthorizedError();
-    case (status === 403):
-      throw new Http403ForbiddenError();
-    case (status === 422): {
-      const responseBody = await response.json();
-      throw new Http422ValidationError(responseBody.errors);
-    }
-    case (status > 500):
-      throw new Http5xxServerError(response.statusText);
-    default:
-      throw new UnexpectedHttpStatusError(response.statusText);
+  if (status < 400) {
+    return getDataFromResponse(response);
+  }
+  else if (status === 401) {
+    throw new Http401UnauthorizedError();
+  }
+  else if (status === 403) {
+    throw new Http403ForbiddenError();
+  }
+  else if (status === 422) {
+    const responseBody = await response.json();
+    throw new Http422ValidationError(responseBody.errors);
+  }
+  else if (status >= 500) {
+    throw new Http5xxServerError(response.statusText);
+  }
+  else {
+    throw new UnexpectedHttpStatusError(response.statusText);
   }
 };
 

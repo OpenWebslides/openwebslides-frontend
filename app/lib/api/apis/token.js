@@ -1,12 +1,11 @@
 // @flow
 
-import { methodTypes } from '../model';
-import type { Response, Token } from '../model';
+import * as m from '../model';
 import ApiRequest from '../ApiRequest';
 
 import { TOKEN_ENDPOINT } from './constants';
 
-const post = (email: string, password: string): Promise<Response> => {
+const post = (email: string, password: string): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();
 
   const body = JSON.stringify({
@@ -21,18 +20,18 @@ const post = (email: string, password: string): Promise<Response> => {
 
   request
     .setEndpoint(TOKEN_ENDPOINT)
-    .setMethod(methodTypes.POST)
+    .setMethod(m.methodTypes.POST)
     .setBody(body);
 
   return request.execute();
 };
 
-const destroy = (token: Token): Promise<Response> => {
+const destroy = (token: m.Token): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();
 
   request
     .setEndpoint(TOKEN_ENDPOINT)
-    .setMethod(methodTypes.DELETE)
+    .setMethod(m.methodTypes.DELETE)
     .setToken(token);
 
   return request.execute();
