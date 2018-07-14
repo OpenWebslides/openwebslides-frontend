@@ -1,6 +1,6 @@
 // @flow
 
-import type { Token } from 'lib/api';
+import type { ApiToken } from 'lib/ApiRequest';
 import type { User } from 'modules/users';
 
 /* Action constants */
@@ -40,7 +40,7 @@ export type SetAccountAction = {
 export type SetTokenAction = {
   type: typeof SET_TOKEN,
   payload: {
-    token: ?Token,
+    token: ?ApiToken,
   },
 };
 

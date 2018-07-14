@@ -1,8 +1,9 @@
 // @flow
 
+import { dummyContentItemData as dummyData } from 'lib/testResources';
+
 import * as t from '../actionTypes';
 import type { ContentItem } from '../model';
-import { dummyContentItemData as dummyData } from '../lib/testResources';
 
 import actions from '.';
 

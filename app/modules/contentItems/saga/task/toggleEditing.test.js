@@ -4,10 +4,10 @@ import _ from 'lodash';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import { ObjectNotFoundError } from 'errors';
+import { dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as t from '../../actionTypes';
 import * as m from '../../model';
-import { dummyContentItemData as dummyData } from '../../lib/testResources';
 
 import toggleEditingSaga from './toggleEditing';
 

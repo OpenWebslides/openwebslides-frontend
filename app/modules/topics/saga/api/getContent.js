@@ -4,18 +4,18 @@ import { flashMessage, flashErrorMessage } from 'redux-flash';
 import { call, put, select } from 'redux-saga/effects';
 
 import { Http5xxServerError } from 'errors';
-import { TopicsApi } from 'lib/api';
+import api from 'api';
 import authentication from 'modules/authentication';
 import contentItems from 'modules/contentItems';
-import api from 'modules/api';
+import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import * as t from '../../actionTypes';
 
 const { setTokenInState } = authentication.actions;
 const { getToken } = authentication.selectors;
 
-const { setStatusInState } = api.actions;
-const { statusTypes } = api.model;
+const { setStatusInState } = apiRequestsStatus.actions;
+const { statusTypes } = apiRequestsStatus.model;
 
 export const apiGetContentSaga = function* (
   action: t.ApiGetTopicContentAction,
@@ -26,7 +26,7 @@ export const apiGetContentSaga = function* (
     const { id } = action.payload;
     const token = yield select(getToken);
 
-    const response = yield call(TopicsApi.getContent, id, token);
+    const response = yield call(api.topics.getContent, id, token);
 
     // TODO: validate response
     const items: Array<contentItems.model.ContentItem> = response.body.data.attributes.content;

@@ -2,7 +2,7 @@
 
 import { call, put } from 'redux-saga/effects';
 
-import { NotificationsApi } from 'lib/api';
+import api from 'api';
 
 import * as t from '../../actionTypes';
 import { predicate } from '../../model';
@@ -17,7 +17,7 @@ const mapEventTypeToPredicateType = {
 
 export const apiGetNotificationsSaga = function* (action: t.FetchAction): Generator<*, *, *> {
   try {
-    const response = yield call(NotificationsApi.getAll);
+    const response = yield call(api.notifications.getAll);
 
     // eslint-disable-next-line flowtype/no-weak-types
     const data = response.body.data.map((item: Object): Event => {

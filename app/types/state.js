@@ -6,7 +6,7 @@ import type { SidebarsState } from 'modules/sidebars';
 import type { FeedState } from 'modules/feed';
 import type { UsersState } from 'modules/users';
 import type { AuthState } from 'modules/authentication';
-import type { ApiState } from 'modules/api';
+import type { ApiRequestsStatusState } from 'modules/apiRequestsStatus';
 import type { HistoryState } from 'modules/history';
 
 export type ErrorState = {
@@ -21,7 +21,7 @@ export type State = {
     +contentItems: contentItems.model.ContentItemsState,
     +users: UsersState,
     +authentication: AuthState,
-    +api: ApiState,
+    +apiRequestsStatus: ApiRequestsStatusState,
     +history: HistoryState,
   },
   +form: {},

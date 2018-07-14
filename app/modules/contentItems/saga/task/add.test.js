@@ -2,9 +2,10 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
+import { dummyContentItemData as dummyData } from 'lib/testResources';
+
 import * as t from '../../actionTypes';
 import * as m from '../../model';
-import { dummyContentItemData as dummyData } from '../../lib/testResources';
 
 import addSaga from './add';
 

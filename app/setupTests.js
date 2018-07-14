@@ -1,17 +1,17 @@
 // @flow
-
 /* eslint-disable import/no-extraneous-dependencies */
+
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-/* eslint-enable */
 
 // Create Enzyme adapter.
 configure({ adapter: new Adapter() });
 
+// Mock fetch API
+global.fetch = require('jest-fetch-mock');
+
 // Mock localStorage
-// eslint-disable-next-line flowtype/no-weak-types
 const localStorageMock = (): * => {
-// eslint-disable-next-line flowtype/no-weak-types
   let store: { [key: string]: string } = {};
   return {
     getItem(key: string): string {
