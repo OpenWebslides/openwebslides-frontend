@@ -8,139 +8,134 @@ import * as m from './model';
 // JSON API media type
 const MEDIA_TYPE = 'application/vnd.api+json';
 
-const ApiRequest = (): m.Request => {
-  const request: m.Request = {
-    config: {
-      url: API_URL,
-      endpoint: '',
-      resource: null,
-      subEndpoint: null,
-      subResource: null,
-      headers: {
-        'Content-Type': MEDIA_TYPE,
-        Accept: MEDIA_TYPE,
-      },
-      parameters: {},
-      method: m.httpMethods.GET,
-      body: '',
+class ApiRequest {
+  config: m.ApiRequestConfig = {
+    url: API_URL,
+    endpoint: '',
+    resource: null,
+    subEndpoint: null,
+    subResource: null,
+    headers: {
+      'Content-Type': MEDIA_TYPE,
+      Accept: MEDIA_TYPE,
     },
-
-    setEndpoint: (endpoint: string): m.Request => {
-      if (endpoint.startsWith('/')) {
-        request.config.endpoint = endpoint;
-      }
-      else {
-        request.config.endpoint = `/${endpoint}`;
-      }
-
-      return request;
-    },
-
-    setResource: (id: string): m.Request => {
-      request.config.resource = id;
-
-      return request;
-    },
-
-    setSubEndpoint: (subEndpoint: string): m.Request => {
-      if (subEndpoint.startsWith('/')) {
-        request.config.subEndpoint = subEndpoint;
-      }
-      else {
-        request.config.subEndpoint = `/${subEndpoint}`;
-      }
-
-      return request;
-    },
-
-    setSubResource: (id: string): m.Request => {
-      request.config.subResource = id;
-
-      return request;
-    },
-
-    setParameter: (parameter: string, value: string): m.Request => {
-      request.config.parameters[parameter] = value;
-
-      return request;
-    },
-
-    setHeader: (header: string, value: string): m.Request => {
-      request.config.headers[header] = value;
-
-      return request;
-    },
-
-    setMethod: (method: m.HttpMethod): m.Request => {
-      request.config.method = method;
-
-      return request;
-    },
-
-    setBody: (body: string): m.Request => {
-      request.config.body = body;
-
-      return request;
-    },
-
-    setToken: (token: ?m.Token): m.Request => {
-      if (token && token.length !== 0) {
-        request.config.headers.Authorization = `Bearer ${token}`;
-      }
-      else {
-        delete request.config.headers.Authorization;
-      }
-
-      return request;
-    },
-
-    // Execute HTTP request
-    execute: (): Promise<m.ApiResponseData> => {
-      return fetchApiResponseData(request.getUrl(), request.getOptions());
-    },
-
-    getUrl: (): string => {
-      let url: string = `${request.config.url}${request.config.endpoint}`;
-
-      if (request.config.resource) {
-        url += `/${request.config.resource}`;
-
-        if (request.config.subEndpoint) {
-          url += `${request.config.subEndpoint}`;
-
-          if (request.config.subResource) {
-            url += `/${request.config.subResource}`;
-          }
-        }
-      }
-
-      if (Object.keys(request.config.parameters).length !== 0) {
-        const query = Object.keys(request.config.parameters).map((k: string): string => {
-          return `${encodeURIComponent(k)}=${encodeURIComponent(request.config.parameters[k])}`;
-        }).join('&');
-
-        url += `?${query}`;
-      }
-
-      return url;
-    },
-
-    getOptions: (): RequestOptions => {
-      const options: RequestOptions = {
-        method: request.config.method,
-        headers: request.config.headers,
-      };
-
-      if (request.config.body && request.config.method !== m.httpMethods.GET) {
-        options.body = request.config.body;
-      }
-
-      return options;
-    },
+    parameters: {},
+    method: m.httpMethods.GET,
+    body: '',
   };
 
-  return request;
-};
+  setEndpoint = (endpoint: string): ApiRequest => {
+    if (endpoint.startsWith('/')) {
+      this.config.endpoint = endpoint;
+    }
+    else {
+      this.config.endpoint = `/${endpoint}`;
+    }
+
+    return this;
+  };
+
+  setResource = (id: string): ApiRequest => {
+    this.config.resource = id;
+
+    return this;
+  };
+
+  setSubEndpoint = (subEndpoint: string): ApiRequest => {
+    if (subEndpoint.startsWith('/')) {
+      this.config.subEndpoint = subEndpoint;
+    }
+    else {
+      this.config.subEndpoint = `/${subEndpoint}`;
+    }
+
+    return this;
+  };
+
+  setSubResource = (id: string): ApiRequest => {
+    this.config.subResource = id;
+
+    return this;
+  };
+
+  setParameter = (parameter: string, value: string): ApiRequest => {
+    this.config.parameters[parameter] = value;
+
+    return this;
+  };
+
+  setHeader = (header: string, value: string): ApiRequest => {
+    this.config.headers[header] = value;
+
+    return this;
+  };
+
+  setMethod = (method: m.HttpMethod): ApiRequest => {
+    this.config.method = method;
+
+    return this;
+  };
+
+  setBody = (body: string): ApiRequest => {
+    this.config.body = body;
+
+    return this;
+  };
+
+  setToken = (token: ?m.Token): ApiRequest => {
+    if (token && token.length !== 0) {
+      this.config.headers.Authorization = `Bearer ${token}`;
+    }
+    else {
+      delete this.config.headers.Authorization;
+    }
+
+    return this;
+  };
+
+  execute = (): Promise<m.ApiResponseData> => {
+    return fetchApiResponseData(this.getUrl(), this.getOptions());
+  };
+
+  getUrl = (): string => {
+    let url: string = `${this.config.url}${this.config.endpoint}`;
+
+    if (this.config.resource) {
+      url += `/${this.config.resource}`;
+
+      if (this.config.subEndpoint) {
+        url += `${this.config.subEndpoint}`;
+
+        if (this.config.subResource) {
+          url += `/${this.config.subResource}`;
+        }
+      }
+    }
+
+    if (Object.keys(this.config.parameters).length !== 0) {
+      const query = Object.keys(this.config.parameters).map((k: string): string => {
+        return `${encodeURIComponent(k)}=${encodeURIComponent(this.config.parameters[k])}`;
+      }).join('&');
+
+      url += `?${query}`;
+    }
+
+    return url;
+  };
+
+  getOptions = (): RequestOptions => {
+    const options: RequestOptions = {
+      method: this.config.method,
+      headers: this.config.headers,
+    };
+
+    if (this.config.body && this.config.method !== m.httpMethods.GET) {
+      options.body = this.config.body;
+    }
+
+    return options;
+  };
+}
 
 export { MEDIA_TYPE };
 export default ApiRequest;

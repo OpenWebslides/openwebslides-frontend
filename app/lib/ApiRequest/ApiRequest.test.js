@@ -11,7 +11,7 @@ const defaultHeaders = {
 };
 
 describe(`ApiRequest`, (): void => {
-  let request: m.Request;
+  let request: ApiRequest;
 
   beforeEach((): void => {
     request = new ApiRequest();
