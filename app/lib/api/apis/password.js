@@ -6,7 +6,7 @@
 import * as m from '../model';
 import ApiRequest from '../ApiRequest';
 
-import { PASSWORD_ENDPOINT } from './constants';
+import { PASSWORD_ENDPOINT } from './helpers/endpoints';
 
 const post = (
   email: string,

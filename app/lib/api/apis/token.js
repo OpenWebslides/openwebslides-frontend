@@ -6,7 +6,7 @@
 import * as m from '../model';
 import ApiRequest from '../ApiRequest';
 
-import { TOKEN_ENDPOINT } from './constants';
+import { TOKEN_ENDPOINT } from './helpers/endpoints';
 
 const post = (email: string, password: string): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();
