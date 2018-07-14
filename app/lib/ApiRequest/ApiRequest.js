@@ -2,9 +2,11 @@
 
 import { API_URL } from 'config/api';
 
-import { MEDIA_TYPE } from './constants';
 import fetchApiResponseData from './helpers/fetchApiResponseData';
 import * as m from './model';
+
+// JSON API media type
+const MEDIA_TYPE = 'application/vnd.api+json';
 
 const ApiRequest = (): m.Request => {
   const request: m.Request = {
@@ -157,4 +159,5 @@ const ApiRequest = (): m.Request => {
   return request;
 };
 
+export { MEDIA_TYPE };
 export default ApiRequest;

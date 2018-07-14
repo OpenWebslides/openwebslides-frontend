@@ -2,8 +2,7 @@
 
 import { API_URL } from 'config/api';
 
-import ApiRequest from './ApiRequest';
-import { MEDIA_TYPE } from './constants';
+import ApiRequest, { MEDIA_TYPE } from './ApiRequest';
 import * as m from './model';
 
 const defaultHeaders = {
