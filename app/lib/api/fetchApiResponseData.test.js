@@ -8,9 +8,9 @@ import {
   UnexpectedHttpStatusError,
 } from 'errors';
 
-import asyncFetch from './asyncFetch';
+import fetchApiResponseData from './fetchApiResponseData';
 
-describe(`asyncFetch`, (): void => {
+describe(`fetchApiResponseData`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
@@ -20,7 +20,7 @@ describe(`asyncFetch`, (): void => {
     const dummyBody = { foo: 'bar' };
     fetch.mockResponseOnce(JSON.stringify(dummyBody), { status: 200 });
 
-    await expect(asyncFetch('', {}))
+    await expect(fetchApiResponseData('', {}))
       .resolves
       .toEqual({
         body: dummyBody,
@@ -36,7 +36,7 @@ describe(`asyncFetch`, (): void => {
       { status: 200, headers: { Authorization: `Bearer ${dummyToken}` } },
     );
 
-    await expect(asyncFetch('', {}))
+    await expect(fetchApiResponseData('', {}))
       .resolves
       .toEqual({
         body: {},
@@ -48,7 +48,7 @@ describe(`asyncFetch`, (): void => {
   it(`throws an Http401UnauthorizedError, when the response contains a 401 status code`, async (): Promise<*> => {
     fetch.mockResponseOnce(null, { status: 401 });
 
-    await expect(asyncFetch('', {}))
+    await expect(fetchApiResponseData('', {}))
       .rejects
       .toThrow(Http401UnauthorizedError);
   });
@@ -56,7 +56,7 @@ describe(`asyncFetch`, (): void => {
   it(`throws an Http403ForbiddenError, when the response contains a 403 status code`, async (): Promise<*> => {
     fetch.mockResponseOnce(null, { status: 403 });
 
-    await expect(asyncFetch('', {}))
+    await expect(fetchApiResponseData('', {}))
       .rejects
       .toThrow(Http403ForbiddenError);
   });
@@ -65,7 +65,7 @@ describe(`asyncFetch`, (): void => {
     const dummyErrorText = `foo`;
     fetch.mockResponseOnce(JSON.stringify({ errors: dummyErrorText }), { status: 422 });
 
-    await expect(asyncFetch('', {}))
+    await expect(fetchApiResponseData('', {}))
       .rejects
       .toThrow(new Http422ValidationError(dummyErrorText));
   });
@@ -74,7 +74,7 @@ describe(`asyncFetch`, (): void => {
     const dummyErrorText = `Service unavailable`;
     fetch.mockResponseOnce(null, { status: 503, statusText: dummyErrorText });
 
-    await expect(asyncFetch('', {}))
+    await expect(fetchApiResponseData('', {}))
       .rejects
       .toThrow(new Http5xxServerError(dummyErrorText));
   });
@@ -83,7 +83,7 @@ describe(`asyncFetch`, (): void => {
     const dummyErrorText = `I'm a teapot`;
     fetch.mockResponseOnce(null, { status: 418, statusText: dummyErrorText });
 
-    await expect(asyncFetch('', {}))
+    await expect(fetchApiResponseData('', {}))
       .rejects
       .toThrow(new UnexpectedHttpStatusError(dummyErrorText));
   });

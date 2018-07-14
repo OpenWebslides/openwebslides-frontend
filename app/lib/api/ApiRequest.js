@@ -3,7 +3,7 @@
 import { API_URL } from 'config/api';
 
 import { MEDIA_TYPE } from './constants';
-import asyncFetch from './asyncFetch';
+import fetchApiResponseData from './fetchApiResponseData';
 import * as m from './model';
 
 const ApiRequest = (): m.Request => {
@@ -111,7 +111,7 @@ const ApiRequest = (): m.Request => {
 
     // Execute HTTP request
     execute: (): Promise<m.ApiResponseData> => {
-      return asyncFetch(request.getUrl(), request.getOptions());
+      return fetchApiResponseData(request.getUrl(), request.getOptions());
     },
 
     getUrl: (): string => {

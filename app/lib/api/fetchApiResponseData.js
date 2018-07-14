@@ -25,8 +25,10 @@ const getDataFromResponse = async (response: Response): Promise<m.ApiResponseDat
   };
 };
 
-// #TODO rename
-const asyncFetch = async (url: string, options: RequestOptions): Promise<m.ApiResponseData> => {
+const fetchApiResponseData = async (
+  url: string,
+  options: RequestOptions,
+): Promise<m.ApiResponseData> => {
   const response = await fetch(url, options);
   const { status } = response;
 
@@ -51,4 +53,4 @@ const asyncFetch = async (url: string, options: RequestOptions): Promise<m.ApiRe
   }
 };
 
-export default asyncFetch;
+export default fetchApiResponseData;
