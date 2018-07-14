@@ -44,6 +44,21 @@ describe(`ApiRequest`, (): void => {
     );
   });
 
+  it(`strips a starting slash from a pathSegment, when a pathSegment with a starting slash is added`, (): void => {
+    new ApiRequest(m.httpMethods.GET)
+      .addPathSegment('/test')
+      .execute();
+
+    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
+      `${API_URL}/test`,
+      {
+        method: m.httpMethods.GET,
+        headers: defaultConfig.headers,
+        body: null,
+      },
+    );
+  });
+
   it(`executes with extra parameters, when extra parameters are passed before execution`, (): void => {
     new ApiRequest(m.httpMethods.GET)
       .addPathSegment('test')

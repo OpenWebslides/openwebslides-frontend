@@ -34,7 +34,7 @@ class ApiRequest {
   }
 
   addPathSegment = (segment: string): ApiRequest => {
-    this.config.pathSegments.push(segment);
+    this.config.pathSegments.push(segment.replace(/^\//g, ''));
     return this;
   };
 
