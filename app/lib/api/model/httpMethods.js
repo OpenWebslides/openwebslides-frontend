@@ -5,11 +5,11 @@ const POST: 'POST' = 'POST';
 const PATCH: 'PATCH' = 'PATCH';
 const DELETE: 'DELETE' = 'DELETE';
 
-export const methodTypes = {
+export const httpMethods = {
   GET,
   POST,
   PATCH,
   DELETE,
 };
 
-export type MethodType = $Values<typeof methodTypes>;
+export type HttpMethod = $Values<typeof httpMethods>;

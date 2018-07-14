@@ -12,7 +12,7 @@ const getAll = async (): Promise<m.ApiResponseData> => {
 
   request
     .setEndpoint(NOTIFICATIONS_ENDPOINT)
-    .setMethod(m.methodTypes.GET)
+    .setMethod(m.httpMethods.GET)
     .setParameter('sort', '-createdAt')
     .setParameter('page[limit]', '10')
     .setParameter('page[offset]', '0')

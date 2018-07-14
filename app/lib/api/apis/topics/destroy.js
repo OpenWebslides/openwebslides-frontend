@@ -14,7 +14,7 @@ const destroy = (id: Identifier, token: m.Token): Promise<m.ApiResponseData> => 
 
   request
     .setEndpoint(TOPICS_ENDPOINT)
-    .setMethod(m.methodTypes.DELETE)
+    .setMethod(m.httpMethods.DELETE)
     .setResource(id)
     .setToken(token);
 

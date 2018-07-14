@@ -16,7 +16,7 @@ const getContent = (topicId: Identifier, token: string): Promise<m.ApiResponseDa
     .setEndpoint(TOPICS_ENDPOINT)
     .setResource(topicId)
     .setSubEndpoint(TOPICS_CONTENT_ENDPOINT)
-    .setMethod(m.methodTypes.GET)
+    .setMethod(m.httpMethods.GET)
     .setToken(token);
 
   return request.execute();

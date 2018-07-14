@@ -30,7 +30,7 @@ const patchContent = (
     .setEndpoint(TOPICS_ENDPOINT)
     .setResource(topicId)
     .setSubEndpoint(TOPICS_CONTENT_ENDPOINT)
-    .setMethod(m.methodTypes.PATCH)
+    .setMethod(m.httpMethods.PATCH)
     .setBody(body)
     .setToken(token);
 

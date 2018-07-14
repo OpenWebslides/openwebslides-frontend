@@ -22,7 +22,7 @@ const post = (email: string, password: string): Promise<m.ApiResponseData> => {
 
   request
     .setEndpoint(TOKEN_ENDPOINT)
-    .setMethod(m.methodTypes.POST)
+    .setMethod(m.httpMethods.POST)
     .setBody(body);
 
   return request.execute();

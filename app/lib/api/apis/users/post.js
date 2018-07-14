@@ -31,7 +31,7 @@ const post = (
 
   request
     .setEndpoint(USERS_ENDPOINT)
-    .setMethod(m.methodTypes.POST)
+    .setMethod(m.httpMethods.POST)
     .setBody(body);
 
   return request.execute();

@@ -14,7 +14,7 @@ const get = async (id: Identifier): Promise<m.ApiResponseData> => {
 
   request
     .setEndpoint(TOPICS_ENDPOINT)
-    .setMethod(m.methodTypes.GET)
+    .setMethod(m.httpMethods.GET)
     .setResource(id)
     .setParameter('include', 'user');
 

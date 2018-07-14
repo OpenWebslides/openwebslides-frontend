@@ -12,7 +12,7 @@ const destroy = (token: m.Token): Promise<m.ApiResponseData> => {
 
   request
     .setEndpoint(TOKEN_ENDPOINT)
-    .setMethod(m.methodTypes.DELETE)
+    .setMethod(m.httpMethods.DELETE)
     .setToken(token);
 
   return request.execute();

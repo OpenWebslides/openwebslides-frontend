@@ -38,7 +38,7 @@ const post = (
 
   request
     .setEndpoint(TOPICS_ENDPOINT)
-    .setMethod(m.methodTypes.POST)
+    .setMethod(m.httpMethods.POST)
     .setBody(body)
     .setToken(token);
 

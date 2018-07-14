@@ -34,7 +34,7 @@ const ApiRequest = (): m.Request => {
       parameters: {},
 
       // Request HTTP method
-      method: m.methodTypes.GET,
+      method: m.httpMethods.GET,
 
       // Request body
       body: '',
@@ -86,7 +86,7 @@ const ApiRequest = (): m.Request => {
       return request;
     },
 
-    setMethod: (method: m.MethodType): m.Request => {
+    setMethod: (method: m.HttpMethod): m.Request => {
       request.config.method = method;
 
       return request;
@@ -146,7 +146,7 @@ const ApiRequest = (): m.Request => {
         headers: request.config.headers,
       };
 
-      if (request.config.body && request.config.method !== m.methodTypes.GET) {
+      if (request.config.body && request.config.method !== m.httpMethods.GET) {
         options.body = request.config.body;
       }
 

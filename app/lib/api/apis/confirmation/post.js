@@ -23,7 +23,7 @@ const post = (
 
   request
     .setEndpoint(CONFIRMATION_ENDPOINT)
-    .setMethod(m.methodTypes.POST)
+    .setMethod(m.httpMethods.POST)
     .setBody(body);
 
   return request.execute();

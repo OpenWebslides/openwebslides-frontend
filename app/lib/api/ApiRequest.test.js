@@ -4,8 +4,7 @@ import { API_URL } from 'config/api';
 
 import ApiRequest from './ApiRequest';
 import { MEDIA_TYPE } from './constants';
-import type { Request } from './model';
-import { methodTypes } from './model';
+import * as m from './model';
 
 const defaultHeaders = {
   'Content-Type': MEDIA_TYPE,
@@ -13,7 +12,7 @@ const defaultHeaders = {
 };
 
 describe(`ApiRequest`, (): void => {
-  let request: Request;
+  let request: m.Request;
 
   beforeEach((): void => {
     request = new ApiRequest();
@@ -26,7 +25,7 @@ describe(`ApiRequest`, (): void => {
       expect(request.config.resource).toBeNull();
       expect(request.config.headers).toEqual(defaultHeaders);
       expect(request.config.parameters).toEqual({});
-      expect(request.config.method).toEqual(methodTypes.GET);
+      expect(request.config.method).toEqual(m.httpMethods.GET);
       expect(request.config.body).toEqual('');
     });
   });
@@ -77,9 +76,9 @@ describe(`ApiRequest`, (): void => {
 
   describe(`setMethod`, (): void => {
     it(`sets method`, (): void => {
-      request.setMethod(methodTypes.DELETE);
+      request.setMethod(m.httpMethods.DELETE);
 
-      expect(request.config.method).toEqual(methodTypes.DELETE);
+      expect(request.config.method).toEqual(m.httpMethods.DELETE);
     });
   });
 
@@ -213,12 +212,12 @@ describe(`ApiRequest`, (): void => {
 
   describe(`getOptions`, (): void => {
     it(`generates correct options with POST request`, (): void => {
-      request.setMethod(methodTypes.POST);
+      request.setMethod(m.httpMethods.POST);
       request.setBody('foobar');
       request.setHeader('User-Agent', 'jest');
 
       expect(request.getOptions()).toEqual({
-        method: methodTypes.POST,
+        method: m.httpMethods.POST,
         body: 'foobar',
         headers: {
           ...defaultHeaders,
@@ -228,13 +227,13 @@ describe(`ApiRequest`, (): void => {
     });
 
     it(`generates correct options with GET request`, (): void => {
-      request.setMethod(methodTypes.GET);
+      request.setMethod(m.httpMethods.GET);
       request.setBody('foobar');
       request.setHeader('User-Agent', 'jest');
 
       // No body in GET requests
       expect(request.getOptions()).toEqual({
-        method: methodTypes.GET,
+        method: m.httpMethods.GET,
         headers: {
           ...defaultHeaders,
           'User-Agent': 'jest',

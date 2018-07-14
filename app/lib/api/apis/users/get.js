@@ -14,7 +14,7 @@ const get = (id: Identifier, token: ?string): Promise<m.ApiResponseData> => {
 
   request
     .setEndpoint(USERS_ENDPOINT)
-    .setMethod(m.methodTypes.GET)
+    .setMethod(m.httpMethods.GET)
     .setResource(id)
     .setToken(token);
 

@@ -16,7 +16,7 @@ const getAllByUserId = async (userId: Identifier): Promise<m.ApiResponseData> =>
     .setEndpoint(USERS_ENDPOINT)
     .setResource(userId)
     .setSubEndpoint(TOPICS_ENDPOINT)
-    .setMethod(m.methodTypes.GET);
+    .setMethod(m.httpMethods.GET);
 
   return request.execute();
 };
