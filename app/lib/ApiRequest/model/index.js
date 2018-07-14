@@ -11,11 +11,11 @@ export type Parameters = {
 };
 
 export type RequestConfig = {
-  url: string,
-  endpoint: string,
-  resource: ?string,
-  subEndpoint: ?string,
-  subResource: ?string,
+  url: string, // Request URL (base)
+  endpoint: string, // Request endpoint
+  resource: ?string, // Request resource ID
+  subEndpoint: ?string, // Request nested endpoint
+  subResource: ?string, // Request nested endpoint resource ID
   headers: Headers,
   parameters: Parameters,
   method: httpMethods.HttpMethod,

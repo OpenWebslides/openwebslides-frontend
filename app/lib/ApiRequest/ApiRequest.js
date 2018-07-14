@@ -11,34 +11,17 @@ const MEDIA_TYPE = 'application/vnd.api+json';
 const ApiRequest = (): m.Request => {
   const request: m.Request = {
     config: {
-      // Request URL (base)
       url: API_URL,
-
-      // Request endpoint
       endpoint: '',
-
-      // Request resource ID
       resource: null,
-
-      // Request nested endpoint
       subEndpoint: null,
-
-      // Request nested endpoint resource ID
       subResource: null,
-
-      // Request headers
       headers: {
         'Content-Type': MEDIA_TYPE,
         Accept: MEDIA_TYPE,
       },
-
-      // Request parameters
       parameters: {},
-
-      // Request HTTP method
       method: m.httpMethods.GET,
-
-      // Request body
       body: '',
     },
 
