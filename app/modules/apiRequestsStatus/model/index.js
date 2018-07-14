@@ -10,7 +10,7 @@ export type RequestStatus = {
   error?: Error,
 };
 
-export type ApiState = {
+export type ApiRequestsStatusState = {
   +[request: string]: RequestStatus,
 };
 

@@ -4,10 +4,10 @@ import type { State } from 'types/state';
 import type { Error } from 'types/error';
 
 import { statusTypes } from './model';
-import type { ApiState, RequestStatus } from './model';
+import type { ApiRequestsStatusState, RequestStatus } from './model';
 
-const getModule = (state: State): ApiState => {
-  return state.modules.api;
+const getModule = (state: State): ApiRequestsStatusState => {
+  return state.modules.apiRequestsStatus;
 };
 
 const getRequest = (state: State, props: { request: string }): RequestStatus => {

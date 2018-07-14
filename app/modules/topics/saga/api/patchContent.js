@@ -5,15 +5,15 @@ import { call, put, select } from 'redux-saga/effects';
 
 import authentication from 'modules/authentication';
 import apis from 'lib/api';
-import api from 'modules/api';
+import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import * as t from '../../actionTypes';
 
 const { setTokenInState } = authentication.actions;
 const { getToken } = authentication.selectors;
 
-const { setStatusInState } = api.actions;
-const { statusTypes } = api.model;
+const { setStatusInState } = apiRequestsStatus.actions;
+const { statusTypes } = apiRequestsStatus.model;
 
 export const apiPatchContentSaga = function* (
   action: t.ApiPatchTopicContentAction,

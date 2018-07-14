@@ -5,13 +5,13 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { Card, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-import api from 'modules/api';
+import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import { API_POST_TOKEN } from '../actionTypes';
 
 import formComponents from './forms';
 
-const { ApiDimmer } = api.components;
+const { ApiDimmer } = apiRequestsStatus.components;
 const SigninForm = formComponents.SigninForm;
 
 type Props = TranslatorProps;

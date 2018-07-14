@@ -23,7 +23,7 @@ describe(`selectors`, (): void => {
 
   const dummyState: any = {
     modules: {
-      api: {
+      apiRequestsStatus: {
         dummy1: dummyRequest1,
         dummy2: dummyRequest2,
         dummy3: dummyRequest3,

@@ -8,7 +8,7 @@ import { Button, Header } from 'semantic-ui-react';
 
 import FlashMessages from 'core-components/flash/FlashMessages';
 import contentItems from 'modules/contentItems';
-import api from 'modules/api';
+import apiRequestsStatus from 'modules/apiRequestsStatus';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 
@@ -20,7 +20,7 @@ import {
   API_PATCH_CONTENT,
 } from '../actionTypes';
 
-const { ApiDimmer } = api.components;
+const { ApiDimmer } = apiRequestsStatus.components;
 
 type PassedProps = {|
   topicId: Identifier,

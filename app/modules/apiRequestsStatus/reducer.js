@@ -1,11 +1,14 @@
 // @flow
 
-import type { ApiState } from './model';
+import type { ApiRequestsStatusState } from './model';
 import * as t from './actionTypes';
 
-const initialState: ApiState = {};
+const initialState: ApiRequestsStatusState = {};
 
-const setStatus = (state: ApiState, action: t.SetStatusInStateAction): ApiState => {
+const setStatus = (
+  state: ApiRequestsStatusState,
+  action: t.SetStatusInStateAction,
+): ApiRequestsStatusState => {
   const { request, status, error } = action.payload;
 
   return {
@@ -17,7 +20,10 @@ const setStatus = (state: ApiState, action: t.SetStatusInStateAction): ApiState 
   };
 };
 
-const reducer = (state: ApiState = initialState, action: t.ApiAction): ApiState => {
+const reducer = (
+  state: ApiRequestsStatusState = initialState,
+  action: t.ApiAction,
+): ApiRequestsStatusState => {
   switch (action.type) {
     case t.SET_STATUS_IN_STATE:
       return setStatus(state, action);

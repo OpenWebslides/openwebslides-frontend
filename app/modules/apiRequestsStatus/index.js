@@ -5,7 +5,7 @@ import * as model from './model';
 import * as selectors from './selectors';
 import components from './components';
 import reducer from './reducer';
-import type { ApiState } from './model';
+import type { ApiRequestsStatusState } from './model';
 
 const api = {
   actions,
@@ -15,6 +15,6 @@ const api = {
   selectors,
 };
 
-export type { ApiState };
+export type { ApiRequestsStatusState };
 
 export default api;

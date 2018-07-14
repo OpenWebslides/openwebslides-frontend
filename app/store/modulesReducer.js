@@ -8,7 +8,7 @@ import feed from 'modules/feed';
 import sidebars from 'modules/sidebars';
 import users from 'modules/users';
 import authentication from 'modules/authentication';
-import api from 'modules/api';
+import apiRequestsStatus from 'modules/apiRequestsStatus';
 import history from 'modules/history';
 
 // Don't forget to edit types/state.js when a new state part is added here.
@@ -19,7 +19,7 @@ const modulesReducer = combineReducers({
   users: users.reducer,
   contentItems: contentItems.reducer,
   authentication: authentication.reducer,
-  api: api.reducer,
+  apiRequestsStatus: apiRequestsStatus.reducer,
   history: history.reducer,
 });
 

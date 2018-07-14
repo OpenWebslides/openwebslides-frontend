@@ -4,7 +4,7 @@ import { call, put, select } from 'redux-saga/effects';
 import { flashErrorMessage } from 'redux-flash';
 
 import apis from 'lib/api';
-import api from 'modules/api';
+import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import * as t from '../../actionTypes';
 import {
@@ -13,8 +13,8 @@ import {
 } from '../../actions';
 import { getToken } from '../../selectors';
 
-const { setStatusInState } = api.actions;
-const { statusTypes } = api.model;
+const { setStatusInState } = apiRequestsStatus.actions;
+const { statusTypes } = apiRequestsStatus.model;
 
 export const apiPostTokenSaga = function* (action: t.ApiPostTokenAction): Generator<*, *, *> {
   yield put(setStatusInState(t.API_POST_TOKEN, statusTypes.PENDING));
