@@ -1,4 +1,7 @@
 // @flow
+/**
+ * API docs: https://openwebslides.github.io/documentation/#users-api
+ */
 
 import type { Identifier } from 'types/model';
 

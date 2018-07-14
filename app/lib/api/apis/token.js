@@ -1,4 +1,7 @@
 // @flow
+/**
+ * API docs: https://openwebslides.github.io/documentation/#token-api
+ */
 
 import * as m from '../model';
 import ApiRequest from '../ApiRequest';
