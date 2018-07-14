@@ -1,10 +1,10 @@
 // @flow
 
 import { InvalidArgumentError, NotYetImplementedError, UnsupportedOperationError } from 'errors';
+import { dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as t from '../actionTypes';
 import type { HeadingContentItem } from '../model';
-import { dummyContentItemData as dummyData } from '../lib/testResources';
 
 import actions from '.';
 

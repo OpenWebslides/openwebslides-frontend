@@ -1,6 +1,8 @@
 // @flow
 
-import * as model from '../../model';
+import contentItems from 'modules/contentItems';
+
+const { model } = contentItems;
 
 export const emptyMetadata = {
   tags: [],

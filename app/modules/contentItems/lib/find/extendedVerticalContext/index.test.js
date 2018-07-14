@@ -1,9 +1,9 @@
 // @flow
 
 import { InvalidArgumentError } from 'errors';
+import { dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as m from '../../../model';
-import { dummyContentItemData as dummyData } from '../../testResources';
 
 import find from '..';
 

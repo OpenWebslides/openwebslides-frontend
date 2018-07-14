@@ -6,10 +6,10 @@ import { Provider } from 'react-redux';
 import { mount, shallow } from 'enzyme';
 
 import { ObjectNotFoundError } from 'errors';
+import { dummyContentItemData as dummyData } from 'lib/testResources';
 
 import actions from '../../actions';
 import * as m from '../../model';
-import { dummyContentItemData as dummyData } from '../../lib/testResources';
 
 import EditableDisplay, { PureEditableDisplay, mapDispatchToProps } from '.';
 import type { DispatchProps } from '.';
