@@ -58,14 +58,14 @@ class ApiRequest {
     return this;
   };
 
-  setParameter = (parameter: string, value: string): ApiRequest => {
-    this.config.parameters[parameter] = value;
+  setHeader = (header: string, value: string): ApiRequest => {
+    this.config.headers[header] = value;
 
     return this;
   };
 
-  setHeader = (header: string, value: string): ApiRequest => {
-    this.config.headers[header] = value;
+  setParameter = (parameter: string, value: string): ApiRequest => {
+    this.config.parameters[parameter] = value;
 
     return this;
   };
@@ -91,10 +91,6 @@ class ApiRequest {
     }
 
     return this;
-  };
-
-  execute = (): Promise<m.ApiResponseData> => {
-    return fetchApiResponseData(this.getUrl(), this.getOptions());
   };
 
   getUrl = (): string => {
@@ -134,6 +130,10 @@ class ApiRequest {
     }
 
     return options;
+  };
+
+  execute = (): Promise<m.ApiResponseData> => {
+    return fetchApiResponseData(this.getUrl(), this.getOptions());
   };
 }
 

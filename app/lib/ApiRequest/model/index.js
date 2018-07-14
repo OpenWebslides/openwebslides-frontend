@@ -2,6 +2,8 @@
 
 import * as httpMethods from './httpMethods';
 
+export type ApiToken = string;
+
 export type ApiRequestHeaders = {
   [name: string]: string,
 };
@@ -21,8 +23,6 @@ export type ApiRequestConfig = {
   method: httpMethods.HttpMethod,
   body: string,
 };
-
-export type ApiToken = string;
 
 export type ApiResponseData = {
   +body: {},
