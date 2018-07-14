@@ -3,10 +3,9 @@
  * API docs: #TODO
  */
 
-import * as m from '../model';
-import ApiRequest from '../ApiRequest';
-
-import { CONFIRMATION_ENDPOINT } from './helpers/endpoints';
+import * as m from '../../model';
+import ApiRequest from '../../ApiRequest';
+import { PASSWORD_ENDPOINT } from '../helpers/endpoints';
 
 const post = (
   email: string,
@@ -15,7 +14,7 @@ const post = (
 
   const body = JSON.stringify({
     data: {
-      type: 'confirmations',
+      type: 'passwords',
       attributes: {
         email,
       },
@@ -23,15 +22,11 @@ const post = (
   });
 
   request
-    .setEndpoint(CONFIRMATION_ENDPOINT)
+    .setEndpoint(PASSWORD_ENDPOINT)
     .setMethod(m.methodTypes.POST)
     .setBody(body);
 
   return request.execute();
 };
 
-const ConfirmationApi = {
-  post,
-};
-
-export default ConfirmationApi;
+export default post;

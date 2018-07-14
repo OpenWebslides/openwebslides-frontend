@@ -2,7 +2,7 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import { NotificationsApi } from 'lib/api';
+import apis from 'lib/api';
 
 import * as t from '../../../actionTypes';
 import { apiGetNotificationsSaga } from '../notifications';
@@ -50,7 +50,7 @@ describe(` notifications`, (): void => {
       };
 
       return expectSaga(apiGetNotificationsSaga, dummyGetNotificationsAction)
-        .call(NotificationsApi.getAll)
+        .call(apis.notifications.getAll)
         .put.like({ action: { type: t.SET_EVENTS } })
         .run();
     });

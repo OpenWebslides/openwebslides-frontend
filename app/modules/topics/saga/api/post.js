@@ -3,7 +3,7 @@
 import { call, select } from 'redux-saga/effects';
 
 import authentication from 'modules/authentication';
-import { TopicsApi } from 'lib/api';
+import apis from 'lib/api';
 
 import * as t from '../../actionTypes';
 
@@ -15,7 +15,7 @@ export const apiPostSaga = function* (action: t.ApiPostTopicAction): Generator<*
     const token = yield select(getToken);
 
     // TODO: add rootContentItemId later
-    yield call(TopicsApi.post, userId, title, description, token);
+    yield call(apis.topics.post, userId, title, description, token);
   }
   catch (error) {
     // TODO: fix saga error handling

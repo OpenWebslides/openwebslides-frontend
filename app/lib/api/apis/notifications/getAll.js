@@ -3,10 +3,9 @@
  * API docs: #TODO
  */
 
-import * as m from '../model';
-import ApiRequest from '../ApiRequest';
-
-import { NOTIFICATIONS_ENDPOINT } from './helpers/endpoints';
+import * as m from '../../model';
+import ApiRequest from '../../ApiRequest';
+import { NOTIFICATIONS_ENDPOINT } from '../helpers/endpoints';
 
 const getAll = async (): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();
@@ -22,8 +21,4 @@ const getAll = async (): Promise<m.ApiResponseData> => {
   return request.execute();
 };
 
-const NotificationsApi = {
-  getAll,
-};
-
-export default NotificationsApi;
+export default getAll;

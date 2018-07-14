@@ -2,7 +2,7 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import { UsersApi } from 'lib/api';
+import apis from 'lib/api';
 import authentication from 'modules/authentication';
 
 import * as t from '../../../actionTypes';
@@ -42,7 +42,7 @@ describe(`users`, (): void => {
       };
 
       return expectSaga(apiGetUserSaga, dummyGetUsersAction)
-        .call(UsersApi.get, '0', 'foobarToken')
+        .call(apis.users.get, '0', 'foobarToken')
         .put.like({ action: { type: t.ADD_TO_STATE } })
         .run();
     });
