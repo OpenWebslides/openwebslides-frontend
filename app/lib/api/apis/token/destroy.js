@@ -5,7 +5,7 @@
 
 import * as m from '../../model';
 import ApiRequest from '../../ApiRequest';
-import { TOKEN_ENDPOINT } from '../helpers/endpoints';
+import { TOKEN_ENDPOINT } from '../endpoints';
 
 const destroy = (token: m.Token): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();

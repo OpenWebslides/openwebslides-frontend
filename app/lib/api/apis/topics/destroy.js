@@ -7,7 +7,7 @@ import type { Identifier } from 'types/model';
 
 import * as m from '../../model';
 import ApiRequest from '../../ApiRequest';
-import { TOPICS_ENDPOINT } from '../helpers/endpoints';
+import { TOPICS_ENDPOINT } from '../endpoints';
 
 const destroy = (id: Identifier, token: m.Token): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();

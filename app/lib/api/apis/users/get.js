@@ -7,7 +7,7 @@ import type { Identifier } from 'types/model';
 
 import * as m from '../../model';
 import ApiRequest from '../../ApiRequest';
-import { USERS_ENDPOINT } from '../helpers/endpoints';
+import { USERS_ENDPOINT } from '../endpoints';
 
 const get = (id: Identifier, token: ?string): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();

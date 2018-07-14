@@ -5,7 +5,7 @@
 
 import * as m from '../../model';
 import ApiRequest from '../../ApiRequest';
-import { CONFIRMATION_ENDPOINT } from '../helpers/endpoints';
+import { CONFIRMATION_ENDPOINT } from '../endpoints';
 
 const post = (
   email: string,

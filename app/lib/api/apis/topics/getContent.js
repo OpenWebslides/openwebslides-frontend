@@ -7,7 +7,7 @@ import type { Identifier } from 'types/model';
 
 import * as m from '../../model';
 import ApiRequest from '../../ApiRequest';
-import { TOPICS_ENDPOINT, TOPICS_CONTENT_ENDPOINT } from '../helpers/endpoints';
+import { TOPICS_ENDPOINT, TOPICS_CONTENT_ENDPOINT } from '../endpoints';
 
 const getContent = (topicId: Identifier, token: string): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();

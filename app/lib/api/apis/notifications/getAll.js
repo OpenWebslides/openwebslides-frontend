@@ -5,7 +5,7 @@
 
 import * as m from '../../model';
 import ApiRequest from '../../ApiRequest';
-import { NOTIFICATIONS_ENDPOINT } from '../helpers/endpoints';
+import { NOTIFICATIONS_ENDPOINT } from '../endpoints';
 
 const getAll = async (): Promise<m.ApiResponseData> => {
   const request = new ApiRequest();
