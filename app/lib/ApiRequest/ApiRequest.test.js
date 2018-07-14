@@ -44,46 +44,6 @@ describe(`ApiRequest`, (): void => {
     );
   });
 
-  it(`executes with extra headers, when extra headers are passed before execution`, (): void => {
-    new ApiRequest(m.httpMethods.GET)
-      .addPathSegment('test')
-      .setHeader('Host', 'localhost')
-      .setHeader('Accept-Charset', 'utf-8')
-      .execute();
-
-    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
-      `${API_URL}/test`,
-      {
-        method: m.httpMethods.GET,
-        headers: {
-          ...defaultConfig.headers,
-          'Host': 'localhost',
-          'Accept-Charset': 'utf-8',
-        },
-        body: null,
-      },
-    );
-  });
-
-  it(`allows default headers to be overridden with new values`, (): void => {
-    new ApiRequest(m.httpMethods.GET)
-      .addPathSegment('test')
-      .setHeader('Content-Type', 'text/html')
-      .execute();
-
-    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
-      `${API_URL}/test`,
-      {
-        method: m.httpMethods.GET,
-        headers: {
-          ...defaultConfig.headers,
-          'Content-Type': 'text/html',
-        },
-        body: null,
-      },
-    );
-  });
-
   it(`executes with extra parameters, when extra parameters are passed before execution`, (): void => {
     new ApiRequest(m.httpMethods.GET)
       .addPathSegment('test')
@@ -141,6 +101,46 @@ describe(`ApiRequest`, (): void => {
       new ApiRequest(m.httpMethods.GET)
         .execute();
     }).toThrow(UnsupportedOperationError);
+  });
+
+  it(`executes with extra headers, when extra headers are passed before execution`, (): void => {
+    new ApiRequest(m.httpMethods.GET)
+      .addPathSegment('test')
+      .setHeader('Host', 'localhost')
+      .setHeader('Accept-Charset', 'utf-8')
+      .execute();
+
+    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
+      `${API_URL}/test`,
+      {
+        method: m.httpMethods.GET,
+        headers: {
+          ...defaultConfig.headers,
+          'Host': 'localhost',
+          'Accept-Charset': 'utf-8',
+        },
+        body: null,
+      },
+    );
+  });
+
+  it(`allows default headers to be overridden with new values`, (): void => {
+    new ApiRequest(m.httpMethods.GET)
+      .addPathSegment('test')
+      .setHeader('Content-Type', 'text/html')
+      .execute();
+
+    expect(dummyFetchApiResponseData).toHaveBeenCalledWith(
+      `${API_URL}/test`,
+      {
+        method: m.httpMethods.GET,
+        headers: {
+          ...defaultConfig.headers,
+          'Content-Type': 'text/html',
+        },
+        body: null,
+      },
+    );
   });
 
   it(`executes with the correct body, when a body is passed before execution`, (): void => {

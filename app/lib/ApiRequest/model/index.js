@@ -13,11 +13,11 @@ export type ApiRequestParameters = {
 };
 
 export type ApiRequestConfig = {|
+  method: httpMethods.HttpMethod,
   url: string,
   pathSegments: Array<string>,
-  headers: ApiRequestHeaders,
   parameters: ApiRequestParameters,
-  method: httpMethods.HttpMethod,
+  headers: ApiRequestHeaders,
   body: ?string,
 |};
 

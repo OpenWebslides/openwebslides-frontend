@@ -38,6 +38,11 @@ class ApiRequest {
     return this;
   };
 
+  setParameter = (parameter: string, value: string): ApiRequest => {
+    this.config.parameters[parameter] = value;
+    return this;
+  };
+
   setHeader = (header: string, value: string): ApiRequest => {
     this.config.headers[header] = value;
     return this;
@@ -45,11 +50,6 @@ class ApiRequest {
 
   removeHeader = (header: string): ApiRequest => {
     this.config.headers = _.omit(this.config.headers, header);
-    return this;
-  };
-
-  setParameter = (parameter: string, value: string): ApiRequest => {
-    this.config.parameters[parameter] = value;
     return this;
   };
 
