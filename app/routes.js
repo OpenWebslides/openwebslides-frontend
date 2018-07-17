@@ -9,7 +9,7 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { History } from 'modules/history';
+import history from 'modules/history';
 import NotFoundPage from 'pages/NotFoundPage';
 import HomePage from 'pages/HomePage';
 import LibraryPage from 'pages/LibraryPage';
@@ -22,6 +22,8 @@ import SigninPage from 'pages/authentication/SigninPage';
 import SignupPage from 'pages/authentication/SignupPage';
 import ResetPage from 'pages/authentication/ResetPage';
 import ConfirmPage from 'pages/authentication/ConfirmPage';
+
+const History = history.components.History;
 
 const routes = (
   <React.Fragment>

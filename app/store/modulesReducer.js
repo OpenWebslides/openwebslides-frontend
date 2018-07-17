@@ -1,26 +1,28 @@
 // @flow
+/* eslint-disable import/no-internal-modules */
+// ^ note: make exception to the rule of only importing entire modules to avoid dependency cycles
 
 import { combineReducers } from 'redux';
 
-import apiRequestsStatus from 'modules/apiRequestsStatus';
-import authentication from 'modules/authentication';
-import contentItems from 'modules/contentItems';
-import feed from 'modules/feed';
-import history from 'modules/history';
-import sidebars from 'modules/sidebars';
-import topics from 'modules/topics';
-import users from 'modules/users';
+import apiRequestsStatusReducer from 'modules/apiRequestsStatus/reducer';
+import authenticationReducer from 'modules/authentication/reducer';
+import contentItemsReducer from 'modules/contentItems/reducer';
+import feedReducer from 'modules/feed/reducer';
+import historyReducer from 'modules/history/reducer';
+import sidebarsReducer from 'modules/sidebars/reducer';
+import topicsReducer from 'modules/topics/reducer';
+import usersReducer from 'modules/users/reducer';
 
 // Don't forget to edit types/state.js when a new state part is added here.
 const modulesReducer = combineReducers({
-  apiRequestsStatus: apiRequestsStatus.reducer,
-  authentication: authentication.reducer,
-  contentItems: contentItems.reducer,
-  feed: feed.reducer,
-  history: history.reducer,
-  sidebars: sidebars.reducer,
-  topics: topics.reducer,
-  users: users.reducer,
+  apiRequestsStatus: apiRequestsStatusReducer,
+  authentication: authenticationReducer,
+  contentItems: contentItemsReducer,
+  feed: feedReducer,
+  history: historyReducer,
+  sidebars: sidebarsReducer,
+  topics: topicsReducer,
+  users: usersReducer,
 });
 
 export default modulesReducer;

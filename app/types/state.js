@@ -1,13 +1,15 @@
 // @flow
+/* eslint-disable import/no-internal-modules */
+// ^ note: make exception to the rule of only importing entire modules to avoid dependency cycles
 
-import type { ApiRequestsStatusState } from 'modules/apiRequestsStatus';
-import type { AuthState } from 'modules/authentication';
-import contentItems from 'modules/contentItems';
-import type { FeedState } from 'modules/feed';
-import type { HistoryState } from 'modules/history';
-import type { SidebarsState } from 'modules/sidebars';
-import type { TopicsState } from 'modules/topics';
-import type { UsersState } from 'modules/users';
+import { type ApiRequestsStatusState } from 'modules/apiRequestsStatus/model';
+import { type AuthState } from 'modules/authentication/model';
+import { type ContentItemsState } from 'modules/contentItems/model';
+import { type FeedState } from 'modules/feed/model';
+import { type HistoryState } from 'modules/history/model';
+import { type SidebarsState } from 'modules/sidebars/model';
+import { type TopicsState } from 'modules/topics/model';
+import { type UsersState } from 'modules/users/model';
 
 export type ErrorState = {
 
@@ -17,7 +19,7 @@ export type State = {
   +modules: {
     +apiRequestsStatus: ApiRequestsStatusState,
     +authentication: AuthState,
-    +contentItems: contentItems.model.ContentItemsState,
+    +contentItems: ContentItemsState,
     +feed: FeedState,
     +history: HistoryState,
     +sidebars: SidebarsState,
