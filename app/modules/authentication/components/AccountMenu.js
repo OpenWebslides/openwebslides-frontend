@@ -7,14 +7,16 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { Dropdown, Menu, Icon } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
-import type { User } from 'modules/users';
+// import type { User } from 'modules/users';
 
 import { signout } from '../actions';
 import { isAuthenticated, getAccount } from '../selectors';
 
 type StateProps = {|
   authenticated: boolean,
-  account: ?User,
+  // #TODO replace with userId to remove depentency on modules/users
+  // eslint-disable-next-line flowtype/no-weak-types
+  account: any,
 |};
 
 type DispatchProps = {|

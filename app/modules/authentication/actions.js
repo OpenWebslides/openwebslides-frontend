@@ -4,14 +4,16 @@ import _ from 'lodash';
 
 import { InvalidArgumentError } from 'errors';
 import type { ApiToken } from 'lib/ApiRequest';
-import type { User } from 'modules/users';
+// import type { User } from 'modules/users';
 
 import * as t from './actionTypes';
 import * as c from './constants';
 
 // Reducer actions
 export const setAccountInState = (
-  account: ?User,
+  // #TODO replace with userId to remove depentency on modules/users
+  // eslint-disable-next-line flowtype/no-weak-types
+  account: any,
 ): t.SetAccountAction => {
   return {
     type: t.SET_ACCOUNT,

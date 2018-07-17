@@ -9,14 +9,16 @@ import { Form, Input, Button, Checkbox } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 
 import type { State } from 'types/state';
-import type { User } from 'modules/users';
+// import type { User } from 'modules/users';
 
 import { isAuthenticated, getAccount } from '../../selectors';
 import { signup } from '../../actions';
 
 type StateProps = {|
   authenticated: boolean,
-  account: ?User,
+  // #TODO replace with userId to remove depentency on modules/users
+  // eslint-disable-next-line flowtype/no-weak-types
+  account: any,
 |};
 
 type DispatchProps = {|

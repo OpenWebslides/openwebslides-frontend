@@ -1,7 +1,7 @@
 // @flow
 
 import type { ApiToken } from 'lib/ApiRequest';
-import type { User } from 'modules/users';
+// import type { User } from 'modules/users';
 
 /* Action constants */
 
@@ -33,7 +33,9 @@ export type SetAccountAction = {
   type: typeof SET_ACCOUNT,
   // eslint-disable-next-line flowtype/no-weak-types
   payload: {
-    account: ?User,
+    // #TODO replace with userId to remove depentency on modules/users
+    // eslint-disable-next-line flowtype/no-weak-types
+    account: any,
   },
 };
 
