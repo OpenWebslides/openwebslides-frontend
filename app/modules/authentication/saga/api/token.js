@@ -13,11 +13,8 @@ import {
 } from '../../actions';
 import { getToken } from '../../selectors';
 
-const { setStatusInState } = apiRequestsStatus.actions;
-const { statusTypes } = apiRequestsStatus.model;
-
 export const apiPostTokenSaga = function* (action: t.ApiPostTokenAction): Generator<*, *, *> {
-  yield put(setStatusInState(t.API_POST_TOKEN, statusTypes.PENDING));
+  yield put(apiRequestsStatus.actions.setPending(t.API_POST_TOKEN));
 
   try {
     const { email, password } = action.payload;
@@ -32,10 +29,10 @@ export const apiPostTokenSaga = function* (action: t.ApiPostTokenAction): Genera
 
     yield put(setAccountInState(account));
     yield put(setTokenInState(response.token));
-    yield put(setStatusInState(t.API_POST_TOKEN, statusTypes.SUCCESS));
+    yield put(apiRequestsStatus.actions.setSuccess(t.API_POST_TOKEN));
   }
   catch (error) {
-    yield put(setStatusInState(t.API_POST_TOKEN, statusTypes.FAILURE));
+    yield put(apiRequestsStatus.actions.setFailure(t.API_POST_TOKEN, error));
     yield put(flashErrorMessage('auth:signin.failure'));
   }
 };

@@ -14,13 +14,10 @@ import * as t from '../../actionTypes';
 const { setTokenInState } = authentication.actions;
 const { getToken } = authentication.selectors;
 
-const { setStatusInState } = apiRequestsStatus.actions;
-const { statusTypes } = apiRequestsStatus.model;
-
 export const apiGetContentSaga = function* (
   action: t.ApiGetTopicContentAction,
 ): Generator<*, *, *> {
-  yield put(setStatusInState(t.API_GET_CONTENT, statusTypes.PENDING));
+  yield put(apiRequestsStatus.actions.setPending(t.API_GET_CONTENT));
 
   try {
     const { id } = action.payload;
@@ -33,7 +30,7 @@ export const apiGetContentSaga = function* (
     yield put(contentItems.actions.setMultipleInState(items));
 
     yield put(setTokenInState(response.token));
-    yield put(setStatusInState(t.API_GET_CONTENT, statusTypes.SUCCESS));
+    yield put(apiRequestsStatus.actions.setSuccess(t.API_GET_CONTENT));
     yield put(flashMessage('editor:api.load.success'));
   }
   catch (error) {
@@ -41,7 +38,7 @@ export const apiGetContentSaga = function* (
       throw error;
     }
 
-    yield put(setStatusInState(t.API_GET_CONTENT, statusTypes.FAILURE));
+    yield put(apiRequestsStatus.actions.setFailure(t.API_GET_CONTENT, error));
     yield put(flashErrorMessage('editor:api.load.failure'));
   }
 };

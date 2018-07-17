@@ -1,23 +1,46 @@
 // @flow
+/* eslint-disable no-multiple-empty-lines */
 
-import type { Error } from 'types/error';
 
-import type { StatusType } from './statusTypes';
-import { statusTypes } from './statusTypes';
+// StatusTypes -------------------------------------------------------------------------------------
 
-export type RequestStatus = {
-  status: StatusType,
-  error?: Error,
+const PENDING: 'PENDING' = 'PENDING';
+const SUCCESS: 'SUCCESS' = 'SUCCESS';
+const FAILURE: 'FAILURE' = 'FAILURE';
+
+export const statusTypes = {
+  PENDING,
+  SUCCESS,
+  FAILURE,
 };
+
+export type StatusType = $Values<typeof statusTypes>;
+
+
+// RequestStatus -----------------------------------------------------------------------------------
+
+export type PendingRequestStatus = {|
+  status: typeof statusTypes.PENDING,
+|};
+
+export type SuccessRequestStatus = {|
+  status: typeof statusTypes.SUCCESS,
+  value: mixed,
+|};
+
+export type FailureRequestStatus = {|
+  status: typeof statusTypes.FAILURE,
+  error: Error,
+|};
+
+export type RequestStatus =
+  | PendingRequestStatus
+  | SuccessRequestStatus
+  | FailureRequestStatus;
+
+
+// Module state ------------------------------------------------------------------------------------
 
 export type ApiRequestsStatusState = {
-  +[request: string]: RequestStatus,
-};
-
-export {
-  statusTypes,
-};
-
-export type {
-  StatusType,
+  +[id: string]: RequestStatus,
 };
