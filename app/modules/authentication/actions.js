@@ -165,25 +165,6 @@ export const apiDeleteToken = (
   };
 };
 
-export const apiPostUsers = (
-  email: string,
-  firstName: string,
-  lastName: ?string,
-  password: string,
-  tosAccepted: boolean,
-): t.ApiPostUsersAction => {
-  return {
-    type: t.API_POST_USERS,
-    payload: {
-      email,
-      firstName,
-      lastName,
-      password,
-      tosAccepted,
-    },
-  };
-};
-
 export const apiPostPassword = (
   email: string,
 ): t.ApiPostPasswordAction => {

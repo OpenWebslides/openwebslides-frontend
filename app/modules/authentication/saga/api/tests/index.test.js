@@ -8,7 +8,6 @@ import {
   apiPostTokenSaga,
   apiDeleteTokenSaga,
 } from '../token';
-import { apiPostUsersSaga } from '../users';
 import { apiPostPasswordSaga } from '../password';
 import { apiPostConfirmationSaga } from '../confirmation';
 import * as t from '../../../actionTypes';
@@ -23,12 +22,6 @@ describe(`apiSaga`, (): void => {
   it(`takes every API_DELETE_TOKEN action and forks apiDeleteTokenSaga`, (): void => {
     return expectSaga(apiSaga)
       .take(t.API_DELETE_TOKEN, apiDeleteTokenSaga)
-      .silentRun();
-  });
-
-  it(`takes every API_POST_USERS action and forks apiPostUsersSaga`, (): void => {
-    return expectSaga(apiSaga)
-      .take(t.API_POST_USERS, apiPostUsersSaga)
       .silentRun();
   });
 

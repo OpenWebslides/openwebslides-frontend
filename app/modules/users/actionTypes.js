@@ -16,6 +16,7 @@ export const GET: 'users/GET' = 'users/GET';
 
 // API saga actions
 export const API_GET_USER: 'users/API_GET_USER' = 'users/API_GET_USER';
+export const API_POST_USER: 'users/API_POST_USER' = 'users/API_POST_USER';
 
 /* Action types */
 
@@ -57,6 +58,17 @@ export type ApiGetUserAction = {
   type: typeof API_GET_USER,
   payload: {
     id: Identifier,
+  },
+};
+
+export type ApiPostUserAction = {
+  type: typeof API_POST_USER,
+  payload: {
+    email: string,
+    firstName: string,
+    lastName: ?string,
+    password: string,
+    tosAccepted: boolean,
   },
 };
 

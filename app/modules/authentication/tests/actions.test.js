@@ -230,26 +230,6 @@ describe(`actions`, (): void => {
 
     });
 
-    describe(`apiPostUsers`, (): void => {
-
-      it(`returns post users action`, (): void => {
-        const action = actions.apiPostUsers('email', 'firstName', 'lastName', 'password', true);
-
-        expect(action)
-          .toEqual({
-            type: t.API_POST_USERS,
-            payload: {
-              email: 'email',
-              firstName: 'firstName',
-              lastName: 'lastName',
-              password: 'password',
-              tosAccepted: true,
-            },
-          });
-      });
-
-    });
-
     describe(`apiPostPassword`, (): void => {
 
       it(`returns post password action`, (): void => {

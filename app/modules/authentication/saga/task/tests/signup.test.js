@@ -2,25 +2,18 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
+import users from 'modules/users';
+
+import * as actions from '../../../actions';
 import * as t from '../../../actionTypes';
-import type { ApiPostUsersAction } from '../../../actionTypes';
 import signupSaga from '../signup';
 
 describe(`signupEmail`, (): void => {
-  it(`puts an apiPostUsers action`, (): void => {
-    const dummyPostUsersAction: ApiPostUsersAction = {
-      type: t.API_POST_USERS,
-      payload: {
-        email: 'foo',
-        firstName: 'baz',
-        lastName: 'bak',
-        password: 'bar',
-        tosAccepted: true,
-      },
-    };
+  it(`puts an apiPostUser action`, (): void => {
+    const dummySignupAction: t.SignupAction = actions.signup('foo', 'faz', 'bak', 'MahPasswordY0', true);
 
-    return expectSaga(signupSaga, dummyPostUsersAction)
-      .put.like({ action: { type: t.API_POST_USERS } })
+    return expectSaga(signupSaga, dummySignupAction)
+      .put(users.actions.apiPostUser('foo', 'faz', 'bak', 'MahPasswordY0', true))
       .run();
   });
 });

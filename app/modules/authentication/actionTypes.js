@@ -20,8 +20,6 @@ export const CONFIRM: 'auth/CONFIRM' = 'auth/CONFIRM';
 export const API_POST_TOKEN: 'auth/API_POST_TOKEN' = 'auth/API_POST_TOKEN';
 export const API_DELETE_TOKEN: 'auth/API_DELETE_TOKEN' = 'auth/API_DELETE_TOKEN';
 
-export const API_POST_USERS: 'auth/API_POST_USERS' = 'auth/API_POST_USERS';
-
 export const API_POST_PASSWORD: 'auth/API_POST_PASSWORD' = 'auth/API_POST_PASSWORD';
 
 export const API_POST_CONFIRMATION: 'auth/API_POST_CONFIRMATION' = 'auth/API_POST_CONFIRMATION';
@@ -95,17 +93,6 @@ export type ApiPostTokenAction = {
 
 export type ApiDeleteTokenAction = {
   type: typeof API_DELETE_TOKEN,
-};
-
-export type ApiPostUsersAction = {
-  type: typeof API_POST_USERS,
-  payload: {
-    email: string,
-    firstName: string,
-    lastName: ?string,
-    password: string,
-    tosAccepted: boolean,
-  },
 };
 
 export type ApiPostPasswordAction = {

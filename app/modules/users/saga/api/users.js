@@ -28,3 +28,14 @@ export const apiGetUserSaga = function* (action: t.ApiGetUserAction): Generator<
     throw error;
   }
 };
+
+export const apiPostUserSaga = function* (action: t.ApiPostUserAction): Generator<*, *, *> {
+  try {
+    const { email, firstName, lastName, password, tosAccepted } = action.payload;
+    yield call(api.users.post, email, firstName, lastName, password, tosAccepted);
+  }
+  catch (error) {
+    // TODO: fix saga error handling
+    throw error;
+  }
+};
