@@ -344,6 +344,7 @@ module.exports = {
         'jest/valid-describe': 'error',
         'jest/valid-expect-in-promise': 'error',
         'jest/valid-expect': 'error',
+        'react/jsx-no-bind': 'off',
       },
     },
   ],
