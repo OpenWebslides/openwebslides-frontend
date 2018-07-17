@@ -44,7 +44,7 @@ export const apiDeleteTokenSaga = function* (action: t.ApiDeleteTokenAction): Ge
   try {
     const token = yield select(getToken);
 
-    yield call(api.token.destroy, token);
+    yield call(api.token.delete, token);
 
     yield put(setAccountInState(null));
     yield put(setTokenInState(null));

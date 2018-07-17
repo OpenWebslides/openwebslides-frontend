@@ -5,7 +5,7 @@ import { httpMethods } from 'lib/ApiRequest';
 
 import api from '..';
 
-describe(`api.token.destroy`, (): void => {
+describe(`api.token.delete`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
@@ -14,7 +14,7 @@ describe(`api.token.destroy`, (): void => {
   it(`executes the correct fetch call`, async (): Promise<*> => {
     const dummyToken = 'foobarToken';
     fetch.mockResponseOnce(null, { status: 200 });
-    await api.token.destroy(dummyToken);
+    await api.token.delete(dummyToken);
 
     expect(fetch.mock.calls).toHaveLength(1);
 

@@ -1,3 +1,9 @@
 // @flow
 
-export { default as post } from './post';
+import post from './post';
+
+const confirmationApi = {
+  post,
+};
+
+export default confirmationApi;
