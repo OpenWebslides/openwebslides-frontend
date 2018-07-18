@@ -12,3 +12,8 @@ export type User = {
 export type UsersState = {
   +[userId: Identifier]: User,
 };
+
+export const getName = (user: User): string => {
+  if (user.lastName) return `${user.firstName} ${user.lastName}`;
+  else return user.firstName;
+};
