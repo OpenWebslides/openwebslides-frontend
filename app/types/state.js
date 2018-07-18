@@ -3,7 +3,6 @@
 // ^ note: make exception to the rule of only importing entire modules to avoid dependency cycles
 
 import { type ApiRequestsStatusState } from 'modules/apiRequestsStatus/model';
-import { type AuthState } from 'modules/authentication/model';
 import { type ContentItemsState } from 'modules/contentItems/model';
 import { type FeedState } from 'modules/feed/model';
 import { type HistoryState } from 'modules/history/model';
@@ -19,7 +18,6 @@ export type ErrorState = {
 export type State = {
   +modules: {
     +apiRequestsStatus: ApiRequestsStatusState,
-    +authentication: AuthState,
     +contentItems: ContentItemsState,
     +feed: FeedState,
     +history: HistoryState,
