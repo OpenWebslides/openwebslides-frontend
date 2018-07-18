@@ -8,7 +8,6 @@ import { I18nextProvider } from 'react-i18next';
 
 import i18nextConfig from 'config/i18next';
 import { dummyTranslatorProps } from 'config/tests';
-import { InvalidArgumentError } from 'errors';
 
 import * as m from '../model';
 
@@ -117,20 +116,18 @@ describe(`ApiDimmer`, (): void => {
     expect(enzymeWrapper.find('PureApiDimmer').isEmptyRender()).toEqual(true);
   });
 
-  it(`throws an InvalidArgumentError, when one of the requestIds cannot be found`, (): void => {
-    // Suppress console.error from mount $FlowFixMe
-    console.error = jest.fn();
-    expect((): void => {
-      mount(
-        <Provider store={dummyStore}>
-          <I18nextProvider i18n={i18nextConfig}>
-            <ApiDimmer requestIds={['failureRequestId', 'successRequestId', 'invalidId']}>
-              <p data-test-id="enzyme">test.is.active</p>
-            </ApiDimmer>
-          </I18nextProvider>
-        </Provider>,
-      );
-    }).toThrow(InvalidArgumentError);
+  it(`ignores invalid requestIds`, (): void => {
+    const enzymeWrapper = mount(
+      <Provider store={dummyStore}>
+        <I18nextProvider i18n={i18nextConfig}>
+          <ApiDimmer requestIds={['failureRequestId', 'successRequestId', 'invalidRequestId']}>
+            <p data-test-id="enzyme">test.is.active</p>
+          </ApiDimmer>
+        </I18nextProvider>
+      </Provider>,
+    );
+
+    expect(enzymeWrapper.find('PureApiDimmer').isEmptyRender()).toEqual(true);
   });
 
 });

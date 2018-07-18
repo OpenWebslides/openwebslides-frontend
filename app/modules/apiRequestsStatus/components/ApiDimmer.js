@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Dimmer, Loader } from 'semantic-ui-react';
 
-import { InvalidArgumentError } from 'errors';
 import type { State } from 'types/state';
 
 import * as m from '../model';
@@ -33,8 +32,9 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   // Dimmer should be active as long as any of the passed requestIds are still PENDING
   requestIds.forEach((requestId: string): void => {
     const requestStatus = selectors.getRequestStatusById(state, { requestId });
-    if (requestStatus == null) throw new InvalidArgumentError(`Invalid requestId`);
-    isActive = isActive || requestStatus.status === m.statusTypes.PENDING;
+    if (requestStatus != null) {
+      isActive = isActive || requestStatus.status === m.statusTypes.PENDING;
+    }
   });
 
   return {
