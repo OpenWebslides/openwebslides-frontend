@@ -1,3 +1,9 @@
 // @flow
 
-export { default as post } from './post';
+import post from './post';
+
+const passwordApi = {
+  post,
+};
+
+export default passwordApi;

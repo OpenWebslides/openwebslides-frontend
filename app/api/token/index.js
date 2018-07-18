@@ -1,4 +1,11 @@
 // @flow
 
-export { default as destroy } from './destroy';
-export { default as post } from './post';
+import deleteFunction from './delete';
+import post from './post';
+
+const tokenApi = {
+  delete: deleteFunction,
+  post,
+};
+
+export default tokenApi;

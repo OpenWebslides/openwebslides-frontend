@@ -1,5 +1,5 @@
-// flow-typed signature: 007226b571fdb72c5a35883eac2b9498
-// flow-typed version: 8495968c23/redux-saga_v0.16.x/flow_>=v0.56.0
+// flow-typed signature: 81155af144282e14c13e73c7ec3f203b
+// flow-typed version: 0dda5b292f/redux-saga_v0.16.x/flow_>=v0.56.0
 
 // @flow
 
@@ -61,7 +61,7 @@ declare module "redux-saga" {
   declare export var channel: (buffer?: Buffer) => Channel;
   declare export var END: { +type: "@@redux-saga/CHANNEL_END" };
   declare export var CANCEL: Symbol;
-  declare export var delay: (timeout: number) => Promise<void>;
+  declare export var delay: (timeout: number, val?: any) => Promise<any>;
 
   declare type RunSagaOptions = {
     +subscribe?: (emit: (input: any) => any) => () => void,

@@ -131,12 +131,15 @@ describe(`EditableDisplay`, (): void => {
   });
 
   it(`throws an ObjectNotFoundError, when the passed contentItemId is invalid`, (): void => {
+    // Suppress console.error from mount $FlowFixMe
+    console.error = jest.fn();
     expect((): void => {
-      shallow(
-        <EditableDisplay
-          store={dummyStore}
-          contentItemId="DefinitelyNotValidId"
-        />,
+      mount(
+        <Provider store={dummyStore}>
+          <EditableDisplay
+            contentItemId="DefinitelyNotValidId"
+          />
+        </Provider>,
       );
     }).toThrow(ObjectNotFoundError);
   });

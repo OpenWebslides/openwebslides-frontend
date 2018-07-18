@@ -15,7 +15,7 @@ export const apiDeleteSaga = function* (action: t.ApiDeleteTopicAction): Generat
     const { id } = action.payload;
     const token = yield select(getToken);
 
-    yield call(api.topics.destroy, id, token);
+    yield call(api.topics.delete, id, token);
     yield put(removeFromState(id));
   }
   catch (error) {

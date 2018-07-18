@@ -1,11 +1,11 @@
 // @flow
 
-import * as confirmation from './confirmation';
-import * as notifications from './notifications';
-import * as password from './password';
-import * as token from './token';
-import * as topics from './topics';
-import * as users from './users';
+import confirmation from './confirmation';
+import notifications from './notifications';
+import password from './password';
+import token from './token';
+import topics from './topics';
+import users from './users';
 
 const api = {
   confirmation,

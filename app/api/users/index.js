@@ -1,4 +1,11 @@
 // @flow
 
-export { default as get } from './get';
-export { default as post } from './post';
+import get from './get';
+import post from './post';
+
+const usersApi = {
+  get,
+  post,
+};
+
+export default usersApi;

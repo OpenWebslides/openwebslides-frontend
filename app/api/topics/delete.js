@@ -8,7 +8,7 @@ import ApiRequest, { httpMethods, type ApiResponseData, type ApiToken } from 'li
 
 import { TOPICS_ENDPOINT } from '../endpoints';
 
-const destroy = (id: Identifier, token: ApiToken): Promise<ApiResponseData> => {
+const deleteFunction = (id: Identifier, token: ApiToken): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.DELETE)
     .addPathSegment(TOPICS_ENDPOINT)
     .addPathSegment(id)
@@ -16,4 +16,4 @@ const destroy = (id: Identifier, token: ApiToken): Promise<ApiResponseData> => {
     .execute();
 };
 
-export default destroy;
+export default deleteFunction;

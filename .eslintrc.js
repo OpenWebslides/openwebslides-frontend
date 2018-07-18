@@ -1,8 +1,10 @@
 module.exports = {
   'extends': [
     'airbnb',
+    // #TODO 'plugin:jest/recommended',
     'plugin:flowtype/recommended',
     'plugin:promise/recommended',
+    'plugin:redux-saga/recommended',
   ],
   'env': {
     // Don't throw error when using global browser variables such as 'document' or 'window'.
@@ -17,6 +19,8 @@ module.exports = {
     'jest',
     // ESLint checking for correct use of Promise / async features.
     'promise',
+    // Eslint checking for correct use of redux-saga
+    'redux-saga',
   ],
   'settings': {
     // Temporary workaround for https://github.com/benmosher/eslint-plugin-import/issues/793 #TODO
@@ -316,6 +320,9 @@ module.exports = {
         'forbidDefaultForRequired': false,
       },
     ],
+
+    // #TODO handle saga errors
+    'redux-saga/no-unhandled-errors': 'off',
   },
   'overrides': [
     {
@@ -344,6 +351,7 @@ module.exports = {
         'jest/valid-describe': 'error',
         'jest/valid-expect-in-promise': 'error',
         'jest/valid-expect': 'error',
+        'react/jsx-no-bind': 'off',
       },
     },
   ],

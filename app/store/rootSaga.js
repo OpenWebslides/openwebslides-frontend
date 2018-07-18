@@ -2,12 +2,12 @@
 
 import { all, call } from 'redux-saga/effects';
 
+import authentication from 'modules/authentication';
 import contentItems from 'modules/contentItems';
 import feed from 'modules/feed';
-import authentication from 'modules/authentication';
+import history from 'modules/history';
 import topics from 'modules/topics';
 import users from 'modules/users';
-import history from 'modules/history';
 
 /**
  * Sets up the root saga.
@@ -15,12 +15,12 @@ import history from 'modules/history';
 
 const rootSaga = function* (): Generator<*, *, *> {
   yield all([
+    call(authentication.saga),
     call(contentItems.saga),
     call(feed.saga),
-    call(authentication.saga),
+    call(history.saga),
     call(topics.saga),
     call(users.saga),
-    call(history.saga),
   ]);
 };
 

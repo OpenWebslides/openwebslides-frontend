@@ -66,7 +66,7 @@ describe(`token`, (): void => {
       };
 
       return expectSaga(apiDeleteTokenSaga, dummyDeleteTokenAction)
-        .call(api.token.destroy, 'foobarToken')
+        .call(api.token.delete, 'foobarToken')
         .put.like({ action: { type: t.SET_ACCOUNT } })
         .put.like({ action: { type: t.SET_TOKEN } })
         .run();
