@@ -10,6 +10,7 @@ configure({ adapter: new Adapter() });
 // Mock fetch API
 global.fetch = require('jest-fetch-mock');
 
+/* commenting this out because it's not clear what the use is #TODO
 // Mock localStorage
 const localStorageMock = (): * => {
   let store: { [key: string]: string } = {};
@@ -30,3 +31,4 @@ const localStorageMock = (): * => {
 };
 
 Object.defineProperty(window, 'localStorage', { value: localStorageMock() });
+*/
