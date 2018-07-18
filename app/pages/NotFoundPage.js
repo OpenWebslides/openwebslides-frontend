@@ -11,7 +11,6 @@ const PureNotFoundPage = (props: Props): React.Node => {
   const { t } = props;
 
   return (
-    // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
     <Page>
       <h1>{t('errors:http.404')}</h1>
     </Page>

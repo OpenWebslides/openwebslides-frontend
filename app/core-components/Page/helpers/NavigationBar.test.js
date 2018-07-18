@@ -5,13 +5,13 @@ import { shallow } from 'enzyme';
 
 import { dummyTranslatorProps } from 'config/tests';
 
-import { PureLogo } from '..';
+import { PureNavigationBar } from './NavigationBar';
 
-describe(`Logo`, (): void => {
+describe(`NavigationBar`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureLogo
+      <PureNavigationBar
         {...dummyTranslatorProps}
       />,
     );

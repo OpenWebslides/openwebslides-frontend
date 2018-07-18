@@ -4,16 +4,15 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'semantic-ui-react';
 
+import { UnsupportedOperationError } from 'errors';
 import type { Identifier } from 'types/model';
 import type { State } from 'types/state';
-import authentication from 'modules/authentication';
+import platform from 'modules/platform';
 
 import { getAllTopicIdsByUserId } from '../selectors';
 import { getAllByUserId } from '../actions';
 
 import TopicCard from './TopicCard';
-
-const { getAccount } = authentication.selectors;
 
 type StateProps = {|
   topicIds: Array<Identifier>,
@@ -30,14 +29,15 @@ type Props = {|
 |};
 
 const mapStateToProps = (state: State): StateProps => {
-  const account = getAccount(state);
+  const userAuth = platform.selectors.getUserAuth(state);
 
-  // TODO: does this need null checks or is it impossible to access when not logged in?
-  const CURRENT_USER = account != null ? account.id : 'jantje1234';
+  if (userAuth == null) {
+    throw new UnsupportedOperationError(`This shouldn't happen`);
+  }
 
   return {
-    topicIds: getAllTopicIdsByUserId(state, CURRENT_USER),
-    userId: CURRENT_USER,
+    topicIds: getAllTopicIdsByUserId(state, userAuth.userId),
+    userId: userAuth.userId,
   };
 };
 

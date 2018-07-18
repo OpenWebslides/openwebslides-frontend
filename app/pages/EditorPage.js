@@ -6,6 +6,7 @@ import { Link, Route, Switch, type ContextRouter as RouterProps } from 'react-ro
 import { Grid } from 'semantic-ui-react';
 
 import Page from 'core-components/Page';
+import platform from 'modules/platform';
 import topics from 'modules/topics';
 
 type Props = {|
@@ -13,6 +14,7 @@ type Props = {|
   ...RouterProps,
 |};
 
+const AuthWrapper = platform.components.AuthWrapper;
 const TopicEditor = topics.components.Editor;
 
 const PureTopicEditorForId = (props: Props): React.Node => {
@@ -54,12 +56,13 @@ const PureEditorPage = (props: Props): React.Node => {
   const { match } = props;
 
   return (
-    // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
-    <Page needsAuth={true} needsSidebar={true}>
-      <Switch>
-        <Route path={`${match.url}/:id`} component={TopicEditorForId} />
-        <Route component={DummyContent} />
-      </Switch>
+    <Page>
+      <AuthWrapper>
+        <Switch>
+          <Route path={`${match.url}/:id`} component={TopicEditorForId} />
+          <Route component={DummyContent} />
+        </Switch>
+      </AuthWrapper>
     </Page>
   );
 };

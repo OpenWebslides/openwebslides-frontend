@@ -3,7 +3,7 @@
 import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
-import authentication from 'modules/authentication';
+import platform from 'modules/platform';
 
 import * as t from '../../../actionTypes';
 import { apiGetUserSaga, apiPostUserSaga } from '../users';
@@ -13,8 +13,11 @@ describe(`users`, (): void => {
   beforeEach((): void => {
     fetch.resetMocks();
 
-    (authentication.selectors: any).getToken = (): string => {
-      return 'foobarToken';
+    (platform.selectors: any).getUserAuth = (): platform.model.UserAuth => {
+      return {
+        userId: 'dummyUserId',
+        apiToken: 'foobarToken',
+      };
     };
   });
 

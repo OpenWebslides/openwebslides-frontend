@@ -5,10 +5,10 @@
 import { combineReducers } from 'redux';
 
 import apiRequestsStatusReducer from 'modules/apiRequestsStatus/reducer';
-import authenticationReducer from 'modules/authentication/reducer';
 import contentItemsReducer from 'modules/contentItems/reducer';
 import feedReducer from 'modules/feed/reducer';
 import historyReducer from 'modules/history/reducer';
+import platformReducer from 'modules/platform/reducer';
 import sidebarsReducer from 'modules/sidebars/reducer';
 import topicsReducer from 'modules/topics/reducer';
 import usersReducer from 'modules/users/reducer';
@@ -16,10 +16,10 @@ import usersReducer from 'modules/users/reducer';
 // Don't forget to edit types/state.js when a new state part is added here.
 const modulesReducer = combineReducers({
   apiRequestsStatus: apiRequestsStatusReducer,
-  authentication: authenticationReducer,
   contentItems: contentItemsReducer,
   feed: feedReducer,
   history: historyReducer,
+  platform: platformReducer,
   sidebars: sidebarsReducer,
   topics: topicsReducer,
   users: usersReducer,

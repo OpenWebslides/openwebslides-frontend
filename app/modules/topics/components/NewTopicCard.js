@@ -9,13 +9,12 @@ import { Link, withRouter } from 'react-router-dom';
 import { Form, Button } from 'semantic-ui-react';
 import type { RouterHistory } from 'react-router-dom';
 
+import { UnsupportedOperationError } from 'errors';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import authentication from 'modules/authentication';
+import platform from 'modules/platform';
 
 import { add } from '../actions';
-
-const { getAccount } = authentication.selectors;
 
 type StateProps = {|
   userId: Identifier,
@@ -34,13 +33,14 @@ type Props = {|
 |};
 
 const mapStateToProps = (state: State): StateProps => {
-  const account = getAccount(state);
+  const userAuth = platform.selectors.getUserAuth(state);
 
-  // TODO: does this need null checks or is it impossible to access when not logged in?
-  const CURRENT_USER = account != null ? account.id : 'markfrank1';
+  if (userAuth == null) {
+    throw new UnsupportedOperationError(`This shouldn't happen`);
+  }
 
   return {
-    userId: CURRENT_USER,
+    userId: userAuth.userId,
   };
 };
 
