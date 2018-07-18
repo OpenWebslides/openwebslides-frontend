@@ -237,6 +237,7 @@ module.exports = {
           'types/error',
           'types/model',
           'types/state',
+          'forms/*',
           'modules/*',
           'helpers/*',
           'lib/*',
