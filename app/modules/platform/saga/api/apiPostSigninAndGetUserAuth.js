@@ -20,7 +20,7 @@ const apiPostSigninAndGetUserAuth = function* (
   yield put(apiRequestsStatus.actions.setPending(action.type));
 
   try {
-    const responseData: ApiResponseData = yield call(api.token.post, email, password);
+    const responseData: ApiResponseData = yield call(api.token.postSignin, email, password);
 
     // Get flow to stop complaining about token possibly being NULL
     if (responseData.token == null) {

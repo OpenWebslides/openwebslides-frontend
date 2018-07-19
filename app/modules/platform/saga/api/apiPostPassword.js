@@ -14,7 +14,7 @@ const apiPostPassword = function* (
 
   try {
     const { email } = action.payload;
-    yield call(api.password.post, email);
+    yield call(api.password.postEmail, email);
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
   }
   catch (error) {

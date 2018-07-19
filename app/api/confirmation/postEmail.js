@@ -7,7 +7,7 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 
 import { CONFIRMATION_ENDPOINT } from '../endpoints';
 
-const post = (email: string): Promise<ApiResponseData> => {
+const postEmail = (email: string): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
       type: 'confirmations',
@@ -23,4 +23,4 @@ const post = (email: string): Promise<ApiResponseData> => {
     .execute();
 };
 
-export default post;
+export default postEmail;

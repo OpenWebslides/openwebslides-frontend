@@ -14,7 +14,7 @@ const apiPostConfirmation = function* (
 
   try {
     const { email } = action.payload;
-    yield call(api.confirmation.post, email);
+    yield call(api.confirmation.postEmail, email);
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
   }
   catch (error) {

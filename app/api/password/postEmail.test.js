@@ -5,7 +5,7 @@ import { httpMethods } from 'lib/ApiRequest';
 
 import api from '..';
 
-describe(`api.password.post`, (): void => {
+describe(`api.password.postEmail`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
@@ -14,7 +14,7 @@ describe(`api.password.post`, (): void => {
   it(`executes the correct fetch call`, async (): Promise<*> => {
     const dummyEmail = 'test@test.be';
     fetch.mockResponseOnce(null, { status: 200 });
-    await api.password.post(dummyEmail);
+    await api.password.postEmail(dummyEmail);
 
     expect(fetch.mock.calls).toHaveLength(1);
 

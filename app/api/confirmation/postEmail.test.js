@@ -5,7 +5,7 @@ import { httpMethods } from 'lib/ApiRequest';
 
 import api from '..';
 
-describe(`api.token.post`, (): void => {
+describe(`api.confirmation.postEmail`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
@@ -13,23 +13,21 @@ describe(`api.token.post`, (): void => {
 
   it(`executes the correct fetch call`, async (): Promise<*> => {
     const dummyEmail = 'test@test.be';
-    const dummyPassword = 'mahpasswordy0';
     fetch.mockResponseOnce(null, { status: 200 });
-    await api.token.post(dummyEmail, dummyPassword);
+    await api.confirmation.postEmail(dummyEmail);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
     const mockUrl = fetch.mock.calls[0][0];
     const mockOptions = fetch.mock.calls[0][1];
 
-    expect(mockUrl).toBe(`${API_URL}/token`);
+    expect(mockUrl).toBe(`${API_URL}/confirmation`);
     expect(mockOptions.method).toBe(httpMethods.POST);
     expect(JSON.parse(mockOptions.body)).toEqual({
       data: {
-        type: 'tokens',
+        type: 'confirmations',
         attributes: {
           email: dummyEmail,
-          password: dummyPassword,
         },
       },
     });

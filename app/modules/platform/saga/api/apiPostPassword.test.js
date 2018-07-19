@@ -25,9 +25,9 @@ describe(`apiPostPassword`, (): void => {
 
     return expectSaga(sagas.apiPostPassword, dummyAction)
       .provide([
-        [call(api.password.post, dummyEmail), dummyApiResponse],
+        [call(api.password.postEmail, dummyEmail), dummyApiResponse],
       ])
-      .call(api.password.post, dummyEmail)
+      .call(api.password.postEmail, dummyEmail)
       .run();
   });
 
@@ -37,7 +37,7 @@ describe(`apiPostPassword`, (): void => {
 
     return expectSaga(sagas.apiPostPassword, dummyAction)
       .provide([
-        [call(api.password.post, dummyEmail), dummyApiResponse],
+        [call(api.password.postEmail, dummyEmail), dummyApiResponse],
       ])
       .put(apiRequestsStatus.actions.setPending(t.API_POST_PASSWORD))
       .put(apiRequestsStatus.actions.setSuccess(t.API_POST_PASSWORD))
@@ -51,7 +51,7 @@ describe(`apiPostPassword`, (): void => {
     return expectSaga(sagas.apiPostPassword, dummyAction)
       .provide({
         call(effect: any, next: any): any {
-          if (effect.fn === api.password.post) throw dummyError;
+          if (effect.fn === api.password.postEmail) throw dummyError;
           else return next();
         },
       })

@@ -50,7 +50,7 @@ describe(`apiPostSigninAndGetUserAuth`, (): void => {
 
     return expectSaga(sagas.apiPostSigninAndGetUserAuth, dummyAction)
       .provide([
-        [call(api.token.post, dummyEmail, dummyPassword), dummyApiResponse],
+        [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
       ])
       .put(actions.setUserAuthInState({
         userId: dummyId,
@@ -83,7 +83,7 @@ describe(`apiPostSigninAndGetUserAuth`, (): void => {
 
     return expectSaga(sagas.apiPostSigninAndGetUserAuth, dummyAction)
       .provide([
-        [call(api.token.post, dummyEmail, dummyPassword), dummyApiResponse],
+        [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
       ])
       .put(apiRequestsStatus.actions.setPending(t.API_POST_SIGNIN_AND_GET_USER_AUTH))
       .put(apiRequestsStatus.actions.setSuccess(t.API_POST_SIGNIN_AND_GET_USER_AUTH))
@@ -97,7 +97,7 @@ describe(`apiPostSigninAndGetUserAuth`, (): void => {
     return expectSaga(sagas.apiPostSigninAndGetUserAuth, dummyAction)
       .provide({
         call(effect: any, next: any): any {
-          if (effect.fn === api.token.post) throw dummyError;
+          if (effect.fn === api.token.postSignin) throw dummyError;
           else return next();
         },
       })
@@ -123,7 +123,7 @@ describe(`apiPostSigninAndGetUserAuth`, (): void => {
 
     const result = await expectSaga(sagas.apiPostSigninAndGetUserAuth, dummyAction)
       .provide([
-        [call(api.token.post, dummyEmail, dummyPassword), dummyApiResponse],
+        [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
       ])
       .put.actionType(apiRequestsStatus.actions.setFailure(t.API_POST_SIGNIN_AND_GET_USER_AUTH, new Error()).type)
       .run();

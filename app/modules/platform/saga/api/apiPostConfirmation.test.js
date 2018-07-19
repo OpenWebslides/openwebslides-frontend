@@ -25,9 +25,9 @@ describe(`apiPostConfirmation`, (): void => {
 
     return expectSaga(sagas.apiPostConfirmation, dummyAction)
       .provide([
-        [call(api.confirmation.post, dummyEmail), dummyApiResponse],
+        [call(api.confirmation.postEmail, dummyEmail), dummyApiResponse],
       ])
-      .call(api.confirmation.post, dummyEmail)
+      .call(api.confirmation.postEmail, dummyEmail)
       .run();
   });
 
@@ -37,7 +37,7 @@ describe(`apiPostConfirmation`, (): void => {
 
     return expectSaga(sagas.apiPostConfirmation, dummyAction)
       .provide([
-        [call(api.confirmation.post, dummyEmail), dummyApiResponse],
+        [call(api.confirmation.postEmail, dummyEmail), dummyApiResponse],
       ])
       .put(apiRequestsStatus.actions.setPending(t.API_POST_CONFIRMATION))
       .put(apiRequestsStatus.actions.setSuccess(t.API_POST_CONFIRMATION))
@@ -51,7 +51,7 @@ describe(`apiPostConfirmation`, (): void => {
     return expectSaga(sagas.apiPostConfirmation, dummyAction)
       .provide({
         call(effect: any, next: any): any {
-          if (effect.fn === api.confirmation.post) throw dummyError;
+          if (effect.fn === api.confirmation.postEmail) throw dummyError;
           else return next();
         },
       })
