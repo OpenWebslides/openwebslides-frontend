@@ -59,7 +59,7 @@ const baseConfig = {
       // specified below to override this one on all svg files that are not located in the /fonts/
       // folder.
       {
-        test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+        test: /\.(woff|woff2|eot|ttf|otf|svg|flow)$/,
         use: {
           loader: 'file-loader',
         },
