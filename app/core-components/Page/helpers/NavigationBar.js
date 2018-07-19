@@ -3,8 +3,8 @@
 import * as React from 'react';
 import { Menu } from 'semantic-ui-react';
 
-import Logo from './helpers/Logo';
-import AccountMenu from './helpers/AccountMenu';
+import Logo from './Logo';
+import AccountMenu from './AccountMenu';
 
 const PureNavigationBar = (): React.Node => {
   return (
