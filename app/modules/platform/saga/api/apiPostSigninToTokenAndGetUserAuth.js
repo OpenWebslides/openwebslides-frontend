@@ -12,8 +12,8 @@ import actions from '../../actions';
 import * as t from '../../actionTypes';
 import * as m from '../../model';
 
-const apiPostSigninAndGetUserAuth = function* (
-  action: t.ApiPostSigninAndGetUserAuthAction,
+const apiPostSigninToTokenAndGetUserAuth = function* (
+  action: t.ApiPostSigninToTokenAndGetUserAuthAction,
 ): Generator<*, *, *> {
   const { email, password } = action.payload;
 
@@ -55,4 +55,4 @@ const apiPostSigninAndGetUserAuth = function* (
   }
 };
 
-export default apiPostSigninAndGetUserAuth;
+export default apiPostSigninToTokenAndGetUserAuth;

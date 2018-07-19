@@ -18,7 +18,7 @@ describe(`confirmEmail`, (): void => {
     const dummyAction = actions.confirmEmail(dummyEmail);
 
     return expectSaga(sagas.confirmEmail, dummyAction)
-      .put(actions.apiPostConfirmation(dummyEmail))
+      .put(actions.apiPostEmailToConfirmation(dummyEmail))
       .run();
   });
 

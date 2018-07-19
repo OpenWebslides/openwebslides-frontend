@@ -20,7 +20,7 @@ describe(`signin`, (): void => {
     const dummyAction = actions.signin(dummyEmail, dummyPassword);
 
     return expectSaga(sagas.signin, dummyAction)
-      .put(actions.apiPostSigninAndGetUserAuth(dummyEmail, dummyPassword))
+      .put(actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword))
       .run();
   });
 

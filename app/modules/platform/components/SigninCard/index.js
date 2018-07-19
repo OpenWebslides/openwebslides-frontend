@@ -38,7 +38,7 @@ const PureSigninCard = (props: Props): React.Node => {
 
   return (
     <Card fluid={true}>
-      <ApiDimmer requestIds={[a.API_POST_SIGNIN_AND_GET_USER_AUTH]} />
+      <ApiDimmer requestIds={[a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH]} />
 
       <Card.Content>
         <Card.Header>

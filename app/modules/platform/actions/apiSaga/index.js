@@ -1,15 +1,15 @@
 // @flow
 
 import apiDeleteToken from './apiDeleteToken';
-import apiPostConfirmation from './apiPostConfirmation';
-import apiPostPassword from './apiPostPassword';
-import apiPostSigninAndGetUserAuth from './apiPostSigninAndGetUserAuth';
+import apiPostEmailToConfirmation from './apiPostEmailToConfirmation';
+import apiPostEmailToPassword from './apiPostEmailToPassword';
+import apiPostSigninToTokenAndGetUserAuth from './apiPostSigninToTokenAndGetUserAuth';
 
 const apiSagaActions = {
   apiDeleteToken,
-  apiPostConfirmation,
-  apiPostPassword,
-  apiPostSigninAndGetUserAuth,
+  apiPostEmailToConfirmation,
+  apiPostEmailToPassword,
+  apiPostSigninToTokenAndGetUserAuth,
 };
 
 export default apiSagaActions;
