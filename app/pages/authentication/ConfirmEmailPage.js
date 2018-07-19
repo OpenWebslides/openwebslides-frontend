@@ -8,18 +8,18 @@ import Page from 'core-components/Page';
 import FlashMessages from 'core-components/flash/FlashMessages';
 import platform from 'modules/platform';
 
-const { UnauthWrapper, ResetPasswordCard } = platform.components;
+const { UnauthWrapper, ConfirmEmailCard } = platform.components;
 
 type Props = TranslatorProps;
 
-const PureResetPage = (props: Props): React.Node => {
+const PureConfirmEmailPage = (props: Props): React.Node => {
   return (
     <UnauthWrapper redirectIfAuthenticated="/">
       <Page>
         <Grid centered={true} verticalAlign="middle">
           <Grid.Column width={6}>
             <FlashMessages />
-            <ResetPasswordCard />
+            <ConfirmEmailCard />
           </Grid.Column>
         </Grid>
       </Page>
@@ -27,7 +27,7 @@ const PureResetPage = (props: Props): React.Node => {
   );
 };
 
-const ResetPage = translate()(PureResetPage);
+const ConfirmEmailPage = translate()(PureConfirmEmailPage);
 
-export { PureResetPage };
-export default ResetPage;
+export { PureConfirmEmailPage };
+export default ConfirmEmailPage;
