@@ -9,6 +9,7 @@ module.exports = {
   ],
   coveragePathIgnorePatterns: [
     'node_modules',
+    '.eslintrc.js',
     'app/index.js',
     'app/lib/react-voice-components',
   ],

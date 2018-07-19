@@ -1,7 +1,7 @@
 // @flow
 
 import type { State } from 'types/state';
-import type { User } from 'modules/users';
+// import type { User } from 'modules/users';
 
 import type { AuthState } from './model';
 
@@ -14,7 +14,9 @@ const isAuthenticated = (state: State): boolean => {
   return module ? module.authenticated : false;
 };
 
-const getAccount = (state: State): ?User => {
+// #TODO replace with userId to remove depentency on modules/users
+// eslint-disable-next-line flowtype/no-weak-types
+const getAccount = (state: State): any => {
   const module: AuthState = getModule(state);
   return module ? module.account : null;
 };

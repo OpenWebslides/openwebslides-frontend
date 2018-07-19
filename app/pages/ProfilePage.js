@@ -8,7 +8,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import Page from 'core-components/Page';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import type { User } from 'modules/users';
+// import type { User } from 'modules/users';
 import users from 'modules/users';
 import authentication from 'modules/authentication';
 
@@ -20,7 +20,9 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  account: ?User,
+  // #TODO replace with userId to remove depentency on modules/users
+  // eslint-disable-next-line flowtype/no-weak-types
+  +account: any,
 |};
 
 type Props = {|

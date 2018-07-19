@@ -1,13 +1,15 @@
 // @flow
+/* eslint-disable import/no-internal-modules */
+// ^ note: make exception to the rule of only importing entire modules to avoid dependency cycles
 
 import { all, call } from 'redux-saga/effects';
 
-import authentication from 'modules/authentication';
-import contentItems from 'modules/contentItems';
-import feed from 'modules/feed';
-import history from 'modules/history';
-import topics from 'modules/topics';
-import users from 'modules/users';
+import authenticationSaga from 'modules/authentication/saga';
+import contentItemsSaga from 'modules/contentItems/saga';
+import feedSaga from 'modules/feed/saga';
+import historySaga from 'modules/history/saga';
+import topicsSaga from 'modules/topics/saga';
+import usersSaga from 'modules/users/saga';
 
 /**
  * Sets up the root saga.
@@ -15,12 +17,12 @@ import users from 'modules/users';
 
 const rootSaga = function* (): Generator<*, *, *> {
   yield all([
-    call(authentication.saga),
-    call(contentItems.saga),
-    call(feed.saga),
-    call(history.saga),
-    call(topics.saga),
-    call(users.saga),
+    call(authenticationSaga),
+    call(contentItemsSaga),
+    call(feedSaga),
+    call(historySaga),
+    call(topicsSaga),
+    call(usersSaga),
   ]);
 };
 

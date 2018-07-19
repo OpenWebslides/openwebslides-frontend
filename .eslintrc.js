@@ -220,10 +220,6 @@ module.exports = {
     // Encourage placing default exports of components on a separate line at the bottom of the file.
     'import/no-anonymous-default-export': 'error',
 
-    // #TODO Currently not usable due to it not making an exception for flow type imports.
-    // See https://github.com/benmosher/eslint-plugin-import/issues/1098
-    'import/no-cycle': 'off',
-
     // Enforce correct use of module index files;
     // prohibit paths that contain more than one non-(dot|double-dot) part, except for those whitelisted below.
     // #TODO update whitelist while refactoring modules
