@@ -7,15 +7,16 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
 
-import { isPending } from '../selectors';
+import * as m from '../model';
+import selectors from '../selectors';
 
 type PassedProps = {|
+  requestIds: Array<string>,
   children?: React.Node,
-  request: string | Array<string>,
 |};
 
 type StateProps = {|
-  active: boolean,
+  isActive: boolean,
 |};
 
 type Props = {|
@@ -25,32 +26,37 @@ type Props = {|
 |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const { request } = props;
-  let active: boolean = false;
+  const { requestIds } = props;
+  let isActive: boolean = false;
 
-  [].concat(request).forEach((req: string): void => {
-    active = active || isPending(state, { request: req });
+  // Dimmer should be active as long as any of the passed requestIds are still PENDING
+  requestIds.forEach((requestId: string): void => {
+    const requestStatus = selectors.getRequestStatusById(state, { requestId });
+    if (requestStatus != null) {
+      isActive = isActive || requestStatus.status === m.statusTypes.PENDING;
+    }
   });
 
   return {
-    active,
+    isActive,
   };
 };
 
 const PureApiDimmer = (props: Props): React.Node => {
-  const {
-    children,
-    active,
-    t,
-  } = props;
+  const { children, isActive, t } = props;
 
-  return (
-    <Dimmer active={active} inverted={true}>
-      <Loader inverted={true}>
-        {children || t('common:loading')}
-      </Loader>
-    </Dimmer>
-  );
+  if (isActive) {
+    return (
+      <Dimmer active={isActive} inverted={true}>
+        <Loader inverted={true}>
+          {children || t('common:loading')}
+        </Loader>
+      </Dimmer>
+    );
+  }
+  else {
+    return null;
+  }
 };
 
 const ApiDimmer = connect(mapStateToProps)(translate()(PureApiDimmer));

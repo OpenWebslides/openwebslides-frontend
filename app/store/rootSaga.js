@@ -4,7 +4,7 @@
 
 import { all, call } from 'redux-saga/effects';
 
-import authenticationSaga from 'modules/authentication/saga';
+import apiRequestsStatusSaga from 'modules/apiRequestsStatus/saga';
 import contentItemsSaga from 'modules/contentItems/saga';
 import feedSaga from 'modules/feed/saga';
 import historySaga from 'modules/history/saga';
@@ -17,7 +17,7 @@ import usersSaga from 'modules/users/saga';
 
 const rootSaga = function* (): Generator<*, *, *> {
   yield all([
-    call(authenticationSaga),
+    call(apiRequestsStatusSaga),
     call(contentItemsSaga),
     call(feedSaga),
     call(historySaga),

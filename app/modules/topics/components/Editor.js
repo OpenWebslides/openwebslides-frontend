@@ -91,7 +91,7 @@ class PureEditor extends React.Component<Props> {
 
       return (
         <div>
-          <ApiDimmer request={API_GET_CONTENT}>{t('editor:api.load.pending')}</ApiDimmer>
+          <ApiDimmer requestIds={[API_GET_CONTENT]}>{t('editor:api.load.pending')}</ApiDimmer>
         </div>
       );
     }
@@ -102,8 +102,8 @@ class PureEditor extends React.Component<Props> {
 
         <FlashMessages />
 
-        <ApiDimmer request={API_GET_CONTENT}>{t('editor:api.load.pending')}</ApiDimmer>
-        <ApiDimmer request={API_PATCH_CONTENT}>{t('editor:api.save.pending')}</ApiDimmer>
+        <ApiDimmer requestIds={[API_GET_CONTENT]}>{t('editor:api.load.pending')}</ApiDimmer>
+        <ApiDimmer requestIds={[API_PATCH_CONTENT]}>{t('editor:api.save.pending')}</ApiDimmer>
 
         <p>
           <Button primary={true} onClick={this.onSaveButtonClick}>

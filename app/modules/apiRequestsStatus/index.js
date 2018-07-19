@@ -1,9 +1,9 @@
 // @flow
 
-import * as actions from './actions';
-import * as model from './model';
-import * as selectors from './selectors';
+import actions from './actions';
 import components from './components';
+import * as model from './model';
+import selectors from './selectors';
 
 const api = {
   actions,
