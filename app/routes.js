@@ -21,6 +21,7 @@ import TempSlideTestPage from 'pages/TempSlideTestPage';
 import GenerateRandomStringPage from 'pages/GenerateRandomStringPage';
 import SigninPage from 'pages/authentication/SigninPage';
 import SignupPage from 'pages/authentication/SignupPage';
+import ConfirmEmailPage from 'pages/authentication/ConfirmEmailPage';
 import ResetPasswordPage from 'pages/authentication/ResetPasswordPage';
 import ResendConfirmationEmailPage from 'pages/authentication/ResendConfirmationEmailPage';
 
@@ -40,6 +41,7 @@ const routes = (
       <Route path={SIGNIN_ROUTE} exact={true} component={SigninPage} />
       { /* #TODO signout */ }
       <Route path="/auth/signup" exact={true} component={SignupPage} />
+      <Route path="/auth/confirmation/:confirmationToken" exact={true} component={ConfirmEmailPage} />
       <Route path="/auth/reset" exact={true} component={ResetPasswordPage} />
       <Route path="/auth/resend" exact={true} component={ResendConfirmationEmailPage} />
       <Route component={NotFoundPage} />

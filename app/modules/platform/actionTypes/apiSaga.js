@@ -8,6 +8,7 @@ import type { ApiToken } from 'lib/ApiRequest';
 
 export const API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH: 'platform/API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH' = 'platform/API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH';
 export const API_DELETE_TOKEN: 'platform/API_DELETE_TOKEN' = 'platform/API_DELETE_TOKEN';
+export const API_POST_CONFIRMATION: 'platform/API_POST_CONFIRMATION' = 'platform/API_POST_CONFIRMATION';
 export const API_POST_EMAIL_TO_CONFIRMATION: 'platform/API_POST_EMAIL_TO_CONFIRMATION' = 'platform/API_POST_EMAIL_TO_CONFIRMATION';
 export const API_POST_EMAIL_TO_PASSWORD: 'platform/API_POST_EMAIL_TO_PASSWORD' = 'platform/API_POST_EMAIL_TO_PASSWORD';
 
@@ -26,6 +27,13 @@ export type ApiDeleteTokenAction = {|
   type: typeof API_DELETE_TOKEN,
   payload: {
     token: ApiToken,
+  },
+|};
+
+export type ApiPostConfirmationAction = {|
+  type: typeof API_POST_CONFIRMATION,
+  payload: {
+    confirmationToken: string,
   },
 |};
 
