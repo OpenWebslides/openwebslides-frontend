@@ -6,24 +6,24 @@ import { Grid } from 'semantic-ui-react';
 
 import Page from 'core-components/Page';
 import FlashMessages from 'core-components/flash/FlashMessages';
-import authentication from 'modules/authentication';
+import platform from 'modules/platform';
+
+const { UnauthWrapper, SignupCard } = platform.components;
 
 type Props = TranslatorProps;
 
-const { SignupCard } = authentication.components;
-
 const PureSignupPage = (props: Props): React.Node => {
   return (
-    // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
-    <Page>
-      <Grid centered={true} verticalAlign="middle">
-        <Grid.Column width={6}>
-          <FlashMessages />
-
-          <SignupCard />
-        </Grid.Column>
-      </Grid>
-    </Page>
+    <UnauthWrapper redirectIfAuthenticated="/">
+      <Page>
+        <Grid centered={true} verticalAlign="middle">
+          <Grid.Column width={6}>
+            <FlashMessages />
+            <SignupCard />
+          </Grid.Column>
+        </Grid>
+      </Page>
+    </UnauthWrapper>
   );
 };
 

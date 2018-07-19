@@ -13,7 +13,6 @@ const PureGenerateRandomStringPage = (props: Props): React.Node => {
   const lengthParam = parseInt(match.params.length, 10);
   const randomStringLength = lengthParam || 20;
   return (
-    // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
     <Page>
       <div>
         <h1>

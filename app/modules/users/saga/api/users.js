@@ -2,8 +2,9 @@
 
 import { call, put, select } from 'redux-saga/effects';
 
+import { UnsupportedOperationError } from 'errors';
 import api from 'api';
-import authentication from 'modules/authentication';
+import platform from 'modules/platform';
 
 import * as t from '../../actionTypes';
 import { addToState } from '../../actions';
@@ -11,9 +12,10 @@ import { addToState } from '../../actions';
 export const apiGetUserSaga = function* (action: t.ApiGetUserAction): Generator<*, *, *> {
   try {
     const { id } = action.payload;
-    const token = yield select(authentication.selectors.getToken);
+    const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
+    if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
-    const response = yield call(api.users.get, id, token);
+    const response = yield call(api.users.get, id, userAuth.apiToken);
     const { attributes } = response.body.data;
 
     yield put(addToState(
@@ -22,6 +24,17 @@ export const apiGetUserSaga = function* (action: t.ApiGetUserAction): Generator<
       attributes.lastName,
       attributes.email,
     ));
+  }
+  catch (error) {
+    // TODO: fix saga error handling
+    throw error;
+  }
+};
+
+export const apiPostUserSaga = function* (action: t.ApiPostUserAction): Generator<*, *, *> {
+  try {
+    const { email, firstName, lastName, password, tosAccepted } = action.payload;
+    yield call(api.users.post, email, firstName, lastName, password, tosAccepted);
   }
   catch (error) {
     // TODO: fix saga error handling

@@ -8,46 +8,36 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import Page from 'core-components/Page';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-// import type { User } from 'modules/users';
+import platform from 'modules/platform';
 import users from 'modules/users';
-import authentication from 'modules/authentication';
 
 const { ProfileCard } = users.components;
-const { getAccount } = authentication.selectors;
-
-type PassedProps = {|
-  userId: Identifier,
-|};
 
 type StateProps = {|
-  // #TODO replace with userId to remove depentency on modules/users
-  // eslint-disable-next-line flowtype/no-weak-types
-  +account: any,
+  currentUserId: ?Identifier,
 |};
 
 type Props = {|
   ...TranslatorProps,
   ...RouterProps,
-  ...PassedProps,
   ...StateProps,
 |};
 
 const mapStateToProps = (state: State): StateProps => {
-  const account = getAccount(state);
+  let currentUserId: ?Identifier = null;
+  const userAuth = platform.selectors.getUserAuth(state);
 
-  // TODO: figure out what to do with /users if no user is logged in
-  /*
-  if (account == null) {
-    throw new Error(`User is not logged in`);
+  if (userAuth != null) {
+    currentUserId = userAuth.userId;
   }
-  */
 
   return {
-    account,
+    currentUserId,
   };
 };
 
-const CurrentUserProfile = (props: PassedProps): React.Node => {
+// #TODO extract into separate file
+const CurrentUserProfile = (props: { userId: Identifier }): React.Node => {
   const { userId } = props;
 
   return (
@@ -72,13 +62,13 @@ const PureProfilePage = (props: Props): React.Node => {
   const {
     t,
     match,
-    account,
+    currentUserId,
   } = props;
 
-  const CURRENT_USER = account != null ? account.id : 'jantje1234';
+  // #TODO WTF?
+  const newCurrentUserId = currentUserId || 'jantje1234';
 
   return (
-    // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
     <Page>
       <React.Fragment>
         <h1>{t('global:title.profile')}</h1>
@@ -86,7 +76,7 @@ const PureProfilePage = (props: Props): React.Node => {
           <Route path={`${match.url}/:id`} component={UserProfile} />
           { /* #TODO */ }
           { /* eslint-disable-next-line react/jsx-no-bind */ }
-          <Route render={() => <CurrentUserProfile userId={CURRENT_USER} />} />
+          <Route render={() => <CurrentUserProfile userId={newCurrentUserId} />} />
         </Switch>
       </React.Fragment>
     </Page>

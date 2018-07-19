@@ -9,6 +9,7 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import { SIGNIN_ROUTE /* , SIGNOUT_ROUTE */ } from 'config/routes';
 import history from 'modules/history';
 import NotFoundPage from 'pages/NotFoundPage';
 import HomePage from 'pages/HomePage';
@@ -36,7 +37,8 @@ const routes = (
       <Route path="/profile" component={ProfilePage} />
       <Route path="/tempslidetest" component={TempSlideTestPage} />
       <Route path="/generaterandomstring/:length?" component={GenerateRandomStringPage} />
-      <Route path="/auth/signin" exact={true} component={SigninPage} />
+      <Route path={SIGNIN_ROUTE} exact={true} component={SigninPage} />
+      { /* #TODO signout */ }
       <Route path="/auth/signup" exact={true} component={SignupPage} />
       <Route path="/auth/reset" exact={true} component={ResetPage} />
       <Route path="/auth/confirm" exact={true} component={ConfirmPage} />

@@ -86,3 +86,22 @@ export const apiGetUser = (
     },
   };
 };
+
+export const apiPostUser = (
+  email: string,
+  firstName: string,
+  lastName: ?string,
+  password: string,
+  tosAccepted: boolean,
+): t.ApiPostUserAction => {
+  return {
+    type: t.API_POST_USER,
+    payload: {
+      email,
+      firstName,
+      lastName,
+      password,
+      tosAccepted,
+    },
+  };
+};

@@ -5,6 +5,9 @@ const global = {
   navbar: {
     account: 'Account',
     preferences: 'Preferences',
+    signin: 'Sign in',
+    signup: 'Sign up',
+    signout: 'Sign out',
   },
   title: {
     library: 'Library',

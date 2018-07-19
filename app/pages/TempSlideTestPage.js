@@ -107,7 +107,6 @@ class PureTempSlideTestPage extends React.Component<Props, ComponentState> {
       VoicePlayerToggleNode = null;
     }
     return (
-      // $FlowFixMe Can't figure out cause; Page component needs rewriting anyway #TODO
       <Page>
         <div ref={this.slideRef}>
           <Slide contentItem={contentItemTreeRootItem} />

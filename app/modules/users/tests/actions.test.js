@@ -52,5 +52,22 @@ describe(`actions`, (): void => {
         });
       });
     });
+
+    describe(`apiPostUser`, (): void => {
+      it(`returns post users action`, (): void => {
+        const action = actions.apiPostUser('email', 'firstName', 'lastName', 'password', true);
+
+        expect(action).toEqual({
+          type: t.API_POST_USER,
+          payload: {
+            email: 'email',
+            firstName: 'firstName',
+            lastName: 'lastName',
+            password: 'password',
+            tosAccepted: true,
+          },
+        });
+      });
+    });
   });
 });
