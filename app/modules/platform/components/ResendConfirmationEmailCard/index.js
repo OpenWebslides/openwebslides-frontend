@@ -23,22 +23,22 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
         // Make flow happy; #TODO replace with proper redux-form validation
         throw new InvalidArgumentError(`Form data incomplete`);
       }
-      dispatch(actions.confirmEmail(values.email));
+      dispatch(actions.resendConfirmationEmail(values.email));
     },
   };
 };
 
-const PureConfirmEmailCard = (props: Props): React.Node => {
+const PureResendConfirmationEmailCard = (props: Props): React.Node => {
   const { t, onEmailFormSubmit } = props;
 
   return (
     <Card fluid={true}>
       <Card.Content>
         <Card.Header>
-          {t('platform:confirmEmailCard.title')}
+          {t('platform:resendConfirmationEmailCard.title')}
         </Card.Header>
         <Card.Description>
-          {t('platform:confirmEmailCard.description')}
+          {t('platform:resendConfirmationEmailCard.description')}
         </Card.Description>
       </Card.Content>
       <Card.Content>
@@ -48,7 +48,9 @@ const PureConfirmEmailCard = (props: Props): React.Node => {
   );
 };
 
-const ConfirmEmailCard = connect(null, mapDispatchToProps)(translate()(PureConfirmEmailCard));
+const ResendConfirmationEmailCard = connect(null, mapDispatchToProps)(
+  translate()(PureResendConfirmationEmailCard),
+);
 
-export { PureConfirmEmailCard };
-export default ConfirmEmailCard;
+export { PureResendConfirmationEmailCard };
+export default ResendConfirmationEmailCard;

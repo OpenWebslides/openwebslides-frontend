@@ -6,7 +6,7 @@ import actions from '../../actions';
 
 import { sagas } from '..';
 
-describe(`confirmEmail`, (): void => {
+describe(`resendConfirmationEmail`, (): void => {
 
   let dummyEmail: string;
 
@@ -15,9 +15,9 @@ describe(`confirmEmail`, (): void => {
   });
 
   it(`puts an apiPostConfirmation action`, (): void => {
-    const dummyAction = actions.confirmEmail(dummyEmail);
+    const dummyAction = actions.resendConfirmationEmail(dummyEmail);
 
-    return expectSaga(sagas.confirmEmail, dummyAction)
+    return expectSaga(sagas.resendConfirmationEmail, dummyAction)
       .put(actions.apiPostEmailToConfirmation(dummyEmail))
       .run();
   });

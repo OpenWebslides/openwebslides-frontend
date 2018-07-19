@@ -7,7 +7,7 @@
 export const SIGNIN: 'platform/SIGNIN' = 'platform/SIGNIN';
 export const SIGNOUT: 'platform/SIGNOUT' = 'platform/SIGNOUT';
 export const SIGNUP: 'platform/SIGNUP' = 'platform/SIGNUP';
-export const CONFIRM_EMAIL: 'platform/CONFIRM_EMAIL' = 'platform/CONFIRM_EMAIL';
+export const RESEND_CONFIRMATION_EMAIL: 'platform/RESEND_CONFIRMATION_EMAIL' = 'platform/RESEND_CONFIRMATION_EMAIL';
 export const RESET_PASSWORD: 'platform/RESET_PASSWORD' = 'platform/RESET_PASSWORD';
 
 
@@ -36,8 +36,8 @@ export type SignupAction = {|
   },
 |};
 
-export type ConfirmEmailAction = {|
-  type: typeof CONFIRM_EMAIL,
+export type ResendConfirmationEmailAction = {|
+  type: typeof RESEND_CONFIRMATION_EMAIL,
   payload: {
     email: string,
   },

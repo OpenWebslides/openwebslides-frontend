@@ -22,7 +22,7 @@ import GenerateRandomStringPage from 'pages/GenerateRandomStringPage';
 import SigninPage from 'pages/authentication/SigninPage';
 import SignupPage from 'pages/authentication/SignupPage';
 import ResetPasswordPage from 'pages/authentication/ResetPasswordPage';
-import ConfirmEmailPage from 'pages/authentication/ConfirmEmailPage';
+import ResendConfirmationEmailPage from 'pages/authentication/ResendConfirmationEmailPage';
 
 const History = history.components.History;
 
@@ -41,7 +41,7 @@ const routes = (
       { /* #TODO signout */ }
       <Route path="/auth/signup" exact={true} component={SignupPage} />
       <Route path="/auth/reset" exact={true} component={ResetPasswordPage} />
-      <Route path="/auth/confirm" exact={true} component={ConfirmEmailPage} />
+      <Route path="/auth/resend" exact={true} component={ResendConfirmationEmailPage} />
       <Route component={NotFoundPage} />
     </Switch>
   </React.Fragment>

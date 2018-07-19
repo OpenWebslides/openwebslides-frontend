@@ -4,7 +4,7 @@
 import AuthWrapper from './AuthWrapper';
 import UnauthWrapper from './UnauthWrapper';
 // Account management
-import ConfirmEmailCard from './ConfirmEmailCard';
+import ResendConfirmationEmailCard from './ResendConfirmationEmailCard';
 import ResetPasswordCard from './ResetPasswordCard';
 import SigninCard from './SigninCard';
 import SignupCard from './SignupCard';
@@ -12,7 +12,7 @@ import SignupCard from './SignupCard';
 const components = {
   AuthWrapper,
   UnauthWrapper,
-  ConfirmEmailCard,
+  ResendConfirmationEmailCard,
   ResetPasswordCard,
   SigninCard,
   SignupCard,
