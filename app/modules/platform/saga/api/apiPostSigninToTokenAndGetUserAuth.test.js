@@ -14,7 +14,7 @@ import * as t from '../../actionTypes';
 
 import { sagas } from '..';
 
-describe(`apiPostSigninAndGetUserAuth`, (): void => {
+describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
 
   let dummyId: Identifier;
   let dummyFirstName: string;
@@ -33,7 +33,7 @@ describe(`apiPostSigninAndGetUserAuth`, (): void => {
   });
 
   it(`posts the passed email and password to the token API endpoint, processes the response and puts both the userAuth object and the current user object in the state`, (): void => {
-    const dummyAction = actions.apiPostSigninAndGetUserAuth(dummyEmail, dummyPassword);
+    const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
     const dummyApiResponse = {
       body: {
         data: {
@@ -48,9 +48,9 @@ describe(`apiPostSigninAndGetUserAuth`, (): void => {
       token: dummyToken,
     };
 
-    return expectSaga(sagas.apiPostSigninAndGetUserAuth, dummyAction)
+    return expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
       .provide([
-        [call(api.token.post, dummyEmail, dummyPassword), dummyApiResponse],
+        [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
       ])
       .put(actions.setUserAuthInState({
         userId: dummyId,
@@ -66,7 +66,7 @@ describe(`apiPostSigninAndGetUserAuth`, (): void => {
   });
 
   it(`sets its request status to PENDING and then sets its request status to SUCCESS, when the saga completes without errors`, (): void => {
-    const dummyAction = actions.apiPostSigninAndGetUserAuth(dummyEmail, dummyPassword);
+    const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
     const dummyApiResponse = {
       body: {
         data: {
@@ -81,33 +81,33 @@ describe(`apiPostSigninAndGetUserAuth`, (): void => {
       token: dummyToken,
     };
 
-    return expectSaga(sagas.apiPostSigninAndGetUserAuth, dummyAction)
+    return expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
       .provide([
-        [call(api.token.post, dummyEmail, dummyPassword), dummyApiResponse],
+        [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(t.API_POST_SIGNIN_AND_GET_USER_AUTH))
-      .put(apiRequestsStatus.actions.setSuccess(t.API_POST_SIGNIN_AND_GET_USER_AUTH))
+      .put(apiRequestsStatus.actions.setPending(t.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH))
+      .put(apiRequestsStatus.actions.setSuccess(t.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH))
       .run();
   });
 
   it(`sets its request status to PENDING and then sets its request status to FAILURE, when the api call fails`, (): void => {
-    const dummyAction = actions.apiPostSigninAndGetUserAuth(dummyEmail, dummyPassword);
+    const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
     const dummyError = new Error('Boo!');
 
-    return expectSaga(sagas.apiPostSigninAndGetUserAuth, dummyAction)
+    return expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
       .provide({
         call(effect: any, next: any): any {
-          if (effect.fn === api.token.post) throw dummyError;
+          if (effect.fn === api.token.postSignin) throw dummyError;
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(t.API_POST_SIGNIN_AND_GET_USER_AUTH))
-      .put(apiRequestsStatus.actions.setFailure(t.API_POST_SIGNIN_AND_GET_USER_AUTH, dummyError))
+      .put(apiRequestsStatus.actions.setPending(t.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH))
+      .put(apiRequestsStatus.actions.setFailure(t.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, dummyError))
       .run();
   });
 
   it(`sets its request status to FAILURE and passes on the correct error, when the api response does not contain a token`, async (): Promise<*> => {
-    const dummyAction = actions.apiPostSigninAndGetUserAuth(dummyEmail, dummyPassword);
+    const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
     const dummyApiResponse = {
       body: {
         data: {
@@ -121,11 +121,11 @@ describe(`apiPostSigninAndGetUserAuth`, (): void => {
       status: 201,
     };
 
-    const result = await expectSaga(sagas.apiPostSigninAndGetUserAuth, dummyAction)
+    const result = await expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
       .provide([
-        [call(api.token.post, dummyEmail, dummyPassword), dummyApiResponse],
+        [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
       ])
-      .put.actionType(apiRequestsStatus.actions.setFailure(t.API_POST_SIGNIN_AND_GET_USER_AUTH, new Error()).type)
+      .put.actionType(apiRequestsStatus.actions.setFailure(t.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new Error()).type)
       .run();
 
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(Error);

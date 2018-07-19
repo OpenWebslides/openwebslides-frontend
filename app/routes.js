@@ -21,8 +21,9 @@ import TempSlideTestPage from 'pages/TempSlideTestPage';
 import GenerateRandomStringPage from 'pages/GenerateRandomStringPage';
 import SigninPage from 'pages/authentication/SigninPage';
 import SignupPage from 'pages/authentication/SignupPage';
-import ResetPage from 'pages/authentication/ResetPage';
-import ConfirmPage from 'pages/authentication/ConfirmPage';
+import ConfirmEmailPage from 'pages/authentication/ConfirmEmailPage';
+import ResetPasswordPage from 'pages/authentication/ResetPasswordPage';
+import ResendConfirmationEmailPage from 'pages/authentication/ResendConfirmationEmailPage';
 
 const History = history.components.History;
 
@@ -40,8 +41,9 @@ const routes = (
       <Route path={SIGNIN_ROUTE} exact={true} component={SigninPage} />
       { /* #TODO signout */ }
       <Route path="/auth/signup" exact={true} component={SignupPage} />
-      <Route path="/auth/reset" exact={true} component={ResetPage} />
-      <Route path="/auth/confirm" exact={true} component={ConfirmPage} />
+      <Route path="/auth/confirmation/:confirmationToken" exact={true} component={ConfirmEmailPage} />
+      <Route path="/auth/reset" exact={true} component={ResetPasswordPage} />
+      <Route path="/auth/resend" exact={true} component={ResendConfirmationEmailPage} />
       <Route component={NotFoundPage} />
     </Switch>
   </React.Fragment>

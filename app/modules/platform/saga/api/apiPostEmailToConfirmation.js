@@ -7,14 +7,14 @@ import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import * as t from '../../actionTypes';
 
-const apiPostConfirmation = function* (
-  action: t.ApiPostConfirmationAction,
+const apiPostEmailToConfirmation = function* (
+  action: t.ApiPostEmailToConfirmationAction,
 ): Generator<*, *, *> {
   yield put(apiRequestsStatus.actions.setPending(action.type));
 
   try {
-    const { confirmationToken } = action.payload;
-    yield call(api.confirmation.post, confirmationToken);
+    const { email } = action.payload;
+    yield call(api.confirmation.postEmail, email);
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
   }
   catch (error) {
@@ -22,4 +22,4 @@ const apiPostConfirmation = function* (
   }
 };
 
-export default apiPostConfirmation;
+export default apiPostEmailToConfirmation;

@@ -18,7 +18,7 @@ describe(`resetPassword`, (): void => {
     const dummyAction = actions.resetPassword(dummyEmail);
 
     return expectSaga(sagas.resetPassword, dummyAction)
-      .put(actions.apiPostPassword(dummyEmail))
+      .put(actions.apiPostEmailToPassword(dummyEmail))
       .run();
   });
 

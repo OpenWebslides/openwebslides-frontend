@@ -2,11 +2,11 @@
 
 import * as t from '../../actionTypes';
 
-const apiPostConfirmation = (email: string): t.ApiPostConfirmationAction => {
+const apiPostConfirmation = (confirmationToken: string): t.ApiPostConfirmationAction => {
   return {
     type: t.API_POST_CONFIRMATION,
     payload: {
-      email,
+      confirmationToken,
     },
   };
 };

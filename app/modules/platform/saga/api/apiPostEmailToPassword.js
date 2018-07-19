@@ -7,14 +7,14 @@ import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import * as t from '../../actionTypes';
 
-const apiPostPassword = function* (
-  action: t.ApiPostPasswordAction,
+const apiPostEmailToPassword = function* (
+  action: t.ApiPostEmailToPasswordAction,
 ): Generator<*, *, *> {
   yield put(apiRequestsStatus.actions.setPending(action.type));
 
   try {
     const { email } = action.payload;
-    yield call(api.password.post, email);
+    yield call(api.password.postEmail, email);
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
   }
   catch (error) {
@@ -22,4 +22,4 @@ const apiPostPassword = function* (
   }
 };
 
-export default apiPostPassword;
+export default apiPostEmailToPassword;

@@ -10,7 +10,7 @@ const platform = {
     link: {
       signup: 'Sign up',
       forgotPassword: 'Forgot password?',
-      confirmEmail: 'Resend confirmation email',
+      resendConfirmationEmail: 'Resend confirmation email',
     },
     // request: {
     //   pending: 'Signing in...',
@@ -31,8 +31,8 @@ const platform = {
     title: 'Reset password',
     description: 'Enter your email address to reset your password.',
   },
-  confirmEmailCard: {
-    title: 'Confirm email',
+  resendConfirmationEmailCard: {
+    title: 'Resend confirmation email',
     description: 'Enter your email address to resend the confirmation email.',
   },
 };

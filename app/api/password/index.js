@@ -1,9 +1,9 @@
 // @flow
 
-import post from './post';
+import postEmail from './postEmail';
 
 const passwordApi = {
-  post,
+  postEmail,
 };
 
 export default passwordApi;

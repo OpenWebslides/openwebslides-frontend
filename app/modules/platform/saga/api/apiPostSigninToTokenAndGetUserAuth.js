@@ -12,15 +12,15 @@ import actions from '../../actions';
 import * as t from '../../actionTypes';
 import * as m from '../../model';
 
-const apiPostSigninAndGetUserAuth = function* (
-  action: t.ApiPostSigninAndGetUserAuthAction,
+const apiPostSigninToTokenAndGetUserAuth = function* (
+  action: t.ApiPostSigninToTokenAndGetUserAuthAction,
 ): Generator<*, *, *> {
   const { email, password } = action.payload;
 
   yield put(apiRequestsStatus.actions.setPending(action.type));
 
   try {
-    const responseData: ApiResponseData = yield call(api.token.post, email, password);
+    const responseData: ApiResponseData = yield call(api.token.postSignin, email, password);
 
     // Get flow to stop complaining about token possibly being NULL
     if (responseData.token == null) {
@@ -55,4 +55,4 @@ const apiPostSigninAndGetUserAuth = function* (
   }
 };
 
-export default apiPostSigninAndGetUserAuth;
+export default apiPostSigninToTokenAndGetUserAuth;

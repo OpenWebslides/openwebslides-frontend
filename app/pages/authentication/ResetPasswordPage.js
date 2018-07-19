@@ -12,7 +12,7 @@ const { UnauthWrapper, ResetPasswordCard } = platform.components;
 
 type Props = TranslatorProps;
 
-const PureResetPage = (props: Props): React.Node => {
+const PureResetPasswordPage = (props: Props): React.Node => {
   return (
     <UnauthWrapper redirectIfAuthenticated="/">
       <Page>
@@ -27,7 +27,7 @@ const PureResetPage = (props: Props): React.Node => {
   );
 };
 
-const ResetPage = translate()(PureResetPage);
+const ResetPasswordPage = translate()(PureResetPasswordPage);
 
-export { PureResetPage };
-export default ResetPage;
+export { PureResetPasswordPage };
+export default ResetPasswordPage;

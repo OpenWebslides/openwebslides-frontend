@@ -8,18 +8,19 @@ import { sagas } from '..';
 
 describe(`confirmEmail`, (): void => {
 
-  let dummyEmail: string;
+  let dummyConfirmationToken: string;
 
   beforeEach((): void => {
-    dummyEmail = 'test@test.be';
+    dummyConfirmationToken = 'foobarToken';
   });
 
   it(`puts an apiPostConfirmation action`, (): void => {
-    const dummyAction = actions.confirmEmail(dummyEmail);
+    const dummyAction = actions.confirmEmail(dummyConfirmationToken);
 
     return expectSaga(sagas.confirmEmail, dummyAction)
-      .put(actions.apiPostConfirmation(dummyEmail))
+      .put(actions.apiPostConfirmation(dummyConfirmationToken))
       .run();
   });
 
 });
+

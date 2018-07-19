@@ -13,9 +13,9 @@ import { dummyTranslatorProps } from 'config/tests';
 
 import actions from '../../actions';
 
-import ConfirmEmailCard, { PureConfirmEmailCard } from '.';
+import ResendConfirmationEmailCard, { PureResendConfirmationEmailCard } from '.';
 
-describe(`ConfirmEmailCard`, (): void => {
+describe(`ResendConfirmationEmailCard`, (): void => {
 
   let dummyEmail: string;
 
@@ -34,25 +34,25 @@ describe(`ConfirmEmailCard`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureConfirmEmailCard {...dummyTranslatorProps} onEmailFormSubmit={jest.fn()} />,
+      <PureResendConfirmationEmailCard {...dummyTranslatorProps} onEmailFormSubmit={jest.fn()} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });
 
-  it(`dispatches a confirmEmail action, when its form is submitted with complete values`, (): void => {
+  it(`dispatches a resendConfirmationEmail action, when its form is submitted with complete values`, (): void => {
     const enzymeWrapper = mount(
       <Provider store={dummyStore}>
         <I18nextProvider i18n={i18nextConfig}>
           <MemoryRouter>
-            <ConfirmEmailCard />
+            <ResendConfirmationEmailCard />
           </MemoryRouter>
         </I18nextProvider>
       </Provider>,
     );
-    const onEmailFormSubmit = enzymeWrapper.find('PureConfirmEmailCard').props().onEmailFormSubmit;
+    const onEmailFormSubmit = enzymeWrapper.find('PureResendConfirmationEmailCard').props().onEmailFormSubmit;
 
     onEmailFormSubmit({ email: dummyEmail });
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.confirmEmail(dummyEmail));
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.resendConfirmationEmail(dummyEmail));
   });
 
   it(`throws an InvalidArgumentError, when its form is submitted with incomplete values`, (): void => {
@@ -60,12 +60,12 @@ describe(`ConfirmEmailCard`, (): void => {
       <Provider store={dummyStore}>
         <I18nextProvider i18n={i18nextConfig}>
           <MemoryRouter>
-            <ConfirmEmailCard />
+            <ResendConfirmationEmailCard />
           </MemoryRouter>
         </I18nextProvider>
       </Provider>,
     );
-    const onEmailFormSubmit = enzymeWrapper.find('PureConfirmEmailCard').props().onEmailFormSubmit;
+    const onEmailFormSubmit = enzymeWrapper.find('PureResendConfirmationEmailCard').props().onEmailFormSubmit;
 
     expect((): void => {
       onEmailFormSubmit({});

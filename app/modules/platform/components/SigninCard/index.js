@@ -38,7 +38,7 @@ const PureSigninCard = (props: Props): React.Node => {
 
   return (
     <Card fluid={true}>
-      <ApiDimmer requestIds={[a.API_POST_SIGNIN_AND_GET_USER_AUTH]} />
+      <ApiDimmer requestIds={[a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH]} />
 
       <Card.Content>
         <Card.Header>
@@ -64,8 +64,8 @@ const PureSigninCard = (props: Props): React.Node => {
         <Button secondary={true} fluid={true} as={Link} to="/auth/reset">
           {t('platform:signinCard.link.forgotPassword')}
         </Button>
-        <Button secondary={true} fluid={true} as={Link} to="/auth/confirm">
-          {t('platform:signinCard.link.confirmEmail')}
+        <Button secondary={true} fluid={true} as={Link} to="/auth/resend">
+          {t('platform:signinCard.link.resendConfirmationEmail')}
         </Button>
       </Card.Content>
     </Card>

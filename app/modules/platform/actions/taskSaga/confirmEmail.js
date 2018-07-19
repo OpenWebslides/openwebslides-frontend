@@ -2,13 +2,14 @@
 
 import * as t from '../../actionTypes';
 
-const confirmEmail = (email: string): t.ConfirmEmailAction => {
+const confirmEmail = (confirmationToken: string): t.ConfirmEmailAction => {
   return {
     type: t.CONFIRM_EMAIL,
     payload: {
-      email,
+      confirmationToken,
     },
   };
 };
 
 export default confirmEmail;
+

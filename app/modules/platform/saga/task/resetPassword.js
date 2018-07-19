@@ -7,7 +7,7 @@ import * as t from '../../actionTypes';
 
 const resetPassword = function* (action: t.ResetPasswordAction): Generator<*, *, *> {
   const { email } = action.payload;
-  yield put(actions.apiPostPassword(email));
+  yield put(actions.apiPostEmailToPassword(email));
 };
 
 export default resetPassword;

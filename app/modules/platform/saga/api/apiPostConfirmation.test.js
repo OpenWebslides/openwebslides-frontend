@@ -13,31 +13,31 @@ import { sagas } from '..';
 
 describe(`apiPostConfirmation`, (): void => {
 
-  let dummyEmail: string;
+  let dummyToken: string;
 
   beforeEach((): void => {
-    dummyEmail = 'test@test.be';
+    dummyToken = 'foobarToken';
   });
 
-  it(`executes a post request for the passed email to the confirmation API endpoint`, (): void => {
-    const dummyAction = actions.apiPostConfirmation(dummyEmail);
+  it(`executes a post request to the confirmation API endpoint`, (): void => {
+    const dummyAction = actions.apiPostConfirmation(dummyToken);
     const dummyApiResponse = { status: 200 };
 
     return expectSaga(sagas.apiPostConfirmation, dummyAction)
       .provide([
-        [call(api.confirmation.post, dummyEmail), dummyApiResponse],
+        [call(api.confirmation.post, dummyToken), dummyApiResponse],
       ])
-      .call(api.confirmation.post, dummyEmail)
+      .call(api.confirmation.post, dummyToken)
       .run();
   });
 
   it(`sets its request status to PENDING and then sets its request status to SUCCESS, when the saga completes without errors`, (): void => {
-    const dummyAction = actions.apiPostConfirmation(dummyEmail);
+    const dummyAction = actions.apiPostConfirmation(dummyToken);
     const dummyApiResponse = { status: 200 };
 
     return expectSaga(sagas.apiPostConfirmation, dummyAction)
       .provide([
-        [call(api.confirmation.post, dummyEmail), dummyApiResponse],
+        [call(api.confirmation.post, dummyToken), dummyApiResponse],
       ])
       .put(apiRequestsStatus.actions.setPending(t.API_POST_CONFIRMATION))
       .put(apiRequestsStatus.actions.setSuccess(t.API_POST_CONFIRMATION))
@@ -45,7 +45,7 @@ describe(`apiPostConfirmation`, (): void => {
   });
 
   it(`sets its request status to PENDING and then sets its request status to FAILURE, when the api call fails`, (): void => {
-    const dummyAction = actions.apiPostConfirmation(dummyEmail);
+    const dummyAction = actions.apiPostConfirmation(dummyToken);
     const dummyError = new Error('Boo!');
 
     return expectSaga(sagas.apiPostConfirmation, dummyAction)

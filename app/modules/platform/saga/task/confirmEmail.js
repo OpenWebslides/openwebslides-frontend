@@ -6,8 +6,8 @@ import actions from '../../actions';
 import * as t from '../../actionTypes';
 
 const confirmEmail = function* (action: t.ConfirmEmailAction): Generator<*, *, *> {
-  const { email } = action.payload;
-  yield put(actions.apiPostConfirmation(email));
+  const { confirmationToken } = action.payload;
+  yield put(actions.apiPostConfirmation(confirmationToken));
 };
 
 export default confirmEmail;

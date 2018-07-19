@@ -7,7 +7,7 @@ import * as t from '../../actionTypes';
 
 const signin = function* (action: t.SigninAction): Generator<*, *, *> {
   const { email, password } = action.payload;
-  yield put(actions.apiPostSigninAndGetUserAuth(email, password));
+  yield put(actions.apiPostSigninToTokenAndGetUserAuth(email, password));
 };
 
 export default signin;
