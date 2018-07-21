@@ -9,12 +9,3 @@
 & { @import "../../custom/page-layout"; }
 & { @import "../../custom/navbar"; }
 & { @import "../../custom/sidebar"; }
-
-a, a:active, a:hover {
-  color: @ows_primary_color;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
