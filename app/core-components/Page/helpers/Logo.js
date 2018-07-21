@@ -5,7 +5,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Image, Menu, Grid } from 'semantic-ui-react';
 
-import logo from 'assets/images/logo_white.png';
+import logo from 'assets/images/logo/logo-white.svg';
 
 type Props = TranslatorProps;
 
