@@ -55,11 +55,11 @@ const baseConfig = {
         use: 'babel-loader',
       },
       // Load font files using file-loader.
-      // Note: this must be done before loading general SVG files, to allow the svg-url-loader rule
-      // specified below to override this one on all svg files that are not located in the /fonts/
-      // folder.
+      // Important note: the /images/ folder (or any other folder that may contain svg images) must
+      // be excluded, since otherwise the images won't work.
       {
         test: /\.(woff|woff2|eot|ttf|otf|svg|flow)$/,
+        exclude: /images/,
         use: {
           loader: 'file-loader',
         },
@@ -85,7 +85,7 @@ const baseConfig = {
       // referenced in an @font-face rule.
       {
         test: /\.svg/,
-        exclude: '/fonts/',
+        exclude: /fonts/,
         use: {
           loader: 'svg-url-loader',
         },
