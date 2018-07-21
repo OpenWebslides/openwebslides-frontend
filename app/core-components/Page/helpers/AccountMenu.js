@@ -58,11 +58,13 @@ class PureAccountMenu extends React.Component<Props> {
     if (!currentUser) {
       return (
         <React.Fragment>
-          <Menu.Item as={Link} to="/auth/signin">
-            {t('global:navbar.signin')}
-          </Menu.Item>
           <Menu.Item as={Link} to="/auth/signup">
+            <Icon name="user" />
             {t('global:navbar.signup')}
+          </Menu.Item>
+          <Menu.Item as={Link} to="/auth/signin">
+            <Icon name="lock" />
+            {t('global:navbar.signin')}
           </Menu.Item>
         </React.Fragment>
       );
@@ -70,13 +72,10 @@ class PureAccountMenu extends React.Component<Props> {
     else {
       return (
         <React.Fragment>
-          <Menu.Item as={Link} to="/library">
-            {t('global:title.library')}
-          </Menu.Item>
           <Menu.Item as={Link} to="#">
             <Icon name="bell outline" />
           </Menu.Item>
-          <Dropdown text={displayName} pointing={true} className="item">
+          <Dropdown text={displayName} pointing={true} item={true}>
             <Dropdown.Menu>
               <Dropdown.Header>
                 {t('global:navbar.account')}

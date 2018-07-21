@@ -1,0 +1,21 @@
+/*******************************
+              .page
+*******************************/
+
+.page {
+  // Take full viewport height.
+  height: 100vh;
+
+  // Flex layout for header/main
+  display: flex;
+  flex-direction: column;
+
+  // Take up any space that is not taken by header
+  &__main {
+    flex-grow: 1;
+
+    // Give main content some breathing room.
+    padding-top: @pageVerticalSpacing;
+    padding-bottom: @pageVerticalSpacing;
+  }
+}
