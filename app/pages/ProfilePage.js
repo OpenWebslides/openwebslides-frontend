@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Route, Switch, type ContextRouter as RouterProps } from 'react-router-dom';
 import { translate, type TranslatorProps } from 'react-i18next';
 
-import Page from 'core-components/Page';
+import ContainerPage from 'core-components/ContainerPage';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import platform from 'modules/platform';
@@ -69,7 +69,7 @@ const PureProfilePage = (props: Props): React.Node => {
   const newCurrentUserId = currentUserId || 'jantje1234';
 
   return (
-    <Page>
+    <ContainerPage>
       <React.Fragment>
         <h1>{t('global:title.profile')}</h1>
         <Switch>
@@ -79,7 +79,7 @@ const PureProfilePage = (props: Props): React.Node => {
           <Route render={() => <CurrentUserProfile userId={newCurrentUserId} />} />
         </Switch>
       </React.Fragment>
-    </Page>
+    </ContainerPage>
   );
 };
 

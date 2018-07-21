@@ -7,7 +7,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { type State } from 'types/state';
 import { type Identifier } from 'types/model';
 import { UnsupportedOperationError } from 'errors';
-import Page from 'core-components/Page';
+import ContainerPage from 'core-components/ContainerPage';
 import platform from 'modules/platform';
 import topics from 'modules/topics';
 
@@ -36,14 +36,14 @@ const PureNewTopicPage = (props: Props): React.Node => {
   const { t, currentUserId } = props;
 
   return (
-    <Page>
+    <ContainerPage>
       <AuthWrapper>
         <React.Fragment>
           <h1>{t('global:title.createNewTopic')}</h1>
           <NewTopicCard userId={currentUserId} />
         </React.Fragment>
       </AuthWrapper>
-    </Page>
+    </ContainerPage>
   );
 };
 

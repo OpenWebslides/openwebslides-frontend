@@ -32,7 +32,7 @@ const PureResendConfirmationEmailCard = (props: Props): React.Node => {
   const { t, onEmailFormSubmit } = props;
 
   return (
-    <Card fluid={true}>
+    <Card centered={true}>
       <Card.Content>
         <Card.Header>
           {t('platform:resendConfirmationEmailCard.title')}

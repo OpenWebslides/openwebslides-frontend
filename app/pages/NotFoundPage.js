@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 
-import Page from 'core-components/Page';
+import ContainerPage from 'core-components/ContainerPage';
 
 type Props = TranslatorProps;
 
@@ -11,9 +11,9 @@ const PureNotFoundPage = (props: Props): React.Node => {
   const { t } = props;
 
   return (
-    <Page>
+    <ContainerPage>
       <h1>{t('errors:http.404')}</h1>
-    </Page>
+    </ContainerPage>
   );
 };
 

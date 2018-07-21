@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { type State } from 'types/state';
 import { type Identifier } from 'types/model';
 import { UnsupportedOperationError } from 'errors';
-import Page from 'core-components/Page';
+import ContainerPage from 'core-components/ContainerPage';
 import platform from 'modules/platform';
 import topics from 'modules/topics';
 
@@ -38,7 +38,7 @@ const PureLibraryPage = (props: Props): React.Node => {
   const { t, currentUserId } = props;
 
   return (
-    <Page>
+    <ContainerPage>
       <AuthWrapper>
         <Grid>
           <Grid.Row>
@@ -60,7 +60,7 @@ const PureLibraryPage = (props: Props): React.Node => {
           </Grid.Row>
         </Grid>
       </AuthWrapper>
-    </Page>
+    </ContainerPage>
   );
 };
 
