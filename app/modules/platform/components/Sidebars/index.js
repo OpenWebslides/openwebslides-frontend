@@ -1,0 +1,58 @@
+// @flow
+
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { translate, type TranslatorProps } from 'react-i18next';
+
+import { type Identifier } from 'types/model';
+import { type State } from 'types/state';
+import topics from 'modules/topics';
+
+import * as m from '../../model';
+import selectors from '../../selectors';
+
+import sidebarIdsToComponentsMap from './sidebarIdsToComponentsMap';
+
+type PassedProps = {|
+  topicId: Identifier,
+|};
+
+type StateProps = {|
+  topic: topics.model.Topic,
+  activeSidebarIds: Array<m.SidebarId>,
+|};
+
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
+
+const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+  const { topicId } = props;
+
+  return {
+    topic: topics.selectors.getById(state, { id: topicId }),
+    activeSidebarIds: selectors.getSettingByKey(state, { key: 'activeSidebarIds' }),
+  };
+};
+
+const PureSidebars = (props: Props): React.Node => {
+  const { topic, activeSidebarIds } = props;
+  let SidebarComponent: React.ComponentType<*>;
+
+  return (
+    <div className="sidebars__grid">
+      { /* Reverse order so that newly activated sidebars appear to the left of existing ones */ }
+      {[...activeSidebarIds].reverse().map((sidebarId: m.SidebarId): React.Node => {
+        SidebarComponent = sidebarIdsToComponentsMap[sidebarId];
+        return (
+          <div key={sidebarId} className="sidebars__grid-item">
+            <SidebarComponent topic={topic} />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+const Sidebars = connect(mapStateToProps)(translate()(PureSidebars));
+
+export { PureSidebars };
+export default Sidebars;

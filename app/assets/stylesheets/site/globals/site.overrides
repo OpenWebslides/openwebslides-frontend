@@ -7,6 +7,10 @@
 // Page & platform
 & { @import "../../custom/page"; }
 & { @import "../../custom/main-menu"; }
+& { @import "../../custom/page--sidebars"; }
+& { @import "../../custom/sidebars-menu"; }
+& { @import "../../custom/sidebars"; }
+& { @import "../../custom/sidebar"; }
 
 // Editor
 & { @import "../../custom/editable-text-content"; }

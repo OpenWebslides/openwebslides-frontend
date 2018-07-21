@@ -1,58 +1,27 @@
 /*******************************
-     .editor
+            .sidebar
 *******************************/
 
-
 .sidebar {
-  padding: 0.5em;
+  border-left: 1px solid @borderColor;
 
-  &__slide {
-    font-size: 7px;
+  // Fill container
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  overflow: auto;
+
+  &__wrapper {
+    // Align sidebar content with page content
+    padding: @pageVerticalSpacing @pageHorizontalSpacing;
   }
 
-  &__icon {
-    position: relative;
-    left: -25px;
-    top: -10px;
-    cursor: pointer;
+  .ui.header .icon {
+    color: @grey;
   }
 }
 
-.sidebar-column:not(:last-child) {
-  border-right: 1px solid @darkGray;
-  padding: 0 1em;
-}
-
-.sidebar-column-wrapper {
-  background-color: @lightGray;
-  border-left: 1px solid @mediumGray;
-  border-top: 1px solid @mediumGray;
-  border-bottom: 1px solid @mediumGray;
-
-  // necessary !important so Grid.Column style remains the same
-  position: absolute !important;
-  top: 0;
-  right: 75px;
-  height: 100%;
-}
-
-.sidebar-menu {
-  background-color: @darkGray;
-
-  &__item {
-    border-bottom: 1px solid @lightGray;
-    padding-top: 1em;
-    padding-bottom: 1em;
-  }
-
-  // !important is necessary because this needs to override SUI defaults
-  &__button {
-    margin: 0 auto !important;
-    display: block !important;
-  }
-
-  // !important is necessary because this needs to override SUI defaults
-  &__icon {
-    margin: 0em !important;
+.sidebar--slide-previews {
+  .ows_slide {
+    font-size: 0.35em;
   }
 }

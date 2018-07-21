@@ -24,3 +24,20 @@
 
 @linkColor: @owsPink;
 @linkHoverUnderline: underline;
+
+
+/*-------------------
+       Page
+--------------------*/
+
+@pageVerticalSpacing: 3rem;
+@pageHorizontalSpacing: 1.5rem;
+
+
+/*-------------------
+    Sidebars menu
+--------------------*/
+
+@sidebarsMenuWidth: 3rem;
+@sidebarsMenuShift: 0.5rem;
+@sidebarsMenuSpacing: 2rem;

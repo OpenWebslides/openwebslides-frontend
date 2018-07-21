@@ -2,7 +2,10 @@
 
 const sidebar = {
   info: {
-    header: 'General topic information',
+    header: 'Topic Info',
+  },
+  previews: {
+    header: 'Slide Previews',
   },
 };
 

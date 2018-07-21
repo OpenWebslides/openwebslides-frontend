@@ -1,0 +1,45 @@
+/*******************************
+        .page--sidebars
+*******************************/
+
+.page--sidebars {
+  .page__main {
+    // Remove padding on content container so that sidebars can be full height
+    padding-top: 0;
+    padding-bottom: 0;
+
+    // Reference frame for position: absolute; on descendants
+    position: relative;
+
+    // Enable flex-grow on children
+    display: flex;
+  }
+
+  .page__grid {
+    // Leave space for sidebarsMenu
+    padding-right: @sidebarsMenuWidth + @sidebarsMenuShift;
+
+    // Fill all available space
+    flex-grow: 1;
+
+    // Enable flex-grow on children
+    display: flex;
+  }
+
+  .page__grid-item {
+    // Fill available height
+    flex-grow: 1;
+
+    // Enable flex-grow on children
+    display: flex;
+  }
+
+  .page__main-content {
+    // Give main content some breathing room
+    padding: @pageVerticalSpacing @pageHorizontalSpacing;
+
+    // Limit content max-width so lines don't get too long to easily read
+    margin: 0 auto;
+    max-width: 60rem;
+  }
+}
