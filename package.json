@@ -58,6 +58,8 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "blueimp-md5": "^2.10.0",
+    "connected-react-router": "^4.3.0",
+    "history": "^4.7.2",
     "i18next": "^11.3.6",
     "lodash": "^4.17.5",
     "moment": "^2.22.2",

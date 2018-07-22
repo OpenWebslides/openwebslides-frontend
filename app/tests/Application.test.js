@@ -9,7 +9,7 @@ describe(`Application.js`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureApplication />,
+      <PureApplication history={({}: any)} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });

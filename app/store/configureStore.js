@@ -7,6 +7,8 @@
 import { createStore, applyMiddleware, type Store } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { middleware as flashMiddleware } from 'redux-flash';
+import { createBrowserHistory } from 'history';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -15,10 +17,15 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
 
+const history = createBrowserHistory();
+
 const configureStore = (): Store<*, *> => {
   // const persistedState = loadState();
   const sagaMiddleware = createSagaMiddleware();
-  const store = createStore(rootReducer, /* persistedState, */ composeWithDevTools(
+  const rootReducerWithHistory = connectRouter(history)(rootReducer);
+
+  const store = createStore(rootReducerWithHistory, /* persistedState, */ composeWithDevTools(
+    applyMiddleware(routerMiddleware(history)),
     applyMiddleware(sagaMiddleware),
     applyMiddleware(flashMiddleware()),
   ));
@@ -41,4 +48,5 @@ const configureStore = (): Store<*, *> => {
   return store;
 };
 
+export { history };
 export default configureStore;
