@@ -14,7 +14,7 @@ import actions from '../../../actions';
 import * as m from '../../../model';
 import selectors from '../../../selectors';
 
-import SidebarsMenuItem, { PureSidebarsMenuItem } from './SidebarsMenuItem';
+import SidebarsMenuItem, { PureSidebarsMenuItem } from '.';
 
 describe(`SidebarsMenuItem`, (): void => {
 

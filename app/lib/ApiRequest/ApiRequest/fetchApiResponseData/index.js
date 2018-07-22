@@ -8,13 +8,13 @@ import {
   UnexpectedHttpStatusError,
 } from 'errors';
 
-import * as m from '../model';
+import { type ApiResponseData } from '../../types';
 
 const extractTokenFromAuthHeader = (authHeader: ?string): ?string => {
   return (authHeader) ? authHeader.slice(7) : null;
 };
 
-const getDataFromResponse = async (response: Response): Promise<m.ApiResponseData> => {
+const getDataFromResponse = async (response: Response): Promise<ApiResponseData> => {
   const responseBody = (response.body)
     ? await response.json()
     : {};
@@ -28,7 +28,7 @@ const getDataFromResponse = async (response: Response): Promise<m.ApiResponseDat
 const fetchApiResponseData = async (
   url: string,
   options: RequestOptions,
-): Promise<m.ApiResponseData> => {
+): Promise<ApiResponseData> => {
   const response = await fetch(url, options);
   const { status } = response;
 

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { PureSidebar } from './Sidebar';
+import { PureSidebar } from '.';
 
 describe(`Sidebar`, (): void => {
 

@@ -1,6 +1,18 @@
 // @flow
 
-import * as httpMethods from './httpMethods';
+const GET: 'GET' = 'GET';
+const POST: 'POST' = 'POST';
+const PATCH: 'PATCH' = 'PATCH';
+const DELETE: 'DELETE' = 'DELETE';
+
+export const httpMethods = {
+  GET,
+  POST,
+  PATCH,
+  DELETE,
+};
+
+export type HttpMethod = $Values<typeof httpMethods>;
 
 export type ApiRequestHeaders = {
   [name: string]: string,
@@ -11,7 +23,7 @@ export type ApiRequestParameters = {
 };
 
 export type ApiRequestConfig = {|
-  method: httpMethods.HttpMethod,
+  method: HttpMethod,
   apiUrl: string, // Base api url
   pathSegments: Array<string>, // Endpoints, resource ids, ...
   parameters: ApiRequestParameters,
@@ -25,5 +37,3 @@ export type ApiResponseData = {|
   +status: number,
   +token: ?string,
 |};
-
-export * from './httpMethods';

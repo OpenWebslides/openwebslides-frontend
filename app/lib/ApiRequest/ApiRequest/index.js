@@ -6,8 +6,12 @@ import _ from 'lodash';
 import { API_URL } from 'config/api';
 import { UnsupportedOperationError } from 'errors';
 
-import fetchApiResponseData from './helpers/fetchApiResponseData';
-import * as m from './model';
+import {
+  httpMethods,
+  type HttpMethod, type ApiRequestConfig, type ApiResponseData,
+} from '../types';
+
+import fetchApiResponseData from './fetchApiResponseData';
 
 // JSON API media type
 const MEDIA_TYPE = 'application/vnd.api+json';
@@ -24,9 +28,9 @@ const defaultConfig = {
 };
 
 class ApiRequest {
-  config: m.ApiRequestConfig;
+  config: ApiRequestConfig;
 
-  constructor(method: m.HttpMethod): void {
+  constructor(method: HttpMethod): void {
     this.config = {
       ..._.cloneDeep(defaultConfig),
       method,
@@ -54,7 +58,7 @@ class ApiRequest {
   };
 
   setBody = (body: string): ApiRequest => {
-    if (this.config.method === m.httpMethods.GET) {
+    if (this.config.method === httpMethods.GET) {
       throw new UnsupportedOperationError(`GET request cannot have a body.`);
     }
 
@@ -99,7 +103,7 @@ class ApiRequest {
     };
   };
 
-  execute = (): Promise<m.ApiResponseData> => {
+  execute = (): Promise<ApiResponseData> => {
     return fetchApiResponseData(this.getUrl(), this.getOptions());
   };
 }

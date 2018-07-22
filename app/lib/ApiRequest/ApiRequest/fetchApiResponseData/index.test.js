@@ -8,7 +8,7 @@ import {
   UnexpectedHttpStatusError,
 } from 'errors';
 
-import fetchApiResponseData from './fetchApiResponseData';
+import fetchApiResponseData from '.';
 
 describe(`fetchApiResponseData`, (): void => {
 

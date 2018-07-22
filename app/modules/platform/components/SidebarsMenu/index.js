@@ -6,7 +6,7 @@ import { Menu } from 'semantic-ui-react';
 
 import * as m from '../../model';
 
-import SidebarsMenuItem from './helpers/SidebarsMenuItem';
+import SidebarsMenuItem from './SidebarsMenuItem';
 
 type Props = {| |};
 

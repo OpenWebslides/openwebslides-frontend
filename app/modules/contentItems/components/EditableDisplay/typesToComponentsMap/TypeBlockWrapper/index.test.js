@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { PureTypeBlockWrapper } from './TypeBlockWrapper';
+import { PureTypeBlockWrapper } from '.';
 
 describe(`TypeBlockWrapper`, (): void => {
 

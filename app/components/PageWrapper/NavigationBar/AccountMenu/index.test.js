@@ -5,14 +5,16 @@ import { shallow } from 'enzyme';
 
 import { dummyProviderProps } from 'lib/testResources';
 
-import { PureNavigationBar } from './NavigationBar';
+import { PureAccountMenu } from '.';
 
-describe(`NavigationBar`, (): void => {
+describe(`AccountMenu`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureNavigationBar
+      <PureAccountMenu
         {...dummyProviderProps.translatorProps}
+        currentUser={null}
+        onSignout={jest.fn()}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

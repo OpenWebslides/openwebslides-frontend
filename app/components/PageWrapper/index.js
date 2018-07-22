@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import NavigationBar from './helpers/NavigationBar';
+import NavigationBar from './NavigationBar';
 
 type PassedProps = {|
   children: React.Node,

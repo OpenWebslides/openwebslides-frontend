@@ -7,7 +7,7 @@ import EditableTextContent from 'components/EditableTextContent';
 
 import * as m from '../../../model';
 
-import TypeBlockWrapper from './helpers/TypeBlockWrapper';
+import TypeBlockWrapper from './TypeBlockWrapper';
 
 import { passThroughProps } from '..';
 

@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 
 import { dummyProviderProps } from 'lib/testResources';
 
-import { PureSubmitButtonGroup } from './SubmitButtonGroup';
+import { PureSubmitButtonGroup } from '.';
 
 describe(`SubmitButtonGroup`, (): void => {
 
