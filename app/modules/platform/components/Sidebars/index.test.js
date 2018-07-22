@@ -8,7 +8,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 
 import i18nextConfig from 'config/i18next';
-import { dummyTranslatorProps } from 'config/tests';
 import { dummyTopicData, dummyContentItemData } from 'lib/testResources';
 import topics from 'modules/topics';
 
@@ -56,7 +55,6 @@ describe(`Sidebars`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureSidebars
-        {...dummyTranslatorProps}
         activeSidebarIds={[]}
         topicId={dummyTopic.id}
         topic={dummyTopic}

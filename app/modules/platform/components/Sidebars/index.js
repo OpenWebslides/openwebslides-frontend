@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { translate, type TranslatorProps } from 'react-i18next';
 
 import { type Identifier } from 'types/model';
 import { type State } from 'types/state';
@@ -22,7 +21,7 @@ type StateProps = {|
   activeSidebarIds: Array<m.SidebarId>,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
+type Props = {| ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;
@@ -52,7 +51,7 @@ const PureSidebars = (props: Props): React.Node => {
   );
 };
 
-const Sidebars = connect(mapStateToProps)(translate()(PureSidebars));
+const Sidebars = connect(mapStateToProps)(PureSidebars);
 
 export { PureSidebars };
 export default Sidebars;

@@ -20,7 +20,7 @@ const PureSlidePreviewsSidebar = (props: Props): React.Node => {
   return (
     <Sidebar
       className="sidebar--slide-previews"
-      header={t('sidebar:previews.header')}
+      header={t('topics:sidebars.slidePreviews.header')}
       icon="image"
     >
       <Slides topicId={topic.id} />
