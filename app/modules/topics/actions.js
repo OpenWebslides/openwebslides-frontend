@@ -1,7 +1,6 @@
 // @flow
 
 import _ from 'lodash';
-import type { RouterHistory } from 'react-router-dom';
 
 import { InvalidArgumentError, UnsupportedOperationError } from 'errors';
 import contentItems from 'modules/contentItems';
@@ -91,7 +90,6 @@ export const add = (
   userId: Identifier,
   title: string,
   description: ?string = null,
-  history: RouterHistory,
 ): t.AddAction => {
   const newId = generateId();
   const newTitle = _.trim(title);
@@ -109,7 +107,6 @@ export const add = (
       title: newTitle,
       description: newDescription,
       rootContentItemId: 'w4lg2u0p1h', // #TODO stub
-      history,
     },
   };
 };

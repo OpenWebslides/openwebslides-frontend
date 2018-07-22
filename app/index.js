@@ -7,7 +7,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import configureStore from 'store/configureStore';
+import configureStore, { history } from 'store/configureStore';
 
 import 'assets/stylesheets/semantic.less';
 
@@ -24,7 +24,7 @@ if (appRootElement !== null) {
   // Renders the Application component with React.
   ReactDOM.render(
     <Provider store={store}>
-      <Application />
+      <Application history={history} />
     </Provider>,
     appRootElement,
   );

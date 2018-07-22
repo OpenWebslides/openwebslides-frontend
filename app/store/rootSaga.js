@@ -7,7 +7,6 @@ import { all, call } from 'redux-saga/effects';
 import apiRequestsStatusSaga from 'modules/apiRequestsStatus/saga';
 import contentItemsSaga from 'modules/contentItems/saga';
 import feedSaga from 'modules/feed/saga';
-import historySaga from 'modules/history/saga';
 import platformSaga from 'modules/platform/saga';
 import topicsSaga from 'modules/topics/saga';
 import usersSaga from 'modules/users/saga';
@@ -21,7 +20,6 @@ const rootSaga = function* (): Generator<*, *, *> {
     call(apiRequestsStatusSaga),
     call(contentItemsSaga),
     call(feedSaga),
-    call(historySaga),
     call(platformSaga),
     call(topicsSaga),
     call(usersSaga),

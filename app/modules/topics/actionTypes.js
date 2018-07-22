@@ -1,7 +1,5 @@
 // @flow
 
-import type { RouterHistory } from 'react-router-dom';
-
 import contentItems from 'modules/contentItems';
 import type { Identifier } from 'types/model';
 
@@ -78,7 +76,6 @@ export type AddAction = {
     title: string,
     description: string,
     rootContentItemId: Identifier,
-    history: RouterHistory,
   },
 };
 
