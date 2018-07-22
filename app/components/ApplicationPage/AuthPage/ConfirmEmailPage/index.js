@@ -7,12 +7,10 @@ import { type ContextRouter as RouterProps } from 'react-router-dom';
 
 import { InvalidArgumentError } from 'errors';
 import Page from 'core-components/Page';
-import FlashMessages from 'core-components/flash/FlashMessages';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
 
 const { ApiDimmer } = apiRequestsStatus.components;
-const { UnauthWrapper } = platform.components;
 
 type DispatchProps = {|
   confirmEmail: (confirmationToken: string) => void,
@@ -37,12 +35,9 @@ class PureConfirmEmailPage extends React.Component<Props> {
 
   render(): React.Node {
     return (
-      <UnauthWrapper redirectIfAuthenticated="/">
-        <Page>
-          <FlashMessages />
-          <ApiDimmer requestIds={[platform.actions.apiPostConfirmation('dummy').type]} />
-        </Page>
-      </UnauthWrapper>
+      <Page>
+        <ApiDimmer requestIds={[platform.actions.apiPostConfirmation('dummy').type]} />
+      </Page>
     );
   }
 }

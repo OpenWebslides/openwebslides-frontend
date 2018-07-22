@@ -5,14 +5,15 @@ import { shallow } from 'enzyme';
 
 import { dummyTranslatorProps } from 'config/tests';
 
-import { PureNotFoundPage } from './NotFoundPage';
+import { PureLibraryHomePage } from '.';
 
-describe(`NotFoundPage`, (): void => {
+describe(`LibraryHomePage`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureNotFoundPage
+      <PureLibraryHomePage
         {...dummyTranslatorProps}
+        currentUserId="dummyUserId"
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

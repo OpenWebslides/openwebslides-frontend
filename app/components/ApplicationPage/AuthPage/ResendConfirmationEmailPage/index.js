@@ -7,18 +7,16 @@ import Page from 'core-components/Page';
 import FlashMessages from 'core-components/flash/FlashMessages';
 import platform from 'modules/platform';
 
-const { UnauthWrapper, ResendConfirmationEmailCard } = platform.components;
+const { ResendConfirmationEmailCard } = platform.components;
 
 type Props = TranslatorProps;
 
 const PureResendConfirmationEmailPage = (props: Props): React.Node => {
   return (
-    <UnauthWrapper redirectIfAuthenticated="/">
-      <Page>
-        <FlashMessages />
-        <ResendConfirmationEmailCard />
-      </Page>
-    </UnauthWrapper>
+    <Page>
+      <FlashMessages />
+      <ResendConfirmationEmailCard />
+    </Page>
   );
 };
 

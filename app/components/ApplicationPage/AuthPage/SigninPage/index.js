@@ -7,18 +7,16 @@ import Page from 'core-components/Page';
 import FlashMessages from 'core-components/flash/FlashMessages';
 import platform from 'modules/platform';
 
-const { UnauthWrapper, SigninCard } = platform.components;
+const { SigninCard } = platform.components;
 
 type Props = TranslatorProps;
 
 const PureSigninPage = (props: Props): React.Node => {
   return (
-    <UnauthWrapper redirectIfAuthenticated="/">
-      <Page>
-        <FlashMessages />
-        <SigninCard />
-      </Page>
-    </UnauthWrapper>
+    <Page>
+      <FlashMessages />
+      <SigninCard />
+    </Page>
   );
 };
 

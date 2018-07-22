@@ -7,18 +7,16 @@ import Page from 'core-components/Page';
 import FlashMessages from 'core-components/flash/FlashMessages';
 import platform from 'modules/platform';
 
-const { UnauthWrapper, ResetPasswordCard } = platform.components;
+const { ResetPasswordCard } = platform.components;
 
 type Props = TranslatorProps;
 
 const PureResetPasswordPage = (props: Props): React.Node => {
   return (
-    <UnauthWrapper redirectIfAuthenticated="/">
-      <Page>
-        <FlashMessages />
-        <ResetPasswordCard />
-      </Page>
-    </UnauthWrapper>
+    <Page>
+      <FlashMessages />
+      <ResetPasswordCard />
+    </Page>
   );
 };
 

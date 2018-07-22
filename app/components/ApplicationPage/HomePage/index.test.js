@@ -3,16 +3,16 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyRouterProps } from 'config/tests';
+import { dummyTranslatorProps } from 'config/tests';
 
-import { PureGenerateRandomStringPage } from './GenerateRandomStringPage';
+import { PureHomePage } from '.';
 
-describe(`GenerateRandomStringPage`, (): void => {
+describe(`HomePage`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureGenerateRandomStringPage
-        {...dummyRouterProps}
+      <PureHomePage
+        {...dummyTranslatorProps}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

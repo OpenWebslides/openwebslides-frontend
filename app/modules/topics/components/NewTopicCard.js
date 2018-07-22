@@ -9,6 +9,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Form, Button } from 'semantic-ui-react';
 
 import type { Identifier } from 'types/model';
+import { USER_LIBRARY_ROUTE } from 'config/routes';
 
 import { add } from '../actions';
 
@@ -74,7 +75,7 @@ const NewTopicCardForm = (props: Props): React.Node => {
       </Form.Field>
 
       <Form.Group>
-        <Link to="/Library">
+        <Link to={USER_LIBRARY_ROUTE}>
           <Button as="span" secondary={true}>
             {t('common:button.cancel')}
           </Button>

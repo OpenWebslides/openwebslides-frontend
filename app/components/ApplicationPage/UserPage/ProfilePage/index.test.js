@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 
 import { dummyTranslatorProps, dummyRouterProps } from 'config/tests';
 
-import { PureProfilePage } from './ProfilePage';
+import { PureProfilePage } from '.';
 
 describe(`ProfilePage`, (): void => {
 

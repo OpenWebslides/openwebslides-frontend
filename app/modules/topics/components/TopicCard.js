@@ -6,6 +6,7 @@ import { Card, Button, Modal } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { translate, type TranslatorProps } from 'react-i18next';
 
+import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import { ObjectNotFoundError } from 'errors';
@@ -93,10 +94,7 @@ class PureTopicCard extends React.Component<Props, LocalState> {
         <Card raised={true}>
           <Card.Content header={topic.title} description={topic.description || `(${t('topics:noDescription')})`} />
           <Card.Content extra={true}>
-            <Link to={{
-              pathname: `/editor/${topicId}`,
-            }}
-            >
+            <Link to={`${TOPIC_EDITOR_ROUTE}/${topicId}`}>
               <Button as="span" primary={true}>
                 Edit
               </Button>

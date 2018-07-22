@@ -11,7 +11,6 @@ import ContainerPage from 'core-components/ContainerPage';
 import platform from 'modules/platform';
 import topics from 'modules/topics';
 
-const { AuthWrapper } = platform.components;
 const { NewTopicCard } = topics.components;
 
 type StateProps = {|
@@ -37,12 +36,10 @@ const PureNewTopicPage = (props: Props): React.Node => {
 
   return (
     <ContainerPage>
-      <AuthWrapper>
-        <React.Fragment>
-          <h1>{t('global:title.createNewTopic')}</h1>
-          <NewTopicCard userId={currentUserId} />
-        </React.Fragment>
-      </AuthWrapper>
+      <React.Fragment>
+        <h1>{t('global:title.createNewTopic')}</h1>
+        <NewTopicCard userId={currentUserId} />
+      </React.Fragment>
     </ContainerPage>
   );
 };
