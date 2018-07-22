@@ -65,13 +65,13 @@ const ContentItemEditableDisplay = contentItems.components.EditableDisplay;
 
 class PureEditor extends React.Component<Props> {
   onLoadButtonClick = (): void => {
-    const { topic, onLoadButtonClick } = this.props;
-    onLoadButtonClick(topic.id);
+    const { topicId, onLoadButtonClick } = this.props;
+    onLoadButtonClick(topicId);
   };
 
   onSaveButtonClick = (): void => {
-    const { topic, onSaveButtonClick } = this.props;
-    onSaveButtonClick(topic.id);
+    const { topicId, onSaveButtonClick } = this.props;
+    onSaveButtonClick(topicId);
   };
 
   // const {
