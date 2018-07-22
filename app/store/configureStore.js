@@ -25,9 +25,9 @@ const configureStore = (): Store<*, *> => {
   const rootReducerWithHistory = connectRouter(history)(rootReducer);
 
   const store = createStore(rootReducerWithHistory, /* persistedState, */ composeWithDevTools(
-    applyMiddleware(routerMiddleware(history)),
     applyMiddleware(sagaMiddleware),
     applyMiddleware(flashMiddleware()),
+    applyMiddleware(routerMiddleware(history)),
   ));
 
   // Persists state to localStorage
