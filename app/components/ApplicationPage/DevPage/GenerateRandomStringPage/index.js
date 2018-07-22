@@ -4,7 +4,7 @@ import * as React from 'react';
 import type { ContextRouter as RouterProps } from 'react-router-dom';
 
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
-import generateRandomString from 'lib/generate-random-string';
+import generateRandomString from 'lib/generateRandomString';
 
 type Props = RouterProps;
 

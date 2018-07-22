@@ -1,10 +1,10 @@
 // @flow
 
-import generateRandomString from 'lib/generate-random-string';
+import generateRandomString from 'lib/generateRandomString';
 
 import generateId from '.';
 
-jest.mock('lib/generate-random-string');
+jest.mock('lib/generateRandomString');
 
 describe(`generateId`, (): void => {
 

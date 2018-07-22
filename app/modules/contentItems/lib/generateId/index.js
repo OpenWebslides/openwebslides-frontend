@@ -1,6 +1,6 @@
 // @flow
 
-import generateRandomString from 'lib/generate-random-string';
+import generateRandomString from 'lib/generateRandomString';
 
 const ID_LENGTH = 20;
 
