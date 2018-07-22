@@ -3,9 +3,9 @@
 import { createStore } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 
-import rootReducer from '../rootReducer';
-import modulesReducer from '../modulesReducer';
-import errorReducer from '../errorReducer';
+import rootReducer from './rootReducer';
+import modulesReducer from './modulesReducer';
+import errorReducer from './errorReducer';
 
 describe(`rootReducer`, (): void => {
 

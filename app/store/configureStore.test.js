@@ -1,6 +1,6 @@
 // @flow
 
-import configureStore from '../configureStore';
+import configureStore from './configureStore';
 
 describe(`configureStore`, (): void => {
 

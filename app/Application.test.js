@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { PureApplication } from '../Application';
+import { PureApplication } from './Application';
 
 describe(`Application.js`, (): void => {
 

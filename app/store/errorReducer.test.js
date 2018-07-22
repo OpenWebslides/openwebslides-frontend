@@ -3,7 +3,7 @@
 import type { ErrorState } from 'types/state';
 import type { ErrorAction } from 'types/error';
 
-import errorReducer from '../errorReducer';
+import errorReducer from './errorReducer';
 
 describe(`errorReducer`, (): void => {
 
