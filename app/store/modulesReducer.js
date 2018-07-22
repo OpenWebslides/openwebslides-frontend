@@ -7,7 +7,6 @@ import { combineReducers } from 'redux';
 import apiRequestsStatusReducer from 'modules/apiRequestsStatus/reducer';
 import contentItemsReducer from 'modules/contentItems/reducer';
 import feedReducer from 'modules/feed/reducer';
-import historyReducer from 'modules/history/reducer';
 import platformReducer from 'modules/platform/reducer';
 import topicsReducer from 'modules/topics/reducer';
 import usersReducer from 'modules/users/reducer';
@@ -17,7 +16,6 @@ const modulesReducer = combineReducers({
   apiRequestsStatus: apiRequestsStatusReducer,
   contentItems: contentItemsReducer,
   feed: feedReducer,
-  history: historyReducer,
   platform: platformReducer,
   topics: topicsReducer,
   users: usersReducer,

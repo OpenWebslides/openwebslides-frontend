@@ -10,7 +10,6 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { SIGNIN_ROUTE /* , SIGNOUT_ROUTE */ } from 'config/routes';
-import history from 'modules/history';
 import NotFoundPage from 'pages/NotFoundPage';
 import HomePage from 'pages/HomePage';
 import LibraryPage from 'pages/LibraryPage';
@@ -25,11 +24,8 @@ import ConfirmEmailPage from 'pages/authentication/ConfirmEmailPage';
 import ResetPasswordPage from 'pages/authentication/ResetPasswordPage';
 import ResendConfirmationEmailPage from 'pages/authentication/ResendConfirmationEmailPage';
 
-const History = history.components.History;
-
 const routes = (
   <React.Fragment>
-    <History />
     <Switch>
       <Route path="/" exact={true} component={HomePage} />
       <Route path="/library" component={LibraryPage} />
