@@ -7,7 +7,6 @@ import type { FormProps } from 'redux-form';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Link, withRouter } from 'react-router-dom';
 import { Form, Button } from 'semantic-ui-react';
-import type { RouterHistory } from 'react-router-dom';
 
 import type { Identifier } from 'types/model';
 
@@ -18,13 +17,12 @@ type PassedProps = {|
 |};
 
 type DispatchProps = {|
-  onAddButtonClick: (Identifier, string, string, RouterHistory) => void,
+  onAddButtonClick: (Identifier, string, string) => void,
 |};
 
 type Props = {|
   ...TranslatorProps,
   ...FormProps,
-  ...$Exact<RouterHistory>,
   ...PassedProps,
   ...DispatchProps,
 |};
@@ -35,10 +33,9 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
       userId: Identifier,
       title: string,
       description: string,
-      history: RouterHistory,
     ): void => {
       dispatch(
-        add(userId, title, description, history),
+        add(userId, title, description),
       );
     },
   };
@@ -97,12 +94,11 @@ const PureNewTopicCard = (props: Props): React.Node => {
     t,
     onAddButtonClick,
     userId,
-    history,
   } = props;
 
   // TODO: the flow type for values might be a bit dodgy
   const handleSubmit = (values: { +[values: * ]: string }): void => {
-    onAddButtonClick(userId, values.title, values.description, history);
+    onAddButtonClick(userId, values.title, values.description);
   };
 
   return (
