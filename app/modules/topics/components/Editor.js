@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Button, Header } from 'semantic-ui-react';
 
 import FlashMessages from 'core-components/flash/FlashMessages';
@@ -114,7 +113,6 @@ class PureEditor extends React.Component<Props> {
           </Button>
         </p>
 
-        <Link to="/tempslidetest">Temp slide test page</Link>
         <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
       </div>
     );

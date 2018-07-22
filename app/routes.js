@@ -16,7 +16,6 @@ import LibraryPage from 'pages/LibraryPage';
 import EditorPage from 'pages/EditorPage';
 import NewTopicPage from 'pages/NewTopicPage';
 import ProfilePage from 'pages/ProfilePage';
-import TempSlideTestPage from 'pages/TempSlideTestPage';
 import GenerateRandomStringPage from 'pages/GenerateRandomStringPage';
 import SigninPage from 'pages/authentication/SigninPage';
 import SignupPage from 'pages/authentication/SignupPage';
@@ -32,7 +31,6 @@ const routes = (
       <Route path="/editor" component={EditorPage} />
       <Route path="/topics/new" component={NewTopicPage} />
       <Route path="/profile" component={ProfilePage} />
-      <Route path="/tempslidetest" component={TempSlideTestPage} />
       <Route path="/generaterandomstring/:length?" component={GenerateRandomStringPage} />
       <Route path={SIGNIN_ROUTE} exact={true} component={SigninPage} />
       { /* #TODO signout */ }
