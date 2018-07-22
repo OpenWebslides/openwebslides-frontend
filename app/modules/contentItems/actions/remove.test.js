@@ -1,14 +1,12 @@
 // @flow
 
-import type { Identifier } from 'types/model';
-
 import * as t from '../actionTypes';
 
 import actions from '.';
 
 describe(`remove`, (): void => {
 
-  let dummyId: Identifier;
+  let dummyId: string;
 
   beforeEach((): void => {
     dummyId = 'abcdefghijklmnopqrst';

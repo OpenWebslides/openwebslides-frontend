@@ -9,14 +9,13 @@ import {
   NotYetImplementedError,
   UnsupportedOperationError,
 } from 'errors';
-import type { Identifier } from 'types/model';
 
 import * as t from '../actionTypes';
 import * as m from '../model';
 import edit from '../lib/edit';
 
 const createNewContentItemFromPropsForType = (
-  id: Identifier,
+  id: string,
   type: m.ContentItemType,
   propsForType: $Shape<m.AllPropsForAllTypes>,
 ): m.ContentItem => {

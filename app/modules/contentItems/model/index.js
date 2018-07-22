@@ -1,8 +1,6 @@
 // @flow
 /* eslint-disable no-multiple-empty-lines */
 
-import type { Identifier } from 'types/model';
-
 import * as types from './contentItemTypes';
 import * as metadata from './metadata';
 
@@ -12,7 +10,7 @@ import * as metadata from './metadata';
 // Base type for contentItems.
 export type BaseContentItem = {
   // Unique identifier for the contentItem.
-  +id: Identifier,
+  +id: string,
   // Type of the contentItem.
   +type: types.ContentItemType,
   // TRUE if the contentItem is currently being edited, FALSE if not.
@@ -106,7 +104,7 @@ export type SubableContentItem = {
   // Limit contentItem type to subableContentItemTypes.
   +type: types.SubableContentItemType,
   // Ids of contentItems directly nested under this contentItem.
-  +subItemIds: Array<Identifier>,
+  +subItemIds: Array<string>,
 };
 
 // Additional props for denormalized 'subable' contentItems.
@@ -133,7 +131,7 @@ export type ContainerContentItem = {
   // Limit contentItem type to containerContentItemTypes.
   +type: types.ContainerContentItemType,
   // Ids of contentItems that are direct children of this container.
-  +childItemIds: Array<Identifier>,
+  +childItemIds: Array<string>,
 };
 
 // Additional props for denormalized 'container' contentItems.
@@ -642,7 +640,7 @@ export type AllPropsForAllTypes = {
 // STATE -------------------------------------------------------------------------------------------
 
 export type ContentItemsById = {
-  +[contentItemId: Identifier]: ContentItem,
+  +[contentItemId: string]: ContentItem,
 };
 
 export type ContentItemsState = {

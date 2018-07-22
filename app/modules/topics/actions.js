@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 import { InvalidArgumentError, UnsupportedOperationError } from 'errors';
 import contentItems from 'modules/contentItems';
-import type { Identifier } from 'types/model';
 
 import * as t from './actionTypes';
 import { generateId } from './model';
@@ -12,11 +11,11 @@ import type { Topic } from './model';
 
 // Reducer actions
 export const addToState = (
-  id: Identifier,
-  userId: Identifier,
+  id: string,
+  userId: string,
   title: string,
   description: ?string = null,
-  rootContentItemId: Identifier,
+  rootContentItemId: string,
 ): t.AddToStateAction => {
   const newTitle = _.trim(title);
   const newDescription = (description != null) ? _.trim(description) : '';
@@ -38,7 +37,7 @@ export const addToState = (
 };
 
 export const editInState = (
-  id: Identifier,
+  id: string,
   title: ?string = null,
   description: ?string = null,
 ): t.EditInStateAction => {
@@ -64,7 +63,7 @@ export const editInState = (
 };
 
 export const removeFromState = (
-  id: Identifier,
+  id: string,
 ): t.RemoveFromStateAction => {
   return {
     type: t.REMOVE_FROM_STATE,
@@ -87,7 +86,7 @@ export const setItemsInState = (
 
 // Task saga actions
 export const add = (
-  userId: Identifier,
+  userId: string,
   title: string,
   description: ?string = null,
 ): t.AddAction => {
@@ -112,7 +111,7 @@ export const add = (
 };
 
 export const edit = (
-  id: Identifier,
+  id: string,
   title: ?string = null,
   description: ?string = null,
 ): t.EditAction => {
@@ -138,7 +137,7 @@ export const edit = (
 };
 
 export const remove = (
-  id: Identifier,
+  id: string,
 ): t.RemoveAction => {
   return {
     type: t.REMOVE,
@@ -149,7 +148,7 @@ export const remove = (
 };
 
 export const get = (
-  id: Identifier,
+  id: string,
 ): t.GetAction => {
   return {
     type: t.GET,
@@ -160,7 +159,7 @@ export const get = (
 };
 
 export const getAllByUserId = (
-  userId: Identifier,
+  userId: string,
 ): t.GetAllByUserIdAction => {
   return {
     type: t.GET_ALL_BY_USERID,
@@ -171,7 +170,7 @@ export const getAllByUserId = (
 };
 
 export const save = (
-  id: Identifier,
+  id: string,
 ): t.SaveContentAction => {
   return {
     type: t.SAVE,
@@ -182,7 +181,7 @@ export const save = (
 };
 
 export const load = (
-  id: Identifier,
+  id: string,
 ): t.LoadContentAction => {
   return {
     type: t.LOAD,
@@ -194,7 +193,7 @@ export const load = (
 
 // API saga actions
 export const apiDelete = (
-  id: Identifier,
+  id: string,
 ): t.ApiDeleteTopicAction => {
   return {
     type: t.API_DELETE,
@@ -205,7 +204,7 @@ export const apiDelete = (
 };
 
 export const apiGetAllByUserId = (
-  userId: Identifier,
+  userId: string,
 ): t.ApiGetAllTopicsByUserIdAction => {
   return {
     type: t.API_GET_ALL_BY_USERID,
@@ -216,7 +215,7 @@ export const apiGetAllByUserId = (
 };
 
 export const apiGet = (
-  id: Identifier,
+  id: string,
 ): t.ApiGetTopicAction => {
   return {
     type: t.API_GET,
@@ -227,7 +226,7 @@ export const apiGet = (
 };
 
 export const apiPost = (
-  userId: Identifier,
+  userId: string,
   title: string,
   description: ?string,
 ): t.ApiPostTopicAction => {
@@ -242,7 +241,7 @@ export const apiPost = (
 };
 
 export const apiPatchContent = (
-  id: Identifier,
+  id: string,
   content: Array<contentItems.model.ContentItem>,
 ): t.ApiPatchTopicContentAction => {
   return {
@@ -255,7 +254,7 @@ export const apiPatchContent = (
 };
 
 export const apiGetContent = (
-  id: Identifier,
+  id: string,
 ): t.ApiGetTopicContentAction => {
   return {
     type: t.API_GET_CONTENT,

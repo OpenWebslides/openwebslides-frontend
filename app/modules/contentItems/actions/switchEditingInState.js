@@ -1,13 +1,12 @@
 // @flow
 
 import { UnsupportedOperationError } from 'errors';
-import type { Identifier } from 'types/model';
 
 import * as t from '../actionTypes';
 
 const switchEditingInState = (
-  previousEditingItemId: ?Identifier,
-  nextEditingItemId: ?Identifier,
+  previousEditingItemId: ?string,
+  nextEditingItemId: ?string,
 ): t.SwitchEditingInStateAction => {
   const newPreviousEditingItemId = previousEditingItemId || null;
   const newNextEditingItemId = nextEditingItemId || null;

@@ -1,6 +1,5 @@
 // @flow
 
-import type { Identifier } from 'types/model';
 import { UnsupportedOperationError } from 'errors';
 
 import * as t from '../actionTypes';
@@ -9,8 +8,8 @@ import actions from '.';
 
 describe(`switchEditingInState`, (): void => {
 
-  let dummyPrevId: Identifier;
-  let dummyNextId: Identifier;
+  let dummyPrevId: string;
+  let dummyNextId: string;
 
   beforeEach((): void => {
     dummyPrevId = 'abcdefghijklmnopqrst';

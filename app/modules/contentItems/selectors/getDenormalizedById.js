@@ -2,7 +2,6 @@
 import createCachedSelector from 're-reselect';
 
 import type { State } from 'types/state';
-import type { Identifier } from 'types/model';
 
 import denormalize from '../lib/denormalize';
 import type {
@@ -21,7 +20,7 @@ const getDenormalizedById = createCachedSelector(
   },
 )(
   // eslint-disable-next-line react/destructuring-assignment
-  (state: State, props: { id: Identifier }) => props.id,
+  (state: State, props: { id: string }) => props.id,
 );
 
 export default getDenormalizedById;

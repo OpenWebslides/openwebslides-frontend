@@ -1,8 +1,6 @@
 // @flow
 /* eslint-disable no-multiple-empty-lines */
 
-import type { Identifier } from 'types/model';
-
 import type {
   ContentItemType,
   Context,
@@ -37,7 +35,7 @@ export type AddAction = {
 export type EditAction = {
   type: typeof EDIT,
   payload: {
-    id: Identifier,
+    id: string,
     propsForType: $Shape<AllPropsForAllTypes>,
   },
 };
@@ -45,7 +43,7 @@ export type EditAction = {
 export type ToggleEditingAction = {
   type: typeof TOGGLE_EDITING,
   payload: {
-    id: Identifier,
+    id: string,
     isEditing?: boolean,
   },
 };
@@ -53,7 +51,7 @@ export type ToggleEditingAction = {
 export type MoveAction = {
   type: typeof MOVE,
   payload: {
-    id: Identifier,
+    id: string,
     nextContext: VerticalContext,
   },
 };
@@ -61,27 +59,27 @@ export type MoveAction = {
 export type IndentAction = {
   type: typeof INDENT,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 
 export type ReverseIndentAction = {
   type: typeof REVERSE_INDENT,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 
 export type RemoveAction = {
   type: typeof REMOVE,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 
 export type RemoveAndTogglePreviousItemAction = {
   type: typeof REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };

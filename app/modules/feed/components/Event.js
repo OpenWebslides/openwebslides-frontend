@@ -10,7 +10,6 @@ import { Feed } from 'semantic-ui-react';
 
 import { USER_PROFILE_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
 import type { State } from 'types/state';
-import type { Identifier } from 'types/model';
 import topics from 'modules/topics';
 import users from 'modules/users';
 import Gravatar from 'core-components/gravatar/Gravatar';
@@ -19,7 +18,7 @@ import type { Event } from '../model';
 import { getById } from '../selectors';
 
 type PassedProps = {|
-  eventId: Identifier,
+  eventId: string,
 |};
 
 type StateProps = {|

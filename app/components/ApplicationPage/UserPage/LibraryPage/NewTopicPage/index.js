@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 
 import { type State } from 'types/state';
-import { type Identifier } from 'types/model';
 import { UnsupportedOperationError } from 'errors';
 import ContainerPage from 'core-components/ContainerPage';
 import platform from 'modules/platform';
@@ -14,7 +13,7 @@ import topics from 'modules/topics';
 const { NewTopicCard } = topics.components;
 
 type StateProps = {|
-  currentUserId: Identifier,
+  currentUserId: string,
 |};
 
 type Props = {| ...TranslatorProps, ...StateProps |};

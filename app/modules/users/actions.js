@@ -1,13 +1,11 @@
 // @flow
 
-import type { Identifier } from 'types/model';
-
 import * as t from './actionTypes';
 import type { User } from './model';
 
 // Reducer actions
 export const addToState = (
-  id: Identifier,
+  id: string,
   firstName: string,
   lastName: ?string,
   email: ?string,
@@ -65,7 +63,7 @@ export const setItemsInState = (
 
 // Task saga actions
 export const get = (
-  id: Identifier,
+  id: string,
 ): t.GetAction => {
   return {
     type: t.GET,
@@ -77,7 +75,7 @@ export const get = (
 
 // API saga actions
 export const apiGetUser = (
-  id: Identifier,
+  id: string,
 ): t.ApiGetUserAction => {
   return {
     type: t.API_GET_USER,

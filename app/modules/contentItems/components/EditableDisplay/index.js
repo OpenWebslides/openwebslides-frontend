@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 
 import { ObjectNotFoundError } from 'errors';
 import type { State } from 'types/state';
-import type { Identifier } from 'types/model';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -15,7 +14,7 @@ import selectors from '../../selectors';
 import typesToComponentsMap from './typesToComponentsMap';
 
 type PassedProps = {|
-  contentItemId: Identifier,
+  contentItemId: string,
 |};
 
 type StateProps = {|
@@ -23,14 +22,14 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  onStartEditing: (id: Identifier) => void,
-  onEndEditing: (id: Identifier) => void,
-  onEditPlainText: (id: Identifier, text: string) => void,
-  onAddEmptySubItem: (id: Identifier) => void,
-  onAddEmptySiblingItemBelow: (id: Identifier) => void,
-  onRemove: (id: Identifier) => void,
-  onIndent: (id: Identifier) => void,
-  onReverseIndent: (id: Identifier) => void,
+  onStartEditing: (id: string) => void,
+  onEndEditing: (id: string) => void,
+  onEditPlainText: (id: string, text: string) => void,
+  onAddEmptySubItem: (id: string) => void,
+  onAddEmptySiblingItemBelow: (id: string) => void,
+  onRemove: (id: string) => void,
+  onIndent: (id: string) => void,
+  onReverseIndent: (id: string) => void,
 |};
 
 type Props = {|
@@ -65,16 +64,16 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
   return {
-    onStartEditing: (id: Identifier): void => {
+    onStartEditing: (id: string): void => {
       dispatch(actions.toggleEditing(id, true));
     },
-    onEndEditing: (id: Identifier): void => {
+    onEndEditing: (id: string): void => {
       dispatch(actions.toggleEditing(id, false));
     },
-    onEditPlainText: (id: Identifier, text: string): void => {
+    onEditPlainText: (id: string, text: string): void => {
       dispatch(actions.edit(id, { text }));
     },
-    onAddEmptySubItem: (id: Identifier): void => {
+    onAddEmptySubItem: (id: string): void => {
       dispatch(actions.toggleEditing(id, false));
       dispatch(actions.add(
         m.contentItemTypes.PARAGRAPH,
@@ -86,7 +85,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
         { text: '' },
       ));
     },
-    onAddEmptySiblingItemBelow: (id: Identifier): void => {
+    onAddEmptySiblingItemBelow: (id: string): void => {
       dispatch(actions.toggleEditing(id, false));
       dispatch(actions.add(
         m.contentItemTypes.PARAGRAPH,
@@ -98,13 +97,13 @@ const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): Dispatch
         { text: '' },
       ));
     },
-    onRemove: (id: Identifier): void => {
+    onRemove: (id: string): void => {
       dispatch(actions.removeAndTogglePreviousItem(id));
     },
-    onIndent: (id: Identifier): void => {
+    onIndent: (id: string): void => {
       dispatch(actions.indent(id));
     },
-    onReverseIndent: (id: Identifier): void => {
+    onReverseIndent: (id: string): void => {
       dispatch(actions.reverseIndent(id));
     },
   };
@@ -127,7 +126,7 @@ const SubItemsEditableDisplay = (props: Props): React.Node => {
       >
         { /* $FlowFixMe Technically, flow has all the information needed; probably a bug */ }
         {contentItem.subItemIds.map(
-          (subItemId: Identifier): React.Node => (
+          (subItemId: string): React.Node => (
             <EditableDisplay
               {..._.pick(props, passThroughProps)}
               key={subItemId}

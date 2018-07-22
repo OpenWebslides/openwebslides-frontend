@@ -4,13 +4,12 @@
 import _ from 'lodash';
 
 import { InvalidArgumentError, ObjectNotFoundError } from 'errors';
-import type { Identifier } from 'types/model';
 
 import * as m from '../../../model';
 
 const removeChildOrSubItemIdFromContextByPropName = (
   context: m.VerticalContext,
-  childOrSubItemId: Identifier,
+  childOrSubItemId: string,
   contentItemsById: m.ContentItemsById,
   propName: ('childItemIds' | 'subItemIds'),
 ): m.ContentItem => {
@@ -31,7 +30,7 @@ const removeChildOrSubItemIdFromContextByPropName = (
 
 const removeChildOrSubItemIdFromContext = (
   context: m.VerticalContext,
-  childOrSubItemId: Identifier,
+  childOrSubItemId: string,
   contentItemsById: m.ContentItemsById,
 ): m.ContentItem => {
   switch (context.contextType) {

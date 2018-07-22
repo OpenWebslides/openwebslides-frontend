@@ -3,7 +3,6 @@
 import _ from 'lodash';
 import * as React from 'react';
 
-import type { Identifier } from 'types/model';
 import EditableTextContent from 'core-components/EditableTextContent';
 
 import * as m from '../../../model';
@@ -14,13 +13,13 @@ import { passThroughProps } from '..';
 
 type PassedProps = {
   contentItem: m.ParagraphContentItem,
-  onStartEditing: (id: Identifier) => void,
-  onEndEditing: (id: Identifier) => void,
-  onEditPlainText: (id: Identifier, text: string) => void,
-  onAddEmptySiblingItemBelow: (id: Identifier) => void,
-  onRemove: (id: Identifier) => void,
-  onIndent: (id: Identifier) => void,
-  onReverseIndent: (id: Identifier) => void,
+  onStartEditing: (id: string) => void,
+  onEndEditing: (id: string) => void,
+  onEditPlainText: (id: string, text: string) => void,
+  onAddEmptySiblingItemBelow: (id: string) => void,
+  onRemove: (id: string) => void,
+  onIndent: (id: string) => void,
+  onReverseIndent: (id: string) => void,
 };
 
 type Props = PassedProps;

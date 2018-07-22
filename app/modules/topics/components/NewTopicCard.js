@@ -8,17 +8,16 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { Link, withRouter } from 'react-router-dom';
 import { Form, Button } from 'semantic-ui-react';
 
-import type { Identifier } from 'types/model';
 import { USER_LIBRARY_ROUTE } from 'config/routes';
 
 import { add } from '../actions';
 
 type PassedProps = {|
-  userId: Identifier,
+  userId: string,
 |};
 
 type DispatchProps = {|
-  onAddButtonClick: (Identifier, string, string) => void,
+  onAddButtonClick: (string, string, string) => void,
 |};
 
 type Props = {|
@@ -31,7 +30,7 @@ type Props = {|
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
     onAddButtonClick: (
-      userId: Identifier,
+      userId: string,
       title: string,
       description: string,
     ): void => {

@@ -12,7 +12,6 @@
 import _ from 'lodash';
 
 import { InvalidArgumentError } from 'errors';
-import type { Identifier } from 'types/model';
 
 import * as m from '../../../model';
 
@@ -21,7 +20,7 @@ const getContextFromCandidateParentOrSuperItem = (
   candidateParentOrSuperItem: m.ContentItem,
 ): ?m.ExtendedVerticalContext => {
   let context: ?m.ExtendedVerticalContext = null;
-  let siblingItemIds: Array<Identifier>;
+  let siblingItemIds: Array<string>;
 
   // If the current candidate is the superItem of the passed contentItem
   if (

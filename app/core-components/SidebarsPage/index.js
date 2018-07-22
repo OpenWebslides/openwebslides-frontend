@@ -4,7 +4,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { type State } from 'types/state';
-import { type Identifier } from 'types/model';
 import platform from 'modules/platform';
 
 import Page from '../Page';
@@ -13,7 +12,7 @@ const { Sidebars, SidebarsMenu } = platform.components;
 
 type PassedProps = {|
   children: React.Node,
-  topicId: Identifier,
+  topicId: string,
 |};
 
 type StateProps = {|

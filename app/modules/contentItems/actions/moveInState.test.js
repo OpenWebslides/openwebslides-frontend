@@ -1,7 +1,5 @@
 // @flow
 
-import type { Identifier } from 'types/model';
-
 import * as t from '../actionTypes';
 import { contextTypes } from '../model';
 import type { VerticalContext } from '../model';
@@ -10,7 +8,7 @@ import actions from '.';
 
 describe(`moveInState`, (): void => {
 
-  let dummyId: Identifier;
+  let dummyId: string;
   let dummyNextContext: VerticalContext;
 
   beforeEach((): void => {

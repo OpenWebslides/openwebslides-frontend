@@ -1,10 +1,8 @@
 // @flow
 
-import type { Identifier } from 'types/model';
-
 import * as t from '../actionTypes';
 
-const removeAndTogglePreviousItem = (id: Identifier): t.RemoveAndTogglePreviousItemAction => {
+const removeAndTogglePreviousItem = (id: string): t.RemoveAndTogglePreviousItemAction => {
   return {
     type: t.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
     payload: {

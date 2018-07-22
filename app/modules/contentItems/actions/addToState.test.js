@@ -1,7 +1,6 @@
 // @flow
 
 import { InvalidArgumentError, NotYetImplementedError } from 'errors';
-import type { Identifier } from 'types/model';
 
 import * as t from '../actionTypes';
 import { contentItemTypes, contextTypes } from '../model';
@@ -11,7 +10,7 @@ import actions from '.';
 
 describe(`addToState`, (): void => {
 
-  let dummyId: Identifier;
+  let dummyId: string;
   let dummyPlainTextType: ContentItemType;
   let dummyContext: VerticalContext;
   let dummyPlainTextProps: $Shape<AllPropsForAllTypes>;

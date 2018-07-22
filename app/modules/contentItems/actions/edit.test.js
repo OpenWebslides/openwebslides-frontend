@@ -1,7 +1,5 @@
 // @flow
 
-import type { Identifier } from 'types/model';
-
 import * as t from '../actionTypes';
 import type { AllPropsForAllTypes } from '../model';
 
@@ -9,7 +7,7 @@ import actions from '.';
 
 describe(`edit`, (): void => {
 
-  let dummyId: Identifier;
+  let dummyId: string;
   let dummyTextProps: $Shape<AllPropsForAllTypes>;
 
   beforeEach((): void => {

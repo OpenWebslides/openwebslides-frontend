@@ -5,7 +5,6 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { type State } from 'types/state';
-import { type Identifier } from 'types/model';
 import { ObjectNotFoundError, CorruptedInternalStateError } from 'errors';
 import topics from 'modules/topics';
 import contentItems from 'modules/contentItems';
@@ -14,7 +13,7 @@ import split from 'lib/content-item-split';
 import Slide from './Slide';
 
 type PassedProps = {|
-  topicId: Identifier,
+  topicId: string,
 |};
 
 type StateProps = {|

@@ -9,7 +9,6 @@
  */
 
 import { CorruptedInternalStateError } from 'errors';
-import type { Identifier } from 'types/model';
 
 import * as m from '../../../model';
 
@@ -27,7 +26,7 @@ const findAllSiblingItems: MultipleFindFunction = (
   if (extendedVerticalContext == null) return [];
 
   const siblingItems = extendedVerticalContext.siblingItemIds.map((
-    siblingItemId: Identifier,
+    siblingItemId: string,
   ): m.ContentItem => {
     const siblingItem = contentItemsById[siblingItemId];
     if (siblingItem == null) throw new CorruptedInternalStateError(`ContentItemsById object contains inconsistencies; this shouldn't happen.`);

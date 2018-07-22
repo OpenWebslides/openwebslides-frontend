@@ -1,7 +1,5 @@
 // @flow
 
-import type { Identifier } from 'types/model';
-
 import type { User } from './model';
 
 /* Action constants */
@@ -24,7 +22,7 @@ export const API_POST_USER: 'users/API_POST_USER' = 'users/API_POST_USER';
 export type AddToStateAction = {
   type: typeof ADD_TO_STATE,
   payload: {
-    id: Identifier,
+    id: string,
     firstName: string,
     lastName: ?string,
     email: ?string,
@@ -49,7 +47,7 @@ export type SetItemsInStateAction = {
 export type GetAction = {
   type: typeof GET,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 
@@ -57,7 +55,7 @@ export type GetAction = {
 export type ApiGetUserAction = {
   type: typeof API_GET_USER,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 

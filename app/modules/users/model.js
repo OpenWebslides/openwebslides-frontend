@@ -1,16 +1,14 @@
 // @flow
 
-import type { Identifier } from 'types/model';
-
 export type User = {
-  +id: Identifier,
+  +id: string,
   +firstName: string,
   +lastName?: ?string,
   +email?: string,
 };
 
 export type UsersState = {
-  +[userId: Identifier]: User,
+  +[userId: string]: User,
 };
 
 export const getName = (user: User): string => {

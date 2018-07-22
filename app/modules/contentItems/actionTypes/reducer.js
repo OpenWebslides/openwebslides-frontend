@@ -1,8 +1,6 @@
 // @flow
 /* eslint-disable no-multiple-empty-lines */
 
-import type { Identifier } from 'types/model';
-
 import type {
   ContentItem,
   ContentItemType,
@@ -26,7 +24,7 @@ export const SET_MULTIPLE_IN_STATE: 'contentItems/SET_MULTIPLE_IN_STATE' = 'cont
 export type AddToStateAction = {
   type: typeof ADD_TO_STATE,
   payload: {
-    id: Identifier,
+    id: string,
     type: ContentItemType,
     context: ?VerticalContext,
     propsForType: $Shape<AllPropsForAllTypes>,
@@ -44,15 +42,15 @@ export type EditPropsForTypeInStateAction = {
 export type SwitchEditingInStateAction = {
   type: typeof SWITCH_EDITING_IN_STATE,
   payload: {
-    previousEditingItemId: ?Identifier,
-    nextEditingItemId: ?Identifier,
+    previousEditingItemId: ?string,
+    nextEditingItemId: ?string,
   },
 };
 
 export type MoveInStateAction = {
   type: typeof MOVE_IN_STATE,
   payload: {
-    id: Identifier,
+    id: string,
     nextContext: VerticalContext,
   },
 };
@@ -60,7 +58,7 @@ export type MoveInStateAction = {
 export type RemoveFromStateAction = {
   type: typeof REMOVE_FROM_STATE,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 

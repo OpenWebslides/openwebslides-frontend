@@ -4,7 +4,6 @@ import _ from 'lodash';
 import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
-import { type Identifier } from 'types/model';
 import api from 'api';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import users from 'modules/users';
@@ -16,7 +15,7 @@ import { sagas } from '..';
 
 describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
 
-  let dummyId: Identifier;
+  let dummyId: string;
   let dummyFirstName: string;
   let dummyLastName: string;
   let dummyEmail: string;

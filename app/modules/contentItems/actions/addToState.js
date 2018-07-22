@@ -4,14 +4,13 @@ import _ from 'lodash';
 
 import { InvalidArgumentError, NotYetImplementedError } from 'errors';
 import validate from 'lib/validate';
-import type { Identifier } from 'types/model';
 
 import * as t from '../actionTypes';
 import { contentItemTypes, plainTextContentItemTypes, editablePropsForType } from '../model';
 import type { ContentItemType, AllPropsForAllTypes, VerticalContext } from '../model';
 
 const addToState = (
-  id: Identifier,
+  id: string,
   type: ContentItemType,
   context: ?VerticalContext,
   propsForType: $Shape<AllPropsForAllTypes>,

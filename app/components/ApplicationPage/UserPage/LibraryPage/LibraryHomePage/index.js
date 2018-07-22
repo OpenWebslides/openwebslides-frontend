@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 
 import { USER_LIBRARY_NEW_TOPIC_ROUTE } from 'config/routes';
 import { type State } from 'types/state';
-import { type Identifier } from 'types/model';
 import { UnsupportedOperationError } from 'errors';
 import ContainerPage from 'core-components/ContainerPage';
 import platform from 'modules/platform';
@@ -17,7 +16,7 @@ import topics from 'modules/topics';
 const { CardCollection } = topics.components;
 
 type StateProps = {|
-  currentUserId: Identifier,
+  currentUserId: string,
 |};
 
 type Props = {| ...TranslatorProps, ...StateProps |};

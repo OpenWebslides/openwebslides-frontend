@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { type Identifier } from 'types/model';
 import { type State } from 'types/state';
 import topics from 'modules/topics';
 
@@ -13,7 +12,7 @@ import selectors from '../../selectors';
 import sidebarIdsToComponentsMap from './sidebarIdsToComponentsMap';
 
 type PassedProps = {|
-  topicId: Identifier,
+  topicId: string,
 |};
 
 type StateProps = {|
