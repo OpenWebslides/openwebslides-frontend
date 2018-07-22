@@ -7,6 +7,12 @@
 import { createStore, applyMiddleware, type Store } from 'redux';
 // Redux-flash
 import { middleware as flashMiddleware } from 'redux-flash';
+// Redux-persist
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import type { PersistConfig, Persistor } from 'redux-persist/src/types';
+import { createWhitelistFilter } from 'redux-persist-transform-filter';
 // Redux-saga
 import createSagaMiddleware from 'redux-saga';
 // Connected-react-router
@@ -19,12 +25,26 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
 
-const configureStore = (): {store: Store<*, *>, history: BrowserHistory } => {
+const configureStore = (): {store: Store<*, *>, history: BrowserHistory, persistor: Persistor } => {
   const history = createBrowserHistory();
+  const persistConfig: PersistConfig = {
+    // LocalStorage key
+    key: 'root',
+    // Storage object
+    storage,
+    // Only persist state.modules, not the rest of the state; further filtering done below.
+    whitelist: ['modules'],
+    // Merge state.modules, don't overwrite it.
+    stateReconciler: autoMergeLevel2,
+    transforms: [
+      // Only persist state.modules.platform, not the rest of the modules.
+      createWhitelistFilter('modules', ['platform']),
+    ],
+  };
   const sagaMiddleware = createSagaMiddleware();
 
   const store = createStore(
-    connectRouter(history)(rootReducer),
+    connectRouter(history)(persistReducer(persistConfig, rootReducer)),
     composeWithDevTools(
       applyMiddleware(sagaMiddleware),
       applyMiddleware(flashMiddleware()),
@@ -32,9 +52,10 @@ const configureStore = (): {store: Store<*, *>, history: BrowserHistory } => {
     ),
   );
 
+  const persistor = persistStore(store);
   sagaMiddleware.run(rootSaga);
 
-  return { store, history };
+  return { store, history, persistor };
 };
 
 export default configureStore;
