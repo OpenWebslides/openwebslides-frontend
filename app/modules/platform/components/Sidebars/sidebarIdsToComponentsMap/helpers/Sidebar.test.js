@@ -9,7 +9,7 @@ describe(`Sidebar`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureSidebar>
+      <PureSidebar header="Dummy Header" icon="info">
         <p>Content goes here</p>
       </PureSidebar>,
     );

@@ -8,9 +8,9 @@ import { Menu, Icon } from 'semantic-ui-react';
 
 import { type State } from 'types/state';
 
-import actions from '../../../../actions';
-import * as m from '../../../../model';
-import selectors from '../../../../selectors';
+import actions from '../../../actions';
+import * as m from '../../../model';
+import selectors from '../../../selectors';
 
 type PassedProps = {|
   sidebarId: m.SidebarId,
@@ -59,6 +59,7 @@ const PureSidebarsMenuItem = (props: Props): React.Node => {
       name={sidebarId}
       active={isActive}
       onClick={handleMenuItemClick}
+      data-test-id="sidebars-menu-item"
     >
       <Icon name={sidebarIdsToIconsMap[sidebarId]} />
     </Menu.Item>

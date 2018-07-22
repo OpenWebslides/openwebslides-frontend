@@ -43,7 +43,7 @@ const PureSidebars = (props: Props): React.Node => {
       {[...activeSidebarIds].reverse().map((sidebarId: m.SidebarId): React.Node => {
         SidebarComponent = sidebarIdsToComponentsMap[sidebarId];
         return (
-          <div key={sidebarId} className="sidebars__grid-item">
+          <div key={sidebarId} className="sidebars__grid-item" data-test-id="sidebars-grid-item">
             <SidebarComponent topic={topic} />
           </div>
         );

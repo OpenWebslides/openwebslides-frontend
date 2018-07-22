@@ -3,6 +3,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
+import { dummyTranslatorProps } from 'config/tests';
+import { dummyTopicData, dummyContentItemData } from 'lib/testResources';
 import topics from 'modules/topics';
 import contentItems from 'modules/contentItems';
 
@@ -14,17 +16,9 @@ describe(`SlidePreviewsSidebar`, (): void => {
   let dummyContentItemTreeRootItem: contentItems.model.DenormalizedRootContentItem;
 
   beforeEach((): void => {
-    dummyTopic = {
-      id: 'dummyTopicId',
-      title: 'Lorem ipum',
-      description: 'Bla',
-      rootContentItemId: 'dummyContentItemId',
-      userId: 'dummyUserId',
-    };
+    dummyTopic = { ...dummyTopicData.topic };
     dummyContentItemTreeRootItem = {
-      id: 'dummyContentItemId',
-      type: contentItems.model.contentItemTypes.ROOT,
-      isEditing: false,
+      ...dummyContentItemData.rootContentItem,
       childItems: [],
     };
   });
@@ -32,6 +26,7 @@ describe(`SlidePreviewsSidebar`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureSlidePreviewsSidebar
+        {...dummyTranslatorProps}
         topic={dummyTopic}
         contentItemTreeRootItem={dummyContentItemTreeRootItem}
       />,

@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
-import { Header } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
 import Slides from 'core-components/slides/Slides';

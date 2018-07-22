@@ -1,5 +1,6 @@
 // @flow
 
 import * as dummyContentItemData from './dummyContentItemData';
+import * as dummyTopicData from './dummyTopicData';
 
-export { dummyContentItemData };
+export { dummyContentItemData, dummyTopicData };
