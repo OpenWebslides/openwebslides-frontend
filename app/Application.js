@@ -10,8 +10,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { type BrowserHistory } from 'history';
 
 import i18nextConfig from 'config/i18next';
-
-import pageRoutes from './routes';
+import ApplicationPage from 'components/ApplicationPage';
 
 type PassedProps = {|
   history: BrowserHistory,
@@ -25,7 +24,7 @@ const PureApplication = (props: Props): React.Node => {
   return (
     <I18nextProvider i18n={i18nextConfig}>
       <ConnectedRouter history={history}>
-        {pageRoutes}
+        <ApplicationPage />
       </ConnectedRouter>
     </I18nextProvider>
   );

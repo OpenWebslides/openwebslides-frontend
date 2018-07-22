@@ -8,6 +8,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import moment from 'moment';
 import { Feed } from 'semantic-ui-react';
 
+import { USER_PROFILE_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
 import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
 import topics from 'modules/topics';
@@ -107,19 +108,19 @@ class PureEventWrapper extends React.Component<Props, State> {
     return (
       <Feed.Event>
         <Feed.Label>
-          <Link to={`/profile/${user.id}`}>
+          <Link to={`${USER_PROFILE_ROUTE}/${user.id}`}>
             <Gravatar email={user.email} size={users.constants.GRAVATAR_SIZE_SMALL} />
           </Link>
         </Feed.Label>
         <Feed.Content>
           <Feed.Summary>
-            <Link as="Feed.User" to={`/profile/${user.id}`}>
+            <Link as="Feed.User" to={`${USER_PROFILE_ROUTE}/${user.id}`}>
               {displayName}
             </Link>
             &nbsp;
             {t('feed:event.action', { context: `${event.predicate}` })}
             &nbsp;
-            <Link className="secondaryLink" to={`/editor/${topic.id}`}>
+            <Link className="secondaryLink" to={`${TOPIC_EDITOR_ROUTE}/${topic.id}`}>
               {topic.title}
             </Link>
           </Feed.Summary>

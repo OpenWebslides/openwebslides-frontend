@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Button, Header } from 'semantic-ui-react';
 
 import FlashMessages from 'core-components/flash/FlashMessages';
@@ -66,13 +65,13 @@ const ContentItemEditableDisplay = contentItems.components.EditableDisplay;
 
 class PureEditor extends React.Component<Props> {
   onLoadButtonClick = (): void => {
-    const { topic, onLoadButtonClick } = this.props;
-    onLoadButtonClick(topic.id);
+    const { topicId, onLoadButtonClick } = this.props;
+    onLoadButtonClick(topicId);
   };
 
   onSaveButtonClick = (): void => {
-    const { topic, onSaveButtonClick } = this.props;
-    onSaveButtonClick(topic.id);
+    const { topicId, onSaveButtonClick } = this.props;
+    onSaveButtonClick(topicId);
   };
 
   // const {
@@ -114,7 +113,6 @@ class PureEditor extends React.Component<Props> {
           </Button>
         </p>
 
-        <Link to="/tempslidetest">Temp slide test page</Link>
         <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
       </div>
     );

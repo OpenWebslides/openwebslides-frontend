@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 
-import { SIGNIN_ROUTE } from 'config/routes';
+import { AUTH_SIGNIN_ROUTE } from 'config/routes';
 
 import selectors from '../../selectors';
 
@@ -47,7 +47,7 @@ describe(`AuthWrapper`, (): void => {
     const conditionalWrapper = enzymeWrapper.find('PureConditionalWrapper');
 
     expect(conditionalWrapper.prop('renderChildren')).toBe(true);
-    expect(conditionalWrapper.prop('redirectIfNotChildren')).toBe(SIGNIN_ROUTE);
+    expect(conditionalWrapper.prop('redirectIfNotChildren')).toBe(AUTH_SIGNIN_ROUTE);
     expect(conditionalWrapper.prop('componentIfNotChildren')).toBeNull();
   });
 
@@ -67,7 +67,7 @@ describe(`AuthWrapper`, (): void => {
     const conditionalWrapper = enzymeWrapper.find('PureConditionalWrapper');
 
     expect(conditionalWrapper.prop('renderChildren')).toBe(false);
-    expect(conditionalWrapper.prop('redirectIfNotChildren')).toBe(SIGNIN_ROUTE);
+    expect(conditionalWrapper.prop('redirectIfNotChildren')).toBe(AUTH_SIGNIN_ROUTE);
     expect(conditionalWrapper.prop('componentIfNotChildren')).toBeNull();
   });
 

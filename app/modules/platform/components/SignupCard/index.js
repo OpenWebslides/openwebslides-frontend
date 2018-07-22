@@ -6,6 +6,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Card, Button, Icon } from 'semantic-ui-react';
 
+import { AUTH_SIGNIN_ROUTE } from 'config/routes';
 import { InvalidArgumentError } from 'errors';
 import UserForm, { type UserFormValues } from 'forms/UserForm';
 
@@ -60,7 +61,7 @@ const PureSignupCard = (props: Props): React.Node => {
               <Icon name="user" />
               {t('platform:signupCard.button.submit')}
             </Button>
-            <Button as={Link} to="/auth/signin" icon={true} labelPosition="left">
+            <Button as={Link} to={AUTH_SIGNIN_ROUTE} icon={true} labelPosition="left">
               <Icon name="lock" />
               {t('platform:signupCard.link.signin')}
             </Button>

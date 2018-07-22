@@ -3,6 +3,8 @@
 import { put, take } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 
+import { USER_LIBRARY_ROUTE } from 'config/routes';
+
 import * as t from '../../actionTypes';
 import { apiPost } from '../../actions';
 
@@ -19,7 +21,7 @@ const addSaga = function* (action: t.AddAction): Generator<*, *, *> {
   // Wait for api request to complete #TODO use unique request identifiers for this
   yield take('apiRequestsStatus/SET_SUCCESS');
   // Then redirect
-  yield put(push('/library'));
+  yield put(push(USER_LIBRARY_ROUTE));
 };
 
 export default addSaga;

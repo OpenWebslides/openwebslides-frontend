@@ -6,6 +6,9 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Card, Button, Icon } from 'semantic-ui-react';
 
+import {
+  AUTH_SIGNUP_ROUTE, AUTH_RESET_PASSWORD_ROUTE, AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE,
+} from 'config/routes';
 import { InvalidArgumentError } from 'errors';
 import EmailAndPasswordForm, { type EmailAndPasswordFormValues } from 'forms/EmailAndPasswordForm';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
@@ -51,7 +54,7 @@ const PureSigninCard = (props: Props): React.Node => {
       <Card.Content>
         <EmailAndPasswordForm onSubmit={onEmailAndPasswordFormSubmit}>
           <Button.Group fluid={true}>
-            <Button as={Link} to="/auth/signup" icon={true} labelPosition="left">
+            <Button as={Link} to={AUTH_SIGNUP_ROUTE} icon={true} labelPosition="left">
               <Icon name="user" />
               {t('platform:signinCard.link.signup')}
             </Button>
@@ -64,10 +67,10 @@ const PureSigninCard = (props: Props): React.Node => {
       </Card.Content>
       <Card.Content>
         <Button.Group fluid={true} vertical={true} basic={true}>
-          <Button as={Link} to="/auth/reset">
+          <Button as={Link} to={AUTH_RESET_PASSWORD_ROUTE}>
             {t('platform:signinCard.link.forgotPassword')}
           </Button>
-          <Button as={Link} to="/auth/resend">
+          <Button as={Link} to={AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE}>
             {t('platform:signinCard.link.resendConfirmationEmail')}
           </Button>
         </Button.Group>

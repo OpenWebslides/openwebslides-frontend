@@ -7,7 +7,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import type { State } from 'types/state';
-import { SIGNIN_ROUTE } from 'config/routes';
+import { AUTH_SIGNIN_ROUTE } from 'config/routes';
 import ConditionalWrapper from 'helpers/ConditionalWrapper';
 
 import selectors from '../../selectors';
@@ -54,7 +54,7 @@ const PureAuthWrapper = (props: Props): React.Node => {
 };
 
 PureAuthWrapper.defaultProps = {
-  redirectIfNotAuthenticated: SIGNIN_ROUTE,
+  redirectIfNotAuthenticated: AUTH_SIGNIN_ROUTE,
   componentIfNotAuthenticated: null,
 };
 
