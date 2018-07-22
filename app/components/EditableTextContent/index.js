@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Form, Input, TextArea } from 'semantic-ui-react';
 
-import InlineMarkdown from 'core-components/inline-markdown';
+import InlineMarkdown from 'components/InlineMarkdown';
 
 type PassedProps = {
   multiline: boolean,

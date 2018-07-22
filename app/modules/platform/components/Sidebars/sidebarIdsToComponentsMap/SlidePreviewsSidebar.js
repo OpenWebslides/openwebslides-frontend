@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 
-import Slides from 'core-components/slides/Slides';
+import Slides from 'components/Slides';
 import topics from 'modules/topics';
 
 import Sidebar from './helpers/Sidebar';

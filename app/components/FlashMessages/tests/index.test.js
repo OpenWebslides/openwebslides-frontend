@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 
 import { dummyProviderProps } from 'lib/testResources';
 
-import { PureFlashMessages } from '../FlashMessages';
+import { PureFlashMessages } from '..';
 
 describe(`FlashMessages`, (): void => {
 

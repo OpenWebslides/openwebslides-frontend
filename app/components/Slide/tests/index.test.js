@@ -6,7 +6,7 @@ import { shallow } from 'enzyme';
 import { dummyProviderProps } from 'lib/testResources';
 import contentItems from 'modules/contentItems';
 
-import { PureSlide } from '../Slide';
+import { PureSlide } from '..';
 
 describe(`Slide`, (): void => {
 

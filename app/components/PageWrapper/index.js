@@ -11,7 +11,7 @@ type PassedProps = {|
 
 type Props = {| ...PassedProps |};
 
-const PurePage = (props: Props): React.Node => {
+const PurePageWrapper = (props: Props): React.Node => {
   const { children, className } = props;
 
   return (
@@ -26,7 +26,7 @@ const PurePage = (props: Props): React.Node => {
   );
 };
 
-const Page = PurePage;
+const PageWrapper = PurePageWrapper;
 
-export { PurePage };
-export default Page;
+export { PurePageWrapper };
+export default PageWrapper;

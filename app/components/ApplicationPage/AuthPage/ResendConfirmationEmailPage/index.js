@@ -3,8 +3,8 @@
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 
-import Page from 'core-components/Page';
-import FlashMessages from 'core-components/flash/FlashMessages';
+import ContainerPageWrapper from 'components/ContainerPageWrapper';
+import FlashMessages from 'components/FlashMessages';
 import platform from 'modules/platform';
 
 const { ResendConfirmationEmailCard } = platform.components;
@@ -13,10 +13,10 @@ type Props = TranslatorProps;
 
 const PureResendConfirmationEmailPage = (props: Props): React.Node => {
   return (
-    <Page>
+    <ContainerPageWrapper>
       <FlashMessages />
       <ResendConfirmationEmailCard />
-    </Page>
+    </ContainerPageWrapper>
   );
 };
 

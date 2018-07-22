@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import InlineMarkdown from 'core-components/inline-markdown';
+import InlineMarkdown from 'components/InlineMarkdown';
 
 import * as m from '../../../model';
 

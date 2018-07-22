@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import Gravatar, { hash } from '../Gravatar';
+import Gravatar, { hash } from '..';
 
 describe(`Gravatar`, (): void => {
 

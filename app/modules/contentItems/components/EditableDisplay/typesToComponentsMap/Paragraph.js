@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import * as React from 'react';
 
-import EditableTextContent from 'core-components/EditableTextContent';
+import EditableTextContent from 'components/EditableTextContent';
 
 import * as m from '../../../model';
 

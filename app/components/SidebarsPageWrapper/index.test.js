@@ -3,18 +3,19 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { PurePage } from '.';
+import { PureSidebarsPageWrapper } from '.';
 
-describe(`Page`, (): void => {
+describe(`SidebarsPageWrapper`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PurePage>
+      <PureSidebarsPageWrapper activeSidebarsCount={1} topicId="dummyTopicId">
         <h1>Lorem ipsum</h1>
         <p>Lorem ipsum dolor sit amet.</p>
-      </PurePage>,
+      </PureSidebarsPageWrapper>,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });
 
 });
+

@@ -5,7 +5,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Button, Header } from 'semantic-ui-react';
 
-import FlashMessages from 'core-components/flash/FlashMessages';
+import FlashMessages from 'components/FlashMessages';
 import contentItems from 'modules/contentItems';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import type { State } from 'types/state';

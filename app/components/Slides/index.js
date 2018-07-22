@@ -9,8 +9,7 @@ import { ObjectNotFoundError, CorruptedInternalStateError } from 'errors';
 import topics from 'modules/topics';
 import contentItems from 'modules/contentItems';
 import split from 'lib/content-item-split';
-
-import Slide from './Slide';
+import Slide from 'components/Slide';
 
 type PassedProps = {|
   topicId: string,

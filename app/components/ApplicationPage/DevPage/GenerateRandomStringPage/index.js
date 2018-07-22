@@ -3,7 +3,7 @@
 import * as React from 'react';
 import type { ContextRouter as RouterProps } from 'react-router-dom';
 
-import ContainerPage from 'core-components/ContainerPage';
+import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import generateRandomString from 'lib/generate-random-string';
 
 type Props = RouterProps;
@@ -13,7 +13,7 @@ const PureGenerateRandomStringPage = (props: Props): React.Node => {
   const lengthParam = parseInt(match.params.length, 10);
   const randomStringLength = lengthParam || 20;
   return (
-    <ContainerPage>
+    <ContainerPageWrapper>
       <div>
         <h1>
           Randomly generated strings of length { randomStringLength }:
@@ -31,7 +31,7 @@ const PureGenerateRandomStringPage = (props: Props): React.Node => {
           <p>{ generateRandomString(randomStringLength) }</p>
         </div>
       </div>
-    </ContainerPage>
+    </ContainerPageWrapper>
   );
 };
 

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Container } from 'semantic-ui-react';
 
-import Page from '../Page';
+import PageWrapper from '../PageWrapper';
 
 type PassedProps = {|
   children: React.Node,
@@ -12,19 +12,19 @@ type PassedProps = {|
 
 type Props = {| ...PassedProps |};
 
-const PureContainerPage = (props: Props): React.Node => {
+const PureContainerPageWrapper = (props: Props): React.Node => {
   const { children, className } = props;
 
   return (
-    <Page className={`page--container ${className || ''}`}>
+    <PageWrapper className={`page--container ${className || ''}`}>
       <Container className="page__main-content">
         {children}
       </Container>
-    </Page>
+    </PageWrapper>
   );
 };
 
-const ContainerPage = PureContainerPage;
+const ContainerPageWrapper = PureContainerPageWrapper;
 
-export { PureContainerPage };
-export default ContainerPage;
+export { PureContainerPageWrapper };
+export default ContainerPageWrapper;

@@ -12,7 +12,7 @@ import { USER_PROFILE_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
 import type { State } from 'types/state';
 import topics from 'modules/topics';
 import users from 'modules/users';
-import Gravatar from 'core-components/gravatar/Gravatar';
+import Gravatar from 'components/Gravatar';
 
 import type { Event } from '../model';
 import { getById } from '../selectors';

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { type State } from 'types/state';
 import platform from 'modules/platform';
 
-import Page from '../Page';
+import PageWrapper from '../PageWrapper';
 
 const { Sidebars, SidebarsMenu } = platform.components;
 
@@ -29,13 +29,13 @@ const mapStateToProps = (state: State): StateProps => {
   };
 };
 
-const PureSidebarsPage = (props: Props): React.Node => {
+const PureSidebarsPageWrapper = (props: Props): React.Node => {
   const { children, topicId, activeSidebarsCount } = props;
 
   const sidebarsWidthPercentage = activeSidebarsCount * 20;
 
   return (
-    <Page className="page--sidebars">
+    <PageWrapper className="page--sidebars">
       <div className="page__grid">
         <div
           className="page__grid-item"
@@ -55,11 +55,11 @@ const PureSidebarsPage = (props: Props): React.Node => {
         )}
       </div>
       <SidebarsMenu />
-    </Page>
+    </PageWrapper>
   );
 };
 
-const SidebarsPage = connect(mapStateToProps)(PureSidebarsPage);
+const SidebarsPageWrapper = connect(mapStateToProps)(PureSidebarsPageWrapper);
 
-export { PureSidebarsPage };
-export default SidebarsPage;
+export { PureSidebarsPageWrapper };
+export default SidebarsPageWrapper;
