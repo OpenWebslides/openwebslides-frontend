@@ -2,8 +2,6 @@
 
 import * as httpMethods from './httpMethods';
 
-export type ApiToken = string;
-
 export type ApiRequestHeaders = {
   [name: string]: string,
 };
@@ -25,7 +23,7 @@ export type ApiResponseData = {|
   // eslint-disable-next-line flowtype/no-weak-types
   +body: Object,
   +status: number,
-  +token: ?ApiToken,
+  +token: ?string,
 |};
 
 export * from './httpMethods';

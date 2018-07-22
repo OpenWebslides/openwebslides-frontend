@@ -1,8 +1,6 @@
 // @flow
 /* eslint-disable no-multiple-empty-lines */
 
-import type { ApiToken } from 'lib/ApiRequest';
-
 
 // Action constants --------------------------------------------------------------------------------
 
@@ -26,7 +24,7 @@ export type ApiPostSigninToTokenAndGetUserAuthAction = {|
 export type ApiDeleteTokenAction = {|
   type: typeof API_DELETE_TOKEN,
   payload: {
-    token: ApiToken,
+    token: string,
   },
 |};
 

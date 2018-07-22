@@ -4,7 +4,7 @@
  */
 
 import type { Identifier } from 'types/model';
-import ApiRequest, { httpMethods, type ApiResponseData, type ApiToken } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 
 import { TOPICS_ENDPOINT } from '../endpoints';
 
@@ -12,7 +12,7 @@ const post = (
   userId: Identifier,
   title: string,
   description: ?string,
-  token: ApiToken,
+  token: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {

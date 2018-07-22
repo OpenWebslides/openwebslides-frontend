@@ -4,7 +4,6 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
-import { type ApiToken } from 'lib/ApiRequest';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import actions from '../../actions';
@@ -14,7 +13,7 @@ import { sagas } from '..';
 
 describe(`apiDeleteToken`, (): void => {
 
-  let dummyToken: ApiToken;
+  let dummyToken: string;
 
   beforeEach((): void => {
     dummyToken = 'foobarToken';
