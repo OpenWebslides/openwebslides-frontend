@@ -6,8 +6,9 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
-import configureStore, { history } from 'store/configureStore';
+import configureStore from 'store/configureStore';
 
 import 'assets/stylesheets/semantic.less';
 
@@ -18,13 +19,15 @@ import Application from './Application';
 const appRootElement: (Element | null) = document.getElementById('react-app');
 
 // The Redux store.
-const store = configureStore();
+const { store, history, persistor } = configureStore();
 
 if (appRootElement !== null) {
   // Renders the Application component with React.
   ReactDOM.render(
     <Provider store={store}>
-      <Application history={history} />
+      <PersistGate loading={null} persistor={persistor}>
+        <Application history={history} />
+      </PersistGate>
     </Provider>,
     appRootElement,
   );

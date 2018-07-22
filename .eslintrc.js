@@ -26,6 +26,7 @@ module.exports = {
     // Temporary workaround for https://github.com/benmosher/eslint-plugin-import/issues/793 #TODO
     'import/core-modules': [
       'redux-saga/effects',
+      'redux-persist/integration/react',
     ],
     // Enables eslint-plugin-import to check import paths using webpack resolver aliases.
     'import/resolver': {
@@ -228,6 +229,7 @@ module.exports = {
       {
         'allow': [
           'redux-saga/**',
+          'redux-persist/**',
           'assets/**',
           'config/**',
           'core-components/**',
