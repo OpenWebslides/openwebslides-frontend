@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 import type { State } from 'types/state';
 import { AUTH_SIGNIN_ROUTE } from 'config/routes';
-import ConditionalWrapper from 'helpers/ConditionalWrapper';
+import ConditionalWrapper from 'components/ConditionalWrapper';
 
 import selectors from '../../selectors';
 

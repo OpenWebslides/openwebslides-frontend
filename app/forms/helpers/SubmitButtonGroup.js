@@ -4,7 +4,7 @@ import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Button, Icon } from 'semantic-ui-react';
 
-import BackButton from 'helpers/BackButton';
+import BackButton from 'components/BackButton';
 
 type Props = TranslatorProps;
 
