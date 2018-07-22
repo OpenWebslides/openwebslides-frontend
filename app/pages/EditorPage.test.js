@@ -5,24 +5,15 @@ import { shallow } from 'enzyme';
 
 import { dummyTranslatorProps, dummyRouterProps } from 'config/tests';
 
-import { PureProfilePage } from '../ProfilePage';
+import { PureEditorPage } from './EditorPage';
 
-describe(`ProfilePage`, (): void => {
+describe(`EditorPage`, (): void => {
 
   it(`renders without errors`, (): void => {
-    const dummyAccount = {
-      id: 'johanjohan',
-      email: 'john.doe@example.com',
-      firstName: 'John',
-      lastName: 'Doe',
-    };
-
     const enzymeWrapper = shallow(
-      <PureProfilePage
+      <PureEditorPage
         {...dummyTranslatorProps}
         {...dummyRouterProps}
-        account={dummyAccount}
-        userId="abcdefghij"
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

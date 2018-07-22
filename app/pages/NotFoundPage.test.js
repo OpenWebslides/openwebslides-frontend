@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 
 import { dummyTranslatorProps } from 'config/tests';
 
-import { PureNotFoundPage } from '../NotFoundPage';
+import { PureNotFoundPage } from './NotFoundPage';
 
 describe(`NotFoundPage`, (): void => {
 

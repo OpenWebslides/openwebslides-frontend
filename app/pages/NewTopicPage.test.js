@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 
 import { dummyTranslatorProps } from 'config/tests';
 
-import { PureNewTopicPage } from '../NewTopicPage';
+import { PureNewTopicPage } from './NewTopicPage';
 
 describe(`NewTopicPage`, (): void => {
 
