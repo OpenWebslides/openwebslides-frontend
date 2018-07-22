@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps, dummyRouterProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import { PureBackButton } from '.';
 
@@ -11,7 +11,7 @@ describe(`BackButton`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureBackButton {...dummyTranslatorProps} {...dummyRouterProps} />,
+      <PureBackButton {...dummyProviderProps.translatorProps} {...dummyProviderProps.routerProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });

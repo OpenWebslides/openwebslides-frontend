@@ -8,7 +8,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 
 import i18nextConfig from 'config/i18next';
-import { dummyTranslatorProps, dummyFormProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import UserForm, { PureUserForm } from '.';
 
@@ -24,7 +24,7 @@ describe(`UserForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureUserForm {...dummyTranslatorProps} {...dummyFormProps} />,
+      <PureUserForm {...dummyProviderProps.translatorProps} {...dummyProviderProps.formProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });

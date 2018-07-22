@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter, Route, Switch } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 
-import { dummyRouterProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import ConditionalWrapper, { PureConditionalWrapper } from '.';
 
@@ -22,7 +22,7 @@ describe(`ConditionalWrapper`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureConditionalWrapper {...dummyRouterProps} renderChildren={true}>
+      <PureConditionalWrapper {...dummyProviderProps.routerProps} renderChildren={true}>
         <p>Secure text</p>
       </PureConditionalWrapper>,
     );
@@ -85,7 +85,7 @@ describe(`ConditionalWrapper`, (): void => {
 
   it(`redirects the user to the passed redirectIfNotChildren path, when renderChildren is FALSE and a redirectIfNotChildren path is passed`, (): void => {
     const ConditionalWrapperComponent = (): React.Node => (
-      <ConditionalWrapper {...dummyRouterProps} renderChildren={false} redirectIfNotChildren="/dummyUrl">
+      <ConditionalWrapper {...dummyProviderProps.routerProps} renderChildren={false} redirectIfNotChildren="/dummyUrl">
         <p>Secure text</p>
       </ConditionalWrapper>
     );

@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { I18nextProvider } from 'react-i18next';
 
 import i18nextConfig from 'config/i18next';
-import { dummyTranslatorProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import * as m from '../model';
 
@@ -53,7 +53,7 @@ describe(`ApiDimmer`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureApiDimmer
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         requestIds={['foobar']}
         isActive={true}
       />,
@@ -64,7 +64,7 @@ describe(`ApiDimmer`, (): void => {
   it(`renders its children, when it is active`, (): void => {
     const enzymeWrapper = shallow(
       <PureApiDimmer
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         requestIds={['foobar']}
         isActive={true}
       >
@@ -77,7 +77,7 @@ describe(`ApiDimmer`, (): void => {
   it(`does not render, when it is inactive`, (): void => {
     const enzymeWrapper = shallow(
       <PureApiDimmer
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         requestIds={['foobar']}
         isActive={false}
       >

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import { PureFlashMessages } from '../FlashMessages';
 
@@ -21,7 +21,7 @@ describe(`FlashMessages`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureFlashMessages
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         flash={flash}
       />,
     );
@@ -31,7 +31,7 @@ describe(`FlashMessages`, (): void => {
   it(`renders nothing without flash`, (): void => {
     const enzymeWrapper = shallow(
       <PureFlashMessages
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         flash={null}
       />,
     );

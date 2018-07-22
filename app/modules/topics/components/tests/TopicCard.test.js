@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import { PureTopicCard } from '../TopicCard';
 
@@ -21,7 +21,7 @@ describe(`TopicCard`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureTopicCard
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         topicId="abcdefghij"
         topic={dummyTopic}
         onRemoveButtonClick={dummyOnRemoveButtonClick}

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 import contentItems from 'modules/contentItems';
 
 import { PureSlide } from '../Slide';
@@ -20,7 +20,7 @@ describe(`Slide`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureSlide
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         contentItem={dummyContentItem}
       />,
     );

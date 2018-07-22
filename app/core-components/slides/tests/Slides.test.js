@@ -3,8 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps } from 'config/tests';
-import { dummyContentItemData as dummyData } from 'lib/testResources';
+import { dummyContentItemData as dummyData, dummyProviderProps } from 'lib/testResources';
 
 import { PureSlides } from '../Slides';
 
@@ -15,7 +14,7 @@ describe(`Slides`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureSlides
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         topicId="dummyTopicId"
         contentItemTreeRootItem={dummyContentItemTreeRoot}
       />,

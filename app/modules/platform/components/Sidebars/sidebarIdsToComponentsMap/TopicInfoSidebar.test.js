@@ -3,8 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps } from 'config/tests';
-import { dummyTopicData as dummyData } from 'lib/testResources';
+import { dummyTopicData as dummyData, dummyProviderProps } from 'lib/testResources';
 import topics from 'modules/topics';
 
 import { PureTopicInfoSidebar } from './TopicInfoSidebar';
@@ -19,7 +18,7 @@ describe(`TopicInfoSidebar`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureTopicInfoSidebar {...dummyTranslatorProps} topic={dummyTopic} />,
+      <PureTopicInfoSidebar {...dummyProviderProps.translatorProps} topic={dummyTopic} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });
@@ -27,7 +26,7 @@ describe(`TopicInfoSidebar`, (): void => {
   it(`renders an empty description message, when the passed topic doesn't have a description`, (): void => {
     const dummyNoDescString = 'test.no.description.found';
     const fixedDummyTranslatorProps = {
-      ...dummyTranslatorProps,
+      ...dummyProviderProps.translatorProps,
       t: (key: ?string): string => {
         if (key === 'topics:noDescription') return dummyNoDescString;
         else return key || 'string';

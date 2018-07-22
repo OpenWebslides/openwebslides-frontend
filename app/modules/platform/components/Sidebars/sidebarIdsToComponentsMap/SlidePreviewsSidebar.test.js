@@ -3,8 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps } from 'config/tests';
-import { dummyTopicData } from 'lib/testResources';
+import { dummyTopicData, dummyProviderProps } from 'lib/testResources';
 import topics from 'modules/topics';
 
 import { PureSlidePreviewsSidebar } from './SlidePreviewsSidebar';
@@ -20,7 +19,7 @@ describe(`SlidePreviewsSidebar`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureSlidePreviewsSidebar
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         topic={dummyTopic}
       />,
     );

@@ -9,7 +9,7 @@ import { I18nextProvider } from 'react-i18next';
 
 import { InvalidArgumentError } from 'errors';
 import i18nextConfig from 'config/i18next';
-import { dummyTranslatorProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import actions from '../../actions';
 
@@ -42,7 +42,7 @@ describe(`SignupCard`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureSignupCard {...dummyTranslatorProps} onUserFormSubmit={jest.fn()} />,
+      <PureSignupCard {...dummyProviderProps.translatorProps} onUserFormSubmit={jest.fn()} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });

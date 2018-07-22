@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import { PureSimpleList } from '../SimpleList';
 
@@ -13,7 +13,7 @@ describe(`SimpleList`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureSimpleList
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         userId="abcdefghij"
         topicIds={[]}
       />,

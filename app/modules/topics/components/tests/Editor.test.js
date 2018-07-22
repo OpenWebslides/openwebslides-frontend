@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import { PureEditor } from '../Editor';
 
@@ -22,7 +22,7 @@ describe(`Editor`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureEditor
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         topicId="abcdefghij"
         topic={dummyTopic}
         onSaveButtonClick={dummyOnSaveButtonClick}

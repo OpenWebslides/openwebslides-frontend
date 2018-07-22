@@ -8,7 +8,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 
 import i18nextConfig from 'config/i18next';
-import { dummyTranslatorProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import actions from '../../../actions';
 import * as m from '../../../model';
@@ -36,7 +36,7 @@ describe(`SidebarsMenuItem`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureSidebarsMenuItem
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         sidebarId={dummySidebarId}
         isActive={false}
         handleMenuItemClick={jest.fn()}

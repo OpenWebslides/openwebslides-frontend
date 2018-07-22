@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import { PureSignupPage } from '.';
 
@@ -12,7 +12,7 @@ describe(`SignupPage`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureSignupPage
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

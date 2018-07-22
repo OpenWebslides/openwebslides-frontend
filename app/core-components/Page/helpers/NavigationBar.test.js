@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import { PureNavigationBar } from './NavigationBar';
 
@@ -12,7 +12,7 @@ describe(`NavigationBar`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureNavigationBar
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
