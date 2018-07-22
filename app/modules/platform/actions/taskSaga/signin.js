@@ -1,10 +1,10 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
-const signin = (email: string, password: string): t.SigninAction => {
+const signin = (email: string, password: string): a.SigninAction => {
   return {
-    type: t.SIGNIN,
+    type: a.SIGNIN,
     payload: {
       email,
       password,

@@ -5,7 +5,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import api from 'api';
 import platform from 'modules/platform';
 
-import * as t from '../../../actionTypes';
+import * as a from '../../../actionTypes';
 import { apiGetUserSaga, apiPostUserSaga } from '../users';
 
 describe(`users`, (): void => {
@@ -37,8 +37,8 @@ describe(`users`, (): void => {
 
       fetch.mockResponseOnce(JSON.stringify(dummyData), { status: 200 });
 
-      const dummyGetUsersAction: t.ApiGetUserAction = {
-        type: t.API_GET_USER,
+      const dummyGetUsersAction: a.ApiGetUserAction = {
+        type: a.API_GET_USER,
         payload: {
           id: '0',
         },
@@ -46,7 +46,7 @@ describe(`users`, (): void => {
 
       return expectSaga(apiGetUserSaga, dummyGetUsersAction)
         .call(api.users.get, '0', 'foobarToken')
-        .put.like({ action: { type: t.ADD_TO_STATE } })
+        .put.like({ action: { type: a.ADD_TO_STATE } })
         .run();
     });
 
@@ -57,8 +57,8 @@ describe(`users`, (): void => {
     it(`calls AuthApi.signup`, (): void => {
       fetch.mockResponseOnce(null, { status: 204 });
 
-      const dummyPostUsersAction: t.ApiPostUserAction = {
-        type: t.API_POST_USER,
+      const dummyPostUsersAction: a.ApiPostUserAction = {
+        type: a.API_POST_USER,
         payload: {
           email: 'foo@bar',
           firstName: 'Foo',

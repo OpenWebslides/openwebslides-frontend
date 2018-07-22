@@ -1,9 +1,9 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
-const signout = (): t.SignoutAction => {
-  return { type: t.SIGNOUT };
+const signout = (): a.SignoutAction => {
+  return { type: a.SIGNOUT };
 };
 
 export default signout;

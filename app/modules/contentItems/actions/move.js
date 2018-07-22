@@ -1,11 +1,11 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import type { VerticalContext } from '../model';
 
-const move = (id: string, nextContext: VerticalContext): t.MoveAction => {
+const move = (id: string, nextContext: VerticalContext): a.MoveAction => {
   return {
-    type: t.MOVE,
+    type: a.MOVE,
     payload: {
       id,
       nextContext,

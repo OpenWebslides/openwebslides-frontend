@@ -2,7 +2,7 @@
 
 import { InvalidArgumentError, NotYetImplementedError } from 'errors';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import { contentItemTypes, contextTypes } from '../model';
 import type { ContentItemType, AllPropsForAllTypes, VerticalContext } from '../model';
 
@@ -28,8 +28,8 @@ describe(`addToState`, (): void => {
   });
 
   it(`returns a contentItem ADD_TO_STATE action containing the passed props`, (): void => {
-    const expectedAction: t.AddToStateAction = {
-      type: t.ADD_TO_STATE,
+    const expectedAction: a.AddToStateAction = {
+      type: a.ADD_TO_STATE,
       payload: {
         id: dummyId,
         type: dummyPlainTextType,
@@ -68,8 +68,8 @@ describe(`addToState`, (): void => {
   });
 
   it(`trims all passed plainText string props, when the passed string props contain unnecessary whitespace`, (): void => {
-    const expectedAction: t.AddToStateAction = {
-      type: t.ADD_TO_STATE,
+    const expectedAction: a.AddToStateAction = {
+      type: a.ADD_TO_STATE,
       payload: {
         id: dummyId,
         type: dummyPlainTextType,

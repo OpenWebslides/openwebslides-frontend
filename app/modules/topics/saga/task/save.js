@@ -4,12 +4,12 @@ import { put, select } from 'redux-saga/effects';
 
 import contentItems from 'modules/contentItems';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import { apiPatchContent } from '../../actions';
 import { getById } from '../../selectors';
 import type { Topic } from '../../model';
 
-const saveSaga = function* (action: t.SaveContentAction): Generator<*, *, *> {
+const saveSaga = function* (action: a.SaveContentAction): Generator<*, *, *> {
   const {
     id,
   } = action.payload;

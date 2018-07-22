@@ -1,10 +1,10 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
-const reverseIndent = (id: string): t.ReverseIndentAction => {
+const reverseIndent = (id: string): a.ReverseIndentAction => {
   return {
-    type: t.REVERSE_INDENT,
+    type: a.REVERSE_INDENT,
     payload: {
       id,
     },

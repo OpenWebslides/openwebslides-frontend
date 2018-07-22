@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
 import actions from '.';
 
@@ -13,8 +13,8 @@ describe(`remove`, (): void => {
   });
 
   it(`returns a contentItem REMOVE action containing the passed props`, (): void => {
-    const expectedAction: t.RemoveAction = {
-      type: t.REMOVE,
+    const expectedAction: a.RemoveAction = {
+      type: a.REMOVE,
       payload: {
         id: dummyId,
       },

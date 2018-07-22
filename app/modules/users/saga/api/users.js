@@ -6,10 +6,10 @@ import { UnsupportedOperationError } from 'errors';
 import api from 'api';
 import platform from 'modules/platform';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import { addToState } from '../../actions';
 
-export const apiGetUserSaga = function* (action: t.ApiGetUserAction): Generator<*, *, *> {
+export const apiGetUserSaga = function* (action: a.ApiGetUserAction): Generator<*, *, *> {
   try {
     const { id } = action.payload;
     const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
@@ -31,7 +31,7 @@ export const apiGetUserSaga = function* (action: t.ApiGetUserAction): Generator<
   }
 };
 
-export const apiPostUserSaga = function* (action: t.ApiPostUserAction): Generator<*, *, *> {
+export const apiPostUserSaga = function* (action: a.ApiPostUserAction): Generator<*, *, *> {
   try {
     const { email, firstName, lastName, password, tosAccepted } = action.payload;
     yield call(api.users.post, email, firstName, lastName, password, tosAccepted);

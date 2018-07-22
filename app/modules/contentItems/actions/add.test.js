@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import { contentItemTypes, contextTypes } from '../model';
 import type { ContentItemType, AllPropsForAllTypes, Context } from '../model';
 
@@ -24,8 +24,8 @@ describe(`add`, (): void => {
   });
 
   it(`returns a contentItem ADD action containing the passed props`, (): void => {
-    const expectedAction: t.AddAction = {
-      type: t.ADD,
+    const expectedAction: a.AddAction = {
+      type: a.ADD,
       payload: {
         type: dummyType,
         context: dummyContext,

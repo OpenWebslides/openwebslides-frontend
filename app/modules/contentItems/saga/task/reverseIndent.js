@@ -4,13 +4,13 @@ import { put, select } from 'redux-saga/effects';
 
 import { ObjectNotFoundError } from 'errors';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
 import find from '../../lib/find';
 
-const reverseIndentSaga = function* (action: t.ReverseIndentAction): Generator<*, *, *> {
+const reverseIndentSaga = function* (action: a.ReverseIndentAction): Generator<*, *, *> {
   const { id } = action.payload;
 
   const contentItemToReverseIndent = yield select(selectors.getById, { id });

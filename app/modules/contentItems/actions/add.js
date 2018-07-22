@@ -1,15 +1,15 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import type { ContentItemType, AllPropsForAllTypes, Context } from '../model';
 
 const add = (
   type: ContentItemType,
   context: ?Context,
   propsForType: $Shape<AllPropsForAllTypes>,
-): t.AddAction => {
+): a.AddAction => {
   return {
-    type: t.ADD,
+    type: a.ADD,
     payload: {
       type,
       context,

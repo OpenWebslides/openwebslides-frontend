@@ -7,7 +7,7 @@ import api from 'api';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import actions from '../../actions';
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 import { sagas } from '..';
 
@@ -39,8 +39,8 @@ describe(`apiPostEmailToConfirmation`, (): void => {
       .provide([
         [call(api.confirmation.postEmail, dummyEmail), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(t.API_POST_EMAIL_TO_CONFIRMATION))
-      .put(apiRequestsStatus.actions.setSuccess(t.API_POST_EMAIL_TO_CONFIRMATION))
+      .put(apiRequestsStatus.actions.setPending(a.API_POST_EMAIL_TO_CONFIRMATION))
+      .put(apiRequestsStatus.actions.setSuccess(a.API_POST_EMAIL_TO_CONFIRMATION))
       .run();
   });
 
@@ -55,8 +55,8 @@ describe(`apiPostEmailToConfirmation`, (): void => {
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(t.API_POST_EMAIL_TO_CONFIRMATION))
-      .put(apiRequestsStatus.actions.setFailure(t.API_POST_EMAIL_TO_CONFIRMATION, dummyError))
+      .put(apiRequestsStatus.actions.setPending(a.API_POST_EMAIL_TO_CONFIRMATION))
+      .put(apiRequestsStatus.actions.setFailure(a.API_POST_EMAIL_TO_CONFIRMATION, dummyError))
       .run();
   });
 

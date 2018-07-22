@@ -1,11 +1,11 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 const setMultipleInState = (
   state: m.ContentItemsState,
-  action: t.SetMultipleInStateAction,
+  action: a.SetMultipleInStateAction,
 ): m.ContentItemsState => {
   if (action.payload.contentItems.length === 0) {
     return state;

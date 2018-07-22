@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
 import actions from '.';
 
@@ -8,8 +8,8 @@ describe(`setPending`, (): void => {
 
   it(`returns a SET_PENDING action`, (): void => {
     const dummyRequestId = 'foobar';
-    const expectedAction: t.SetPendingAction = {
-      type: t.SET_PENDING,
+    const expectedAction: a.SetPendingAction = {
+      type: a.SET_PENDING,
       payload: {
         requestId: dummyRequestId,
       },

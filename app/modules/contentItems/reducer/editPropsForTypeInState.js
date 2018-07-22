@@ -5,12 +5,12 @@ import _ from 'lodash';
 
 import { CorruptedInternalStateError, NotYetImplementedError, ObjectNotFoundError } from 'errors';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 const editPropsForTypeInState = (
   state: m.ContentItemsState,
-  action: t.EditPropsForTypeInStateAction,
+  action: a.EditPropsForTypeInStateAction,
 ): m.ContentItemsState => {
   const { contentItem, propsForType } = action.payload;
   const contentItemToEdit = state.byId[contentItem.id];

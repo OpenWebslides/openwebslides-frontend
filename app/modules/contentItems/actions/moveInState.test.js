@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import { contextTypes } from '../model';
 import type { VerticalContext } from '../model';
 
@@ -20,8 +20,8 @@ describe(`moveInState`, (): void => {
   });
 
   it(`returns a contentItem MOVE_IN_STATE action containing the passed props`, (): void => {
-    const expectedAction: t.MoveInStateAction = {
-      type: t.MOVE_IN_STATE,
+    const expectedAction: a.MoveInStateAction = {
+      type: a.MOVE_IN_STATE,
       payload: {
         id: dummyId,
         nextContext: dummyNextContext,

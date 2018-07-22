@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from './actionTypes';
+import * as a from './actionTypes';
 import type { User } from './model';
 
 // Reducer actions
@@ -9,11 +9,11 @@ export const addToState = (
   firstName: string,
   lastName: ?string,
   email: ?string,
-): t.AddToStateAction => {
+): a.AddToStateAction => {
   const newEmail = email != null ? email : '';
 
   return {
-    type: t.ADD_TO_STATE,
+    type: a.ADD_TO_STATE,
     payload: {
       id,
       firstName,
@@ -25,7 +25,7 @@ export const addToState = (
 
 export const setItemInState = (
   item: User,
-): t.SetItemInStateAction => {
+): a.SetItemInStateAction => {
   const {
     id,
     email,
@@ -43,7 +43,7 @@ export const setItemInState = (
   };
 
   return {
-    type: t.SET_ITEM_IN_STATE,
+    type: a.SET_ITEM_IN_STATE,
     payload: {
       item: newItem,
     },
@@ -52,9 +52,9 @@ export const setItemInState = (
 
 export const setItemsInState = (
   items: Array<User>,
-): t.SetItemsInStateAction => {
+): a.SetItemsInStateAction => {
   return {
-    type: t.SET_ITEMS_IN_STATE,
+    type: a.SET_ITEMS_IN_STATE,
     payload: {
       items,
     },
@@ -64,9 +64,9 @@ export const setItemsInState = (
 // Task saga actions
 export const get = (
   id: string,
-): t.GetAction => {
+): a.GetAction => {
   return {
-    type: t.GET,
+    type: a.GET,
     payload: {
       id,
     },
@@ -76,9 +76,9 @@ export const get = (
 // API saga actions
 export const apiGetUser = (
   id: string,
-): t.ApiGetUserAction => {
+): a.ApiGetUserAction => {
   return {
-    type: t.API_GET_USER,
+    type: a.API_GET_USER,
     payload: {
       id,
     },
@@ -91,9 +91,9 @@ export const apiPostUser = (
   lastName: ?string,
   password: string,
   tosAccepted: boolean,
-): t.ApiPostUserAction => {
+): a.ApiPostUserAction => {
   return {
-    type: t.API_POST_USER,
+    type: a.API_POST_USER,
     payload: {
       email,
       firstName,

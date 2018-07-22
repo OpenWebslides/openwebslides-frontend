@@ -1,10 +1,10 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
-const apiPostEmailToPassword = (email: string): t.ApiPostEmailToPasswordAction => {
+const apiPostEmailToPassword = (email: string): a.ApiPostEmailToPasswordAction => {
   return {
-    type: t.API_POST_EMAIL_TO_PASSWORD,
+    type: a.API_POST_EMAIL_TO_PASSWORD,
     payload: {
       email,
     },

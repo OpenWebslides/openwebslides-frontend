@@ -10,7 +10,7 @@ import {
   UnsupportedOperationError,
 } from 'errors';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 import edit from '../lib/edit';
 
@@ -71,7 +71,7 @@ const createNewContentItemFromPropsForType = (
 
 const addToState = (
   state: m.ContentItemsState,
-  action: t.AddToStateAction,
+  action: a.AddToStateAction,
 ): m.ContentItemsState => {
   let newState: m.ContentItemsState = { ...state };
 

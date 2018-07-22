@@ -7,7 +7,7 @@ import {
 } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 import edit from '../lib/edit';
 
@@ -45,8 +45,8 @@ describe(`moveInState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const moveInStateAction: t.MoveInStateAction = {
-      type: t.MOVE_IN_STATE,
+    const moveInStateAction: a.MoveInStateAction = {
+      type: a.MOVE_IN_STATE,
       payload: {
         id: dummyParagraph21.id,
         nextContext: {
@@ -91,8 +91,8 @@ describe(`moveInState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const moveInStateAction: t.MoveInStateAction = {
-      type: t.MOVE_IN_STATE,
+    const moveInStateAction: a.MoveInStateAction = {
+      type: a.MOVE_IN_STATE,
       payload: {
         id: dummyHeading2.id,
         nextContext: {
@@ -137,8 +137,8 @@ describe(`moveInState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const moveInStateAction: t.MoveInStateAction = {
-      type: t.MOVE_IN_STATE,
+    const moveInStateAction: a.MoveInStateAction = {
+      type: a.MOVE_IN_STATE,
       payload: {
         id: dummyParagraph21.id,
         nextContext: {
@@ -166,8 +166,8 @@ describe(`moveInState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const moveInStateAction: t.MoveInStateAction = {
-      type: t.MOVE_IN_STATE,
+    const moveInStateAction: a.MoveInStateAction = {
+      type: a.MOVE_IN_STATE,
       payload: {
         id: 'DefinitelyNotValidId',
         nextContext: {
@@ -195,8 +195,8 @@ describe(`moveInState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const moveInStateAction: t.MoveInStateAction = {
-      type: t.MOVE_IN_STATE,
+    const moveInStateAction: a.MoveInStateAction = {
+      type: a.MOVE_IN_STATE,
       payload: {
         id: dummyParagraph21.id,
         nextContext: {
@@ -224,8 +224,8 @@ describe(`moveInState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const moveInStateAction: t.MoveInStateAction = {
-      type: t.MOVE_IN_STATE,
+    const moveInStateAction: a.MoveInStateAction = {
+      type: a.MOVE_IN_STATE,
       payload: {
         id: dummyRoot.id,
         nextContext: {
@@ -253,8 +253,8 @@ describe(`moveInState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const moveInStateAction: t.MoveInStateAction = {
-      type: t.MOVE_IN_STATE,
+    const moveInStateAction: a.MoveInStateAction = {
+      type: a.MOVE_IN_STATE,
       payload: {
         id: dummyParagraph21.id,
         nextContext: {
@@ -282,8 +282,8 @@ describe(`moveInState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const moveInStateAction: t.MoveInStateAction = {
-      type: t.MOVE_IN_STATE,
+    const moveInStateAction: a.MoveInStateAction = {
+      type: a.MOVE_IN_STATE,
       payload: {
         id: dummyHeading2.id,
         nextContext: {
@@ -312,8 +312,8 @@ describe(`moveInState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const moveInStateAction: t.MoveInStateAction = {
-      type: t.MOVE_IN_STATE,
+    const moveInStateAction: a.MoveInStateAction = {
+      type: a.MOVE_IN_STATE,
       payload: {
         id: dummyParagraph21.id,
         nextContext: {

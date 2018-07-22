@@ -7,9 +7,9 @@ import api from 'api';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
-export const apiPostSaga = function* (action: t.ApiPostTopicAction): Generator<*, *, *> {
+export const apiPostSaga = function* (action: a.ApiPostTopicAction): Generator<*, *, *> {
   const { userId, title, description } = action.payload;
   yield put(apiRequestsStatus.actions.setPending(action.type));
 

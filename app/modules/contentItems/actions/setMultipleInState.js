@@ -1,13 +1,13 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import type { ContentItem } from '../model';
 
 const setMultipleInState = (
   contentItems: Array<ContentItem>,
-): t.SetMultipleInStateAction => {
+): a.SetMultipleInStateAction => {
   return {
-    type: t.SET_MULTIPLE_IN_STATE,
+    type: a.SET_MULTIPLE_IN_STATE,
     payload: {
       contentItems,
     },

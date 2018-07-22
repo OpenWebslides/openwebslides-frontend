@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { InvalidArgumentError, UnsupportedOperationError } from 'errors';
 import contentItems from 'modules/contentItems';
 
-import * as t from './actionTypes';
+import * as a from './actionTypes';
 import { generateId } from './model';
 import type { Topic } from './model';
 
@@ -16,7 +16,7 @@ export const addToState = (
   title: string,
   description: ?string = null,
   rootContentItemId: string,
-): t.AddToStateAction => {
+): a.AddToStateAction => {
   const newTitle = _.trim(title);
   const newDescription = (description != null) ? _.trim(description) : '';
 
@@ -25,7 +25,7 @@ export const addToState = (
   }
 
   return {
-    type: t.ADD_TO_STATE,
+    type: a.ADD_TO_STATE,
     payload: {
       id,
       userId,
@@ -40,7 +40,7 @@ export const editInState = (
   id: string,
   title: ?string = null,
   description: ?string = null,
-): t.EditInStateAction => {
+): a.EditInStateAction => {
   const newTitle = (title != null) ? _.trim(title) : null;
   const newDescription = (description != null) ? _.trim(description) : null;
 
@@ -53,7 +53,7 @@ export const editInState = (
   }
 
   return {
-    type: t.EDIT_IN_STATE,
+    type: a.EDIT_IN_STATE,
     payload: {
       id,
       title: newTitle,
@@ -64,9 +64,9 @@ export const editInState = (
 
 export const removeFromState = (
   id: string,
-): t.RemoveFromStateAction => {
+): a.RemoveFromStateAction => {
   return {
-    type: t.REMOVE_FROM_STATE,
+    type: a.REMOVE_FROM_STATE,
     payload: {
       id,
     },
@@ -75,9 +75,9 @@ export const removeFromState = (
 
 export const setItemsInState = (
   items: Array<Topic>,
-): t.SetItemsInStateAction => {
+): a.SetItemsInStateAction => {
   return {
-    type: t.SET_ITEMS_IN_STATE,
+    type: a.SET_ITEMS_IN_STATE,
     payload: {
       items,
     },
@@ -89,7 +89,7 @@ export const add = (
   userId: string,
   title: string,
   description: ?string = null,
-): t.AddAction => {
+): a.AddAction => {
   const newId = generateId();
   const newTitle = _.trim(title);
   const newDescription = (description != null) ? _.trim(description) : '';
@@ -99,7 +99,7 @@ export const add = (
   }
 
   return {
-    type: t.ADD,
+    type: a.ADD,
     payload: {
       id: newId,
       userId,
@@ -114,7 +114,7 @@ export const edit = (
   id: string,
   title: ?string = null,
   description: ?string = null,
-): t.EditAction => {
+): a.EditAction => {
   const newTitle = (title != null) ? _.trim(title) : null;
   const newDescription = (description != null) ? _.trim(description) : null;
 
@@ -127,7 +127,7 @@ export const edit = (
   }
 
   return {
-    type: t.EDIT,
+    type: a.EDIT,
     payload: {
       id,
       title: newTitle,
@@ -138,9 +138,9 @@ export const edit = (
 
 export const remove = (
   id: string,
-): t.RemoveAction => {
+): a.RemoveAction => {
   return {
-    type: t.REMOVE,
+    type: a.REMOVE,
     payload: {
       id,
     },
@@ -149,9 +149,9 @@ export const remove = (
 
 export const get = (
   id: string,
-): t.GetAction => {
+): a.GetAction => {
   return {
-    type: t.GET,
+    type: a.GET,
     payload: {
       id,
     },
@@ -160,9 +160,9 @@ export const get = (
 
 export const getAllByUserId = (
   userId: string,
-): t.GetAllByUserIdAction => {
+): a.GetAllByUserIdAction => {
   return {
-    type: t.GET_ALL_BY_USERID,
+    type: a.GET_ALL_BY_USERID,
     payload: {
       userId,
     },
@@ -171,9 +171,9 @@ export const getAllByUserId = (
 
 export const save = (
   id: string,
-): t.SaveContentAction => {
+): a.SaveContentAction => {
   return {
-    type: t.SAVE,
+    type: a.SAVE,
     payload: {
       id,
     },
@@ -182,9 +182,9 @@ export const save = (
 
 export const load = (
   id: string,
-): t.LoadContentAction => {
+): a.LoadContentAction => {
   return {
-    type: t.LOAD,
+    type: a.LOAD,
     payload: {
       id,
     },
@@ -194,9 +194,9 @@ export const load = (
 // API saga actions
 export const apiDelete = (
   id: string,
-): t.ApiDeleteTopicAction => {
+): a.ApiDeleteTopicAction => {
   return {
-    type: t.API_DELETE,
+    type: a.API_DELETE,
     payload: {
       id,
     },
@@ -205,9 +205,9 @@ export const apiDelete = (
 
 export const apiGetAllByUserId = (
   userId: string,
-): t.ApiGetAllTopicsByUserIdAction => {
+): a.ApiGetAllTopicsByUserIdAction => {
   return {
-    type: t.API_GET_ALL_BY_USERID,
+    type: a.API_GET_ALL_BY_USERID,
     payload: {
       userId,
     },
@@ -216,9 +216,9 @@ export const apiGetAllByUserId = (
 
 export const apiGet = (
   id: string,
-): t.ApiGetTopicAction => {
+): a.ApiGetTopicAction => {
   return {
-    type: t.API_GET,
+    type: a.API_GET,
     payload: {
       id,
     },
@@ -229,9 +229,9 @@ export const apiPost = (
   userId: string,
   title: string,
   description: ?string,
-): t.ApiPostTopicAction => {
+): a.ApiPostTopicAction => {
   return {
-    type: t.API_POST,
+    type: a.API_POST,
     payload: {
       userId,
       title,
@@ -243,9 +243,9 @@ export const apiPost = (
 export const apiPatchContent = (
   id: string,
   content: Array<contentItems.model.ContentItem>,
-): t.ApiPatchTopicContentAction => {
+): a.ApiPatchTopicContentAction => {
   return {
-    type: t.API_PATCH_CONTENT,
+    type: a.API_PATCH_CONTENT,
     payload: {
       id,
       content,
@@ -255,9 +255,9 @@ export const apiPatchContent = (
 
 export const apiGetContent = (
   id: string,
-): t.ApiGetTopicContentAction => {
+): a.ApiGetTopicContentAction => {
   return {
-    type: t.API_GET_CONTENT,
+    type: a.API_GET_CONTENT,
     payload: {
       id,
     },

@@ -1,11 +1,11 @@
 // @flow
 
-import * as t from './actionTypes';
+import * as a from './actionTypes';
 import type { Event, FeedState } from './model';
 
 const initialState: FeedState = {};
 
-const setEvents = (state: FeedState, action: t.SetEventsAction): FeedState => {
+const setEvents = (state: FeedState, action: a.SetEventsAction): FeedState => {
   const newEvents = {};
 
   if (action.payload.items) {
@@ -17,9 +17,9 @@ const setEvents = (state: FeedState, action: t.SetEventsAction): FeedState => {
   return newEvents;
 };
 
-const reducer = (state: FeedState = initialState, action: t.FeedAction): FeedState => {
+const reducer = (state: FeedState = initialState, action: a.FeedAction): FeedState => {
   switch (action.type) {
-    case t.SET_EVENTS:
+    case a.SET_EVENTS:
       return setEvents(state, action);
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled

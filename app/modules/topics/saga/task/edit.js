@@ -1,11 +1,11 @@
 // @flow
 import { put } from 'redux-saga/effects';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import { editInState } from '../../actions';
 
 // eslint-disable-next-line require-yield
-const editSaga = function* (action: t.EditAction): Generator<*, *, *> {
+const editSaga = function* (action: a.EditAction): Generator<*, *, *> {
   const {
     id,
     title,

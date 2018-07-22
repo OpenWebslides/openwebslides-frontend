@@ -3,14 +3,14 @@
 import _ from 'lodash';
 
 import { dummyTopicsById } from './dummyData';
-import * as t from './actionTypes';
+import * as a from './actionTypes';
 import type { Topic, TopicsState } from './model';
 
 const initialState: TopicsState = {
   byId: dummyTopicsById,
 };
 
-const addToState = (state: TopicsState, action: t.AddToStateAction): TopicsState => {
+const addToState = (state: TopicsState, action: a.AddToStateAction): TopicsState => {
   const {
     id,
   } = action.payload;
@@ -24,7 +24,7 @@ const addToState = (state: TopicsState, action: t.AddToStateAction): TopicsState
   };
 };
 
-const editInState = (state: TopicsState, action: t.EditInStateAction): TopicsState => {
+const editInState = (state: TopicsState, action: a.EditInStateAction): TopicsState => {
   const { id, title, description } = action.payload;
   let editedTopic: Topic = state.byId[id];
 
@@ -40,7 +40,7 @@ const editInState = (state: TopicsState, action: t.EditInStateAction): TopicsSta
   };
 };
 
-const removeFromState = (state: TopicsState, action: t.RemoveFromStateAction): TopicsState => {
+const removeFromState = (state: TopicsState, action: a.RemoveFromStateAction): TopicsState => {
   const { id } = action.payload;
 
   return {
@@ -49,7 +49,7 @@ const removeFromState = (state: TopicsState, action: t.RemoveFromStateAction): T
   };
 };
 
-const setItemsInState = (state: TopicsState, action: t.SetItemsInStateAction): TopicsState => {
+const setItemsInState = (state: TopicsState, action: a.SetItemsInStateAction): TopicsState => {
   const newTopics = {};
 
   if (action.payload.items) {
@@ -63,15 +63,15 @@ const setItemsInState = (state: TopicsState, action: t.SetItemsInStateAction): T
   };
 };
 
-const reducer = (state: TopicsState = initialState, action: t.TopicReducerAction): TopicsState => {
+const reducer = (state: TopicsState = initialState, action: a.TopicReducerAction): TopicsState => {
   switch (action.type) {
-    case t.ADD_TO_STATE:
+    case a.ADD_TO_STATE:
       return addToState(state, action);
-    case t.EDIT_IN_STATE:
+    case a.EDIT_IN_STATE:
       return editInState(state, action);
-    case t.REMOVE_FROM_STATE:
+    case a.REMOVE_FROM_STATE:
       return removeFromState(state, action);
-    case t.SET_ITEMS_IN_STATE:
+    case a.SET_ITEMS_IN_STATE:
       return setItemsInState(state, action);
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled

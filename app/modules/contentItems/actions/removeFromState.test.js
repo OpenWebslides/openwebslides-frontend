@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
 import actions from '.';
 
@@ -13,8 +13,8 @@ describe(`removeFromState`, (): void => {
   });
 
   it(`returns a contentItem REMOVE_FROM_STATE action containing the passed props`, (): void => {
-    const expectedAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
+    const expectedAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
       payload: {
         id: dummyId,
       },

@@ -3,7 +3,7 @@
 import { InvalidArgumentError, NotYetImplementedError, UnsupportedOperationError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import type { HeadingContentItem } from '../model';
 
 import actions from '.';
@@ -24,8 +24,8 @@ describe(`editPropsForTypeInState`, (): void => {
   });
 
   it(`returns a contentItem EDIT_PROPS_FOR_TYPE_IN_STATE action containing the passed props`, (): void => {
-    const expectedAction: t.EditPropsForTypeInStateAction = {
-      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
+    const expectedAction: a.EditPropsForTypeInStateAction = {
+      type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         contentItem: dummyContentItem,
         propsForType: dummyPlainTextProps,
@@ -53,8 +53,8 @@ describe(`editPropsForTypeInState`, (): void => {
   });
 
   it(`trims all passed plainText string props, when the contentItem's isEditing value is FALSE and the passed string props contain unnecessary whitespace`, (): void => {
-    const expectedAction: t.EditPropsForTypeInStateAction = {
-      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
+    const expectedAction: a.EditPropsForTypeInStateAction = {
+      type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         contentItem: dummyContentItem,
         propsForType: dummyPlainTextProps,
@@ -72,8 +72,8 @@ describe(`editPropsForTypeInState`, (): void => {
   it(`does not trim passed plainText string props, when the contentItem's isEditing value is TRUE and the passed string props contain unnecessary whitespace`, (): void => {
     dummyContentItem.isEditing = true;
 
-    const expectedAction: t.EditPropsForTypeInStateAction = {
-      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
+    const expectedAction: a.EditPropsForTypeInStateAction = {
+      type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         contentItem: dummyContentItem,
         propsForType: {
@@ -102,8 +102,8 @@ describe(`editPropsForTypeInState`, (): void => {
   it(`does not throw any error, when the contentItem's isEditing value is TRUE and a non-nullable plainText string prop is an empty string`, (): void => {
     dummyContentItem.isEditing = true;
 
-    const expectedAction: t.EditPropsForTypeInStateAction = {
-      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
+    const expectedAction: a.EditPropsForTypeInStateAction = {
+      type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         contentItem: dummyContentItem,
         propsForType: {

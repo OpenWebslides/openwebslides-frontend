@@ -4,13 +4,13 @@ import { put, select } from 'redux-saga/effects';
 
 import { ObjectNotFoundError } from 'errors';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import actions from '../../actions';
 import selectors from '../../selectors';
 import find from '../../lib/find';
 
 const removeAndTogglePreviousItemSaga = function* (
-  action: t.RemoveAndTogglePreviousItemAction,
+  action: a.RemoveAndTogglePreviousItemAction,
 ): Generator<*, *, *> {
   const contentItemsById = yield select(selectors.getAllById);
   const { id } = action.payload;

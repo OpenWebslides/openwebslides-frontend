@@ -5,10 +5,10 @@ import { call, put } from 'redux-saga/effects';
 import api from 'api';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 const apiDeleteToken = function* (
-  action: t.ApiDeleteTokenAction,
+  action: a.ApiDeleteTokenAction,
 ): Generator<*, *, *> {
   yield put(apiRequestsStatus.actions.setPending(action.type));
 

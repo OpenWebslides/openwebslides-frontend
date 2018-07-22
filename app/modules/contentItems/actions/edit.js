@@ -1,14 +1,14 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import type { AllPropsForAllTypes } from '../model';
 
 const edit = (
   id: string,
   propsForType: $Shape<AllPropsForAllTypes>,
-): t.EditAction => {
+): a.EditAction => {
   return {
-    type: t.EDIT,
+    type: a.EDIT,
     payload: {
       id,
       propsForType,

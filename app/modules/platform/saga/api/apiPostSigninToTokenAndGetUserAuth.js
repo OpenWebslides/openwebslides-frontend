@@ -9,11 +9,11 @@ import apiRequestsStatus from 'modules/apiRequestsStatus';
 import users from 'modules/users';
 
 import actions from '../../actions';
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 const apiPostSigninToTokenAndGetUserAuth = function* (
-  action: t.ApiPostSigninToTokenAndGetUserAuthAction,
+  action: a.ApiPostSigninToTokenAndGetUserAuthAction,
 ): Generator<*, *, *> {
   const { email, password } = action.payload;
 

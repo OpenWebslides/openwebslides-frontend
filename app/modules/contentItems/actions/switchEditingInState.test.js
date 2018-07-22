@@ -2,7 +2,7 @@
 
 import { UnsupportedOperationError } from 'errors';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
 import actions from '.';
 
@@ -17,8 +17,8 @@ describe(`switchEditingInState`, (): void => {
   });
 
   it(`returns a contentItem SWITCH_EDITING_IN_STATE action containing the passed arguments`, (): void => {
-    const expectedAction: t.SwitchEditingInStateAction = {
-      type: t.SWITCH_EDITING_IN_STATE,
+    const expectedAction: a.SwitchEditingInStateAction = {
+      type: a.SWITCH_EDITING_IN_STATE,
       payload: {
         previousEditingItemId: dummyPrevId,
         nextEditingItemId: dummyNextId,
@@ -29,15 +29,15 @@ describe(`switchEditingInState`, (): void => {
   });
 
   it(`converts undefined id values to NULL`, (): void => {
-    const expectedAction1: t.SwitchEditingInStateAction = {
-      type: t.SWITCH_EDITING_IN_STATE,
+    const expectedAction1: a.SwitchEditingInStateAction = {
+      type: a.SWITCH_EDITING_IN_STATE,
       payload: {
         previousEditingItemId: null,
         nextEditingItemId: dummyNextId,
       },
     };
-    const expectedAction2: t.SwitchEditingInStateAction = {
-      type: t.SWITCH_EDITING_IN_STATE,
+    const expectedAction2: a.SwitchEditingInStateAction = {
+      type: a.SWITCH_EDITING_IN_STATE,
       payload: {
         previousEditingItemId: dummyPrevId,
         nextEditingItemId: null,

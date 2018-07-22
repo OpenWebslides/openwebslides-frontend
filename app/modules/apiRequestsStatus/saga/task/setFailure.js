@@ -5,10 +5,10 @@ import { put } from 'redux-saga/effects';
 import { type ErrorAction } from 'types/error';
 
 import actions from '../../actions';
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-const setFailure = function* (action: t.SetFailureAction): Generator<*, *, *> {
+const setFailure = function* (action: a.SetFailureAction): Generator<*, *, *> {
   const { requestId, error } = action.payload;
   const requestStatus: m.FailureRequestStatus = {
     status: m.statusTypes.FAILURE,

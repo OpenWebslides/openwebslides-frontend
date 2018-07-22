@@ -1,12 +1,12 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
 const removeFromState = (
   id: string,
-): t.RemoveFromStateAction => {
+): a.RemoveFromStateAction => {
   return {
-    type: t.REMOVE_FROM_STATE,
+    type: a.REMOVE_FROM_STATE,
     payload: {
       id,
     },

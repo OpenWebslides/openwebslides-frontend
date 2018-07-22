@@ -2,12 +2,12 @@
 
 import { UnsupportedOperationError } from 'errors';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
 const switchEditingInState = (
   previousEditingItemId: ?string,
   nextEditingItemId: ?string,
-): t.SwitchEditingInStateAction => {
+): a.SwitchEditingInStateAction => {
   const newPreviousEditingItemId = previousEditingItemId || null;
   const newNextEditingItemId = nextEditingItemId || null;
 
@@ -16,7 +16,7 @@ const switchEditingInState = (
   }
 
   return {
-    type: t.SWITCH_EDITING_IN_STATE,
+    type: a.SWITCH_EDITING_IN_STATE,
     payload: {
       previousEditingItemId: newPreviousEditingItemId,
       nextEditingItemId: newNextEditingItemId,

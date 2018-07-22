@@ -1,14 +1,14 @@
 // @flow
 
 import reducer from '../reducer';
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import type { FeedState } from '../model';
 import { predicate } from '../model';
 
 describe(`reducer`, (): void => {
   it(`handles SET_EVENTS action`, (): void => {
-    const setEventsAction: t.SetEventsAction = {
-      type: t.SET_EVENTS,
+    const setEventsAction: a.SetEventsAction = {
+      type: a.SET_EVENTS,
       payload: {
         items: [{
           id: '1',
@@ -34,8 +34,8 @@ describe(`reducer`, (): void => {
   });
 
   it(`handles empty SET_EVENTS action`, (): void => {
-    const setEventsAction: t.SetEventsAction = {
-      type: t.SET_EVENTS,
+    const setEventsAction: a.SetEventsAction = {
+      type: a.SET_EVENTS,
       payload: {
         items: null,
       },

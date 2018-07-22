@@ -2,12 +2,12 @@
 
 import _ from 'lodash';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 const setStatusInState = (
   state: m.ApiRequestsStatusState,
-  action: t.SetStatusInStateAction,
+  action: a.SetStatusInStateAction,
 ): m.ApiRequestsStatusState => {
   const { requestId, requestStatus } = action.payload;
 

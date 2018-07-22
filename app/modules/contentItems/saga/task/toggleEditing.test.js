@@ -6,7 +6,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 import toggleEditingSaga from './toggleEditing';
@@ -42,8 +42,8 @@ describe(`toggleEditingSaga`, (): void => {
   it(`puts a SWITCH_EDITING_IN_STATE action switching the contentItem's isEditing value from TRUE to FALSE, when no explicit value was passed`, (): void => {
     dummyState.modules.contentItems.byId[dummyData.headingContentItem.id].isEditing = true;
 
-    const toggleEditingAction: t.ToggleEditingAction = {
-      type: t.TOGGLE_EDITING,
+    const toggleEditingAction: a.ToggleEditingAction = {
+      type: a.TOGGLE_EDITING,
       payload: {
         id: dummyData.headingContentItem.id,
       },
@@ -53,7 +53,7 @@ describe(`toggleEditingSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.SWITCH_EDITING_IN_STATE,
+          type: a.SWITCH_EDITING_IN_STATE,
           payload: {
             previousEditingItemId: dummyData.headingContentItem.id,
           },
@@ -63,8 +63,8 @@ describe(`toggleEditingSaga`, (): void => {
   });
 
   it(`puts a SWITCH_EDITING_IN_STATE action switching the contentItem's isEditing value from FALSE to TRUE, when no explicit value was passed`, (): void => {
-    const toggleEditingAction: t.ToggleEditingAction = {
-      type: t.TOGGLE_EDITING,
+    const toggleEditingAction: a.ToggleEditingAction = {
+      type: a.TOGGLE_EDITING,
       payload: {
         id: dummyData.headingContentItem.id,
       },
@@ -74,7 +74,7 @@ describe(`toggleEditingSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.SWITCH_EDITING_IN_STATE,
+          type: a.SWITCH_EDITING_IN_STATE,
           payload: {
             nextEditingItemId: dummyData.headingContentItem.id,
           },
@@ -84,8 +84,8 @@ describe(`toggleEditingSaga`, (): void => {
   });
 
   it(`puts a SWITCH_EDITING_IN_STATE action switching the contentItem's isEditing value to TRUE, when the passed value was TRUE`, (): void => {
-    const toggleEditingAction: t.ToggleEditingAction = {
-      type: t.TOGGLE_EDITING,
+    const toggleEditingAction: a.ToggleEditingAction = {
+      type: a.TOGGLE_EDITING,
       payload: {
         id: dummyData.headingContentItem.id,
         isEditing: true,
@@ -96,7 +96,7 @@ describe(`toggleEditingSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.SWITCH_EDITING_IN_STATE,
+          type: a.SWITCH_EDITING_IN_STATE,
           payload: {
             nextEditingItemId: dummyData.headingContentItem.id,
           },
@@ -108,8 +108,8 @@ describe(`toggleEditingSaga`, (): void => {
   it(`puts a SWITCH_EDITING_IN_STATE action switching the contentItem's isEditing value to FALSE, when the passed value was FALSE`, (): void => {
     dummyState.modules.contentItems.byId[dummyData.headingContentItem.id].isEditing = true;
 
-    const toggleEditingAction: t.ToggleEditingAction = {
-      type: t.TOGGLE_EDITING,
+    const toggleEditingAction: a.ToggleEditingAction = {
+      type: a.TOGGLE_EDITING,
       payload: {
         id: dummyData.headingContentItem.id,
         isEditing: false,
@@ -120,7 +120,7 @@ describe(`toggleEditingSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.SWITCH_EDITING_IN_STATE,
+          type: a.SWITCH_EDITING_IN_STATE,
           payload: {
             previousEditingItemId: dummyData.headingContentItem.id,
           },
@@ -132,8 +132,8 @@ describe(`toggleEditingSaga`, (): void => {
   it(`puts an EDIT action containing all the contentItem's editablePropsForType, when toggling from TRUE to FALSE`, (): void => {
     dummyState.modules.contentItems.byId[dummyData.headingContentItem.id].isEditing = true;
 
-    const toggleEditingAction: t.ToggleEditingAction = {
-      type: t.TOGGLE_EDITING,
+    const toggleEditingAction: a.ToggleEditingAction = {
+      type: a.TOGGLE_EDITING,
       payload: {
         id: dummyData.headingContentItem.id,
         isEditing: false,
@@ -144,7 +144,7 @@ describe(`toggleEditingSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.EDIT,
+          type: a.EDIT,
           payload: {
             id: dummyData.headingContentItem.id,
             propsForType: _.pick(dummyData.headingContentItem, m.editablePropsForType[dummyData.headingContentItem.type]),
@@ -155,8 +155,8 @@ describe(`toggleEditingSaga`, (): void => {
   });
 
   it(`does not put a SWITCH_EDITING_IN_STATE action, when the contentItem's new isEditing value equals the previous one`, (): void => {
-    const toggleEditingAction: t.ToggleEditingAction = {
-      type: t.TOGGLE_EDITING,
+    const toggleEditingAction: a.ToggleEditingAction = {
+      type: a.TOGGLE_EDITING,
       payload: {
         id: dummyData.headingContentItem.id,
         isEditing: false,
@@ -165,15 +165,15 @@ describe(`toggleEditingSaga`, (): void => {
 
     return expectSaga(toggleEditingSaga, toggleEditingAction)
       .withState(dummyState)
-      .not.put.actionType(t.SWITCH_EDITING_IN_STATE)
+      .not.put.actionType(a.SWITCH_EDITING_IN_STATE)
       .run();
   });
 
   it(`correctly sets the SWITCH_EDITING_IN_STATE action's previousEditingItemId, when another item was previously active`, (): void => {
     dummyState.modules.contentItems.byId[dummyData.headingContentItem2.id].isEditing = true;
 
-    const toggleEditingAction: t.ToggleEditingAction = {
-      type: t.TOGGLE_EDITING,
+    const toggleEditingAction: a.ToggleEditingAction = {
+      type: a.TOGGLE_EDITING,
       payload: {
         id: dummyData.headingContentItem.id,
       },
@@ -183,7 +183,7 @@ describe(`toggleEditingSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.SWITCH_EDITING_IN_STATE,
+          type: a.SWITCH_EDITING_IN_STATE,
           payload: {
             previousEditingItemId: dummyData.headingContentItem2.id,
             nextEditingItemId: dummyData.headingContentItem.id,
@@ -194,8 +194,8 @@ describe(`toggleEditingSaga`, (): void => {
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<*> => {
-    const toggleEditingAction: t.ToggleEditingAction = {
-      type: t.TOGGLE_EDITING,
+    const toggleEditingAction: a.ToggleEditingAction = {
+      type: a.TOGGLE_EDITING,
       payload: {
         id: 'DefinitelyNotValidId',
       },

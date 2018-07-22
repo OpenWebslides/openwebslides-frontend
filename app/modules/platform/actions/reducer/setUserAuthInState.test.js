@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 import actions from '.';
@@ -12,8 +12,8 @@ describe(`setUserAuthInState`, (): void => {
       userId: 'dummyUserId',
       apiToken: 'foobarToken',
     };
-    const expectedAction: t.SetUserAuthInStateAction = {
-      type: t.SET_USER_AUTH_IN_STATE,
+    const expectedAction: a.SetUserAuthInStateAction = {
+      type: a.SET_USER_AUTH_IN_STATE,
       payload: {
         userAuth: dummyUserAuth,
       },
@@ -23,8 +23,8 @@ describe(`setUserAuthInState`, (): void => {
   });
 
   it(`converts an auth argument of UNDEFINED to NULL`, (): void => {
-    const expectedAction: t.SetUserAuthInStateAction = {
-      type: t.SET_USER_AUTH_IN_STATE,
+    const expectedAction: a.SetUserAuthInStateAction = {
+      type: a.SET_USER_AUTH_IN_STATE,
       payload: {
         userAuth: null,
       },

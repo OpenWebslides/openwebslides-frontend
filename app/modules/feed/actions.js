@@ -1,14 +1,14 @@
 // @flow
 
-import * as t from './actionTypes';
+import * as a from './actionTypes';
 import type { Event } from './model';
 
 // Reducer actions
 export const setEventsInState = (
   items: ?Array<Event>,
-): t.SetEventsAction => {
+): a.SetEventsAction => {
   return {
-    type: t.SET_EVENTS,
+    type: a.SET_EVENTS,
     payload: {
       items,
     },
@@ -17,16 +17,16 @@ export const setEventsInState = (
 
 // Task saga actions
 export const fetch = (
-): t.FetchAction => {
+): a.FetchAction => {
   return {
-    type: t.FETCH,
+    type: a.FETCH,
   };
 };
 
 // API saga actions
 export const apiGetNotifications = (
-): t.ApiGetNotificationsAction => {
+): a.ApiGetNotificationsAction => {
   return {
-    type: t.API_GET_NOTIFICATIONS,
+    type: a.API_GET_NOTIFICATIONS,
   };
 };

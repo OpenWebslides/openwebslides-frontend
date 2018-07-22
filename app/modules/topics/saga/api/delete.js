@@ -6,10 +6,10 @@ import { UnsupportedOperationError } from 'errors';
 import api from 'api';
 import platform from 'modules/platform';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import { removeFromState } from '../../actions';
 
-export const apiDeleteSaga = function* (action: t.ApiDeleteTopicAction): Generator<*, *, *> {
+export const apiDeleteSaga = function* (action: a.ApiDeleteTopicAction): Generator<*, *, *> {
   try {
     const { id } = action.payload;
     const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);

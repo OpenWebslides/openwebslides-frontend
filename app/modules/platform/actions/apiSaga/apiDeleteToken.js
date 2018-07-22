@@ -1,10 +1,10 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
-const apiDeleteToken = (token: string): t.ApiDeleteTokenAction => {
+const apiDeleteToken = (token: string): a.ApiDeleteTokenAction => {
   return {
-    type: t.API_DELETE_TOKEN,
+    type: a.API_DELETE_TOKEN,
     payload: {
       token,
     },

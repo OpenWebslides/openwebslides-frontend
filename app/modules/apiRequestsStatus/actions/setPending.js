@@ -1,10 +1,10 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
-const setPending = (requestId: string): t.SetPendingAction => {
+const setPending = (requestId: string): a.SetPendingAction => {
   return {
-    type: t.SET_PENDING,
+    type: a.SET_PENDING,
     payload: {
       requestId,
     },

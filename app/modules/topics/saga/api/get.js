@@ -4,11 +4,11 @@ import { call, put } from 'redux-saga/effects';
 
 import api from 'api';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import type { Topic } from '../../model';
 import { addToState, setItemsInState } from '../../actions';
 
-export const apiGetSaga = function* (action: t.GetAction): Generator<*, *, *> {
+export const apiGetSaga = function* (action: a.GetAction): Generator<*, *, *> {
   try {
     const response = yield call(api.topics.get, action.payload.id);
 
@@ -30,7 +30,7 @@ export const apiGetSaga = function* (action: t.GetAction): Generator<*, *, *> {
 };
 
 export const apiGetAllByUserIdSaga = function* (
-  action: t.GetAllByUserIdAction,
+  action: a.GetAllByUserIdAction,
 ): Generator<*, *, *> {
   try {
     const response = yield call(api.topics.getAllByUserId, action.payload.userId);

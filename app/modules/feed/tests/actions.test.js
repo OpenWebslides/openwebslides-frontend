@@ -1,7 +1,7 @@
 // @flow
 
 import * as actions from '../actions';
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import { predicate } from '../model';
 
 describe(`actions`, (): void => {
@@ -21,7 +21,7 @@ describe(`actions`, (): void => {
         const action = actions.setEventsInState(items);
 
         expect(action).toEqual({
-          type: t.SET_EVENTS,
+          type: a.SET_EVENTS,
           payload: {
             items,
           },
@@ -36,7 +36,7 @@ describe(`actions`, (): void => {
         const action = actions.fetch();
 
         expect(action).toEqual({
-          type: t.FETCH,
+          type: a.FETCH,
         });
       });
     });
@@ -48,7 +48,7 @@ describe(`actions`, (): void => {
         const action = actions.apiGetNotifications();
 
         expect(action).toEqual({
-          type: t.API_GET_NOTIFICATIONS,
+          type: a.API_GET_NOTIFICATIONS,
         });
       });
     });

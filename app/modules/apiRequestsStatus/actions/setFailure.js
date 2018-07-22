@@ -1,10 +1,10 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
-const setFailure = (requestId: string, error: Error): t.SetFailureAction => {
+const setFailure = (requestId: string, error: Error): a.SetFailureAction => {
   return {
-    type: t.SET_FAILURE,
+    type: a.SET_FAILURE,
     payload: {
       requestId,
       error,

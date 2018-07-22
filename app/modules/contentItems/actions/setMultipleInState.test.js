@@ -2,7 +2,7 @@
 
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import type { ContentItem } from '../model';
 
 import actions from '.';
@@ -19,8 +19,8 @@ describe(`setMultipleInState`, (): void => {
   });
 
   it(`returns a contentItem SET_MULTIPLE_IN_STATE action containing the passed props`, (): void => {
-    const expectedAction: t.SetMultipleInStateAction = {
-      type: t.SET_MULTIPLE_IN_STATE,
+    const expectedAction: a.SetMultipleInStateAction = {
+      type: a.SET_MULTIPLE_IN_STATE,
       payload: {
         contentItems: dummyContentItems,
       },

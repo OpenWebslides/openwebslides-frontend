@@ -1,11 +1,11 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-const toggleSidebar = (sidebarId: m.SidebarId): t.ToggleSidebarAction => {
+const toggleSidebar = (sidebarId: m.SidebarId): a.ToggleSidebarAction => {
   return {
-    type: t.TOGGLE_SIDEBAR,
+    type: a.TOGGLE_SIDEBAR,
     payload: {
       sidebarId,
     },

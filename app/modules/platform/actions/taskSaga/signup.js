@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 const signup = (
   email: string,
@@ -8,9 +8,9 @@ const signup = (
   lastName: ?string,
   password: string,
   tosAccepted: boolean,
-): t.SignupAction => {
+): a.SignupAction => {
   return {
-    type: t.SIGNUP,
+    type: a.SIGNUP,
     payload: {
       email,
       firstName,

@@ -2,12 +2,12 @@
 
 import _ from 'lodash';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 const setUserAuthInState = (
   state: m.PlatformState,
-  action: t.SetUserAuthInStateAction,
+  action: a.SetUserAuthInStateAction,
 ): m.PlatformState => {
   const { userAuth } = action.payload;
 

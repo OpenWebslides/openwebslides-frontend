@@ -4,12 +4,12 @@ import _ from 'lodash';
 
 import { UnsupportedOperationError, ObjectNotFoundError } from 'errors';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 const switchEditingInState = (
   state: m.ContentItemsState,
-  action: t.SwitchEditingInStateAction,
+  action: a.SwitchEditingInStateAction,
 ): m.ContentItemsState => {
   const { previousEditingItemId, nextEditingItemId } = action.payload;
   let newState: m.ContentItemsState = { ...state };

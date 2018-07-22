@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 import actions from '.';
 
@@ -8,8 +8,8 @@ describe(`confirmEmail`, (): void => {
 
   it(`returns a platform CONFIRM_EMAIL action containing the passed props`, (): void => {
     const dummyConfirmationToken = 'foobarToken';
-    const expectedAction: t.ConfirmEmailAction = {
-      type: t.CONFIRM_EMAIL,
+    const expectedAction: a.ConfirmEmailAction = {
+      type: a.CONFIRM_EMAIL,
       payload: {
         confirmationToken: dummyConfirmationToken,
       },

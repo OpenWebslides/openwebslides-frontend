@@ -2,7 +2,7 @@
 
 import { all, takeEvery } from 'redux-saga/effects';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 import addSaga from './add';
 import editSaga from './edit';
@@ -14,13 +14,13 @@ import loadSaga from './load';
 
 const taskSaga = function* (): Generator<*, *, *> {
   yield all([
-    takeEvery(t.ADD, addSaga),
-    takeEvery(t.EDIT, editSaga),
-    takeEvery(t.GET, getSaga),
-    takeEvery(t.GET_ALL_BY_USERID, getAllSaga),
-    takeEvery(t.REMOVE, removeSaga),
-    takeEvery(t.SAVE, saveSaga),
-    takeEvery(t.LOAD, loadSaga),
+    takeEvery(a.ADD, addSaga),
+    takeEvery(a.EDIT, editSaga),
+    takeEvery(a.GET, getSaga),
+    takeEvery(a.GET_ALL_BY_USERID, getAllSaga),
+    takeEvery(a.REMOVE, removeSaga),
+    takeEvery(a.SAVE, saveSaga),
+    takeEvery(a.LOAD, loadSaga),
   ]);
 };
 

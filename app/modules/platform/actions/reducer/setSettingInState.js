@@ -1,11 +1,11 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-const setSettingInState = (keyValuePair: m.UserSetting): t.SetSettingInStateAction => {
+const setSettingInState = (keyValuePair: m.UserSetting): a.SetSettingInStateAction => {
   return {
-    type: t.SET_SETTING_IN_STATE,
+    type: a.SET_SETTING_IN_STATE,
     payload: {
       keyValuePair,
     },

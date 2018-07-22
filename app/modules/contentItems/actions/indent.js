@@ -1,10 +1,10 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
-const indent = (id: string): t.IndentAction => {
+const indent = (id: string): a.IndentAction => {
   return {
-    type: t.INDENT,
+    type: a.INDENT,
     payload: {
       id,
     },

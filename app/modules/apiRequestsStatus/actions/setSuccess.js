@@ -1,10 +1,10 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
-const setSuccess = (requestId: string, value: mixed): t.SetSuccessAction => {
+const setSuccess = (requestId: string, value: mixed): a.SetSuccessAction => {
   return {
-    type: t.SET_SUCCESS,
+    type: a.SET_SUCCESS,
     payload: {
       requestId,
       value: (value !== undefined) ? value : null,

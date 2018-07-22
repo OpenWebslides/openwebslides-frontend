@@ -2,10 +2,10 @@
 
 import { put } from 'redux-saga/effects';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import { apiGet, apiGetContent } from '../../actions';
 
-const loadSaga = function* (action: t.LoadContentAction): Generator<*, *, *> {
+const loadSaga = function* (action: a.LoadContentAction): Generator<*, *, *> {
   const {
     id,
   } = action.payload;

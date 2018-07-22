@@ -4,11 +4,11 @@ import _ from 'lodash';
 import { put, select } from 'redux-saga/effects';
 
 import actions from '../../actions';
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
-const toggleSidebar = function* (action: t.ToggleSidebarAction): Generator<*, *, *> {
+const toggleSidebar = function* (action: a.ToggleSidebarAction): Generator<*, *, *> {
   const { sidebarId } = action.payload;
   const activeSidebarIds = yield select(selectors.getSettingByKey, { key: 'activeSidebarIds' });
   let newActiveSidebarIds: $PropertyType<m.UserSettingActiveSidebarIds, 'activeSidebarIds'>;

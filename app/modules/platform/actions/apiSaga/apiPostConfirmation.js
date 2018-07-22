@@ -1,10 +1,10 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
-const apiPostConfirmation = (confirmationToken: string): t.ApiPostConfirmationAction => {
+const apiPostConfirmation = (confirmationToken: string): a.ApiPostConfirmationAction => {
   return {
-    type: t.API_POST_CONFIRMATION,
+    type: a.API_POST_CONFIRMATION,
     payload: {
       confirmationToken,
     },

@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
 import actions from '.';
 
@@ -13,8 +13,8 @@ describe(`indent`, (): void => {
   });
 
   it(`returns a contentItem INDENT action containing the passed props`, (): void => {
-    const expectedAction: t.IndentAction = {
-      type: t.INDENT,
+    const expectedAction: a.IndentAction = {
+      type: a.INDENT,
       payload: {
         id: dummyId,
       },

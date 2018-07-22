@@ -3,7 +3,7 @@
 import { InvalidArgumentError, UnsupportedOperationError } from 'errors';
 
 import * as actions from '../actions';
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
 describe(`actions`, (): void => {
 
@@ -15,8 +15,8 @@ describe(`actions`, (): void => {
       const title = 'Lorem ipsum';
       const description = 'Lorem ipsum dolor sit amet';
       const rootContentItemId = 'abcdefghij';
-      const expectedAction: t.AddToStateAction = {
-        type: t.ADD_TO_STATE,
+      const expectedAction: a.AddToStateAction = {
+        type: a.ADD_TO_STATE,
         payload: {
           id,
           userId,
@@ -26,7 +26,7 @@ describe(`actions`, (): void => {
         },
       };
       // eslint-disable-next-line
-      const generatedAction: t.AddToStateAction = ((actions.addToState(id, userId, title, description, rootContentItemId): any): t.AddToStateAction);
+      const generatedAction: a.AddToStateAction = ((actions.addToState(id, userId, title, description, rootContentItemId): any): a.AddToStateAction);
 
       expect(generatedAction.type).toEqual(expectedAction.type);
       expect(generatedAction.payload.id).toHaveLength(10);
@@ -56,8 +56,8 @@ describe(`actions`, (): void => {
       const title = 'Lorem ipsum';
       const description = null;
       const rootContentItemId = 'abcdefghij';
-      const expectedAction: t.AddToStateAction = {
-        type: t.ADD_TO_STATE,
+      const expectedAction: a.AddToStateAction = {
+        type: a.ADD_TO_STATE,
         payload: {
           id,
           userId,
@@ -67,7 +67,7 @@ describe(`actions`, (): void => {
         },
       };
       // eslint-disable-next-line
-      const generatedAction: t.AddToStateAction = ((actions.addToState(id, userId, title, description, rootContentItemId): any): t.AddToStateAction);
+      const generatedAction: a.AddToStateAction = ((actions.addToState(id, userId, title, description, rootContentItemId): any): a.AddToStateAction);
 
       expect(generatedAction.type).toEqual(expectedAction.type);
       expect(generatedAction.payload.description).toEqual(expectedAction.payload.description);
@@ -81,8 +81,8 @@ describe(`actions`, (): void => {
       const id = 'abcdefghij';
       const title = 'Lorem ipsum';
       const description = 'Lorem ipsum dolor sit amet';
-      const expectedAction: t.EditInStateAction = {
-        type: t.EDIT_IN_STATE,
+      const expectedAction: a.EditInStateAction = {
+        type: a.EDIT_IN_STATE,
         payload: {
           id,
           title,
@@ -97,8 +97,8 @@ describe(`actions`, (): void => {
       const id = 'abcdefghij';
       const title = null;
       const description = 'Lorem ipsum dolor sit amet';
-      const expectedAction: t.EditInStateAction = {
-        type: t.EDIT_IN_STATE,
+      const expectedAction: a.EditInStateAction = {
+        type: a.EDIT_IN_STATE,
         payload: {
           id,
           title,
@@ -123,8 +123,8 @@ describe(`actions`, (): void => {
       const id = 'abcdefghij';
       const title = 'Lorem ipsum';
       const description = null;
-      const expectedAction: t.EditInStateAction = {
-        type: t.EDIT_IN_STATE,
+      const expectedAction: a.EditInStateAction = {
+        type: a.EDIT_IN_STATE,
         payload: {
           id,
           title,
@@ -139,8 +139,8 @@ describe(`actions`, (): void => {
       const id = 'abcdefghij';
       const title = null;
       const description = '';
-      const expectedAction: t.EditInStateAction = {
-        type: t.EDIT_IN_STATE,
+      const expectedAction: a.EditInStateAction = {
+        type: a.EDIT_IN_STATE,
         payload: {
           id,
           title,
@@ -167,8 +167,8 @@ describe(`actions`, (): void => {
 
     it(`returns a topic REMOVE_FROM_STATE action, when parameters are valid`, (): void => {
       const id = 'abcdefghij';
-      const expectedAction: t.RemoveFromStateAction = {
-        type: t.REMOVE_FROM_STATE,
+      const expectedAction: a.RemoveFromStateAction = {
+        type: a.REMOVE_FROM_STATE,
         payload: {
           id,
         },
@@ -182,8 +182,8 @@ describe(`actions`, (): void => {
   describe(`save`, (): void => {
     it(`returns a SAVE action`, (): void => {
       const id = 'abcdefghij';
-      const expectedAction: t.SaveContentAction = {
-        type: t.SAVE,
+      const expectedAction: a.SaveContentAction = {
+        type: a.SAVE,
         payload: {
           id,
         },
@@ -196,8 +196,8 @@ describe(`actions`, (): void => {
   describe(`load`, (): void => {
     it(`returns a LOAD action`, (): void => {
       const id = 'abcdefghij';
-      const expectedAction: t.LoadContentAction = {
-        type: t.LOAD,
+      const expectedAction: a.LoadContentAction = {
+        type: a.LOAD,
         payload: {
           id,
         },
@@ -211,8 +211,8 @@ describe(`actions`, (): void => {
     it(`returns a API_PATCH_CONTENT action`, (): void => {
       const id = 'abcdefghij';
       const content = [];
-      const expectedAction: t.ApiPatchTopicContentAction = {
-        type: t.API_PATCH_CONTENT,
+      const expectedAction: a.ApiPatchTopicContentAction = {
+        type: a.API_PATCH_CONTENT,
         payload: {
           id,
           content,
@@ -226,8 +226,8 @@ describe(`actions`, (): void => {
   describe(`apiGetContent`, (): void => {
     it(`returns a API_GET_CONTENT action`, (): void => {
       const id = 'abcdefghij';
-      const expectedAction: t.ApiGetTopicContentAction = {
-        type: t.API_GET_CONTENT,
+      const expectedAction: a.ApiGetTopicContentAction = {
+        type: a.API_GET_CONTENT,
         payload: {
           id,
         },
