@@ -2,32 +2,42 @@
      User Global Variables
 *******************************/
 
-@ows_pink: #D60B52;
-@ows_purple: #3E2153;
-@ows_blue: #29235C;
+/*-------------------
+       Custom
+--------------------*/
 
-@ows_primary_color: @ows_pink;
-@ows_secondary_color: #737373;
+@owsPink: #d60b52;
+@owsPurple: #3e2153;
 
-@lightGray: #edeeee;
-@mediumGray: #a7a7a7;
-@darkGray: #4f4f4f;
 
-@primaryColor: @ows_primary_color;
+/*-------------------
+       Colors
+--------------------*/
 
-@positiveColor: @ows_primary_color;
+@primaryColor: @owsPink;
+@secondaryColor: @owsPurple;
 
-/***********************************
-     Headings in em instead of rem
 
-     rem made slide headings in
-     the sidebar too big compared
-     to other text.
-***********************************/
+/*-------------------
+       Links
+--------------------*/
 
-@h1 : unit((28 / 14), em);
-@h2 : unit((24 / 14), em);
-@h3 : unit((18 / 14), em);
-@h4 : unit((15 / 14), em);
-@h5 : unit((14 / 14), em);
+@linkColor: @owsPink;
+@linkHoverUnderline: underline;
 
+
+/*-------------------
+       Page
+--------------------*/
+
+@pageVerticalSpacing: 3rem;
+@pageHorizontalSpacing: 1.5rem;
+
+
+/*-------------------
+    Sidebars menu
+--------------------*/
+
+@sidebarsMenuWidth: 3rem;
+@sidebarsMenuShift: 0.5rem;
+@sidebarsMenuSpacing: 2rem;

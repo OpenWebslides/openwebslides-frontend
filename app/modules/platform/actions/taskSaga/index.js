@@ -6,6 +6,7 @@ import resetPassword from './resetPassword';
 import signin from './signin';
 import signout from './signout';
 import signup from './signup';
+import toggleSidebar from './toggleSidebar';
 
 const taskSagaActions = {
   confirmEmail,
@@ -14,6 +15,7 @@ const taskSagaActions = {
   signin,
   signout,
   signup,
+  toggleSidebar,
 };
 
 export default taskSagaActions;

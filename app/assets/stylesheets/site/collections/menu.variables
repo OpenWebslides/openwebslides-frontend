@@ -1,5 +1,0 @@
-/*******************************
-    User Variable Overrides
-*******************************/
-
-@secondaryBackground: @ows_purple;

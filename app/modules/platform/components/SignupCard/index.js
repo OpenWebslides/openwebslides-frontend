@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, Button } from 'semantic-ui-react';
+import { Card, Button, Icon } from 'semantic-ui-react';
 
 import { InvalidArgumentError } from 'errors';
 import UserForm, { type UserFormValues } from 'forms/UserForm';
@@ -44,7 +44,7 @@ const PureSignupCard = (props: Props): React.Node => {
   const { t, onUserFormSubmit } = props;
 
   return (
-    <Card fluid={true}>
+    <Card centered={true}>
       <Card.Content>
         <Card.Header>
           {t('platform:signupCard.title')}
@@ -56,11 +56,13 @@ const PureSignupCard = (props: Props): React.Node => {
       <Card.Content>
         <UserForm onSubmit={onUserFormSubmit}>
           <Button.Group fluid={true}>
-            <Button secondary={true} as={Link} to="/auth/signin">
-              {t('platform:signupCard.link.signin')}
-            </Button>
-            <Button primary={true} type="submit">
+            <Button primary={true} type="submit" icon={true} labelPosition="left">
+              <Icon name="user" />
               {t('platform:signupCard.button.submit')}
+            </Button>
+            <Button as={Link} to="/auth/signin" icon={true} labelPosition="left">
+              <Icon name="lock" />
+              {t('platform:signupCard.link.signin')}
             </Button>
           </Button.Group>
         </UserForm>

@@ -10,6 +10,7 @@ import resetPassword from './resetPassword';
 import signin from './signin';
 import signout from './signout';
 import signup from './signup';
+import toggleSidebar from './toggleSidebar';
 
 const taskSaga = function* (): Generator<*, *, *> {
   yield all([
@@ -19,6 +20,7 @@ const taskSaga = function* (): Generator<*, *, *> {
     takeEvery(t.SIGNIN, signin),
     takeEvery(t.SIGNOUT, signout),
     takeEvery(t.SIGNUP, signup),
+    takeEvery(t.TOGGLE_SIDEBAR, toggleSidebar),
   ]);
 };
 
@@ -29,6 +31,7 @@ const taskSagas = {
   signin,
   signout,
   signup,
+  toggleSidebar,
 };
 
 export { taskSagas };

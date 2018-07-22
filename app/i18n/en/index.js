@@ -9,7 +9,6 @@ import feed from './feed';
 import flash from './flash';
 import platform from './platform';
 import users from './users';
-import sidebar from './sidebar';
 import topics from './topics';
 
 const index = {
@@ -22,7 +21,6 @@ const index = {
   platform,
   users,
   global,
-  sidebar,
   topics,
 };
 

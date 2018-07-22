@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 
 import BackButton from 'helpers/BackButton';
 
@@ -13,10 +13,11 @@ const PureSubmitButtonGroup = (props: Props): React.Node => {
 
   return (
     <Button.Group fluid={true}>
-      <Button primary={true} type="submit">
-        {t('common:button.submit')}
-      </Button>
       <BackButton />
+      <Button type="submit" primary={true} icon={true} labelPosition="left">
+        {t('common:button.submit')}
+        <Icon name="send" />
+      </Button>
     </Button.Group>
   );
 };

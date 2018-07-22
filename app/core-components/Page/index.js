@@ -1,48 +1,29 @@
 // @flow
 
 import * as React from 'react';
-import { Grid } from 'semantic-ui-react';
 
 import NavigationBar from './helpers/NavigationBar';
 
-const GRID_COLS_COUNT = 16;
-
 type PassedProps = {|
   children: React.Node,
-  prependNode: ?React.Node,
-  appendNode: ?React.Node,
-  prependAndAppendColsCount: number,
+  className?: string,
 |};
 
-type Props = {|
-  ...PassedProps,
-|};
+type Props = {| ...PassedProps |};
 
 const PurePage = (props: Props): React.Node => {
-  const { children, prependNode, appendNode, prependAndAppendColsCount } = props;
+  const { children, className } = props;
 
   return (
-    <div>
-      <NavigationBar />
-      <div className="page-layout__grid">
-        <Grid stretched={true}>
-          { prependNode }
-          <Grid.Column width={GRID_COLS_COUNT - prependAndAppendColsCount}>
-            <div>
-              {children}
-            </div>
-          </Grid.Column>
-          { appendNode }
-        </Grid>
+    <div className={`page ${className || ''}`}>
+      <div className="page__header">
+        <NavigationBar />
+      </div>
+      <div className="page__main">
+        {children}
       </div>
     </div>
   );
-};
-
-PurePage.defaultProps = {
-  prependNode: null,
-  appendNode: null,
-  prependAndAppendColsCount: 0,
 };
 
 const Page = PurePage;

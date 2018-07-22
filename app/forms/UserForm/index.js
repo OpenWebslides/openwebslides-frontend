@@ -54,29 +54,27 @@ const PureUserForm = (props: Props): React.Node => {
           required={true}
         />
       </Form.Field>
-      <Form.Group inline={false}>
-        <Form.Field width={8}>
-          <Field
-            component={Input}
-            type="text"
-            name="firstName"
-            placeholder={t('users:forms.firstname')}
-            icon="user"
-            iconPosition="left"
-            required={true}
-          />
-        </Form.Field>
-        <Form.Field width={8}>
-          <Field
-            component={Input}
-            type="text"
-            name="lastName"
-            placeholder={t('users:forms.lastname')}
-            icon="user"
-            iconPosition="left"
-          />
-        </Form.Field>
-      </Form.Group>
+      <Form.Field>
+        <Field
+          component={Input}
+          type="text"
+          name="firstName"
+          placeholder={t('users:forms.firstname')}
+          icon="user"
+          iconPosition="left"
+          required={true}
+        />
+      </Form.Field>
+      <Form.Field>
+        <Field
+          component={Input}
+          type="text"
+          name="lastName"
+          placeholder={t('users:forms.lastname')}
+          icon="user"
+          iconPosition="left"
+        />
+      </Form.Field>
       <Form.Field>
         <Field
           component={Input}

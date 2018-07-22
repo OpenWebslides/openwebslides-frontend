@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, Button } from 'semantic-ui-react';
+import { Card, Button, Icon } from 'semantic-ui-react';
 
 import { InvalidArgumentError } from 'errors';
 import EmailAndPasswordForm, { type EmailAndPasswordFormValues } from 'forms/EmailAndPasswordForm';
@@ -37,7 +37,7 @@ const PureSigninCard = (props: Props): React.Node => {
   const { t, onEmailAndPasswordFormSubmit } = props;
 
   return (
-    <Card fluid={true}>
+    <Card centered={true}>
       <ApiDimmer requestIds={[a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH]} />
 
       <Card.Content>
@@ -51,22 +51,26 @@ const PureSigninCard = (props: Props): React.Node => {
       <Card.Content>
         <EmailAndPasswordForm onSubmit={onEmailAndPasswordFormSubmit}>
           <Button.Group fluid={true}>
-            <Button primary={true} type="submit">
-              {t('platform:signinCard.button.submit')}
-            </Button>
-            <Button secondary={true} as={Link} to="/auth/signup">
+            <Button as={Link} to="/auth/signup" icon={true} labelPosition="left">
+              <Icon name="user" />
               {t('platform:signinCard.link.signup')}
+            </Button>
+            <Button type="submit" primary={true} icon={true} labelPosition="left">
+              <Icon name="lock" />
+              {t('platform:signinCard.button.submit')}
             </Button>
           </Button.Group>
         </EmailAndPasswordForm>
       </Card.Content>
       <Card.Content>
-        <Button secondary={true} fluid={true} as={Link} to="/auth/reset">
-          {t('platform:signinCard.link.forgotPassword')}
-        </Button>
-        <Button secondary={true} fluid={true} as={Link} to="/auth/resend">
-          {t('platform:signinCard.link.resendConfirmationEmail')}
-        </Button>
+        <Button.Group fluid={true} vertical={true} basic={true}>
+          <Button as={Link} to="/auth/reset">
+            {t('platform:signinCard.link.forgotPassword')}
+          </Button>
+          <Button as={Link} to="/auth/resend">
+            {t('platform:signinCard.link.resendConfirmationEmail')}
+          </Button>
+        </Button.Group>
       </Card.Content>
     </Card>
   );

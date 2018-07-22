@@ -9,14 +9,11 @@ import { Link, withRouter } from 'react-router-dom';
 import { Form, Button } from 'semantic-ui-react';
 import type { RouterHistory } from 'react-router-dom';
 
-import { UnsupportedOperationError } from 'errors';
-import type { State } from 'types/state';
 import type { Identifier } from 'types/model';
-import platform from 'modules/platform';
 
 import { add } from '../actions';
 
-type StateProps = {|
+type PassedProps = {|
   userId: Identifier,
 |};
 
@@ -28,21 +25,9 @@ type Props = {|
   ...TranslatorProps,
   ...FormProps,
   ...$Exact<RouterHistory>,
-  ...StateProps,
+  ...PassedProps,
   ...DispatchProps,
 |};
-
-const mapStateToProps = (state: State): StateProps => {
-  const userAuth = platform.selectors.getUserAuth(state);
-
-  if (userAuth == null) {
-    throw new UnsupportedOperationError(`This shouldn't happen`);
-  }
-
-  return {
-    userId: userAuth.userId,
-  };
-};
 
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
@@ -130,7 +115,7 @@ const PureNewTopicCard = (props: Props): React.Node => {
 };
 
 const TNewTopicCard = translate()(PureNewTopicCard);
-const NewTopicCard = withRouter(connect(mapStateToProps, mapDispatchToProps)(TNewTopicCard));
+const NewTopicCard = withRouter(connect(null, mapDispatchToProps)(TNewTopicCard));
 
 export { PureNewTopicCard };
 export default NewTopicCard;

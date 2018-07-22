@@ -1,0 +1,21 @@
+/*******************************
+           .sidebars
+*******************************/
+
+.sidebars {
+  &__grid {
+    // Fill available height
+    flex-grow: 1;
+
+    // Enable flex-grow on children
+    display: flex;
+  }
+
+  &__grid-item {
+    // Equal width columns
+    flex: 1;
+
+    // Reference frame for position: absolute; on descendants
+    position: relative;
+  }
+}

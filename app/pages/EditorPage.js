@@ -3,9 +3,9 @@
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Link, Route, Switch, type ContextRouter as RouterProps } from 'react-router-dom';
-import { Grid } from 'semantic-ui-react';
 
-import Page from 'core-components/Page';
+import ContainerPage from 'core-components/ContainerPage';
+import SidebarsPage from 'core-components/SidebarsPage';
 import platform from 'modules/platform';
 import topics from 'modules/topics';
 
@@ -26,13 +26,9 @@ const PureTopicEditorForId = (props: Props): React.Node => {
   }
 
   return (
-    <React.Fragment>
-      <Grid>
-        <Grid.Column>
-          <TopicEditor topicId={topicId} />
-        </Grid.Column>
-      </Grid>
-    </React.Fragment>
+    <SidebarsPage topicId={topicId}>
+      <TopicEditor topicId={topicId} />
+    </SidebarsPage>
   );
 };
 
@@ -42,13 +38,13 @@ const DummyContent = (props: Props): React.Node => {
   const { match } = props;
 
   return (
-    <div>
-      <p>Dummy topic links:</p>
+    <ContainerPage>
+      <h1>Dummy topic links:</h1>
       <ul>
         <li><Link to={`${match.url}/feeyhnd0w0`}>Test topic 1</Link></li>
         <li><Link to={`${match.url}/exrhrl5gvy`}>Test topic 2</Link></li>
       </ul>
-    </div>
+    </ContainerPage>
   );
 };
 
@@ -56,14 +52,12 @@ const PureEditorPage = (props: Props): React.Node => {
   const { match } = props;
 
   return (
-    <Page>
-      <AuthWrapper>
-        <Switch>
-          <Route path={`${match.url}/:id`} component={TopicEditorForId} />
-          <Route component={DummyContent} />
-        </Switch>
-      </AuthWrapper>
-    </Page>
+    <AuthWrapper>
+      <Switch>
+        <Route path={`${match.url}/:id`} component={TopicEditorForId} />
+        <Route component={DummyContent} />
+      </Switch>
+    </AuthWrapper>
   );
 };
 

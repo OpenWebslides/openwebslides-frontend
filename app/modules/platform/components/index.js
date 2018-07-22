@@ -8,6 +8,9 @@ import ResendConfirmationEmailCard from './ResendConfirmationEmailCard';
 import ResetPasswordCard from './ResetPasswordCard';
 import SigninCard from './SigninCard';
 import SignupCard from './SignupCard';
+// Settings
+import SidebarsMenu from './SidebarsMenu';
+import Sidebars from './Sidebars';
 
 const components = {
   AuthWrapper,
@@ -16,6 +19,8 @@ const components = {
   ResetPasswordCard,
   SigninCard,
   SignupCard,
+  SidebarsMenu,
+  Sidebars,
 };
 
 export default components;
