@@ -9,9 +9,8 @@ import Gravatar from 'components/Gravatar';
 import { ObjectNotFoundError } from 'errors';
 import topics from 'modules/topics';
 
-import type { User } from '../model';
-import { getById } from '../selectors';
-import { GRAVATAR_SIZE_LARGE } from '../constants';
+import * as m from '../../model';
+import selectors from '../../selectors';
 
 const { SimpleList } = topics.components;
 
@@ -22,7 +21,7 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  user: User,
+  user: m.User,
 |};
 
 type Props = {|
@@ -32,7 +31,7 @@ type Props = {|
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { userId } = props;
-  const user = getById(state, userId);
+  const user = selectors.getById(state, { id: userId });
   if (user == null) throw new ObjectNotFoundError('users:user', userId);
 
   return {
@@ -45,7 +44,7 @@ const PureProfileCard = (props: Props): React.Node => {
 
   return (
     <Card>
-      <Gravatar email={user.email} size={GRAVATAR_SIZE_LARGE} />
+      <Gravatar email={user.email} isLarge={true} />
       <Card.Content>
         <Card.Header>
           {user.firstName}&nbsp;{user.lastName}

@@ -28,8 +28,8 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  getTopic: (string) => void,
-  getUser: (string) => void,
+  fetchTopic: (string) => void,
+  fetchUser: (string) => void,
 |};
 
 type Props = {|
@@ -43,7 +43,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { eventId } = props;
   const event = getById(state, eventId);
   const topic = topics.selectors.getById(state, { id: event.topicId });
-  const user = users.selectors.getById(state, event.userId);
+  const user = users.selectors.getById(state, { id: event.userId });
 
   return {
     event,
@@ -54,14 +54,14 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
-    getTopic: (id: string): void => {
+    fetchTopic: (id: string): void => {
       dispatch(
         topics.actions.get(id),
       );
     },
-    getUser: (id: string): void => {
+    fetchUser: (id: string): void => {
       dispatch(
-        users.actions.get(id),
+        users.actions.fetch(id),
       );
     },
   };
@@ -73,17 +73,17 @@ class PureEventWrapper extends React.Component<Props, State> {
       event,
       user,
       topic,
-      getTopic,
-      getUser,
+      fetchTopic,
+      fetchUser,
     } = this.props;
 
     // Request missing data from API
     if (topic == null) {
-      getTopic(event.topicId);
+      fetchTopic(event.topicId);
     }
 
     if (user == null || user.email === '') {
-      getUser(event.userId);
+      fetchUser(event.userId);
     }
   };
 
@@ -108,7 +108,7 @@ class PureEventWrapper extends React.Component<Props, State> {
       <Feed.Event>
         <Feed.Label>
           <Link to={`${USER_PROFILE_ROUTE}/${user.id}`}>
-            <Gravatar email={user.email} size={users.constants.GRAVATAR_SIZE_SMALL} />
+            <Gravatar email={user.email} />
           </Link>
         </Feed.Label>
         <Feed.Content>

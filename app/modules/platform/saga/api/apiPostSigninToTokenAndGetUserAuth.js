@@ -45,7 +45,7 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
     };
 
     // Store currentUser object in the state, so that it can be selected using userAuth.userId
-    yield put(users.actions.setItemInState(currentUser));
+    yield put(users.actions.setMultipleInState([currentUser]));
 
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
   }

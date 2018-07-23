@@ -28,7 +28,7 @@ describe(`signup`, (): void => {
     const dummyAction = actions.signup(dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted);
 
     return expectSaga(sagas.signup, dummyAction)
-      .put(users.actions.apiPostUser(dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted))
+      .put(users.actions.apiPost(dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted))
       .run();
   });
 

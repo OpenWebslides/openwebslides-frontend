@@ -5,12 +5,15 @@ import { Image } from 'semantic-ui-react';
 import _ from 'lodash';
 import md5 from 'blueimp-md5';
 
-type PassedProps = {
+type PassedProps = {|
   email: ?string,
-  size: number,
-};
+  isLarge?: boolean,
+|};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
+
+const GRAVATAR_SIZE_SMALL = 64;
+const GRAVATAR_SIZE_LARGE = 512;
 
 const hash = (email: ?string): string => {
   // toLowerCase because Gravatar says so
@@ -18,12 +21,10 @@ const hash = (email: ?string): string => {
 };
 
 const Gravatar = (props: Props): React.Node => {
-  const {
-    email,
-    size,
-  } = props;
+  const { email, isLarge } = props;
 
   const imageHash = hash(email);
+  const size = (isLarge) ? GRAVATAR_SIZE_LARGE : GRAVATAR_SIZE_SMALL;
 
   return (
     <React.Fragment>

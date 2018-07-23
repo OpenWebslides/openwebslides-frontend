@@ -55,12 +55,12 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
         userId: dummyId,
         apiToken: dummyToken,
       }))
-      .put(users.actions.setItemInState({
+      .put(users.actions.setMultipleInState([{
         id: dummyId,
         firstName: dummyFirstName,
         lastName: dummyLastName,
         email: dummyEmail,
-      }))
+      }]))
       .run();
   });
 

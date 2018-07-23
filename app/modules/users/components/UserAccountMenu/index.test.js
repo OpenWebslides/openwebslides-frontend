@@ -23,7 +23,7 @@ describe(`UserAccountMenu`, (): void => {
         {...dummyProviderProps.translatorProps}
         userId={dummyUser.id}
         user={dummyUser}
-        getUser={jest.fn()}
+        fetchUser={jest.fn()}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

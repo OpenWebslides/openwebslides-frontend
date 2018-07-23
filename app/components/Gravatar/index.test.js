@@ -11,7 +11,6 @@ describe(`Gravatar`, (): void => {
     const enzymeWrapper = shallow(
       <Gravatar
         email="cucumber.tennismatch@email.com"
-        size={42}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

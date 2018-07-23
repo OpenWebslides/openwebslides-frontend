@@ -9,9 +9,10 @@ import { Menu, Dropdown, Icon } from 'semantic-ui-react';
 import { type State } from 'types/state';
 import { USER_PROFILE_ROUTE, USER_SIGNOUT_ROUTE } from 'config/routes';
 
-import * as actions from '../../actions';
+import actions from '../../actions';
 import * as m from '../../model';
-import * as selectors from '../../selectors';
+import getFullName from '../../lib/getFullName';
+import selectors from '../../selectors';
 
 type PassedProps = {|
   userId: string,
@@ -22,7 +23,7 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  getUser: () => void,
+  fetchUser: () => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
@@ -31,23 +32,23 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { userId } = props;
 
   return {
-    user: selectors.getById(state, userId),
+    user: selectors.getById(state, { id: userId }),
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
   const { userId } = props;
   return {
-    getUser: (): void => {
-      dispatch(actions.get(userId));
+    fetchUser: (): void => {
+      dispatch(actions.fetch(userId));
     },
   };
 };
 
 class PureUserAccountMenu extends React.Component<Props> {
   componentDidMount(): void {
-    const { user, getUser } = this.props;
-    if (user == null) getUser();
+    const { user, fetchUser } = this.props;
+    if (user == null) fetchUser();
   }
 
   render(): React.Node {
@@ -58,7 +59,7 @@ class PureUserAccountMenu extends React.Component<Props> {
         <Menu.Item as={Link} to="#">
           <Icon name="bell outline" />
         </Menu.Item>
-        <Dropdown text={m.getName(user)} pointing={true} item={true}>
+        <Dropdown text={getFullName(user)} pointing={true} item={true}>
           <Dropdown.Menu>
             <Dropdown.Header>
               {t('global:navbar.account')}
