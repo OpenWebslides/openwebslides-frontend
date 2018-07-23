@@ -4,7 +4,6 @@ import _ from 'lodash';
 import { createSelector } from 'reselect';
 
 import type { State } from 'types/state';
-import type { Identifier } from 'types/model';
 
 import type { Topic, TopicsById, TopicsState } from './model';
 
@@ -23,12 +22,12 @@ export const getAll = createSelector(
   },
 );
 
-export const getById = (state: State, props: { id: Identifier }): Topic => {
+export const getById = (state: State, props: { id: string }): Topic => {
   const { id } = props;
   return _.get(getAllById(state), id, null);
 };
 
-export const getAllTopicIdsByUserId = (state: State, userId: Identifier): Array<Identifier> => {
+export const getAllTopicIdsByUserId = (state: State, userId: string): Array<string> => {
   const topicsById = getAllById(state);
 
   return (

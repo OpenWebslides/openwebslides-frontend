@@ -6,13 +6,12 @@ import { Segment } from 'semantic-ui-react';
 
 import { ObjectNotFoundError } from 'errors';
 import type { State } from 'types/state';
-import type { Identifier } from 'types/model';
 
 import type { Topic } from '../model';
 import { getById } from '../selectors';
 
 type PassedProps = {|
-  topicId: Identifier,
+  topicId: string,
 |};
 
 type StateProps = {|

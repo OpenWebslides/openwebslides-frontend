@@ -6,14 +6,14 @@ import { put, select } from 'redux-saga/effects';
 
 import { ObjectNotFoundError } from 'errors';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import actions from '../../actions';
 import { subableContentItemTypes, contextTypes } from '../../model';
 import type { SubableContentItem } from '../../model';
 import selectors from '../../selectors';
 import find from '../../lib/find';
 
-const indentSaga = function* (action: t.IndentAction): Generator<*, *, *> {
+const indentSaga = function* (action: a.IndentAction): Generator<*, *, *> {
   const { id } = action.payload;
 
   const contentItemToIndent = yield select(selectors.getById, { id });

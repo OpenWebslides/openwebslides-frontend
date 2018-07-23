@@ -1,26 +1,25 @@
 // @flow
 
-import type { Identifier } from 'types/model';
-import generateRandomString from 'lib/generate-random-string';
+import generateRandomString from 'lib/generateRandomString';
 
 const ID_LENGTH = 10;
 
 export type Topic = {
-  +id: Identifier,
-  +userId: Identifier,
+  +id: string,
+  +userId: string,
   +title: string,
   +description: ?string,
-  +rootContentItemId: Identifier,
+  +rootContentItemId: string,
 };
 
 export type TopicsById = {
-  +[topicId: Identifier]: Topic,
+  +[topicId: string]: Topic,
 };
 
 export type TopicsState = {
   +byId: TopicsById,
 };
 
-export const generateId = (): Identifier => {
+export const generateId = (): string => {
   return generateRandomString(ID_LENGTH);
 };

@@ -1,7 +1,5 @@
 // @flow
 
-import type { Identifier } from 'types/model';
-
 import * as m from '../../model';
 
 import type { FindFunctionPredicate } from './types';
@@ -9,7 +7,7 @@ import type { FindFunctionPredicate } from './types';
 const validatePredicate = (
   predicate: ?FindFunctionPredicate,
   contentItem: m.ContentItem,
-  processedItemIds: Array<Identifier>,
+  processedItemIds: Array<string>,
   contentItemsById: m.ContentItemsById,
 ): boolean => {
   if (predicate == null) {

@@ -3,7 +3,7 @@
 import { CorruptedInternalStateError, NotYetImplementedError, ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 import reducer from '.';
@@ -29,8 +29,8 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
     };
-    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
-      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
+    const editPropsForTypeInStateAction: a.EditPropsForTypeInStateAction = {
+      type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         contentItem: dummyPlainTextContentItem,
         propsForType: {
@@ -57,8 +57,8 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
     };
-    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
-      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
+    const editPropsForTypeInStateAction: a.EditPropsForTypeInStateAction = {
+      type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         contentItem: dummyPlainTextContentItem,
         propsForType: {},
@@ -77,8 +77,8 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
     };
-    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
-      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
+    const editPropsForTypeInStateAction: a.EditPropsForTypeInStateAction = {
+      type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         contentItem: dummyPlainTextContentItem,
         propsForType: {
@@ -97,8 +97,8 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {},
     };
-    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
-      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
+    const editPropsForTypeInStateAction: a.EditPropsForTypeInStateAction = {
+      type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         contentItem: dummyPlainTextContentItem,
         propsForType: {
@@ -118,8 +118,8 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
     };
-    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
-      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
+    const editPropsForTypeInStateAction: a.EditPropsForTypeInStateAction = {
+      type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         contentItem: ({
           ...dummyPlainTextContentItem,
@@ -142,8 +142,8 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
       },
     };
-    const editPropsForTypeInStateAction: t.EditPropsForTypeInStateAction = {
-      type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
+    const editPropsForTypeInStateAction: a.EditPropsForTypeInStateAction = {
+      type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
       payload: {
         contentItem: dummyData.rootContentItem,
         propsForType: {},

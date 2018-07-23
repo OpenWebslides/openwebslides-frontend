@@ -4,7 +4,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
 
-import * as t from '../../../actionTypes';
+import * as a from '../../../actionTypes';
 import { apiGetNotificationsSaga } from '../notifications';
 
 describe(` notifications`, (): void => {
@@ -45,13 +45,13 @@ describe(` notifications`, (): void => {
 
       fetch.mockResponseOnce(JSON.stringify(dummyData), { status: 200 });
 
-      const dummyGetNotificationsAction: t.ApiGetNotificationsAction = {
-        type: t.API_GET_NOTIFICATIONS,
+      const dummyGetNotificationsAction: a.ApiGetNotificationsAction = {
+        type: a.API_GET_NOTIFICATIONS,
       };
 
       return expectSaga(apiGetNotificationsSaga, dummyGetNotificationsAction)
         .call(api.notifications.getAll)
-        .put.like({ action: { type: t.SET_EVENTS } })
+        .put.like({ action: { type: a.SET_EVENTS } })
         .run();
     });
 

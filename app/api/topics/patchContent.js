@@ -3,16 +3,15 @@
  * API docs: #TODO
  */
 
-import type { Identifier } from 'types/model';
 import contentItems from 'modules/contentItems';
-import ApiRequest, { httpMethods, type ApiResponseData, type ApiToken } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 
 import { TOPICS_ENDPOINT, TOPICS_CONTENT_ENDPOINT } from '../endpoints';
 
 const patchContent = (
-  topicId: Identifier,
+  topicId: string,
   content: Array<contentItems.model.ContentItem>,
-  token: ApiToken,
+  token: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {

@@ -5,11 +5,11 @@ import { push } from 'connected-react-router';
 
 import { USER_LIBRARY_ROUTE } from 'config/routes';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import { apiPost } from '../../actions';
 
 // eslint-disable-next-line require-yield
-const addSaga = function* (action: t.AddAction): Generator<*, *, *> {
+const addSaga = function* (action: a.AddAction): Generator<*, *, *> {
   const {
     userId,
     title,

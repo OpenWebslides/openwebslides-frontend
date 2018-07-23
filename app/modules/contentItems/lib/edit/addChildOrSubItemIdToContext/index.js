@@ -2,14 +2,13 @@
 /* eslint-disable flowtype/no-weak-types, react/destructuring-assignment */
 
 import { InvalidArgumentError, ObjectNotFoundError } from 'errors';
-import type { Identifier } from 'types/model';
 import insertIntoArray from 'lib/insertIntoArray';
 
 import * as m from '../../../model';
 
 const addChildOrSubItemIdToContextByPropName = (
   context: m.VerticalContext,
-  childOrSubItemId: Identifier,
+  childOrSubItemId: string,
   contentItemsById: m.ContentItemsById,
   propName: ('childItemIds' | 'subItemIds'),
 ): m.ContentItem => {
@@ -30,7 +29,7 @@ const addChildOrSubItemIdToContextByPropName = (
 
 const addChildOrSubItemIdToContext = (
   context: m.VerticalContext,
-  childOrSubItemId: Identifier,
+  childOrSubItemId: string,
   contentItemsById: m.ContentItemsById,
 ): m.ContentItem => {
   switch (context.contextType) {

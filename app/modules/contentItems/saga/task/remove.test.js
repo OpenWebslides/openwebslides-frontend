@@ -5,7 +5,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { CorruptedInternalStateError, ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 import removeSaga from './remove';
@@ -72,8 +72,8 @@ describe(`removeSaga`, (): void => {
   });
 
   it(`puts a REMOVE_FROM_STATE action`, (): void => {
-    const dummyRemoveAction: t.RemoveAction = {
-      type: t.REMOVE,
+    const dummyRemoveAction: a.RemoveAction = {
+      type: a.REMOVE,
       payload: {
         id: dummyParagraph111.id,
       },
@@ -83,7 +83,7 @@ describe(`removeSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.REMOVE_FROM_STATE,
+          type: a.REMOVE_FROM_STATE,
           payload: {
             id: dummyParagraph111.id,
           },
@@ -93,8 +93,8 @@ describe(`removeSaga`, (): void => {
   });
 
   it(`puts MOVE actions to move its subItems to the end of the previous HEADING, when the contentItem is a HEADING and its previousSibling is also a HEADING`, (): void => {
-    const dummyRemoveAction: t.RemoveAction = {
-      type: t.REMOVE,
+    const dummyRemoveAction: a.RemoveAction = {
+      type: a.REMOVE,
       payload: {
         id: dummyHeading12.id,
       },
@@ -104,7 +104,7 @@ describe(`removeSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.MOVE,
+          type: a.MOVE,
           payload: {
             id: dummyParagraph122.id,
             nextContext: {
@@ -117,7 +117,7 @@ describe(`removeSaga`, (): void => {
       })
       .put.like({
         action: {
-          type: t.MOVE,
+          type: a.MOVE,
           payload: {
             id: dummyParagraph121.id,
             nextContext: {
@@ -130,7 +130,7 @@ describe(`removeSaga`, (): void => {
       })
       .put.like({
         action: {
-          type: t.REMOVE_FROM_STATE,
+          type: a.REMOVE_FROM_STATE,
           payload: {
             id: dummyHeading12.id,
           },
@@ -140,8 +140,8 @@ describe(`removeSaga`, (): void => {
   });
 
   it(`puts MOVE actions to move its subItems to its own previous location, when the contentItem is a HEADING and its previousSibling is not a HEADING`, (): void => {
-    const dummyRemoveAction: t.RemoveAction = {
-      type: t.REMOVE,
+    const dummyRemoveAction: a.RemoveAction = {
+      type: a.REMOVE,
       payload: {
         id: dummyHeading11.id,
       },
@@ -151,7 +151,7 @@ describe(`removeSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.MOVE,
+          type: a.MOVE,
           payload: {
             id: dummyParagraph112.id,
             nextContext: {
@@ -164,7 +164,7 @@ describe(`removeSaga`, (): void => {
       })
       .put.like({
         action: {
-          type: t.MOVE,
+          type: a.MOVE,
           payload: {
             id: dummyParagraph111.id,
             nextContext: {
@@ -177,7 +177,7 @@ describe(`removeSaga`, (): void => {
       })
       .put.like({
         action: {
-          type: t.REMOVE_FROM_STATE,
+          type: a.REMOVE_FROM_STATE,
           payload: {
             id: dummyHeading11.id,
           },
@@ -187,21 +187,21 @@ describe(`removeSaga`, (): void => {
   });
 
   it(`does not put any MOVE actions, when the contentItem is not a HEADING`, (): void => {
-    const dummyRemoveAction: t.RemoveAction = {
-      type: t.REMOVE,
+    const dummyRemoveAction: a.RemoveAction = {
+      type: a.REMOVE,
       payload: {
         id: dummyParagraph111.id,
       },
     };
     return expectSaga(removeSaga, dummyRemoveAction)
       .withState(dummyState)
-      .not.put.actionType(t.MOVE)
+      .not.put.actionType(a.MOVE)
       .run();
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<*> => {
-    const dummyRemoveAction: t.RemoveAction = {
-      type: t.REMOVE,
+    const dummyRemoveAction: a.RemoveAction = {
+      type: a.REMOVE,
       payload: {
         id: 'DefinitelyNotValidId',
       },
@@ -219,8 +219,8 @@ describe(`removeSaga`, (): void => {
   it(`throws a CorruptedInternalStateError, when the passed contentItemsById structure is corrupted`, async (): Promise<*> => {
     dummyHeading1.subItemIds = [dummyHeading12.id];
 
-    const dummyRemoveAction: t.RemoveAction = {
-      type: t.REMOVE,
+    const dummyRemoveAction: a.RemoveAction = {
+      type: a.REMOVE,
       payload: {
         id: dummyHeading11.id,
       },

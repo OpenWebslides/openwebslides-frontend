@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 import reducer, { initialState } from '.';
@@ -17,8 +17,8 @@ describe(`setUserAuthInState`, (): void => {
       ...initialState,
       userAuth: null,
     };
-    const setUserAuthInStateAction: t.SetUserAuthInStateAction = {
-      type: t.SET_USER_AUTH_IN_STATE,
+    const setUserAuthInStateAction: a.SetUserAuthInStateAction = {
+      type: a.SET_USER_AUTH_IN_STATE,
       payload: {
         userAuth: dummyUserAuth,
       },
@@ -43,8 +43,8 @@ describe(`setUserAuthInState`, (): void => {
       ...initialState,
       userAuth: dummyUserAuth,
     };
-    const setUserAuthInStateAction: t.SetUserAuthInStateAction = {
-      type: t.SET_USER_AUTH_IN_STATE,
+    const setUserAuthInStateAction: a.SetUserAuthInStateAction = {
+      type: a.SET_USER_AUTH_IN_STATE,
       payload: {
         userAuth: null,
       },
@@ -73,8 +73,8 @@ describe(`setUserAuthInState`, (): void => {
       ...initialState,
       userAuth: dummyUserAuth1,
     };
-    const setUserAuthInStateAction: t.SetUserAuthInStateAction = {
-      type: t.SET_USER_AUTH_IN_STATE,
+    const setUserAuthInStateAction: a.SetUserAuthInStateAction = {
+      type: a.SET_USER_AUTH_IN_STATE,
       payload: {
         userAuth: dummyUserAuth2,
       },
@@ -103,8 +103,8 @@ describe(`setUserAuthInState`, (): void => {
       ...initialState,
       userAuth: dummyUserAuth1,
     };
-    const setUserAuthInStateAction: t.SetUserAuthInStateAction = {
-      type: t.SET_USER_AUTH_IN_STATE,
+    const setUserAuthInStateAction: a.SetUserAuthInStateAction = {
+      type: a.SET_USER_AUTH_IN_STATE,
       payload: {
         userAuth: dummyUserAuth2,
       },

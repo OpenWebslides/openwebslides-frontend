@@ -5,8 +5,6 @@
  * contentItem tree, add/remove/move contentItems, etc.
  */
 
-import type { Identifier } from 'types/model';
-
 
 // ContextTypes ------------------------------------------------------------------------------------
 
@@ -33,7 +31,7 @@ type BaseContext = {|
   +contextType: ContextType,
   // The id of the contentItem in relation to which the context is defined;
   // i.e. the parentItem if the contextType is SUPER, etc.
-  +contextItemId: Identifier,
+  +contextItemId: string,
 |};
 
 
@@ -70,7 +68,7 @@ type ExtendedVerticalContext = {|
   // Array containing the ids of all of the siblings of the contentItem for which this context
   // is defined. Can be either the contextItem's childItemIds or its subItemIds, depending on the
   // contextType.
-  +siblingItemIds: Array<Identifier>,
+  +siblingItemIds: Array<string>,
 |};
 
 type VerticalContext = SimpleVerticalContext | ExtendedVerticalContext;

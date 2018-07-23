@@ -4,7 +4,7 @@ import { call, put } from 'redux-saga/effects';
 
 import api from 'api';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import { predicate } from '../../model';
 import type { Event } from '../../model';
 import { setEventsInState } from '../../actions';
@@ -15,7 +15,7 @@ const mapEventTypeToPredicateType = {
   topic_updated: predicate.UPDATE,
 };
 
-export const apiGetNotificationsSaga = function* (action: t.FetchAction): Generator<*, *, *> {
+export const apiGetNotificationsSaga = function* (action: a.FetchAction): Generator<*, *, *> {
   try {
     const response = yield call(api.notifications.getAll);
 

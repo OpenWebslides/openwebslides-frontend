@@ -1,7 +1,7 @@
 // @flow
 
 import reducer from '../reducer';
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import type { Topic, TopicsState } from '../model';
 import { dummyTopicsById } from '../dummyData';
 
@@ -38,8 +38,8 @@ describe(`reducer`, (): void => {
         [dummyTopic1.id]: dummyTopic1,
       },
     };
-    const addToStateAction: t.AddToStateAction = {
-      type: t.ADD_TO_STATE,
+    const addToStateAction: a.AddToStateAction = {
+      type: a.ADD_TO_STATE,
       payload: {
         id: 'klmnopqrst',
         userId: 'qsdfghjklm',
@@ -76,8 +76,8 @@ describe(`reducer`, (): void => {
         },
       },
     };
-    const editAction: t.EditInStateAction = {
-      type: t.EDIT_IN_STATE,
+    const editAction: a.EditInStateAction = {
+      type: a.EDIT_IN_STATE,
       payload: {
         id: 'abcdefghij',
         title: 'Edited test topic',
@@ -106,8 +106,8 @@ describe(`reducer`, (): void => {
         [dummyTopic2.id]: dummyTopic2,
       },
     };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
       payload: {
         id: dummyTopic2.id,
       },

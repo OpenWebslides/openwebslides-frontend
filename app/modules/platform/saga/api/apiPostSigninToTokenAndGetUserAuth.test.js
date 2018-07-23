@@ -4,19 +4,18 @@ import _ from 'lodash';
 import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
-import { type Identifier } from 'types/model';
 import api from 'api';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import users from 'modules/users';
 
 import actions from '../../actions';
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 import { sagas } from '..';
 
 describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
 
-  let dummyId: Identifier;
+  let dummyId: string;
   let dummyFirstName: string;
   let dummyLastName: string;
   let dummyEmail: string;
@@ -85,8 +84,8 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
       .provide([
         [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(t.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH))
-      .put(apiRequestsStatus.actions.setSuccess(t.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH))
+      .put(apiRequestsStatus.actions.setPending(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH))
+      .put(apiRequestsStatus.actions.setSuccess(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH))
       .run();
   });
 
@@ -101,8 +100,8 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(t.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH))
-      .put(apiRequestsStatus.actions.setFailure(t.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, dummyError))
+      .put(apiRequestsStatus.actions.setPending(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH))
+      .put(apiRequestsStatus.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, dummyError))
       .run();
   });
 
@@ -125,7 +124,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
       .provide([
         [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
       ])
-      .put.actionType(apiRequestsStatus.actions.setFailure(t.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new Error()).type)
+      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new Error()).type)
       .run();
 
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(Error);

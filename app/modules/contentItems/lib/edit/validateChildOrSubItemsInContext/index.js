@@ -2,7 +2,6 @@
 /* eslint-disable flowtype/no-weak-types, react/destructuring-assignment */
 
 import { CorruptedInternalStateError, InvalidArgumentError, ObjectNotFoundError } from 'errors';
-import type { Identifier } from 'types/model';
 
 import * as m from '../../../model';
 
@@ -19,7 +18,7 @@ const validateChildOrSubItemsInContextByPropName = (
   let siblingItem: m.ContentItem;
   let hasEncounteredHeading: boolean = false;
 
-  siblingItemIds.forEach((siblingItemId: Identifier): void => {
+  siblingItemIds.forEach((siblingItemId: string): void => {
     siblingItem = contentItemsById[siblingItemId];
     if (siblingItem == null) throw new CorruptedInternalStateError(`ContentItemsById object contains inconsistencies; this shouldn't happen.`);
 

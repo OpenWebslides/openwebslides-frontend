@@ -1,7 +1,6 @@
 // @flow
 
 import contentItems from 'modules/contentItems';
-import type { Identifier } from 'types/model';
 
 import type { Topic } from './model';
 
@@ -36,18 +35,18 @@ export const API_GET_CONTENT: 'topics/API_GET_CONTENT' = 'topics/API_GET_CONTENT
 export type AddToStateAction = {
   type: typeof ADD_TO_STATE,
   payload: {
-    id: Identifier,
-    userId: Identifier,
+    id: string,
+    userId: string,
     title: string,
     description: string,
-    rootContentItemId: Identifier,
+    rootContentItemId: string,
   },
 };
 
 export type EditInStateAction = {
   type: typeof EDIT_IN_STATE,
   payload: {
-    id: Identifier,
+    id: string,
     title: ?string,
     description: ?string,
   },
@@ -56,7 +55,7 @@ export type EditInStateAction = {
 export type RemoveFromStateAction = {
   type: typeof REMOVE_FROM_STATE,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 
@@ -71,18 +70,18 @@ export type SetItemsInStateAction = {
 export type AddAction = {
   type: typeof ADD,
   payload: {
-    id: Identifier,
-    userId: Identifier,
+    id: string,
+    userId: string,
     title: string,
     description: string,
-    rootContentItemId: Identifier,
+    rootContentItemId: string,
   },
 };
 
 export type EditAction = {
   type: typeof EDIT,
   payload: {
-    id: Identifier,
+    id: string,
     title: ?string,
     description: ?string,
   },
@@ -91,35 +90,35 @@ export type EditAction = {
 export type RemoveAction = {
   type: typeof REMOVE,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 
 export type GetAction = {
   type: typeof GET,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 
 export type GetAllByUserIdAction = {
   type: typeof GET_ALL_BY_USERID,
   payload: {
-    userId: Identifier,
+    userId: string,
   },
 };
 
 export type SaveContentAction = {
   type: typeof SAVE,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 
 export type LoadContentAction = {
   type: typeof LOAD,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 
@@ -127,28 +126,28 @@ export type LoadContentAction = {
 export type ApiDeleteTopicAction = {
   type: typeof API_DELETE,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 
 export type ApiGetTopicAction = {
   type: typeof API_GET,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 
 export type ApiGetAllTopicsByUserIdAction = {
   type: typeof API_GET_ALL_BY_USERID,
   payload: {
-    userId: Identifier,
+    userId: string,
   },
 };
 
 export type ApiPostTopicAction = {
   type: typeof API_POST,
   payload: {
-    userId: Identifier,
+    userId: string,
     title: string,
     description: ?string,
   },
@@ -157,7 +156,7 @@ export type ApiPostTopicAction = {
 export type ApiPatchTopicContentAction = {
   type: typeof API_PATCH_CONTENT,
   payload: {
-    id: Identifier,
+    id: string,
     content: Array<contentItems.model.ContentItem>,
   },
 };
@@ -165,7 +164,7 @@ export type ApiPatchTopicContentAction = {
 export type ApiGetTopicContentAction = {
   type: typeof API_GET_CONTENT,
   payload: {
-    id: Identifier,
+    id: string,
   },
 };
 

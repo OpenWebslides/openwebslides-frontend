@@ -6,7 +6,7 @@ import { Item } from 'semantic-ui-react';
 
 import topics from 'modules/topics';
 
-import Sidebar from './helpers/Sidebar';
+import Sidebar from './Sidebar';
 
 type PassedProps = {|
   topic: topics.model.Topic,

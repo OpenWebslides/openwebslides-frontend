@@ -8,7 +8,7 @@ import { type FormProps } from 'redux-form/lib/types.js.flow';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Form, Input } from 'semantic-ui-react';
 
-import SubmitButtonGroup from '../helpers/SubmitButtonGroup';
+import SubmitButtonGroup from 'components/SubmitButtonGroup';
 
 type EmailAndPasswordFormValues = {|
   email?: string,

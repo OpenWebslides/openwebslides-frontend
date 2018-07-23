@@ -7,7 +7,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import type { State } from 'types/state';
-import ConditionalWrapper from 'helpers/ConditionalWrapper';
+import ConditionalWrapper from 'components/ConditionalWrapper';
 
 import selectors from '../../selectors';
 

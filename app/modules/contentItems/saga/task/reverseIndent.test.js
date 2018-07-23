@@ -5,7 +5,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 import reverseIndentSaga from './reverseIndent';
@@ -72,8 +72,8 @@ describe(`reverseIndentSaga`, (): void => {
   });
 
   it(`puts a MOVE action whichs moves the contentItem right after its parentOrSuperItem, when it has a valid parentOrSuperItem`, (): void => {
-    const dummyReverseIndentAction: t.ReverseIndentAction = {
-      type: t.REVERSE_INDENT,
+    const dummyReverseIndentAction: a.ReverseIndentAction = {
+      type: a.REVERSE_INDENT,
       payload: {
         id: dummyParagraph122.id,
       },
@@ -82,7 +82,7 @@ describe(`reverseIndentSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.MOVE,
+          type: a.MOVE,
           payload: {
             id: dummyParagraph122.id,
             nextContext: {
@@ -97,8 +97,8 @@ describe(`reverseIndentSaga`, (): void => {
   });
 
   it(`correctly calculates the indexInSiblings for the MOVE action context`, (): void => {
-    const dummyReverseIndentAction: t.ReverseIndentAction = {
-      type: t.REVERSE_INDENT,
+    const dummyReverseIndentAction: a.ReverseIndentAction = {
+      type: a.REVERSE_INDENT,
       payload: {
         id: dummyHeading221.id,
       },
@@ -107,7 +107,7 @@ describe(`reverseIndentSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.MOVE,
+          type: a.MOVE,
           payload: {
             id: dummyHeading221.id,
             nextContext: {
@@ -122,47 +122,47 @@ describe(`reverseIndentSaga`, (): void => {
   });
 
   it(`does not put a MOVE action, when the contentItem does not have a parentOrSuperItem`, (): void => {
-    const dummyReverseIndentAction: t.ReverseIndentAction = {
-      type: t.REVERSE_INDENT,
+    const dummyReverseIndentAction: a.ReverseIndentAction = {
+      type: a.REVERSE_INDENT,
       payload: {
         id: dummyRoot.id,
       },
     };
     return expectSaga(reverseIndentSaga, dummyReverseIndentAction)
       .withState(dummyState)
-      .not.put.actionType(t.MOVE)
+      .not.put.actionType(a.MOVE)
       .run();
   });
 
   it(`does not put a MOVE action, when the contentItem's parentOrSuperItem does not have a parentOrSuperItem`, (): void => {
-    const dummyReverseIndentAction: t.ReverseIndentAction = {
-      type: t.REVERSE_INDENT,
+    const dummyReverseIndentAction: a.ReverseIndentAction = {
+      type: a.REVERSE_INDENT,
       payload: {
         id: dummyHeading2.id,
       },
     };
     return expectSaga(reverseIndentSaga, dummyReverseIndentAction)
       .withState(dummyState)
-      .not.put.actionType(t.MOVE)
+      .not.put.actionType(a.MOVE)
       .run();
   });
 
   it(`does not put a MOVE action, when the move would result in a HEADING being followed by anything other than a HEADING`, (): void => {
-    const dummyReverseIndentAction: t.ReverseIndentAction = {
-      type: t.REVERSE_INDENT,
+    const dummyReverseIndentAction: a.ReverseIndentAction = {
+      type: a.REVERSE_INDENT,
       payload: {
         id: dummyParagraph12.id,
       },
     };
     return expectSaga(reverseIndentSaga, dummyReverseIndentAction)
       .withState(dummyState)
-      .not.put.actionType(t.MOVE)
+      .not.put.actionType(a.MOVE)
       .run();
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, async (): Promise<*> => {
-    const dummyReverseIndentAction: t.ReverseIndentAction = {
-      type: t.REVERSE_INDENT,
+    const dummyReverseIndentAction: a.ReverseIndentAction = {
+      type: a.REVERSE_INDENT,
       payload: {
         id: 'DefinitelyNotValidId',
       },

@@ -4,8 +4,6 @@
  * contentItem for which the passed predicate function returns TRUE is found.
  */
 
-import type { Identifier } from 'types/model';
-
 import * as m from '../../../model';
 import validatePredicate from '../validatePredicate';
 import type { SingleFindFunction, FindFunctionPredicate, RecursiveFindFunction } from '../types';
@@ -15,7 +13,7 @@ const findFurthestRecursive = (
   contentItemsById: m.ContentItemsById,
   singleFindFunction: SingleFindFunction,
   predicate: ?FindFunctionPredicate,
-  processedItemIds: Array<Identifier>,
+  processedItemIds: Array<string>,
 ): ?m.ContentItem => {
   const singleFindResult: ?m.ContentItem = singleFindFunction(contentItem, contentItemsById);
   let furtherSingleFindResult: ?m.ContentItem = null;

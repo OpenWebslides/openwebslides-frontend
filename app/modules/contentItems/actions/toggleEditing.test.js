@@ -1,22 +1,20 @@
 // @flow
 
-import type { Identifier } from 'types/model';
-
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
 import actions from '.';
 
 describe(`toggleEditing`, (): void => {
 
-  let dummyId: Identifier;
+  let dummyId: string;
 
   beforeEach((): void => {
     dummyId = 'abcdefghijklmnopqrst';
   });
 
   it(`returns a contentItem TOGGLE_EDITING action containing the passed props`, (): void => {
-    const expectedAction: t.ToggleEditingAction = {
-      type: t.TOGGLE_EDITING,
+    const expectedAction: a.ToggleEditingAction = {
+      type: a.TOGGLE_EDITING,
       payload: {
         id: dummyId,
         isEditing: true,
@@ -27,8 +25,8 @@ describe(`toggleEditing`, (): void => {
   });
 
   it(`does not set an isEditing prop in the action payload, when the isEditing argument was not set`, (): void => {
-    const expectedAction: t.ToggleEditingAction = {
-      type: t.TOGGLE_EDITING,
+    const expectedAction: a.ToggleEditingAction = {
+      type: a.TOGGLE_EDITING,
       payload: {
         id: dummyId,
       },

@@ -8,7 +8,6 @@ import { translate, type TranslatorProps } from 'react-i18next';
 
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import type { State } from 'types/state';
-import type { Identifier } from 'types/model';
 import { ObjectNotFoundError } from 'errors';
 
 import { getById } from '../selectors';
@@ -16,7 +15,7 @@ import type { Topic } from '../model';
 import { remove } from '../actions';
 
 type PassedProps = {|
-  topicId: Identifier,
+  topicId: string,
 |};
 
 type StateProps = {|

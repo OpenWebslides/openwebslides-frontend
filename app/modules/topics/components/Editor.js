@@ -5,11 +5,9 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Button, Header } from 'semantic-ui-react';
 
-import FlashMessages from 'core-components/flash/FlashMessages';
 import contentItems from 'modules/contentItems';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import type { State } from 'types/state';
-import type { Identifier } from 'types/model';
 
 import type { Topic } from '../model';
 import { getById } from '../selectors';
@@ -22,7 +20,7 @@ import {
 const { ApiDimmer } = apiRequestsStatus.components;
 
 type PassedProps = {|
-  topicId: Identifier,
+  topicId: string,
 |};
 
 type StateProps = {|
@@ -30,8 +28,8 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  onSaveButtonClick: (Identifier) => void,
-  onLoadButtonClick: (Identifier) => void,
+  onSaveButtonClick: (string) => void,
+  onLoadButtonClick: (string) => void,
 |};
 
 type Props = {|
@@ -52,10 +50,10 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
-    onSaveButtonClick: (id: Identifier): void => {
+    onSaveButtonClick: (id: string): void => {
       dispatch(save(id));
     },
-    onLoadButtonClick: (id: Identifier): void => {
+    onLoadButtonClick: (id: string): void => {
       dispatch(load(id));
     },
   };
@@ -98,8 +96,6 @@ class PureEditor extends React.Component<Props> {
     return (
       <div>
         <Header as="h1">{topic.title}</Header>
-
-        <FlashMessages />
 
         <ApiDimmer requestIds={[API_GET_CONTENT]}>{t('editor:api.load.pending')}</ApiDimmer>
         <ApiDimmer requestIds={[API_PATCH_CONTENT]}>{t('editor:api.save.pending')}</ApiDimmer>

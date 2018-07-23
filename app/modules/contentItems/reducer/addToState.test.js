@@ -3,7 +3,7 @@
 import { InvalidArgumentError, NotYetImplementedError, UnsupportedOperationError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 import edit from '../lib/edit';
 
@@ -49,8 +49,8 @@ describe(`ADD_TO_STATE`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const addToStateAction: t.AddToStateAction = {
-      type: t.ADD_TO_STATE,
+    const addToStateAction: a.AddToStateAction = {
+      type: a.ADD_TO_STATE,
       payload: {
         id: dummyNewHeading.id,
         type: m.contentItemTypes.HEADING,
@@ -96,8 +96,8 @@ describe(`ADD_TO_STATE`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const addToStateAction: t.AddToStateAction = {
-      type: t.ADD_TO_STATE,
+    const addToStateAction: a.AddToStateAction = {
+      type: a.ADD_TO_STATE,
       payload: {
         id: dummyNewParagraph.id,
         type: m.contentItemTypes.PARAGRAPH,
@@ -143,8 +143,8 @@ describe(`ADD_TO_STATE`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const addToStateAction: t.AddToStateAction = {
-      type: t.ADD_TO_STATE,
+    const addToStateAction: a.AddToStateAction = {
+      type: a.ADD_TO_STATE,
       payload: {
         id: dummyNewRoot.id,
         type: m.contentItemTypes.ROOT,
@@ -183,8 +183,8 @@ describe(`ADD_TO_STATE`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const addToStateAction: t.AddToStateAction = {
-      type: t.ADD_TO_STATE,
+    const addToStateAction: a.AddToStateAction = {
+      type: a.ADD_TO_STATE,
       payload: {
         id: dummyNewParagraph.id,
         type: m.contentItemTypes.PARAGRAPH,
@@ -225,8 +225,8 @@ describe(`ADD_TO_STATE`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const addToStateAction: t.AddToStateAction = {
-      type: t.ADD_TO_STATE,
+    const addToStateAction: a.AddToStateAction = {
+      type: a.ADD_TO_STATE,
       payload: {
         id: dummyNewParagraph.id,
         type: m.contentItemTypes.PARAGRAPH,
@@ -269,7 +269,7 @@ describe(`ADD_TO_STATE`, (): void => {
       },
     };
     const addToStateAction: any = {
-      type: t.ADD_TO_STATE,
+      type: a.ADD_TO_STATE,
       payload: {
         id: 'abcdefghijklmnopqrst',
         type: 'DEFINITELY_NOT_A_VALID_TYPE',
@@ -299,7 +299,7 @@ describe(`ADD_TO_STATE`, (): void => {
       },
     };
     const addToStateAction: any = {
-      type: t.ADD_TO_STATE,
+      type: a.ADD_TO_STATE,
       payload: {
         id: dummyNewParagraph.id,
         type: m.contentItemTypes.PARAGRAPH,
@@ -326,8 +326,8 @@ describe(`ADD_TO_STATE`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const addToStateAction: t.AddToStateAction = {
-      type: t.ADD_TO_STATE,
+    const addToStateAction: a.AddToStateAction = {
+      type: a.ADD_TO_STATE,
       payload: {
         id: dummyHeading2.id,
         type: m.contentItemTypes.HEADING,
@@ -360,8 +360,8 @@ describe(`ADD_TO_STATE`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const addToStateAction: t.AddToStateAction = {
-      type: t.ADD_TO_STATE,
+    const addToStateAction: a.AddToStateAction = {
+      type: a.ADD_TO_STATE,
       payload: {
         id: dummyNewHeading.id,
         type: m.contentItemTypes.HEADING,
@@ -397,8 +397,8 @@ describe(`ADD_TO_STATE`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
     };
-    const addToStateAction: t.AddToStateAction = {
-      type: t.ADD_TO_STATE,
+    const addToStateAction: a.AddToStateAction = {
+      type: a.ADD_TO_STATE,
       payload: {
         id: 'abcdefghijklmnopqrst',
         type: m.contentItemTypes.LIST,

@@ -8,7 +8,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 
 import i18nextConfig from 'config/i18next';
-import { dummyTranslatorProps, dummyRouterProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 import { InvalidArgumentError } from 'errors';
 import platform from 'modules/platform';
 
@@ -42,11 +42,11 @@ describe(`ConfirmEmailPage`, (): void => {
 
   it(`renders without errors`, (): void => {
     const fixedDummyRouterProps = {
-      ...dummyRouterProps,
+      ...dummyProviderProps.routerProps,
       match: {
-        ...dummyRouterProps.match,
+        ...dummyProviderProps.routerProps.match,
         params: {
-          ...dummyRouterProps.match.params,
+          ...dummyProviderProps.routerProps.match.params,
           confirmationToken: dummyConfirmationToken,
         },
       },
@@ -54,7 +54,7 @@ describe(`ConfirmEmailPage`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureConfirmEmailPage
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         {...fixedDummyRouterProps}
         confirmEmail={dummyConfirmEmail}
       />,
@@ -64,11 +64,11 @@ describe(`ConfirmEmailPage`, (): void => {
 
   it(`dispatches a confirmEmail() action with the passed confirmationToken`, (): void => {
     const fixedDummyRouterProps = {
-      ...dummyRouterProps,
+      ...dummyProviderProps.routerProps,
       match: {
-        ...dummyRouterProps.match,
+        ...dummyProviderProps.routerProps.match,
         params: {
-          ...dummyRouterProps.match.params,
+          ...dummyProviderProps.routerProps.match.params,
           confirmationToken: dummyConfirmationToken,
         },
       },
@@ -92,8 +92,8 @@ describe(`ConfirmEmailPage`, (): void => {
     expect((): void => {
       shallow(
         <PureConfirmEmailPage
-          {...dummyTranslatorProps}
-          {...dummyRouterProps}
+          {...dummyProviderProps.translatorProps}
+          {...dummyProviderProps.routerProps}
           confirmEmail={dummyConfirmEmail}
         />,
       );

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Grid } from 'semantic-ui-react';
 
-import ContainerPage from 'core-components/ContainerPage';
+import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import feed from 'modules/feed';
 import platform from 'modules/platform';
 
@@ -18,7 +18,7 @@ const PureHomePage = (props: Props): React.Node => {
 
   return (
     <AuthWrapper>
-      <ContainerPage>
+      <ContainerPageWrapper>
         <Grid.Row>
           <Grid padded="vertically">
             <Grid.Column>
@@ -27,7 +27,7 @@ const PureHomePage = (props: Props): React.Node => {
             </Grid.Column>
           </Grid>
         </Grid.Row>
-      </ContainerPage>
+      </ContainerPageWrapper>
     </AuthWrapper>
   );
 };

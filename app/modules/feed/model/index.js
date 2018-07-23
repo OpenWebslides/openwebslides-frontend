@@ -1,7 +1,5 @@
 // @flow
 
-import type { Identifier } from 'types/model';
-
 import {
   predicate,
 } from './predicate';
@@ -10,9 +8,9 @@ import type {
 } from './predicate';
 
 export type Event = {
-  +id: Identifier,
-  +userId: Identifier,
-  +topicId: Identifier,
+  +id: string,
+  +userId: string,
+  +topicId: string,
   +predicate: Predicate,
   +timestamp: number,
 };

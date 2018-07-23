@@ -8,12 +8,12 @@ import api from 'api';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 export const apiPatchContentSaga = function* (
-  action: t.ApiPatchTopicContentAction,
+  action: a.ApiPatchTopicContentAction,
 ): Generator<*, *, *> {
-  yield put(apiRequestsStatus.actions.setPending(t.API_PATCH_CONTENT));
+  yield put(apiRequestsStatus.actions.setPending(a.API_PATCH_CONTENT));
 
   try {
     const { id, content } = action.payload;
@@ -25,11 +25,11 @@ export const apiPatchContentSaga = function* (
 
     // #TODO what's the point of this? @Florian
     // yield put(setTokenInState(response.token));
-    yield put(apiRequestsStatus.actions.setSuccess(t.API_PATCH_CONTENT));
+    yield put(apiRequestsStatus.actions.setSuccess(a.API_PATCH_CONTENT));
     yield put(flashMessage('editor:api.save.success'));
   }
   catch (error) {
-    yield put(apiRequestsStatus.actions.setFailure(t.API_PATCH_CONTENT, error));
+    yield put(apiRequestsStatus.actions.setFailure(a.API_PATCH_CONTENT, error));
     yield put(flashErrorMessage('editor:api.save.failure'));
   }
 };

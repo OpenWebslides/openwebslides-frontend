@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 import reducer from '.';
@@ -13,8 +13,8 @@ describe(`setStatusInState`, (): void => {
         status: m.statusTypes.PENDING,
       },
     };
-    const setStatusInStateAction: t.SetStatusInStateAction = {
-      type: t.SET_STATUS_IN_STATE,
+    const setStatusInStateAction: a.SetStatusInStateAction = {
+      type: a.SET_STATUS_IN_STATE,
       payload: {
         requestId: 'newId',
         requestStatus: {
@@ -42,8 +42,8 @@ describe(`setStatusInState`, (): void => {
         status: m.statusTypes.PENDING,
       },
     };
-    const setStatusInStateAction: t.SetStatusInStateAction = {
-      type: t.SET_STATUS_IN_STATE,
+    const setStatusInStateAction: a.SetStatusInStateAction = {
+      type: a.SET_STATUS_IN_STATE,
       payload: {
         requestId: 'existingId',
         requestStatus: {
@@ -72,8 +72,8 @@ describe(`setStatusInState`, (): void => {
         value: { foo: 'bar' },
       },
     };
-    const setStatusInStateAction: t.SetStatusInStateAction = {
-      type: t.SET_STATUS_IN_STATE,
+    const setStatusInStateAction: a.SetStatusInStateAction = {
+      type: a.SET_STATUS_IN_STATE,
       payload: {
         requestId: 'existingId',
         requestStatus: {

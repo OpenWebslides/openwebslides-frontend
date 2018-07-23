@@ -4,17 +4,16 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
-import { type ApiToken } from 'lib/ApiRequest';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import actions from '../../actions';
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 import { sagas } from '..';
 
 describe(`apiDeleteToken`, (): void => {
 
-  let dummyToken: ApiToken;
+  let dummyToken: string;
 
   beforeEach((): void => {
     dummyToken = 'foobarToken';
@@ -40,8 +39,8 @@ describe(`apiDeleteToken`, (): void => {
       .provide([
         [call(api.token.delete, dummyToken), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(t.API_DELETE_TOKEN))
-      .put(apiRequestsStatus.actions.setSuccess(t.API_DELETE_TOKEN))
+      .put(apiRequestsStatus.actions.setPending(a.API_DELETE_TOKEN))
+      .put(apiRequestsStatus.actions.setSuccess(a.API_DELETE_TOKEN))
       .run();
   });
 
@@ -56,8 +55,8 @@ describe(`apiDeleteToken`, (): void => {
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(t.API_DELETE_TOKEN))
-      .put(apiRequestsStatus.actions.setFailure(t.API_DELETE_TOKEN, dummyError))
+      .put(apiRequestsStatus.actions.setPending(a.API_DELETE_TOKEN))
+      .put(apiRequestsStatus.actions.setFailure(a.API_DELETE_TOKEN, dummyError))
       .run();
   });
 

@@ -5,7 +5,7 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import { NotYetImplementedError, ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
@@ -49,8 +49,8 @@ describe(`editSaga`, (): void => {
   });
 
   it(`puts an EDIT_PROPS_FOR_TYPE_IN_STATE action`, (): void => {
-    const dummyEditAction: $Exact<t.EditAction> = {
-      type: t.EDIT,
+    const dummyEditAction: $Exact<a.EditAction> = {
+      type: a.EDIT,
       payload: {
         id: dummyParagraph11.id,
         propsForType: {
@@ -62,7 +62,7 @@ describe(`editSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.EDIT_PROPS_FOR_TYPE_IN_STATE,
+          type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
           payload: {
             contentItem: dummyParagraph11,
             propsForType: {
@@ -75,8 +75,8 @@ describe(`editSaga`, (): void => {
   });
 
   it(`puts a REMOVE action, when a plainText contentItem's isEditing state is FALSE and its text property is being set to an empty string`, (): void => {
-    const dummyEditAction: $Exact<t.EditAction> = {
-      type: t.EDIT,
+    const dummyEditAction: $Exact<a.EditAction> = {
+      type: a.EDIT,
       payload: {
         id: dummyParagraph11.id,
         propsForType: {
@@ -88,7 +88,7 @@ describe(`editSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.REMOVE,
+          type: a.REMOVE,
           payload: {
             id: dummyParagraph11.id,
           },
@@ -100,8 +100,8 @@ describe(`editSaga`, (): void => {
   it(`does not put a REMOVE action, when a plainText contentItem's isEditing state is TRUE and its text property is being set to an empty string`, (): void => {
     dummyParagraph11.isEditing = true;
 
-    const dummyEditAction: $Exact<t.EditAction> = {
-      type: t.EDIT,
+    const dummyEditAction: $Exact<a.EditAction> = {
+      type: a.EDIT,
       payload: {
         id: dummyParagraph11.id,
         propsForType: {
@@ -111,14 +111,14 @@ describe(`editSaga`, (): void => {
     };
     return expectSaga(editSaga, dummyEditAction)
       .withState(dummyState)
-      .not.put.actionType(t.REMOVE)
+      .not.put.actionType(a.REMOVE)
       .run();
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, (): void => {
     const dummyInvalidId = 'ExtremelyUnlikelyIdX';
-    const dummyEditAction: $Exact<t.EditAction> = {
-      type: t.EDIT,
+    const dummyEditAction: $Exact<a.EditAction> = {
+      type: a.EDIT,
       payload: {
         id: dummyInvalidId,
         propsForType: {
@@ -135,8 +135,8 @@ describe(`editSaga`, (): void => {
   });
 
   it(`temporarily throws a NotYetImplementedError, when the contentItem's type is not a plainTextContentItemType`, (): void => {
-    const dummyEditAction: $Exact<t.EditAction> = {
-      type: t.EDIT,
+    const dummyEditAction: $Exact<a.EditAction> = {
+      type: a.EDIT,
       payload: {
         id: dummyRoot.id,
         isEditing: false,

@@ -6,7 +6,6 @@
  */
 
 import { CorruptedInternalStateError } from 'errors';
-import type { Identifier } from 'types/model';
 
 import * as m from '../../../model';
 import type { MultipleFindFunction } from '../types';
@@ -26,7 +25,7 @@ const findAllChildOrSubItems: MultipleFindFunction = (
     allChildOrSubItemIds.push(...((contentItem: any): m.SubableContentItem).subItemIds);
   }
 
-  return allChildOrSubItemIds.map((childOrSubItemId: Identifier): m.ContentItem => {
+  return allChildOrSubItemIds.map((childOrSubItemId: string): m.ContentItem => {
     const childOrSubItem = contentItemsById[childOrSubItemId];
     if (childOrSubItem == null) throw new CorruptedInternalStateError(`ContentItemsById object contains inconsistencies; this shouldn't happen.`);
     return childOrSubItem;

@@ -2,7 +2,7 @@
 
 import { all, takeEvery } from 'redux-saga/effects';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 import { apiDeleteSaga } from './delete';
 import { apiGetAllByUserIdSaga, apiGetSaga } from './get';
@@ -12,12 +12,12 @@ import { apiGetContentSaga } from './getContent';
 
 const apiSaga = function* (): Generator<*, *, *> {
   yield all([
-    takeEvery(t.API_DELETE, apiDeleteSaga),
-    takeEvery(t.API_GET, apiGetSaga),
-    takeEvery(t.API_GET_ALL_BY_USERID, apiGetAllByUserIdSaga),
-    takeEvery(t.API_POST, apiPostSaga),
-    takeEvery(t.API_PATCH_CONTENT, apiPatchContentSaga),
-    takeEvery(t.API_GET_CONTENT, apiGetContentSaga),
+    takeEvery(a.API_DELETE, apiDeleteSaga),
+    takeEvery(a.API_GET, apiGetSaga),
+    takeEvery(a.API_GET_ALL_BY_USERID, apiGetAllByUserIdSaga),
+    takeEvery(a.API_POST, apiPostSaga),
+    takeEvery(a.API_PATCH_CONTENT, apiPatchContentSaga),
+    takeEvery(a.API_GET_CONTENT, apiGetContentSaga),
   ]);
 };
 

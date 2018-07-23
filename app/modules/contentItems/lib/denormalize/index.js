@@ -6,7 +6,6 @@
 import _ from 'lodash';
 
 import { CorruptedInternalStateError } from 'errors';
-import type { Identifier } from 'types/model';
 
 import * as m from '../../model';
 
@@ -27,7 +26,7 @@ const denormalizeProp = (
     let descendantItem: any;
     // Iterate over all denormalizableIds.
     denormalizedContentItem[denormalizableIdsProp].forEach(
-      (denormalizableId: Identifier): void => {
+      (denormalizableId: string): void => {
         // Get the contentItem object for this id.
         descendantItem = _.get(contentItemsById, denormalizableId, null);
         // Recursively denormalize the descendant item.

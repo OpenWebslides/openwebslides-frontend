@@ -1,12 +1,10 @@
 // @flow
 
-import type { Identifier } from 'types/model';
+import * as a from '../actionTypes';
 
-import * as t from '../actionTypes';
-
-const remove = (id: Identifier): t.RemoveAction => {
+const remove = (id: string): a.RemoveAction => {
   return {
-    type: t.REMOVE,
+    type: a.REMOVE,
     payload: {
       id,
     },

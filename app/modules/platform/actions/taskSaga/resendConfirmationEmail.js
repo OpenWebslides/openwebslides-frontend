@@ -1,10 +1,10 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
-const resendConfirmationEmail = (email: string): t.ResendConfirmationEmailAction => {
+const resendConfirmationEmail = (email: string): a.ResendConfirmationEmailAction => {
   return {
-    type: t.RESEND_CONFIRMATION_EMAIL,
+    type: a.RESEND_CONFIRMATION_EMAIL,
     payload: {
       email,
     },

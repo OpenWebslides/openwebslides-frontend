@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 import { dummyContentItemsById } from '../dummyData';
 
@@ -17,20 +17,20 @@ const initialState: m.ContentItemsState = {
 
 const reducer = (
   state: m.ContentItemsState = initialState,
-  action: t.ReducerAction,
+  action: a.ReducerAction,
 ): m.ContentItemsState => {
   switch (action.type) {
-    case t.ADD_TO_STATE:
+    case a.ADD_TO_STATE:
       return addToState(state, action);
-    case t.EDIT_PROPS_FOR_TYPE_IN_STATE:
+    case a.EDIT_PROPS_FOR_TYPE_IN_STATE:
       return editPropsForTypeInState(state, action);
-    case t.SWITCH_EDITING_IN_STATE:
+    case a.SWITCH_EDITING_IN_STATE:
       return switchEditingInState(state, action);
-    case t.MOVE_IN_STATE:
+    case a.MOVE_IN_STATE:
       return moveInState(state, action);
-    case t.REMOVE_FROM_STATE:
+    case a.REMOVE_FROM_STATE:
       return removeFromState(state, action);
-    case t.SET_MULTIPLE_IN_STATE:
+    case a.SET_MULTIPLE_IN_STATE:
       return setMultipleInState(state, action);
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled

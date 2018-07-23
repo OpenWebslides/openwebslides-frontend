@@ -3,8 +3,7 @@
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 
-import Page from 'core-components/Page';
-import FlashMessages from 'core-components/flash/FlashMessages';
+import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import platform from 'modules/platform';
 
 const { SignupCard } = platform.components;
@@ -13,10 +12,9 @@ type Props = TranslatorProps;
 
 const PureSignupPage = (props: Props): React.Node => {
   return (
-    <Page>
-      <FlashMessages />
+    <ContainerPageWrapper>
       <SignupCard />
-    </Page>
+    </ContainerPageWrapper>
   );
 };
 

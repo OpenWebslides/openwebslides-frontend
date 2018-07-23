@@ -6,18 +6,17 @@ import { Header } from 'semantic-ui-react';
 import { translate, type TranslatorProps } from 'react-i18next';
 
 import type { State } from 'types/state';
-import type { Identifier } from 'types/model';
 
 import { getAllTopicIdsByUserId } from '../selectors';
 
 import SimpleTopic from './SimpleTopic';
 
 type PassedProps = {|
-  userId: Identifier,
+  userId: string,
 |};
 
 type StateProps = {|
-  topicIds: Array<Identifier>,
+  topicIds: Array<string>,
 |};
 
 type Props = {|

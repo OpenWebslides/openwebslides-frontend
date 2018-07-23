@@ -1,10 +1,10 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
-const resetPassword = (email: string): t.ResetPasswordAction => {
+const resetPassword = (email: string): a.ResetPasswordAction => {
   return {
-    type: t.RESET_PASSWORD,
+    type: a.RESET_PASSWORD,
     payload: {
       email,
     },

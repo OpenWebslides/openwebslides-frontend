@@ -228,22 +228,20 @@ module.exports = {
       'error',
       {
         'allow': [
+          // npm packages that require multiple levels in their import paths
           'redux-saga/**',
           'redux-persist/**',
+          // Folders that should allow multiple levels in their import paths
           'assets/**',
-          'config/**',
-          'core-components/**',
-          'i18n/**',
-          'pages/**',
-          'store/**',
-          'types/error',
-          'types/model',
-          'types/state',
+          // Folders that should allow a single extra level in their import path
           'components/*',
+          'config/*',
           'forms/*',
-          'modules/*',
-          'helpers/*',
+          'i18n/*',
           'lib/*',
+          'modules/*',
+          'store/*',
+          'types/*',
         ],
       },
     ],

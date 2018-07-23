@@ -1,5 +1,7 @@
 // @flow
 
-export { default } from './ApiRequest';
+import { httpMethods, type ApiResponseData } from './types';
 
-export * from './model';
+export { httpMethods };
+export type { ApiResponseData };
+export { default } from './ApiRequest';

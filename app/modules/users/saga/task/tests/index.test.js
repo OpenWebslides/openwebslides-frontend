@@ -5,12 +5,12 @@ import { expectSaga } from 'redux-saga-test-plan';
 import taskSaga from '..';
 
 import getSaga from '../get';
-import * as t from '../../../actionTypes';
+import * as a from '../../../actionTypes';
 
 describe(`taskSaga`, (): void => {
   it(`takes every GET action and forks getSaga`, (): void => {
     return expectSaga(taskSaga)
-      .take(t.GET, getSaga)
+      .take(a.GET, getSaga)
       .silentRun();
   });
 });

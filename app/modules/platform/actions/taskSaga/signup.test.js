@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 import actions from '.';
 
@@ -12,8 +12,8 @@ describe(`signup`, (): void => {
     const dummyLastName = 'Tester';
     const dummyPassword = 'MahPasswordY0';
     const dummyTosAccepted = true;
-    const expectedAction: t.SignupAction = {
-      type: t.SIGNUP,
+    const expectedAction: a.SignupAction = {
+      type: a.SIGNUP,
       payload: {
         email: dummyEmail,
         firstName: dummyFirstName,
@@ -32,8 +32,8 @@ describe(`signup`, (): void => {
     const dummyFirstName = 'Test';
     const dummyPassword = 'MahPasswordY0';
     const dummyTosAccepted = true;
-    const expectedAction: t.SignupAction = {
-      type: t.SIGNUP,
+    const expectedAction: a.SignupAction = {
+      type: a.SIGNUP,
       payload: {
         email: dummyEmail,
         firstName: dummyFirstName,

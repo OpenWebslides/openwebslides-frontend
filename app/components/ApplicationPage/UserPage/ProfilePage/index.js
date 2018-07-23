@@ -5,16 +5,15 @@ import { connect } from 'react-redux';
 import { Route, Switch, type ContextRouter as RouterProps } from 'react-router-dom';
 import { translate, type TranslatorProps } from 'react-i18next';
 
-import ContainerPage from 'core-components/ContainerPage';
+import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import type { State } from 'types/state';
-import type { Identifier } from 'types/model';
 import platform from 'modules/platform';
 import users from 'modules/users';
 
 const { ProfileCard } = users.components;
 
 type StateProps = {|
-  currentUserId: ?Identifier,
+  currentUserId: ?string,
 |};
 
 type Props = {|
@@ -24,7 +23,7 @@ type Props = {|
 |};
 
 const mapStateToProps = (state: State): StateProps => {
-  let currentUserId: ?Identifier = null;
+  let currentUserId: ?string = null;
   const userAuth = platform.selectors.getUserAuth(state);
 
   if (userAuth != null) {
@@ -37,7 +36,7 @@ const mapStateToProps = (state: State): StateProps => {
 };
 
 // #TODO extract into separate file
-const CurrentUserProfile = (props: { userId: Identifier }): React.Node => {
+const CurrentUserProfile = (props: { userId: string }): React.Node => {
   const { userId } = props;
 
   return (
@@ -69,7 +68,7 @@ const PureProfilePage = (props: Props): React.Node => {
   const newCurrentUserId = currentUserId || 'jantje1234';
 
   return (
-    <ContainerPage>
+    <ContainerPageWrapper>
       <React.Fragment>
         <h1>{t('global:title.profile')}</h1>
         <Switch>
@@ -79,7 +78,7 @@ const PureProfilePage = (props: Props): React.Node => {
           <Route render={() => <CurrentUserProfile userId={newCurrentUserId} />} />
         </Switch>
       </React.Fragment>
-    </ContainerPage>
+    </ContainerPageWrapper>
   );
 };
 

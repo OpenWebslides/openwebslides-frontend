@@ -6,14 +6,14 @@ import {
   UnsupportedOperationError,
 } from 'errors';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 import find from '../lib/find';
 import edit from '../lib/edit';
 
 const moveInState = (
   state: m.ContentItemsState,
-  action: t.MoveInStateAction,
+  action: a.MoveInStateAction,
 ): m.ContentItemsState => {
   const { id, nextContext } = action.payload;
 

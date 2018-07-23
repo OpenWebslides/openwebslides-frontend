@@ -2,7 +2,7 @@
 
 import { all, takeEvery } from 'redux-saga/effects';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 import confirmEmail from './confirmEmail';
 import resendConfirmationEmail from './resendConfirmationEmail';
@@ -14,13 +14,13 @@ import toggleSidebar from './toggleSidebar';
 
 const taskSaga = function* (): Generator<*, *, *> {
   yield all([
-    takeEvery(t.CONFIRM_EMAIL, confirmEmail),
-    takeEvery(t.RESEND_CONFIRMATION_EMAIL, resendConfirmationEmail),
-    takeEvery(t.RESET_PASSWORD, resetPassword),
-    takeEvery(t.SIGNIN, signin),
-    takeEvery(t.SIGNOUT, signout),
-    takeEvery(t.SIGNUP, signup),
-    takeEvery(t.TOGGLE_SIDEBAR, toggleSidebar),
+    takeEvery(a.CONFIRM_EMAIL, confirmEmail),
+    takeEvery(a.RESEND_CONFIRMATION_EMAIL, resendConfirmationEmail),
+    takeEvery(a.RESET_PASSWORD, resetPassword),
+    takeEvery(a.SIGNIN, signin),
+    takeEvery(a.SIGNOUT, signout),
+    takeEvery(a.SIGNUP, signup),
+    takeEvery(a.TOGGLE_SIDEBAR, toggleSidebar),
   ]);
 };
 

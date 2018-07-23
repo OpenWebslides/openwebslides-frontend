@@ -2,12 +2,12 @@
 
 import _ from 'lodash';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 const setSettingInState = (
   state: m.PlatformState,
-  action: t.SetSettingInStateAction,
+  action: a.SetSettingInStateAction,
 ): m.PlatformState => {
   const { keyValuePair } = action.payload;
   const key = _.keys(keyValuePair)[0];

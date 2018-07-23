@@ -5,12 +5,12 @@ import { put, select } from 'redux-saga/effects';
 
 import { NotYetImplementedError, ObjectNotFoundError } from 'errors';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
-const editSaga = function* (action: t.EditAction): Generator<*, *, *> {
+const editSaga = function* (action: a.EditAction): Generator<*, *, *> {
   const { id, propsForType } = action.payload;
   const newPropsForType = { ...propsForType };
 

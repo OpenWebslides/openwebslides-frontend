@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps, dummyRouterProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import { PureProfilePage } from '.';
 
@@ -19,8 +19,8 @@ describe(`ProfilePage`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureProfilePage
-        {...dummyTranslatorProps}
-        {...dummyRouterProps}
+        {...dummyProviderProps.translatorProps}
+        {...dummyProviderProps.routerProps}
         account={dummyAccount}
         userId="abcdefghij"
       />,

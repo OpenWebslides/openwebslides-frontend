@@ -4,7 +4,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Feed } from 'semantic-ui-react';
 
-import type { Identifier } from 'types/model';
 import type { State } from 'types/state';
 
 import { getAll } from '../selectors';
@@ -13,7 +12,7 @@ import { fetch } from '../actions';
 import Event from './Event';
 
 type StateProps = {|
-  eventIds: Array<Identifier>,
+  eventIds: Array<string>,
 |};
 
 type DispatchProps = {|

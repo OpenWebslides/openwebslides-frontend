@@ -1,14 +1,12 @@
 // @flow
 
-import type { Identifier } from 'types/model';
-
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 
 const toggleEditing = (
-  id: Identifier,
+  id: string,
   isEditing: ?boolean = null,
-): t.ToggleEditingAction => {
-  let payload: { id: Identifier, isEditing?: boolean } = {
+): a.ToggleEditingAction => {
+  let payload: { id: string, isEditing?: boolean } = {
     id,
   };
 
@@ -20,7 +18,7 @@ const toggleEditing = (
   }
 
   return {
-    type: t.TOGGLE_EDITING,
+    type: a.TOGGLE_EDITING,
     payload,
   };
 };

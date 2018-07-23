@@ -11,7 +11,8 @@ module.exports = {
     'node_modules',
     '.eslintrc.js',
     'app/index.js',
-    'app/lib/react-voice-components',
+    'app/config/*',
+    'app/lib/testResources/*',
   ],
   // Use the app folder as an additional root for imports, to match webpack's resolve.modules.
   moduleDirectories: [

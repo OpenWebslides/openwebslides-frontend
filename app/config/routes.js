@@ -6,6 +6,7 @@ export const TOPIC_ROUTE = '/topic';
 export const TOPIC_EDITOR_ROUTE = '/topic/editor';
 // USER
 export const USER_ROUTE = '/user';
+export const USER_SIGNOUT_ROUTE = '/user/signout';
 export const USER_PROFILE_ROUTE = '/user/profile';
 export const USER_LIBRARY_ROUTE = '/user/library';
 export const USER_LIBRARY_NEW_TOPIC_ROUTE = '/user/library/newtopic';

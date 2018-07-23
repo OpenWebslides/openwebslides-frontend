@@ -1,15 +1,13 @@
 // @flow
 
-import type { Identifier } from 'types/model';
-
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import type { AllPropsForAllTypes } from '../model';
 
 import actions from '.';
 
 describe(`edit`, (): void => {
 
-  let dummyId: Identifier;
+  let dummyId: string;
   let dummyTextProps: $Shape<AllPropsForAllTypes>;
 
   beforeEach((): void => {
@@ -20,8 +18,8 @@ describe(`edit`, (): void => {
   });
 
   it(`returns a contentItem EDIT action containing the passed props`, (): void => {
-    const expectedAction: t.EditAction = {
-      type: t.EDIT,
+    const expectedAction: a.EditAction = {
+      type: a.EDIT,
       payload: {
         id: dummyId,
         propsForType: dummyTextProps,

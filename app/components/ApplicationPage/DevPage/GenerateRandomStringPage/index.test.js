@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyRouterProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import { PureGenerateRandomStringPage } from '.';
 
@@ -12,7 +12,7 @@ describe(`GenerateRandomStringPage`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureGenerateRandomStringPage
-        {...dummyRouterProps}
+        {...dummyProviderProps.routerProps}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

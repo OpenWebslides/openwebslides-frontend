@@ -9,12 +9,12 @@ import contentItems from 'modules/contentItems';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 export const apiGetContentSaga = function* (
-  action: t.ApiGetTopicContentAction,
+  action: a.ApiGetTopicContentAction,
 ): Generator<*, *, *> {
-  yield put(apiRequestsStatus.actions.setPending(t.API_GET_CONTENT));
+  yield put(apiRequestsStatus.actions.setPending(a.API_GET_CONTENT));
 
   try {
     const { id } = action.payload;
@@ -29,7 +29,7 @@ export const apiGetContentSaga = function* (
 
     // #TODO what's the point of this? @Florian
     // yield put(setTokenInState(response.token));
-    yield put(apiRequestsStatus.actions.setSuccess(t.API_GET_CONTENT));
+    yield put(apiRequestsStatus.actions.setSuccess(a.API_GET_CONTENT));
     yield put(flashMessage('editor:api.load.success'));
   }
   catch (error) {
@@ -37,7 +37,7 @@ export const apiGetContentSaga = function* (
       throw error;
     }
 
-    yield put(apiRequestsStatus.actions.setFailure(t.API_GET_CONTENT, error));
+    yield put(apiRequestsStatus.actions.setFailure(a.API_GET_CONTENT, error));
     yield put(flashErrorMessage('editor:api.load.failure'));
   }
 };

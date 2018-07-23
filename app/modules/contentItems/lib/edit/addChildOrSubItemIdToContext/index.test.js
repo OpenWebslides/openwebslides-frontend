@@ -1,7 +1,6 @@
 // @flow
 
 import { InvalidArgumentError, ObjectNotFoundError } from 'errors';
-import type { Identifier } from 'types/model';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as m from '../../../model';
@@ -10,7 +9,7 @@ import edit from '..';
 
 describe(`addChildOrSubItemIdToContext`, (): void => {
 
-  let dummyId: Identifier;
+  let dummyId: string;
   let dummyHeading2: $Exact<m.HeadingContentItem>;
   let dummyParagraph12: $Exact<m.ParagraphContentItem>;
   let dummyParagraph11: $Exact<m.ParagraphContentItem>;

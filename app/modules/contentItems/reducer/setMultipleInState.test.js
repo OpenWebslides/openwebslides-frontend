@@ -2,7 +2,7 @@
 
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 import reducer from '.';
@@ -15,8 +15,8 @@ describe(`SET_MULTIPLE_IN_STATE`, (): void => {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
       },
     };
-    const setMultipleInStateAction: t.SetMultipleInStateAction = {
-      type: t.SET_MULTIPLE_IN_STATE,
+    const setMultipleInStateAction: a.SetMultipleInStateAction = {
+      type: a.SET_MULTIPLE_IN_STATE,
       payload: {
         contentItems: [],
       },
@@ -33,8 +33,8 @@ describe(`SET_MULTIPLE_IN_STATE`, (): void => {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
       },
     };
-    const setMultipleInStateAction: t.SetMultipleInStateAction = {
-      type: t.SET_MULTIPLE_IN_STATE,
+    const setMultipleInStateAction: a.SetMultipleInStateAction = {
+      type: a.SET_MULTIPLE_IN_STATE,
       payload: {
         contentItems: [dummyData.headingContentItem],
       },
@@ -63,8 +63,8 @@ describe(`SET_MULTIPLE_IN_STATE`, (): void => {
       ...dummyData.headingContentItem,
       text: 'This is a new, replaced heading!!!',
     };
-    const setMultipleInStateAction: t.SetMultipleInStateAction = {
-      type: t.SET_MULTIPLE_IN_STATE,
+    const setMultipleInStateAction: a.SetMultipleInStateAction = {
+      type: a.SET_MULTIPLE_IN_STATE,
       payload: {
         contentItems: [newContentItem],
       },

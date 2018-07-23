@@ -4,8 +4,8 @@ import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Link, Route, Switch, type ContextRouter as RouterProps } from 'react-router-dom';
 
-import ContainerPage from 'core-components/ContainerPage';
-import SidebarsPage from 'core-components/SidebarsPage';
+import ContainerPageWrapper from 'components/ContainerPageWrapper';
+import SidebarsPageWrapper from 'components/SidebarsPageWrapper';
 import platform from 'modules/platform';
 import topics from 'modules/topics';
 
@@ -26,9 +26,9 @@ const PureTopicEditorForId = (props: Props): React.Node => {
   }
 
   return (
-    <SidebarsPage topicId={topicId}>
+    <SidebarsPageWrapper topicId={topicId}>
       <TopicEditor topicId={topicId} />
-    </SidebarsPage>
+    </SidebarsPageWrapper>
   );
 };
 
@@ -38,13 +38,13 @@ const DummyContent = (props: Props): React.Node => {
   const { match } = props;
 
   return (
-    <ContainerPage>
+    <ContainerPageWrapper>
       <h1>Dummy topic links:</h1>
       <ul>
         <li><Link to={`${match.url}/feeyhnd0w0`}>Test topic 1</Link></li>
         <li><Link to={`${match.url}/exrhrl5gvy`}>Test topic 2</Link></li>
       </ul>
-    </ContainerPage>
+    </ContainerPageWrapper>
   );
 };
 

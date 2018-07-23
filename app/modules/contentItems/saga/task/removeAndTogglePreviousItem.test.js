@@ -5,7 +5,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 import removeAndTogglePreviousItemSaga from './removeAndTogglePreviousItem';
@@ -43,8 +43,8 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
   });
 
   it(`puts a REMOVE action`, (): void => {
-    const dummyRemoveAndTogglePreviousItemAction: t.RemoveAndTogglePreviousItemAction = {
-      type: t.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
+    const dummyRemoveAndTogglePreviousItemAction: a.RemoveAndTogglePreviousItemAction = {
+      type: a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
       payload: {
         id: dummyParagraph11.id,
       },
@@ -53,7 +53,7 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.REMOVE,
+          type: a.REMOVE,
           payload: {
             id: dummyParagraph11.id,
           },
@@ -63,8 +63,8 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
   });
 
   it(`puts a TOGGLE_EDITING action which moves the isEditing state to the removed contentItem's previousEditorItem, when the removed contentItem has a previousEditorItem`, (): void => {
-    const dummyRemoveAndTogglePreviousItemAction: t.RemoveAndTogglePreviousItemAction = {
-      type: t.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
+    const dummyRemoveAndTogglePreviousItemAction: a.RemoveAndTogglePreviousItemAction = {
+      type: a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
       payload: {
         id: dummyParagraph11.id,
       },
@@ -73,7 +73,7 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.TOGGLE_EDITING,
+          type: a.TOGGLE_EDITING,
           payload: {
             id: dummyHeading1.id,
             isEditing: true,
@@ -84,21 +84,21 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
   });
 
   it(`does not put a TOGGLE_EDITING action, when the removed contentItem does not have a previousEditorItem`, (): void => {
-    const dummyRemoveAndTogglePreviousItemAction: t.RemoveAndTogglePreviousItemAction = {
-      type: t.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
+    const dummyRemoveAndTogglePreviousItemAction: a.RemoveAndTogglePreviousItemAction = {
+      type: a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
       payload: {
         id: dummyRoot.id,
       },
     };
     return expectSaga(removeAndTogglePreviousItemSaga, dummyRemoveAndTogglePreviousItemAction)
       .withState(dummyState)
-      .not.put.actionType(t.TOGGLE_EDITING)
+      .not.put.actionType(a.TOGGLE_EDITING)
       .run();
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<*> => {
-    const dummyRemoveAndTogglePreviousItemAction: t.RemoveAndTogglePreviousItemAction = {
-      type: t.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
+    const dummyRemoveAndTogglePreviousItemAction: a.RemoveAndTogglePreviousItemAction = {
+      type: a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
       payload: {
         id: 'ThisIdIsNotVeryValid',
       },

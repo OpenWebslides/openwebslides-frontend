@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 import setUserAuthInState from './setUserAuthInState';
@@ -15,12 +15,12 @@ const initialState: m.PlatformState = {
 
 const reducer = (
   state: m.PlatformState = initialState,
-  action: t.ReducerAction,
+  action: a.ReducerAction,
 ): m.PlatformState => {
   switch (action.type) {
-    case t.SET_USER_AUTH_IN_STATE:
+    case a.SET_USER_AUTH_IN_STATE:
       return setUserAuthInState(state, action);
-    case t.SET_SETTING_IN_STATE:
+    case a.SET_SETTING_IN_STATE:
       return setSettingInState(state, action);
     default:
       // Make sure a flow type error is thrown when not all action.type cases are handled

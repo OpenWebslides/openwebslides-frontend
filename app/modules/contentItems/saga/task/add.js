@@ -3,12 +3,12 @@
 import { put, select } from 'redux-saga/effects';
 
 import generateId from '../../lib/generateId';
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import actions from '../../actions';
 import selectors from '../../selectors';
 import convertContextToVerticalContext from '../../lib/convertContextToVerticalContext';
 
-const addSaga = function* (action: t.AddAction): Generator<*, *, *> {
+const addSaga = function* (action: a.AddAction): Generator<*, *, *> {
   const { type, context, propsForType } = action.payload;
   const newId = generateId();
   const contentItemsById = yield select(selectors.getAllById);

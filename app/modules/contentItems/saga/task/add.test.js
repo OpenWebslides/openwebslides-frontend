@@ -4,7 +4,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 import addSaga from './add';
@@ -48,8 +48,8 @@ describe(`addSaga`, (): void => {
   });
 
   it(`puts an ADD_TO_STATE action`, (): void => {
-    const dummyAddAction: t.AddAction = {
-      type: t.ADD,
+    const dummyAddAction: a.AddAction = {
+      type: a.ADD,
       payload: {
         type: m.contentItemTypes.PARAGRAPH,
         context: {
@@ -66,7 +66,7 @@ describe(`addSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.ADD_TO_STATE,
+          type: a.ADD_TO_STATE,
           payload: {
             type: dummyAddAction.payload.type,
             context: dummyAddAction.payload.context,
@@ -78,8 +78,8 @@ describe(`addSaga`, (): void => {
   });
 
   it(`puts a TOGGLE_EDITING action`, (): void => {
-    const dummyAddAction: t.AddAction = {
-      type: t.ADD,
+    const dummyAddAction: a.AddAction = {
+      type: a.ADD,
       payload: {
         type: m.contentItemTypes.PARAGRAPH,
         context: {
@@ -94,13 +94,13 @@ describe(`addSaga`, (): void => {
     };
     return expectSaga(addSaga, dummyAddAction)
       .withState(dummyState)
-      .put.actionType(t.TOGGLE_EDITING)
+      .put.actionType(a.TOGGLE_EDITING)
       .run();
   });
 
   it(`sets the context to NULL, if it was NULL or UNDEFINED`, (): void => {
-    const dummyAddAction: t.AddAction = {
-      type: t.ADD,
+    const dummyAddAction: a.AddAction = {
+      type: a.ADD,
       payload: {
         type: m.contentItemTypes.ROOT,
         context: undefined,
@@ -111,7 +111,7 @@ describe(`addSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.ADD_TO_STATE,
+          type: a.ADD_TO_STATE,
           payload: {
             type: dummyAddAction.payload.type,
             context: null,
@@ -123,8 +123,8 @@ describe(`addSaga`, (): void => {
   });
 
   it(`converts the passed context to a VerticalContext before putting an ADD_TO_STATE action, when the passed context is a HorizontalContext`, (): void => {
-    const dummyAddAction: t.AddAction = {
-      type: t.ADD,
+    const dummyAddAction: a.AddAction = {
+      type: a.ADD,
       payload: {
         type: m.contentItemTypes.HEADING,
         context: {
@@ -141,7 +141,7 @@ describe(`addSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.ADD_TO_STATE,
+          type: a.ADD_TO_STATE,
           payload: {
             type: dummyAddAction.payload.type,
             context: {

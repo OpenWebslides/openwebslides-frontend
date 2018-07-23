@@ -5,10 +5,10 @@ import { call, put } from 'redux-saga/effects';
 import api from 'api';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 const apiPostEmailToConfirmation = function* (
-  action: t.ApiPostEmailToConfirmationAction,
+  action: a.ApiPostEmailToConfirmationAction,
 ): Generator<*, *, *> {
   yield put(apiRequestsStatus.actions.setPending(action.type));
 

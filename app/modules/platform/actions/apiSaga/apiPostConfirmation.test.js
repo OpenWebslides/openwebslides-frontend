@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 
 import actions from '..';
 
@@ -8,8 +8,8 @@ describe(`apiPostConfirmation`, (): void => {
 
   it(`returns an API_POST_CONFIRMATION action containing the passed arguments`, (): void => {
     const dummyConfirmationToken = 'foobarToken';
-    const expectedAction: t.ApiPostConfirmationAction = {
-      type: t.API_POST_CONFIRMATION,
+    const expectedAction: a.ApiPostConfirmationAction = {
+      type: a.API_POST_CONFIRMATION,
       payload: {
         confirmationToken: dummyConfirmationToken,
       },

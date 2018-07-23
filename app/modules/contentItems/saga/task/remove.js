@@ -5,13 +5,13 @@ import { put, select } from 'redux-saga/effects';
 
 import { CorruptedInternalStateError, ObjectNotFoundError } from 'errors';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
 import find from '../../lib/find';
 
-const removeSaga = function* (action: t.RemoveAction): Generator<*, *, *> {
+const removeSaga = function* (action: a.RemoveAction): Generator<*, *, *> {
   const { id } = action.payload;
 
   const contentItemToRemove = yield select(selectors.getById, { id });

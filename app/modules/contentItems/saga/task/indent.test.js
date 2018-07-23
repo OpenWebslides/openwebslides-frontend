@@ -5,7 +5,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../../actionTypes';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 import indentSaga from './indent';
@@ -60,8 +60,8 @@ describe(`indentSaga`, (): void => {
   });
 
   it(`puts a MOVE action whichs moves the contentItem to the end of the subItems of its previousSiblingItem, when the contentItem has a subable previousSiblingItem`, (): void => {
-    const dummyIndentAction: t.IndentAction = {
-      type: t.INDENT,
+    const dummyIndentAction: a.IndentAction = {
+      type: a.INDENT,
       payload: {
         id: dummyParagraph12.id,
       },
@@ -70,7 +70,7 @@ describe(`indentSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.MOVE,
+          type: a.MOVE,
           payload: {
             id: dummyParagraph12.id,
             nextContext: {
@@ -85,8 +85,8 @@ describe(`indentSaga`, (): void => {
   });
 
   it(`correctly calculates the indexInSiblings for the MOVE action context`, (): void => {
-    const dummyIndentAction: t.IndentAction = {
-      type: t.INDENT,
+    const dummyIndentAction: a.IndentAction = {
+      type: a.INDENT,
       payload: {
         id: dummyHeading2.id,
       },
@@ -95,7 +95,7 @@ describe(`indentSaga`, (): void => {
       .withState(dummyState)
       .put.like({
         action: {
-          type: t.MOVE,
+          type: a.MOVE,
           payload: {
             id: dummyHeading2.id,
             nextContext: {
@@ -110,34 +110,34 @@ describe(`indentSaga`, (): void => {
   });
 
   it(`does not put a MOVE action, when the contentItem does not have a previousSiblingItem`, (): void => {
-    const dummyIndentAction: t.IndentAction = {
-      type: t.INDENT,
+    const dummyIndentAction: a.IndentAction = {
+      type: a.INDENT,
       payload: {
         id: dummyParagraph11.id,
       },
     };
     return expectSaga(indentSaga, dummyIndentAction)
       .withState(dummyState)
-      .not.put.actionType(t.MOVE)
+      .not.put.actionType(a.MOVE)
       .run();
   });
 
   it(`does not put a MOVE action, when the contentItem's previousSiblingItem is not subable`, (): void => {
-    const dummyIndentAction: t.IndentAction = {
-      type: t.INDENT,
+    const dummyIndentAction: a.IndentAction = {
+      type: a.INDENT,
       payload: {
         id: dummyParagraph24.id,
       },
     };
     return expectSaga(indentSaga, dummyIndentAction)
       .withState(dummyState)
-      .not.put.actionType(t.MOVE)
+      .not.put.actionType(a.MOVE)
       .run();
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, async (): Promise<*> => {
-    const dummyIndentAction: t.IndentAction = {
-      type: t.INDENT,
+    const dummyIndentAction: a.IndentAction = {
+      type: a.INDENT,
       payload: {
         id: 'DefinitelyNotValidId',
       },

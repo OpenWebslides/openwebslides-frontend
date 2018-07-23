@@ -1,6 +1,6 @@
 // @flow
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 import reducer, { initialState } from '.';
@@ -17,8 +17,8 @@ describe(`setSettingInState`, (): void => {
         ...initialState.settings,
       },
     };
-    const setSettingInStateAction: t.SetSettingInStateAction = {
-      type: t.SET_SETTING_IN_STATE,
+    const setSettingInStateAction: a.SetSettingInStateAction = {
+      type: a.SET_SETTING_IN_STATE,
       payload: {
         keyValuePair: { [dummyKey]: dummyValue },
       },
@@ -45,8 +45,8 @@ describe(`setSettingInState`, (): void => {
         ...initialState.settings,
       },
     };
-    const setSettingInStateAction: t.SetSettingInStateAction = {
-      type: t.SET_SETTING_IN_STATE,
+    const setSettingInStateAction: a.SetSettingInStateAction = {
+      type: a.SET_SETTING_IN_STATE,
       payload: {
         keyValuePair: { activeSidebarIds: initialState.settings.activeSidebarIds },
       },

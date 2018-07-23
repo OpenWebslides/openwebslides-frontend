@@ -4,9 +4,8 @@
 import _ from 'lodash';
 
 import { CorruptedInternalStateError, ObjectNotFoundError } from 'errors';
-import type { Identifier } from 'types/model';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 import find from '../lib/find';
 import edit from '../lib/edit';
@@ -21,7 +20,7 @@ const removeChildrenAndSubItemsFromState = (
 
   if (_.includes(m.subableContentItemTypes, contentItem.type)) {
     ((contentItem: any): m.SubableContentItem).subItemIds.forEach(
-      (subItemId: Identifier): void => {
+      (subItemId: string): void => {
         const subItem = state.byId[subItemId];
         if (subItem == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
         newState = {
@@ -35,7 +34,7 @@ const removeChildrenAndSubItemsFromState = (
 
   if (_.includes(m.containerContentItemTypes, contentItem.type)) {
     ((contentItem: any): m.ContainerContentItem).childItemIds.forEach(
-      (childItemId: Identifier): void => {
+      (childItemId: string): void => {
         const childItem = state.byId[childItemId];
         if (childItem == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
         newState = {
@@ -52,7 +51,7 @@ const removeChildrenAndSubItemsFromState = (
 
 const removeFromState = (
   state: m.ContentItemsState,
-  action: t.RemoveFromStateAction,
+  action: a.RemoveFromStateAction,
 ): m.ContentItemsState => {
   const { id } = action.payload;
   let newState: m.ContentItemsState = {

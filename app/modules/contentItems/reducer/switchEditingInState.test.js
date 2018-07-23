@@ -3,7 +3,7 @@
 import { UnsupportedOperationError, ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 import reducer from '.';
@@ -28,8 +28,8 @@ describe(`switchEditingInState`, (): void => {
         },
       },
     };
-    const switchEditingInStateAction: t.SwitchEditingInStateAction = {
-      type: t.SWITCH_EDITING_IN_STATE,
+    const switchEditingInStateAction: a.SwitchEditingInStateAction = {
+      type: a.SWITCH_EDITING_IN_STATE,
       payload: {
         previousEditingItemId: dummyData.headingContentItem.id,
         nextEditingItemId: dummyData.headingContentItem2.id,
@@ -79,8 +79,8 @@ describe(`switchEditingInState`, (): void => {
         },
       },
     };
-    const switchEditingInStateAction: t.SwitchEditingInStateAction = {
-      type: t.SWITCH_EDITING_IN_STATE,
+    const switchEditingInStateAction: a.SwitchEditingInStateAction = {
+      type: a.SWITCH_EDITING_IN_STATE,
       payload: {
         previousEditingItemId: null,
         nextEditingItemId: null,
@@ -109,8 +109,8 @@ describe(`switchEditingInState`, (): void => {
         },
       },
     };
-    const switchEditingInStateAction: t.SwitchEditingInStateAction = {
-      type: t.SWITCH_EDITING_IN_STATE,
+    const switchEditingInStateAction: a.SwitchEditingInStateAction = {
+      type: a.SWITCH_EDITING_IN_STATE,
       payload: {
         previousEditingItemId: 'DefinitelyNotValidId',
         nextEditingItemId: dummyData.headingContentItem2.id,
@@ -140,8 +140,8 @@ describe(`switchEditingInState`, (): void => {
         },
       },
     };
-    const switchEditingInStateAction: t.SwitchEditingInStateAction = {
-      type: t.SWITCH_EDITING_IN_STATE,
+    const switchEditingInStateAction: a.SwitchEditingInStateAction = {
+      type: a.SWITCH_EDITING_IN_STATE,
       payload: {
         previousEditingItemId: dummyData.headingContentItem.id,
         nextEditingItemId: 'DefinitelyNotValidId',
@@ -171,8 +171,8 @@ describe(`switchEditingInState`, (): void => {
         },
       },
     };
-    const switchEditingInStateAction: t.SwitchEditingInStateAction = {
-      type: t.SWITCH_EDITING_IN_STATE,
+    const switchEditingInStateAction: a.SwitchEditingInStateAction = {
+      type: a.SWITCH_EDITING_IN_STATE,
       payload: {
         previousEditingItemId: dummyData.headingContentItem.id,
         nextEditingItemId: null,
@@ -202,8 +202,8 @@ describe(`switchEditingInState`, (): void => {
         },
       },
     };
-    const switchEditingInStateAction: t.SwitchEditingInStateAction = {
-      type: t.SWITCH_EDITING_IN_STATE,
+    const switchEditingInStateAction: a.SwitchEditingInStateAction = {
+      type: a.SWITCH_EDITING_IN_STATE,
       payload: {
         previousEditingItemId: null,
         nextEditingItemId: dummyData.headingContentItem2.id,

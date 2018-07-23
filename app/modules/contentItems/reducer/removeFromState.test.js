@@ -3,7 +3,7 @@
 import { CorruptedInternalStateError, ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as t from '../actionTypes';
+import * as a from '../actionTypes';
 import * as m from '../model';
 
 import reducer from '.';
@@ -33,8 +33,8 @@ describe(`removeFromState`, (): void => {
         [dummyRoot2.id]: { ...dummyRoot2 },
       },
     };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
       payload: {
         id: dummyRoot1.id,
       },
@@ -61,8 +61,8 @@ describe(`removeFromState`, (): void => {
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
     };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
       payload: {
         id: dummyParagraph111.id,
       },
@@ -94,8 +94,8 @@ describe(`removeFromState`, (): void => {
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
     };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
       payload: {
         id: dummyHeading12.id,
       },
@@ -127,8 +127,8 @@ describe(`removeFromState`, (): void => {
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
     };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
       payload: {
         id: dummyHeading11.id,
       },
@@ -155,8 +155,8 @@ describe(`removeFromState`, (): void => {
         [dummyRoot2.id]: { ...dummyRoot2 },
       },
     };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
       payload: {
         id: dummyRoot1.id,
       },
@@ -181,8 +181,8 @@ describe(`removeFromState`, (): void => {
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
     };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
       payload: {
         id: 'DefinitelyNotValidId',
       },
@@ -203,8 +203,8 @@ describe(`removeFromState`, (): void => {
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
     };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
       payload: {
         id: dummyHeading11.id,
       },
@@ -225,8 +225,8 @@ describe(`removeFromState`, (): void => {
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
     };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
       payload: {
         id: dummyRoot1.id,
       },
@@ -247,8 +247,8 @@ describe(`removeFromState`, (): void => {
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
     };
-    const removeFromStateAction: t.RemoveFromStateAction = {
-      type: t.REMOVE_FROM_STATE,
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
       payload: {
         id: dummyParagraph111.id,
       },

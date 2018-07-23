@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTranslatorProps } from 'config/tests';
+import { dummyProviderProps } from 'lib/testResources';
 
 import { PureEventWrapper } from '../Event';
 import { predicate } from '../../model';
@@ -37,7 +37,7 @@ describe(`Event`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureEventWrapper
-        {...dummyTranslatorProps}
+        {...dummyProviderProps.translatorProps}
         eventId="zzzzzzzzzz"
         user={dummyUser}
         topic={dummyTopic}

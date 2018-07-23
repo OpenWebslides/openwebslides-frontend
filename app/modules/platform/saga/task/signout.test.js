@@ -4,7 +4,6 @@ import { select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import { UnsupportedOperationError } from 'errors';
-import { type ApiToken } from 'lib/ApiRequest';
 
 import actions from '../../actions';
 import selectors from '../../selectors';
@@ -13,7 +12,7 @@ import { sagas } from '..';
 
 describe(`signout`, (): void => {
 
-  let dummyToken: ApiToken;
+  let dummyToken: string;
 
   beforeEach((): void => {
     dummyToken = 'foobarToken';
