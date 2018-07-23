@@ -4,12 +4,14 @@ import SimpleList from './SimpleList';
 import Editor from './Editor';
 import CardCollection from './CardCollection';
 import NewTopicCard from './NewTopicCard';
+import Slides from './Slides';
 
 const index = {
   SimpleList,
   Editor,
   CardCollection,
   NewTopicCard,
+  Slides,
 };
 
 /* istanbul ignore next */

@@ -6,10 +6,11 @@ import { connect } from 'react-redux';
 
 import { type State } from 'types/state';
 import { ObjectNotFoundError, CorruptedInternalStateError } from 'errors';
-import topics from 'modules/topics';
 import contentItems from 'modules/contentItems';
 import split from 'lib/contentItemSplit';
 import Slide from 'components/Slide';
+
+import * as selectors from '../../selectors';
 
 type PassedProps = {|
   topicId: string,
@@ -29,7 +30,7 @@ type Props = {|
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;
 
-  const topic = topics.selectors.getById(state, { id: topicId });
+  const topic = selectors.getById(state, { id: topicId });
   if (topic == null) throw new ObjectNotFoundError('topics:topic', topicId);
 
   const contentItemTreeRootItemId = topic.rootContentItemId;
