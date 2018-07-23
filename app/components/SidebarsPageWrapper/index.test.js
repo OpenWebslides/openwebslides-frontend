@@ -43,6 +43,9 @@ describe(`SidebarsPageWrapper`, (): void => {
           },
         },
       },
+      flash: {
+        messages: [],
+      },
     };
 
     dummyDispatch = jest.fn();

@@ -4,6 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { type State } from 'types/state';
+import FlashMessages from 'components/FlashMessages';
 import platform from 'modules/platform';
 
 import PageWrapper from '../PageWrapper';
@@ -42,6 +43,7 @@ const PureSidebarsPageWrapper = (props: Props): React.Node => {
           style={{ width: `${100 - sidebarsWidthPercentage}%` }}
         >
           <div className="page__main-content">
+            <FlashMessages />
             {children}
           </div>
         </div>

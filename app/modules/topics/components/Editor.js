@@ -5,7 +5,6 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Button, Header } from 'semantic-ui-react';
 
-import FlashMessages from 'components/FlashMessages';
 import contentItems from 'modules/contentItems';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import type { State } from 'types/state';
@@ -97,8 +96,6 @@ class PureEditor extends React.Component<Props> {
     return (
       <div>
         <Header as="h1">{topic.title}</Header>
-
-        <FlashMessages />
 
         <ApiDimmer requestIds={[API_GET_CONTENT]}>{t('editor:api.load.pending')}</ApiDimmer>
         <ApiDimmer requestIds={[API_PATCH_CONTENT]}>{t('editor:api.save.pending')}</ApiDimmer>

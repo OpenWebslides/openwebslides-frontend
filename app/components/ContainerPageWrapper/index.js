@@ -3,6 +3,8 @@
 import * as React from 'react';
 import { Container } from 'semantic-ui-react';
 
+import FlashMessages from 'components/FlashMessages';
+
 import PageWrapper from '../PageWrapper';
 
 type PassedProps = {|
@@ -18,6 +20,7 @@ const PureContainerPageWrapper = (props: Props): React.Node => {
   return (
     <PageWrapper className={`page--container ${className || ''}`}>
       <Container className="page__main-content">
+        <FlashMessages />
         {children}
       </Container>
     </PageWrapper>
