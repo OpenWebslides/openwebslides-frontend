@@ -6,6 +6,7 @@ import { Card } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
 import Gravatar from 'components/Gravatar';
+import { ObjectNotFoundError } from 'errors';
 import topics from 'modules/topics';
 
 import type { User } from '../model';
@@ -31,9 +32,11 @@ type Props = {|
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { userId } = props;
+  const user = getById(state, userId);
+  if (user == null) throw new ObjectNotFoundError('users:user', userId);
 
   return {
-    user: getById(state, userId),
+    user,
   };
 };
 
