@@ -1,6 +1,6 @@
 // @flow
 
-import generateRandomString from '..';
+import generateRandomString from '.';
 
 describe(`generateRandomString`, (): void => {
 

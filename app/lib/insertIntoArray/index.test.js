@@ -2,7 +2,7 @@
 
 import { InvalidArgumentError } from 'errors';
 
-import insertIntoArray from '..';
+import insertIntoArray from '.';
 
 describe(`insertIntoArray`, (): void => {
 

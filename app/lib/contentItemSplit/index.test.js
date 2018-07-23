@@ -1,8 +1,8 @@
 // @flow
 
-import * as data from '../dummyData';
+import * as data from './dummyData';
 
-import split, { recursiveSplit } from '..';
+import split, { recursiveSplit } from '.';
 
 describe(`recursiveSplit`, (): void => {
   it(`splits rootContentItem into childItems`, (): void => {

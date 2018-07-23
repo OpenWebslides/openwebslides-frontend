@@ -4,9 +4,7 @@ import _ from 'lodash';
 
 import { InvalidArgumentError } from 'errors';
 
-import validateActionArguments from '..';
-
-import type { ActionArgumentsValidationOptions } from '..';
+import validateActionArguments, { type ActionArgumentsValidationOptions } from '.';
 
 describe(`validateActionArguments`, (): void => {
 

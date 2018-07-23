@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
-import { PureInlineMarkdown } from '..';
+import { PureInlineMarkdown } from '.';
 
 describe(`InlineMarkdown`, (): void => {
 
