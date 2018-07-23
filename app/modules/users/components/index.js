@@ -1,9 +1,11 @@
 // @flow
 
 import ProfileCard from './ProfileCard';
+import UserAccountMenu from './UserAccountMenu';
 
 const index = {
   ProfileCard,
+  UserAccountMenu,
 };
 
 /* istanbul ignore next */

@@ -26,9 +26,7 @@ const PureNavigationBar = (props: Props): React.Node => {
       <Menu.Item as={Link} to={TOPIC_EDITOR_ROUTE}>
         Editor (temp)
       </Menu.Item>
-      <Menu.Menu position="right">
-        <AccountMenu />
-      </Menu.Menu>
+      <AccountMenu />
     </Menu>
   );
 };
