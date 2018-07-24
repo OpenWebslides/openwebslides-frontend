@@ -1,12 +1,10 @@
 // @flow
 
 import * as React from 'react';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
 import { mount, shallow } from 'enzyme';
 
 import { ObjectNotFoundError } from 'errors';
-import { dummyContentItemData as dummyData } from 'lib/testResources';
+import { DummyProviders, dummyContentItemData as dummyData } from 'lib/testResources';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -29,9 +27,6 @@ describe(`EditableDisplay`, (): void => {
 
   let dummyDispatchProps: DispatchProps;
   let subItemsSelector: string;
-
-  let dummyReducer: *;
-  let dummyStore: *;
 
   beforeEach((): void => {
     dummyRoot2 = { ...dummyData.rootContentItem2 };
@@ -71,9 +66,6 @@ describe(`EditableDisplay`, (): void => {
       onReverseIndent: jest.fn(),
     };
     subItemsSelector = `[data-test-id="content-item-editable-display__sub-items"]`;
-
-    dummyReducer = (state: any = {}, action: any): any => state;
-    dummyStore = createStore(dummyReducer, dummyState);
   });
 
   it(`renders without errors`, (): void => {
@@ -135,22 +127,22 @@ describe(`EditableDisplay`, (): void => {
     console.error = jest.fn();
     expect((): void => {
       mount(
-        <Provider store={dummyStore}>
+        <DummyProviders dummyState={dummyState}>
           <EditableDisplay
             contentItemId="DefinitelyNotValidId"
           />
-        </Provider>,
+        </DummyProviders>,
       );
     }).toThrow(ObjectNotFoundError);
   });
 
   it(`renders all of the contentItem's sub items, when the contentItem is subable and has sub items`, (): void => {
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
+      <DummyProviders dummyState={dummyState}>
         <EditableDisplay
           contentItemId={dummyRoot1.id}
         />
-      </Provider>,
+      </DummyProviders>,
     );
 
     const subItemsTags = enzymeWrapper.find(subItemsSelector).hostNodes();
@@ -173,11 +165,11 @@ describe(`EditableDisplay`, (): void => {
 
   it(`does not render an empty sub items container, when the contentItem is not subable`, (): void => {
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
+      <DummyProviders dummyState={dummyState}>
         <EditableDisplay
           contentItemId={dummyRoot2.id}
         />
-      </Provider>,
+      </DummyProviders>,
     );
     const subItemsTags = enzymeWrapper.find(subItemsSelector).hostNodes();
     expect(subItemsTags).toHaveLength(0);
@@ -185,11 +177,11 @@ describe(`EditableDisplay`, (): void => {
 
   it(`does not render an empty sub items container, when the contentItem is subable but does not contain any sub items`, (): void => {
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
+      <DummyProviders dummyState={dummyState}>
         <EditableDisplay
           contentItemId={dummyParagraph111.id}
         />
-      </Provider>,
+      </DummyProviders>,
     );
     const subItemsTags = enzymeWrapper.find(subItemsSelector).hostNodes();
     expect(subItemsTags).toHaveLength(0);

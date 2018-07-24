@@ -1,24 +1,14 @@
 // @flow
 
 import * as React from 'react';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { MemoryRouter, Route, Switch } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
+import { Switch, Route } from 'react-router-dom';
 
-import { dummyProviderProps } from 'lib/testResources';
+import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
 import ConditionalWrapper, { PureConditionalWrapper } from '.';
 
 describe(`ConditionalWrapper`, (): void => {
-
-  let dummyReducer: *;
-  let dummyStore: *;
-
-  beforeEach((): void => {
-    dummyReducer = (state: any = {}, action: any): any => state;
-    dummyStore = createStore(dummyReducer, {});
-  });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
@@ -31,14 +21,12 @@ describe(`ConditionalWrapper`, (): void => {
 
   it(`renders its children, when renderChildren is TRUE`, (): void => {
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <MemoryRouter initialEntries={['/test']}>
-          <ConditionalWrapper renderChildren={true}>
-            <p>Secure text</p>
-            <p>More secure text</p>
-          </ConditionalWrapper>
-        </MemoryRouter>
-      </Provider>,
+      <DummyProviders>
+        <ConditionalWrapper renderChildren={true}>
+          <p>Secure text</p>
+          <p>More secure text</p>
+        </ConditionalWrapper>
+      </DummyProviders>,
     );
     const conditionalWrapperChildren = enzymeWrapper.find('PureConditionalWrapper').children();
 
@@ -49,14 +37,12 @@ describe(`ConditionalWrapper`, (): void => {
 
   it(`does not render its children, when renderChildren is FALSE`, (): void => {
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <MemoryRouter initialEntries={['/test']}>
-          <ConditionalWrapper renderChildren={false}>
-            <p>Secure text</p>
-            <p>More secure text</p>
-          </ConditionalWrapper>
-        </MemoryRouter>
-      </Provider>,
+      <DummyProviders>
+        <ConditionalWrapper renderChildren={false}>
+          <p>Secure text</p>
+          <p>More secure text</p>
+        </ConditionalWrapper>
+      </DummyProviders>,
     );
     const conditionalWrapperChildren = enzymeWrapper.find('PureConditionalWrapper').children();
 
@@ -67,14 +53,12 @@ describe(`ConditionalWrapper`, (): void => {
     const DummyConditionalComponent = (): React.Node => <p>Access denied</p>;
 
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <MemoryRouter initialEntries={['/test']}>
-          <ConditionalWrapper renderChildren={false} componentIfNotChildren={DummyConditionalComponent}>
-            <p>Secure text</p>
-            <p>More secure text</p>
-          </ConditionalWrapper>
-        </MemoryRouter>
-      </Provider>,
+      <DummyProviders dummyRouterEntries={['/test']}>
+        <ConditionalWrapper renderChildren={false} componentIfNotChildren={DummyConditionalComponent}>
+          <p>Secure text</p>
+          <p>More secure text</p>
+        </ConditionalWrapper>
+      </DummyProviders>,
     );
     const conditionalWrapperChildren = enzymeWrapper.find('PureConditionalWrapper').children();
 
@@ -91,14 +75,12 @@ describe(`ConditionalWrapper`, (): void => {
     );
 
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <MemoryRouter initialEntries={['/test']}>
-          <Switch>
-            <Route path="/test" exact={true} component={ConditionalWrapperComponent} />
-            <Route path="/dummyUrl" component={(): React.Node => (<p>Access denied</p>)} />
-          </Switch>
-        </MemoryRouter>
-      </Provider>,
+      <DummyProviders dummyRouterEntries={['/test']}>
+        <Switch>
+          <Route path="/test" exact={true} component={ConditionalWrapperComponent} />
+          <Route path="/dummyUrl" component={(): React.Node => (<p>Access denied</p>)} />
+        </Switch>
+      </DummyProviders>,
     );
 
     expect(enzymeWrapper.text()).toContain('Access denied');

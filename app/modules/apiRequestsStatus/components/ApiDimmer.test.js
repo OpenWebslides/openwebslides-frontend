@@ -2,12 +2,8 @@
 
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { I18nextProvider } from 'react-i18next';
 
-import i18nextConfig from 'config/i18next';
-import { dummyProviderProps } from 'lib/testResources';
+import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
 import * as m from '../model';
 
@@ -20,9 +16,6 @@ describe(`ApiDimmer`, (): void => {
   let dummyFailureStatus: m.RequestStatus;
 
   let dummyState: any;
-
-  let dummyReducer: *;
-  let dummyStore: *;
 
   beforeEach((): void => {
     dummyPendingStatus = {
@@ -45,9 +38,6 @@ describe(`ApiDimmer`, (): void => {
         },
       },
     };
-
-    dummyReducer = (state: any = {}, action: any): any => state;
-    dummyStore = createStore(dummyReducer, dummyState);
   });
 
   it(`renders without errors`, (): void => {
@@ -90,13 +80,11 @@ describe(`ApiDimmer`, (): void => {
 
   it(`is active, when the requestStatus for a single passed requestId is PENDING`, (): void => {
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <I18nextProvider i18n={i18nextConfig}>
-          <ApiDimmer requestIds={['pendingRequestId', 'failureRequestId', 'successRequestId']}>
-            <p data-test-id="enzyme">test.is.active</p>
-          </ApiDimmer>
-        </I18nextProvider>
-      </Provider>,
+      <DummyProviders dummyState={dummyState}>
+        <ApiDimmer requestIds={['pendingRequestId', 'failureRequestId', 'successRequestId']}>
+          <p data-test-id="enzyme">test.is.active</p>
+        </ApiDimmer>
+      </DummyProviders>,
     );
 
     expect(enzymeWrapper.find('[data-test-id="enzyme"]').text()).toBe('test.is.active');
@@ -104,13 +92,11 @@ describe(`ApiDimmer`, (): void => {
 
   it(`is not active, when the requestStatus none of the passed requestIds is PENDING`, (): void => {
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <I18nextProvider i18n={i18nextConfig}>
-          <ApiDimmer requestIds={['failureRequestId', 'successRequestId']}>
-            <p data-test-id="enzyme">test.is.active</p>
-          </ApiDimmer>
-        </I18nextProvider>
-      </Provider>,
+      <DummyProviders dummyState={dummyState}>
+        <ApiDimmer requestIds={['failureRequestId', 'successRequestId']}>
+          <p data-test-id="enzyme">test.is.active</p>
+        </ApiDimmer>
+      </DummyProviders>,
     );
 
     expect(enzymeWrapper.find('PureApiDimmer').isEmptyRender()).toEqual(true);
@@ -118,13 +104,11 @@ describe(`ApiDimmer`, (): void => {
 
   it(`ignores invalid requestIds`, (): void => {
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <I18nextProvider i18n={i18nextConfig}>
-          <ApiDimmer requestIds={['failureRequestId', 'successRequestId', 'invalidRequestId']}>
-            <p data-test-id="enzyme">test.is.active</p>
-          </ApiDimmer>
-        </I18nextProvider>
-      </Provider>,
+      <DummyProviders dummyState={dummyState}>
+        <ApiDimmer requestIds={['failureRequestId', 'successRequestId', 'invalidRequestId']}>
+          <p data-test-id="enzyme">test.is.active</p>
+        </ApiDimmer>
+      </DummyProviders>,
     );
 
     expect(enzymeWrapper.find('PureApiDimmer').isEmptyRender()).toEqual(true);

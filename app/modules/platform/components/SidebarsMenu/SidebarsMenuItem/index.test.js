@@ -2,13 +2,8 @@
 
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { I18nextProvider } from 'react-i18next';
 
-import i18nextConfig from 'config/i18next';
-import { dummyProviderProps } from 'lib/testResources';
+import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
 import actions from '../../../actions';
 import * as m from '../../../model';
@@ -19,18 +14,11 @@ import SidebarsMenuItem, { PureSidebarsMenuItem } from '.';
 describe(`SidebarsMenuItem`, (): void => {
 
   let dummySidebarId: m.SidebarId;
-
   let dummyDispatch: *;
-  let dummyReducer: *;
-  let dummyStore: *;
 
   beforeEach((): void => {
     dummySidebarId = m.sidebarIds.TOPIC_INFO;
-
     dummyDispatch = jest.fn();
-    dummyReducer = (state: any = {}, action: any): any => state;
-    dummyStore = createStore(dummyReducer, {});
-    dummyStore.dispatch = dummyDispatch;
   });
 
   it(`renders without errors`, (): void => {
@@ -49,13 +37,9 @@ describe(`SidebarsMenuItem`, (): void => {
     selectors.getSettingByKey = (): any => [dummySidebarId];
 
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <I18nextProvider i18n={i18nextConfig}>
-          <MemoryRouter>
-            <SidebarsMenuItem sidebarId={dummySidebarId} />
-          </MemoryRouter>
-        </I18nextProvider>
-      </Provider>,
+      <DummyProviders dummyDispatch={dummyDispatch}>
+        <SidebarsMenuItem sidebarId={dummySidebarId} />
+      </DummyProviders>,
     );
 
     expect(enzymeWrapper.find('PureSidebarsMenuItem').props().isActive).toBe(true);
@@ -65,13 +49,9 @@ describe(`SidebarsMenuItem`, (): void => {
     selectors.getSettingByKey = (): any => [];
 
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <I18nextProvider i18n={i18nextConfig}>
-          <MemoryRouter>
-            <SidebarsMenuItem sidebarId={dummySidebarId} />
-          </MemoryRouter>
-        </I18nextProvider>
-      </Provider>,
+      <DummyProviders dummyDispatch={dummyDispatch}>
+        <SidebarsMenuItem sidebarId={dummySidebarId} />
+      </DummyProviders>,
     );
 
     expect(enzymeWrapper.find('PureSidebarsMenuItem').props().isActive).toBe(false);
@@ -81,13 +61,9 @@ describe(`SidebarsMenuItem`, (): void => {
     selectors.getSettingByKey = (): any => [dummySidebarId];
 
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <I18nextProvider i18n={i18nextConfig}>
-          <MemoryRouter>
-            <SidebarsMenuItem sidebarId={dummySidebarId} />
-          </MemoryRouter>
-        </I18nextProvider>
-      </Provider>,
+      <DummyProviders dummyDispatch={dummyDispatch}>
+        <SidebarsMenuItem sidebarId={dummySidebarId} />
+      </DummyProviders>,
     );
 
     const menuItemNode = enzymeWrapper.find('[data-test-id="sidebars-menu-item"]').hostNodes();
