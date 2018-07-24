@@ -2,14 +2,9 @@
 
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { I18nextProvider } from 'react-i18next';
 
 import { InvalidArgumentError } from 'errors';
-import i18nextConfig from 'config/i18next';
-import { dummyProviderProps } from 'lib/testResources';
+import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
 import actions from '../../actions';
 
@@ -21,19 +16,14 @@ describe(`SigninCard`, (): void => {
   let dummyPassword: string;
 
   let dummyDispatch: *;
-  let dummyReducer: *;
   let dummyState: *;
-  let dummyStore: *;
 
   beforeEach((): void => {
     dummyEmail = 'test@test.be';
     dummyPassword = 'MahPasswordY0';
 
     dummyDispatch = jest.fn();
-    dummyReducer = (state: any = {}, action: any): any => state;
     dummyState = { modules: { apiRequestsStatus: {} } };
-    dummyStore = createStore(dummyReducer, dummyState);
-    dummyStore.dispatch = dummyDispatch;
   });
 
   it(`renders without errors`, (): void => {
@@ -45,13 +35,9 @@ describe(`SigninCard`, (): void => {
 
   it(`dispatches a signin action, when its form is submitted with complete values`, (): void => {
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <I18nextProvider i18n={i18nextConfig}>
-          <MemoryRouter>
-            <SigninCard />
-          </MemoryRouter>
-        </I18nextProvider>
-      </Provider>,
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <SigninCard />
+      </DummyProviders>,
     );
     const onEmailAndPasswordFormSubmit = enzymeWrapper.find('PureSigninCard').props().onEmailAndPasswordFormSubmit;
 
@@ -61,13 +47,9 @@ describe(`SigninCard`, (): void => {
 
   it(`throws an InvalidArgumentError, when its form is submitted with incomplete values`, (): void => {
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <I18nextProvider i18n={i18nextConfig}>
-          <MemoryRouter>
-            <SigninCard />
-          </MemoryRouter>
-        </I18nextProvider>
-      </Provider>,
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <SigninCard />
+      </DummyProviders>,
     );
     const onEmailAndPasswordFormSubmit = enzymeWrapper.find('PureSigninCard').props().onEmailAndPasswordFormSubmit;
 

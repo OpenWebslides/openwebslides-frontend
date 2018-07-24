@@ -1,26 +1,16 @@
 // @flow
 
 import * as React from 'react';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 
 import { AUTH_SIGNIN_ROUTE } from 'config/routes';
+import { DummyProviders } from 'lib/testResources';
 
 import selectors from '../../selectors';
 
 import AuthWrapper, { PureAuthWrapper } from '.';
 
 describe(`AuthWrapper`, (): void => {
-
-  let dummyReducer: *;
-  let dummyStore: *;
-
-  beforeEach((): void => {
-    dummyReducer = (state: any = {}, action: any): any => state;
-    dummyStore = createStore(dummyReducer, {});
-  });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
@@ -35,14 +25,12 @@ describe(`AuthWrapper`, (): void => {
     selectors.isAuthenticated = (jest.fn((): boolean => true): any);
 
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <MemoryRouter>
-          <AuthWrapper>
-            <p>Secure text</p>
-            <p>More secure text</p>
-          </AuthWrapper>
-        </MemoryRouter>
-      </Provider>,
+      <DummyProviders>
+        <AuthWrapper>
+          <p>Secure text</p>
+          <p>More secure text</p>
+        </AuthWrapper>
+      </DummyProviders>,
     );
     const conditionalWrapper = enzymeWrapper.find('PureConditionalWrapper');
 
@@ -55,14 +43,12 @@ describe(`AuthWrapper`, (): void => {
     selectors.isAuthenticated = (jest.fn((): boolean => false): any);
 
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <MemoryRouter>
-          <AuthWrapper>
-            <p>Secure text</p>
-            <p>More secure text</p>
-          </AuthWrapper>
-        </MemoryRouter>
-      </Provider>,
+      <DummyProviders>
+        <AuthWrapper>
+          <p>Secure text</p>
+          <p>More secure text</p>
+        </AuthWrapper>
+      </DummyProviders>,
     );
     const conditionalWrapper = enzymeWrapper.find('PureConditionalWrapper');
 
@@ -75,14 +61,12 @@ describe(`AuthWrapper`, (): void => {
     selectors.isAuthenticated = (jest.fn((): boolean => false): any);
 
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <MemoryRouter>
-          <AuthWrapper redirectIfNotAuthenticated="/dummyRoute">
-            <p>Secure text</p>
-            <p>More secure text</p>
-          </AuthWrapper>
-        </MemoryRouter>
-      </Provider>,
+      <DummyProviders>
+        <AuthWrapper redirectIfNotAuthenticated="/dummyRoute">
+          <p>Secure text</p>
+          <p>More secure text</p>
+        </AuthWrapper>
+      </DummyProviders>,
     );
     const conditionalWrapper = enzymeWrapper.find('PureConditionalWrapper');
 
@@ -95,14 +79,12 @@ describe(`AuthWrapper`, (): void => {
     const DummyComponent = (): React.Node => <p>dummy</p>;
 
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
-        <MemoryRouter>
-          <AuthWrapper componentIfNotAuthenticated={DummyComponent}>
-            <p>Secure text</p>
-            <p>More secure text</p>
-          </AuthWrapper>
-        </MemoryRouter>
-      </Provider>,
+      <DummyProviders>
+        <AuthWrapper componentIfNotAuthenticated={DummyComponent}>
+          <p>Secure text</p>
+          <p>More secure text</p>
+        </AuthWrapper>
+      </DummyProviders>,
     );
     const conditionalWrapper = enzymeWrapper.find('PureConditionalWrapper');
 

@@ -1,11 +1,9 @@
 // @flow
 
 import * as React from 'react';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
 import { mount, shallow } from 'enzyme';
 
-import { dummyContentItemData as dummyData } from 'lib/testResources';
+import { DummyProviders, dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as m from '../../../model';
 
@@ -18,9 +16,6 @@ describe(`Root`, (): void => {
   let dummyRoot: $Exact<m.RootContentItem>;
   let dummyContentItemsById: $Exact<m.ContentItemsById>;
   let dummyState: any;
-
-  let dummyReducer: *;
-  let dummyStore: *;
 
   beforeEach((): void => {
     dummyHeading2 = { ...dummyData.headingContentItem2 };
@@ -38,9 +33,6 @@ describe(`Root`, (): void => {
         },
       },
     };
-
-    dummyReducer = (state: any = {}, action: any): any => state;
-    dummyStore = createStore(dummyReducer, dummyState);
   });
 
   it(`renders without errors`, (): void => {
@@ -52,9 +44,9 @@ describe(`Root`, (): void => {
 
   it(`renders all of its child items`, (): void => {
     const enzymeWrapper = mount(
-      <Provider store={dummyStore}>
+      <DummyProviders dummyState={dummyState}>
         <PureRoot contentItem={dummyRoot} />
-      </Provider>,
+      </DummyProviders>,
     );
     expect(enzymeWrapper.find('PureHeading')).toHaveLength(2);
   });
