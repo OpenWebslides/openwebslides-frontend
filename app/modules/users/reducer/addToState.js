@@ -10,10 +10,10 @@ const addToState = (
   state: m.UsersState,
   action: a.AddToStateAction,
 ): m.UsersState => {
-  const { id, firstName, lastName, email } = action.payload;
+  const { id, email, name } = action.payload;
   if (state.byId[id] != null) throw new InvalidArgumentError(`User with id ${id} already exists.`);
 
-  const newUser: m.User = { id, email, firstName, lastName };
+  const newUser: m.User = { id, email, name };
 
   return {
     ...state,

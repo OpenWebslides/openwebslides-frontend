@@ -4,8 +4,7 @@ import * as a from '../../actionTypes';
 
 const apiPost = (
   email: string,
-  firstName: string,
-  lastName: ?string,
+  name: string,
   password: string,
   tosAccepted: boolean,
 ): a.ApiPostAction => {
@@ -13,8 +12,7 @@ const apiPost = (
     type: a.API_POST,
     payload: {
       email,
-      firstName,
-      lastName,
+      name,
       password,
       tosAccepted,
     },

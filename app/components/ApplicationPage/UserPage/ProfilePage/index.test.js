@@ -13,8 +13,7 @@ describe(`ProfilePage`, (): void => {
     const dummyAccount = {
       id: 'johanjohan',
       email: 'john.doe@example.com',
-      firstName: 'John',
-      lastName: 'Doe',
+      name: 'John Doe',
     };
 
     const enzymeWrapper = shallow(

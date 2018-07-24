@@ -100,10 +100,6 @@ class PureEventWrapper extends React.Component<Props, State> {
       return null;
     }
 
-    // construct full, displayed name of user
-    const lastName = user.lastName == null ? '' : user.lastName;
-    const displayName = `${user.firstName} ${lastName}`;
-
     return (
       <Feed.Event>
         <Feed.Label>
@@ -114,7 +110,7 @@ class PureEventWrapper extends React.Component<Props, State> {
         <Feed.Content>
           <Feed.Summary>
             <Link as="Feed.User" to={`${USER_PROFILE_ROUTE}/${user.id}`}>
-              {displayName}
+              {user.name}
             </Link>
             &nbsp;
             {t('feed:event.action', { context: `${event.predicate}` })}

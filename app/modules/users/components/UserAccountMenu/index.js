@@ -11,7 +11,6 @@ import { USER_PROFILE_ROUTE, USER_SIGNOUT_ROUTE } from 'config/routes';
 
 import actions from '../../actions';
 import * as m from '../../model';
-import getFullName from '../../lib/getFullName';
 import selectors from '../../selectors';
 
 type PassedProps = {|
@@ -59,7 +58,7 @@ class PureUserAccountMenu extends React.Component<Props> {
         <Menu.Item as={Link} to="#">
           <Icon name="bell outline" />
         </Menu.Item>
-        <Dropdown text={getFullName(user)} pointing={true} item={true}>
+        <Dropdown text={user.name} pointing={true} item={true}>
           <Dropdown.Menu>
             <Dropdown.Header>
               {t('global:navbar.account')}

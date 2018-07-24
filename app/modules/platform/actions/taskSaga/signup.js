@@ -4,8 +4,7 @@ import * as a from '../../actionTypes';
 
 const signup = (
   email: string,
-  firstName: string,
-  lastName: ?string,
+  name: string,
   password: string,
   tosAccepted: boolean,
 ): a.SignupAction => {
@@ -13,8 +12,7 @@ const signup = (
     type: a.SIGNUP,
     payload: {
       email,
-      firstName,
-      lastName: lastName || undefined,
+      name,
       password,
       tosAccepted,
     },

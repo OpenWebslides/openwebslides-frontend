@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
     onUserFormSubmit: (values: UserFormValues): void => {
       if (
         values.email == null
-        || values.firstName == null
+        || values.name == null
         || values.password == null
         || values.tosAccepted == null
       ) {
@@ -32,8 +32,7 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
       }
       dispatch(actions.signup(
         values.email,
-        values.firstName,
-        values.lastName,
+        values.name,
         values.password,
         values.tosAccepted,
       ));

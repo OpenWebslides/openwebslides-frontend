@@ -46,9 +46,7 @@ const PureProfileCard = (props: Props): React.Node => {
     <Card>
       <Gravatar email={user.email} isLarge={true} />
       <Card.Content>
-        <Card.Header>
-          {user.firstName}&nbsp;{user.lastName}
-        </Card.Header>
+        <Card.Header>{user.name}</Card.Header>
       </Card.Content>
       <Card.Content>
         <SimpleList userId={user.id} />

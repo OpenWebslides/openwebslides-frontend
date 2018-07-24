@@ -16,9 +16,8 @@ export type AddToStateAction = {|
   type: typeof ADD_TO_STATE,
   payload: {
     id: string,
-    firstName: string,
-    lastName: ?string,
     email: ?string,
+    name: string,
   },
 |};
 

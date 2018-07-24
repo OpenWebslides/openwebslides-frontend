@@ -18,15 +18,13 @@ describe(`apiGet`, (): void => {
 
   let dummyId: string;
   let dummyEmail: string;
-  let dummyFirstName: string;
-  let dummyLastName: string;
+  let dummyName: string;
   let dummyToken: string;
 
   beforeEach((): void => {
     dummyId = 'dummyUserId';
     dummyEmail = 'test@test.be';
-    dummyFirstName = 'Test';
-    dummyLastName = 'Tester';
+    dummyName = 'Test Tester';
     dummyToken = 'foobarToken';
   });
 
@@ -39,8 +37,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             id: dummyId,
             email: dummyEmail,
-            firstName: dummyFirstName,
-            lastName: dummyLastName,
+            name: dummyName,
           },
         },
       },
@@ -52,7 +49,7 @@ describe(`apiGet`, (): void => {
         [call(api.users.get, dummyId, dummyToken), dummyApiResponse],
       ])
       .call(api.users.get, dummyId, dummyToken)
-      .put(actions.setMultipleInState([{ id: dummyId, email: dummyEmail, firstName: dummyFirstName, lastName: dummyLastName }]))
+      .put(actions.setMultipleInState([{ id: dummyId, email: dummyEmail, name: dummyName }]))
       .run();
   });
 
@@ -65,8 +62,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             id: dummyId,
             email: dummyEmail,
-            firstName: dummyFirstName,
-            lastName: dummyLastName,
+            name: dummyName,
           },
         },
       },
@@ -111,8 +107,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             id: dummyId,
             email: dummyEmail,
-            firstName: dummyFirstName,
-            lastName: dummyLastName,
+            name: dummyName,
           },
         },
       },

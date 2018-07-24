@@ -39,9 +39,8 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
     // Extract currentUser object from response
     const currentUser: users.model.User = {
       id: responseData.body.data.id,
-      firstName: responseData.body.data.attributes.firstName,
-      lastName: responseData.body.data.attributes.lastName,
       email,
+      name: responseData.body.data.attributes.name,
     };
 
     // Store currentUser object in the state, so that it can be selected using userAuth.userId

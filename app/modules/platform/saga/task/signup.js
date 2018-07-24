@@ -7,8 +7,8 @@ import users from 'modules/users';
 import * as a from '../../actionTypes';
 
 const signup = function* (action: a.SignupAction): Generator<*, *, *> {
-  const { email, firstName, lastName, password, tosAccepted } = action.payload;
-  yield put(users.actions.apiPost(email, firstName, lastName, password, tosAccepted));
+  const { email, name, password, tosAccepted } = action.payload;
+  yield put(users.actions.apiPost(email, name, password, tosAccepted));
 };
 
 export default signup;

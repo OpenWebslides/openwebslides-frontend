@@ -6,21 +6,18 @@ const { model } = users;
 
 export const user: $Exact<model.User> = {
   id: 'dummyUserId',
-  firstName: 'Test',
-  lastName: 'Tester',
+  name: 'Test Tester',
   email: 'test@test.be',
 };
 
 export const user2: $Exact<model.User> = {
   id: 'dummyUser2Id',
-  firstName: 'Lorem',
-  lastName: 'Ipsum',
+  name: 'Lorem ipsum',
   email: null,
 };
 
 export const user3: $Exact<model.User> = {
   id: 'dummyUser3Id',
-  firstName: 'Dummy',
-  lastName: null,
+  name: 'Dummyuser',
   email: 'dummy.user@test.com',
 };

@@ -13,8 +13,7 @@ import SubmitButtonGroup from 'components/SubmitButtonGroup';
 type UserFormValues = {|
   email?: string,
   password?: string,
-  firstName?: string,
-  lastName?: string,
+  name: string,
   tosAccepted?: boolean,
 |};
 
@@ -58,21 +57,11 @@ const PureUserForm = (props: Props): React.Node => {
         <Field
           component={Input}
           type="text"
-          name="firstName"
-          placeholder={t('users:forms.firstname')}
+          name="name"
+          placeholder={t('users:forms.name')}
           icon="user"
           iconPosition="left"
           required={true}
-        />
-      </Form.Field>
-      <Form.Field>
-        <Field
-          component={Input}
-          type="text"
-          name="lastName"
-          placeholder={t('users:forms.lastname')}
-          icon="user"
-          iconPosition="left"
         />
       </Form.Field>
       <Form.Field>

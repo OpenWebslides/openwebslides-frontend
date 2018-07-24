@@ -7,15 +7,13 @@ import actions from '..';
 describe(`apiPost`, (): void => {
 
   let dummyEmail: string;
-  let dummyFirstName: string;
-  let dummyLastName: string;
+  let dummyName: string;
   let dummyPassword: string;
   let dummyTosAccepted: true;
 
   beforeEach((): void => {
     dummyEmail = 'test@test.be';
-    dummyFirstName = 'Test';
-    dummyLastName = 'Tester';
+    dummyName = 'Test Tester';
     dummyPassword = 'MahPasswordY0';
     dummyTosAccepted = true;
   });
@@ -25,13 +23,12 @@ describe(`apiPost`, (): void => {
       type: a.API_POST,
       payload: {
         email: dummyEmail,
-        firstName: dummyFirstName,
-        lastName: dummyLastName,
+        name: dummyName,
         password: dummyPassword,
         tosAccepted: dummyTosAccepted,
       },
     };
-    const actualAction = actions.apiPost(dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted);
+    const actualAction = actions.apiPost(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
 
     expect(actualAction).toEqual(expectedAction);
   });

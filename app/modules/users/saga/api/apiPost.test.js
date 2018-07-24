@@ -14,38 +14,36 @@ import { sagas } from '..';
 describe(`apiPost`, (): void => {
 
   let dummyEmail: string;
-  let dummyFirstName: string;
-  let dummyLastName: string;
+  let dummyName: string;
   let dummyPassword: string;
   let dummyTosAccepted: boolean;
 
   beforeEach((): void => {
     dummyEmail = 'test@test.be';
-    dummyFirstName = 'Test';
-    dummyLastName = 'Tester';
+    dummyName = 'Test Tester';
     dummyPassword = 'MahPasswordY0';
     dummyTosAccepted = true;
   });
 
   it(`sends a POST request with the passed props to the uses API endpoint`, (): void => {
-    const dummyAction = actions.apiPost(dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted);
+    const dummyAction = actions.apiPost(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
     const dummyApiResponse = { status: 204 };
 
     return expectSaga(sagas.apiPost, dummyAction)
       .provide([
-        [call(api.users.post, dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted), dummyApiResponse],
+        [call(api.users.post, dummyEmail, dummyName, dummyPassword, dummyTosAccepted), dummyApiResponse],
       ])
-      .call(api.users.post, dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted)
+      .call(api.users.post, dummyEmail, dummyName, dummyPassword, dummyTosAccepted)
       .run();
   });
 
   it(`sets its request status to PENDING and then sets its request status to SUCCESS, when the saga completes without errors`, (): void => {
-    const dummyAction = actions.apiPost(dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted);
+    const dummyAction = actions.apiPost(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
     const dummyApiResponse = { status: 204 };
 
     return expectSaga(sagas.apiPost, dummyAction)
       .provide([
-        [call(api.users.post, dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted), dummyApiResponse],
+        [call(api.users.post, dummyEmail, dummyName, dummyPassword, dummyTosAccepted), dummyApiResponse],
       ])
       .put(apiRequestsStatus.actions.setPending(a.API_POST))
       .put(apiRequestsStatus.actions.setSuccess(a.API_POST))
@@ -53,7 +51,7 @@ describe(`apiPost`, (): void => {
   });
 
   it(`sets its request status to PENDING and then sets its request status to FAILURE, when the api call fails`, (): void => {
-    const dummyAction = actions.apiPost(dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted);
+    const dummyAction = actions.apiPost(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
     const dummyError = new Error('Boo!');
 
     return expectSaga(sagas.apiPost, dummyAction)

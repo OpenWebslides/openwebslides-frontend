@@ -21,8 +21,7 @@ export type ApiPostAction = {|
   type: typeof API_POST,
   payload: {
     email: string,
-    firstName: string,
-    lastName: ?string,
+    name: string,
     password: string,
     tosAccepted: boolean,
   },

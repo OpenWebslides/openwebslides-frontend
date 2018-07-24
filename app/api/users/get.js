@@ -7,7 +7,6 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 
 import { USERS_ENDPOINT } from '../endpoints';
 
-// #TODO why use '?string' here and 'string' everywhere else? @florian
 const get = (id: string, token: ?string): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.GET)
     .addPathSegment(USERS_ENDPOINT)

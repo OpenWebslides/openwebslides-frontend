@@ -25,8 +25,7 @@ const apiGet = function* (action: a.ApiGetAction): Generator<*, *, *> {
     const user: m.User = {
       id,
       email: attributes.email,
-      firstName: attributes.firstName,
-      lastName: attributes.lastName,
+      name: attributes.name,
     };
     yield put(actions.setMultipleInState([user]));
 

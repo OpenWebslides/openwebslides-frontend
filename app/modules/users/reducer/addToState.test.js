@@ -29,8 +29,7 @@ describe(`addToState`, (): void => {
       payload: {
         id: dummyUser2.id,
         email: dummyUser2.email,
-        firstName: dummyUser2.firstName,
-        lastName: dummyUser2.lastName,
+        name: dummyUser2.name,
       },
     };
     const nextState: m.UsersState = {
@@ -57,8 +56,7 @@ describe(`addToState`, (): void => {
       payload: {
         id: dummyUser1.id,
         email: dummyUser1.email,
-        firstName: dummyUser1.firstName,
-        lastName: dummyUser1.lastName,
+        name: dummyUser1.name,
       },
     };
 

@@ -16,16 +16,14 @@ import { sagas } from '..';
 describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
 
   let dummyId: string;
-  let dummyFirstName: string;
-  let dummyLastName: string;
+  let dummyName: string;
   let dummyEmail: string;
   let dummyPassword: string;
   let dummyToken: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
-    dummyFirstName = 'Test';
-    dummyLastName = 'Tester';
+    dummyName = 'Test Tester';
     dummyEmail = 'test@test.be';
     dummyPassword = 'MahPasswordY0';
     dummyToken = 'foobarToken';
@@ -38,8 +36,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
         data: {
           id: dummyId,
           attributes: {
-            firstName: dummyFirstName,
-            lastName: dummyLastName,
+            name: dummyName,
           },
         },
       },
@@ -57,9 +54,8 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
       }))
       .put(users.actions.setMultipleInState([{
         id: dummyId,
-        firstName: dummyFirstName,
-        lastName: dummyLastName,
         email: dummyEmail,
+        name: dummyName,
       }]))
       .run();
   });
@@ -71,8 +67,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
         data: {
           id: dummyId,
           attributes: {
-            firstName: dummyFirstName,
-            lastName: dummyLastName,
+            name: dummyName,
           },
         },
       },
@@ -112,8 +107,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
         data: {
           id: dummyId,
           attributes: {
-            firstName: dummyFirstName,
-            lastName: dummyLastName,
+            name: dummyName,
           },
         },
       },
