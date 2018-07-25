@@ -19,12 +19,14 @@ describe(`apiGet`, (): void => {
   let dummyId: string;
   let dummyEmail: string;
   let dummyName: string;
+  let dummyGravatarHash: string;
   let dummyToken: string;
 
   beforeEach((): void => {
     dummyId = 'dummyUserId';
     dummyEmail = 'test@test.be';
     dummyName = 'Test Tester';
+    dummyGravatarHash = 'test';
     dummyToken = 'foobarToken';
   });
 
@@ -38,6 +40,7 @@ describe(`apiGet`, (): void => {
             id: dummyId,
             email: dummyEmail,
             name: dummyName,
+            gravatarHash: dummyGravatarHash,
           },
         },
       },
@@ -49,7 +52,7 @@ describe(`apiGet`, (): void => {
         [call(api.users.get, dummyId, dummyToken), dummyApiResponse],
       ])
       .call(api.users.get, dummyId, dummyToken)
-      .put(actions.setMultipleInState([{ id: dummyId, email: dummyEmail, name: dummyName }]))
+      .put(actions.setMultipleInState([{ id: dummyId, email: dummyEmail, name: dummyName, gravatarHash: dummyGravatarHash }]))
       .run();
   });
 
@@ -63,6 +66,7 @@ describe(`apiGet`, (): void => {
             id: dummyId,
             email: dummyEmail,
             name: dummyName,
+            gravatarHash: dummyGravatarHash,
           },
         },
       },
@@ -108,6 +112,7 @@ describe(`apiGet`, (): void => {
             id: dummyId,
             email: dummyEmail,
             name: dummyName,
+            gravatarHash: dummyGravatarHash,
           },
         },
       },

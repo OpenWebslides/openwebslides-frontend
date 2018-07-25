@@ -37,10 +37,12 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
     yield put(actions.setUserAuthInState(currentUserAuth));
 
     // Extract currentUser object from response
+    const { attributes } = responseData.body.data;
     const currentUser: users.model.User = {
       id: responseData.body.data.id,
       email,
-      name: responseData.body.data.attributes.name,
+      name: attributes.name,
+      gravatarHash: attributes.gravatarHash,
     };
 
     // Store currentUser object in the state, so that it can be selected using userAuth.userId

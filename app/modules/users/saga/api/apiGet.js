@@ -20,12 +20,13 @@ const apiGet = function* (action: a.ApiGetAction): Generator<*, *, *> {
     const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
     if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
-    const response: ApiResponseData = yield call(api.users.get, id, userAuth.apiToken);
-    const { attributes } = response.body.data;
+    const responseData: ApiResponseData = yield call(api.users.get, id, userAuth.apiToken);
+    const { attributes } = responseData.body.data;
     const user: m.User = {
       id,
       email: attributes.email,
       name: attributes.name,
+      gravatarHash: attributes.gravatarHash,
     };
     yield put(actions.setMultipleInState([user]));
 

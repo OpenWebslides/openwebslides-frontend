@@ -19,6 +19,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
   let dummyName: string;
   let dummyEmail: string;
   let dummyPassword: string;
+  let dummyGravatarHash: string;
   let dummyToken: string;
 
   beforeEach((): void => {
@@ -26,6 +27,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
     dummyName = 'Test Tester';
     dummyEmail = 'test@test.be';
     dummyPassword = 'MahPasswordY0';
+    dummyGravatarHash = 'abcdefghij';
     dummyToken = 'foobarToken';
   });
 
@@ -37,6 +39,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
           id: dummyId,
           attributes: {
             name: dummyName,
+            gravatarHash: dummyGravatarHash,
           },
         },
       },
@@ -56,6 +59,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
         id: dummyId,
         email: dummyEmail,
         name: dummyName,
+        gravatarHash: dummyGravatarHash,
       }]))
       .run();
   });
@@ -68,6 +72,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
           id: dummyId,
           attributes: {
             name: dummyName,
+            gravatarHash: dummyGravatarHash,
           },
         },
       },
@@ -108,6 +113,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
           id: dummyId,
           attributes: {
             name: dummyName,
+            gravatarHash: dummyGravatarHash,
           },
         },
       },

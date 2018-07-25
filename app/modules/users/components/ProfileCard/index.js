@@ -2,21 +2,19 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Card } from 'semantic-ui-react';
+import { Card, Image } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
-import Gravatar from 'components/Gravatar';
 import { ObjectNotFoundError } from 'errors';
 import topics from 'modules/topics';
 
+import lib from '../../lib';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
 const { SimpleList } = topics.components;
 
 type PassedProps = {|
-  // TODO: change to identifier once fallback option for
-  // erroneous input in /users/:id is implemented
   userId: string,
 |};
 
@@ -24,10 +22,7 @@ type StateProps = {|
   user: m.User,
 |};
 
-type Props = {|
-  ...PassedProps,
-  ...StateProps,
-|};
+type Props = {| ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { userId } = props;
@@ -44,7 +39,7 @@ const PureProfileCard = (props: Props): React.Node => {
 
   return (
     <Card>
-      <Gravatar email={user.email} isLarge={true} />
+      <Image src={lib.getGravatarSrc(user, 512)} />
       <Card.Content>
         <Card.Header>{user.name}</Card.Header>
       </Card.Content>

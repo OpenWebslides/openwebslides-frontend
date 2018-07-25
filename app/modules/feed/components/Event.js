@@ -6,13 +6,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { translate, type TranslatorProps } from 'react-i18next';
 import moment from 'moment';
-import { Feed } from 'semantic-ui-react';
+import { Feed, Image } from 'semantic-ui-react';
 
 import { USER_PROFILE_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
 import type { State } from 'types/state';
 import topics from 'modules/topics';
 import users from 'modules/users';
-import Gravatar from 'components/Gravatar';
 
 import type { Event } from '../model';
 import { getById } from '../selectors';
@@ -104,7 +103,7 @@ class PureEventWrapper extends React.Component<Props, State> {
       <Feed.Event>
         <Feed.Label>
           <Link to={`${USER_PROFILE_ROUTE}/${user.id}`}>
-            <Gravatar email={user.email} />
+            <Image src={users.lib.getGravatarSrc(user, 200)} bordered={true} />
           </Link>
         </Feed.Label>
         <Feed.Content>
