@@ -2,12 +2,11 @@
 
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Menu, Dropdown, Icon } from 'semantic-ui-react';
 
-import { type State } from 'types/state';
 import { USER_PROFILE_ROUTE, USER_SIGNOUT_ROUTE } from 'config/routes';
+import FetchWrapper from 'components/FetchWrapper';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -17,43 +16,13 @@ type PassedProps = {|
   userId: string,
 |};
 
-type StateProps = {|
-  user: ?m.User,
-|};
-
-type DispatchProps = {|
-  fetchUser: () => void,
-|};
-
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
-
-const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const { userId } = props;
-
-  return {
-    user: selectors.getById(state, { id: userId }),
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
-  const { userId } = props;
-  return {
-    fetchUser: (): void => {
-      dispatch(actions.fetch(userId));
-    },
-  };
-};
+type Props = {| ...TranslatorProps, ...PassedProps |};
 
 class PureUserAccountMenu extends React.Component<Props> {
-  componentDidMount(): void {
-    const { user, fetchUser } = this.props;
-    if (user == null) fetchUser();
-  }
+  renderUserAccountMenu = (user: m.User): React.Node => {
+    const { t } = this.props;
 
-  render(): React.Node {
-    const { t, user } = this.props;
-
-    return (user == null) ? null : (
+    return (
       <Menu.Menu position="right">
         <Menu.Item as={Link} to="#">
           <Icon name="bell outline" />
@@ -74,12 +43,23 @@ class PureUserAccountMenu extends React.Component<Props> {
         </Dropdown>
       </Menu.Menu>
     );
+  };
+
+  render(): React.Node {
+    const { userId } = this.props;
+
+    return (
+      <FetchWrapper
+        render={this.renderUserAccountMenu}
+        fetchId={userId}
+        fetchAction={actions.fetch}
+        fetchedPropSelector={selectors.getById}
+      />
+    );
   }
 }
 
-const UserAccountMenu = connect(mapStateToProps, mapDispatchToProps)(
-  translate()(PureUserAccountMenu),
-);
+const UserAccountMenu = translate()(PureUserAccountMenu);
 
 export { PureUserAccountMenu };
 export default UserAccountMenu;
