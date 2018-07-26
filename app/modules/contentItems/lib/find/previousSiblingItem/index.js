@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Finds the siblingItem that comes immediately before the passed contentItem.
  * Note that 'siblings' refers to siblings of the same type; i.e. if the contentItem's
@@ -13,7 +14,7 @@ import * as m from '../../../model';
 
 import find from '..';
 
-import type { SingleFindFunction } from '../types';
+import { type SingleFindFunction } from '../types';
 
 const findPreviousSiblingItem: SingleFindFunction = (
   contentItem: ?m.ContentItem,

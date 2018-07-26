@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
 import api from 'api';
@@ -7,7 +8,7 @@ import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import * as a from '../../actionTypes';
 
-const apiPost = function* (action: a.ApiPostAction): Generator<*, *, *> {
+const apiPost = function* (action: a.ApiPostAction): Saga<void> {
   yield put(apiRequestsStatus.actions.setPending(action.type));
 
   try {

@@ -1,4 +1,5 @@
 // @flow
+
 /* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';

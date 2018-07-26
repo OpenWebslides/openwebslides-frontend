@@ -8,7 +8,7 @@ import getAllById from './getAllById';
 
 const getAll = createSelector(
   [getAllById],
-  (usersById: m.UsersById): Array<m.User> => {
+  (usersById: m.UsersById): $ReadOnlyArray<m.User> => {
     return Object.keys(usersById).map((key) => usersById[key]);
   },
 );

@@ -1,8 +1,8 @@
 // @flow
 
-import contentItems from 'modules/contentItems';
+/* eslint-disable flowtype/require-types-at-top */
 
-import type { Topic } from './model';
+import * as m from './model';
 
 /* Action constants */
 
@@ -32,7 +32,7 @@ export const API_GET_CONTENT: 'topics/API_GET_CONTENT' = 'topics/API_GET_CONTENT
 /* Action types */
 
 // Reducer actions
-export type AddToStateAction = {
+export type AddToStateAction = {|
   type: typeof ADD_TO_STATE,
   payload: {
     id: string,
@@ -41,33 +41,33 @@ export type AddToStateAction = {
     description: string,
     rootContentItemId: string,
   },
-};
+|};
 
-export type EditInStateAction = {
+export type EditInStateAction = {|
   type: typeof EDIT_IN_STATE,
   payload: {
     id: string,
     title: ?string,
     description: ?string,
   },
-};
+|};
 
-export type RemoveFromStateAction = {
+export type RemoveFromStateAction = {|
   type: typeof REMOVE_FROM_STATE,
   payload: {
     id: string,
   },
-};
+|};
 
-export type SetItemsInStateAction = {
+export type SetItemsInStateAction = {|
   type: typeof SET_ITEMS_IN_STATE,
   payload: {
-    items: ?Array<Topic>,
+    items: ?$ReadOnlyArray<m.Topic>,
   },
-};
+|};
 
 // Task saga actions
-export type AddAction = {
+export type AddAction = {|
   type: typeof ADD,
   payload: {
     id: string,
@@ -76,107 +76,122 @@ export type AddAction = {
     description: string,
     rootContentItemId: string,
   },
-};
+|};
 
-export type EditAction = {
+export type EditAction = {|
   type: typeof EDIT,
   payload: {
     id: string,
     title: ?string,
     description: ?string,
   },
-};
+|};
 
-export type RemoveAction = {
+export type RemoveAction = {|
   type: typeof REMOVE,
   payload: {
     id: string,
   },
-};
+|};
 
-export type GetAction = {
+export type GetAction = {|
   type: typeof GET,
   payload: {
     id: string,
   },
-};
+|};
 
-export type GetAllByUserIdAction = {
+export type GetAllByUserIdAction = {|
   type: typeof GET_ALL_BY_USERID,
   payload: {
     userId: string,
   },
-};
+|};
 
-export type SaveContentAction = {
+export type SaveContentAction = {|
   type: typeof SAVE,
   payload: {
     id: string,
   },
-};
+|};
 
-export type LoadContentAction = {
+export type LoadContentAction = {|
   type: typeof LOAD,
   payload: {
     id: string,
   },
-};
+|};
 
 // API saga actions
-export type ApiDeleteTopicAction = {
+export type ApiDeleteTopicAction = {|
   type: typeof API_DELETE,
   payload: {
     id: string,
   },
-};
+|};
 
-export type ApiGetTopicAction = {
+export type ApiGetTopicAction = {|
   type: typeof API_GET,
   payload: {
     id: string,
   },
-};
+|};
 
-export type ApiGetAllTopicsByUserIdAction = {
+export type ApiGetAllTopicsByUserIdAction = {|
   type: typeof API_GET_ALL_BY_USERID,
   payload: {
     userId: string,
   },
-};
+|};
 
-export type ApiPostTopicAction = {
+export type ApiPostTopicAction = {|
   type: typeof API_POST,
   payload: {
     userId: string,
     title: string,
     description: ?string,
   },
-};
+|};
 
-export type ApiPatchTopicContentAction = {
+export type ApiPatchTopicContentAction = {|
   type: typeof API_PATCH_CONTENT,
   payload: {
     id: string,
-    content: Array<contentItems.model.ContentItem>,
+    // dependency on contentItems caused dependency cycle; move patch action to contentItems #TODO
+    // content: $ReadOnlyArray<contentItems.model.ContentItem>,
+    // eslint-disable-next-line flowtype/no-weak-types
+    content: $ReadOnlyArray<any>,
   },
-};
+|};
 
-export type ApiGetTopicContentAction = {
+export type ApiGetTopicContentAction = {|
   type: typeof API_GET_CONTENT,
   payload: {
     id: string,
   },
-};
+|};
 
-export type TopicReducerAction =
+export type ReducerAction =
   | AddToStateAction
   | EditInStateAction
   | RemoveFromStateAction
   | SetItemsInStateAction;
 
-export type TopicTaskSagaAction =
+export type ApiSagaAction =
+  | ApiDeleteTopicAction
+  | ApiGetTopicAction
+  | ApiGetAllTopicsByUserIdAction
+  | ApiPostTopicAction
+  | ApiPatchTopicContentAction
+  | ApiGetTopicContentAction;
+
+export type TaskSagaAction =
   | AddAction
   | EditAction
+  | RemoveAction
   | GetAction
   | GetAllByUserIdAction
-  | RemoveAction;
+  | SaveContentAction
+  | LoadContentAction;
+
+export type ModuleAction = ReducerAction | ApiSagaAction | TaskSagaAction;

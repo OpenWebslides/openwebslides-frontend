@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * API docs: https://openwebslides.github.io/documentation/#token-api
  */

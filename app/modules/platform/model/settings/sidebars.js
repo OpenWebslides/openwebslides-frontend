@@ -1,5 +1,7 @@
 // @flow
 
+/* eslint-disable flowtype/require-types-at-top */
+
 const TOPIC_INFO: 'sideBarIds/TOPIC_INFO' = 'sideBarIds/TOPIC_INFO';
 const SLIDE_PREVIEWS: 'sideBarIds/SLIDE_PREVIEWS' = 'sideBarIds/SLIDE_PREVIEWS';
 

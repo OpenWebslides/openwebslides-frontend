@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * An error caused by a developer attempting to use functionality that has not yet been implemented.
  */

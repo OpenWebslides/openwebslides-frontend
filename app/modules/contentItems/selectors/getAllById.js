@@ -1,10 +1,10 @@
 // @flow
 
-import type { State } from 'types/state';
+import { type State } from 'types/state';
 
-import type { ContentItemsById } from '../model';
+import * as m from '../model';
 
-const getAllById = (state: State): ContentItemsById => {
+const getAllById = (state: State): m.ContentItemsById => {
   return state.modules.contentItems.byId;
 };
 

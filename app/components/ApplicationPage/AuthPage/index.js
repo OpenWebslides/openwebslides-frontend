@@ -1,4 +1,5 @@
 // @flow
+
 /* eslint-disable max-len */
 
 import * as React from 'react';
@@ -15,9 +16,9 @@ import ResetPasswordPage from './ResetPasswordPage';
 import SigninPage from './SigninPage';
 import SignupPage from './SignupPage';
 
-const { UnauthWrapper } = platform.components;
-
 type Props = {| |};
+
+const { UnauthWrapper } = platform.components;
 
 const PureAuthPage = (props: Props): React.Node => {
   return (

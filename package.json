@@ -89,11 +89,13 @@
     "dev-server": "webpack-dev-server --mode development",
     "prod-server": "webpack-dev-server --mode production",
     "lint": "eslint .",
-    "flow-warn": "flow --include-warnings",
+    "flow-color": "flow --color always",
+    "flow-warn": "yarn run flow-color --include-warnings",
     "test": "jest",
     "test-report": "jest --verbose --coverage",
-    "check": "yarn run lint && yarn run flow-warn && yarn run test",
-    "precommit": "yarn run lint && yarn run flow",
+    "check": "yarn run lint && yarn run flow-color && yarn run test",
+    "check-strict": "yarn run lint && yarn run flow-warn && yarn run test-report",
+    "precommit": "yarn run lint && yarn run flow-color",
     "prepush": "yarn run test"
   }
 }

@@ -1,5 +1,6 @@
 // @flow
 
+import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
@@ -26,22 +27,19 @@ describe(`HtmlDisplay`, (): void => {
   let dummyRoot: m.DenormalizedRootContentItem;
 
   beforeEach((): void => {
-    dummyParagraph22 = { ...dummyData.paragraphContentItem8, subItems: [] };
-    dummyParagraph21 = { ...dummyData.paragraphContentItem7, subItems: [] };
-    // $FlowFixMe "Could not decide which case to select"; possible bug in flow
-    dummyHeading2 = { ...dummyData.headingContentItem4, subItems: [dummyParagraph21, dummyParagraph22] };
-    dummyParagraph122 = { ...dummyData.paragraphContentItem6, subItems: [] };
-    dummyParagraph121 = { ...dummyData.paragraphContentItem5, subItems: [] };
-    // $FlowFixMe "Could not decide which case to select"; possible bug in flow
-    dummyHeading12 = { ...dummyData.headingContentItem3, subItems: [dummyParagraph121, dummyParagraph122] };
-    dummyParagraph1122 = { ...dummyData.paragraphContentItem4, subItems: [] };
-    dummyParagraph1121 = { ...dummyData.paragraphContentItem3, subItems: [] };
-    dummyParagraph112 = { ...dummyData.paragraphContentItem2, subItems: [dummyParagraph1121, dummyParagraph1122] };
-    dummyParagraph111 = { ...dummyData.paragraphContentItem, subItems: [] };
-    // $FlowFixMe "Could not decide which case to select"; possible bug in flow
-    dummyHeading11 = { ...dummyData.headingContentItem2, subItems: [dummyParagraph111, dummyParagraph112] };
-    dummyHeading1 = { ...dummyData.headingContentItem, subItems: [dummyHeading11, dummyHeading12] };
-    dummyRoot = { ...dummyData.rootContentItem, childItems: [dummyHeading1, dummyHeading2] };
+    dummyParagraph22 = { ..._.omit(dummyData.paragraphContentItem8, 'subItemIds'), subItems: [] };
+    dummyParagraph21 = { ..._.omit(dummyData.paragraphContentItem7, 'subItemIds'), subItems: [] };
+    dummyHeading2 = { ..._.omit(dummyData.headingContentItem4, 'subItemIds'), subItems: [dummyParagraph21, dummyParagraph22] };
+    dummyParagraph122 = { ..._.omit(dummyData.paragraphContentItem6, 'subItemIds'), subItems: [] };
+    dummyParagraph121 = { ..._.omit(dummyData.paragraphContentItem5, 'subItemIds'), subItems: [] };
+    dummyHeading12 = { ..._.omit(dummyData.headingContentItem3, 'subItemIds'), subItems: [dummyParagraph121, dummyParagraph122] };
+    dummyParagraph1122 = { ..._.omit(dummyData.paragraphContentItem4, 'subItemIds'), subItems: [] };
+    dummyParagraph1121 = { ..._.omit(dummyData.paragraphContentItem3, 'subItemIds'), subItems: [] };
+    dummyParagraph112 = { ..._.omit(dummyData.paragraphContentItem2, 'subItemIds'), subItems: [dummyParagraph1121, dummyParagraph1122] };
+    dummyParagraph111 = { ..._.omit(dummyData.paragraphContentItem, 'subItemIds'), subItems: [] };
+    dummyHeading11 = { ..._.omit(dummyData.headingContentItem2, 'subItemIds'), subItems: [dummyParagraph111, dummyParagraph112] };
+    dummyHeading1 = { ..._.omit(dummyData.headingContentItem, 'subItemIds'), subItems: [dummyHeading11, dummyHeading12] };
+    dummyRoot = { ..._.omit(dummyData.rootContentItem, 'childItemIds'), childItems: [dummyHeading1, dummyHeading2] };
   });
 
   it(`renders without errors`, (): void => {

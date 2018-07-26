@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Finds the passed contentItem's parentItem if the passed contentItem is a childItem, or its
  * superItem if it is a subItem.
@@ -8,7 +9,7 @@ import * as m from '../../../model';
 
 import find from '..';
 
-import type { SingleFindFunction } from '../types';
+import { type SingleFindFunction } from '../types';
 
 const findParentOrSuperItem: SingleFindFunction = (
   contentItem: ?m.ContentItem,

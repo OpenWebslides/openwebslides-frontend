@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * API docs: #TODO
  */
@@ -10,7 +11,7 @@ import { TOPICS_ENDPOINT, TOPICS_CONTENT_ENDPOINT } from '../endpoints';
 
 const patchContent = (
   topicId: string,
-  content: Array<contentItems.model.ContentItem>,
+  content: $ReadOnlyArray<contentItems.model.ContentItem>,
   token: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({

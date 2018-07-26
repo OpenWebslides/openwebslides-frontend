@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Contains logic concerned with rendering the app in the browser.
  */

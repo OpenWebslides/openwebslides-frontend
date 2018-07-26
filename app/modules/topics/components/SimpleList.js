@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Header } from 'semantic-ui-react';
 import { translate, type TranslatorProps } from 'react-i18next';
 
-import type { State } from 'types/state';
+import { type State } from 'types/state';
 
 import { getAllTopicIdsByUserId } from '../selectors';
 
@@ -16,14 +16,10 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  topicIds: Array<string>,
+  topicIds: $ReadOnlyArray<string>,
 |};
 
-type Props = {|
-  ...TranslatorProps,
-  ...PassedProps,
-  ...StateProps,
-|};
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { userId } = props;

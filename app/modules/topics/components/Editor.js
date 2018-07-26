@@ -3,28 +3,25 @@
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { Button, Header } from 'semantic-ui-react';
 
+import { type State } from 'types/state';
+import { type Action } from 'types/action';
 import contentItems from 'modules/contentItems';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
-import type { State } from 'types/state';
 
-import type { Topic } from '../model';
+import * as a from '../actionTypes';
+import * as m from '../model';
 import { getById } from '../selectors';
 import { save, load } from '../actions';
-import {
-  API_GET_CONTENT,
-  API_PATCH_CONTENT,
-} from '../actionTypes';
-
-const { ApiDimmer } = apiRequestsStatus.components;
 
 type PassedProps = {|
   topicId: string,
 |};
 
 type StateProps = {|
-  topic: Topic,
+  topic: m.Topic,
 |};
 
 type DispatchProps = {|
@@ -32,12 +29,9 @@ type DispatchProps = {|
   onLoadButtonClick: (string) => void,
 |};
 
-type Props = {|
-  ...TranslatorProps,
-  ...PassedProps,
-  ...StateProps,
-  ...DispatchProps,
-|};
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+
+const { ApiDimmer } = apiRequestsStatus.components;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;
@@ -48,7 +42,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     onSaveButtonClick: (id: string): void => {
       dispatch(save(id));
@@ -88,7 +82,7 @@ class PureEditor extends React.Component<Props> {
 
       return (
         <div>
-          <ApiDimmer requestIds={[API_GET_CONTENT]}>{t('editor:api.load.pending')}</ApiDimmer>
+          <ApiDimmer requestIds={[a.API_GET_CONTENT]}>{t('editor:api.load.pending')}</ApiDimmer>
         </div>
       );
     }
@@ -97,8 +91,8 @@ class PureEditor extends React.Component<Props> {
       <div>
         <Header as="h1">{topic.title}</Header>
 
-        <ApiDimmer requestIds={[API_GET_CONTENT]}>{t('editor:api.load.pending')}</ApiDimmer>
-        <ApiDimmer requestIds={[API_PATCH_CONTENT]}>{t('editor:api.save.pending')}</ApiDimmer>
+        <ApiDimmer requestIds={[a.API_GET_CONTENT]}>{t('editor:api.load.pending')}</ApiDimmer>
+        <ApiDimmer requestIds={[a.API_PATCH_CONTENT]}>{t('editor:api.save.pending')}</ApiDimmer>
 
         <p>
           <Button primary={true} onClick={this.onSaveButtonClick}>

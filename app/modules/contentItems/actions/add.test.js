@@ -1,21 +1,20 @@
 // @flow
 
 import * as a from '../actionTypes';
-import { contentItemTypes, contextTypes } from '../model';
-import type { ContentItemType, AllPropsForAllTypes, Context } from '../model';
+import * as m from '../model';
 
 import actions from '.';
 
 describe(`add`, (): void => {
 
-  let dummyType: ContentItemType;
-  let dummyContext: Context;
-  let dummyProps: $Shape<AllPropsForAllTypes>;
+  let dummyType: m.ContentItemType;
+  let dummyContext: m.Context;
+  let dummyProps: $Shape<m.AllPropsForAllTypes>;
 
   beforeEach((): void => {
-    dummyType = contentItemTypes.HEADING;
+    dummyType = m.contentItemTypes.HEADING;
     dummyContext = {
-      contextType: contextTypes.SIBLING,
+      contextType: m.contextTypes.SIBLING,
       contextItemId: 'abcdefghijklmnopqrst',
     };
     dummyProps = {

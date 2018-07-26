@@ -1,20 +1,19 @@
 // @flow
 
 import * as a from '../actionTypes';
-import { contextTypes } from '../model';
-import type { VerticalContext } from '../model';
+import * as m from '../model';
 
 import actions from '.';
 
 describe(`moveInState`, (): void => {
 
   let dummyId: string;
-  let dummyNextContext: VerticalContext;
+  let dummyNextContext: m.VerticalContext;
 
   beforeEach((): void => {
     dummyId = 'abcdefghijklmnopqrst';
     dummyNextContext = {
-      contextType: contextTypes.SUPER,
+      contextType: m.contextTypes.SUPER,
       contextItemId: 'opqrstuvwxyzabcdefgh',
     };
   });

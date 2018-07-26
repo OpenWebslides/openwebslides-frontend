@@ -13,7 +13,7 @@ const setMultipleInState = (
     return state;
   }
   else {
-    const newById: * = { ...state.byId };
+    const newById = { ...state.byId };
 
     users.forEach((user: m.User): void => {
       newById[user.id] = user;

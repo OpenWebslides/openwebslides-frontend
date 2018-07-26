@@ -15,8 +15,8 @@ describe(`SigninCard`, (): void => {
   let dummyEmail: string;
   let dummyPassword: string;
 
-  let dummyDispatch: *;
-  let dummyState: *;
+  let dummyDispatch: any;
+  let dummyState: any;
 
   beforeEach((): void => {
     dummyEmail = 'test@test.be';

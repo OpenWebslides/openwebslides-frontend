@@ -10,7 +10,7 @@ import SignoutPage from '.';
 
 describe(`SignoutPage`, (): void => {
 
-  let dummyDispatch: *;
+  let dummyDispatch: any;
 
   beforeEach((): void => {
     dummyDispatch = jest.fn();

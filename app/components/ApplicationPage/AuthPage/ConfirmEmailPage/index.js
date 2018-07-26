@@ -2,15 +2,15 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
 
+import { type Action } from 'types/action';
 import { InvalidArgumentError } from 'errors';
 import PageWrapper from 'components/PageWrapper';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
-
-const { ApiDimmer } = apiRequestsStatus.components;
 
 type DispatchProps = {|
   confirmEmail: (confirmationToken: string) => void,
@@ -18,7 +18,9 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...RouterProps, ...DispatchProps |};
 
-const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+const { ApiDimmer } = apiRequestsStatus.components;
+
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     confirmEmail: (confirmationToken: string): void => {
       dispatch(platform.actions.confirmEmail(confirmationToken));

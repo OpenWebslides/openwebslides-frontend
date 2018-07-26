@@ -1,4 +1,5 @@
 // @flow
+
 /* eslint-disable no-multiple-empty-lines */
 
 import * as sidebars from './sidebars';
@@ -7,7 +8,7 @@ import * as sidebars from './sidebars';
 // Types for each user setting ---------------------------------------------------------------------
 
 export type UserSettingActiveSidebarIds = {|
-  +activeSidebarIds: Array<sidebars.SidebarId>,
+  +activeSidebarIds: $ReadOnlyArray<sidebars.SidebarId>,
 |};
 
 

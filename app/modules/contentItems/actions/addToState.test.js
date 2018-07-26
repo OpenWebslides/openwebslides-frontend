@@ -3,23 +3,22 @@
 import { InvalidArgumentError, NotYetImplementedError } from 'errors';
 
 import * as a from '../actionTypes';
-import { contentItemTypes, contextTypes } from '../model';
-import type { ContentItemType, AllPropsForAllTypes, VerticalContext } from '../model';
+import * as m from '../model';
 
 import actions from '.';
 
 describe(`addToState`, (): void => {
 
   let dummyId: string;
-  let dummyPlainTextType: ContentItemType;
-  let dummyContext: VerticalContext;
-  let dummyPlainTextProps: $Shape<AllPropsForAllTypes>;
+  let dummyPlainTextType: m.ContentItemType;
+  let dummyContext: m.VerticalContext;
+  let dummyPlainTextProps: $Shape<m.AllPropsForAllTypes>;
 
   beforeEach((): void => {
     dummyId = 'abcdefghij';
-    dummyPlainTextType = contentItemTypes.HEADING;
+    dummyPlainTextType = m.contentItemTypes.HEADING;
     dummyContext = {
-      contextType: contextTypes.PARENT,
+      contextType: m.contextTypes.PARENT,
       contextItemId: 'uvwxyzabcdefghijklmn',
     };
     dummyPlainTextProps = {
@@ -91,7 +90,7 @@ describe(`addToState`, (): void => {
   it(`temporarily throws a NotYetImplementedError, when attempting to add a type other than plainText`, (): void => {
     expect((): any => actions.addToState(
       dummyId,
-      contentItemTypes.IMAGE,
+      m.contentItemTypes.IMAGE,
       dummyContext,
       {},
     )).toThrow(NotYetImplementedError);

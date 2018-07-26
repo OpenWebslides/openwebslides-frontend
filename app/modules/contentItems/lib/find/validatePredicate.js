@@ -2,12 +2,12 @@
 
 import * as m from '../../model';
 
-import type { FindFunctionPredicate } from './types';
+import { type FindFunctionPredicate } from './types';
 
 const validatePredicate = (
   predicate: ?FindFunctionPredicate,
   contentItem: m.ContentItem,
-  processedItemIds: Array<string>,
+  processedItemIds: $ReadOnlyArray<string>,
   contentItemsById: m.ContentItemsById,
 ): boolean => {
   if (predicate == null) {

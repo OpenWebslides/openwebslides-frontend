@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { put, select } from 'redux-saga/effects';
 
 import { ObjectNotFoundError } from 'errors';
@@ -11,7 +12,7 @@ import find from '../../lib/find';
 
 const removeAndTogglePreviousItemSaga = function* (
   action: a.RemoveAndTogglePreviousItemAction,
-): Generator<*, *, *> {
+): Saga<void> {
   const contentItemsById = yield select(selectors.getAllById);
   const { id } = action.payload;
 

@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * An error caused by a user attempting to view an object that doesn't exist or that they can't
  * access for security / privacy reasons.

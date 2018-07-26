@@ -1,15 +1,15 @@
 // @flow
 
 import * as a from './actionTypes';
-import type { Event, FeedState } from './model';
+import * as m from './model';
 
-const initialState: FeedState = {};
+const initialState: m.FeedState = {};
 
-const setEvents = (state: FeedState, action: a.SetEventsAction): FeedState => {
+const setEvents = (state: m.FeedState, action: a.SetEventsAction): m.FeedState => {
   const newEvents = {};
 
   if (action.payload.items) {
-    action.payload.items.forEach((item: Event): void => {
+    action.payload.items.forEach((item: m.Event): void => {
       newEvents[item.id] = item;
     });
   }
@@ -17,7 +17,7 @@ const setEvents = (state: FeedState, action: a.SetEventsAction): FeedState => {
   return newEvents;
 };
 
-const reducer = (state: FeedState = initialState, action: a.FeedAction): FeedState => {
+const reducer = (state: m.FeedState = initialState, action: a.ReducerAction): m.FeedState => {
   switch (action.type) {
     case a.SET_EVENTS:
       return setEvents(state, action);

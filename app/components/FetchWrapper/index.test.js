@@ -8,9 +8,9 @@ import { DummyProviders } from 'lib/testResources';
 
 import FetchWrapper, { PureFetchWrapper } from '.';
 
-describe(`FetchWrapper`, (): void => {
+type DummyType = {| foo: string, bar: string |};
 
-  type DummyType = { foo: string, bar: string };
+describe(`FetchWrapper`, (): void => {
 
   let dummyFetchedProp: DummyType;
   let dummyRender: (DummyType) => React.Node;

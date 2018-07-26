@@ -21,11 +21,7 @@ type StateProps = {|
   contentItemTreeRootItem: contentItems.model.DenormalizedRootContentItem,
 |};
 
-type Props = {|
-  ...TranslatorProps,
-  ...PassedProps,
-  ...StateProps,
-|};
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;

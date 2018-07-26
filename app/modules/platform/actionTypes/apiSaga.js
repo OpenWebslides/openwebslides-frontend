@@ -1,5 +1,6 @@
 // @flow
-/* eslint-disable no-multiple-empty-lines */
+
+/* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
 
 // Action constants --------------------------------------------------------------------------------
@@ -48,3 +49,13 @@ export type ApiPostEmailToPasswordAction = {|
     email: string,
   },
 |};
+
+
+// ApiSaga action ----------------------------------------------------------------------------------
+
+export type ApiSagaAction =
+  | ApiPostSigninToTokenAndGetUserAuthAction
+  | ApiDeleteTokenAction
+  | ApiPostConfirmationAction
+  | ApiPostEmailToConfirmationAction
+  | ApiPostEmailToPasswordAction;

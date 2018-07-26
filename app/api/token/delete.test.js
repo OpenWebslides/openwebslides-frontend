@@ -11,7 +11,7 @@ describe(`api.token.delete`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<*> => {
+  it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyToken = 'foobarToken';
     fetch.mockResponseOnce(null, { status: 200 });
     await api.token.delete(dummyToken);

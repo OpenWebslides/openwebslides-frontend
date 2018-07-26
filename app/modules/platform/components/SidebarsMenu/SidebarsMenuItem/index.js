@@ -3,10 +3,12 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Menu, Icon } from 'semantic-ui-react';
 
 import { type State } from 'types/state';
+import { type Action } from 'types/action';
 
 import actions from '../../../actions';
 import * as m from '../../../model';
@@ -40,7 +42,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
   const { sidebarId } = props;
 
   return {

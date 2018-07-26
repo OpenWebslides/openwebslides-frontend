@@ -1,5 +1,6 @@
 // @flow
-/* eslint-disable no-multiple-empty-lines */
+
+/* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
 
 // StatusTypes -------------------------------------------------------------------------------------
@@ -41,6 +42,7 @@ export type RequestStatus =
 
 // Module state ------------------------------------------------------------------------------------
 
+// eslint-disable-next-line flowtype/require-exact-type
 export type ApiRequestsStatusState = {
   +[id: string]: RequestStatus,
 };

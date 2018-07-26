@@ -1,4 +1,5 @@
 // @flow
+
 /* eslint-disable flowtype/no-weak-types */
 /**
  * Finds all direct child- and subItems of the passed contentItem. If the passed contentItem is
@@ -8,12 +9,12 @@
 import { CorruptedInternalStateError } from 'errors';
 
 import * as m from '../../../model';
-import type { MultipleFindFunction } from '../types';
+import { type MultipleFindFunction } from '../types';
 
 const findAllChildOrSubItems: MultipleFindFunction = (
   contentItem: ?m.ContentItem,
   contentItemsById: m.ContentItemsById,
-): Array<m.ContentItem> => {
+): $ReadOnlyArray<m.ContentItem> => {
   if (contentItem == null) return [];
 
   const allChildOrSubItemIds = [];

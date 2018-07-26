@@ -6,18 +6,18 @@ import { shallow } from 'enzyme';
 import { dummyProviderProps, dummyUserData, dummyTopicData } from 'lib/testResources';
 
 import { PureEventWrapper } from '../Event';
-import { predicate } from '../../model';
+import * as m from '../../model';
 
 describe(`Event`, (): void => {
 
   it(`renders without errors`, (): void => {
     const dummyUser = { ...dummyUserData.user };
-    const dummyTopic = { ...dummyTopicData.topic, user: dummyUser.id };
+    const dummyTopic = { ...dummyTopicData.topic, userId: dummyUser.id };
     const dummyEvent = {
       id: 'zzzzzzzzzz',
       userId: 'xxxxxxxxxx',
       topicId: 'yyyyyyyyyy',
-      predicate: predicate.CREATE,
+      predicate: m.predicate.CREATE,
       timestamp: 1511622599112,
     };
 

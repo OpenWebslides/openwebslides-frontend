@@ -12,15 +12,15 @@ import indentSaga from './indent';
 
 describe(`indentSaga`, (): void => {
 
-  let dummyParagraph24: $Exact<m.ParagraphContentItem>;
-  let dummySlideBreak23: $Exact<m.SlideBreakContentItem>;
-  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
-  let dummyHeading2: $Exact<m.HeadingContentItem>;
-  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
-  let dummyHeading1: $Exact<m.HeadingContentItem>;
-  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyParagraph24: m.ParagraphContentItem;
+  let dummySlideBreak23: m.SlideBreakContentItem;
+  let dummyParagraph22: m.ParagraphContentItem;
+  let dummyParagraph21: m.ParagraphContentItem;
+  let dummyHeading2: m.HeadingContentItem;
+  let dummyParagraph12: m.ParagraphContentItem;
+  let dummyParagraph11: m.ParagraphContentItem;
+  let dummyHeading1: m.HeadingContentItem;
+  let dummyRoot: m.RootContentItem;
   let dummyContentItemsById: m.ContentItemsById;
   let dummyContentItemsState: m.ContentItemsState;
   let dummyState: Object;
@@ -135,7 +135,7 @@ describe(`indentSaga`, (): void => {
       .run();
   });
 
-  it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, async (): Promise<*> => {
+  it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, async (): Promise<mixed> => {
     const dummyIndentAction: a.IndentAction = {
       type: a.INDENT,
       payload: {

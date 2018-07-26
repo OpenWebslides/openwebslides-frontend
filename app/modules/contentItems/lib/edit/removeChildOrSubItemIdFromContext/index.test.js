@@ -9,11 +9,11 @@ import edit from '..';
 
 describe(`removeChildOrSubItemIdFromContext`, (): void => {
 
-  let dummyHeading2: $Exact<m.HeadingContentItem>;
-  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
-  let dummyHeading1: $Exact<m.HeadingContentItem>;
-  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyHeading2: m.HeadingContentItem;
+  let dummyParagraph12: m.ParagraphContentItem;
+  let dummyParagraph11: m.ParagraphContentItem;
+  let dummyHeading1: m.HeadingContentItem;
+  let dummyRoot: m.RootContentItem;
   let dummyContentItemsById: m.ContentItemsById;
 
   beforeEach((): void => {

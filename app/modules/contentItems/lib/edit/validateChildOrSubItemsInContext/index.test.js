@@ -9,13 +9,13 @@ import edit from '..';
 
 describe(`validateChildOrSubItemsInContext`, (): void => {
 
-  let dummyParagraph4: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph3: $Exact<m.ParagraphContentItem>;
-  let dummyHeading2: $Exact<m.HeadingContentItem>;
-  let dummyParagraph2: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph1: $Exact<m.ParagraphContentItem>;
-  let dummyHeading1: $Exact<m.HeadingContentItem>;
-  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyParagraph4: m.ParagraphContentItem;
+  let dummyParagraph3: m.ParagraphContentItem;
+  let dummyHeading2: m.HeadingContentItem;
+  let dummyParagraph2: m.ParagraphContentItem;
+  let dummyParagraph1: m.ParagraphContentItem;
+  let dummyHeading1: m.HeadingContentItem;
+  let dummyRoot: m.RootContentItem;
 
   beforeEach((): void => {
     dummyParagraph4 = { ...dummyData.paragraphContentItem4 };

@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
 
 import * as a from '../../actionTypes';
@@ -10,7 +11,7 @@ import { apiPostSaga } from './post';
 import { apiPatchContentSaga } from './patchContent';
 import { apiGetContentSaga } from './getContent';
 
-const apiSaga = function* (): Generator<*, *, *> {
+const apiSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.API_DELETE, apiDeleteSaga),
     takeEvery(a.API_GET, apiGetSaga),

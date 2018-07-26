@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * An error caused by an HTTP response containing a 5xx status code.
  * A server-side exception occurred.

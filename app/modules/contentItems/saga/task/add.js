@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { put, select } from 'redux-saga/effects';
 
 import generateId from '../../lib/generateId';
@@ -8,7 +9,7 @@ import actions from '../../actions';
 import selectors from '../../selectors';
 import convertContextToVerticalContext from '../../lib/convertContextToVerticalContext';
 
-const addSaga = function* (action: a.AddAction): Generator<*, *, *> {
+const addSaga = function* (action: a.AddAction): Saga<void> {
   const { type, context, propsForType } = action.payload;
   const newId = generateId();
   const contentItemsById = yield select(selectors.getAllById);

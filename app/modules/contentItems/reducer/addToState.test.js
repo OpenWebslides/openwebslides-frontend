@@ -11,17 +11,17 @@ import reducer from '.';
 
 describe(`ADD_TO_STATE`, (): void => {
 
-  let dummyNewRoot: $Exact<m.RootContentItem>;
-  let dummyNewHeading: $Exact<m.HeadingContentItem>;
-  let dummyNewParagraph: $Exact<m.ParagraphContentItem>;
+  let dummyNewRoot: m.RootContentItem;
+  let dummyNewHeading: m.HeadingContentItem;
+  let dummyNewParagraph: m.ParagraphContentItem;
 
-  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
-  let dummyHeading2: $Exact<m.HeadingContentItem>;
-  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
-  let dummyHeading1: $Exact<m.HeadingContentItem>;
-  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyParagraph22: m.ParagraphContentItem;
+  let dummyParagraph21: m.ParagraphContentItem;
+  let dummyHeading2: m.HeadingContentItem;
+  let dummyParagraph12: m.ParagraphContentItem;
+  let dummyParagraph11: m.ParagraphContentItem;
+  let dummyHeading1: m.HeadingContentItem;
+  let dummyRoot: m.RootContentItem;
 
   beforeEach((): void => {
     dummyNewRoot = { ...dummyData.rootContentItem2 };

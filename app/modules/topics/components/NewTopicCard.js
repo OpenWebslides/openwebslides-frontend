@@ -2,11 +2,12 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
-import type { FormProps } from 'redux-form';
+import { type Dispatch } from 'redux';
+import { Field, reduxForm, type FormProps } from 'redux-form';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Form } from 'semantic-ui-react';
 
+import { type Action } from 'types/action';
 import BackButton from 'components/BackButton';
 
 import { add } from '../actions';
@@ -19,14 +20,9 @@ type DispatchProps = {|
   onAddButtonClick: (string, string, string) => void,
 |};
 
-type Props = {|
-  ...TranslatorProps,
-  ...FormProps,
-  ...PassedProps,
-  ...DispatchProps,
-|};
+type Props = {| ...TranslatorProps, ...FormProps, ...PassedProps, ...DispatchProps |};
 
-const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     onAddButtonClick: (
       userId: string,
@@ -91,8 +87,7 @@ const PureNewTopicCard = (props: Props): React.Node => {
     userId,
   } = props;
 
-  // TODO: the flow type for values might be a bit dodgy
-  const handleSubmit = (values: { +[values: * ]: string }): void => {
+  const handleSubmit = (values: { title: string, description: string }): void => {
     onAddButtonClick(userId, values.title, values.description);
   };
 

@@ -11,7 +11,7 @@ describe(`api.users.post`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<*> => {
+  it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyEmail = 'test@test.be';
     const dummyPassword = 'mahpasswordy0';
     const dummyName = 'Test Tester';

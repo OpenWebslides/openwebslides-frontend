@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
 import api from 'api';
@@ -9,7 +10,7 @@ import * as a from '../../actionTypes';
 
 const apiDeleteToken = function* (
   action: a.ApiDeleteTokenAction,
-): Generator<*, *, *> {
+): Saga<void> {
   yield put(apiRequestsStatus.actions.setPending(action.type));
 
   try {

@@ -29,7 +29,7 @@ describe(`TopicInfoSidebar`, (): void => {
       ...dummyProviderProps.translatorProps,
       t: (key: ?string): string => {
         if (key === 'topics:noDescription') return dummyNoDescString;
-        else return key || 'string';
+        else return (key != null) ? key : 'string';
       },
     };
     const fixedDummyTopic = { ...dummyTopic, description: null };

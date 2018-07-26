@@ -1,28 +1,18 @@
 // @flow
 
-import {
-  predicate,
-} from './predicate';
-import type {
-  Predicate,
-} from './predicate';
+import * as predicate from './predicate';
 
-export type Event = {
+export type Event = {|
   +id: string,
   +userId: string,
   +topicId: string,
-  +predicate: Predicate,
+  +predicate: predicate.Predicate,
   +timestamp: number,
-};
+|};
 
+// eslint-disable-next-line flowtype/require-exact-type
 export type FeedState = {
   +[eventId: string]: Event,
 };
 
-export {
-  predicate,
-};
-
-export type {
-  Predicate,
-};
+export * from './predicate';

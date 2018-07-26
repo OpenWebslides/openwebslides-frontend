@@ -12,10 +12,10 @@ import removeAndTogglePreviousItemSaga from './removeAndTogglePreviousItem';
 
 describe(`removeAndTogglePreviousItemSaga`, (): void => {
 
-  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
-  let dummyHeading1: $Exact<m.HeadingContentItem>;
-  let dummyRoot: $Exact<m.RootContentItem>;
-  let dummyContentItemsById: $Exact<m.ContentItemsById>;
+  let dummyParagraph11: m.ParagraphContentItem;
+  let dummyHeading1: m.HeadingContentItem;
+  let dummyRoot: m.RootContentItem;
+  let dummyContentItemsById: m.ContentItemsById;
   let dummyState: any;
 
   beforeEach((): void => {
@@ -96,7 +96,7 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
       .run();
   });
 
-  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<*> => {
+  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<mixed> => {
     const dummyRemoveAndTogglePreviousItemAction: a.RemoveAndTogglePreviousItemAction = {
       type: a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
       payload: {

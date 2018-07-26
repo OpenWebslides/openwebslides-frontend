@@ -2,9 +2,11 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { Feed } from 'semantic-ui-react';
 
-import type { State } from 'types/state';
+import { type State } from 'types/state';
+import { type Action } from 'types/action';
 
 import { getAll } from '../selectors';
 import { fetch } from '../actions';
@@ -12,17 +14,14 @@ import { fetch } from '../actions';
 import Event from './Event';
 
 type StateProps = {|
-  eventIds: Array<string>,
+  eventIds: $ReadOnlyArray<string>,
 |};
 
 type DispatchProps = {|
   handleRequestFeed: () => void,
 |};
 
-type Props = {|
-  ...StateProps,
-  ...DispatchProps,
-|};
+type Props = {| ...StateProps, ...DispatchProps |};
 
 const mapStateToProps = (state: State): StateProps => {
   return {
@@ -30,7 +29,7 @@ const mapStateToProps = (state: State): StateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     handleRequestFeed: (): void => {
       dispatch(fetch());

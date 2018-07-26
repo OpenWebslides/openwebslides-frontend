@@ -1,4 +1,5 @@
 // @flow
+
 /* eslint-disable quote-props */
 
 import { API_URL } from 'config/api';
@@ -14,7 +15,7 @@ jest.mock('./fetchApiResponseData');
 
 describe(`ApiRequest`, (): void => {
 
-  let dummyFetchApiResponseData: *;
+  let dummyFetchApiResponseData: any;
 
   beforeEach((): void => {
     jest.restoreAllMocks();

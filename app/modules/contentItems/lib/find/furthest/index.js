@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Takes another (single) find function as an argument and recursively calls it until the furthest
  * contentItem for which the passed predicate function returns TRUE is found.
@@ -6,14 +7,18 @@
 
 import * as m from '../../../model';
 import validatePredicate from '../validatePredicate';
-import type { SingleFindFunction, FindFunctionPredicate, RecursiveFindFunction } from '../types';
+import {
+  type SingleFindFunction,
+  type FindFunctionPredicate,
+  type RecursiveFindFunction,
+} from '../types';
 
 const findFurthestRecursive = (
   contentItem: m.ContentItem,
   contentItemsById: m.ContentItemsById,
   singleFindFunction: SingleFindFunction,
   predicate: ?FindFunctionPredicate,
-  processedItemIds: Array<string>,
+  processedItemIds: $ReadOnlyArray<string>,
 ): ?m.ContentItem => {
   const singleFindResult: ?m.ContentItem = singleFindFunction(contentItem, contentItemsById);
   let furtherSingleFindResult: ?m.ContentItem = null;

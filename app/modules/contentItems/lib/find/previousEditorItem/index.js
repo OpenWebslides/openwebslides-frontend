@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Finds the contentItem that comes directly before the passed contentItem in editor order.
  */
@@ -9,7 +10,7 @@ import * as m from '../../../model';
 
 import find from '..';
 
-import type { SingleFindFunction } from '../types';
+import { type SingleFindFunction } from '../types';
 
 const findPreviousEditorItem: SingleFindFunction = (
   contentItem: ?m.ContentItem,

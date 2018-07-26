@@ -1,5 +1,6 @@
 // @flow
-/* eslint-disable no-multiple-empty-lines */
+
+/* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
 
 // Action constants --------------------------------------------------------------------------------
@@ -11,25 +12,34 @@ export const SET_FAILURE: 'apiRequestsStatus/SET_FAILURE' = 'apiRequestsStatus/S
 
 // Action types ------------------------------------------------------------------------------------
 
-export type SetPendingAction = {
+export type SetPendingAction = {|
   type: typeof SET_PENDING,
   payload: {
     requestId: string,
   },
-};
+|};
 
-export type SetSuccessAction = {
+export type SetSuccessAction = {|
   type: typeof SET_SUCCESS,
   payload: {
     requestId: string,
     value: mixed,
   },
-};
+|};
 
-export type SetFailureAction = {
+export type SetFailureAction = {|
   type: typeof SET_FAILURE,
   payload: {
     requestId: string,
     error: Error,
   },
-};
+|};
+
+
+// TaskSaga action ---------------------------------------------------------------------------------
+
+export type TaskSagaAction =
+  | SetPendingAction
+  | SetSuccessAction
+  | SetFailureAction;
+

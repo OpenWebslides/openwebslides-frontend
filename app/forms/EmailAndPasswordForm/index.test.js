@@ -1,11 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
-import { dummyProviderProps } from 'lib/testResources';
+import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
-import { PureEmailAndPasswordForm } from '.';
+import EmailAndPasswordForm, { PureEmailAndPasswordForm } from '.';
 
 describe(`EmailAndPasswordForm`, (): void => {
 
@@ -14,6 +14,17 @@ describe(`EmailAndPasswordForm`, (): void => {
       <PureEmailAndPasswordForm {...dummyProviderProps.translatorProps} {...dummyProviderProps.formProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+  });
+
+  it(`allows rendering children instead of default form buttons`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <EmailAndPasswordForm>
+          <p data-test-id="test-form-children">replacement submit buttons would go here</p>
+        </EmailAndPasswordForm>
+      </DummyProviders>,
+    );
+    expect(enzymeWrapper.find('[data-test-id="test-form-children"]')).toHaveLength(1);
   });
 
 });

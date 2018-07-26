@@ -11,7 +11,7 @@ describe(`api.password.postEmail`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<*> => {
+  it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyEmail = 'test@test.be';
     fetch.mockResponseOnce(null, { status: 200 });
     await api.password.postEmail(dummyEmail);

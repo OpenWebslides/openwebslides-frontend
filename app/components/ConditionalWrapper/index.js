@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Conditonally renders it children, an alternative component or a react-router redirect.
  */
@@ -11,7 +12,7 @@ type PassedProps = {|
   // TRUE if children should be rendered, FALSE if not.
   renderChildren: boolean,
   // Optional component that will be rendered instead of the children, if renderChildren=FALSE.
-  componentIfNotChildren: ?React.ComponentType<*>,
+  componentIfNotChildren: ?React.ComponentType<{}>,
   // Optional route to which the user will be redirected, if renderChildren=FALSE.
   redirectIfNotChildren: ?string,
 |};
@@ -29,7 +30,7 @@ const PureConditionalWrapper = (props: Props): React.Node => {
   if (renderChildren) {
     return children;
   }
-  else if (redirectIfNotChildren) {
+  else if (redirectIfNotChildren != null) {
     return <Redirect to={redirectIfNotChildren} />;
   }
   else if (ComponentIfNotChildren != null) {

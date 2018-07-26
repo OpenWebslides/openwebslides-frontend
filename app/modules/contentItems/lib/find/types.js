@@ -4,7 +4,7 @@ import * as m from '../../model';
 
 export type FindFunctionPredicate = (
   contentItem: m.ContentItem,
-  processedItemIds: Array<string>,
+  processedItemIds: $ReadOnlyArray<string>,
   contentItemsById: m.ContentItemsById,
 ) => boolean;
 
@@ -16,7 +16,7 @@ export type SingleFindFunction = (
 export type MultipleFindFunction = (
   contentItem: ?m.ContentItem,
   contentItemsById: m.ContentItemsById,
-) => Array<m.ContentItem>;
+) => $ReadOnlyArray<m.ContentItem>;
 
 export type RecursiveFindFunction = (
   contentItem: ?m.ContentItem,

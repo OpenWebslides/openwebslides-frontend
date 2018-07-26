@@ -1,6 +1,7 @@
 // @flow
 
 import { flashMessage, flashErrorMessage } from 'redux-flash';
+import { type Saga } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 
 import { UnsupportedOperationError, Http5xxServerError } from 'errors';
@@ -13,7 +14,7 @@ import * as a from '../../actionTypes';
 
 export const apiGetContentSaga = function* (
   action: a.ApiGetTopicContentAction,
-): Generator<*, *, *> {
+): Saga<void> {
   yield put(apiRequestsStatus.actions.setPending(a.API_GET_CONTENT));
 
   try {
@@ -22,9 +23,10 @@ export const apiGetContentSaga = function* (
     if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
     const response = yield call(api.topics.getContent, id, userAuth.apiToken);
+    const { attributes } = response.body.data;
 
     // TODO: validate response
-    const items: Array<contentItems.model.ContentItem> = response.body.data.attributes.content;
+    const items: $ReadOnlyArray<contentItems.model.ContentItem> = attributes.content;
     yield put(contentItems.actions.setMultipleInState(items));
 
     // #TODO what's the point of this? @Florian

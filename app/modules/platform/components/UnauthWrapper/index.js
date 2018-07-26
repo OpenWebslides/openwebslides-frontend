@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Renders its children only if the user is not authenticated.
  */
@@ -6,7 +7,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import type { State } from 'types/state';
+import { type State } from 'types/state';
 import ConditionalWrapper from 'components/ConditionalWrapper';
 
 import selectors from '../../selectors';
@@ -18,7 +19,7 @@ type PassedProps = {|
   redirectIfAuthenticated: ?string,
   // Optional component that will be rendered instead of the children,
   // if the user is authenticated.
-  componentIfAuthenticated: ?React.ComponentType<*>,
+  componentIfAuthenticated: ?React.ComponentType<{}>,
 |};
 
 type StateProps = {|

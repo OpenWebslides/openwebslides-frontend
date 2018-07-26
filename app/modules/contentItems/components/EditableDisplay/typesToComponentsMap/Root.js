@@ -7,11 +7,11 @@ import * as m from '../../../model';
 
 import ContentItemEditableDisplay, { passThroughProps } from '..';
 
-type PassedProps = {
+type PassedProps = {|
   contentItem: m.RootContentItem,
-};
+|};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
 
 const PureRoot = (props: Props): React.Node => {
   const { contentItem } = props;

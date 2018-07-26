@@ -3,18 +3,18 @@
 import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
 
+type PassedProps = {|
+  text: string,
+|};
+
+type Props = {| ...PassedProps |};
+
 const allowedMarkdownTypes = [
   'emphasis',
   'strong',
   'inlineCode',
   'link',
 ];
-
-type PassedProps = {
-  text: string,
-};
-
-type Props = PassedProps;
 
 const PureInlineMarkdown = (props: Props): React.Node => {
   const { text } = props;

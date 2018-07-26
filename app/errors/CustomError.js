@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Base class for custom errors.
  * Do not directly create a CustomError. Instead, use one of its more specific subclasses;

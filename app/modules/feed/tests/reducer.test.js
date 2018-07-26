@@ -2,8 +2,7 @@
 
 import reducer from '../reducer';
 import * as a from '../actionTypes';
-import type { FeedState } from '../model';
-import { predicate } from '../model';
+import * as m from '../model';
 
 describe(`reducer`, (): void => {
   it(`handles SET_EVENTS action`, (): void => {
@@ -14,18 +13,18 @@ describe(`reducer`, (): void => {
           id: '1',
           userId: '1',
           topicId: '1',
-          predicate: predicate.CREATE,
+          predicate: m.predicate.CREATE,
           timestamp: 1524490428,
         }],
       },
     };
 
-    const nextState: FeedState = {
+    const nextState: m.FeedState = {
       '1': {
         id: '1',
         userId: '1',
         topicId: '1',
-        predicate: predicate.CREATE,
+        predicate: m.predicate.CREATE,
         timestamp: 1524490428,
       },
     };

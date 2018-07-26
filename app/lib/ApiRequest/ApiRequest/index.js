@@ -1,4 +1,5 @@
 // @flow
+
 /* eslint-disable quote-props */
 
 import _ from 'lodash';
@@ -40,7 +41,7 @@ class ApiRequest {
   addPathSegment = (segment: string): ApiRequest => {
     const segmentWithoutSlashes = segment.replace(/^\//g, '');
     if (segmentWithoutSlashes === '') throw new InvalidArgumentError(`Cannot add an empty path segment.`);
-    this.config.pathSegments.push(segmentWithoutSlashes);
+    this.config.pathSegments = this.config.pathSegments.concat([segmentWithoutSlashes]);
     return this;
   };
 
@@ -69,7 +70,7 @@ class ApiRequest {
   };
 
   setToken = (token: ?string): ApiRequest => {
-    if (token) this.setHeader('Authorization', `Bearer ${token}`);
+    if (token != null && token !== '') this.setHeader('Authorization', `Bearer ${token}`);
     else this.removeHeader('Authorization');
 
     return this;

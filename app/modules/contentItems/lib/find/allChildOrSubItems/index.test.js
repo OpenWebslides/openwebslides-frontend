@@ -11,21 +11,21 @@ import find from '..';
 
 describe(`findAllChildOrSubItems`, (): void => {
 
-  let dummyParagraph524: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph523: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph522: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph521: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph524: m.ParagraphContentItem;
+  let dummyParagraph523: m.ParagraphContentItem;
+  let dummyParagraph522: m.ParagraphContentItem;
+  let dummyParagraph521: m.ParagraphContentItem;
   let dummyTestParentAndSuperItem52: any;
-  let dummyParagraph51: $Exact<m.ParagraphContentItem>;
-  let dummyHeading5: $Exact<m.HeadingContentItem>;
-  let dummyParagraph41: $Exact<m.ParagraphContentItem>;
-  let dummyHeading4: $Exact<m.HeadingContentItem>;
-  let dummyParagraph32: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph31: $Exact<m.ParagraphContentItem>;
-  let dummyHeading3: $Exact<m.HeadingContentItem>;
-  let dummyParagraph2: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph1: $Exact<m.ParagraphContentItem>;
-  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyParagraph51: m.ParagraphContentItem;
+  let dummyHeading5: m.HeadingContentItem;
+  let dummyParagraph41: m.ParagraphContentItem;
+  let dummyHeading4: m.HeadingContentItem;
+  let dummyParagraph32: m.ParagraphContentItem;
+  let dummyParagraph31: m.ParagraphContentItem;
+  let dummyHeading3: m.HeadingContentItem;
+  let dummyParagraph2: m.ParagraphContentItem;
+  let dummyParagraph1: m.ParagraphContentItem;
+  let dummyRoot: m.RootContentItem;
   let dummyContentItemsById: any;
 
   beforeEach((): void => {

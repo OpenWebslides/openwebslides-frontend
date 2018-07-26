@@ -6,12 +6,12 @@ import * as m from '../../../model';
 
 import HtmlDisplay from '..';
 
-type PassedProps = {
+type PassedProps = {|
   contentItem: m.DenormalizedRootContentItem,
   headingLevel: number,
-};
+|};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
 
 const PureRoot = (props: Props): React.Node => {
   const { contentItem, headingLevel } = props;

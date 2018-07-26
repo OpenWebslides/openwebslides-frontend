@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Finds the contentItem that comes directly after the passed contentItem in editor order.
  */
@@ -7,7 +8,7 @@ import * as m from '../../../model';
 
 import find from '..';
 
-import type { SingleFindFunction } from '../types';
+import { type SingleFindFunction } from '../types';
 
 const findClosestAncestorThatHasNextSiblingItem = (
   contentItem: m.ContentItem,

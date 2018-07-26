@@ -1,11 +1,11 @@
 // @flow
 
 import * as a from './actionTypes';
-import type { Event } from './model';
+import * as m from './model';
 
 // Reducer actions
 export const setEventsInState = (
-  items: ?Array<Event>,
+  items: ?$ReadOnlyArray<m.Event>,
 ): a.SetEventsAction => {
   return {
     type: a.SET_EVENTS,

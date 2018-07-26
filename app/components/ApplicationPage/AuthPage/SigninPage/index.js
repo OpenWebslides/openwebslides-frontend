@@ -6,9 +6,9 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import platform from 'modules/platform';
 
-const { SigninCard } = platform.components;
+type Props = {| ...TranslatorProps |};
 
-type Props = TranslatorProps;
+const { SigninCard } = platform.components;
 
 const PureSigninPage = (props: Props): React.Node => {
   return (

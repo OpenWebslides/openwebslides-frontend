@@ -3,9 +3,11 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 
+import { type State } from 'types/state';
+import { type Action } from 'types/action';
 import { ObjectNotFoundError } from 'errors';
-import type { State } from 'types/state';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -32,11 +34,7 @@ type DispatchProps = {|
   onReverseIndent: (id: string) => void,
 |};
 
-type Props = {|
-  ...PassedProps,
-  ...StateProps,
-  ...DispatchProps,
-|};
+type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const passThroughProps = [
   'onStartEditing',
@@ -62,7 +60,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
   return {
     onStartEditing: (id: string): void => {
       dispatch(actions.toggleEditing(id, true));
@@ -124,7 +122,6 @@ const SubItemsEditableDisplay = (props: Props): React.Node => {
         className="content-item-editable-display__sub-items"
         data-test-id="content-item-editable-display__sub-items"
       >
-        { /* $FlowFixMe Technically, flow has all the information needed; probably a bug */ }
         {contentItem.subItemIds.map(
           (subItemId: string): React.Node => (
             <EditableDisplay

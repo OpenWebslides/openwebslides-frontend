@@ -1,5 +1,6 @@
 // @flow
-/* eslint-disable no-multiple-empty-lines */
+
+/* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
 
 // Action constants --------------------------------------------------------------------------------
@@ -26,3 +27,10 @@ export type ApiPostAction = {|
     tosAccepted: boolean,
   },
 |};
+
+
+// ApiSaga action ----------------------------------------------------------------------------------
+
+export type ApiSagaAction =
+  | ApiGetAction
+  | ApiPostAction;

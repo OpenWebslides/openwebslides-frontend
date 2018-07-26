@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * An error caused by a developer misusing existing code.
  */

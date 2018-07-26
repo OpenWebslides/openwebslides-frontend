@@ -1,20 +1,21 @@
 // @flow
 
 import * as React from 'react';
-import type { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { Link } from 'react-router-dom';
 import { translate, type TranslatorProps } from 'react-i18next';
 import moment from 'moment';
 import { Feed, Image } from 'semantic-ui-react';
 
 import { USER_PROFILE_BY_ID_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
-import type { State } from 'types/state';
+import { type State } from 'types/state';
+import { type Action } from 'types/action';
 import makeRoute from 'lib/makeRoute';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
-import type { Event } from '../model';
+import * as m from '../model';
 import { getById } from '../selectors';
 
 type PassedProps = {|
@@ -22,7 +23,7 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  event: Event,
+  event: m.Event,
   user: ?users.model.User,
   topic: ?topics.model.Topic,
 |};
@@ -32,12 +33,7 @@ type DispatchProps = {|
   fetchUser: (string) => void,
 |};
 
-type Props = {|
-  ...TranslatorProps,
-  ...PassedProps,
-  ...StateProps,
-  ...DispatchProps,
-|};
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { eventId } = props;
@@ -52,7 +48,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     fetchTopic: (id: string): void => {
       dispatch(

@@ -10,13 +10,13 @@ import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import platform from 'modules/platform';
 import topics from 'modules/topics';
 
-const { NewTopicCard } = topics.components;
-
 type StateProps = {|
   currentUserId: string,
 |};
 
 type Props = {| ...TranslatorProps, ...StateProps |};
+
+const { NewTopicCard } = topics.components;
 
 const mapStateToProps = (state: State): StateProps => {
   const userAuth = platform.selectors.getUserAuth(state);

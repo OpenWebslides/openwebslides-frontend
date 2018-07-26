@@ -1,5 +1,6 @@
 // @flow
-/* eslint-disable no-multiple-empty-lines */
+
+/* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
 import * as m from '../model';
 
@@ -14,7 +15,7 @@ export const SET_MULTIPLE_IN_STATE: 'users/SET_MULTIPLE_IN_STATE' = 'users/SET_M
 export type SetMultipleInStateAction = {|
   type: typeof SET_MULTIPLE_IN_STATE,
   payload: {
-    users: Array<m.User>,
+    users: $ReadOnlyArray<m.User>,
   },
 |};
 

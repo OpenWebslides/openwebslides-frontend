@@ -1,29 +1,29 @@
 // @flow
 
 import { getById, getAllById, getAll } from '../selectors';
-import type { Topic, TopicsById, TopicsState } from '../model';
+import * as m from '../model';
 
 describe(`selectors`, (): void => {
 
-  const dummyTopic1: $Exact<Topic> = {
+  const dummyTopic1: m.Topic = {
     id: 'abcdefghij',
     userId: 'wxcvbnqsdf',
     title: 'dummy topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'abcdefghij',
   };
-  const dummyTopic2: $Exact<Topic> = {
+  const dummyTopic2: m.Topic = {
     id: 'klmnopqrst',
     userId: 'qsdfghjklm',
     title: 'dummy topic 2',
     description: '',
     rootContentItemId: 'abcdefghij',
   };
-  const dummyTopicsById: TopicsById = {
+  const dummyTopicsById: m.TopicsById = {
     [dummyTopic1.id]: dummyTopic1,
     [dummyTopic2.id]: dummyTopic2,
   };
-  const dummyTopicsState: TopicsState = {
+  const dummyTopicsState: m.TopicsState = {
     byId: dummyTopicsById,
   };
   const dummyState: any = {

@@ -2,16 +2,18 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { Card, Button, Modal } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { translate, type TranslatorProps } from 'react-i18next';
 
+import { type State } from 'types/state';
+import { type Action } from 'types/action';
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
-import type { State } from 'types/state';
 import { ObjectNotFoundError } from 'errors';
 
 import { getById } from '../selectors';
-import type { Topic } from '../model';
+import * as m from '../model';
 import { remove } from '../actions';
 
 type PassedProps = {|
@@ -19,18 +21,17 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  topic: Topic,
+  topic: m.Topic,
 |};
 
 type DispatchProps = {|
   onRemoveButtonClick: (string) => void,
 |};
 
-type Props = {|
-  ...TranslatorProps,
-  ...PassedProps,
-  ...StateProps,
-  ...DispatchProps,
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+
+type ComponentState = {|
+  open: boolean,
 |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
@@ -46,7 +47,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     onRemoveButtonClick: (id: string): void => {
       dispatch(
@@ -56,12 +57,8 @@ const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   };
 };
 
-type LocalState = {
-  open: boolean,
-};
-
-class PureTopicCard extends React.Component<Props, LocalState> {
-  state: LocalState = {
+class PureTopicCard extends React.Component<Props, ComponentState> {
+  state: ComponentState = {
     open: false,
   };
 
@@ -91,7 +88,10 @@ class PureTopicCard extends React.Component<Props, LocalState> {
     return (
       <React.Fragment>
         <Card raised={true}>
-          <Card.Content header={topic.title} description={topic.description || `(${t('topics:noDescription')})`} />
+          <Card.Content
+            header={topic.title}
+            description={(topic.description != null) ? topic.description : `(${t('topics:noDescription')})`}
+          />
           <Card.Content extra={true}>
             <Link to={`${TOPIC_EDITOR_ROUTE}/${topicId}`}>
               <Button as="span" primary={true}>

@@ -9,8 +9,6 @@ import platform from 'modules/platform';
 
 import PageWrapper from '../PageWrapper';
 
-const { Sidebars, SidebarsMenu } = platform.components;
-
 type PassedProps = {|
   children: React.Node,
   topicId: string,
@@ -21,6 +19,8 @@ type StateProps = {|
 |};
 
 type Props = {| ...PassedProps, ...StateProps |};
+
+const { Sidebars, SidebarsMenu } = platform.components;
 
 const mapStateToProps = (state: State): StateProps => {
   const activeSidebarIds = platform.selectors.getSettingByKey(state, { key: 'activeSidebarIds' });

@@ -13,14 +13,14 @@ import lib from '../../lib';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
-const { CardCollection } = topics.components;
-
 type PassedProps = {|
   userId: string,
   isCurrentUser: boolean,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
+
+const { CardCollection } = topics.components;
 
 class PureUserProfile extends React.Component<Props> {
   static defaultProps = {

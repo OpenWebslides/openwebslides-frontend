@@ -11,7 +11,7 @@ import { PureParagraph } from './Paragraph';
 
 describe(`Paragraph`, (): void => {
 
-  let dummyParagraph: $Exact<m.ParagraphContentItem>;
+  let dummyParagraph: m.ParagraphContentItem;
   let dummyFunctionProps: any;
 
   beforeEach((): void => {

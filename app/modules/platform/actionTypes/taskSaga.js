@@ -1,5 +1,6 @@
 // @flow
-/* eslint-disable no-multiple-empty-lines */
+
+/* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
 import * as m from '../model';
 
@@ -68,3 +69,15 @@ export type ToggleSidebarAction = {|
     sidebarId: m.SidebarId,
   },
 |};
+
+
+// TaskSaga action ---------------------------------------------------------------------------------
+
+export type TaskSagaAction =
+  | SigninAction
+  | SignoutAction
+  | SignupAction
+  | ConfirmEmailAction
+  | ResendConfirmationEmailAction
+  | ResetPasswordAction
+  | ToggleSidebarAction;

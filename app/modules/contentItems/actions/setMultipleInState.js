@@ -1,10 +1,10 @@
 // @flow
 
 import * as a from '../actionTypes';
-import type { ContentItem } from '../model';
+import * as m from '../model';
 
 const setMultipleInState = (
-  contentItems: Array<ContentItem>,
+  contentItems: $ReadOnlyArray<m.ContentItem>,
 ): a.SetMultipleInStateAction => {
   return {
     type: a.SET_MULTIPLE_IN_STATE,

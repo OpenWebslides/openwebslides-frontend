@@ -9,20 +9,19 @@ import { DummyProviders, dummyContentItemData as dummyData } from 'lib/testResou
 import actions from '../../actions';
 import * as m from '../../model';
 
-import EditableDisplay, { PureEditableDisplay, mapDispatchToProps } from '.';
-import type { DispatchProps } from '.';
+import EditableDisplay, { PureEditableDisplay, mapDispatchToProps, type DispatchProps } from '.';
 
 describe(`EditableDisplay`, (): void => {
 
-  let dummyRoot2: $Exact<m.RootContentItem>;
-  let dummyParagraph1132: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph1131: $Exact<m.ParagraphContentItem>;
-  let dummyHeading113: $Exact<m.HeadingContentItem>;
-  let dummyParagraph112: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph111: $Exact<m.ParagraphContentItem>;
-  let dummyHeading11: $Exact<m.HeadingContentItem>;
-  let dummyRoot1: $Exact<m.RootContentItem>;
-  let dummyContentItemsById: $Exact<m.ContentItemsById>;
+  let dummyRoot2: m.RootContentItem;
+  let dummyParagraph1132: m.ParagraphContentItem;
+  let dummyParagraph1131: m.ParagraphContentItem;
+  let dummyHeading113: m.HeadingContentItem;
+  let dummyParagraph112: m.ParagraphContentItem;
+  let dummyParagraph111: m.ParagraphContentItem;
+  let dummyHeading11: m.HeadingContentItem;
+  let dummyRoot1: m.RootContentItem;
+  let dummyContentItemsById: m.ContentItemsById;
   let dummyState: any;
 
   let dummyDispatchProps: DispatchProps;
@@ -80,7 +79,7 @@ describe(`EditableDisplay`, (): void => {
   });
 
   it(`renders a the correct type component for the type of the passed contentItem`, (): void => {
-    let enzymeWrapper: *;
+    let enzymeWrapper: any;
 
     enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.rootContentItem} />);
     expect(enzymeWrapper.find('PureRoot')).toHaveLength(1);

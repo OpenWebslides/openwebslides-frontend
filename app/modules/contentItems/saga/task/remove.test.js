@@ -12,17 +12,17 @@ import removeSaga from './remove';
 
 describe(`removeSaga`, (): void => {
 
-  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
-  let dummyHeading2: $Exact<m.HeadingContentItem>;
-  let dummyParagraph122: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph121: $Exact<m.ParagraphContentItem>;
-  let dummyHeading12: $Exact<m.HeadingContentItem>;
-  let dummyParagraph112: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph111: $Exact<m.ParagraphContentItem>;
-  let dummyHeading11: $Exact<m.HeadingContentItem>;
-  let dummyHeading1: $Exact<m.HeadingContentItem>;
-  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyParagraph22: m.ParagraphContentItem;
+  let dummyParagraph21: m.ParagraphContentItem;
+  let dummyHeading2: m.HeadingContentItem;
+  let dummyParagraph122: m.ParagraphContentItem;
+  let dummyParagraph121: m.ParagraphContentItem;
+  let dummyHeading12: m.HeadingContentItem;
+  let dummyParagraph112: m.ParagraphContentItem;
+  let dummyParagraph111: m.ParagraphContentItem;
+  let dummyHeading11: m.HeadingContentItem;
+  let dummyHeading1: m.HeadingContentItem;
+  let dummyRoot: m.RootContentItem;
   let dummyContentItemsById: m.ContentItemsById;
   let dummyContentItemsState: m.ContentItemsState;
   let dummyState: Object;
@@ -199,7 +199,7 @@ describe(`removeSaga`, (): void => {
       .run();
   });
 
-  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<*> => {
+  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<mixed> => {
     const dummyRemoveAction: a.RemoveAction = {
       type: a.REMOVE,
       payload: {
@@ -216,7 +216,7 @@ describe(`removeSaga`, (): void => {
     ).rejects.toBeInstanceOf(ObjectNotFoundError);
   });
 
-  it(`throws a CorruptedInternalStateError, when the passed contentItemsById structure is corrupted`, async (): Promise<*> => {
+  it(`throws a CorruptedInternalStateError, when the passed contentItemsById structure is corrupted`, async (): Promise<mixed> => {
     dummyHeading1.subItemIds = [dummyHeading12.id];
 
     const dummyRemoveAction: a.RemoveAction = {

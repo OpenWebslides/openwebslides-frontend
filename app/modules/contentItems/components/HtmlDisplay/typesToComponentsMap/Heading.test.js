@@ -1,5 +1,6 @@
 // @flow
 
+import _ from 'lodash';
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
@@ -14,7 +15,7 @@ describe(`Heading`, (): void => {
   let dummyHeading: m.DenormalizedHeadingContentItem;
 
   beforeEach((): void => {
-    dummyHeading = { ...dummyData.headingContentItem, subItems: [] };
+    dummyHeading = { ..._.omit(dummyData.headingContentItem, 'subItemIds'), subItems: [] };
   });
 
   it(`renders without errors`, (): void => {

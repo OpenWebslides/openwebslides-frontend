@@ -1,12 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import type { ContextRouter as RouterProps } from 'react-router-dom';
+import { type ContextRouter as RouterProps } from 'react-router-dom';
 
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import generateRandomString from 'lib/generateRandomString';
 
-type Props = RouterProps;
+type Props = {| ...RouterProps |};
 
 const PureGenerateRandomStringPage = (props: Props): React.Node => {
   const { match } = props;

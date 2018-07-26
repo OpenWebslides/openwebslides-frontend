@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * An error caused by an HTTP response containing a 403 status code.
  * The user made an API call that they are not allowed to make.

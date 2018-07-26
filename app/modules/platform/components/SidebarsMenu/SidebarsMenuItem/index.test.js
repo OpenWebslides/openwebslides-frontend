@@ -14,7 +14,7 @@ import SidebarsMenuItem, { PureSidebarsMenuItem } from '.';
 describe(`SidebarsMenuItem`, (): void => {
 
   let dummySidebarId: m.SidebarId;
-  let dummyDispatch: *;
+  let dummyDispatch: any;
 
   beforeEach((): void => {
     dummySidebarId = m.sidebarIds.TOPIC_INFO;

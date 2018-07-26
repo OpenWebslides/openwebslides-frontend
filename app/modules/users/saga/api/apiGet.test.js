@@ -102,7 +102,7 @@ describe(`apiGet`, (): void => {
       .run();
   });
 
-  it(`sets its request status to FAILURE, when there is no currently signed in user`, async (): Promise<*> => {
+  it(`sets its request status to FAILURE, when there is no currently signed in user`, async (): Promise<mixed> => {
     const dummyAction = actions.apiGet(dummyId);
     const dummyApiResponse = {
       status: 200,

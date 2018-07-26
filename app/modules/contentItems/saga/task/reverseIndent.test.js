@@ -12,17 +12,17 @@ import reverseIndentSaga from './reverseIndent';
 
 describe(`reverseIndentSaga`, (): void => {
 
-  let dummyHeading221: $Exact<m.HeadingContentItem>;
-  let dummyParagraph22: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph21: $Exact<m.ParagraphContentItem>;
-  let dummyHeading2: $Exact<m.HeadingContentItem>;
-  let dummyParagraph13: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph121: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph122: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
-  let dummyHeading1: $Exact<m.HeadingContentItem>;
-  let dummyRoot: $Exact<m.RootContentItem>;
+  let dummyHeading221: m.HeadingContentItem;
+  let dummyParagraph22: m.ParagraphContentItem;
+  let dummyParagraph21: m.ParagraphContentItem;
+  let dummyHeading2: m.HeadingContentItem;
+  let dummyParagraph13: m.ParagraphContentItem;
+  let dummyParagraph121: m.ParagraphContentItem;
+  let dummyParagraph122: m.ParagraphContentItem;
+  let dummyParagraph12: m.ParagraphContentItem;
+  let dummyParagraph11: m.ParagraphContentItem;
+  let dummyHeading1: m.HeadingContentItem;
+  let dummyRoot: m.RootContentItem;
   let dummyContentItemsById: m.ContentItemsById;
   let dummyContentItemsState: m.ContentItemsState;
   let dummyState: Object;
@@ -160,7 +160,7 @@ describe(`reverseIndentSaga`, (): void => {
       .run();
   });
 
-  it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, async (): Promise<*> => {
+  it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, async (): Promise<mixed> => {
     const dummyReverseIndentAction: a.ReverseIndentAction = {
       type: a.REVERSE_INDENT,
       payload: {

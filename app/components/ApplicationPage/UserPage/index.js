@@ -11,9 +11,9 @@ import NotFoundPage from '../NotFoundPage';
 import ProfilePage from './ProfilePage';
 import SignoutPage from './SignoutPage';
 
-const { AuthWrapper } = platform.components;
-
 type Props = {| |};
+
+const { AuthWrapper } = platform.components;
 
 const PureUserPage = (props: Props): React.Node => {
   return (

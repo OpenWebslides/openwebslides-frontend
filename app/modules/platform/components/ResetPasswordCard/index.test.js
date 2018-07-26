@@ -13,7 +13,7 @@ import ResetPasswordCard, { PureResetPasswordCard } from '.';
 describe(`ResetPasswordCard`, (): void => {
 
   let dummyEmail: string;
-  let dummyDispatch: *;
+  let dummyDispatch: any;
 
   beforeEach((): void => {
     dummyEmail = 'test@test.be';

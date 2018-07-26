@@ -11,7 +11,7 @@ import TypeBlockWrapper from './TypeBlockWrapper';
 
 import { passThroughProps } from '..';
 
-type PassedProps = {
+type PassedProps = {|
   contentItem: m.ParagraphContentItem,
   onStartEditing: (id: string) => void,
   onEndEditing: (id: string) => void,
@@ -20,9 +20,9 @@ type PassedProps = {
   onRemove: (id: string) => void,
   onIndent: (id: string) => void,
   onReverseIndent: (id: string) => void,
-};
+|};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
 
 class PureParagraph extends React.Component<Props> {
   onEditableTextContentActivate = (): void => {

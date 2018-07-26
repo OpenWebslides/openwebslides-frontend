@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { put, select } from 'redux-saga/effects';
 
 import { UnsupportedOperationError } from 'errors';
@@ -9,7 +10,7 @@ import * as a from '../../actionTypes';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
-const signout = function* (action: a.SignoutAction): Generator<*, *, *> {
+const signout = function* (action: a.SignoutAction): Saga<void> {
   const userAuth: ?m.UserAuth = yield select(selectors.getUserAuth);
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 

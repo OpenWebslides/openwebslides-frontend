@@ -17,7 +17,7 @@ describe(`SignupCard`, (): void => {
   let dummyPassword: string;
   let dummyTosAccepted: boolean;
 
-  let dummyDispatch: *;
+  let dummyDispatch: any;
 
   beforeEach((): void => {
     dummyEmail = 'test@test.be';

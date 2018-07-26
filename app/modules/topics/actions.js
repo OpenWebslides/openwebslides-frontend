@@ -6,8 +6,7 @@ import { InvalidArgumentError, UnsupportedOperationError } from 'errors';
 import contentItems from 'modules/contentItems';
 
 import * as a from './actionTypes';
-import { generateId } from './model';
-import type { Topic } from './model';
+import * as m from './model';
 
 // Reducer actions
 export const addToState = (
@@ -74,7 +73,7 @@ export const removeFromState = (
 };
 
 export const setItemsInState = (
-  items: Array<Topic>,
+  items: $ReadOnlyArray<m.Topic>,
 ): a.SetItemsInStateAction => {
   return {
     type: a.SET_ITEMS_IN_STATE,
@@ -90,7 +89,7 @@ export const add = (
   title: string,
   description: ?string = null,
 ): a.AddAction => {
-  const newId = generateId();
+  const newId = m.generateId();
   const newTitle = _.trim(title);
   const newDescription = (description != null) ? _.trim(description) : '';
 
@@ -242,7 +241,7 @@ export const apiPost = (
 
 export const apiPatchContent = (
   id: string,
-  content: Array<contentItems.model.ContentItem>,
+  content: $ReadOnlyArray<contentItems.model.ContentItem>,
 ): a.ApiPatchTopicContentAction => {
   return {
     type: a.API_PATCH_CONTENT,

@@ -1,12 +1,8 @@
 // @flow
-/* eslint-disable no-multiple-empty-lines */
 
-import type {
-  ContentItem,
-  ContentItemType,
-  VerticalContext,
-  AllPropsForAllTypes,
-} from '../model';
+/* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
+
+import * as m from '../model';
 
 
 // Action constants --------------------------------------------------------------------------------
@@ -21,53 +17,53 @@ export const SET_MULTIPLE_IN_STATE: 'contentItems/SET_MULTIPLE_IN_STATE' = 'cont
 
 // Action types ------------------------------------------------------------------------------------
 
-export type AddToStateAction = {
+export type AddToStateAction = {|
   type: typeof ADD_TO_STATE,
   payload: {
     id: string,
-    type: ContentItemType,
-    context: ?VerticalContext,
-    propsForType: $Shape<AllPropsForAllTypes>,
+    type: m.ContentItemType,
+    context: ?m.VerticalContext,
+    propsForType: $Shape<m.AllPropsForAllTypes>,
   },
-};
+|};
 
-export type EditPropsForTypeInStateAction = {
+export type EditPropsForTypeInStateAction = {|
   type: typeof EDIT_PROPS_FOR_TYPE_IN_STATE,
   payload: {
-    contentItem: ContentItem,
-    propsForType: $Shape<AllPropsForAllTypes>,
+    contentItem: m.ContentItem,
+    propsForType: $Shape<m.AllPropsForAllTypes>,
   },
-};
+|};
 
-export type SwitchEditingInStateAction = {
+export type SwitchEditingInStateAction = {|
   type: typeof SWITCH_EDITING_IN_STATE,
   payload: {
     previousEditingItemId: ?string,
     nextEditingItemId: ?string,
   },
-};
+|};
 
-export type MoveInStateAction = {
+export type MoveInStateAction = {|
   type: typeof MOVE_IN_STATE,
   payload: {
     id: string,
-    nextContext: VerticalContext,
+    nextContext: m.VerticalContext,
   },
-};
+|};
 
-export type RemoveFromStateAction = {
+export type RemoveFromStateAction = {|
   type: typeof REMOVE_FROM_STATE,
   payload: {
     id: string,
   },
-};
+|};
 
-export type SetMultipleInStateAction = {
+export type SetMultipleInStateAction = {|
   type: typeof SET_MULTIPLE_IN_STATE,
   payload: {
-    contentItems: Array<ContentItem>,
+    contentItems: $ReadOnlyArray<m.ContentItem>,
   },
-};
+|};
 
 export type ReducerAction =
   | AddToStateAction

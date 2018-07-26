@@ -1,4 +1,5 @@
 // @flow
+
 /* eslint-disable flowtype/no-weak-types */
 
 import * as React from 'react';
@@ -12,7 +13,8 @@ import i18nextConfig from 'config/i18next';
 type PassedProps = {|
   children: React.Node,
   dummyState?: Object,
-  dummyDispatch?: Dispatch<*>,
+  dummyDispatch?: Dispatch<{}>,
+  // eslint-disable-next-line flowtype/no-mutable-array
   dummyRouterEntries?: Array<LocationShape | string>,
 |};
 

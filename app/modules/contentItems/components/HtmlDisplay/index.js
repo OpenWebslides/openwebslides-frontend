@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Takes a denormalized contentItem and renders it as HTML, using the appropriate display component
  * based on the contentItem's type. If the contentItem is subable, the sub items are automatically
@@ -11,14 +12,14 @@ import * as m from '../../model';
 
 import typesToComponentsMap from './typesToComponentsMap';
 
-type PassedProps = {
+type PassedProps = {|
   // The contentItem to be displayed.
   contentItem: m.DenormalizedContentItem,
   // Used to automatically calculate the HTML heading level of nested HEADING contentItems.
   headingLevel: number,
-};
+|};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
 
 const SubItemsHtmlDisplay = (props: Props): React.Node => {
   const { contentItem, headingLevel } = props;
@@ -36,7 +37,6 @@ const SubItemsHtmlDisplay = (props: Props): React.Node => {
 
     return (
       <div className="ows_container__sub-items">
-        { /* $FlowFixMe Technically, flow has all the information needed; probably a bug */ }
         {contentItem.subItems.map(
           (subItem: m.DenormalizedContentItem): React.Node => (
             <HtmlDisplay
@@ -56,8 +56,8 @@ const PureHtmlDisplay = (props: Props): React.Node => {
   const DisplayComponent = typesToComponentsMap[contentItem.type];
 
   return (
+    // $FlowFixMe Flow doesn't currently parse the mapping to see that the types are correct.
     <DisplayComponent
-      // $FlowFixMe Flow doesn't currently parse the mapping to see that the types are correct.
       contentItem={contentItem}
       headingLevel={headingLevel}
     >

@@ -1,11 +1,16 @@
 // @flow
+
 /**
  * Inserts an element into an array at the given index, without mutating the array.
  */
 
 import { InvalidArgumentError } from 'errors';
 
-const insertIntoArray = <T>(array: Array<T>, element: T, index: number): Array<T> => {
+const insertIntoArray = <T>(
+  array: $ReadOnlyArray<T>,
+  element: T,
+  index: number,
+): $ReadOnlyArray<T> => {
   if (index < 0 || index > array.length) throw new InvalidArgumentError(`Index out of bounds.`);
 
   return [

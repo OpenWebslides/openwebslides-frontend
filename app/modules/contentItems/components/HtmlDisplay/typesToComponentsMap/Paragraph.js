@@ -6,12 +6,12 @@ import InlineMarkdown from 'components/InlineMarkdown';
 
 import * as m from '../../../model';
 
-type PassedProps = {
+type PassedProps = {|
   contentItem: m.DenormalizedParagraphContentItem,
   children?: React.Node,
-};
+|};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
 
 const PureParagraph = (props: Props): React.Node => {
   const { contentItem, children } = props;

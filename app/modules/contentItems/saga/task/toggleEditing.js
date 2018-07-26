@@ -1,6 +1,7 @@
 // @flow
 
 import _ from 'lodash';
+import { type Saga } from 'redux-saga';
 import { put, select } from 'redux-saga/effects';
 
 import { ObjectNotFoundError } from 'errors';
@@ -10,7 +11,7 @@ import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
-const toggleEditingSaga = function* (action: a.ToggleEditingAction): Generator<*, *, *> {
+const toggleEditingSaga = function* (action: a.ToggleEditingAction): Saga<void> {
   const { id, isEditing } = action.payload;
   const contentItemToToggle = yield select(selectors.getById, { id });
   if (contentItemToToggle == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
