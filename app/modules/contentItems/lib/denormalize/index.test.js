@@ -114,7 +114,7 @@ describe(`denormalize`, (): void => {
   it(`returns a denormalized subable / container contentItem, when the passed contentItem is a subable / container contentItem`, (): void => {
     const denormalizedContentItem = denormalize(dummyTestParentAndSuperItem31, dummyContentItemsById);
     const expectedResult = {
-      ..._.omit(dummyTestParentAndSuperItem31, 'subItemIds'),
+      ..._.omit(_.omit(dummyTestParentAndSuperItem31, 'subItemIds'), 'childItemIds'),
       childItems: [
         ({
           ..._.omit(dummyParagraph311, 'subItemIds'),

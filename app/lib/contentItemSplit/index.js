@@ -55,7 +55,6 @@ const recursiveSplit = (
       const createHeading = (): any => {
         return {
           ...contentItem,
-          subItemIds: [],
           subItems: [],
         };
       };
@@ -77,7 +76,6 @@ const recursiveSplit = (
         }
 
         // Add the child to the last top-level heading
-        arr[arr.length - 1].subItemIds.push(item.id);
         arr[arr.length - 1].subItems.push(item);
         return arr;
       },

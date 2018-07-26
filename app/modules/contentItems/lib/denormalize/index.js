@@ -16,7 +16,7 @@ const denormalizeProp = (
   denormalizedItemsProp: string,
 ): m.DenormalizedContentItem => {
   // Create copy of contentItem
-  const denormalizedContentItem: any = {
+  let denormalizedContentItem: any = {
     ...contentItem,
   };
 
@@ -43,6 +43,8 @@ const denormalizeProp = (
     );
     // Set the denormalizedItemsProp on the denormalized contentItem.
     denormalizedContentItem[denormalizedItemsProp] = descendantItems;
+    // Remove the denormalizableIdsProp from the denormalized contentItem.
+    denormalizedContentItem = _.omit(denormalizedContentItem, denormalizableIdsProp);
   }
 
   return denormalizedContentItem;

@@ -23,12 +23,10 @@ describe(`recursiveSplit`, (): void => {
     expect(result).toEqual([
       {
         ...data.dummyHeadingContentItem4,
-        subItemIds: [data.dummySubHeadingContentItem1.id],
         subItems: [data.dummySubHeadingContentItem1],
       },
       {
         ...data.dummyHeadingContentItem4,
-        subItemIds: [data.dummySubHeadingContentItem2.id],
         subItems: [data.dummySubHeadingContentItem2],
       },
     ]);
@@ -40,17 +38,14 @@ describe(`recursiveSplit`, (): void => {
     expect(result).toEqual([
       {
         ...data.dummyHeadingContentItem5,
-        subItemIds: [data.dummyParagraphContentItem1.id],
         subItems: [data.dummyParagraphContentItem1],
       },
       {
         ...data.dummyHeadingContentItem5,
-        subItemIds: [data.dummySubHeadingContentItem1.id],
         subItems: [data.dummySubHeadingContentItem1],
       },
       {
         ...data.dummyHeadingContentItem5,
-        subItemIds: [data.dummySubHeadingContentItem2.id],
         subItems: [data.dummySubHeadingContentItem2],
       },
     ]);
