@@ -26,7 +26,7 @@ const mapStateToProps = (state: State): StateProps => {
 const PureAccountMenu = (props: Props): React.Node => {
   const { currentUserId } = props;
 
-  return (currentUserId)
+  return (currentUserId != null)
     ? <UserAccountMenu userId={currentUserId} />
     : <AuthMenu />;
 };

@@ -96,7 +96,7 @@ const PureUserForm = (props: Props): React.Node => {
         />
       </Form.Field>
 
-      { children || (<SubmitButtonGroup />)}
+      { (children != null) ? children : (<SubmitButtonGroup />)}
     </Form>
   );
 };

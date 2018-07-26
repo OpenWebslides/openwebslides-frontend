@@ -7,7 +7,7 @@ import type { TranslatorProps } from 'react-i18next';
 import { type FormProps } from 'redux-form/lib/types.js.flow';
 
 export const translatorProps: TranslatorProps = {
-  t: (key: ?string): string => key || 'string',
+  t: (key: ?string): string => ((key != null) ? key : 'string'),
   i18nLoadedAt: new Date('2018-04-01T22:15:00'),
   i18n: {},
 };

@@ -11,7 +11,7 @@ import {
 import { type ApiResponseData } from '../../types';
 
 const extractTokenFromAuthHeader = (authHeader: ?string): ?string => {
-  return (authHeader) ? authHeader.slice(7) : null;
+  return (authHeader != null) ? authHeader.slice(7) : null;
 };
 
 const getDataFromResponse = async (response: Response): Promise<ApiResponseData> => {

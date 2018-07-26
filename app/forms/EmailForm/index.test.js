@@ -1,11 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
-import { dummyProviderProps } from 'lib/testResources';
+import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
-import { PureEmailForm } from '.';
+import EmailForm, { PureEmailForm } from '.';
 
 describe(`EmailForm`, (): void => {
 
@@ -14,6 +14,17 @@ describe(`EmailForm`, (): void => {
       <PureEmailForm {...dummyProviderProps.translatorProps} {...dummyProviderProps.formProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+  });
+
+  it(`allows rendering children instead of default form buttons`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <EmailForm>
+          <p data-test-id="test-form-children">replacement submit buttons would go here</p>
+        </EmailForm>
+      </DummyProviders>,
+    );
+    expect(enzymeWrapper.find('[data-test-id="test-form-children"]')).toHaveLength(1);
   });
 
 });

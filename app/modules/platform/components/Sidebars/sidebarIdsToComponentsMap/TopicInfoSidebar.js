@@ -34,7 +34,7 @@ const PureTopicInfoSidebar = (props: Props): React.Node => {
           <Item.Content>
             <Item.Header>{t('topics:props.description')}</Item.Header>
             <Item.Description data-test-id="topic-info-sidebar-topic-description">
-              {topic.description || `(${t('topics:noDescription')})`}
+              {(topic.description != null) ? topic.description : `(${t('topics:noDescription')})`}
             </Item.Description>
           </Item.Content>
         </Item>

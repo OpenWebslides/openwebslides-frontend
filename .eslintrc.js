@@ -229,6 +229,7 @@ module.exports = {
       {
         'allow': [
           // npm packages that require multiple levels in their import paths
+          'history/**',
           'redux-saga/**',
           'redux-persist/**',
           // Folders that should allow multiple levels in their import paths

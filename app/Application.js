@@ -7,7 +7,7 @@ import { hot } from 'react-hot-loader';
 import * as React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { ConnectedRouter } from 'connected-react-router';
-import { type BrowserHistory } from 'history';
+import { type BrowserHistory } from 'history/createBrowserHistory';
 
 import i18nextConfig from 'config/i18next';
 import ApplicationPage from 'components/ApplicationPage';

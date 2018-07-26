@@ -49,7 +49,7 @@ const PureApiDimmer = (props: Props): React.Node => {
     return (
       <Dimmer active={isActive} inverted={true}>
         <Loader inverted={true}>
-          {children || t('common:loading')}
+          {(children != null) ? children : t('common:loading')}
         </Loader>
       </Dimmer>
     );

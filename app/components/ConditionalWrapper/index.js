@@ -29,7 +29,7 @@ const PureConditionalWrapper = (props: Props): React.Node => {
   if (renderChildren) {
     return children;
   }
-  else if (redirectIfNotChildren) {
+  else if (redirectIfNotChildren != null) {
     return <Redirect to={redirectIfNotChildren} />;
   }
   else if (ComponentIfNotChildren != null) {

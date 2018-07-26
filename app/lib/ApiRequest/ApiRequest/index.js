@@ -69,7 +69,7 @@ class ApiRequest {
   };
 
   setToken = (token: ?string): ApiRequest => {
-    if (token) this.setHeader('Authorization', `Bearer ${token}`);
+    if (token != null && token !== '') this.setHeader('Authorization', `Bearer ${token}`);
     else this.removeHeader('Authorization');
 
     return this;

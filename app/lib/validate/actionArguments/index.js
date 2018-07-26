@@ -4,11 +4,11 @@ import _ from 'lodash';
 
 import { InvalidArgumentError } from 'errors';
 
-type ActionArgumentsValidationOptions = {
+type ActionArgumentsValidationOptions = {|
   throwOnEmptyString: boolean,
   throwOnUndefined: boolean,
   trimString: boolean,
-};
+|};
 
 const defaultActionArgumentsValidationOptions: ActionArgumentsValidationOptions = {
   throwOnEmptyString: true,

@@ -16,7 +16,7 @@ import { createWhitelistFilter } from 'redux-persist-transform-filter';
 // Redux-saga
 import createSagaMiddleware from 'redux-saga';
 // Connected-react-router
-import { createBrowserHistory, type BrowserHistory } from 'history';
+import createBrowserHistory, { type BrowserHistory } from 'history/createBrowserHistory';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 // DevTools
 // eslint-disable-next-line import/no-extraneous-dependencies
