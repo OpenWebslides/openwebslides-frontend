@@ -41,6 +41,7 @@ export type RequestStatus =
 
 // Module state ------------------------------------------------------------------------------------
 
+// eslint-disable-next-line flowtype/require-exact-type
 export type ApiRequestsStatusState = {
   +[id: string]: RequestStatus,
 };

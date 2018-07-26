@@ -10,9 +10,9 @@ const allowedMarkdownTypes = [
   'link',
 ];
 
-type PassedProps = {
+type PassedProps = {|
   text: string,
-};
+|};
 
 type Props = PassedProps;
 

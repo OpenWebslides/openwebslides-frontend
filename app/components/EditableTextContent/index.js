@@ -5,7 +5,7 @@ import { Form, Input, TextArea } from 'semantic-ui-react';
 
 import InlineMarkdown from 'components/InlineMarkdown';
 
-type PassedProps = {
+type PassedProps = {|
   multiline: boolean,
   initialText: string,
   initialIsActive: boolean,
@@ -13,16 +13,16 @@ type PassedProps = {
   onActivate?: () => void,
   onDeactivate?: (text: string) => void,
   onKeyDown?: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void,
-};
+|};
 
 type Props = PassedProps;
 
-type ComponentState = {
+type ComponentState = {|
   initialIsActive: boolean,
   isActive: boolean,
   initialText: string,
   text: string,
-};
+|};
 
 class EditableTextContent extends React.Component<Props, ComponentState> {
   static defaultProps = {

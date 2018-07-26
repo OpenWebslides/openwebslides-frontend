@@ -10,7 +10,7 @@ import FetchWrapper, { PureFetchWrapper } from '.';
 
 describe(`FetchWrapper`, (): void => {
 
-  type DummyType = { foo: string, bar: string };
+  type DummyType = {| foo: string, bar: string |};
 
   let dummyFetchedProp: DummyType;
   let dummyRender: (DummyType) => React.Node;

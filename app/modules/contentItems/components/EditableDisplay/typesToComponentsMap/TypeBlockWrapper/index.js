@@ -3,10 +3,10 @@
 import * as React from 'react';
 import { Icon } from 'semantic-ui-react';
 
-type PassedProps = {
+type PassedProps = {|
   iconName: string,
   children?: React.Node,
-};
+|};
 
 type Props = PassedProps;
 

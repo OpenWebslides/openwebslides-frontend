@@ -11,12 +11,12 @@ import * as m from '../../model';
 
 import typesToComponentsMap from './typesToComponentsMap';
 
-type PassedProps = {
+type PassedProps = {|
   // The contentItem to be displayed.
   contentItem: m.DenormalizedContentItem,
   // Used to automatically calculate the HTML heading level of nested HEADING contentItems.
   headingLevel: number,
-};
+|};
 
 type Props = PassedProps;
 
@@ -56,8 +56,8 @@ const PureHtmlDisplay = (props: Props): React.Node => {
   const DisplayComponent = typesToComponentsMap[contentItem.type];
 
   return (
+    // $FlowFixMe Flow doesn't currently parse the mapping to see that the types are correct.
     <DisplayComponent
-      // $FlowFixMe Flow doesn't currently parse the mapping to see that the types are correct.
       contentItem={contentItem}
       headingLevel={headingLevel}
     >

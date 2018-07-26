@@ -14,10 +14,12 @@ export const httpMethods = {
 
 export type HttpMethod = $Values<typeof httpMethods>;
 
+// eslint-disable-next-line flowtype/require-exact-type
 export type ApiRequestHeaders = {
   [name: string]: string,
 };
 
+// eslint-disable-next-line flowtype/require-exact-type
 export type ApiRequestParameters = {
   [name: string]: string,
 };

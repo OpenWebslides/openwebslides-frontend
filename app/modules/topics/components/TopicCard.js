@@ -58,12 +58,12 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   };
 };
 
-type LocalState = {
+type ComponentState = {|
   open: boolean,
-};
+|};
 
-class PureTopicCard extends React.Component<Props, LocalState> {
-  state: LocalState = {
+class PureTopicCard extends React.Component<Props, ComponentState> {
+  state: ComponentState = {
     open: false,
   };
 

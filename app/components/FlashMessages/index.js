@@ -8,14 +8,14 @@ import { getLatestMessage } from 'redux-flash';
 
 import type { State } from 'types/state';
 
-type Flash = {
+type Flash = {|
   id: string,
   message: string,
   isError: boolean,
   props: {
     [string]: string,
   },
-};
+|};
 
 type StateProps = {|
   flash: ?Flash,

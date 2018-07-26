@@ -4,7 +4,7 @@ import type { Tag } from './tags';
 import type { Visibility } from './visibilities';
 
 // Type for contentItem metadata.
-export type Metadata = {
+export type Metadata = {|
   // ContentItem tags
   // Use these to toggle specific styles (such as exclamation marks next to the item, etc.)
   +tags: Array<Tag>,
@@ -16,4 +16,4 @@ export type Metadata = {
     // Visibility override for course view.
     +course?: Visibility,
   },
-};
+|};

@@ -9,11 +9,9 @@ import { type PlatformState } from 'modules/platform/model';
 import { type TopicsState } from 'modules/topics/model';
 import { type UsersState } from 'modules/users/model';
 
-export type ErrorState = {
+export type ErrorState = {||};
 
-};
-
-export type State = {
+export type State = {|
   +modules: {
     +apiRequestsStatus: ApiRequestsStatusState,
     +contentItems: ContentItemsState,
@@ -24,4 +22,4 @@ export type State = {
   },
   +form: {},
   +error: {},
-};
+|};

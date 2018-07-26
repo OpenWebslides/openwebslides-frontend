@@ -157,9 +157,8 @@ module.exports = {
     // Enforce delimiter consistency.
     'flowtype/object-type-delimiter': 'error',
 
-    // Enabling this would be better but exact types still have some issues #TODO
-    // example: https://github.com/facebook/flow/issues/2405
-    'flowtype/require-exact-type': 'off',
+    // Require all types to be exact for both stricter and more intuitive type checking.
+    'flowtype/require-exact-type': 'error',
 
     // Enforce explicitly typing parameters.
     'flowtype/require-parameter-type': [

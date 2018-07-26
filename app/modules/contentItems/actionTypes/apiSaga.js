@@ -10,4 +10,4 @@
 
 // ApiSaga action ----------------------------------------------------------------------------------
 
-export type ApiSagaAction = { type: string };
+export type ApiSagaAction = {| type: string |};

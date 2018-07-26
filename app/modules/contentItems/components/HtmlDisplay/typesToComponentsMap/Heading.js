@@ -6,11 +6,11 @@ import InlineMarkdown from 'components/InlineMarkdown';
 
 import * as m from '../../../model';
 
-type PassedProps = {
+type PassedProps = {|
   contentItem: m.DenormalizedHeadingContentItem,
   children?: React.Node,
   headingLevel: number,
-};
+|};
 
 type Props = PassedProps;
 
