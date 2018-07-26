@@ -1,10 +1,10 @@
 // @flow
 
-import ProfileCard from './ProfileCard';
+import UserProfile from './UserProfile';
 import UserAccountMenu from './UserAccountMenu';
 
 const index = {
-  ProfileCard,
+  UserProfile,
   UserAccountMenu,
 };
 

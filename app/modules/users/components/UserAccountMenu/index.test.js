@@ -28,6 +28,20 @@ describe(`UserAccountMenu`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });
 
+  it(`fetches the user, when the user was not previously present in the state`, (): void => {
+    const dummyUsersById: m.UsersById = {};
+    const dummyState = { modules: { users: { byId: dummyUsersById } } };
+    const dummyDispatch = jest.fn();
+
+    mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <UserAccountMenu userId={dummyUser.id} />
+      </DummyProviders>,
+    );
+
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.fetch(dummyUser.id));
+  });
+
   it(`renders the user, when the user was previously present in the state`, (): void => {
     const dummyUsersById: m.UsersById = {
       [dummyUser.id]: dummyUser,
@@ -41,21 +55,7 @@ describe(`UserAccountMenu`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('PureUserAccountMenu').text()).toContain(dummyUser.name);
-  });
-
-  it(`fetches the user, when the user was not previously present in the state`, (): void => {
-    const dummyUsersById: m.UsersById = {};
-    const dummyState = { modules: { users: { byId: dummyUsersById } } };
-    const dummyDispatch = jest.fn();
-
-    mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <UserAccountMenu userId={dummyUser.id} />
-      </DummyProviders>,
-    );
-
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.fetch(dummyUser.id));
+    expect(enzymeWrapper.find('[data-test-id="user-account-menu"]').hostNodes()).toHaveLength(1);
   });
 
 });

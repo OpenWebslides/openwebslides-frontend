@@ -8,8 +8,9 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import moment from 'moment';
 import { Feed, Image } from 'semantic-ui-react';
 
-import { USER_PROFILE_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
+import { USER_PROFILE_BY_ID_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
 import type { State } from 'types/state';
+import makeRoute from 'lib/makeRoute';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -102,13 +103,13 @@ class PureEventWrapper extends React.Component<Props, State> {
     return (
       <Feed.Event>
         <Feed.Label>
-          <Link to={`${USER_PROFILE_ROUTE}/${user.id}`}>
+          <Link to={makeRoute(USER_PROFILE_BY_ID_ROUTE, { userId: user.id })}>
             <Image src={users.lib.getGravatarSrc(user, 200)} bordered={true} />
           </Link>
         </Feed.Label>
         <Feed.Content>
           <Feed.Summary>
-            <Link as="Feed.User" to={`${USER_PROFILE_ROUTE}/${user.id}`}>
+            <Link as="Feed.User" to={makeRoute(USER_PROFILE_BY_ID_ROUTE, { userId: user.id })}>
               {user.name}
             </Link>
             &nbsp;

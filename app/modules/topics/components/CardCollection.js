@@ -1,10 +1,13 @@
 // @flow
 
 import * as React from 'react';
+import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
-import { Card } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Button, Card, Icon } from 'semantic-ui-react';
 
 import type { State } from 'types/state';
+import { TOPIC_NEW_ROUTE } from 'config/routes';
 
 import { getAllTopicIdsByUserId } from '../selectors';
 import { getAllByUserId } from '../actions';
@@ -23,11 +26,7 @@ type DispatchProps = {|
   handleRequestTopics: (userId: string) => void,
 |};
 
-type Props = {|
-  ...PassedProps,
-  ...StateProps,
-  ...DispatchProps,
-|};
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { userId } = props;
@@ -52,12 +51,23 @@ class PureCardCollection extends React.Component<Props, State> {
   };
 
   render = (): React.Node => {
-    const {
-      topicIds,
-    } = this.props;
+    const { t, topicIds } = this.props;
 
     return (
-      <Card.Group>
+      <Card.Group itemsPerRow={4} doubling={true}>
+        <Card>
+          <Button
+            as={Link}
+            to={TOPIC_NEW_ROUTE}
+            icon={true}
+            labelPosition="left"
+            size="big"
+            className="topics-list__add-button"
+          >
+            <Icon name="plus" />
+            {t('global:title.createNewTopic')}
+          </Button>
+        </Card>
         {topicIds.map((topicId) => (
           <TopicCard key={topicId} topicId={topicId} />
         ))}
@@ -66,7 +76,9 @@ class PureCardCollection extends React.Component<Props, State> {
   };
 }
 
-const CardCollection = connect(mapStateToProps, mapDispatchToProps)(PureCardCollection);
+const CardCollection = connect(mapStateToProps, mapDispatchToProps)(
+  translate()(PureCardCollection),
+);
 
 export { PureCardCollection };
 export default CardCollection;

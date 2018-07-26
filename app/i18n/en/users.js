@@ -1,6 +1,15 @@
 // @flow
 
 const users = {
+  user: 'User',
+  headings: {
+    profile: 'Profile',
+  },
+  actions: {
+    signOut: 'Sign out',
+    viewProfile: 'View profile',
+    editProfile: 'Edit profile',
+  },
   forms: {
     email: 'Email',
     name: 'Name',

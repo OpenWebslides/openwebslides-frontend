@@ -23,21 +23,17 @@ class PureUserAccountMenu extends React.Component<Props> {
     const { t } = this.props;
 
     return (
-      <Menu.Menu position="right">
+      <Menu.Menu position="right" data-test-id="user-account-menu">
         <Menu.Item as={Link} to="#">
           <Icon name="bell outline" />
         </Menu.Item>
         <Dropdown text={user.name} pointing={true} item={true}>
           <Dropdown.Menu>
-            <Dropdown.Header>
-              {t('global:navbar.account')}
-            </Dropdown.Header>
             <Dropdown.Item as={Link} to={USER_PROFILE_ROUTE}>
-              {t('global:navbar.preferences')}
+              {t('users:actions.viewProfile')}
             </Dropdown.Item>
-            <Dropdown.Divider />
             <Dropdown.Item as={Link} to={USER_SIGNOUT_ROUTE}>
-              {t('global:navbar.signout')}
+              {t('users:actions.signOut')}
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>

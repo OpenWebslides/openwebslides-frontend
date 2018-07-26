@@ -3,6 +3,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
+import { dummyProviderProps } from 'lib/testResources';
+
 import { PureCardCollection } from '../CardCollection';
 
 describe(`CardCollection`, (): void => {
@@ -11,6 +13,7 @@ describe(`CardCollection`, (): void => {
     const dummyHandleRequestTopics = jest.fn();
     const enzymeWrapper = shallow(
       <PureCardCollection
+        {...dummyProviderProps.translatorProps}
         topicIds={[]}
         userId="abcdefghij"
         handleRequestTopics={dummyHandleRequestTopics}
