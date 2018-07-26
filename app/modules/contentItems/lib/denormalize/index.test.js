@@ -11,23 +11,23 @@ import denormalize from '.';
 
 describe(`denormalize`, (): void => {
 
-  let dummySlideBreak32: $Exact<m.SlideBreakContentItem>;
-  let dummyParagraph314: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph313: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph312: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph311: $Exact<m.ParagraphContentItem>;
+  let dummySlideBreak32: m.SlideBreakContentItem;
+  let dummyParagraph314: m.ParagraphContentItem;
+  let dummyParagraph313: m.ParagraphContentItem;
+  let dummyParagraph312: m.ParagraphContentItem;
+  let dummyParagraph311: m.ParagraphContentItem;
   let dummyTestParentAndSuperItem31: any;
-  let dummyRoot3: $Exact<m.RootContentItem>;
-  let dummyHeading22: $Exact<m.HeadingContentItem>;
-  let dummyHeading21: $Exact<m.HeadingContentItem>;
-  let dummyRoot2: $Exact<m.RootContentItem>;
-  let dummyParagraph122: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph121: $Exact<m.ParagraphContentItem>;
-  let dummyHeading12: $Exact<m.HeadingContentItem>;
-  let dummyParagraph112: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph111: $Exact<m.ParagraphContentItem>;
-  let dummyHeading11: $Exact<m.HeadingContentItem>;
-  let dummyRoot1: $Exact<m.RootContentItem>;
+  let dummyRoot3: m.RootContentItem;
+  let dummyHeading22: m.HeadingContentItem;
+  let dummyHeading21: m.HeadingContentItem;
+  let dummyRoot2: m.RootContentItem;
+  let dummyParagraph122: m.ParagraphContentItem;
+  let dummyParagraph121: m.ParagraphContentItem;
+  let dummyHeading12: m.HeadingContentItem;
+  let dummyParagraph112: m.ParagraphContentItem;
+  let dummyParagraph111: m.ParagraphContentItem;
+  let dummyHeading11: m.HeadingContentItem;
+  let dummyRoot1: m.RootContentItem;
   let dummyContentItemsById: any;
 
   beforeEach((): void => {

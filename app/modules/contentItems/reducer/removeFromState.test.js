@@ -10,12 +10,12 @@ import reducer from '.';
 
 describe(`removeFromState`, (): void => {
 
-  let dummyRoot2: $Exact<m.RootContentItem>;
-  let dummyHeading12: $Exact<m.HeadingContentItem>;
-  let dummyParagraph112: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph111: $Exact<m.ParagraphContentItem>;
-  let dummyHeading11: $Exact<m.HeadingContentItem>;
-  let dummyRoot1: $Exact<m.RootContentItem>;
+  let dummyRoot2: m.RootContentItem;
+  let dummyHeading12: m.HeadingContentItem;
+  let dummyParagraph112: m.ParagraphContentItem;
+  let dummyParagraph111: m.ParagraphContentItem;
+  let dummyHeading11: m.HeadingContentItem;
+  let dummyRoot1: m.RootContentItem;
 
   beforeEach((): void => {
     dummyRoot2 = { ...dummyData.rootContentItem2 };

@@ -5,14 +5,14 @@ import type { Topic, TopicsById, TopicsState } from '../model';
 
 describe(`selectors`, (): void => {
 
-  const dummyTopic1: $Exact<Topic> = {
+  const dummyTopic1: Topic = {
     id: 'abcdefghij',
     userId: 'wxcvbnqsdf',
     title: 'dummy topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'abcdefghij',
   };
-  const dummyTopic2: $Exact<Topic> = {
+  const dummyTopic2: Topic = {
     id: 'klmnopqrst',
     userId: 'qsdfghjklm',
     title: 'dummy topic 2',

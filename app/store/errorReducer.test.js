@@ -22,7 +22,7 @@ describe(`errorReducer`, (): void => {
 
     const dummyErrorMessage = 'Dummpy error message';
     const dummyError = new Error(dummyErrorMessage);
-    const dummyErrorAction: $Exact<ErrorAction> = {
+    const dummyErrorAction: ErrorAction = {
       type: 'DUMMY_ERROR_ACTION',
       error: dummyError,
     };

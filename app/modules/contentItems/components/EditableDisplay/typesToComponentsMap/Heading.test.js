@@ -11,7 +11,7 @@ import { PureHeading } from './Heading';
 
 describe(`Heading`, (): void => {
 
-  let dummyHeading: $Exact<m.HeadingContentItem>;
+  let dummyHeading: m.HeadingContentItem;
   let dummyFunctionProps: any;
 
   beforeEach((): void => {

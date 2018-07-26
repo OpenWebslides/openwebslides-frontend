@@ -8,19 +8,19 @@ import find from '..';
 
 describe(`findPreviousEditorItem`, (): void => {
 
-  let dummyHeading3: $Exact<m.HeadingContentItem>;
-  let dummyHeading2: $Exact<m.HeadingContentItem>;
-  let dummyParagraph142: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph141: $Exact<m.ParagraphContentItem>;
-  let dummyHeading14: $Exact<m.HeadingContentItem>;
-  let dummyParagraph132: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph131: $Exact<m.ParagraphContentItem>;
-  let dummyHeading13: $Exact<m.HeadingContentItem>;
-  let dummyParagraph12: $Exact<m.ParagraphContentItem>;
-  let dummyParagraph11: $Exact<m.ParagraphContentItem>;
-  let dummyHeading1: $Exact<m.HeadingContentItem>;
-  let dummyRoot: $Exact<m.RootContentItem>;
-  let dummyContentItemsById: $Exact<m.ContentItemsById>;
+  let dummyHeading3: m.HeadingContentItem;
+  let dummyHeading2: m.HeadingContentItem;
+  let dummyParagraph142: m.ParagraphContentItem;
+  let dummyParagraph141: m.ParagraphContentItem;
+  let dummyHeading14: m.HeadingContentItem;
+  let dummyParagraph132: m.ParagraphContentItem;
+  let dummyParagraph131: m.ParagraphContentItem;
+  let dummyHeading13: m.HeadingContentItem;
+  let dummyParagraph12: m.ParagraphContentItem;
+  let dummyParagraph11: m.ParagraphContentItem;
+  let dummyHeading1: m.HeadingContentItem;
+  let dummyRoot: m.RootContentItem;
+  let dummyContentItemsById: m.ContentItemsById;
 
   beforeEach((): void => {
     dummyHeading3 = { ...dummyData.headingContentItem5 };

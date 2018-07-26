@@ -11,10 +11,10 @@ import { PureRoot } from './Root';
 
 describe(`Root`, (): void => {
 
-  let dummyHeading2: $Exact<m.HeadingContentItem>;
-  let dummyHeading1: $Exact<m.HeadingContentItem>;
-  let dummyRoot: $Exact<m.RootContentItem>;
-  let dummyContentItemsById: $Exact<m.ContentItemsById>;
+  let dummyHeading2: m.HeadingContentItem;
+  let dummyHeading1: m.HeadingContentItem;
+  let dummyRoot: m.RootContentItem;
+  let dummyContentItemsById: m.ContentItemsById;
   let dummyState: any;
 
   beforeEach((): void => {
