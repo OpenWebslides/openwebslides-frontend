@@ -193,7 +193,7 @@ describe(`toggleEditingSaga`, (): void => {
       .run();
   });
 
-  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<*> => {
+  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<mixed> => {
     const toggleEditingAction: a.ToggleEditingAction = {
       type: a.TOGGLE_EDITING,
       payload: {

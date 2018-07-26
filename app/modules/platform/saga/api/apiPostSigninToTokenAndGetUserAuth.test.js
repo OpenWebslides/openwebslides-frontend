@@ -105,7 +105,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
       .run();
   });
 
-  it(`sets its request status to FAILURE and passes on the correct error, when the api response does not contain a token`, async (): Promise<*> => {
+  it(`sets its request status to FAILURE and passes on the correct error, when the api response does not contain a token`, async (): Promise<mixed> => {
     const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
     const dummyApiResponse = {
       body: {

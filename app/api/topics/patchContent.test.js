@@ -12,7 +12,7 @@ describe(`api.topics.patchContent`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<*> => {
+  it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyTopicId = 'ThisIsAnId';
     const dummyToken = 'foobarToken';
     const dummyContent = [dummyData.rootContentItem, dummyData.headingContentItem];

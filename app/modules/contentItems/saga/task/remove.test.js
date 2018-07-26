@@ -199,7 +199,7 @@ describe(`removeSaga`, (): void => {
       .run();
   });
 
-  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<*> => {
+  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<mixed> => {
     const dummyRemoveAction: a.RemoveAction = {
       type: a.REMOVE,
       payload: {
@@ -216,7 +216,7 @@ describe(`removeSaga`, (): void => {
     ).rejects.toBeInstanceOf(ObjectNotFoundError);
   });
 
-  it(`throws a CorruptedInternalStateError, when the passed contentItemsById structure is corrupted`, async (): Promise<*> => {
+  it(`throws a CorruptedInternalStateError, when the passed contentItemsById structure is corrupted`, async (): Promise<mixed> => {
     dummyHeading1.subItemIds = [dummyHeading12.id];
 
     const dummyRemoveAction: a.RemoveAction = {

@@ -11,7 +11,7 @@ describe(`api.topics.delete`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<*> => {
+  it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyTopicId = 'ThisIsAnId';
     const dummyToken = 'foobarToken';
     fetch.mockResponseOnce(null, { status: 200 });

@@ -11,7 +11,7 @@ describe(`api.users.get`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<*> => {
+  it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyUserId = 'ThisIsAnId';
     const dummyToken = 'foobarToken';
 

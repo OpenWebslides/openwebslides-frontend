@@ -237,7 +237,7 @@ describe(`removeFromState`, (): void => {
     }).toThrow(CorruptedInternalStateError);
   });
 
-  it(`throws a CorruptedInternalStateError, when a parentOrSuperItem cannot be found for a non-root contentItem`, async (): Promise<*> => {
+  it(`throws a CorruptedInternalStateError, when a parentOrSuperItem cannot be found for a non-root contentItem`, async (): Promise<mixed> => {
     const prevState: m.ContentItemsState = {
       byId: {
         [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading11.id, dummyHeading12.id] },

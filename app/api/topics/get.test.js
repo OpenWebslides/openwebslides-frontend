@@ -11,7 +11,7 @@ describe(`api.topics.get`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<*> => {
+  it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyTopicId = 'ThisIsAnId';
     fetch.mockResponseOnce(null, { status: 200 });
     await api.topics.get(dummyTopicId);

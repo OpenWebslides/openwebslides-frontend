@@ -96,7 +96,7 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
       .run();
   });
 
-  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<*> => {
+  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<mixed> => {
     const dummyRemoveAndTogglePreviousItemAction: a.RemoveAndTogglePreviousItemAction = {
       type: a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
       payload: {

@@ -11,7 +11,7 @@ describe(`api.notifications.getAll`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<*> => {
+  it(`executes the correct fetch call`, async (): Promise<mixed> => {
     fetch.mockResponseOnce(null, { status: 200 });
     await api.notifications.getAll();
 

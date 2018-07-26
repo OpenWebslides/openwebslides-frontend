@@ -135,7 +135,7 @@ describe(`indentSaga`, (): void => {
       .run();
   });
 
-  it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, async (): Promise<*> => {
+  it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, async (): Promise<mixed> => {
     const dummyIndentAction: a.IndentAction = {
       type: a.INDENT,
       payload: {

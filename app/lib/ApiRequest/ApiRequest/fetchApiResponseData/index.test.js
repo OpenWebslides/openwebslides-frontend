@@ -16,7 +16,7 @@ describe(`fetchApiResponseData`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`returns a ResponseData object with the correct body data`, async (): Promise<*> => {
+  it(`returns a ResponseData object with the correct body data`, async (): Promise<mixed> => {
     const dummyBody = { foo: 'bar' };
     fetch.mockResponseOnce(JSON.stringify(dummyBody), { status: 200 });
 
@@ -29,7 +29,7 @@ describe(`fetchApiResponseData`, (): void => {
       });
   });
 
-  it(`returns a ResponseData object with the correct token`, async (): Promise<*> => {
+  it(`returns a ResponseData object with the correct token`, async (): Promise<mixed> => {
     const dummyToken = 'foobarToken';
     fetch.mockResponseOnce(
       null,
@@ -45,7 +45,7 @@ describe(`fetchApiResponseData`, (): void => {
       });
   });
 
-  it(`throws an Http401UnauthorizedError, when the response contains a 401 status code`, async (): Promise<*> => {
+  it(`throws an Http401UnauthorizedError, when the response contains a 401 status code`, async (): Promise<mixed> => {
     fetch.mockResponseOnce(null, { status: 401 });
 
     await expect(fetchApiResponseData('', {}))
@@ -53,7 +53,7 @@ describe(`fetchApiResponseData`, (): void => {
       .toThrow(Http401UnauthorizedError);
   });
 
-  it(`throws an Http403ForbiddenError, when the response contains a 403 status code`, async (): Promise<*> => {
+  it(`throws an Http403ForbiddenError, when the response contains a 403 status code`, async (): Promise<mixed> => {
     fetch.mockResponseOnce(null, { status: 403 });
 
     await expect(fetchApiResponseData('', {}))
@@ -61,7 +61,7 @@ describe(`fetchApiResponseData`, (): void => {
       .toThrow(Http403ForbiddenError);
   });
 
-  it(`throws an Http422ValidationError, when the response contains a 422 status code`, async (): Promise<*> => {
+  it(`throws an Http422ValidationError, when the response contains a 422 status code`, async (): Promise<mixed> => {
     const dummyErrorText = `foo`;
     fetch.mockResponseOnce(JSON.stringify({ errors: dummyErrorText }), { status: 422 });
 
@@ -70,7 +70,7 @@ describe(`fetchApiResponseData`, (): void => {
       .toThrow(new Http422ValidationError(dummyErrorText));
   });
 
-  it(`throws an Http5xxServerError, when the response contains a 5xx status code`, async (): Promise<*> => {
+  it(`throws an Http5xxServerError, when the response contains a 5xx status code`, async (): Promise<mixed> => {
     const dummyErrorText = `Service unavailable`;
     fetch.mockResponseOnce(null, { status: 503, statusText: dummyErrorText });
 
@@ -79,7 +79,7 @@ describe(`fetchApiResponseData`, (): void => {
       .toThrow(new Http5xxServerError(dummyErrorText));
   });
 
-  it(`throws an UnexpectedHttpStatusError, when the response contains a status code that is not otherwise handled`, async (): Promise<*> => {
+  it(`throws an UnexpectedHttpStatusError, when the response contains a status code that is not otherwise handled`, async (): Promise<mixed> => {
     const dummyErrorText = `I'm a teapot`;
     fetch.mockResponseOnce(null, { status: 418, statusText: dummyErrorText });
 
