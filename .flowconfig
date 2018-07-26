@@ -9,6 +9,7 @@
 
 [lints]
 all=warn
+# Unsafe types are already prohibited by eslint flowtype/no-weak-types, which also allows for exceptions in test files.
 unclear-type=off
 
 [options]
