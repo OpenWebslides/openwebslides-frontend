@@ -17,7 +17,7 @@ const setEvents = (state: FeedState, action: a.SetEventsAction): FeedState => {
   return newEvents;
 };
 
-const reducer = (state: FeedState = initialState, action: a.FeedAction): FeedState => {
+const reducer = (state: FeedState = initialState, action: a.ReducerAction): FeedState => {
   switch (action.type) {
     case a.SET_EVENTS:
       return setEvents(state, action);

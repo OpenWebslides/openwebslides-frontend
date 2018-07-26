@@ -16,22 +16,30 @@ export const API_GET_NOTIFICATIONS: 'feed/API_GET_NOTIFICATIONS' = 'feed/API_GET
 /* Action types */
 
 // Reducer actions
-export type SetEventsAction = {
+export type SetEventsAction = {|
   type: typeof SET_EVENTS,
   payload: {
     items: ?Array<Event>,
   },
-};
+|};
 
 // Task saga actions
-export type FetchAction = {
+export type FetchAction = {|
   type: typeof FETCH,
-};
+|};
 
 // API saga actions
-export type ApiGetNotificationsAction = {
+export type ApiGetNotificationsAction = {|
   type: typeof API_GET_NOTIFICATIONS,
-};
+|};
 
-export type FeedAction =
+export type ReducerAction =
   | SetEventsAction;
+
+export type ApiSagaAction =
+  | ApiGetNotificationsAction;
+
+export type TaskSagaAction =
+  | FetchAction;
+
+export type ModuleAction = ReducerAction | ApiSagaAction | TaskSagaAction;

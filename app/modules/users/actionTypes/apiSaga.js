@@ -26,3 +26,10 @@ export type ApiPostAction = {|
     tosAccepted: boolean,
   },
 |};
+
+
+// ApiSaga action ----------------------------------------------------------------------------------
+
+export type ApiSagaAction =
+  | ApiGetAction
+  | ApiPostAction;

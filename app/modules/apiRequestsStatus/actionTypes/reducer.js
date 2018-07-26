@@ -11,13 +11,13 @@ export const SET_STATUS_IN_STATE: 'apiRequestsStatus/SET_STATUS_IN_STATE' = 'api
 
 // Action types ------------------------------------------------------------------------------------
 
-export type SetStatusInStateAction = {
+export type SetStatusInStateAction = {|
   type: typeof SET_STATUS_IN_STATE,
   payload: {
     requestId: string,
     requestStatus: m.RequestStatus,
   },
-};
+|};
 
 
 // Reducer action ----------------------------------------------------------------------------------

@@ -68,3 +68,15 @@ export type ToggleSidebarAction = {|
     sidebarId: m.SidebarId,
   },
 |};
+
+
+// TaskSaga action ---------------------------------------------------------------------------------
+
+export type TaskSagaAction =
+  | SigninAction
+  | SignoutAction
+  | SignupAction
+  | ConfirmEmailAction
+  | ResendConfirmationEmailAction
+  | ResetPasswordAction
+  | ToggleSidebarAction;

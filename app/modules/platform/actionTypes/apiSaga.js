@@ -48,3 +48,13 @@ export type ApiPostEmailToPasswordAction = {|
     email: string,
   },
 |};
+
+
+// ApiSaga action ----------------------------------------------------------------------------------
+
+export type ApiSagaAction =
+  | ApiPostSigninToTokenAndGetUserAuthAction
+  | ApiDeleteTokenAction
+  | ApiPostConfirmationAction
+  | ApiPostEmailToConfirmationAction
+  | ApiPostEmailToPasswordAction;

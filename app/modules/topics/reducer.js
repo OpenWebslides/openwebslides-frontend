@@ -63,7 +63,7 @@ const setItemsInState = (state: TopicsState, action: a.SetItemsInStateAction): T
   };
 };
 
-const reducer = (state: TopicsState = initialState, action: a.TopicReducerAction): TopicsState => {
+const reducer = (state: TopicsState = initialState, action: a.ReducerAction): TopicsState => {
   switch (action.type) {
     case a.ADD_TO_STATE:
       return addToState(state, action);

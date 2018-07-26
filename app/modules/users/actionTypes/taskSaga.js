@@ -15,3 +15,9 @@ export type FetchAction = {|
     id: string,
   },
 |};
+
+
+// TaskSaga action ---------------------------------------------------------------------------------
+
+export type TaskSagaAction =
+  | FetchAction;

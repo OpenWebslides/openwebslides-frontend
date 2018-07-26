@@ -23,63 +23,76 @@ export const REMOVE_AND_TOGGLE_PREVIOUS_ITEM: 'contentItems/REMOVE_AND_TOGGLE_PR
 
 // Action types ------------------------------------------------------------------------------------
 
-export type AddAction = {
+export type AddAction = {|
   type: typeof ADD,
   payload: {
     type: ContentItemType,
     context: ?Context,
     propsForType: $Shape<AllPropsForAllTypes>,
   },
-};
+|};
 
-export type EditAction = {
+export type EditAction = {|
   type: typeof EDIT,
   payload: {
     id: string,
     propsForType: $Shape<AllPropsForAllTypes>,
   },
-};
+|};
 
-export type ToggleEditingAction = {
+export type ToggleEditingAction = {|
   type: typeof TOGGLE_EDITING,
   payload: {
     id: string,
     isEditing?: boolean,
   },
-};
+|};
 
-export type MoveAction = {
+export type MoveAction = {|
   type: typeof MOVE,
   payload: {
     id: string,
     nextContext: VerticalContext,
   },
-};
+|};
 
-export type IndentAction = {
+export type IndentAction = {|
   type: typeof INDENT,
   payload: {
     id: string,
   },
-};
+|};
 
-export type ReverseIndentAction = {
+export type ReverseIndentAction = {|
   type: typeof REVERSE_INDENT,
   payload: {
     id: string,
   },
-};
+|};
 
-export type RemoveAction = {
+export type RemoveAction = {|
   type: typeof REMOVE,
   payload: {
     id: string,
   },
-};
+|};
 
-export type RemoveAndTogglePreviousItemAction = {
+export type RemoveAndTogglePreviousItemAction = {|
   type: typeof REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
   payload: {
     id: string,
   },
-};
+|};
+
+
+// TaskSaga action ---------------------------------------------------------------------------------
+
+export type TaskSagaAction =
+  | AddAction
+  | EditAction
+  | ToggleEditingAction
+  | MoveAction
+  | IndentAction
+  | ReverseIndentAction
+  | RemoveAction
+  | RemoveAndTogglePreviousItemAction;
