@@ -9,8 +9,7 @@ import { DummyProviders, dummyContentItemData as dummyData } from 'lib/testResou
 import actions from '../../actions';
 import * as m from '../../model';
 
-import EditableDisplay, { PureEditableDisplay, mapDispatchToProps } from '.';
-import type { DispatchProps } from '.';
+import EditableDisplay, { PureEditableDisplay, mapDispatchToProps, type DispatchProps } from '.';
 
 describe(`EditableDisplay`, (): void => {
 

@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Sets up the redux store, including middelware and access for redux-devtools browser extension.
  */
@@ -11,6 +12,7 @@ import { middleware as flashMiddleware } from 'redux-flash';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+// eslint-disable-next-line flowtype/type-import-style
 import type { PersistConfig, Persistor } from 'redux-persist/src/types';
 import { createWhitelistFilter } from 'redux-persist-transform-filter';
 // Redux-saga

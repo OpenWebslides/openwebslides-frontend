@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * An error caused by an HTTP response containing a 401 status code.
  * The user made an API call that is not allowed without being authenticated.

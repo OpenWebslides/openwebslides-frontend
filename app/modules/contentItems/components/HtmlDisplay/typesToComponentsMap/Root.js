@@ -11,7 +11,7 @@ type PassedProps = {|
   headingLevel: number,
 |};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
 
 const PureRoot = (props: Props): React.Node => {
   const { contentItem, headingLevel } = props;

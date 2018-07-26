@@ -3,17 +3,17 @@
 import _ from 'lodash';
 import { createSelector } from 'reselect';
 
-import type { ContentItem, ContentItemsById } from '../model';
+import * as m from '../model';
 
 import getAllById from './getAllById';
 
 const getCurrentlyEditing = createSelector(
   [getAllById],
-  (contentItemsById: ContentItemsById): ?ContentItem => {
+  (contentItemsById: m.ContentItemsById): ?m.ContentItem => {
     const currentlyEditingItem = _.find(
       // $FlowFixMe See https://github.com/flow-typed/flow-typed/issues/1099
       contentItemsById,
-      (contentItem: ContentItem): boolean => {
+      (contentItem: m.ContentItem): boolean => {
         return contentItem.isEditing;
       },
     );

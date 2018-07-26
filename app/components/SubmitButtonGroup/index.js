@@ -6,7 +6,7 @@ import { Button, Icon } from 'semantic-ui-react';
 
 import BackButton from 'components/BackButton';
 
-type Props = TranslatorProps;
+type Props = {| ...TranslatorProps |};
 
 const PureSubmitButtonGroup = (props: Props): React.Node => {
   const { t } = props;

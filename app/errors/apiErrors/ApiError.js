@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * An error caused by an HTTP response containing a 4xx or 5xx status code.
  */

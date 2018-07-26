@@ -8,7 +8,7 @@ type PassedProps = {|
   children?: React.Node,
 |};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
 
 const PureTypeBlockWrapper = (props: Props): React.Node => {
   const { iconName, children } = props;

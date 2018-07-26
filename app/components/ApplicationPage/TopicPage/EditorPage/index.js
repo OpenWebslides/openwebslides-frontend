@@ -9,10 +9,7 @@ import SidebarsPageWrapper from 'components/SidebarsPageWrapper';
 import platform from 'modules/platform';
 import topics from 'modules/topics';
 
-type Props = {|
-  ...TranslatorProps,
-  ...RouterProps,
-|};
+type Props = {| ...TranslatorProps, ...RouterProps |};
 
 const AuthWrapper = platform.components.AuthWrapper;
 const TopicEditor = topics.components.Editor;

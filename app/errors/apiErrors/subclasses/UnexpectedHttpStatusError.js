@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * An error caused by an HTTP response containing an unexpected status code.
  */

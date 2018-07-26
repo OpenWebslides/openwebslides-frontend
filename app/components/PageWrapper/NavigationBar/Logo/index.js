@@ -6,7 +6,7 @@ import { Image, Grid } from 'semantic-ui-react';
 
 import logo from 'assets/images/logo/logo-white.svg';
 
-type Props = TranslatorProps;
+type Props = {| ...TranslatorProps |};
 
 const PureLogo = (props: Props): React.Node => {
   const { t } = props;

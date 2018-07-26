@@ -8,10 +8,10 @@ import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import feed from 'modules/feed';
 import platform from 'modules/platform';
 
+type Props = {| ...TranslatorProps |};
+
 const { Feed } = feed.components;
 const { AuthWrapper } = platform.components;
-
-type Props = TranslatorProps;
 
 const PureHomePage = (props: Props): React.Node => {
   const { t } = props;

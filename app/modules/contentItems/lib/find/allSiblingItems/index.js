@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Finds all siblings of the passed contentItem.
  * Note that 'siblings' refers to siblings of the same type; i.e. if the contentItem's
@@ -14,12 +15,12 @@ import * as m from '../../../model';
 
 import find from '..';
 
-import type { MultipleFindFunction } from '../types';
+import { type MultipleFindFunction } from '../types';
 
 const findAllSiblingItems: MultipleFindFunction = (
   contentItem: ?m.ContentItem,
   contentItemsById: m.ContentItemsById,
-): Array<m.ContentItem> => {
+): $ReadOnlyArray<m.ContentItem> => {
   if (contentItem == null) return [];
 
   const extendedVerticalContext = find.extendedVerticalContext(contentItem, contentItemsById);

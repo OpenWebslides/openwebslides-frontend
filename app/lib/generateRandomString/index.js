@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Generates a random string of the given length.
  */

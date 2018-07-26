@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Sets up the application.
  */

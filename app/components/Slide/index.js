@@ -12,10 +12,7 @@ type PassedProps = {|
   rootHeadingLevel: number,
 |};
 
-type Props = {|
-  ...TranslatorProps,
-  ...PassedProps,
-|};
+type Props = {| ...TranslatorProps, ...PassedProps |};
 
 const ContentItemHtmlDisplay = contentItems.components.HtmlDisplay;
 

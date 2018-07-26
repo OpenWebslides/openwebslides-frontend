@@ -4,13 +4,13 @@ import { InvalidArgumentError, NotYetImplementedError, UnsupportedOperationError
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as a from '../actionTypes';
-import type { HeadingContentItem } from '../model';
+import * as m from '../model';
 
 import actions from '.';
 
 describe(`editPropsForTypeInState`, (): void => {
 
-  let dummyContentItem: HeadingContentItem;
+  let dummyContentItem: m.HeadingContentItem;
   let dummyPlainTextProps: { text: string };
 
   beforeEach((): void => {

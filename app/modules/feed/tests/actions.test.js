@@ -2,7 +2,7 @@
 
 import * as actions from '../actions';
 import * as a from '../actionTypes';
-import { predicate } from '../model';
+import * as m from '../model';
 
 describe(`actions`, (): void => {
   describe(`reducer actions`, (): void => {
@@ -13,7 +13,7 @@ describe(`actions`, (): void => {
             id: '1',
             userId: '1',
             topicId: '1',
-            predicate: predicate.CREATE,
+            predicate: m.predicate.CREATE,
             timestamp: 1524490428,
           },
         ];

@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * An error caused by a user taking an invalid action.
  */

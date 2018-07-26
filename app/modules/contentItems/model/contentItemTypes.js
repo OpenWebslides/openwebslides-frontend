@@ -1,5 +1,7 @@
 // @flow
 
+/* eslint-disable flowtype/require-types-at-top */
+
 // ContentItemType constants
 const ROOT: 'contentItemTypes/ROOT' = 'contentItemTypes/ROOT';
 const HEADING: 'contentItemTypes/HEADING' = 'contentItemTypes/HEADING';

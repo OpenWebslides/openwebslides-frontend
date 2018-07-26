@@ -1,4 +1,5 @@
 // @flow
+
 /* eslint-disable flowtype/no-weak-types */
 
 import * as React from 'react';
@@ -13,6 +14,7 @@ type PassedProps = {|
   children: React.Node,
   dummyState?: Object,
   dummyDispatch?: Dispatch<{}>,
+  // eslint-disable-next-line flowtype/no-mutable-array
   dummyRouterEntries?: Array<LocationShape | string>,
 |};
 

@@ -15,7 +15,7 @@ import makeRoute from 'lib/makeRoute';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
-import type { Event } from '../model';
+import * as m from '../model';
 import { getById } from '../selectors';
 
 type PassedProps = {|
@@ -23,7 +23,7 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  event: Event,
+  event: m.Event,
   user: ?users.model.User,
   topic: ?topics.model.Topic,
 |};
@@ -33,12 +33,7 @@ type DispatchProps = {|
   fetchUser: (string) => void,
 |};
 
-type Props = {|
-  ...TranslatorProps,
-  ...PassedProps,
-  ...StateProps,
-  ...DispatchProps,
-|};
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { eventId } = props;

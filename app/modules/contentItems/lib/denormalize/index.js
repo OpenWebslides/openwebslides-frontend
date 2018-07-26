@@ -1,4 +1,5 @@
 // @flow
+
 // Allow weak types in this file since constantly constantly converting ContentItems into
 // DenormalizedContentItems is unintuitive and too complicated.
 /* eslint-disable flowtype/no-weak-types */
@@ -22,7 +23,7 @@ const denormalizeProp = (
 
   // If this contentItem is denormalizable
   if (contentItem[denormalizableIdsProp] != null) {
-    const descendantItems: Array<m.DenormalizedContentItem> = [];
+    let descendantItems: $ReadOnlyArray<m.DenormalizedContentItem> = [];
     let descendantItem: any;
     // Iterate over all denormalizableIds.
     denormalizedContentItem[denormalizableIdsProp].forEach(
@@ -34,7 +35,7 @@ const denormalizeProp = (
         descendantItem = denormalize(descendantItem, contentItemsById);
         // Add it to the array of descendant items.
         if (descendantItem != null) {
-          descendantItems.push(descendantItem);
+          descendantItems = descendantItems.concat([descendantItem]);
         }
         else {
           throw new CorruptedInternalStateError(`Invalid contentItemsById: descendant item could not be found.`);

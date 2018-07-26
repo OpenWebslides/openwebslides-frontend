@@ -14,17 +14,14 @@ import { fetch } from '../actions';
 import Event from './Event';
 
 type StateProps = {|
-  eventIds: Array<string>,
+  eventIds: $ReadOnlyArray<string>,
 |};
 
 type DispatchProps = {|
   handleRequestFeed: () => void,
 |};
 
-type Props = {|
-  ...StateProps,
-  ...DispatchProps,
-|};
+type Props = {| ...StateProps, ...DispatchProps |};
 
 const mapStateToProps = (state: State): StateProps => {
   return {

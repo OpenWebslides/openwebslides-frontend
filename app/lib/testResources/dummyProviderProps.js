@@ -1,7 +1,7 @@
 // @flow
 
-import type { TranslatorProps } from 'react-i18next';
-// import type { ContextRouter as RouterProps } from 'react-router-dom';
+import { type TranslatorProps } from 'react-i18next';
+// import { type ContextRouter as RouterProps } from 'react-router-dom';
 // #TODO see https://github.com/erikras/redux-form/issues/3630#issue-276018629
 // eslint-disable-next-line import/no-internal-modules
 import { type FormProps } from 'redux-form/lib/types.js.flow';
@@ -47,8 +47,8 @@ export const formProps: $Exact<FormProps> = {
   submitting: false,
   submitFailed: false,
   submitSucceeded: false,
-  touch: (...fields: string[]): void => {},
-  untouch: (...fields: string[]): void => {},
+  touch: (...fields: $ReadOnlyArray<string>): void => {},
+  untouch: (...fields: $ReadOnlyArray<string>): void => {},
   valid: false,
   warning: null,
 };

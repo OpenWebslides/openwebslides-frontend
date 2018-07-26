@@ -11,7 +11,7 @@ type PassedProps = {|
   children?: React.Node,
 |};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
 
 const PureParagraph = (props: Props): React.Node => {
   const { contentItem, children } = props;

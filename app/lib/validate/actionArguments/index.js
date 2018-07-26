@@ -18,7 +18,7 @@ const defaultActionArgumentsValidationOptions: ActionArgumentsValidationOptions 
 
 const validateActionArguments = (
   argsObject: {},
-  argsKeys: Array<string>,
+  argsKeys: $ReadOnlyArray<string>,
   options: $Shape<ActionArgumentsValidationOptions> = defaultActionArgumentsValidationOptions,
 ): {} => {
   const mergedOptions = {

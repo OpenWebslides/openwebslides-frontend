@@ -21,7 +21,7 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  topicIds: Array<string>,
+  topicIds: $ReadOnlyArray<string>,
 |};
 
 type DispatchProps = {|

@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { Segment } from 'semantic-ui-react';
 
 import { ObjectNotFoundError } from 'errors';
-import type { State } from 'types/state';
+import { type State } from 'types/state';
 
-import type { Topic } from '../model';
+import * as m from '../model';
 import { getById } from '../selectors';
 
 type PassedProps = {|
@@ -15,13 +15,10 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  topic: Topic,
+  topic: m.Topic,
 |};
 
-type Props = {|
-  ...PassedProps,
-  ...StateProps,
-|};
+type Props = {| ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;

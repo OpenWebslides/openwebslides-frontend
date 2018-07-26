@@ -34,11 +34,7 @@ type DispatchProps = {|
   onReverseIndent: (id: string) => void,
 |};
 
-type Props = {|
-  ...PassedProps,
-  ...StateProps,
-  ...DispatchProps,
-|};
+type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const passThroughProps = [
   'onStartEditing',

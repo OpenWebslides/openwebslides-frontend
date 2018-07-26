@@ -1,12 +1,8 @@
 // @flow
-/* eslint-disable no-multiple-empty-lines */
 
-import type {
-  ContentItemType,
-  Context,
-  VerticalContext,
-  AllPropsForAllTypes,
-} from '../model';
+/* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
+
+import * as m from '../model';
 
 
 // Action constants --------------------------------------------------------------------------------
@@ -26,9 +22,9 @@ export const REMOVE_AND_TOGGLE_PREVIOUS_ITEM: 'contentItems/REMOVE_AND_TOGGLE_PR
 export type AddAction = {|
   type: typeof ADD,
   payload: {
-    type: ContentItemType,
-    context: ?Context,
-    propsForType: $Shape<AllPropsForAllTypes>,
+    type: m.ContentItemType,
+    context: ?m.Context,
+    propsForType: $Shape<m.AllPropsForAllTypes>,
   },
 |};
 
@@ -36,7 +32,7 @@ export type EditAction = {|
   type: typeof EDIT,
   payload: {
     id: string,
-    propsForType: $Shape<AllPropsForAllTypes>,
+    propsForType: $Shape<m.AllPropsForAllTypes>,
   },
 |};
 
@@ -52,7 +48,7 @@ export type MoveAction = {|
   type: typeof MOVE,
   payload: {
     id: string,
-    nextContext: VerticalContext,
+    nextContext: m.VerticalContext,
   },
 |};
 

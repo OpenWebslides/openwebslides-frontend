@@ -13,7 +13,7 @@ import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import { ObjectNotFoundError } from 'errors';
 
 import { getById } from '../selectors';
-import type { Topic } from '../model';
+import * as m from '../model';
 import { remove } from '../actions';
 
 type PassedProps = {|
@@ -21,18 +21,17 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  topic: Topic,
+  topic: m.Topic,
 |};
 
 type DispatchProps = {|
   onRemoveButtonClick: (string) => void,
 |};
 
-type Props = {|
-  ...TranslatorProps,
-  ...PassedProps,
-  ...StateProps,
-  ...DispatchProps,
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+
+type ComponentState = {|
+  open: boolean,
 |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
@@ -57,10 +56,6 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
     },
   };
 };
-
-type ComponentState = {|
-  open: boolean,
-|};
 
 class PureTopicCard extends React.Component<Props, ComponentState> {
   state: ComponentState = {

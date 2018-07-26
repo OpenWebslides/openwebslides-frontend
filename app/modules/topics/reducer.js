@@ -4,13 +4,13 @@ import _ from 'lodash';
 
 import { dummyTopicsById } from './dummyData';
 import * as a from './actionTypes';
-import type { Topic, TopicsState } from './model';
+import * as m from './model';
 
-const initialState: TopicsState = {
+const initialState: m.TopicsState = {
   byId: dummyTopicsById,
 };
 
-const addToState = (state: TopicsState, action: a.AddToStateAction): TopicsState => {
+const addToState = (state: m.TopicsState, action: a.AddToStateAction): m.TopicsState => {
   const {
     id,
   } = action.payload;
@@ -24,9 +24,9 @@ const addToState = (state: TopicsState, action: a.AddToStateAction): TopicsState
   };
 };
 
-const editInState = (state: TopicsState, action: a.EditInStateAction): TopicsState => {
+const editInState = (state: m.TopicsState, action: a.EditInStateAction): m.TopicsState => {
   const { id, title, description } = action.payload;
-  let editedTopic: Topic = state.byId[id];
+  let editedTopic: m.Topic = state.byId[id];
 
   if (title != null) editedTopic = { ...editedTopic, title };
   if (description != null) editedTopic = { ...editedTopic, description };
@@ -40,7 +40,7 @@ const editInState = (state: TopicsState, action: a.EditInStateAction): TopicsSta
   };
 };
 
-const removeFromState = (state: TopicsState, action: a.RemoveFromStateAction): TopicsState => {
+const removeFromState = (state: m.TopicsState, action: a.RemoveFromStateAction): m.TopicsState => {
   const { id } = action.payload;
 
   return {
@@ -49,11 +49,11 @@ const removeFromState = (state: TopicsState, action: a.RemoveFromStateAction): T
   };
 };
 
-const setItemsInState = (state: TopicsState, action: a.SetItemsInStateAction): TopicsState => {
+const setItemsInState = (state: m.TopicsState, action: a.SetItemsInStateAction): m.TopicsState => {
   const newTopics = {};
 
   if (action.payload.items) {
-    action.payload.items.forEach((item: Topic): void => {
+    action.payload.items.forEach((item: m.Topic): void => {
       newTopics[item.id] = item;
     });
   }
@@ -63,7 +63,7 @@ const setItemsInState = (state: TopicsState, action: a.SetItemsInStateAction): T
   };
 };
 
-const reducer = (state: TopicsState = initialState, action: a.ReducerAction): TopicsState => {
+const reducer = (state: m.TopicsState = initialState, action: a.ReducerAction): m.TopicsState => {
   switch (action.type) {
     case a.ADD_TO_STATE:
       return addToState(state, action);

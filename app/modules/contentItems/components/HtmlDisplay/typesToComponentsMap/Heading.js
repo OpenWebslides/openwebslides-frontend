@@ -12,7 +12,7 @@ type PassedProps = {|
   headingLevel: number,
 |};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
 
 const PureHeading = (props: Props): React.Node => {
   const { contentItem, children, headingLevel } = props;

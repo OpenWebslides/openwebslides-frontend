@@ -15,7 +15,7 @@ type PassedProps = {|
   onKeyDown?: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void,
 |};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
 
 type ComponentState = {|
   initialIsActive: boolean,

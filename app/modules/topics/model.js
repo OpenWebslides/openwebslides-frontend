@@ -1,5 +1,7 @@
 // @flow
 
+/* eslint-disable flowtype/require-types-at-top */
+
 import generateRandomString from 'lib/generateRandomString';
 
 const ID_LENGTH = 10;

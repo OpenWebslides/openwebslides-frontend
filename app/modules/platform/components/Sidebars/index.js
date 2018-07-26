@@ -17,7 +17,7 @@ type PassedProps = {|
 
 type StateProps = {|
   topic: topics.model.Topic,
-  activeSidebarIds: Array<m.SidebarId>,
+  activeSidebarIds: $ReadOnlyArray<m.SidebarId>,
 |};
 
 type Props = {| ...PassedProps, ...StateProps |};

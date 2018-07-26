@@ -1,4 +1,5 @@
 // @flow
+
 /* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';
@@ -7,10 +8,9 @@ import { put, select } from 'redux-saga/effects';
 
 import { ObjectNotFoundError } from 'errors';
 
-import * as a from '../../actionTypes';
 import actions from '../../actions';
-import { subableContentItemTypes, contextTypes } from '../../model';
-import type { SubableContentItem } from '../../model';
+import * as a from '../../actionTypes';
+import * as m from '../../model';
 import selectors from '../../selectors';
 import find from '../../lib/find';
 
@@ -25,13 +25,13 @@ const indentSaga = function* (action: a.IndentAction): Saga<void> {
 
   if (
     previousSiblingItem != null
-    && _.includes(subableContentItemTypes, previousSiblingItem.type)
+    && _.includes(m.subableContentItemTypes, previousSiblingItem.type)
   ) {
-    const subItemsCount = ((previousSiblingItem: any): SubableContentItem).subItemIds.length;
+    const subItemsCount = ((previousSiblingItem: any): m.SubableContentItem).subItemIds.length;
     yield put(actions.move(
       contentItemToIndent.id,
       {
-        contextType: contextTypes.SUPER,
+        contextType: m.contextTypes.SUPER,
         contextItemId: previousSiblingItem.id,
         indexInSiblingItems: subItemsCount,
       },

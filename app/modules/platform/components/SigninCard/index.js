@@ -18,13 +18,13 @@ import apiRequestsStatus from 'modules/apiRequestsStatus';
 import actions from '../../actions';
 import * as a from '../../actionTypes';
 
-const { ApiDimmer } = apiRequestsStatus.components;
-
 type DispatchProps = {|
   onEmailAndPasswordFormSubmit: (values: EmailAndPasswordFormValues) => void,
 |};
 
 type Props = {| ...TranslatorProps, ...DispatchProps |};
+
+const { ApiDimmer } = apiRequestsStatus.components;
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {

@@ -5,7 +5,7 @@ import {
   getAllById,
   getAll,
 } from '../selectors';
-import { predicate } from '../model';
+import * as m from '../model';
 
 const exampleState: any = {
   modules: {
@@ -14,7 +14,7 @@ const exampleState: any = {
         id: '1',
         userId: '1',
         topicId: '1',
-        predicate: predicate.CREATE,
+        predicate: m.predicate.CREATE,
         timestamp: 1524490428,
       },
     },
@@ -28,7 +28,7 @@ describe(`selectors`, (): void => {
         id: '1',
         userId: '1',
         topicId: '1',
-        predicate: predicate.CREATE,
+        predicate: m.predicate.CREATE,
         timestamp: 1524490428,
       });
     });
@@ -45,7 +45,7 @@ describe(`selectors`, (): void => {
           id: '1',
           userId: '1',
           topicId: '1',
-          predicate: predicate.CREATE,
+          predicate: m.predicate.CREATE,
           timestamp: 1524490428,
         },
       });
@@ -58,7 +58,7 @@ describe(`selectors`, (): void => {
         id: '1',
         userId: '1',
         topicId: '1',
-        predicate: predicate.CREATE,
+        predicate: m.predicate.CREATE,
         timestamp: 1524490428,
       }]);
     });

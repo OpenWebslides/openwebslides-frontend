@@ -2,26 +2,26 @@
 
 import reducer from '../reducer';
 import * as a from '../actionTypes';
-import type { Topic, TopicsState } from '../model';
+import * as m from '../model';
 import { dummyTopicsById } from '../dummyData';
 
 describe(`reducer`, (): void => {
 
-  const dummyTopic1: Topic = {
+  const dummyTopic1: m.Topic = {
     id: 'abcdefghij',
     userId: 'wxcvbnqsdf',
     title: 'dummy topic 1',
     description: 'Lorem ipsum dolor sit amet.',
     rootContentItemId: 'abcdefghij',
   };
-  const dummyTopic2: Topic = {
+  const dummyTopic2: m.Topic = {
     id: 'klmnopqrst',
     userId: 'qsdfghjklm',
     title: 'dummy topic 2',
     description: '',
     rootContentItemId: 'abcdefghij',
   };
-  const dummyInitialState: TopicsState = {
+  const dummyInitialState: m.TopicsState = {
     byId: dummyTopicsById,
   };
 
@@ -33,7 +33,7 @@ describe(`reducer`, (): void => {
   });
 
   it(`handles topic ADD_TO_STATE action`, (): void => {
-    const prevState: TopicsState = {
+    const prevState: m.TopicsState = {
       byId: {
         [dummyTopic1.id]: dummyTopic1,
       },
@@ -48,7 +48,7 @@ describe(`reducer`, (): void => {
         rootContentItemId: 'abcdefghij',
       },
     };
-    const nextState: TopicsState = {
+    const nextState: m.TopicsState = {
       byId: {
         [dummyTopic1.id]: dummyTopic1,
         klmnopqrst: {
@@ -65,7 +65,7 @@ describe(`reducer`, (): void => {
   });
 
   it(`handles topic EDIT_IN_STATE action`, (): void => {
-    const prevState: TopicsState = {
+    const prevState: m.TopicsState = {
       byId: {
         abcdefghij: {
           id: 'abcdefghij',
@@ -84,7 +84,7 @@ describe(`reducer`, (): void => {
         description: 'Description has been edited.',
       },
     };
-    const nextState: TopicsState = {
+    const nextState: m.TopicsState = {
       byId: {
         abcdefghij: {
           id: 'abcdefghij',
@@ -100,7 +100,7 @@ describe(`reducer`, (): void => {
   });
 
   it(`handles topic REMOVE_FROM_STATE action`, (): void => {
-    const prevState: TopicsState = {
+    const prevState: m.TopicsState = {
       byId: {
         [dummyTopic1.id]: dummyTopic1,
         [dummyTopic2.id]: dummyTopic2,
@@ -112,7 +112,7 @@ describe(`reducer`, (): void => {
         id: dummyTopic2.id,
       },
     };
-    const nextState: TopicsState = {
+    const nextState: m.TopicsState = {
       byId: {
         [dummyTopic1.id]: dummyTopic1,
       },

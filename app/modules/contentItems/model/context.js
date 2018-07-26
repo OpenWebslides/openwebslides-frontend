@@ -1,5 +1,6 @@
 // @flow
-/* eslint-disable no-multiple-empty-lines */
+
+/* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 /**
  * Describes a contentItem in relation to its parent / siblings; this can be used to traverse the
  * contentItem tree, add/remove/move contentItems, etc.
@@ -68,7 +69,7 @@ type ExtendedVerticalContext = {|
   // Array containing the ids of all of the siblings of the contentItem for which this context
   // is defined. Can be either the contextItem's childItemIds or its subItemIds, depending on the
   // contextType.
-  +siblingItemIds: Array<string>,
+  +siblingItemIds: $ReadOnlyArray<string>,
 |};
 
 type VerticalContext = SimpleVerticalContext | ExtendedVerticalContext;

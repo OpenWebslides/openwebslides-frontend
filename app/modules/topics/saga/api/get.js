@@ -6,7 +6,7 @@ import { call, put } from 'redux-saga/effects';
 import api from 'api';
 
 import * as a from '../../actionTypes';
-import type { Topic } from '../../model';
+import * as m from '../../model';
 import { addToState, setItemsInState } from '../../actions';
 
 export const apiGetSaga = function* (action: a.GetAction): Saga<void> {
@@ -37,7 +37,7 @@ export const apiGetAllByUserIdSaga = function* (
     const response = yield call(api.topics.getAllByUserId, action.payload.userId);
 
     // eslint-disable-next-line flowtype/no-weak-types
-    const data = response.body.data.map((item: Object): Topic => {
+    const data = response.body.data.map((item: Object): m.Topic => {
       return {
         id: item.id,
         userId: action.payload.userId,

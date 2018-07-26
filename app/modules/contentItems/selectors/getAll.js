@@ -2,13 +2,13 @@
 
 import { createSelector } from 'reselect';
 
-import type { ContentItem, ContentItemsById } from '../model';
+import * as m from '../model';
 
 import getAllById from './getAllById';
 
 const getAll = createSelector(
   [getAllById],
-  (contentItemsById: ContentItemsById): Array<ContentItem> => {
+  (contentItemsById: m.ContentItemsById): $ReadOnlyArray<m.ContentItem> => {
     return Object.keys(contentItemsById).map((key) => contentItemsById[key]);
   },
 );

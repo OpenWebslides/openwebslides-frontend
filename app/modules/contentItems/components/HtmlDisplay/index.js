@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Takes a denormalized contentItem and renders it as HTML, using the appropriate display component
  * based on the contentItem's type. If the contentItem is subable, the sub items are automatically
@@ -18,7 +19,7 @@ type PassedProps = {|
   headingLevel: number,
 |};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
 
 const SubItemsHtmlDisplay = (props: Props): React.Node => {
   const { contentItem, headingLevel } = props;

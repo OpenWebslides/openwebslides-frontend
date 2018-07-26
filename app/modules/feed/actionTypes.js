@@ -1,6 +1,8 @@
 // @flow
 
-import type { Event } from './model';
+/* eslint-disable flowtype/require-types-at-top */
+
+import * as m from './model';
 
 /* Action constants */
 
@@ -19,7 +21,7 @@ export const API_GET_NOTIFICATIONS: 'feed/API_GET_NOTIFICATIONS' = 'feed/API_GET
 export type SetEventsAction = {|
   type: typeof SET_EVENTS,
   payload: {
-    items: ?Array<Event>,
+    items: ?$ReadOnlyArray<m.Event>,
   },
 |};
 

@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Takes a route string and parameter key => value mapping, and returns the route with the params
  * merged into it.

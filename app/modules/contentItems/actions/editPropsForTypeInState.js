@@ -6,19 +6,18 @@ import { InvalidArgumentError, NotYetImplementedError, UnsupportedOperationError
 import validate from 'lib/validate';
 
 import * as a from '../actionTypes';
-import { plainTextContentItemTypes, editablePropsForType } from '../model';
-import type { ContentItem, AllPropsForAllTypes } from '../model';
+import * as m from '../model';
 
 const editPropsForTypeInState = (
-  contentItem: ContentItem,
-  propsForType: $Shape<AllPropsForAllTypes>,
+  contentItem: m.ContentItem,
+  propsForType: $Shape<m.AllPropsForAllTypes>,
 ): a.EditPropsForTypeInStateAction => {
-  if (!_.includes(plainTextContentItemTypes, contentItem.type)) throw new NotYetImplementedError(`ContentItemType not yet supported`);
-  if (!_.isEmpty(_.omit(propsForType, editablePropsForType[contentItem.type]))) throw new InvalidArgumentError(`"props" object contains invalid props for this contentItem type. Type was: "${contentItem.type}". Invalid props were: "${JSON.stringify(_.omit(propsForType, editablePropsForType[contentItem.type]))}"`);
+  if (!_.includes(m.plainTextContentItemTypes, contentItem.type)) throw new NotYetImplementedError(`ContentItemType not yet supported`);
+  if (!_.isEmpty(_.omit(propsForType, m.editablePropsForType[contentItem.type]))) throw new InvalidArgumentError(`"props" object contains invalid props for this contentItem type. Type was: "${contentItem.type}". Invalid props were: "${JSON.stringify(_.omit(propsForType, m.editablePropsForType[contentItem.type]))}"`);
 
   const validatedPropsForType = validate.actionArguments(
     propsForType,
-    editablePropsForType[contentItem.type],
+    m.editablePropsForType[contentItem.type],
     {
       throwOnEmptyString: !contentItem.isEditing,
       throwOnUndefined: false,

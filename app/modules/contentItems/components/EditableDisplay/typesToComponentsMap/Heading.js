@@ -22,7 +22,7 @@ type PassedProps = {|
   onReverseIndent: (id: string) => void,
 |};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
 
 class PureHeading extends React.Component<Props> {
   onEditableTextContentActivate = (): void => {

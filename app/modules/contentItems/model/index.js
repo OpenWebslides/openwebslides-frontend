@@ -1,5 +1,6 @@
 // @flow
-/* eslint-disable no-multiple-empty-lines */
+
+/* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
 import * as types from './contentItemTypes';
 import * as metadata from './metadata';
@@ -104,7 +105,7 @@ export type SubableContentItem = {|
   // Limit contentItem type to subableContentItemTypes.
   +type: types.SubableContentItemType,
   // Ids of contentItems directly nested under this contentItem.
-  +subItemIds: Array<string>,
+  +subItemIds: $ReadOnlyArray<string>,
 |};
 
 // Additional props for denormalized 'subable' contentItems.
@@ -114,7 +115,7 @@ export type DenormalizedSubableContentItem = {|
   +type: types.SubableContentItemType,
   // ContentItems directly nested under this contentItem.
   // eslint-disable-next-line no-use-before-define
-  +subItems: Array<DenormalizedContentItem>,
+  +subItems: $ReadOnlyArray<DenormalizedContentItem>,
 |};
 
 // List of 'subable' contentItem props that can be edited through propsForType.
@@ -131,7 +132,7 @@ export type ContainerContentItem = {|
   // Limit contentItem type to containerContentItemTypes.
   +type: types.ContainerContentItemType,
   // Ids of contentItems that are direct children of this container.
-  +childItemIds: Array<string>,
+  +childItemIds: $ReadOnlyArray<string>,
 |};
 
 // Additional props for denormalized 'container' contentItems.
@@ -141,7 +142,7 @@ export type DenormalizedContainerContentItem = {|
   +type: types.ContainerContentItemType,
   // ContentItems that are direct children of this container.
   // eslint-disable-next-line no-use-before-define
-  +childItems: Array<DenormalizedContentItem>,
+  +childItems: $ReadOnlyArray<DenormalizedContentItem>,
 |};
 
 // List of 'container' contentItem props that can be edited through propsForType.

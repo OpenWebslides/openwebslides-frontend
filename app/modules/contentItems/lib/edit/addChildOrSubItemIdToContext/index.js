@@ -1,4 +1,5 @@
 // @flow
+
 /* eslint-disable flowtype/no-weak-types, react/destructuring-assignment */
 
 import { InvalidArgumentError, ObjectNotFoundError } from 'errors';

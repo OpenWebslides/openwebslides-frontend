@@ -11,13 +11,13 @@ import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import platform from 'modules/platform';
 import users from 'modules/users';
 
-const { UserProfile } = users.components;
-
 type StateProps = {|
   currentUserId: ?string,
 |};
 
 type Props = {| ...RouterProps, ...StateProps |};
+
+const { UserProfile } = users.components;
 
 const mapStateToProps = (state: State): StateProps => {
   const userAuth = platform.selectors.getUserAuth(state);

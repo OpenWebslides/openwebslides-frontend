@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Conditonally renders it children, an alternative component or a react-router redirect.
  */

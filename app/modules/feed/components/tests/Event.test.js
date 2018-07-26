@@ -6,7 +6,7 @@ import { shallow } from 'enzyme';
 import { dummyProviderProps, dummyUserData, dummyTopicData } from 'lib/testResources';
 
 import { PureEventWrapper } from '../Event';
-import { predicate } from '../../model';
+import * as m from '../../model';
 
 describe(`Event`, (): void => {
 
@@ -17,7 +17,7 @@ describe(`Event`, (): void => {
       id: 'zzzzzzzzzz',
       userId: 'xxxxxxxxxx',
       topicId: 'yyyyyyyyyy',
-      predicate: predicate.CREATE,
+      predicate: m.predicate.CREATE,
       timestamp: 1511622599112,
     };
 

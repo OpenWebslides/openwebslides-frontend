@@ -1,7 +1,7 @@
 // @flow
 
-// Weird syntax is necessary to avoid repeating string literals in flow types.
-// See https://github.com/facebook/flow/issues/2377#issuecomment-262894389
+/* eslint-disable flowtype/require-types-at-top */
+
 const CREATE: 'predicate/CREATE' = 'predicate/CREATE';
 const FORK: 'predicate/FORK' = 'predicate/FORK';
 const COMMENT: 'predicate/COMMENT' = 'predicate/COMMENT';

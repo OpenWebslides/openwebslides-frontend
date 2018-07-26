@@ -1,6 +1,6 @@
 // @flow
 
-import type { ErrorAction } from 'types/error';
+import { type ErrorAction } from 'types/error';
 
 import errorReducer, { initialState } from './errorReducer';
 

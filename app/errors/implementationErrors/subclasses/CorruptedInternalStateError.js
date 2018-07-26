@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * An error caused by the internal state of the application having become corrupted somehow.
  */

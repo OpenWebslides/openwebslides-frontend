@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * Configuration options for i18next / react-i18next.
  * Docs: https://www.i18next.com

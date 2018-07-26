@@ -7,13 +7,13 @@ import topics from 'modules/topics';
 
 import Sidebar from './Sidebar';
 
-const { Slides } = topics.components;
-
 type PassedProps = {|
   topic: topics.model.Topic,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
+
+const { Slides } = topics.components;
 
 const PureSlidePreviewsSidebar = (props: Props): React.Node => {
   const { t, topic } = props;

@@ -11,7 +11,7 @@ type PassedProps = {|
   contentItem: m.RootContentItem,
 |};
 
-type Props = PassedProps;
+type Props = {| ...PassedProps |};
 
 const PureRoot = (props: Props): React.Node => {
   const { contentItem } = props;

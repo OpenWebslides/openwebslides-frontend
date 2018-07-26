@@ -123,20 +123,33 @@ module.exports = {
       },
     ],
 
+    // Enforce consistency in using array types.
+    'flowtype/array-style-complex-type': 'error',
+    'flowtype/array-style-simple-type': 'error',
+
     // Consistency with airbnb's 'comma-dangle' rule.
     'flowtype/delimiter-dangle': [
       'error',
       'always-multiline',
     ],
 
+    // Enforce empty line after flow annotation.
+    'flowtype/newline-after-flow-annotation': 'error',
+
     // Consistency with airbnb's 'no-dupe-keys' rule.
     'flowtype/no-dupe-keys': 'error',
+
+    // Disallow * type, since it is deprecated.
+    'flowtype/no-existential-type': 'error',
 
     // Disallow $FlowFixMe comments that don't have a reason specified.
     'flowtype/no-flow-fix-me-comments': [
       'error',
       ' .+', // Allows $FlowFixMe followed by a space and one or more characters to pass without error
     ],
+
+    // Enforce the use of $ReadOnlyArray instead of Array.
+    'flowtype/no-mutable-array': 'error',
 
     // Prevent typos.
     'flowtype/no-primitive-constructor-types': 'error',
@@ -178,6 +191,9 @@ module.exports = {
       },
     ],
 
+    // Require flow types to be defined before anything else in a file.
+    'flowtype/require-types-at-top': 'error',
+
     // Enforce using flow in all JS files.
     'flowtype/require-valid-file-annotation': [
       'error',
@@ -201,6 +217,15 @@ module.exports = {
 
     // Consistency with airbnb's 'semi' rule.
     'flowtype/semi': 'error',
+
+    // Enforce flow type names starting with a capital letter.
+    'flowtype/type-id-match': [
+      'error',
+      '^[A-Z][a-zA-Z0-9]+$'
+    ],
+
+    // Enforce consistent style of flow type imports.
+    'flowtype/type-import-style': 'error',
 
     // Encourage placing default exports of components on a separate line at the bottom of the file.
     'import/exports-last': 'error',

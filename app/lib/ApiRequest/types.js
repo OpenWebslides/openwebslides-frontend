@@ -1,5 +1,7 @@
 // @flow
 
+/* eslint-disable flowtype/require-types-at-top */
+
 const GET: 'GET' = 'GET';
 const POST: 'POST' = 'POST';
 const PATCH: 'PATCH' = 'PATCH';
@@ -27,7 +29,7 @@ export type ApiRequestParameters = {
 export type ApiRequestConfig = {|
   method: HttpMethod,
   apiUrl: string, // Base api url
-  pathSegments: Array<string>, // Endpoints, resource ids, ...
+  pathSegments: $ReadOnlyArray<string>, // Endpoints, resource ids, ...
   parameters: ApiRequestParameters,
   headers: ApiRequestHeaders,
   body: ?string,

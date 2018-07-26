@@ -3,8 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { Field, reduxForm } from 'redux-form';
-import type { FormProps } from 'redux-form';
+import { Field, reduxForm, type FormProps } from 'redux-form';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Form } from 'semantic-ui-react';
 
@@ -21,12 +20,7 @@ type DispatchProps = {|
   onAddButtonClick: (string, string, string) => void,
 |};
 
-type Props = {|
-  ...TranslatorProps,
-  ...FormProps,
-  ...PassedProps,
-  ...DispatchProps,
-|};
+type Props = {| ...TranslatorProps, ...FormProps, ...PassedProps, ...DispatchProps |};
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {

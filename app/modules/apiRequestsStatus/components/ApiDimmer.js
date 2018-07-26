@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Dimmer, Loader } from 'semantic-ui-react';
 
-import type { State } from 'types/state';
+import { type State } from 'types/state';
 
 import * as m from '../model';
 import selectors from '../selectors';
 
 type PassedProps = {|
-  requestIds: Array<string>,
+  requestIds: $ReadOnlyArray<string>,
   children?: React.Node,
 |};
 
@@ -19,11 +19,7 @@ type StateProps = {|
   isActive: boolean,
 |};
 
-type Props = {|
-  ...TranslatorProps,
-  ...PassedProps,
-  ...StateProps,
-|};
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { requestIds } = props;

@@ -1,11 +1,11 @@
 // @flow
 
 import * as a from '../actionTypes';
-import type { VerticalContext } from '../model';
+import * as m from '../model';
 
 const moveInState = (
   id: string,
-  nextContext: VerticalContext,
+  nextContext: m.VerticalContext,
 ): a.MoveInStateAction => {
   return {
     type: a.MOVE_IN_STATE,

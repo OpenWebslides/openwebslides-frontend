@@ -1,6 +1,8 @@
 // @flow
 
-import type { Topic } from './model';
+/* eslint-disable flowtype/require-types-at-top */
+
+import * as m from './model';
 
 /* Action constants */
 
@@ -60,7 +62,7 @@ export type RemoveFromStateAction = {|
 export type SetItemsInStateAction = {|
   type: typeof SET_ITEMS_IN_STATE,
   payload: {
-    items: ?Array<Topic>,
+    items: ?$ReadOnlyArray<m.Topic>,
   },
 |};
 
@@ -156,9 +158,9 @@ export type ApiPatchTopicContentAction = {|
   payload: {
     id: string,
     // dependency on contentItems caused dependency cycle; move patch action to contentItems #TODO
-    // content: Array<contentItems.model.ContentItem>,
+    // content: $ReadOnlyArray<contentItems.model.ContentItem>,
     // eslint-disable-next-line flowtype/no-weak-types
-    content: Array<any>,
+    content: $ReadOnlyArray<any>,
   },
 |};
 

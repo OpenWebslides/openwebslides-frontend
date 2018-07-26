@@ -1,4 +1,5 @@
 // @flow
+
 /**
  * An error caused by an HTTP response containing a 422 status code.
  * Server-side validation of request data failed. The details are included in the error object.

@@ -12,13 +12,13 @@ import PageWrapper from 'components/PageWrapper';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
 
-const { ApiDimmer } = apiRequestsStatus.components;
-
 type DispatchProps = {|
   confirmEmail: (confirmationToken: string) => void,
 |};
 
 type Props = {| ...TranslatorProps, ...RouterProps, ...DispatchProps |};
+
+const { ApiDimmer } = apiRequestsStatus.components;
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {

@@ -5,7 +5,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
 
-type Props = TranslatorProps;
+type Props = {| ...TranslatorProps |};
 
 const PureNotFoundPage = (props: Props): React.Node => {
   const { t } = props;

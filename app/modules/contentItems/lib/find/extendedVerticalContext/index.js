@@ -1,4 +1,5 @@
 // @flow
+
 /* eslint-disable flowtype/no-weak-types */
 /**
  * Finds the context of the passed contentItem; this is meant to work around the fact that
@@ -20,7 +21,7 @@ const getContextFromCandidateParentOrSuperItem = (
   candidateParentOrSuperItem: m.ContentItem,
 ): ?m.ExtendedVerticalContext => {
   let context: ?m.ExtendedVerticalContext = null;
-  let siblingItemIds: Array<string>;
+  let siblingItemIds: $ReadOnlyArray<string>;
 
   // If the current candidate is the superItem of the passed contentItem
   if (
@@ -35,6 +36,7 @@ const getContextFromCandidateParentOrSuperItem = (
       contextType: m.contextTypes.SUPER,
       contextItemId: candidateParentOrSuperItem.id,
       siblingItemIds,
+      // $FlowFixMe see https://github.com/flow-typed/flow-typed/issues/1099
       indexInSiblingItems: _.indexOf(siblingItemIds, contentItem.id),
     };
   }
@@ -51,6 +53,7 @@ const getContextFromCandidateParentOrSuperItem = (
       contextType: m.contextTypes.PARENT,
       contextItemId: candidateParentOrSuperItem.id,
       siblingItemIds,
+      // $FlowFixMe see https://github.com/flow-typed/flow-typed/issues/1099
       indexInSiblingItems: _.indexOf(siblingItemIds, contentItem.id),
     };
   }

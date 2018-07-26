@@ -3,13 +3,13 @@
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as a from '../actionTypes';
-import type { ContentItem } from '../model';
+import * as m from '../model';
 
 import actions from '.';
 
 describe(`setMultipleInState`, (): void => {
 
-  let dummyContentItems: Array<ContentItem>;
+  let dummyContentItems: $ReadOnlyArray<m.ContentItem>;
 
   beforeEach((): void => {
     dummyContentItems = [
