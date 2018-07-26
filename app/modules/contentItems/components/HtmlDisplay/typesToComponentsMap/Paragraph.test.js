@@ -1,5 +1,6 @@
 // @flow
 
+import _ from 'lodash';
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
@@ -14,14 +15,13 @@ describe(`Paragraph`, (): void => {
   let dummyParagraph: m.DenormalizedParagraphContentItem;
 
   beforeEach((): void => {
-    dummyParagraph = { ...dummyData.paragraphContentItem, subItems: [] };
+    dummyParagraph = { ..._.omit(dummyData.paragraphContentItem, 'subItemIds'), subItems: [] };
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureParagraph
         contentItem={dummyParagraph}
-        headingLevel={1}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -31,7 +31,6 @@ describe(`Paragraph`, (): void => {
     const enzymeWrapper = render(
       <PureParagraph
         contentItem={dummyParagraph}
-        headingLevel={1}
       />,
     );
     const paragraphTags = enzymeWrapper.find('p');

@@ -1,5 +1,6 @@
 // @flow
 
+import _ from 'lodash';
 import * as React from 'react';
 import { render, shallow } from 'enzyme';
 
@@ -16,9 +17,9 @@ describe(`Root`, (): void => {
   let dummyRoot: m.DenormalizedRootContentItem;
 
   beforeEach((): void => {
-    dummyHeading2 = { ...dummyData.headingContentItem4, subItems: [] };
-    dummyHeading1 = { ...dummyData.headingContentItem, subItems: [] };
-    dummyRoot = { ...dummyData.rootContentItem, childItems: [dummyHeading1, dummyHeading2] };
+    dummyHeading2 = { ..._.omit(dummyData.headingContentItem4, 'subItemIds'), subItems: [] };
+    dummyHeading1 = { ..._.omit(dummyData.headingContentItem, 'subItemIds'), subItems: [] };
+    dummyRoot = { ..._.omit(dummyData.rootContentItem, 'subItemIds'), childItems: [dummyHeading1, dummyHeading2] };
   });
 
   it(`renders without errors`, (): void => {

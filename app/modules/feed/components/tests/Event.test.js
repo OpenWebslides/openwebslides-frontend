@@ -12,7 +12,7 @@ describe(`Event`, (): void => {
 
   it(`renders without errors`, (): void => {
     const dummyUser = { ...dummyUserData.user };
-    const dummyTopic = { ...dummyTopicData.topic, user: dummyUser.id };
+    const dummyTopic = { ...dummyTopicData.topic, userId: dummyUser.id };
     const dummyEvent = {
       id: 'zzzzzzzzzz',
       userId: 'xxxxxxxxxx',

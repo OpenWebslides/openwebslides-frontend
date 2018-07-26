@@ -78,14 +78,14 @@ describe(`denormalize`, (): void => {
   it(`returns a denormalized subable contentItem, when the passed contentItem is a subable contentItem`, (): void => {
     const denormalizedContentItem = denormalize(dummyHeading11, dummyContentItemsById);
     const expectedResult: m.DenormalizedHeadingContentItem = {
-      ...dummyHeading11,
+      ..._.omit(dummyHeading11, 'subItemIds'),
       subItems: [
         ({
-          ...dummyParagraph111,
+          ..._.omit(dummyParagraph111, 'subItemIds'),
           subItems: [],
         }: m.DenormalizedParagraphContentItem),
         ({
-          ...dummyParagraph112,
+          ..._.omit(dummyParagraph112, 'subItemIds'),
           subItems: [],
         }: m.DenormalizedParagraphContentItem),
       ],
@@ -96,14 +96,14 @@ describe(`denormalize`, (): void => {
   it(`returns a denormalized container contentItem, when the passed contentItem is a container contentItem`, (): void => {
     const denormalizedContentItem = denormalize(dummyRoot2, dummyContentItemsById);
     const expectedResult: m.DenormalizedRootContentItem = {
-      ...dummyRoot2,
+      ..._.omit(dummyRoot2, 'childItemIds'),
       childItems: [
         ({
-          ...dummyHeading21,
+          ..._.omit(dummyHeading21, 'subItemIds'),
           subItems: [],
         }: m.DenormalizedHeadingContentItem),
         ({
-          ...dummyHeading22,
+          ..._.omit(dummyHeading22, 'subItemIds'),
           subItems: [],
         }: m.DenormalizedHeadingContentItem),
       ],
@@ -114,24 +114,24 @@ describe(`denormalize`, (): void => {
   it(`returns a denormalized subable / container contentItem, when the passed contentItem is a subable / container contentItem`, (): void => {
     const denormalizedContentItem = denormalize(dummyTestParentAndSuperItem31, dummyContentItemsById);
     const expectedResult = {
-      ...dummyTestParentAndSuperItem31,
+      ..._.omit(dummyTestParentAndSuperItem31, 'subItemIds'),
       childItems: [
         ({
-          ...dummyParagraph311,
+          ..._.omit(dummyParagraph311, 'subItemIds'),
           subItems: [],
         }: m.DenormalizedParagraphContentItem),
         ({
-          ...dummyParagraph312,
+          ..._.omit(dummyParagraph312, 'subItemIds'),
           subItems: [],
         }: m.DenormalizedParagraphContentItem),
       ],
       subItems: [
         ({
-          ...dummyParagraph313,
+          ..._.omit(dummyParagraph313, 'subItemIds'),
           subItems: [],
         }: m.DenormalizedParagraphContentItem),
         ({
-          ...dummyParagraph314,
+          ..._.omit(dummyParagraph314, 'subItemIds'),
           subItems: [],
         }: m.DenormalizedParagraphContentItem),
       ],
@@ -148,30 +148,30 @@ describe(`denormalize`, (): void => {
   it(`returns a multilevel denormalized contentItem, when the passed contentItem has multiple levels of descendants`, (): void => {
     const denormalizedContentItem = denormalize(dummyRoot1, dummyContentItemsById);
     const expectedResult: m.DenormalizedRootContentItem = {
-      ...dummyRoot1,
+      ..._.omit(dummyRoot1, 'childItemIds'),
       childItems: [
         ({
-          ...dummyHeading11,
+          ..._.omit(dummyHeading11, 'subItemIds'),
           subItems: [
             ({
-              ...dummyParagraph111,
+              ..._.omit(dummyParagraph111, 'subItemIds'),
               subItems: [],
             }: m.DenormalizedParagraphContentItem),
             ({
-              ...dummyParagraph112,
+              ..._.omit(dummyParagraph112, 'subItemIds'),
               subItems: [],
             }: m.DenormalizedParagraphContentItem),
           ],
         }: m.DenormalizedHeadingContentItem),
         ({
-          ...dummyHeading12,
+          ..._.omit(dummyHeading12, 'subItemIds'),
           subItems: [
             ({
-              ...dummyParagraph121,
+              ..._.omit(dummyParagraph121, 'subItemIds'),
               subItems: [],
             }: m.DenormalizedParagraphContentItem),
             ({
-              ...dummyParagraph122,
+              ..._.omit(dummyParagraph122, 'subItemIds'),
               subItems: [],
             }: m.DenormalizedParagraphContentItem),
           ],

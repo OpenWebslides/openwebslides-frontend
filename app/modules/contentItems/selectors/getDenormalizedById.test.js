@@ -1,5 +1,7 @@
 // @flow
 
+import _ from 'lodash';
+
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as m from '../model';
@@ -47,30 +49,30 @@ describe(`getDenormalizedById`, (): void => {
   it(`returns the correct denormalized contentItem for the given id, when the given id is valid`, (): void => {
     const denormalizedContentItem = selectors.getDenormalizedById(dummyState, { id: dummyRoot.id });
     const expectedResult: m.DenormalizedRootContentItem = {
-      ...dummyRoot,
+      ..._.omit(dummyRoot, 'childItemIds'),
       childItems: [
         ({
-          ...dummyHeading1,
+          ..._.omit(dummyHeading1, 'subItemIds'),
           subItems: [
             ({
-              ...dummyParagraph11,
+              ..._.omit(dummyParagraph11, 'subItemIds'),
               subItems: [],
             }: m.DenormalizedParagraphContentItem),
             ({
-              ...dummyParagraph12,
+              ..._.omit(dummyParagraph12, 'subItemIds'),
               subItems: [],
             }: m.DenormalizedParagraphContentItem),
           ],
         }: m.DenormalizedHeadingContentItem),
         ({
-          ...dummyHeading2,
+          ..._.omit(dummyHeading2, 'subItemIds'),
           subItems: [
             ({
-              ...dummyParagraph21,
+              ..._.omit(dummyParagraph21, 'subItemIds'),
               subItems: [],
             }: m.DenormalizedParagraphContentItem),
             ({
-              ...dummyParagraph22,
+              ..._.omit(dummyParagraph22, 'subItemIds'),
               subItems: [],
             }: m.DenormalizedParagraphContentItem),
           ],

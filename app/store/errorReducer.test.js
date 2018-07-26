@@ -1,22 +1,19 @@
 // @flow
 
-import type { ErrorState } from 'types/state';
 import type { ErrorAction } from 'types/error';
 
-import errorReducer from './errorReducer';
+import errorReducer, { initialState } from './errorReducer';
 
 describe(`errorReducer`, (): void => {
 
   describe(`initial`, (): void => {
-
-    const dummyInitialState: ErrorState = {};
 
     it(`returns the initial state, when state parameter is undefined`, (): void => {
       const dummyAction: any = {
         type: 'DUMMY_ACTION',
       };
 
-      expect(errorReducer(undefined, dummyAction)).toEqual(dummyInitialState);
+      expect(errorReducer(undefined, dummyAction)).toEqual(initialState);
     });
 
   });
