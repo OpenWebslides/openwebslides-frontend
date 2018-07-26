@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
 
 import * as a from '../../actionTypes';
@@ -12,7 +13,7 @@ import signout from './signout';
 import signup from './signup';
 import toggleSidebar from './toggleSidebar';
 
-const taskSaga = function* (): Generator<*, *, *> {
+const taskSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.CONFIRM_EMAIL, confirmEmail),
     takeEvery(a.RESEND_CONFIRMATION_EMAIL, resendConfirmationEmail),

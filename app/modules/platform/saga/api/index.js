@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
 
 import * as a from '../../actionTypes';
@@ -10,7 +11,7 @@ import apiPostEmailToConfirmation from './apiPostEmailToConfirmation';
 import apiPostEmailToPassword from './apiPostEmailToPassword';
 import apiPostSigninToTokenAndGetUserAuth from './apiPostSigninToTokenAndGetUserAuth';
 
-const apiSaga = function* (): Generator<*, *, *> {
+const apiSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.API_DELETE_TOKEN, apiDeleteToken),
     takeEvery(a.API_POST_CONFIRMATION, apiPostConfirmation),

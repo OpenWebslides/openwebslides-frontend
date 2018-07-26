@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 import { flashErrorMessage } from 'redux-flash';
 
@@ -14,7 +15,7 @@ import * as m from '../../model';
 
 const apiPostSigninToTokenAndGetUserAuth = function* (
   action: a.ApiPostSigninToTokenAndGetUserAuthAction,
-): Generator<*, *, *> {
+): Saga<void> {
   const { email, password } = action.payload;
 
   yield put(apiRequestsStatus.actions.setPending(action.type));

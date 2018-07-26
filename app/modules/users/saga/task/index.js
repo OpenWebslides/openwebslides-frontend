@@ -1,12 +1,13 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
 
 import * as a from '../../actionTypes';
 
 import fetch from './fetch';
 
-const taskSaga = function* (): Generator<*, *, *> {
+const taskSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.FETCH, fetch),
   ]);

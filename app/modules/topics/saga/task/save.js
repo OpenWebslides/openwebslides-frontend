@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { put, select } from 'redux-saga/effects';
 
 import contentItems from 'modules/contentItems';
@@ -9,7 +10,7 @@ import { apiPatchContent } from '../../actions';
 import { getById } from '../../selectors';
 import type { Topic } from '../../model';
 
-const saveSaga = function* (action: a.SaveContentAction): Generator<*, *, *> {
+const saveSaga = function* (action: a.SaveContentAction): Saga<void> {
   const {
     id,
   } = action.payload;

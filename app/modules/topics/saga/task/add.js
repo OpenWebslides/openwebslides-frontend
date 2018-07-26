@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { put, take } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 
@@ -9,7 +10,7 @@ import * as a from '../../actionTypes';
 import { apiPost } from '../../actions';
 
 // eslint-disable-next-line require-yield
-const addSaga = function* (action: a.AddAction): Generator<*, *, *> {
+const addSaga = function* (action: a.AddAction): Saga<void> {
   const {
     userId,
     title,

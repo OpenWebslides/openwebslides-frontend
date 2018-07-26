@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
 import api from 'api';
@@ -15,7 +16,7 @@ const mapEventTypeToPredicateType = {
   topic_updated: predicate.UPDATE,
 };
 
-export const apiGetNotificationsSaga = function* (action: a.FetchAction): Generator<*, *, *> {
+export const apiGetNotificationsSaga = function* (action: a.FetchAction): Saga<void> {
   try {
     const response = yield call(api.notifications.getAll);
 

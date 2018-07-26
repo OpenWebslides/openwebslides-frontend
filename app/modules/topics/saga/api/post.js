@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 
 import { UnsupportedOperationError } from 'errors';
@@ -9,7 +10,7 @@ import platform from 'modules/platform';
 
 import * as a from '../../actionTypes';
 
-export const apiPostSaga = function* (action: a.ApiPostTopicAction): Generator<*, *, *> {
+export const apiPostSaga = function* (action: a.ApiPostTopicAction): Saga<void> {
   const { userId, title, description } = action.payload;
   yield put(apiRequestsStatus.actions.setPending(action.type));
 

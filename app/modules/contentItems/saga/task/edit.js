@@ -1,6 +1,7 @@
 // @flow
 
 import _ from 'lodash';
+import { type Saga } from 'redux-saga';
 import { put, select } from 'redux-saga/effects';
 
 import { NotYetImplementedError, ObjectNotFoundError } from 'errors';
@@ -10,7 +11,7 @@ import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
-const editSaga = function* (action: a.EditAction): Generator<*, *, *> {
+const editSaga = function* (action: a.EditAction): Saga<void> {
   const { id, propsForType } = action.payload;
   const newPropsForType = { ...propsForType };
 

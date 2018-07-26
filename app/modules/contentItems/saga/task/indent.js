@@ -2,6 +2,7 @@
 /* eslint-disable flowtype/no-weak-types */
 
 import _ from 'lodash';
+import { type Saga } from 'redux-saga';
 import { put, select } from 'redux-saga/effects';
 
 import { ObjectNotFoundError } from 'errors';
@@ -13,7 +14,7 @@ import type { SubableContentItem } from '../../model';
 import selectors from '../../selectors';
 import find from '../../lib/find';
 
-const indentSaga = function* (action: a.IndentAction): Generator<*, *, *> {
+const indentSaga = function* (action: a.IndentAction): Saga<void> {
   const { id } = action.payload;
 
   const contentItemToIndent = yield select(selectors.getById, { id });

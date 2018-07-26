@@ -1,6 +1,8 @@
 // @flow
 
-const apiSaga = function* (): Generator<*, *, *> {
+import { type Saga } from 'redux-saga';
+
+const apiSaga = function* (): Saga<void> {
   // placeholder
 };
 

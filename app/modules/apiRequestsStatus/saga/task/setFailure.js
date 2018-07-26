@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { put } from 'redux-saga/effects';
 
 import { type ErrorAction } from 'types/error';
@@ -8,7 +9,7 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-const setFailure = function* (action: a.SetFailureAction): Generator<*, *, *> {
+const setFailure = function* (action: a.SetFailureAction): Saga<void> {
   const { requestId, error } = action.payload;
   const requestStatus: m.FailureRequestStatus = {
     status: m.statusTypes.FAILURE,

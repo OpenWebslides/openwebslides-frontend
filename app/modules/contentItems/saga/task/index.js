@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
 
 import * as a from '../../actionTypes';
@@ -13,7 +14,7 @@ import reverseIndentSaga from './reverseIndent';
 import removeSaga from './remove';
 import removeAndTogglePreviousItemSaga from './removeAndTogglePreviousItem';
 
-const taskSaga = function* (): Generator<*, *, *> {
+const taskSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.ADD, addSaga),
     takeEvery(a.EDIT, editSaga),

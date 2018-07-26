@@ -1,6 +1,7 @@
 // @flow
 /* eslint-disable flowtype/no-weak-types */
 
+import { type Saga } from 'redux-saga';
 import { put, select } from 'redux-saga/effects';
 
 import { CorruptedInternalStateError, ObjectNotFoundError } from 'errors';
@@ -11,7 +12,7 @@ import * as m from '../../model';
 import selectors from '../../selectors';
 import find from '../../lib/find';
 
-const removeSaga = function* (action: a.RemoveAction): Generator<*, *, *> {
+const removeSaga = function* (action: a.RemoveAction): Saga<void> {
   const { id } = action.payload;
 
   const contentItemToRemove = yield select(selectors.getById, { id });

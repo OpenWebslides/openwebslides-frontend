@@ -1,5 +1,6 @@
 // @flow
 
+import { type Saga } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 
 import { UnsupportedOperationError } from 'errors';
@@ -9,7 +10,7 @@ import platform from 'modules/platform';
 import * as a from '../../actionTypes';
 import { removeFromState } from '../../actions';
 
-export const apiDeleteSaga = function* (action: a.ApiDeleteTopicAction): Generator<*, *, *> {
+export const apiDeleteSaga = function* (action: a.ApiDeleteTopicAction): Saga<void> {
   try {
     const { id } = action.payload;
     const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);

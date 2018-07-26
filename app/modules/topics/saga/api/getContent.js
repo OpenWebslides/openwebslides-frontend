@@ -1,6 +1,7 @@
 // @flow
 
 import { flashMessage, flashErrorMessage } from 'redux-flash';
+import { type Saga } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 
 import { UnsupportedOperationError, Http5xxServerError } from 'errors';
@@ -13,7 +14,7 @@ import * as a from '../../actionTypes';
 
 export const apiGetContentSaga = function* (
   action: a.ApiGetTopicContentAction,
-): Generator<*, *, *> {
+): Saga<void> {
   yield put(apiRequestsStatus.actions.setPending(a.API_GET_CONTENT));
 
   try {
