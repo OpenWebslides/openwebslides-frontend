@@ -3,11 +3,13 @@
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { Button, Header } from 'semantic-ui-react';
 
+import { type State } from 'types/state';
+import { type Action } from 'types/action';
 import contentItems from 'modules/contentItems';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
-import type { State } from 'types/state';
 
 import type { Topic } from '../model';
 import { getById } from '../selectors';
@@ -48,7 +50,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     onSaveButtonClick: (id: string): void => {
       dispatch(save(id));

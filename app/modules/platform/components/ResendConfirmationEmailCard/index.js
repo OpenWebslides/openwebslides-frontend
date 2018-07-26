@@ -2,9 +2,11 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Card } from 'semantic-ui-react';
 
+import { type Action } from 'types/action';
 import { InvalidArgumentError } from 'errors';
 import EmailForm, { type EmailFormValues } from 'forms/EmailForm';
 
@@ -16,7 +18,7 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...DispatchProps |};
 
-const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     onEmailFormSubmit: (values: EmailFormValues): void => {
       if (values.email == null) {

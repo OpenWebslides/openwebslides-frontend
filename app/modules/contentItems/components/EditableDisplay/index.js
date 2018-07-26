@@ -3,9 +3,11 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 
+import { type State } from 'types/state';
+import { type Action } from 'types/action';
 import { ObjectNotFoundError } from 'errors';
-import type { State } from 'types/state';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -62,7 +64,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<*>, props: PassedProps): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
   return {
     onStartEditing: (id: string): void => {
       dispatch(actions.toggleEditing(id, true));

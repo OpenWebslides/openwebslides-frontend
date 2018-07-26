@@ -2,12 +2,14 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { Card, Button, Modal } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { translate, type TranslatorProps } from 'react-i18next';
 
+import { type State } from 'types/state';
+import { type Action } from 'types/action';
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
-import type { State } from 'types/state';
 import { ObjectNotFoundError } from 'errors';
 
 import { getById } from '../selectors';
@@ -46,7 +48,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     onRemoveButtonClick: (id: string): void => {
       dispatch(

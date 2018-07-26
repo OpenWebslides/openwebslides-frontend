@@ -2,11 +2,13 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import type { FormProps } from 'redux-form';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Form } from 'semantic-ui-react';
 
+import { type Action } from 'types/action';
 import BackButton from 'components/BackButton';
 
 import { add } from '../actions';
@@ -26,7 +28,7 @@ type Props = {|
   ...DispatchProps,
 |};
 
-const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     onAddButtonClick: (
       userId: string,

@@ -2,10 +2,12 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Card, Button, Icon } from 'semantic-ui-react';
 
+import { type Action } from 'types/action';
 import {
   AUTH_SIGNUP_ROUTE, AUTH_RESET_PASSWORD_ROUTE, AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE,
 } from 'config/routes';
@@ -24,7 +26,7 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...DispatchProps |};
 
-const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     onEmailAndPasswordFormSubmit: (values: EmailAndPasswordFormValues): void => {
       if (values.email == null || values.password == null) {
