@@ -2,87 +2,65 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, type ContextRouter as RouterProps } from 'react-router-dom';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withRouter, Route, Switch, type ContextRouter as RouterProps } from 'react-router-dom';
 
+import * as paths from 'config/routes';
+import { type State } from 'types/state';
+import { UnsupportedOperationError } from 'errors';
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
-import type { State } from 'types/state';
 import platform from 'modules/platform';
 import users from 'modules/users';
 
-const { ProfileCard } = users.components;
+const { UserProfile } = users.components;
 
 type StateProps = {|
   currentUserId: ?string,
 |};
 
-type Props = {|
-  ...TranslatorProps,
-  ...RouterProps,
-  ...StateProps,
-|};
+type Props = {| ...RouterProps, ...StateProps |};
 
 const mapStateToProps = (state: State): StateProps => {
-  let currentUserId: ?string = null;
   const userAuth = platform.selectors.getUserAuth(state);
 
-  if (userAuth != null) {
-    currentUserId = userAuth.userId;
-  }
-
   return {
-    currentUserId,
+    currentUserId: (userAuth != null) ? userAuth.userId : null,
   };
 };
 
-// #TODO extract into separate file
-const CurrentUserProfile = (props: { userId: string }): React.Node => {
-  const { userId } = props;
+class PureProfilePage extends React.Component<Props> {
+  renderProfileForPassedId = (routerProps: RouterProps): React.Node => {
+    const { currentUserId } = this.props;
+    const { match } = routerProps;
+    const userId = match.params.userId;
 
-  return (
-    <React.Fragment>
-      <ProfileCard userId={userId} />
-    </React.Fragment>
-  );
-};
+    return (
+      // $FlowFixMe not sure how to tell Flow userId can never be undefined
+      <UserProfile userId={userId} isCurrentUser={userId === currentUserId} />
+    );
+  };
 
-const UserProfile = (props: Props): React.Node => {
-  const { match } = props;
-  const userId = match.params.id || '';
+  renderProfileForCurrentUserId = (): React.Node => {
+    const { currentUserId } = this.props;
+    if (currentUserId == null) throw new UnsupportedOperationError(`This shouldn't happen.`);
 
-  return (
-    <React.Fragment>
-      <ProfileCard userId={userId} />
-    </React.Fragment>
-  );
-};
+    return (
+      <UserProfile userId={currentUserId} isCurrentUser={true} />
+    );
+  };
 
-const PureProfilePage = (props: Props): React.Node => {
-  const {
-    t,
-    match,
-    currentUserId,
-  } = props;
-
-  // #TODO WTF?
-  const newCurrentUserId = currentUserId || 'jantje1234';
-
-  return (
-    <ContainerPageWrapper>
-      <React.Fragment>
-        <h1>{t('global:title.profile')}</h1>
+  render(): React.Node {
+    return (
+      <ContainerPageWrapper>
         <Switch>
-          <Route path={`${match.url}/:id`} component={UserProfile} />
-          { /* #TODO */ }
-          { /* eslint-disable-next-line react/jsx-no-bind */ }
-          <Route render={() => <CurrentUserProfile userId={newCurrentUserId} />} />
+          <Route path={paths.USER_PROFILE_BY_ID_ROUTE} render={this.renderProfileForPassedId} />
+          <Route path={paths.USER_PROFILE_ROUTE} render={this.renderProfileForCurrentUserId} />
         </Switch>
-      </React.Fragment>
-    </ContainerPageWrapper>
-  );
-};
+      </ContainerPageWrapper>
+    );
+  }
+}
 
-const ProfilePage = connect(mapStateToProps)(translate()(PureProfilePage));
+const ProfilePage = connect(mapStateToProps)(withRouter(PureProfilePage));
 
 export { PureProfilePage };
 export default ProfilePage;

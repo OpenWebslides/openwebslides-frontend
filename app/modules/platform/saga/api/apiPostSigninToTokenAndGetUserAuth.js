@@ -37,15 +37,16 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
     yield put(actions.setUserAuthInState(currentUserAuth));
 
     // Extract currentUser object from response
+    const { attributes } = responseData.body.data;
     const currentUser: users.model.User = {
       id: responseData.body.data.id,
-      firstName: responseData.body.data.attributes.firstName,
-      lastName: responseData.body.data.attributes.lastName,
       email,
+      name: attributes.name,
+      gravatarHash: attributes.gravatarHash,
     };
 
     // Store currentUser object in the state, so that it can be selected using userAuth.userId
-    yield put(users.actions.setItemInState(currentUser));
+    yield put(users.actions.setMultipleInState([currentUser]));
 
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
   }

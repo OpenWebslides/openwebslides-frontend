@@ -9,8 +9,7 @@ import { USERS_ENDPOINT } from '../endpoints';
 
 const post = (
   email: string,
-  firstName: string,
-  lastName: ?string,
+  name: string,
   password: string,
   tosAccepted: boolean,
 ): Promise<ApiResponseData> => {
@@ -19,8 +18,7 @@ const post = (
       type: 'users',
       attributes: {
         email,
-        firstName,
-        lastName,
+        name,
         password,
         tosAccepted,
       },

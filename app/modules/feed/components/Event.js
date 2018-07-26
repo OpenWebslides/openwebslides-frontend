@@ -6,13 +6,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { translate, type TranslatorProps } from 'react-i18next';
 import moment from 'moment';
-import { Feed } from 'semantic-ui-react';
+import { Feed, Image } from 'semantic-ui-react';
 
-import { USER_PROFILE_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
+import { USER_PROFILE_BY_ID_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
 import type { State } from 'types/state';
+import makeRoute from 'lib/makeRoute';
 import topics from 'modules/topics';
 import users from 'modules/users';
-import Gravatar from 'components/Gravatar';
 
 import type { Event } from '../model';
 import { getById } from '../selectors';
@@ -28,8 +28,8 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  getTopic: (string) => void,
-  getUser: (string) => void,
+  fetchTopic: (string) => void,
+  fetchUser: (string) => void,
 |};
 
 type Props = {|
@@ -43,7 +43,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { eventId } = props;
   const event = getById(state, eventId);
   const topic = topics.selectors.getById(state, { id: event.topicId });
-  const user = users.selectors.getById(state, event.userId);
+  const user = users.selectors.getById(state, { id: event.userId });
 
   return {
     event,
@@ -54,14 +54,14 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<*>): DispatchProps => {
   return {
-    getTopic: (id: string): void => {
+    fetchTopic: (id: string): void => {
       dispatch(
         topics.actions.get(id),
       );
     },
-    getUser: (id: string): void => {
+    fetchUser: (id: string): void => {
       dispatch(
-        users.actions.get(id),
+        users.actions.fetch(id),
       );
     },
   };
@@ -73,17 +73,17 @@ class PureEventWrapper extends React.Component<Props, State> {
       event,
       user,
       topic,
-      getTopic,
-      getUser,
+      fetchTopic,
+      fetchUser,
     } = this.props;
 
     // Request missing data from API
     if (topic == null) {
-      getTopic(event.topicId);
+      fetchTopic(event.topicId);
     }
 
     if (user == null || user.email === '') {
-      getUser(event.userId);
+      fetchUser(event.userId);
     }
   };
 
@@ -100,21 +100,17 @@ class PureEventWrapper extends React.Component<Props, State> {
       return null;
     }
 
-    // construct full, displayed name of user
-    const lastName = user.lastName == null ? '' : user.lastName;
-    const displayName = `${user.firstName} ${lastName}`;
-
     return (
       <Feed.Event>
         <Feed.Label>
-          <Link to={`${USER_PROFILE_ROUTE}/${user.id}`}>
-            <Gravatar email={user.email} size={users.constants.GRAVATAR_SIZE_SMALL} />
+          <Link to={makeRoute(USER_PROFILE_BY_ID_ROUTE, { userId: user.id })}>
+            <Image src={users.lib.getGravatarSrc(user, 200)} bordered={true} />
           </Link>
         </Feed.Label>
         <Feed.Content>
           <Feed.Summary>
-            <Link as="Feed.User" to={`${USER_PROFILE_ROUTE}/${user.id}`}>
-              {displayName}
+            <Link as="Feed.User" to={makeRoute(USER_PROFILE_BY_ID_ROUTE, { userId: user.id })}>
+              {user.name}
             </Link>
             &nbsp;
             {t('feed:event.action', { context: `${event.predicate}` })}

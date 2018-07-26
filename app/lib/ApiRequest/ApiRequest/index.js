@@ -4,7 +4,7 @@
 import _ from 'lodash';
 
 import { API_URL } from 'config/api';
-import { UnsupportedOperationError } from 'errors';
+import { InvalidArgumentError, UnsupportedOperationError } from 'errors';
 
 import {
   httpMethods,
@@ -38,7 +38,9 @@ class ApiRequest {
   }
 
   addPathSegment = (segment: string): ApiRequest => {
-    this.config.pathSegments.push(segment.replace(/^\//g, ''));
+    const segmentWithoutSlashes = segment.replace(/^\//g, '');
+    if (segmentWithoutSlashes === '') throw new InvalidArgumentError(`Cannot add an empty path segment.`);
+    this.config.pathSegments.push(segmentWithoutSlashes);
     return this;
   };
 

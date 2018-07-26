@@ -13,8 +13,7 @@ import SignupCard, { PureSignupCard } from '.';
 describe(`SignupCard`, (): void => {
 
   let dummyEmail: string;
-  let dummyFirstName: string;
-  let dummyLastName: string;
+  let dummyName: string;
   let dummyPassword: string;
   let dummyTosAccepted: boolean;
 
@@ -22,8 +21,7 @@ describe(`SignupCard`, (): void => {
 
   beforeEach((): void => {
     dummyEmail = 'test@test.be';
-    dummyFirstName = 'Test';
-    dummyLastName = 'Tester';
+    dummyName = 'Test Tester';
     dummyPassword = 'MahPasswordY0';
     dummyTosAccepted = true;
 
@@ -45,8 +43,8 @@ describe(`SignupCard`, (): void => {
     );
     const onUserFormSubmit = enzymeWrapper.find('PureSignupCard').props().onUserFormSubmit;
 
-    onUserFormSubmit({ email: dummyEmail, firstName: dummyFirstName, lastName: dummyLastName, password: dummyPassword, tosAccepted: dummyTosAccepted });
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.signup(dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted));
+    onUserFormSubmit({ email: dummyEmail, name: dummyName, password: dummyPassword, tosAccepted: dummyTosAccepted });
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.signup(dummyEmail, dummyName, dummyPassword, dummyTosAccepted));
   });
 
   it(`throws an InvalidArgumentError, when its form is submitted with incomplete values`, (): void => {

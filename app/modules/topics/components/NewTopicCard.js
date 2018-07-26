@@ -5,10 +5,9 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import type { FormProps } from 'redux-form';
 import { translate, type TranslatorProps } from 'react-i18next';
-import { Link, withRouter } from 'react-router-dom';
-import { Form, Button } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 
-import { USER_LIBRARY_ROUTE } from 'config/routes';
+import BackButton from 'components/BackButton';
 
 import { add } from '../actions';
 
@@ -74,11 +73,7 @@ const NewTopicCardForm = (props: Props): React.Node => {
       </Form.Field>
 
       <Form.Group>
-        <Link to={USER_LIBRARY_ROUTE}>
-          <Button as="span" secondary={true}>
-            {t('common:button.cancel')}
-          </Button>
-        </Link>
+        <BackButton />
         <Form.Button id="form-button-control-public" content={t('common:button.save')} primary={true} />
       </Form.Group>
     </Form>
@@ -110,8 +105,7 @@ const PureNewTopicCard = (props: Props): React.Node => {
   );
 };
 
-const TNewTopicCard = translate()(PureNewTopicCard);
-const NewTopicCard = withRouter(connect(null, mapDispatchToProps)(TNewTopicCard));
+const NewTopicCard = connect(null, mapDispatchToProps)(translate()(PureNewTopicCard));
 
 export { PureNewTopicCard };
 export default NewTopicCard;

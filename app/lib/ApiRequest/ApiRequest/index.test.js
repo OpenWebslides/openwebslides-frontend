@@ -2,7 +2,7 @@
 /* eslint-disable quote-props */
 
 import { API_URL } from 'config/api';
-import { UnsupportedOperationError } from 'errors';
+import { InvalidArgumentError, UnsupportedOperationError } from 'errors';
 
 import { httpMethods } from '../types';
 
@@ -59,6 +59,13 @@ describe(`ApiRequest`, (): void => {
         body: null,
       },
     );
+  });
+
+  it(`throws an InvalidArgumentError, when an empty pathSegment is added`, (): void => {
+    expect((): void => {
+      new ApiRequest(httpMethods.GET)
+        .addPathSegment('/');
+    }).toThrow(InvalidArgumentError);
   });
 
   it(`executes with extra parameters, when extra parameters are passed before execution`, (): void => {

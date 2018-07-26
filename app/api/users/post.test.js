@@ -14,12 +14,11 @@ describe(`api.users.post`, (): void => {
   it(`executes the correct fetch call`, async (): Promise<*> => {
     const dummyEmail = 'test@test.be';
     const dummyPassword = 'mahpasswordy0';
-    const dummyFirstName = 'Test';
-    const dummyLastName = 'Tester';
+    const dummyName = 'Test Tester';
     const dummyTosAccepted = true;
 
     fetch.mockResponseOnce(null, { status: 200 });
-    await api.users.post(dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted);
+    await api.users.post(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
@@ -33,8 +32,7 @@ describe(`api.users.post`, (): void => {
         type: 'users',
         attributes: {
           email: dummyEmail,
-          firstName: dummyFirstName,
-          lastName: dummyLastName,
+          name: dummyName,
           password: dummyPassword,
           tosAccepted: dummyTosAccepted,
         },

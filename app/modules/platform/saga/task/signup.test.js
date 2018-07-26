@@ -11,24 +11,22 @@ import { sagas } from '..';
 describe(`signup`, (): void => {
 
   let dummyEmail: string;
-  let dummyFirstName: string;
-  let dummyLastName: string;
+  let dummyName: string;
   let dummyPassword: string;
   let dummyTosAccepted: boolean;
 
   beforeEach((): void => {
     dummyEmail = 'test@test.be';
-    dummyFirstName = 'Test';
-    dummyLastName = 'Tester';
+    dummyName = 'Test Tester';
     dummyPassword = 'MahPasswordY0';
     dummyTosAccepted = true;
   });
 
   it(`puts an users.apiPostUser action`, (): void => {
-    const dummyAction = actions.signup(dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted);
+    const dummyAction = actions.signup(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
 
     return expectSaga(sagas.signup, dummyAction)
-      .put(users.actions.apiPostUser(dummyEmail, dummyFirstName, dummyLastName, dummyPassword, dummyTosAccepted))
+      .put(users.actions.apiPost(dummyEmail, dummyName, dummyPassword, dummyTosAccepted))
       .run();
   });
 

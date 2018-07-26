@@ -35,8 +35,7 @@ export type SignupAction = {|
   type: typeof SIGNUP,
   payload: {
     email: string,
-    firstName: string,
-    lastName?: string,
+    name: string,
     password: string,
     tosAccepted: boolean,
   },

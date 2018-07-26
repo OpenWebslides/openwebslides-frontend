@@ -1,16 +1,16 @@
 // @flow
 
-import * as actions from './actions';
-import * as model from './model';
-import * as selectors from './selectors';
-import * as constants from './constants';
+import actions from './actions';
 import components from './components';
+import lib from './lib';
+import * as model from './model';
+import selectors from './selectors';
 
 const users = {
   actions,
-  constants,
-  model,
   components,
+  lib,
+  model,
   selectors,
 };
 
