@@ -64,8 +64,7 @@ describe(`ConfirmEmailPage`, (): void => {
       },
     };
 
-    // eslint-disable-next-line no-unused-vars
-    const enzymeWrapper = mount(
+    mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <ConfirmEmailPage {...fixedDummyRouterProps} />
       </DummyProviders>,
