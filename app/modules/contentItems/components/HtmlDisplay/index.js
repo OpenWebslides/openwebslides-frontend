@@ -36,7 +36,6 @@ const SubItemsHtmlDisplay = (props: Props): React.Node => {
 
     return (
       <div className="ows_container__sub-items">
-        { /* $FlowFixMe Technically, flow has all the information needed; probably a bug */ }
         {contentItem.subItems.map(
           (subItem: m.DenormalizedContentItem): React.Node => (
             <HtmlDisplay

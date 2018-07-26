@@ -29,17 +29,14 @@ describe(`HtmlDisplay`, (): void => {
   beforeEach((): void => {
     dummyParagraph22 = { ..._.omit(dummyData.paragraphContentItem8, 'subItemIds'), subItems: [] };
     dummyParagraph21 = { ..._.omit(dummyData.paragraphContentItem7, 'subItemIds'), subItems: [] };
-    // $FlowFixMe "Could not decide which case to select"; possible bug in flow
     dummyHeading2 = { ..._.omit(dummyData.headingContentItem4, 'subItemIds'), subItems: [dummyParagraph21, dummyParagraph22] };
     dummyParagraph122 = { ..._.omit(dummyData.paragraphContentItem6, 'subItemIds'), subItems: [] };
     dummyParagraph121 = { ..._.omit(dummyData.paragraphContentItem5, 'subItemIds'), subItems: [] };
-    // $FlowFixMe "Could not decide which case to select"; possible bug in flow
     dummyHeading12 = { ..._.omit(dummyData.headingContentItem3, 'subItemIds'), subItems: [dummyParagraph121, dummyParagraph122] };
     dummyParagraph1122 = { ..._.omit(dummyData.paragraphContentItem4, 'subItemIds'), subItems: [] };
     dummyParagraph1121 = { ..._.omit(dummyData.paragraphContentItem3, 'subItemIds'), subItems: [] };
     dummyParagraph112 = { ..._.omit(dummyData.paragraphContentItem2, 'subItemIds'), subItems: [dummyParagraph1121, dummyParagraph1122] };
     dummyParagraph111 = { ..._.omit(dummyData.paragraphContentItem, 'subItemIds'), subItems: [] };
-    // $FlowFixMe "Could not decide which case to select"; possible bug in flow
     dummyHeading11 = { ..._.omit(dummyData.headingContentItem2, 'subItemIds'), subItems: [dummyParagraph111, dummyParagraph112] };
     dummyHeading1 = { ..._.omit(dummyData.headingContentItem, 'subItemIds'), subItems: [dummyHeading11, dummyHeading12] };
     dummyRoot = { ..._.omit(dummyData.rootContentItem, 'childItemIds'), childItems: [dummyHeading1, dummyHeading2] };

@@ -126,7 +126,6 @@ const SubItemsEditableDisplay = (props: Props): React.Node => {
         className="content-item-editable-display__sub-items"
         data-test-id="content-item-editable-display__sub-items"
       >
-        { /* $FlowFixMe Technically, flow has all the information needed; probably a bug */ }
         {contentItem.subItemIds.map(
           (subItemId: string): React.Node => (
             <EditableDisplay
