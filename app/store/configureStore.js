@@ -22,10 +22,17 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import { type State } from 'types/state';
+import { type Action } from 'types/action';
+
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
 
-const configureStore = (): {store: Store<*, *>, history: BrowserHistory, persistor: Persistor } => {
+const configureStore = (): {
+  store: Store<State, Action>,
+  history: BrowserHistory,
+  persistor: Persistor,
+} => {
   const history = createBrowserHistory();
   const persistConfig: PersistConfig = {
     // LocalStorage key
