@@ -19,7 +19,7 @@ type PassedProps = {|
   redirectIfNotAuthenticated: ?string,
   // Optional component that will be rendered instead of the children,
   // if the user is not authenticated.
-  componentIfNotAuthenticated: ?React.ComponentType<*>,
+  componentIfNotAuthenticated: ?React.ComponentType<{}>,
 |};
 
 type StateProps = {|

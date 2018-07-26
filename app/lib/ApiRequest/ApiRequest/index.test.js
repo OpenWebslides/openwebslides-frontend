@@ -14,7 +14,7 @@ jest.mock('./fetchApiResponseData');
 
 describe(`ApiRequest`, (): void => {
 
-  let dummyFetchApiResponseData: *;
+  let dummyFetchApiResponseData: any;
 
   beforeEach((): void => {
     jest.restoreAllMocks();

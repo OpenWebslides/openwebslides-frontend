@@ -12,7 +12,7 @@ import i18nextConfig from 'config/i18next';
 type PassedProps = {|
   children: React.Node,
   dummyState?: Object,
-  dummyDispatch?: Dispatch<*>,
+  dummyDispatch?: Dispatch<{}>,
   dummyRouterEntries?: Array<LocationShape | string>,
 |};
 

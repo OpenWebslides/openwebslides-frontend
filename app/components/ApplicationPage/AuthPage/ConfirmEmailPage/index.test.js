@@ -12,9 +12,9 @@ import ConfirmEmailPage, { PureConfirmEmailPage } from '.';
 describe(`ConfirmEmailPage`, (): void => {
 
   let dummyConfirmationToken: string;
-  let dummyConfirmEmail: *;
+  let dummyConfirmEmail: any;
 
-  let dummyDispatch: *;
+  let dummyDispatch: any;
   let dummyState: any;
 
   beforeEach((): void => {

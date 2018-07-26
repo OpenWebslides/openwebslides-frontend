@@ -10,7 +10,6 @@
 [lints]
 all=warn
 unclear-type=off
-deprecated-type=off
 
 [options]
 # Allow importing directly from these folders.

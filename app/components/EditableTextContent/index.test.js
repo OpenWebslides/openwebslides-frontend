@@ -8,10 +8,10 @@ import EditableTextContent from '.';
 describe(`EditableTextContent`, (): void => {
 
   let dummyText: string;
-  let dummyInput: *;
-  let dummyActivate: *;
-  let dummyDeactivate: *;
-  let dummyKeyDown: *;
+  let dummyInput: any;
+  let dummyActivate: any;
+  let dummyDeactivate: any;
+  let dummyKeyDown: any;
   let textSelector: string;
   let inputSelector: string;
 

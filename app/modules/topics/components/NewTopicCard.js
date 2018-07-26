@@ -93,8 +93,7 @@ const PureNewTopicCard = (props: Props): React.Node => {
     userId,
   } = props;
 
-  // TODO: the flow type for values might be a bit dodgy
-  const handleSubmit = (values: { +[values: * ]: string }): void => {
+  const handleSubmit = (values: { title: string, description: string }): void => {
     onAddButtonClick(userId, values.title, values.description);
   };
 

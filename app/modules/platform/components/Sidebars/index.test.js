@@ -14,7 +14,7 @@ describe(`Sidebars`, (): void => {
 
   let dummyTopic: topics.model.Topic;
   let dummyState: any;
-  let dummyDispatch: *;
+  let dummyDispatch: any;
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic, rootContentItemId: dummyContentItemData.rootContentItem.id };

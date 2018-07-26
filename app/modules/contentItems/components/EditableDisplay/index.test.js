@@ -80,7 +80,7 @@ describe(`EditableDisplay`, (): void => {
   });
 
   it(`renders a the correct type component for the type of the passed contentItem`, (): void => {
-    let enzymeWrapper: *;
+    let enzymeWrapper: any;
 
     enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.rootContentItem} />);
     expect(enzymeWrapper.find('PureRoot')).toHaveLength(1);

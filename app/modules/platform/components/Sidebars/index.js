@@ -33,7 +33,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 
 const PureSidebars = (props: Props): React.Node => {
   const { topic, activeSidebarIds } = props;
-  let SidebarComponent: React.ComponentType<*>;
+  let SidebarComponent: React.ComponentType<{| topic: topics.model.Topic |}>;
 
   return (
     <div className="sidebars__grid">

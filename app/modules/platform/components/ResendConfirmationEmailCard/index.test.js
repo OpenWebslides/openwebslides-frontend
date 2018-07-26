@@ -13,7 +13,7 @@ import ResendConfirmationEmailCard, { PureResendConfirmationEmailCard } from '.'
 describe(`ResendConfirmationEmailCard`, (): void => {
 
   let dummyEmail: string;
-  let dummyDispatch: *;
+  let dummyDispatch: any;
 
   beforeEach((): void => {
     dummyEmail = 'test@test.be';

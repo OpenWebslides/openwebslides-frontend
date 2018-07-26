@@ -9,10 +9,10 @@ import FlashMessages, { PureFlashMessages } from '.';
 
 describe(`FlashMessages`, (): void => {
 
-  let dummyLatestFlashMessage: *;
+  let dummyLatestFlashMessage: any;
 
   let dummyState: any;
-  let dummyDispatch: *;
+  let dummyDispatch: any;
 
   beforeEach((): void => {
     dummyLatestFlashMessage = {

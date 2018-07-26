@@ -11,7 +11,7 @@ type PassedProps = {|
   // TRUE if children should be rendered, FALSE if not.
   renderChildren: boolean,
   // Optional component that will be rendered instead of the children, if renderChildren=FALSE.
-  componentIfNotChildren: ?React.ComponentType<*>,
+  componentIfNotChildren: ?React.ComponentType<{}>,
   // Optional route to which the user will be redirected, if renderChildren=FALSE.
   redirectIfNotChildren: ?string,
 |};
