@@ -4,7 +4,7 @@
 
 import _ from 'lodash';
 
-import { API_URL } from 'config/api';
+import { API_URL, API_VERSION } from 'config/api';
 import { InvalidArgumentError, UnsupportedOperationError } from 'errors';
 
 import {
@@ -15,14 +15,17 @@ import {
 import fetchApiResponseData from './fetchApiResponseData';
 
 // JSON API media type
-const MEDIA_TYPE = 'application/vnd.api+json';
+const JSONAPI_MEDIA_TYPE = 'application/vnd.api+json';
+
+// Open Webslides API media type, including version parameter
+const OWS_MEDIA_TYPE = `application/vnd.openwebslides+json; version=${API_VERSION}`;
 
 const defaultConfig = {
   apiUrl: API_URL,
   pathSegments: [],
   headers: {
-    'Content-Type': MEDIA_TYPE,
-    'Accept': MEDIA_TYPE,
+    'Content-Type': JSONAPI_MEDIA_TYPE,
+    'Accept': `${JSONAPI_MEDIA_TYPE}, ${OWS_MEDIA_TYPE}`,
   },
   parameters: {},
   body: null,
@@ -111,5 +114,5 @@ class ApiRequest {
   };
 }
 
-export { MEDIA_TYPE, defaultConfig };
+export { JSONAPI_MEDIA_TYPE, OWS_MEDIA_TYPE, defaultConfig };
 export default ApiRequest;
