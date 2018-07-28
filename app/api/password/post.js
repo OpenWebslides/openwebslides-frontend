@@ -1,14 +1,14 @@
 // @flow
 
 /**
- * API docs: #TODO
+ * POST email on password endpoint, requests sending a password reset email
  */
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 
 import { PASSWORD_ENDPOINT } from '../endpoints';
 
-const postEmail = (email: string): Promise<ApiResponseData> => {
+const post = (email: string): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
       type: 'passwords',
@@ -24,4 +24,4 @@ const postEmail = (email: string): Promise<ApiResponseData> => {
     .execute();
 };
 
-export default postEmail;
+export default post;
