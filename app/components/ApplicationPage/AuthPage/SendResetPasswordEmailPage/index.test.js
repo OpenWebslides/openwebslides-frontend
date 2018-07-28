@@ -5,13 +5,13 @@ import { shallow } from 'enzyme';
 
 import { dummyProviderProps } from 'lib/testResources';
 
-import { PureResetPasswordPage } from '.';
+import { PureSendResetPasswordEmailPage } from '.';
 
 describe(`ResetPasswordPage`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureResetPasswordPage
+      <PureSendResetPasswordEmailPage
         {...dummyProviderProps.translatorProps}
       />,
     );

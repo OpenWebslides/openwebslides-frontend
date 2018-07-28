@@ -8,9 +8,9 @@ import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
 import actions from '../../actions';
 
-import ResetPasswordCard, { PureResetPasswordCard } from '.';
+import SendResetPasswordEmailCard, { PureSendResetPasswordEmailCard } from '.';
 
-describe(`ResetPasswordCard`, (): void => {
+describe(`SendResetPasswordEmailCard`, (): void => {
 
   let dummyEmail: string;
   let dummyDispatch: any;
@@ -22,7 +22,7 @@ describe(`ResetPasswordCard`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureResetPasswordCard {...dummyProviderProps.translatorProps} onEmailFormSubmit={jest.fn()} />,
+      <PureSendResetPasswordEmailCard {...dummyProviderProps.translatorProps} onEmailFormSubmit={jest.fn()} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });
@@ -30,22 +30,22 @@ describe(`ResetPasswordCard`, (): void => {
   it(`dispatches a resetPassword action, when its form is submitted with complete values`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyDispatch={dummyDispatch}>
-        <ResetPasswordCard />
+        <SendResetPasswordEmailCard />
       </DummyProviders>,
     );
-    const onEmailFormSubmit = enzymeWrapper.find('PureResetPasswordCard').props().onEmailFormSubmit;
+    const onEmailFormSubmit = enzymeWrapper.find('PureSendResetPasswordEmailCard').props().onEmailFormSubmit;
 
     onEmailFormSubmit({ email: dummyEmail });
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.resetPassword(dummyEmail));
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.sendResetPasswordEmail(dummyEmail));
   });
 
   it(`throws an InvalidArgumentError, when its form is submitted with incomplete values`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyDispatch={dummyDispatch}>
-        <ResetPasswordCard />
+        <SendResetPasswordEmailCard />
       </DummyProviders>,
     );
-    const onEmailFormSubmit = enzymeWrapper.find('PureResetPasswordCard').props().onEmailFormSubmit;
+    const onEmailFormSubmit = enzymeWrapper.find('PureSendResetPasswordEmailCard').props().onEmailFormSubmit;
 
     expect((): void => {
       onEmailFormSubmit({});

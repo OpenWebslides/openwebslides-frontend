@@ -8,17 +8,17 @@ import platform from 'modules/platform';
 
 type Props = {| ...TranslatorProps |};
 
-const { ResetPasswordCard } = platform.components;
+const { SendResetPasswordEmailCard } = platform.components;
 
-const PureResetPasswordPage = (props: Props): React.Node => {
+const PureSendResetPasswordEmailPage = (props: Props): React.Node => {
   return (
     <ContainerPageWrapper>
-      <ResetPasswordCard />
+      <SendResetPasswordEmailCard />
     </ContainerPageWrapper>
   );
 };
 
-const ResetPasswordPage = translate()(PureResetPasswordPage);
+const SendResetPasswordEmailPage = translate()(PureSendResetPasswordEmailPage);
 
-export { PureResetPasswordPage };
-export default ResetPasswordPage;
+export { PureSendResetPasswordEmailPage };
+export default SendResetPasswordEmailPage;

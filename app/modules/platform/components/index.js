@@ -6,7 +6,7 @@ import UnauthWrapper from './UnauthWrapper';
 // Account management
 import AuthMenu from './AuthMenu';
 import ResendConfirmationEmailCard from './ResendConfirmationEmailCard';
-import ResetPasswordCard from './ResetPasswordCard';
+import SendResetPasswordEmailCard from './SendResetPasswordEmailCard';
 import SigninCard from './SigninCard';
 import SignupCard from './SignupCard';
 // Settings
@@ -18,7 +18,7 @@ const components = {
   UnauthWrapper,
   AuthMenu,
   ResendConfirmationEmailCard,
-  ResetPasswordCard,
+  SendResetPasswordEmailCard,
   SigninCard,
   SignupCard,
   SidebarsMenu,

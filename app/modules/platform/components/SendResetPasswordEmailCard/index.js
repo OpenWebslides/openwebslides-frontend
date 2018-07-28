@@ -25,22 +25,22 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
         // Make flow happy; #TODO replace with proper redux-form validation
         throw new InvalidArgumentError(`Form data incomplete`);
       }
-      dispatch(actions.resetPassword(values.email));
+      dispatch(actions.sendResetPasswordEmail(values.email));
     },
   };
 };
 
-const PureResetPasswordCard = (props: Props): React.Node => {
+const PureSendResetPasswordEmailCard = (props: Props): React.Node => {
   const { t, onEmailFormSubmit } = props;
 
   return (
     <Card centered={true}>
       <Card.Content>
         <Card.Header>
-          {t('platform:resetPasswordCard.title')}
+          {t('platform:sendResetPasswordEmailCard.title')}
         </Card.Header>
         <Card.Description>
-          {t('platform:resetPasswordCard.description')}
+          {t('platform:sendResetPasswordEmailCard.description')}
         </Card.Description>
       </Card.Content>
       <Card.Content>
@@ -50,7 +50,8 @@ const PureResetPasswordCard = (props: Props): React.Node => {
   );
 };
 
-const ResetPasswordCard = connect(null, mapDispatchToProps)(translate()(PureResetPasswordCard));
+const TranslatedPureCard = translate()(PureSendResetPasswordEmailCard);
+const SendResetPasswordEmailCard = connect(null, mapDispatchToProps)(TranslatedPureCard);
 
-export { PureResetPasswordCard };
-export default ResetPasswordCard;
+export { PureSendResetPasswordEmailCard };
+export default SendResetPasswordEmailCard;

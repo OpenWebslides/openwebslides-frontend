@@ -12,7 +12,7 @@ import NotFoundPage from '../NotFoundPage';
 
 import ConfirmEmailPage from './ConfirmEmailPage';
 import ResendConfirmationEmailPage from './ResendConfirmationEmailPage';
-import ResetPasswordPage from './ResetPasswordPage';
+import SendResetPasswordEmailPage from './SendResetPasswordEmailPage';
 import SigninPage from './SigninPage';
 import SignupPage from './SignupPage';
 
@@ -28,8 +28,9 @@ const PureAuthPage = (props: Props): React.Node => {
         <Route path={paths.AUTH_SIGNUP_ROUTE} component={SignupPage} />
         { /* #TODO move :confirmationToken to page itself */ }
         <Route path={`${paths.AUTH_CONFIRM_EMAIL_ROUTE}/:confirmationToken`} component={ConfirmEmailPage} />
-        <Route path={paths.AUTH_RESET_PASSWORD_ROUTE} component={ResetPasswordPage} />
+        { /* #TODO add password reset page */ }
         <Route path={paths.AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE} component={ResendConfirmationEmailPage} />
+        <Route path={paths.AUTH_SEND_RESET_PASSWORD_EMAIL_ROUTE} component={SendResetPasswordEmailPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </UnauthWrapper>
