@@ -13,7 +13,7 @@ describe(`api.topics.getAllByUserId`, (): void => {
 
   it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyUserId = 'ThisIsAnId';
-    fetch.mockResponseOnce(null, { status: 200 });
+    fetch.mockResponseOnce('', { status: 200 });
     await api.topics.getAllByUserId(dummyUserId);
 
     expect(fetch.mock.calls).toHaveLength(1);

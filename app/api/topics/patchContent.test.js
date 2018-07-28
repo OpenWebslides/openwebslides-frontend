@@ -16,7 +16,7 @@ describe(`api.topics.patchContent`, (): void => {
     const dummyTopicId = 'ThisIsAnId';
     const dummyToken = 'foobarToken';
     const dummyContent = [dummyData.rootContentItem, dummyData.headingContentItem];
-    fetch.mockResponseOnce(null, { status: 200 });
+    fetch.mockResponseOnce('', { status: 200 });
     await api.topics.patchContent(dummyTopicId, dummyContent, dummyToken);
 
     expect(fetch.mock.calls).toHaveLength(1);

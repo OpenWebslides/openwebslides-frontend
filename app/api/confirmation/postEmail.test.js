@@ -13,7 +13,7 @@ describe(`api.confirmation.postEmail`, (): void => {
 
   it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyEmail = 'test@test.be';
-    fetch.mockResponseOnce(null, { status: 200 });
+    fetch.mockResponseOnce('', { status: 200 });
     await api.confirmation.postEmail(dummyEmail);
 
     expect(fetch.mock.calls).toHaveLength(1);

@@ -13,7 +13,7 @@ describe(`api.confirmation.post`, (): void => {
 
   it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyConfirmationToken = 'foobarToken';
-    fetch.mockResponseOnce(null, { status: 200 });
+    fetch.mockResponseOnce('', { status: 200 });
     await api.confirmation.post(dummyConfirmationToken);
 
     expect(fetch.mock.calls).toHaveLength(1);

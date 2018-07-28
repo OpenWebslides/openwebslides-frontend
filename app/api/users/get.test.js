@@ -15,7 +15,7 @@ describe(`api.users.get`, (): void => {
     const dummyUserId = 'ThisIsAnId';
     const dummyToken = 'foobarToken';
 
-    fetch.mockResponseOnce(null, { status: 200 });
+    fetch.mockResponseOnce('', { status: 200 });
     await api.users.get(dummyUserId, dummyToken);
 
     expect(fetch.mock.calls).toHaveLength(1);

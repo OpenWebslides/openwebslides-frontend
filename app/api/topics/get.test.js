@@ -13,7 +13,7 @@ describe(`api.topics.get`, (): void => {
 
   it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyTopicId = 'ThisIsAnId';
-    fetch.mockResponseOnce(null, { status: 200 });
+    fetch.mockResponseOnce('', { status: 200 });
     await api.topics.get(dummyTopicId);
 
     expect(fetch.mock.calls).toHaveLength(1);
