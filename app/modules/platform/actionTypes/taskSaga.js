@@ -14,6 +14,7 @@ export const SIGNUP: 'platform/SIGNUP' = 'platform/SIGNUP';
 export const CONFIRM_EMAIL: 'platform/CONFIRM_EMAIL' = 'platform/CONFIRM_EMAIL';
 export const RESEND_CONFIRMATION_EMAIL: 'platform/RESEND_CONFIRMATION_EMAIL' = 'platform/RESEND_CONFIRMATION_EMAIL';
 export const RESET_PASSWORD: 'platform/RESET_PASSWORD' = 'platform/RESET_PASSWORD';
+export const SEND_RESET_PASSWORD_EMAIL: 'platform/SEND_RESET_PASSWORD_EMAIL' = 'platform/SEND_RESET_PASSWORD_EMAIL';
 // Settings
 export const TOGGLE_SIDEBAR: 'platform/TOGGLE_SIDEBAR' = 'platform/TOGGLE_SIDEBAR';
 
@@ -59,6 +60,14 @@ export type ResendConfirmationEmailAction = {|
 export type ResetPasswordAction = {|
   type: typeof RESET_PASSWORD,
   payload: {
+    password: string,
+    resetPasswordToken: string,
+  },
+|};
+
+export type SendResetPasswordEmailAction = {|
+  type: typeof SEND_RESET_PASSWORD_EMAIL,
+  payload: {
     email: string,
   },
 |};
@@ -80,4 +89,5 @@ export type TaskSagaAction =
   | ConfirmEmailAction
   | ResendConfirmationEmailAction
   | ResetPasswordAction
+  | SendResetPasswordEmailAction
   | ToggleSidebarAction;
