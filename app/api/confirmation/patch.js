@@ -1,27 +1,28 @@
 // @flow
 
 /**
- * API docs: #TODO
+ * PATCH confirmationToken on confirmation endpoint, confirms an account
  */
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 
 import { CONFIRMATION_ENDPOINT } from '../endpoints';
 
-const postEmail = (email: string): Promise<ApiResponseData> => {
+const patch = (confirmationToken: string): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
+      id: '',
       type: 'confirmations',
       attributes: {
-        email,
+        confirmationToken,
       },
     },
   });
 
-  return new ApiRequest(httpMethods.POST)
+  return new ApiRequest(httpMethods.PATCH)
     .addPathSegment(CONFIRMATION_ENDPOINT)
     .setBody(body)
     .execute();
 };
 
-export default postEmail;
+export default patch;

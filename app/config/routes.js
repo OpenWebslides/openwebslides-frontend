@@ -16,8 +16,8 @@ export const AUTH_SIGNIN_ROUTE = '/auth/signin';
 export const AUTH_SIGNUP_ROUTE = '/auth/signup';
 export const AUTH_CONFIRM_EMAIL_ROUTE = '/auth/confirmation';
 export const AUTH_RESET_PASSWORD_ROUTE = '/auth/password';
-export const AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE = '/auth/confirmation/resend';
-export const AUTH_SEND_RESET_PASSWORD_EMAIL_ROUTE = '/auth/password/send'
+export const AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE = '/auth/resend';
+export const AUTH_SEND_RESET_PASSWORD_EMAIL_ROUTE = '/auth/reset';
 // DEV
 export const DEV_ROUTE = '/dev';
 export const DEV_GENERATE_RANDOM_STRING_ROUTE = '/dev/generaterandomstring';

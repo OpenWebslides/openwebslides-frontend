@@ -5,16 +5,16 @@ import { httpMethods } from 'lib/ApiRequest';
 
 import api from '..';
 
-describe(`api.confirmation.postEmail`, (): void => {
+describe(`api.confirmation.patch`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
   });
 
   it(`executes the correct fetch call`, async (): Promise<mixed> => {
-    const dummyEmail = 'test@test.be';
+    const dummyConfirmationToken = 'foobarToken';
     fetch.mockResponseOnce('', { status: 200 });
-    await api.confirmation.postEmail(dummyEmail);
+    await api.confirmation.patch(dummyConfirmationToken);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
@@ -22,12 +22,13 @@ describe(`api.confirmation.postEmail`, (): void => {
     const mockOptions = fetch.mock.calls[0][1];
 
     expect(mockUrl).toBe(`${API_URL}/confirmation`);
-    expect(mockOptions.method).toBe(httpMethods.POST);
+    expect(mockOptions.method).toBe(httpMethods.PATCH);
     expect(JSON.parse(mockOptions.body)).toEqual({
       data: {
+        id: '',
         type: 'confirmations',
         attributes: {
-          email: dummyEmail,
+          confirmationToken: dummyConfirmationToken,
         },
       },
     });
