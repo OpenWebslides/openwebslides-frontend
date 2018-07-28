@@ -7,14 +7,14 @@ import actions from '..';
 describe(`apiPostConfirmation`, (): void => {
 
   it(`returns an API_POST_CONFIRMATION action containing the passed arguments`, (): void => {
-    const dummyConfirmationToken = 'foobarToken';
+    const dummyEmail = 'foo@bar.com';
     const expectedAction: a.ApiPostConfirmationAction = {
       type: a.API_POST_CONFIRMATION,
       payload: {
-        confirmationToken: dummyConfirmationToken,
+        email: dummyEmail,
       },
     };
-    const actualAction = actions.apiPostConfirmation(dummyConfirmationToken);
+    const actualAction = actions.apiPostConfirmation(dummyEmail);
 
     expect(actualAction).toEqual(expectedAction);
   });

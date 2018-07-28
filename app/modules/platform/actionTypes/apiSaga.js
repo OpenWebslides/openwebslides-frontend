@@ -8,9 +8,9 @@
 export const API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH: 'platform/API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH' = 'platform/API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH';
 export const API_DELETE_TOKEN: 'platform/API_DELETE_TOKEN' = 'platform/API_DELETE_TOKEN';
 export const API_POST_CONFIRMATION: 'platform/API_POST_CONFIRMATION' = 'platform/API_POST_CONFIRMATION';
-export const API_POST_EMAIL_TO_CONFIRMATION: 'platform/API_POST_EMAIL_TO_CONFIRMATION' = 'platform/API_POST_EMAIL_TO_CONFIRMATION';
-export const API_POST_EMAIL_TO_PASSWORD: 'platform/API_POST_EMAIL_TO_PASSWORD' = 'platform/API_POST_EMAIL_TO_PASSWORD';
-
+export const API_PATCH_CONFIRMATION: 'platform/API_PATCH_CONFIRMATION' = 'platform/API_PATCH_CONFIRMATION';
+export const API_POST_PASSWORD: 'platform/API_POST_PASSWORD' = 'platform/API_POST_PASSWORD';
+export const API_PATCH_PASSWORD: 'platform/API_PATCH_PASSWORD' = 'platform/API_PATCH_PASSWORD';
 
 // Action types ------------------------------------------------------------------------------------
 
@@ -32,24 +32,31 @@ export type ApiDeleteTokenAction = {|
 export type ApiPostConfirmationAction = {|
   type: typeof API_POST_CONFIRMATION,
   payload: {
+    email: string,
+  },
+|};
+
+export type ApiPatchConfirmationAction = {|
+  type: typeof API_PATCH_CONFIRMATION,
+  payload: {
     confirmationToken: string,
   },
 |};
 
-export type ApiPostEmailToConfirmationAction = {|
-  type: typeof API_POST_EMAIL_TO_CONFIRMATION,
+export type ApiPostPasswordAction = {|
+  type: typeof API_POST_PASSWORD,
   payload: {
     email: string,
   },
 |};
 
-export type ApiPostEmailToPasswordAction = {|
-  type: typeof API_POST_EMAIL_TO_PASSWORD,
+export type ApiPatchPasswordAction = {|
+  type: typeof API_PATCH_PASSWORD,
   payload: {
-    email: string,
+    password: string,
+    resetPasswordToken: string,
   },
 |};
-
 
 // ApiSaga action ----------------------------------------------------------------------------------
 
@@ -57,5 +64,6 @@ export type ApiSagaAction =
   | ApiPostSigninToTokenAndGetUserAuthAction
   | ApiDeleteTokenAction
   | ApiPostConfirmationAction
-  | ApiPostEmailToConfirmationAction
-  | ApiPostEmailToPasswordAction;
+  | ApiPatchConfirmationAction
+  | ApiPostPasswordAction
+  | ApiPatchPasswordAction;
