@@ -8,14 +8,14 @@ import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import * as a from '../../actionTypes';
 
-const apiPostConfirmation = function* (
-  action: a.ApiPostConfirmationAction,
+const apiPostPassword = function* (
+  action: a.ApiPostPasswordAction,
 ): Saga<void> {
   yield put(apiRequestsStatus.actions.setPending(action.type));
 
   try {
     const { email } = action.payload;
-    yield call(api.confirmation.post, email);
+    yield call(api.password.post, email);
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
   }
   catch (error) {
@@ -23,4 +23,4 @@ const apiPostConfirmation = function* (
   }
 };
 
-export default apiPostConfirmation;
+export default apiPostPassword;

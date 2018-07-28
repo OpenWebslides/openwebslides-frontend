@@ -7,8 +7,8 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 
 const resetPassword = function* (action: a.ResetPasswordAction): Saga<void> {
-  const { email } = action.payload;
-  yield put(actions.apiPostEmailToPassword(email));
+  const { password, resetPasswordToken } = action.payload;
+  yield put(actions.apiPatchPassword(password, resetPasswordToken));
 };
 
 export default resetPassword;

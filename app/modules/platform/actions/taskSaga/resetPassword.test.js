@@ -7,14 +7,16 @@ import actions from '.';
 describe(`resetPassword`, (): void => {
 
   it(`returns a platform RESET_PASSWORD action containing the passed props`, (): void => {
-    const dummyEmail = 'test@test.be';
+    const dummyPassword = 'P@ssword1';
+    const dummyToken = 'foobarToken';
     const expectedAction: a.ResetPasswordAction = {
       type: a.RESET_PASSWORD,
       payload: {
-        email: dummyEmail,
+        password: dummyPassword,
+        resetPasswordToken: dummyToken,
       },
     };
-    const actualAction = actions.resetPassword(dummyEmail);
+    const actualAction = actions.resetPassword(dummyPassword, dummyToken);
     expect(actualAction).toEqual(expectedAction);
   });
 

@@ -13,31 +13,31 @@ import { sagas } from '..';
 
 describe(`apiPostConfirmation`, (): void => {
 
-  let dummyToken: string;
+  let dummyEmail: string;
 
   beforeEach((): void => {
-    dummyToken = 'foobarToken';
+    dummyEmail = 'foo@bar.com';
   });
 
   it(`executes a post request to the confirmation API endpoint`, (): void => {
-    const dummyAction = actions.apiPostConfirmation(dummyToken);
-    const dummyApiResponse = { status: 200 };
+    const dummyAction = actions.apiPostConfirmation(dummyEmail);
+    const dummyApiResponse = { status: 204 };
 
     return expectSaga(sagas.apiPostConfirmation, dummyAction)
       .provide([
-        [call(api.confirmation.post, dummyToken), dummyApiResponse],
+        [call(api.confirmation.post, dummyEmail), dummyApiResponse],
       ])
-      .call(api.confirmation.post, dummyToken)
+      .call(api.confirmation.post, dummyEmail)
       .run();
   });
 
   it(`sets its request status to PENDING and then sets its request status to SUCCESS, when the saga completes without errors`, (): void => {
-    const dummyAction = actions.apiPostConfirmation(dummyToken);
+    const dummyAction = actions.apiPostConfirmation(dummyEmail);
     const dummyApiResponse = { status: 200 };
 
     return expectSaga(sagas.apiPostConfirmation, dummyAction)
       .provide([
-        [call(api.confirmation.post, dummyToken), dummyApiResponse],
+        [call(api.confirmation.post, dummyEmail), dummyApiResponse],
       ])
       .put(apiRequestsStatus.actions.setPending(a.API_POST_CONFIRMATION))
       .put(apiRequestsStatus.actions.setSuccess(a.API_POST_CONFIRMATION))
@@ -45,7 +45,7 @@ describe(`apiPostConfirmation`, (): void => {
   });
 
   it(`sets its request status to PENDING and then sets its request status to FAILURE, when the api call fails`, (): void => {
-    const dummyAction = actions.apiPostConfirmation(dummyToken);
+    const dummyAction = actions.apiPostConfirmation(dummyEmail);
     const dummyError = new Error('Boo!');
 
     return expectSaga(sagas.apiPostConfirmation, dummyAction)

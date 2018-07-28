@@ -6,11 +6,11 @@ import { put } from 'redux-saga/effects';
 import actions from '../../actions';
 import * as a from '../../actionTypes';
 
-const resendConfirmationEmail = function* (
-  action: a.ResendConfirmationEmailAction,
+const sendResetPasswordEmail = function* (
+  action: a.SendResetPasswordEmailAction,
 ): Saga<void> {
   const { email } = action.payload;
-  yield put(actions.apiPostConfirmation(email));
+  yield put(actions.apiPostPassword(email));
 };
 
-export default resendConfirmationEmail;
+export default sendResetPasswordEmail;

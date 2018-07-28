@@ -8,17 +8,19 @@ import { sagas } from '..';
 
 describe(`resetPassword`, (): void => {
 
-  let dummyEmail: string;
+  let dummyPassword: string;
+  let dummyResetPasswordToken: string;
 
   beforeEach((): void => {
-    dummyEmail = 'test@test.be';
+    dummyResetPasswordToken = 'foobarToken';
+    dummyPassword = 'P@ssword1';
   });
 
-  it(`puts an apiPostPassword action`, (): void => {
-    const dummyAction = actions.resetPassword(dummyEmail);
+  it(`puts an apiPatchPassword action`, (): void => {
+    const dummyAction = actions.resetPassword(dummyPassword, dummyResetPasswordToken);
 
     return expectSaga(sagas.resetPassword, dummyAction)
-      .put(actions.apiPostEmailToPassword(dummyEmail))
+      .put(actions.apiPatchPassword(dummyPassword, dummyResetPasswordToken))
       .run();
   });
 

@@ -8,7 +8,7 @@ import * as a from '../../actionTypes';
 
 const confirmEmail = function* (action: a.ConfirmEmailAction): Saga<void> {
   const { confirmationToken } = action.payload;
-  yield put(actions.apiPostConfirmation(confirmationToken));
+  yield put(actions.apiPatchConfirmation(confirmationToken));
 };
 
 export default confirmEmail;

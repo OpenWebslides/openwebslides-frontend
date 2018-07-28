@@ -14,11 +14,11 @@ describe(`confirmEmail`, (): void => {
     dummyConfirmationToken = 'foobarToken';
   });
 
-  it(`puts an apiPostConfirmation action`, (): void => {
+  it(`puts an apiPatchConfirmation action`, (): void => {
     const dummyAction = actions.confirmEmail(dummyConfirmationToken);
 
     return expectSaga(sagas.confirmEmail, dummyAction)
-      .put(actions.apiPostConfirmation(dummyConfirmationToken))
+      .put(actions.apiPatchConfirmation(dummyConfirmationToken))
       .run();
   });
 
