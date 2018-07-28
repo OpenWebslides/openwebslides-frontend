@@ -27,7 +27,7 @@ const PureAuthPage = (props: Props): React.Node => {
         <Route path={paths.AUTH_SIGNIN_ROUTE} component={SigninPage} />
         <Route path={paths.AUTH_SIGNUP_ROUTE} component={SignupPage} />
         { /* #TODO move :confirmationToken to page itself */ }
-        <Route path={`${paths.AUTH_CONFIRM_EMAIL_ROUTE}/:confirmationToken`} component={ConfirmEmailPage} />
+        <Route path={paths.AUTH_CONFIRM_EMAIL_ROUTE} component={ConfirmEmailPage} />
         { /* #TODO add password reset page */ }
         <Route path={paths.AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE} component={ResendConfirmationEmailPage} />
         <Route path={paths.AUTH_SEND_RESET_PASSWORD_EMAIL_ROUTE} component={SendResetPasswordEmailPage} />

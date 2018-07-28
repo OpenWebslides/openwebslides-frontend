@@ -30,9 +30,13 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
 
 class PureConfirmEmailPage extends React.Component<Props> {
   componentDidMount(): void {
-    const { match, confirmEmail } = this.props;
-    if (match.params.confirmationToken == null) throw new InvalidArgumentError(`This shouldn't happen.`);
-    confirmEmail(match.params.confirmationToken);
+    const { location, confirmEmail } = this.props;
+    const params = new URLSearchParams(location.search);
+    const confirmationToken = params.get('confirmationToken');
+
+    if (!confirmationToken) throw new InvalidArgumentError(`Invalid confirmationToken`);
+
+    confirmEmail(confirmationToken);
   }
 
   render(): React.Node {
