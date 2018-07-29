@@ -5,3 +5,4 @@ export { default as Http401UnauthorizedError } from './subclasses/Http401Unautho
 export { default as Http403ForbiddenError } from './subclasses/Http403ForbiddenError';
 export { default as Http422ValidationError } from './subclasses/Http422ValidationError';
 export { default as UnexpectedHttpStatusError } from './subclasses/UnexpectedHttpStatusError';
+export { default as UnexpectedEmptyResponseError } from './subclasses/UnexpectedEmptyResponseError';
