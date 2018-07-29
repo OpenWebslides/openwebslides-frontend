@@ -35,7 +35,7 @@ describe(`fetchApiResponseData`, (): void => {
     await expect(fetchApiResponseData('', {}))
       .resolves
       .toEqual({
-        body: {},
+        body: null,
         status: 204,
         token: null,
       });
@@ -51,7 +51,7 @@ describe(`fetchApiResponseData`, (): void => {
     await expect(fetchApiResponseData('', {}))
       .resolves
       .toEqual({
-        body: {},
+        body: null,
         status: 200,
         token: dummyToken,
       });

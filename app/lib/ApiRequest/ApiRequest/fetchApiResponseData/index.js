@@ -18,7 +18,7 @@ const getDataFromResponse = async (response: Response): Promise<ApiResponseData>
   const responseText = await response.text();
   const responseBody = (responseText)
     ? JSON.parse(responseText)
-    : {};
+    : null;
 
   return {
     body: responseBody,

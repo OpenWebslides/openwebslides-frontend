@@ -37,7 +37,7 @@ export type ApiRequestConfig = {|
 
 export type ApiResponseData = {|
   // eslint-disable-next-line flowtype/no-weak-types
-  +body: Object,
+  +body: ?Object,
   +status: number,
   +token: ?string,
 |};
