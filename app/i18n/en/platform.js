@@ -35,6 +35,18 @@ const platform = {
     title: 'Resend confirmation email',
     description: 'Enter your email address to resend the email containing instructions to confirm your account.',
   },
+  api: {
+    confirmation: {
+      post: {
+        success: 'Resent an email with confirmation instructions. Check your inbox!',
+        failure: 'Failed to resend an email with confirmation instructions',
+      },
+      patch: {
+        success: 'Successfully confirmed your email address. You can now sign in!',
+        failure: 'Failed to confirm your email address',
+      },
+    },
+  },
 };
 
 export default platform;
