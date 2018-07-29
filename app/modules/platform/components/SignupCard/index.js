@@ -73,7 +73,7 @@ const PureSignupCard = (props: Props): React.Node => {
   );
 };
 
-const SigninCard = connect(null, mapDispatchToProps)(translate()(PureSignupCard));
+const SignupCard = connect(null, mapDispatchToProps)(translate()(PureSignupCard));
 
 export { PureSignupCard };
-export default SigninCard;
+export default SignupCard;
