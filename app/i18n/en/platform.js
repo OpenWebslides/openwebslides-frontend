@@ -35,6 +35,13 @@ const platform = {
     title: 'Resend confirmation email',
     description: 'Enter your email address to resend the email containing instructions to confirm your account.',
   },
+  resetPasswordCard: {
+    title: 'Reset account password',
+    description: 'Enter a new password below to reset your account password.',
+    button: {
+      submit: 'Reset password',
+    },
+  },
   api: {
     confirmation: {
       post: {
