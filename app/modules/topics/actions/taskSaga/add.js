@@ -5,14 +5,14 @@ import _ from 'lodash';
 import { InvalidArgumentError } from 'errors';
 
 import * as a from '../../actionTypes';
-import * as m from '../../model';
+import generateId from '../../lib/generateId';
 
 const add = (
   userId: string,
   title: string,
   description: ?string = null,
 ): a.AddAction => {
-  const newId = m.generateId();
+  const newId = generateId();
   const newTitle = _.trim(title);
   const newDescription = (description != null) ? _.trim(description) : '';
 
