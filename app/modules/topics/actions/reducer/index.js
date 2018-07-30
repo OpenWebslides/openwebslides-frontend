@@ -3,13 +3,13 @@
 import addToState from './addToState';
 import editInState from './editInState';
 import removeFromState from './removeFromState';
-import setItemsInState from './setItemsInState';
+import setMultipleInState from './setMultipleInState';
 
 const reducerActions = {
   addToState,
   editInState,
   removeFromState,
-  setItemsInState,
+  setMultipleInState,
 };
 
 export default reducerActions;

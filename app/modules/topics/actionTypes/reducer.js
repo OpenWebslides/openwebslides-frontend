@@ -10,7 +10,7 @@ import * as m from '../model';
 export const ADD_TO_STATE: 'topics/ADD_TO_STATE' = 'topics/ADD_TO_STATE';
 export const EDIT_IN_STATE: 'topics/EDIT_IN_STATE' = 'topics/EDIT_IN_STATE';
 export const REMOVE_FROM_STATE: 'topics/REMOVE_FROM_STATE' = 'topics/REMOVE_FROM_STATE';
-export const SET_ITEMS_IN_STATE: 'topics/SET_ITEMS_IN_STATE' = 'topics/SET_ITEMS_IN_STATE';
+export const SET_MULTIPLE_IN_STATE: 'topics/SET_MULTIPLE_IN_STATE' = 'topics/SET_MULTIPLE_IN_STATE';
 
 
 // Action types ------------------------------------------------------------------------------------
@@ -42,10 +42,10 @@ export type RemoveFromStateAction = {|
   },
 |};
 
-export type SetItemsInStateAction = {|
-  type: typeof SET_ITEMS_IN_STATE,
+export type SetMultipleInStateAction = {|
+  type: typeof SET_MULTIPLE_IN_STATE,
   payload: {
-    items: ?$ReadOnlyArray<m.Topic>,
+    topics: $ReadOnlyArray<m.Topic>,
   },
 |};
 
@@ -56,4 +56,4 @@ export type ReducerAction =
   | AddToStateAction
   | EditInStateAction
   | RemoveFromStateAction
-  | SetItemsInStateAction;
+  | SetMultipleInStateAction;

@@ -47,7 +47,7 @@ export const apiGetAllByUserIdSaga = function* (
       };
     });
 
-    yield put(actions.setItemsInState(data));
+    yield put(actions.setMultipleInState(data));
   }
   catch (error) {
     // TODO: fix saga error handling
