@@ -14,7 +14,7 @@ import { ObjectNotFoundError } from 'errors';
 
 import actions from '../actions';
 import * as m from '../model';
-import { getById } from '../selectors';
+import selectors from '../selectors';
 
 type PassedProps = {|
   topicId: string,
@@ -36,7 +36,7 @@ type ComponentState = {|
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;
-  const topic = getById(state, { id: topicId });
+  const topic = selectors.getById(state, { id: topicId });
 
   if (topic == null) {
     throw new ObjectNotFoundError('topics:topic', props.topicId);

@@ -7,7 +7,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 
 import { type State } from 'types/state';
 
-import { getAllTopicIdsByUserId } from '../selectors';
+import selectors from '../selectors';
 
 import SimpleTopic from './SimpleTopic';
 
@@ -24,7 +24,7 @@ type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { userId } = props;
   return {
-    topicIds: getAllTopicIdsByUserId(state, userId),
+    topicIds: selectors.getAllTopicIdsByUserId(state, userId),
   };
 };
 

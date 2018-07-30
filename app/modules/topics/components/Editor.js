@@ -14,7 +14,7 @@ import apiRequestsStatus from 'modules/apiRequestsStatus';
 import * as a from '../actionTypes';
 import actions from '../actions';
 import * as m from '../model';
-import { getById } from '../selectors';
+import selectors from '../selectors';
 
 type PassedProps = {|
   topicId: string,
@@ -35,7 +35,7 @@ const { ApiDimmer } = apiRequestsStatus.components;
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;
-  const topic = getById(state, { id: topicId });
+  const topic = selectors.getById(state, { id: topicId });
 
   return {
     topic,

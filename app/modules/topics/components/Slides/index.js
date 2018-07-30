@@ -10,7 +10,7 @@ import contentItems from 'modules/contentItems';
 import split from 'lib/contentItemSplit';
 import Slide from 'components/Slide';
 
-import * as selectors from '../../selectors';
+import selectors from '../../selectors';
 
 type PassedProps = {|
   topicId: string,

@@ -12,7 +12,7 @@ import { type Action } from 'types/action';
 import { TOPIC_NEW_ROUTE } from 'config/routes';
 
 import actions from '../actions';
-import { getAllTopicIdsByUserId } from '../selectors';
+import selectors from '../selectors';
 
 import TopicCard from './TopicCard';
 
@@ -34,7 +34,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { userId } = props;
 
   return {
-    topicIds: getAllTopicIdsByUserId(state, userId),
+    topicIds: selectors.getAllTopicIdsByUserId(state, userId),
   };
 };
 

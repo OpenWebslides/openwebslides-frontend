@@ -8,7 +8,7 @@ import { ObjectNotFoundError } from 'errors';
 import { type State } from 'types/state';
 
 import * as m from '../model';
-import { getById } from '../selectors';
+import selectors from '../selectors';
 
 type PassedProps = {|
   topicId: string,
@@ -22,7 +22,7 @@ type Props = {| ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;
-  const topic = getById(state, { id: topicId });
+  const topic = selectors.getById(state, { id: topicId });
 
   if (topic == null) {
     throw new ObjectNotFoundError('topics:topic', props.topicId);
