@@ -1,9 +1,9 @@
 // @flow
 
-import reducer from '../reducer';
-import * as a from '../actionTypes';
-import * as m from '../model';
-import { dummyTopicsById } from '../dummyData';
+import reducer from './reducer';
+import * as a from './actionTypes';
+import * as m from './model';
+import { dummyTopicsById } from './dummyData';
 
 describe(`reducer`, (): void => {
 

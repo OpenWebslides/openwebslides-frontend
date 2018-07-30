@@ -5,9 +5,9 @@ import { shallow } from 'enzyme';
 
 import { dummyProviderProps } from 'lib/testResources';
 
-import { PureTopicCard } from '../TopicCard';
+import { PureEditor } from './Editor';
 
-describe(`TopicCard`, (): void => {
+describe(`Editor`, (): void => {
 
   it(`renders without errors`, (): void => {
     const dummyTopic = {
@@ -17,14 +17,16 @@ describe(`TopicCard`, (): void => {
       description: '',
       rootContentItemId: 'abcdefghij',
     };
-    const dummyOnRemoveButtonClick = jest.fn();
+    const dummyOnSaveButtonClick = jest.fn();
+    const dummyOnLoadButtonClick = jest.fn();
 
     const enzymeWrapper = shallow(
-      <PureTopicCard
+      <PureEditor
         {...dummyProviderProps.translatorProps}
         topicId="abcdefghij"
         topic={dummyTopic}
-        onRemoveButtonClick={dummyOnRemoveButtonClick}
+        onSaveButtonClick={dummyOnSaveButtonClick}
+        onLoadButtonClick={dummyOnLoadButtonClick}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);

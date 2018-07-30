@@ -2,8 +2,8 @@
 
 import { InvalidArgumentError, UnsupportedOperationError } from 'errors';
 
-import * as actions from '../actions';
-import * as a from '../actionTypes';
+import * as actions from './actions';
+import * as a from './actionTypes';
 
 describe(`actions`, (): void => {
 

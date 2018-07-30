@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 
 import { dummyProviderProps } from 'lib/testResources';
 
-import { PureCardCollection } from '../CardCollection';
+import { PureCardCollection } from './CardCollection';
 
 describe(`CardCollection`, (): void => {
 

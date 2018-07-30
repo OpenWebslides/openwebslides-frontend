@@ -1,7 +1,7 @@
 // @flow
 
-import { getById, getAllById, getAll } from '../selectors';
-import * as m from '../model';
+import { getById, getAllById, getAll } from './selectors';
+import * as m from './model';
 
 describe(`selectors`, (): void => {
 
