@@ -6,8 +6,8 @@ import { push } from 'connected-react-router';
 
 import { USER_PROFILE_ROUTE } from 'config/routes';
 
+import actions from '../../actions';
 import * as a from '../../actionTypes';
-import { apiPost } from '../../actions';
 
 // eslint-disable-next-line require-yield
 const addSaga = function* (action: a.AddAction): Saga<void> {
@@ -17,7 +17,7 @@ const addSaga = function* (action: a.AddAction): Saga<void> {
     description,
   } = action.payload;
 
-  yield put(apiPost(userId, title, description));
+  yield put(actions.apiPost(userId, title, description));
 
   // Wait for api request to complete #TODO use unique request identifiers for this
   yield take('apiRequestsStatus/SET_SUCCESS');

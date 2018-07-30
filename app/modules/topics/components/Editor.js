@@ -12,9 +12,9 @@ import contentItems from 'modules/contentItems';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import * as a from '../actionTypes';
+import actions from '../actions';
 import * as m from '../model';
 import { getById } from '../selectors';
-import { save, load } from '../actions';
 
 type PassedProps = {|
   topicId: string,
@@ -45,10 +45,10 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     onSaveButtonClick: (id: string): void => {
-      dispatch(save(id));
+      dispatch(actions.save(id));
     },
     onLoadButtonClick: (id: string): void => {
-      dispatch(load(id));
+      dispatch(actions.load(id));
     },
   };
 };

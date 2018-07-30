@@ -10,7 +10,7 @@ import { Form } from 'semantic-ui-react';
 import { type Action } from 'types/action';
 import BackButton from 'components/BackButton';
 
-import { add } from '../actions';
+import actions from '../actions';
 
 type PassedProps = {|
   userId: string,
@@ -29,9 +29,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
       title: string,
       description: string,
     ): void => {
-      dispatch(
-        add(userId, title, description),
-      );
+      dispatch(actions.add(userId, title, description));
     },
   };
 };

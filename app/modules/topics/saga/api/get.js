@@ -5,9 +5,9 @@ import { call, put } from 'redux-saga/effects';
 
 import api from 'api';
 
+import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
-import { addToState, setItemsInState } from '../../actions';
 
 export const apiGetSaga = function* (action: a.GetAction): Saga<void> {
   try {
@@ -16,7 +16,7 @@ export const apiGetSaga = function* (action: a.GetAction): Saga<void> {
     const item = response.body.data;
     const userId = response.body.included[0].id;
 
-    yield put(addToState(
+    yield put(actions.addToState(
       item.id,
       userId,
       item.attributes.title,
@@ -47,7 +47,7 @@ export const apiGetAllByUserIdSaga = function* (
       };
     });
 
-    yield put(setItemsInState(data));
+    yield put(actions.setItemsInState(data));
   }
   catch (error) {
     // TODO: fix saga error handling

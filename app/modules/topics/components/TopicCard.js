@@ -12,9 +12,9 @@ import { type Action } from 'types/action';
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import { ObjectNotFoundError } from 'errors';
 
-import { getById } from '../selectors';
+import actions from '../actions';
 import * as m from '../model';
-import { remove } from '../actions';
+import { getById } from '../selectors';
 
 type PassedProps = {|
   topicId: string,
@@ -50,9 +50,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     onRemoveButtonClick: (id: string): void => {
-      dispatch(
-        remove(id),
-      );
+      dispatch(actions.remove(id));
     },
   };
 };

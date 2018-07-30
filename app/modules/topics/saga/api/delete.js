@@ -7,8 +7,8 @@ import { UnsupportedOperationError } from 'errors';
 import api from 'api';
 import platform from 'modules/platform';
 
+import actions from '../../actions';
 import * as a from '../../actionTypes';
-import { removeFromState } from '../../actions';
 
 export const apiDeleteSaga = function* (action: a.ApiDeleteTopicAction): Saga<void> {
   try {
@@ -17,7 +17,7 @@ export const apiDeleteSaga = function* (action: a.ApiDeleteTopicAction): Saga<vo
     if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
     yield call(api.topics.delete, id, userAuth.apiToken);
-    yield put(removeFromState(id));
+    yield put(actions.removeFromState(id));
   }
   catch (error) {
     // TODO: fix saga error handling

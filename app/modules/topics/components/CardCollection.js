@@ -11,8 +11,8 @@ import { type State } from 'types/state';
 import { type Action } from 'types/action';
 import { TOPIC_NEW_ROUTE } from 'config/routes';
 
+import actions from '../actions';
 import { getAllTopicIdsByUserId } from '../selectors';
-import { getAllByUserId } from '../actions';
 
 import TopicCard from './TopicCard';
 
@@ -41,7 +41,7 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     handleRequestTopics: (userId: string): void => {
-      dispatch(getAllByUserId(userId));
+      dispatch(actions.getAllByUserId(userId));
     },
   };
 };

@@ -1,6 +1,6 @@
 // @flow
 
-import * as actions from './actions';
+import actions from './actions';
 import * as model from './model';
 import * as selectors from './selectors';
 import components from './components';
