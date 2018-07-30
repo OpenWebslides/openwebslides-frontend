@@ -4,7 +4,6 @@ import * as a from '../actionTypes';
 import * as m from '../model';
 import { dummyTopicsById } from '../dummyData';
 
-import addToState from './addToState';
 import editInState from './editInState';
 import removeFromState from './removeFromState';
 import setMultipleInState from './setMultipleInState';
@@ -15,8 +14,6 @@ const initialState: m.TopicsState = {
 
 const reducer = (state: m.TopicsState = initialState, action: a.ReducerAction): m.TopicsState => {
   switch (action.type) {
-    case a.ADD_TO_STATE:
-      return addToState(state, action);
     case a.EDIT_IN_STATE:
       return editInState(state, action);
     case a.REMOVE_FROM_STATE:

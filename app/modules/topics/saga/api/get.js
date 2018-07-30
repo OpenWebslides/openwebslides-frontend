@@ -14,15 +14,15 @@ export const apiGetSaga = function* (action: a.GetAction): Saga<void> {
     const response = yield call(api.topics.get, action.payload.id);
 
     const item = response.body.data;
-    const userId = response.body.included[0].id;
+    const topic: m.Topic = {
+      id: item.id,
+      userId: response.body.included[0].id,
+      title: item.attributes.title,
+      description: item.attributes.description,
+      rootContentItemId: 'w4lg2u0p1h', // TODO: can't find in api call response
+    };
 
-    yield put(actions.addToState(
-      item.id,
-      userId,
-      item.attributes.title,
-      item.attributes.description,
-      'w4lg2u0p1h', // TODO: can't find in api call response
-    ));
+    yield put(actions.setMultipleInState([topic]));
   }
   catch (error) {
     // TODO: fix saga error handling
