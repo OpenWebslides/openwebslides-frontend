@@ -7,17 +7,23 @@ const setMultipleInState = (
   state: m.TopicsState,
   action: a.SetMultipleInStateAction,
 ): m.TopicsState => {
-  const newTopics = {};
+  const { topics } = action.payload;
 
-  if (action.payload.topics) {
-    action.payload.topics.forEach((item: m.Topic): void => {
-      newTopics[item.id] = item;
-    });
+  if (topics.length === 0) {
+    return state;
   }
+  else {
+    const newById = { ...state.byId };
 
-  return {
-    byId: newTopics,
-  };
+    topics.forEach((topic: m.Topic): void => {
+      newById[topic.id] = topic;
+    });
+
+    return {
+      ...state,
+      byId: newById,
+    };
+  }
 };
 
 export default setMultipleInState;
