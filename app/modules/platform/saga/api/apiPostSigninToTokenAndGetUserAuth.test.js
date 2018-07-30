@@ -5,6 +5,7 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
+import { UnexpectedEmptyResponseError } from 'errors';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import users from 'modules/users';
 
@@ -106,6 +107,24 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
   });
 
   it(`sets its request status to FAILURE and passes on the correct error, when the api response does not contain a token`, async (): Promise<mixed> => {
+    const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
+    const dummyApiResponse = {
+      body: null,
+      status: 201,
+      token: dummyToken,
+    };
+
+    const result = await expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
+      .provide([
+        [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
+      ])
+      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new UnexpectedEmptyResponseError()).type)
+      .run();
+
+    expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(Error);
+  });
+
+  it(`sets its request status to FAILURE and passes on the correct error, when the api response does not contain a body`, async (): Promise<mixed> => {
     const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
     const dummyApiResponse = {
       body: {
