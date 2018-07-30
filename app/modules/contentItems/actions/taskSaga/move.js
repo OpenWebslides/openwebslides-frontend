@@ -1,7 +1,7 @@
 // @flow
 
-import * as a from '../actionTypes';
-import * as m from '../model';
+import * as a from '../../actionTypes';
+import * as m from '../../model';
 
 const move = (id: string, nextContext: m.VerticalContext): a.MoveAction => {
   return {

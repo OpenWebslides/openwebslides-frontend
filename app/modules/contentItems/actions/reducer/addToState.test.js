@@ -2,8 +2,8 @@
 
 import { InvalidArgumentError, NotYetImplementedError } from 'errors';
 
-import * as a from '../actionTypes';
-import * as m from '../model';
+import * as a from '../../actionTypes';
+import * as m from '../../model';
 
 import actions from '.';
 
