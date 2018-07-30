@@ -1,12 +1,10 @@
 // @flow
 
-/* eslint-disable flowtype/require-types-at-top */
-
 export type Topic = {|
   +id: string,
-  +userId: string,
   +title: string,
   +description: ?string,
+  +userId: string,
   +rootContentItemId: string,
 |};
 
