@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 
 import { dummyProviderProps } from 'lib/testResources';
 
-import { PureSimpleList } from './SimpleList';
+import { PureSimpleList } from '.';
 
 describe(`SimpleList`, (): void => {
 

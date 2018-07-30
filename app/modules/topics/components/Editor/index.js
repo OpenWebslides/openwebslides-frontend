@@ -11,10 +11,10 @@ import { type Action } from 'types/action';
 import contentItems from 'modules/contentItems';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
-import * as a from '../actionTypes';
-import actions from '../actions';
-import * as m from '../model';
-import selectors from '../selectors';
+import * as a from '../../actionTypes';
+import actions from '../../actions';
+import * as m from '../../model';
+import selectors from '../../selectors';
 
 type PassedProps = {|
   topicId: string,

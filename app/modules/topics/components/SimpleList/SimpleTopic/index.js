@@ -7,8 +7,8 @@ import { Segment } from 'semantic-ui-react';
 import { ObjectNotFoundError } from 'errors';
 import { type State } from 'types/state';
 
-import * as m from '../model';
-import selectors from '../selectors';
+import * as m from '../../../model';
+import selectors from '../../../selectors';
 
 type PassedProps = {|
   topicId: string,

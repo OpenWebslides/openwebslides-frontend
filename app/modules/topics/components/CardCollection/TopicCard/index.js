@@ -12,9 +12,9 @@ import { type Action } from 'types/action';
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import { ObjectNotFoundError } from 'errors';
 
-import actions from '../actions';
-import * as m from '../model';
-import selectors from '../selectors';
+import actions from '../../../actions';
+import * as m from '../../../model';
+import selectors from '../../../selectors';
 
 type PassedProps = {|
   topicId: string,

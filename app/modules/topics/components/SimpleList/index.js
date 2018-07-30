@@ -7,7 +7,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 
 import { type State } from 'types/state';
 
-import selectors from '../selectors';
+import selectors from '../../selectors';
 
 import SimpleTopic from './SimpleTopic';
 

@@ -10,7 +10,7 @@ import { Form } from 'semantic-ui-react';
 import { type Action } from 'types/action';
 import BackButton from 'components/BackButton';
 
-import actions from '../actions';
+import actions from '../../actions';
 
 type PassedProps = {|
   userId: string,

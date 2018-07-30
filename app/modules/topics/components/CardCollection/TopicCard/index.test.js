@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 
 import { dummyProviderProps } from 'lib/testResources';
 
-import { PureTopicCard } from './TopicCard';
+import { PureTopicCard } from '.';
 
 describe(`TopicCard`, (): void => {
 

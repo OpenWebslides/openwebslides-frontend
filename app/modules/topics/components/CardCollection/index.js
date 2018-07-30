@@ -11,8 +11,8 @@ import { type State } from 'types/state';
 import { type Action } from 'types/action';
 import { TOPIC_NEW_ROUTE } from 'config/routes';
 
-import actions from '../actions';
-import selectors from '../selectors';
+import actions from '../../actions';
+import selectors from '../../selectors';
 
 import TopicCard from './TopicCard';
 

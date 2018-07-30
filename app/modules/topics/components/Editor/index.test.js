@@ -3,9 +3,11 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { PureSimpleTopic } from './SimpleTopic';
+import { dummyProviderProps } from 'lib/testResources';
 
-describe(`SimpleTopic`, (): void => {
+import { PureEditor } from '.';
+
+describe(`Editor`, (): void => {
 
   it(`renders without errors`, (): void => {
     const dummyTopic = {
@@ -15,11 +17,16 @@ describe(`SimpleTopic`, (): void => {
       description: '',
       rootContentItemId: 'abcdefghij',
     };
+    const dummyOnSaveButtonClick = jest.fn();
+    const dummyOnLoadButtonClick = jest.fn();
 
     const enzymeWrapper = shallow(
-      <PureSimpleTopic
+      <PureEditor
+        {...dummyProviderProps.translatorProps}
         topicId="abcdefghij"
         topic={dummyTopic}
+        onSaveButtonClick={dummyOnSaveButtonClick}
+        onLoadButtonClick={dummyOnLoadButtonClick}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
