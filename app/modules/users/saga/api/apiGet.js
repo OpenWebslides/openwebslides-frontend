@@ -4,7 +4,7 @@ import { type Saga } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 
 import api from 'api';
-import { UnsupportedOperationError, UnexpectedEmptyResponseError } from 'errors';
+import { UnsupportedOperationError, UnexpectedHttpResponseError } from 'errors';
 import { type ApiResponseData } from 'lib/ApiRequest';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
@@ -23,7 +23,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
 
     const responseData: ApiResponseData = yield call(api.users.get, id, userAuth.apiToken);
 
-    if (responseData.body == null) throw new UnexpectedEmptyResponseError();
+    if (responseData.body == null) throw new UnexpectedHttpResponseError();
 
     const { attributes } = responseData.body.data;
     const user: m.User = {

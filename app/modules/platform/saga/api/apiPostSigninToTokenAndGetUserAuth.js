@@ -5,7 +5,7 @@ import { call, put } from 'redux-saga/effects';
 import { flashErrorMessage } from 'redux-flash';
 
 import api from 'api';
-import { UnexpectedEmptyResponseError } from 'errors';
+import { UnexpectedHttpResponseError } from 'errors';
 import { type ApiResponseData } from 'lib/ApiRequest';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import users from 'modules/users';
@@ -25,7 +25,7 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
     const responseData: ApiResponseData = yield call(api.token.postSignin, email, password);
 
     if (responseData.token == null || responseData.body == null) {
-      throw new UnexpectedEmptyResponseError();
+      throw new UnexpectedHttpResponseError();
     }
 
     // Extract UserAuth data from response

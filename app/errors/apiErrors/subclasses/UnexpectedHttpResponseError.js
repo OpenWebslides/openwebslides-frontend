@@ -6,7 +6,7 @@
 
 import ApiError from '../ApiError';
 
-class UnexpectedEmptyResponseError extends ApiError {
+class UnexpectedHttpResponseError extends ApiError {
   constructor(message: ?string = null): void {
     let newMessage: string;
 
@@ -22,11 +22,11 @@ class UnexpectedEmptyResponseError extends ApiError {
     // Temporary workaround for https://github.com/istanbuljs/babel-plugin-istanbul/issues/143 #TODO
     /* eslint-disable no-proto */
     // $FlowFixMe Temporary workaround
-    this.constructor = UnexpectedEmptyResponseError;
+    this.constructor = UnexpectedHttpResponseError;
     // $FlowFixMe Temporary workaround
-    this.__proto__ = UnexpectedEmptyResponseError.prototype;
+    this.__proto__ = UnexpectedHttpResponseError.prototype;
     /* eslint-enable */
   }
 }
 
-export default UnexpectedEmptyResponseError;
+export default UnexpectedHttpResponseError;

@@ -5,7 +5,7 @@ import { call, select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
-import { UnsupportedOperationError, UnexpectedEmptyResponseError } from 'errors';
+import { UnsupportedOperationError, UnexpectedHttpResponseError } from 'errors';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
 
@@ -143,7 +143,7 @@ describe(`apiGet`, (): void => {
         [call(api.users.get, dummyId, dummyToken), dummyApiResponse],
       ])
       .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_GET, new UnexpectedEmptyResponseError()).type)
+      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_GET, new UnexpectedHttpResponseError()).type)
       .run();
 
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnsupportedOperationError);

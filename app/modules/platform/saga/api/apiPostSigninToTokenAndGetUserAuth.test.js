@@ -5,7 +5,7 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
-import { UnexpectedEmptyResponseError } from 'errors';
+import { UnexpectedHttpResponseError } from 'errors';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import users from 'modules/users';
 
@@ -118,7 +118,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
       .provide([
         [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
       ])
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new UnexpectedEmptyResponseError()).type)
+      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new UnexpectedHttpResponseError()).type)
       .run();
 
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(Error);
@@ -143,7 +143,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
       .provide([
         [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
       ])
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new UnexpectedEmptyResponseError()).type)
+      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new UnexpectedHttpResponseError()).type)
       .run();
 
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(Error);
