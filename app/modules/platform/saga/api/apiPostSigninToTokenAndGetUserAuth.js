@@ -27,7 +27,7 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
     // Get flow to stop complaining about token possibly being NULL
     if (responseData.token == null) throw new Error(`This shouldn't happen`);
 
-    if (responseData.body == null) throw new UnexpectedEmptyResponseError(`Unexpected empty response data`);
+    if (responseData.body == null) throw new UnexpectedEmptyResponseError();
 
     // Extract UserAuth data from response
     const { id, attributes } = responseData.body.data;

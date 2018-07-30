@@ -7,8 +7,17 @@
 import ApiError from '../ApiError';
 
 class UnexpectedEmptyResponseError extends ApiError {
-  constructor(message: string): void {
-    super(message);
+  constructor(message: ?string = null): void {
+    let newMessage: string;
+
+    if (message == null) {
+      newMessage = 'Unexpected empty response data';
+    }
+    else {
+      newMessage = message;
+    }
+
+    super(newMessage);
 
     // Temporary workaround for https://github.com/istanbuljs/babel-plugin-istanbul/issues/143 #TODO
     /* eslint-disable no-proto */

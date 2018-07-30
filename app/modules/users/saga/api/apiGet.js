@@ -23,7 +23,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
 
     const responseData: ApiResponseData = yield call(api.users.get, id, userAuth.apiToken);
 
-    if (responseData.body == null) throw new UnexpectedEmptyResponseError(`Unexpected empty response data`);
+    if (responseData.body == null) throw new UnexpectedEmptyResponseError();
 
     const { attributes } = responseData.body.data;
     const user: m.User = {
