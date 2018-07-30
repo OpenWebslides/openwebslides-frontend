@@ -5,9 +5,9 @@ import { expectSaga } from 'redux-saga-test-plan';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-import moveSaga from './move';
+import { sagas } from '..';
 
-describe(`moveSaga`, (): void => {
+describe(`move`, (): void => {
 
   it(`puts a MOVE_IN_STATE action`, (): void => {
     const dummyMoveAction: a.MoveAction = {
@@ -20,7 +20,7 @@ describe(`moveSaga`, (): void => {
         },
       },
     };
-    return expectSaga(moveSaga, dummyMoveAction)
+    return expectSaga(sagas.move, dummyMoveAction)
       .put.like({
         action: {
           type: a.MOVE_IN_STATE,

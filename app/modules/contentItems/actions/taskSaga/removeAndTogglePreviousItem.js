@@ -1,6 +1,6 @@
 // @flow
 
-import * as a from '../actionTypes';
+import * as a from '../../actionTypes';
 
 const removeAndTogglePreviousItem = (id: string): a.RemoveAndTogglePreviousItemAction => {
   return {

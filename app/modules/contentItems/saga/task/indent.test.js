@@ -8,9 +8,9 @@ import { dummyContentItemData as dummyData } from 'lib/testResources';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-import indentSaga from './indent';
+import { sagas } from '..';
 
-describe(`indentSaga`, (): void => {
+describe(`indent`, (): void => {
 
   let dummyParagraph24: m.ParagraphContentItem;
   let dummySlideBreak23: m.SlideBreakContentItem;
@@ -66,7 +66,7 @@ describe(`indentSaga`, (): void => {
         id: dummyParagraph12.id,
       },
     };
-    return expectSaga(indentSaga, dummyIndentAction)
+    return expectSaga(sagas.indent, dummyIndentAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -91,7 +91,7 @@ describe(`indentSaga`, (): void => {
         id: dummyHeading2.id,
       },
     };
-    return expectSaga(indentSaga, dummyIndentAction)
+    return expectSaga(sagas.indent, dummyIndentAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -116,7 +116,7 @@ describe(`indentSaga`, (): void => {
         id: dummyParagraph11.id,
       },
     };
-    return expectSaga(indentSaga, dummyIndentAction)
+    return expectSaga(sagas.indent, dummyIndentAction)
       .withState(dummyState)
       .not.put.actionType(a.MOVE)
       .run();
@@ -129,7 +129,7 @@ describe(`indentSaga`, (): void => {
         id: dummyParagraph24.id,
       },
     };
-    return expectSaga(indentSaga, dummyIndentAction)
+    return expectSaga(sagas.indent, dummyIndentAction)
       .withState(dummyState)
       .not.put.actionType(a.MOVE)
       .run();
@@ -146,7 +146,7 @@ describe(`indentSaga`, (): void => {
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(indentSaga, dummyIndentAction)
+      expectSaga(sagas.indent, dummyIndentAction)
         .withState(dummyState)
         .run(),
     ).rejects.toBeInstanceOf(ObjectNotFoundError);

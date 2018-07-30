@@ -5,8 +5,8 @@ import _ from 'lodash';
 import { InvalidArgumentError, NotYetImplementedError } from 'errors';
 import validate from 'lib/validate';
 
-import * as a from '../actionTypes';
-import * as m from '../model';
+import * as a from '../../actionTypes';
+import * as m from '../../model';
 
 const addToState = (
   id: string,

@@ -2,7 +2,7 @@
 
 import { UnsupportedOperationError } from 'errors';
 
-import * as a from '../actionTypes';
+import * as a from '../../actionTypes';
 
 const switchEditingInState = (
   previousEditingItemId: ?string,

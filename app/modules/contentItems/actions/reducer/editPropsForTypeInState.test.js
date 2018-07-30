@@ -3,8 +3,8 @@
 import { InvalidArgumentError, NotYetImplementedError, UnsupportedOperationError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
-import * as a from '../actionTypes';
-import * as m from '../model';
+import * as a from '../../actionTypes';
+import * as m from '../../model';
 
 import actions from '.';
 

@@ -8,9 +8,9 @@ import { dummyContentItemData as dummyData } from 'lib/testResources';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-import reverseIndentSaga from './reverseIndent';
+import { sagas } from '..';
 
-describe(`reverseIndentSaga`, (): void => {
+describe(`reverseIndent`, (): void => {
 
   let dummyHeading221: m.HeadingContentItem;
   let dummyParagraph22: m.ParagraphContentItem;
@@ -78,7 +78,7 @@ describe(`reverseIndentSaga`, (): void => {
         id: dummyParagraph122.id,
       },
     };
-    return expectSaga(reverseIndentSaga, dummyReverseIndentAction)
+    return expectSaga(sagas.reverseIndent, dummyReverseIndentAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -103,7 +103,7 @@ describe(`reverseIndentSaga`, (): void => {
         id: dummyHeading221.id,
       },
     };
-    return expectSaga(reverseIndentSaga, dummyReverseIndentAction)
+    return expectSaga(sagas.reverseIndent, dummyReverseIndentAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -128,7 +128,7 @@ describe(`reverseIndentSaga`, (): void => {
         id: dummyRoot.id,
       },
     };
-    return expectSaga(reverseIndentSaga, dummyReverseIndentAction)
+    return expectSaga(sagas.reverseIndent, dummyReverseIndentAction)
       .withState(dummyState)
       .not.put.actionType(a.MOVE)
       .run();
@@ -141,7 +141,7 @@ describe(`reverseIndentSaga`, (): void => {
         id: dummyHeading2.id,
       },
     };
-    return expectSaga(reverseIndentSaga, dummyReverseIndentAction)
+    return expectSaga(sagas.reverseIndent, dummyReverseIndentAction)
       .withState(dummyState)
       .not.put.actionType(a.MOVE)
       .run();
@@ -154,7 +154,7 @@ describe(`reverseIndentSaga`, (): void => {
         id: dummyParagraph12.id,
       },
     };
-    return expectSaga(reverseIndentSaga, dummyReverseIndentAction)
+    return expectSaga(sagas.reverseIndent, dummyReverseIndentAction)
       .withState(dummyState)
       .not.put.actionType(a.MOVE)
       .run();
@@ -171,7 +171,7 @@ describe(`reverseIndentSaga`, (): void => {
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(reverseIndentSaga, dummyReverseIndentAction)
+      expectSaga(sagas.reverseIndent, dummyReverseIndentAction)
         .withState(dummyState)
         .run(),
     ).rejects.toBeInstanceOf(ObjectNotFoundError);

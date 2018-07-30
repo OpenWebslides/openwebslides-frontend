@@ -5,8 +5,8 @@ import _ from 'lodash';
 import { InvalidArgumentError, NotYetImplementedError, UnsupportedOperationError } from 'errors';
 import validate from 'lib/validate';
 
-import * as a from '../actionTypes';
-import * as m from '../model';
+import * as a from '../../actionTypes';
+import * as m from '../../model';
 
 const editPropsForTypeInState = (
   contentItem: m.ContentItem,

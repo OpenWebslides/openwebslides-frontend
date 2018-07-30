@@ -9,9 +9,9 @@ import * as a from '../../actionTypes';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
-import editSaga from './edit';
+import { sagas } from '..';
 
-describe(`editSaga`, (): void => {
+describe(`edit`, (): void => {
 
   let dummyParagraph12: m.ParagraphContentItem;
   let dummyParagraph11: m.ParagraphContentItem;
@@ -58,7 +58,7 @@ describe(`editSaga`, (): void => {
         },
       },
     };
-    return expectSaga(editSaga, dummyEditAction)
+    return expectSaga(sagas.edit, dummyEditAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -84,7 +84,7 @@ describe(`editSaga`, (): void => {
         },
       },
     };
-    return expectSaga(editSaga, dummyEditAction)
+    return expectSaga(sagas.edit, dummyEditAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -109,7 +109,7 @@ describe(`editSaga`, (): void => {
         },
       },
     };
-    return expectSaga(editSaga, dummyEditAction)
+    return expectSaga(sagas.edit, dummyEditAction)
       .withState(dummyState)
       .not.put.actionType(a.REMOVE)
       .run();
@@ -127,7 +127,7 @@ describe(`editSaga`, (): void => {
       },
     };
     expect((): void => {
-      testSaga(editSaga, dummyEditAction)
+      testSaga(sagas.edit, dummyEditAction)
         .next()
         .select(selectors.getById, { id: dummyInvalidId })
         .next(null);
@@ -144,7 +144,7 @@ describe(`editSaga`, (): void => {
       },
     };
     expect((): void => {
-      testSaga(editSaga, dummyEditAction)
+      testSaga(sagas.edit, dummyEditAction)
         .next()
         .select(selectors.getById, { id: dummyRoot.id })
         .next(dummyRoot);

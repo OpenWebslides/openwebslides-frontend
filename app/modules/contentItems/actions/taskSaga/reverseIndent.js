@@ -1,6 +1,6 @@
 // @flow
 
-import * as a from '../actionTypes';
+import * as a from '../../actionTypes';
 
 const reverseIndent = (id: string): a.ReverseIndentAction => {
   return {
