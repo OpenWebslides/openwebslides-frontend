@@ -24,10 +24,9 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
   try {
     const responseData: ApiResponseData = yield call(api.token.postSignin, email, password);
 
-    // Get flow to stop complaining about token possibly being NULL
-    if (responseData.token == null) throw new Error(`This shouldn't happen`);
-
-    if (responseData.body == null) throw new UnexpectedEmptyResponseError();
+    if (responseData.token == null || responseData.body == null) {
+      throw new UnexpectedEmptyResponseError();
+    }
 
     // Extract UserAuth data from response
     const { id, attributes } = responseData.body.data;

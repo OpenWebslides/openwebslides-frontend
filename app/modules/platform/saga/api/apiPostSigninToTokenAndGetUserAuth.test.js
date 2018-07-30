@@ -143,7 +143,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
       .provide([
         [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
       ])
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new Error()).type)
+      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new UnexpectedEmptyResponseError()).type)
       .run();
 
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(Error);
