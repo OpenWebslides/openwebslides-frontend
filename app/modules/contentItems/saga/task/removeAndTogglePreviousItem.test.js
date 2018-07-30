@@ -8,9 +8,9 @@ import { dummyContentItemData as dummyData } from 'lib/testResources';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-import removeAndTogglePreviousItemSaga from './removeAndTogglePreviousItem';
+import { sagas } from '..';
 
-describe(`removeAndTogglePreviousItemSaga`, (): void => {
+describe(`removeAndTogglePreviousItem`, (): void => {
 
   let dummyParagraph11: m.ParagraphContentItem;
   let dummyHeading1: m.HeadingContentItem;
@@ -49,7 +49,7 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
         id: dummyParagraph11.id,
       },
     };
-    return expectSaga(removeAndTogglePreviousItemSaga, dummyRemoveAndTogglePreviousItemAction)
+    return expectSaga(sagas.removeAndTogglePreviousItem, dummyRemoveAndTogglePreviousItemAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -69,7 +69,7 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
         id: dummyParagraph11.id,
       },
     };
-    return expectSaga(removeAndTogglePreviousItemSaga, dummyRemoveAndTogglePreviousItemAction)
+    return expectSaga(sagas.removeAndTogglePreviousItem, dummyRemoveAndTogglePreviousItemAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -90,7 +90,7 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
         id: dummyRoot.id,
       },
     };
-    return expectSaga(removeAndTogglePreviousItemSaga, dummyRemoveAndTogglePreviousItemAction)
+    return expectSaga(sagas.removeAndTogglePreviousItem, dummyRemoveAndTogglePreviousItemAction)
       .withState(dummyState)
       .not.put.actionType(a.TOGGLE_EDITING)
       .run();
@@ -107,7 +107,7 @@ describe(`removeAndTogglePreviousItemSaga`, (): void => {
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(removeAndTogglePreviousItemSaga, dummyRemoveAndTogglePreviousItemAction)
+      expectSaga(sagas.removeAndTogglePreviousItem, dummyRemoveAndTogglePreviousItemAction)
         .withState(dummyState)
         .run(),
     ).rejects.toBeInstanceOf(ObjectNotFoundError);

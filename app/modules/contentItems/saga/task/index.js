@@ -5,26 +5,38 @@ import { all, takeEvery } from 'redux-saga/effects';
 
 import * as a from '../../actionTypes';
 
-import addSaga from './add';
-import editSaga from './edit';
-import toggleEditingSaga from './toggleEditing';
-import moveSaga from './move';
-import indentSaga from './indent';
-import reverseIndentSaga from './reverseIndent';
-import removeSaga from './remove';
-import removeAndTogglePreviousItemSaga from './removeAndTogglePreviousItem';
+import add from './add';
+import edit from './edit';
+import toggleEditing from './toggleEditing';
+import move from './move';
+import indent from './indent';
+import reverseIndent from './reverseIndent';
+import remove from './remove';
+import removeAndTogglePreviousItem from './removeAndTogglePreviousItem';
 
 const taskSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.ADD, addSaga),
-    takeEvery(a.EDIT, editSaga),
-    takeEvery(a.TOGGLE_EDITING, toggleEditingSaga),
-    takeEvery(a.MOVE, moveSaga),
-    takeEvery(a.INDENT, indentSaga),
-    takeEvery(a.REVERSE_INDENT, reverseIndentSaga),
-    takeEvery(a.REMOVE, removeSaga),
-    takeEvery(a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM, removeAndTogglePreviousItemSaga),
+    takeEvery(a.ADD, add),
+    takeEvery(a.EDIT, edit),
+    takeEvery(a.TOGGLE_EDITING, toggleEditing),
+    takeEvery(a.MOVE, move),
+    takeEvery(a.INDENT, indent),
+    takeEvery(a.REVERSE_INDENT, reverseIndent),
+    takeEvery(a.REMOVE, remove),
+    takeEvery(a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM, removeAndTogglePreviousItem),
   ]);
 };
 
+const taskSagas = {
+  add,
+  edit,
+  toggleEditing,
+  move,
+  indent,
+  reverseIndent,
+  remove,
+  removeAndTogglePreviousItem,
+};
+
+export { taskSagas };
 export default taskSaga;

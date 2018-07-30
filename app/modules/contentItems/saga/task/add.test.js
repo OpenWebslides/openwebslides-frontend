@@ -7,9 +7,9 @@ import { dummyContentItemData as dummyData } from 'lib/testResources';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-import addSaga from './add';
+import { sagas } from '..';
 
-describe(`addSaga`, (): void => {
+describe(`add`, (): void => {
 
   let dummyParagraph22: m.ParagraphContentItem;
   let dummyParagraph21: m.ParagraphContentItem;
@@ -62,7 +62,7 @@ describe(`addSaga`, (): void => {
         },
       },
     };
-    return expectSaga(addSaga, dummyAddAction)
+    return expectSaga(sagas.add, dummyAddAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -92,7 +92,7 @@ describe(`addSaga`, (): void => {
         },
       },
     };
-    return expectSaga(addSaga, dummyAddAction)
+    return expectSaga(sagas.add, dummyAddAction)
       .withState(dummyState)
       .put.actionType(a.TOGGLE_EDITING)
       .run();
@@ -107,7 +107,7 @@ describe(`addSaga`, (): void => {
         propsForType: {},
       },
     };
-    return expectSaga(addSaga, dummyAddAction)
+    return expectSaga(sagas.add, dummyAddAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -137,7 +137,7 @@ describe(`addSaga`, (): void => {
         },
       },
     };
-    return expectSaga(addSaga, dummyAddAction)
+    return expectSaga(sagas.add, dummyAddAction)
       .withState(dummyState)
       .put.like({
         action: {

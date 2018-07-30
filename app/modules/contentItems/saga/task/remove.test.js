@@ -8,9 +8,9 @@ import { dummyContentItemData as dummyData } from 'lib/testResources';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-import removeSaga from './remove';
+import { sagas } from '..';
 
-describe(`removeSaga`, (): void => {
+describe(`remove`, (): void => {
 
   let dummyParagraph22: m.ParagraphContentItem;
   let dummyParagraph21: m.ParagraphContentItem;
@@ -79,7 +79,7 @@ describe(`removeSaga`, (): void => {
       },
     };
 
-    return expectSaga(removeSaga, dummyRemoveAction)
+    return expectSaga(sagas.remove, dummyRemoveAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -100,7 +100,7 @@ describe(`removeSaga`, (): void => {
       },
     };
 
-    return expectSaga(removeSaga, dummyRemoveAction)
+    return expectSaga(sagas.remove, dummyRemoveAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -147,7 +147,7 @@ describe(`removeSaga`, (): void => {
       },
     };
 
-    return expectSaga(removeSaga, dummyRemoveAction)
+    return expectSaga(sagas.remove, dummyRemoveAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -193,7 +193,7 @@ describe(`removeSaga`, (): void => {
         id: dummyParagraph111.id,
       },
     };
-    return expectSaga(removeSaga, dummyRemoveAction)
+    return expectSaga(sagas.remove, dummyRemoveAction)
       .withState(dummyState)
       .not.put.actionType(a.MOVE)
       .run();
@@ -210,7 +210,7 @@ describe(`removeSaga`, (): void => {
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(removeSaga, dummyRemoveAction)
+      expectSaga(sagas.remove, dummyRemoveAction)
         .withState(dummyState)
         .run(),
     ).rejects.toBeInstanceOf(ObjectNotFoundError);
@@ -229,7 +229,7 @@ describe(`removeSaga`, (): void => {
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(removeSaga, dummyRemoveAction)
+      expectSaga(sagas.remove, dummyRemoveAction)
         .withState(dummyState)
         .run(),
     ).rejects.toBeInstanceOf(CorruptedInternalStateError);

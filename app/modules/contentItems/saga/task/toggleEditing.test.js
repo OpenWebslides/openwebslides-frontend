@@ -9,9 +9,9 @@ import { dummyContentItemData as dummyData } from 'lib/testResources';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-import toggleEditingSaga from './toggleEditing';
+import { sagas } from '..';
 
-describe(`toggleEditingSaga`, (): void => {
+describe(`toggleEditing`, (): void => {
 
   let dummyState: any;
 
@@ -49,7 +49,7 @@ describe(`toggleEditingSaga`, (): void => {
       },
     };
 
-    return expectSaga(toggleEditingSaga, toggleEditingAction)
+    return expectSaga(sagas.toggleEditing, toggleEditingAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -70,7 +70,7 @@ describe(`toggleEditingSaga`, (): void => {
       },
     };
 
-    return expectSaga(toggleEditingSaga, toggleEditingAction)
+    return expectSaga(sagas.toggleEditing, toggleEditingAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -92,7 +92,7 @@ describe(`toggleEditingSaga`, (): void => {
       },
     };
 
-    return expectSaga(toggleEditingSaga, toggleEditingAction)
+    return expectSaga(sagas.toggleEditing, toggleEditingAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -116,7 +116,7 @@ describe(`toggleEditingSaga`, (): void => {
       },
     };
 
-    return expectSaga(toggleEditingSaga, toggleEditingAction)
+    return expectSaga(sagas.toggleEditing, toggleEditingAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -140,7 +140,7 @@ describe(`toggleEditingSaga`, (): void => {
       },
     };
 
-    return expectSaga(toggleEditingSaga, toggleEditingAction)
+    return expectSaga(sagas.toggleEditing, toggleEditingAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -163,7 +163,7 @@ describe(`toggleEditingSaga`, (): void => {
       },
     };
 
-    return expectSaga(toggleEditingSaga, toggleEditingAction)
+    return expectSaga(sagas.toggleEditing, toggleEditingAction)
       .withState(dummyState)
       .not.put.actionType(a.SWITCH_EDITING_IN_STATE)
       .run();
@@ -179,7 +179,7 @@ describe(`toggleEditingSaga`, (): void => {
       },
     };
 
-    return expectSaga(toggleEditingSaga, toggleEditingAction)
+    return expectSaga(sagas.toggleEditing, toggleEditingAction)
       .withState(dummyState)
       .put.like({
         action: {
@@ -204,7 +204,7 @@ describe(`toggleEditingSaga`, (): void => {
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(toggleEditingSaga, toggleEditingAction)
+      expectSaga(sagas.toggleEditing, toggleEditingAction)
         .withState(dummyState)
         .run(),
     ).rejects.toBeInstanceOf(ObjectNotFoundError);
