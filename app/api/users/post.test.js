@@ -17,7 +17,7 @@ describe(`api.users.post`, (): void => {
     const dummyName = 'Test Tester';
     const dummyTosAccepted = true;
 
-    fetch.mockResponseOnce(null, { status: 200 });
+    fetch.mockResponseOnce('', { status: 200 });
     await api.users.post(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
 
     expect(fetch.mock.calls).toHaveLength(1);

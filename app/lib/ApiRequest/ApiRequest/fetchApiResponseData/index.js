@@ -15,9 +15,11 @@ const extractTokenFromAuthHeader = (authHeader: ?string): ?string => {
 };
 
 const getDataFromResponse = async (response: Response): Promise<ApiResponseData> => {
-  const responseBody = (response.body)
-    ? await response.json()
-    : {};
+  const responseText = await response.text();
+  const responseBody = (responseText)
+    ? JSON.parse(responseText)
+    : null;
+
   return {
     body: responseBody,
     status: response.status,

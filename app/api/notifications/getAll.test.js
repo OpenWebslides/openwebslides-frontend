@@ -12,7 +12,7 @@ describe(`api.notifications.getAll`, (): void => {
   });
 
   it(`executes the correct fetch call`, async (): Promise<mixed> => {
-    fetch.mockResponseOnce(null, { status: 200 });
+    fetch.mockResponseOnce('', { status: 200 });
     await api.notifications.getAll();
 
     expect(fetch.mock.calls).toHaveLength(1);

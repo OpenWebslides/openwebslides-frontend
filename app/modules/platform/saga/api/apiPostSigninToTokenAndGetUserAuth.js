@@ -5,6 +5,7 @@ import { call, put } from 'redux-saga/effects';
 import { flashErrorMessage } from 'redux-flash';
 
 import api from 'api';
+import { UnexpectedHttpResponseError } from 'errors';
 import { type ApiResponseData } from 'lib/ApiRequest';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import users from 'modules/users';
@@ -23,14 +24,14 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
   try {
     const responseData: ApiResponseData = yield call(api.token.postSignin, email, password);
 
-    // Get flow to stop complaining about token possibly being NULL
-    if (responseData.token == null) {
-      throw new Error(`This shouldn't happen`);
+    if (responseData.token == null || responseData.body == null) {
+      throw new UnexpectedHttpResponseError();
     }
 
     // Extract UserAuth data from response
+    const { id, attributes } = responseData.body.data;
     const currentUserAuth: m.UserAuth = {
-      userId: responseData.body.data.id,
+      userId: id,
       apiToken: responseData.token,
     };
 
@@ -38,9 +39,8 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
     yield put(actions.setUserAuthInState(currentUserAuth));
 
     // Extract currentUser object from response
-    const { attributes } = responseData.body.data;
     const currentUser: users.model.User = {
-      id: responseData.body.data.id,
+      id,
       email,
       name: attributes.name,
       gravatarHash: attributes.gravatarHash,

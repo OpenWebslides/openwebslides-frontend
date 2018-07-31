@@ -4,7 +4,7 @@ import { type Saga } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 
 import api from 'api';
-import { UnsupportedOperationError } from 'errors';
+import { UnexpectedHttpResponseError } from 'errors';
 import { type ApiResponseData } from 'lib/ApiRequest';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
@@ -19,9 +19,12 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   try {
     const { id } = action.payload;
     const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
-    if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
+    const token: ?string = (userAuth == null ? null : userAuth.apiToken);
 
-    const responseData: ApiResponseData = yield call(api.users.get, id, userAuth.apiToken);
+    const responseData: ApiResponseData = yield call(api.users.get, id, token);
+
+    if (responseData.body == null) throw new UnexpectedHttpResponseError();
+
     const { attributes } = responseData.body.data;
     const user: m.User = {
       id,

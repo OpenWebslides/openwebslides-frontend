@@ -14,7 +14,7 @@ describe(`api.token.postSignin`, (): void => {
   it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyEmail = 'test@test.be';
     const dummyPassword = 'mahpasswordy0';
-    fetch.mockResponseOnce(null, { status: 200 });
+    fetch.mockResponseOnce('', { status: 200 });
     await api.token.postSignin(dummyEmail, dummyPassword);
 
     expect(fetch.mock.calls).toHaveLength(1);
