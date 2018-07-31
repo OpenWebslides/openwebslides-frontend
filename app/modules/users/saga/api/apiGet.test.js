@@ -5,7 +5,7 @@ import { call, select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
-import { UnsupportedOperationError, UnexpectedHttpResponseError } from 'errors';
+import { UnexpectedHttpResponseError } from 'errors';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
 
@@ -102,7 +102,7 @@ describe(`apiGet`, (): void => {
       .run();
   });
 
-  it(`sets its request status to FAILURE, when there is no currently signed in user`, async (): Promise<mixed> => {
+  it(`sets its request status to PENDING and then sets its request status to SUCCESS, when there is no currently signed in user`, (): void => {
     const dummyAction = actions.apiGet(dummyId);
     const dummyApiResponse = {
       status: 200,
@@ -118,16 +118,14 @@ describe(`apiGet`, (): void => {
       },
     };
 
-    const result = await expectSaga(sagas.apiGet, dummyAction)
+    return expectSaga(sagas.apiGet, dummyAction)
       .provide([
         [select(platform.selectors.getUserAuth), null],
-        [call(api.users.get, dummyId, dummyToken), dummyApiResponse],
+        [call(api.users.get, dummyId, null), dummyApiResponse],
       ])
       .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_GET, new Error()).type)
+      .put(apiRequestsStatus.actions.setSuccess(a.API_GET))
       .run();
-
-    expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnsupportedOperationError);
   });
 
   it(`sets its request status to FAILURE, when the api response does not contain a body`, async (): Promise<mixed> => {
@@ -140,13 +138,13 @@ describe(`apiGet`, (): void => {
     const result = await expectSaga(sagas.apiGet, dummyAction)
       .provide([
         [select(platform.selectors.getUserAuth), null],
-        [call(api.users.get, dummyId, dummyToken), dummyApiResponse],
+        [call(api.users.get, dummyId, null), dummyApiResponse],
       ])
       .put(apiRequestsStatus.actions.setPending(a.API_GET))
       .put.actionType(apiRequestsStatus.actions.setFailure(a.API_GET, new UnexpectedHttpResponseError()).type)
       .run();
 
-    expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnsupportedOperationError);
+    expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnexpectedHttpResponseError);
   });
 
 });
