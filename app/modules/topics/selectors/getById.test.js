@@ -1,37 +1,29 @@
 // @flow
 
+import { dummyTopicData } from 'lib/testResources';
+
 import * as m from '../model';
 
 import selectors from '.';
 
 describe(`getById`, (): void => {
 
-  const dummyTopic1: m.Topic = {
-    id: 'abcdefghij',
-    userId: 'wxcvbnqsdf',
-    title: 'dummy topic 1',
-    description: 'Lorem ipsum dolor sit amet.',
-    rootContentItemId: 'abcdefghij',
-  };
-  const dummyTopic2: m.Topic = {
-    id: 'klmnopqrst',
-    userId: 'qsdfghjklm',
-    title: 'dummy topic 2',
-    description: '',
-    rootContentItemId: 'abcdefghij',
-  };
-  const dummyTopicsById: m.TopicsById = {
-    [dummyTopic1.id]: dummyTopic1,
-    [dummyTopic2.id]: dummyTopic2,
-  };
-  const dummyTopicsState: m.TopicsState = {
-    byId: dummyTopicsById,
-  };
-  const dummyState: any = {
-    modules: {
-      topics: dummyTopicsState,
-    },
-  };
+  let dummyTopic1: m.Topic;
+  let dummyTopic2: m.Topic;
+  let dummyTopicsById: m.TopicsById;
+  let dummyTopicsState: m.TopicsState;
+  let dummyState: any;
+
+  beforeEach((): void => {
+    dummyTopic1 = { ...dummyTopicData.topic };
+    dummyTopic2 = { ...dummyTopicData.topic2 };
+    dummyTopicsById = {
+      [dummyTopic1.id]: dummyTopic1,
+      [dummyTopic2.id]: dummyTopic2,
+    };
+    dummyTopicsState = { byId: dummyTopicsById };
+    dummyState = { modules: { topics: dummyTopicsState } };
+  });
 
   it(`returns the correct topic for the given id, when the given id is valid`, (): void => {
     const topic = selectors.getById(dummyState, { id: dummyTopic1.id });
@@ -39,7 +31,7 @@ describe(`getById`, (): void => {
   });
 
   it(`returns NULL, when the given id is invalid`, (): void => {
-    const topic = selectors.getById(dummyState, { id: 'jihgfedcba' });
+    const topic = selectors.getById(dummyState, { id: 'InvalidId' });
     expect(topic).toBeNull();
   });
 

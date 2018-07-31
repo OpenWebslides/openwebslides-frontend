@@ -8,6 +8,7 @@ import { Button, Header } from 'semantic-ui-react';
 
 import { type State } from 'types/state';
 import { type Action } from 'types/action';
+import { ObjectNotFoundError } from 'errors';
 import contentItems from 'modules/contentItems';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
@@ -36,6 +37,7 @@ const { ApiDimmer } = apiRequestsStatus.components;
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;
   const topic = selectors.getById(state, { id: topicId });
+  if (topic == null) throw new ObjectNotFoundError(`topics:topic`, topicId);
 
   return {
     topic,

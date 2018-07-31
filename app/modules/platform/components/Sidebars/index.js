@@ -4,6 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { type State } from 'types/state';
+import { ObjectNotFoundError } from 'errors';
 import topics from 'modules/topics';
 
 import * as m from '../../model';
@@ -24,9 +25,11 @@ type Props = {| ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;
+  const topic = topics.selectors.getById(state, { id: topicId });
+  if (topic == null) throw new ObjectNotFoundError(`topics:topic`, topicId);
 
   return {
-    topic: topics.selectors.getById(state, { id: topicId }),
+    topic,
     activeSidebarIds: selectors.getSettingByKey(state, { key: 'activeSidebarIds' }),
   };
 };
