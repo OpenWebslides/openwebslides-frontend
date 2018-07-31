@@ -12,7 +12,6 @@ import { ObjectNotFoundError } from 'errors';
 import contentItems from 'modules/contentItems';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
-import * as a from '../../actionTypes';
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
@@ -84,7 +83,7 @@ class PureEditor extends React.Component<Props> {
 
       return (
         <div>
-          <ApiDimmer requestIds={[a.API_GET_CONTENT]}>{t('editor:api.load.pending')}</ApiDimmer>
+          <ApiDimmer requestIds={['contentItems/API_GET_ALL_BY_TOPIC_ID']}>{t('editor:api.load.pending')}</ApiDimmer>
         </div>
       );
     }
@@ -93,8 +92,8 @@ class PureEditor extends React.Component<Props> {
       <div>
         <Header as="h1">{topic.title}</Header>
 
-        <ApiDimmer requestIds={[a.API_GET_CONTENT]}>{t('editor:api.load.pending')}</ApiDimmer>
-        <ApiDimmer requestIds={[a.API_PATCH_CONTENT]}>{t('editor:api.save.pending')}</ApiDimmer>
+        <ApiDimmer requestIds={['contentItems/API_GET_ALL_BY_TOPIC_ID']}>{t('editor:api.load.pending')}</ApiDimmer>
+        <ApiDimmer requestIds={['contentItems/API_GET_ALL_BY_TOPIC_ID']}>{t('editor:api.save.pending')}</ApiDimmer>
 
         <p>
           <Button primary={true} onClick={this.onSaveButtonClick}>

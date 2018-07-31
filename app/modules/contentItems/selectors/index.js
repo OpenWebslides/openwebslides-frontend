@@ -5,7 +5,6 @@ import getAllById from './getAllById';
 import getById from './getById';
 import getCurrentlyEditing from './getCurrentlyEditing';
 import getDenormalizedById from './getDenormalizedById';
-import getSelfAndAllDescendantsById from './getSelfAndAllDescendantsById';
 
 const selectors = {
   getAll,
@@ -13,7 +12,6 @@ const selectors = {
   getById,
   getCurrentlyEditing,
   getDenormalizedById,
-  getSelfAndAllDescendantsById,
 };
 
 export default selectors;
