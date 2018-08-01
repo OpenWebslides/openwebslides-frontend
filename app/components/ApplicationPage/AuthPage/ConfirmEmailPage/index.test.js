@@ -27,6 +27,9 @@ describe(`ConfirmEmailPage`, (): void => {
         apiRequestsStatus: {},
         platform: { userAuth: null },
       },
+      flash: {
+        messages: [],
+      },
     };
   });
 
