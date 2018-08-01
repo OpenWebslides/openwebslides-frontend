@@ -8,7 +8,7 @@ import { type ContextRouter as RouterProps } from 'react-router-dom';
 
 import { type Action } from 'types/action';
 import { InvalidArgumentError } from 'errors';
-import PageWrapper from 'components/PageWrapper';
+import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
 
@@ -41,9 +41,9 @@ class PureConfirmEmailPage extends React.Component<Props> {
 
   render(): React.Node {
     return (
-      <PageWrapper>
+      <ContainerPageWrapper>
         <ApiDimmer requestIds={[platform.actions.apiPostConfirmation('dummy').type]} />
-      </PageWrapper>
+      </ContainerPageWrapper>
     );
   }
 }

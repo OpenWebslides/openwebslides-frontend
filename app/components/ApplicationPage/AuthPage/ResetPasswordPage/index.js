@@ -5,7 +5,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
 
 import { InvalidArgumentError } from 'errors';
-import PageWrapper from 'components/PageWrapper';
+import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
 
@@ -22,11 +22,11 @@ const PureResetPasswordPage = (props: Props): React.Node => {
   if (!resetPasswordToken) throw new InvalidArgumentError(`Invalid resetPasswordToken`);
 
   return (
-    <PageWrapper>
+    <ContainerPageWrapper>
       <ApiDimmer requestIds={[platform.actions.apiPatchPassword('dummy', 'dummy').type]} />
 
       <ResetPasswordCard resetPasswordToken={resetPasswordToken} />
-    </PageWrapper>
+    </ContainerPageWrapper>
   );
 };
 
