@@ -25,7 +25,6 @@ describe(`api.confirmation.patch`, (): void => {
     expect(mockOptions.method).toBe(httpMethods.PATCH);
     expect(JSON.parse(mockOptions.body)).toEqual({
       data: {
-        id: '',
         type: 'confirmations',
         attributes: {
           confirmationToken: dummyConfirmationToken,

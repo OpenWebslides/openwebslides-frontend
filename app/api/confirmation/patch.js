@@ -11,7 +11,6 @@ import { CONFIRMATION_ENDPOINT } from '../endpoints';
 const patch = (confirmationToken: string): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
-      id: '',
       type: 'confirmations',
       attributes: {
         confirmationToken,

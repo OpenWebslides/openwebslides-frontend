@@ -26,7 +26,6 @@ describe(`api.password.patch`, (): void => {
     expect(mockOptions.method).toBe(httpMethods.PATCH);
     expect(JSON.parse(mockOptions.body)).toEqual({
       data: {
-        id: '',
         type: 'passwords',
         attributes: {
           password: dummyPassword,

@@ -11,7 +11,6 @@ import { PASSWORD_ENDPOINT } from '../endpoints';
 const patch = (password: string, resetPasswordToken: string): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
-      id: '',
       type: 'passwords',
       attributes: {
         password,
