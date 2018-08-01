@@ -55,6 +55,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   };
 };
 
+// #TODO fetch topic if not in state yet
 class PureTopicCard extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     open: false,

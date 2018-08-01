@@ -5,6 +5,7 @@ export type User = {|
   +email: ?string,
   +name: string,
   +gravatarHash: string,
+  +topicIds: $ReadOnlyArray<string>,
 |};
 
 // eslint-disable-next-line flowtype/require-exact-type

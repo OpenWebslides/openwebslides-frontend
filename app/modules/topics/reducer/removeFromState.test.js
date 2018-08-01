@@ -1,5 +1,7 @@
 // @flow
 
+import { dummyTopicData } from 'lib/testResources';
+
 import * as a from '../actionTypes';
 import * as m from '../model';
 
@@ -7,20 +9,13 @@ import reducer from '.';
 
 describe(`reducer`, (): void => {
 
-  const dummyTopic1: m.Topic = {
-    id: 'abcdefghij',
-    userId: 'wxcvbnqsdf',
-    title: 'dummy topic 1',
-    description: 'Lorem ipsum dolor sit amet.',
-    rootContentItemId: 'abcdefghij',
-  };
-  const dummyTopic2: m.Topic = {
-    id: 'klmnopqrst',
-    userId: 'qsdfghjklm',
-    title: 'dummy topic 2',
-    description: '',
-    rootContentItemId: 'abcdefghij',
-  };
+  let dummyTopic1: m.Topic;
+  let dummyTopic2: m.Topic;
+
+  beforeEach((): void => {
+    dummyTopic1 = { ...dummyTopicData.topic };
+    dummyTopic2 = { ...dummyTopicData.topic2 };
+  });
 
   it(`handles topic REMOVE_FROM_STATE action`, (): void => {
     const prevState: m.TopicsState = {

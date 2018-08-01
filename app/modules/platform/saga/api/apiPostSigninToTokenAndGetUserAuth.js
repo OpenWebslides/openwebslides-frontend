@@ -8,7 +8,6 @@ import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
 import { type ApiResponseData } from 'lib/ApiRequest';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
-import users from 'modules/users';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -29,7 +28,7 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
     }
 
     // Extract UserAuth data from response
-    const { id, attributes } = responseData.body.data;
+    const { id } = responseData.body.data;
     const currentUserAuth: m.UserAuth = {
       userId: id,
       apiToken: responseData.token,
@@ -37,17 +36,6 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
 
     // Store UserAuth in state
     yield put(actions.setUserAuthInState(currentUserAuth));
-
-    // Extract currentUser object from response
-    const currentUser: users.model.User = {
-      id,
-      email,
-      name: attributes.name,
-      gravatarHash: attributes.gravatarHash,
-    };
-
-    // Store currentUser object in the state, so that it can be selected using userAuth.userId
-    yield put(users.actions.setMultipleInState([currentUser]));
 
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
   }

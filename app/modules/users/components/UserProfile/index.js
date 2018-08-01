@@ -50,7 +50,7 @@ class PureUserProfile extends React.Component<Props> {
           </Item>
         </Item.Group>
         <Divider section={true} />
-        <CardCollection userId={user.id} />
+        <CardCollection topicIds={user.topicIds} />
       </React.Fragment>
     );
   };

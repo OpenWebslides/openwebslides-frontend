@@ -16,7 +16,6 @@ export const apiGetSaga = function* (action: a.GetAction): Saga<void> {
     const item = response.body.data;
     const topic: m.Topic = {
       id: item.id,
-      userId: response.body.included[0].id,
       title: item.attributes.title,
       description: item.attributes.description,
       rootContentItemId: 'w4lg2u0p1h', // TODO: can't find in api call response
@@ -40,7 +39,6 @@ export const apiGetAllByUserIdSaga = function* (
     const data = response.body.data.map((item: Object): m.Topic => {
       return {
         id: item.id,
-        userId: action.payload.userId,
         title: item.attributes.title,
         description: item.attributes.description,
         rootContentItemId: 'w4lg2u0p1h', // TODO: can't find in api call response

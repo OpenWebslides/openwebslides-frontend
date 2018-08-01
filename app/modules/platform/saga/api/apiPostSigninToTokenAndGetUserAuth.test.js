@@ -7,7 +7,6 @@ import { expectSaga } from 'redux-saga-test-plan';
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
-import users from 'modules/users';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -32,7 +31,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
     dummyToken = 'foobarToken';
   });
 
-  it(`posts the passed email and password to the token API endpoint, processes the response and puts both the userAuth object and the current user object in the state`, (): void => {
+  it(`posts the passed email and password to the token API endpoint, processes the response and puts the userAuth object in the state`, (): void => {
     const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
     const dummyApiResponse = {
       body: {
@@ -56,12 +55,6 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
         userId: dummyId,
         apiToken: dummyToken,
       }))
-      .put(users.actions.setMultipleInState([{
-        id: dummyId,
-        email: dummyEmail,
-        name: dummyName,
-        gravatarHash: dummyGravatarHash,
-      }]))
       .run();
   });
 

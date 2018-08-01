@@ -1,5 +1,7 @@
 // @flow
 
+import { dummyTopicData } from 'lib/testResources';
+
 import * as a from '../actionTypes';
 import * as m from '../model';
 
@@ -7,34 +9,32 @@ import reducer from '.';
 
 describe(`reducer`, (): void => {
 
+  let dummyTopic1: m.Topic;
+
+  beforeEach((): void => {
+    dummyTopic1 = { ...dummyTopicData.topic };
+  });
+
   it(`handles topic EDIT_IN_STATE action`, (): void => {
     const prevState: m.TopicsState = {
       byId: {
-        abcdefghij: {
-          id: 'abcdefghij',
-          userId: 'wxcvbnqsdf',
-          title: 'dummy topic 1',
-          description: 'Lorem ipsum dolor sit amet.',
-          rootContentItemId: 'abcdefghij',
-        },
+        [dummyTopic1.id]: dummyTopic1,
       },
     };
     const editAction: a.EditInStateAction = {
       type: a.EDIT_IN_STATE,
       payload: {
-        id: 'abcdefghij',
+        id: dummyTopic1.id,
         title: 'Edited test topic',
         description: 'Description has been edited.',
       },
     };
     const nextState: m.TopicsState = {
       byId: {
-        abcdefghij: {
-          id: 'abcdefghij',
-          userId: 'wxcvbnqsdf',
+        [dummyTopic1.id]: {
+          ...dummyTopic1,
           title: 'Edited test topic',
           description: 'Description has been edited.',
-          rootContentItemId: 'abcdefghij',
         },
       },
     };
