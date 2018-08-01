@@ -3,14 +3,12 @@
 import CardCollection from './CardCollection';
 import Editor from './Editor';
 import NewTopicCard from './NewTopicCard';
-import SimpleList from './SimpleList';
 import Slides from './Slides';
 
 const index = {
   CardCollection,
   Editor,
   NewTopicCard,
-  SimpleList,
   Slides,
 };
 
