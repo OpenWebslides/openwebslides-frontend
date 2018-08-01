@@ -1,18 +1,15 @@
 // @flow
 
-// (Un)AuthWrappers
-import AuthWrapper from './AuthWrapper';
-import UnauthWrapper from './UnauthWrapper';
-// Account management
 import AuthMenu from './AuthMenu';
+import AuthWrapper from './AuthWrapper';
 import ResendConfirmationEmailCard from './ResendConfirmationEmailCard';
 import ResetPasswordCard from './ResetPasswordCard';
 import SendResetPasswordEmailCard from './SendResetPasswordEmailCard';
+import Sidebars from './Sidebars';
+import SidebarsMenu from './SidebarsMenu';
 import SigninCard from './SigninCard';
 import SignupCard from './SignupCard';
-// Settings
-import SidebarsMenu from './SidebarsMenu';
-import Sidebars from './Sidebars';
+import UnauthWrapper from './UnauthWrapper';
 
 const components = {
   AuthMenu,
