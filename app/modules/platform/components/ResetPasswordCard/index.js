@@ -12,15 +12,15 @@ import ResetPasswordForm, { type ResetPasswordFormValues } from 'forms/ResetPass
 
 import actions from '../../actions';
 
-type DispatchProps = {|
-  onResetPasswordFormSubmit: (values: ResetPasswordFormValues) => void,
-|};
-
 type PassedProps = {|
   resetPasswordToken: string,
 |};
 
-type Props = {| ...TranslatorProps, ...DispatchProps, ...PassedProps |};
+type DispatchProps = {|
+  onResetPasswordFormSubmit: (values: ResetPasswordFormValues) => void,
+|};
+
+type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
