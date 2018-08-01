@@ -1,6 +1,8 @@
 // @flow
 
 /**
+ * GET on users/topics endpoint, get all topics authored by a certain user
+ *
  * API docs: #TODO
  */
 

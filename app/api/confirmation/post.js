@@ -2,6 +2,8 @@
 
 /**
  * POST email on confirmation endpoint, requests resending a confirmation email
+ *
+ * API documentation: https://openwebslides.github.io/documentation/#request-resend-confirmation-instructions
  */
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';

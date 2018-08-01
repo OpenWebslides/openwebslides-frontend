@@ -2,6 +2,8 @@
 
 /**
  * POST email on password endpoint, requests sending a password reset email
+ *
+ * API documentation: https://openwebslides.github.io/documentation/#request-password-reset
  */
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';

@@ -2,6 +2,8 @@
 
 /**
  * PATCH confirmationToken on confirmation endpoint, confirms an account
+ *
+ * API documentation: https://openwebslides.github.io/documentation/#confirm-account
  */
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';

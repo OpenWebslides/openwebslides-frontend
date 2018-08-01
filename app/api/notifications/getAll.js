@@ -1,7 +1,9 @@
 // @flow
 
 /**
- * API docs: #TODO
+ * GET on notifications endpoint, get all notifications (events) for the recent activity feed
+ *
+ * API documentation: https://openwebslides.github.io/documentation/#get-all-notifications
  */
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';

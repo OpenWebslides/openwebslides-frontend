@@ -2,6 +2,8 @@
 
 /**
  * PATCH password and resetPasswordToken on password endpoint, resets an account password
+ *
+ * API documentation: https://openwebslides.github.io/documentation/#reset-password
  */
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';

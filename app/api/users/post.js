@@ -1,6 +1,8 @@
 // @flow
 
 /**
+ * POST on users endpoint, create a new user
+ *
  * API docs: https://openwebslides.github.io/documentation/#users-api
  */
 

@@ -1,6 +1,8 @@
 // @flow
 
 /**
+ * DELETE on token endpoint, signs out a user (invalidates all existing tokens)
+ *
  * API docs: https://openwebslides.github.io/documentation/#token-api
  */
 

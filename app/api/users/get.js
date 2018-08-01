@@ -1,6 +1,8 @@
 // @flow
 
 /**
+ * GET on users endpoint, retrieve a user
+ *
  * API docs: https://openwebslides.github.io/documentation/#users-api
  */
 

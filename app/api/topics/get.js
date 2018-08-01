@@ -1,7 +1,9 @@
 // @flow
 
 /**
- * API docs: #TODO
+ * GET on topics endpoint, retrieves a topic
+ *
+ * API docs: https://openwebslides.github.io/documentation/#get-a-topic
  */
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
