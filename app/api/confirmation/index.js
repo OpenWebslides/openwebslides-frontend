@@ -4,8 +4,8 @@ import post from './post';
 import patch from './patch';
 
 const confirmationApi = {
-  post,
   patch,
+  post,
 };
 
 export default confirmationApi;

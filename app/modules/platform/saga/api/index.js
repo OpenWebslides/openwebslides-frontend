@@ -26,8 +26,8 @@ const apiSaga = function* (): Saga<void> {
 const apiSagas = {
   apiDeleteToken,
   apiPatchConfirmation,
-  apiPostConfirmation,
   apiPatchPassword,
+  apiPostConfirmation,
   apiPostPassword,
   apiPostSigninToTokenAndGetUserAuth,
 };

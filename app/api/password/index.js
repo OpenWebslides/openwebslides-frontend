@@ -4,8 +4,8 @@ import post from './post';
 import patch from './patch';
 
 const passwordApi = {
-  post,
   patch,
+  post,
 };
 
 export default passwordApi;

@@ -15,16 +15,16 @@ import SidebarsMenu from './SidebarsMenu';
 import Sidebars from './Sidebars';
 
 const components = {
-  AuthWrapper,
-  UnauthWrapper,
   AuthMenu,
+  AuthWrapper,
   ResendConfirmationEmailCard,
   ResetPasswordCard,
   SendResetPasswordEmailCard,
+  Sidebars,
+  SidebarsMenu,
   SigninCard,
   SignupCard,
-  SidebarsMenu,
-  Sidebars,
+  UnauthWrapper,
 };
 
 /* istanbul ignore next */

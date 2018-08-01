@@ -9,10 +9,10 @@ import apiPostSigninToTokenAndGetUserAuth from './apiPostSigninToTokenAndGetUser
 
 const apiSagaActions = {
   apiDeleteToken,
-  apiPostConfirmation,
   apiPatchConfirmation,
-  apiPostPassword,
   apiPatchPassword,
+  apiPostConfirmation,
+  apiPostPassword,
   apiPostSigninToTokenAndGetUserAuth,
 };
 
