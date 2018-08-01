@@ -18,11 +18,11 @@ const apiPatchConfirmation = function* (
     const { confirmationToken } = action.payload;
     yield call(api.confirmation.patch, confirmationToken);
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
-    yield put(flashMessage('platform:api.confirmation.patch.success'));
+    yield put(flashMessage('api:confirmation.patch.success'));
   }
   catch (error) {
     yield put(apiRequestsStatus.actions.setFailure(action.type, error));
-    yield put(flashErrorMessage('platform:api.confirmation.patch.failure'));
+    yield put(flashErrorMessage('api:confirmation.patch.failure'));
   }
 };
 

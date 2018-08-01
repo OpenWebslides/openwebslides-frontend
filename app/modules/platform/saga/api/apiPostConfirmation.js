@@ -18,11 +18,11 @@ const apiPostConfirmation = function* (
     const { email } = action.payload;
     yield call(api.confirmation.post, email);
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
-    yield put(flashMessage('platform:api.confirmation.post.success'));
+    yield put(flashMessage('api:confirmation.post.success'));
   }
   catch (error) {
     yield put(apiRequestsStatus.actions.setFailure(action.type, error));
-    yield put(flashErrorMessage('platform:api.confirmation.post.failure'));
+    yield put(flashErrorMessage('api:confirmation.post.failure'));
   }
 };
 

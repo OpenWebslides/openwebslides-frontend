@@ -18,11 +18,11 @@ const apiPatchPassword = function* (
     const { password, resetPasswordToken } = action.payload;
     yield call(api.password.patch, password, resetPasswordToken);
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
-    yield put(flashMessage('platform:api.password.patch.success'));
+    yield put(flashMessage('api:password.patch.success'));
   }
   catch (error) {
     yield put(apiRequestsStatus.actions.setFailure(action.type, error));
-    yield put(flashErrorMessage('platform:api.password.patch.failure'));
+    yield put(flashErrorMessage('api:password.patch.failure'));
   }
 };
 

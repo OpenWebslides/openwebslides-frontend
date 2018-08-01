@@ -18,11 +18,11 @@ const apiPostPassword = function* (
     const { email } = action.payload;
     yield call(api.password.post, email);
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
-    yield put(flashMessage('platform:api.password.post.success'));
+    yield put(flashMessage('api:password.post.success'));
   }
   catch (error) {
     yield put(apiRequestsStatus.actions.setFailure(action.type, error));
-    yield put(flashErrorMessage('platform:api.password.post.failure'));
+    yield put(flashErrorMessage('api:password.post.failure'));
   }
 };
 
