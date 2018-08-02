@@ -13,9 +13,8 @@ describe(`api.topics.getContent`, (): void => {
 
   it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyTopicId = 'ThisIsAnId';
-    const dummyToken = 'foobarToken';
     fetch.mockResponseOnce('', { status: 200 });
-    await api.topics.getContent(dummyTopicId, dummyToken);
+    await api.topics.getContent(dummyTopicId);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
@@ -25,7 +24,6 @@ describe(`api.topics.getContent`, (): void => {
     expect(mockUrl).toBe(`${API_URL}/topics/${dummyTopicId}/content`);
     expect(mockOptions.method).toBe(httpMethods.GET);
     expect(mockOptions.body).toBeNull();
-    expect(mockOptions.headers.Authorization).toBe(`Bearer ${dummyToken}`);
   });
 
 });

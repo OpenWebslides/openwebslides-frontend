@@ -1,13 +1,12 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { call, put, select } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 
-import { UnsupportedOperationError, UnexpectedHttpResponseError } from 'errors';
+import { UnexpectedHttpResponseError } from 'errors';
 import api from 'api';
 import { type ApiResponseData } from 'lib/ApiRequest';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
-import platform from 'modules/platform';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -18,12 +17,8 @@ const apiGetAllByTopicId = function* (action: a.ApiGetAllByTopicIdAction): Saga<
 
   try {
     const { topicId } = action.payload;
-    const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
-    if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
-    const responseData: ApiResponseData = yield call(
-      api.topics.getContent, topicId, userAuth.apiToken,
-    );
+    const responseData: ApiResponseData = yield call(api.topics.getContent, topicId);
     if (responseData.body == null) throw new UnexpectedHttpResponseError();
     const { attributes } = responseData.body.data;
 
