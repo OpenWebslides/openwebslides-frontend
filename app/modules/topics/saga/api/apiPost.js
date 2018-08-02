@@ -10,7 +10,7 @@ import platform from 'modules/platform';
 
 import * as a from '../../actionTypes';
 
-export const apiPostSaga = function* (action: a.ApiPostTopicAction): Saga<void> {
+const apiPost = function* (action: a.ApiPostAction): Saga<void> {
   const { userId, title, description } = action.payload;
   yield put(apiRequestsStatus.actions.setPending(action.type));
 
@@ -27,3 +27,5 @@ export const apiPostSaga = function* (action: a.ApiPostTopicAction): Saga<void> 
     yield put(apiRequestsStatus.actions.setFailure(action.type, error));
   }
 };
+
+export default apiPost;

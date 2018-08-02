@@ -10,7 +10,7 @@ import platform from 'modules/platform';
 import actions from '../../actions';
 import * as a from '../../actionTypes';
 
-export const apiDeleteSaga = function* (action: a.ApiDeleteTopicAction): Saga<void> {
+const apiDelete = function* (action: a.ApiDeleteAction): Saga<void> {
   try {
     const { id } = action.payload;
     const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
@@ -24,3 +24,5 @@ export const apiDeleteSaga = function* (action: a.ApiDeleteTopicAction): Saga<vo
     throw error;
   }
 };
+
+export default apiDelete;

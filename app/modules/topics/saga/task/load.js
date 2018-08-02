@@ -8,7 +8,7 @@ import contentItems from 'modules/contentItems';
 import actions from '../../actions';
 import * as a from '../../actionTypes';
 
-const loadSaga = function* (action: a.LoadContentAction): Saga<void> {
+const load = function* (action: a.LoadContentAction): Saga<void> {
   const {
     id,
   } = action.payload;
@@ -17,4 +17,4 @@ const loadSaga = function* (action: a.LoadContentAction): Saga<void> {
   yield put(contentItems.actions.apiGetAllByTopicId(id));
 };
 
-export default loadSaga;
+export default load;

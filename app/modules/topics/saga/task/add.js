@@ -10,14 +10,10 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 
 // eslint-disable-next-line require-yield
-const addSaga = function* (action: a.AddAction): Saga<void> {
-  const {
-    userId,
-    title,
-    description,
-  } = action.payload;
+const add = function* (action: a.AddAction): Saga<void> {
+  const { title, description, userId } = action.payload;
 
-  yield put(actions.apiPost(userId, title, description));
+  yield put(actions.apiPost(title, description, userId));
 
   // Wait for api request to complete #TODO use unique request identifiers for this
   yield take('apiRequestsStatus/SET_SUCCESS');
@@ -25,4 +21,4 @@ const addSaga = function* (action: a.AddAction): Saga<void> {
   yield put(push(USER_PROFILE_ROUTE));
 };
 
-export default addSaga;
+export default add;

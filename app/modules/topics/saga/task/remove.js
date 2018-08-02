@@ -7,7 +7,7 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 
 // eslint-disable-next-line require-yield
-const removeSaga = function* (action: a.RemoveAction): Saga<void> {
+const remove = function* (action: a.RemoveAction): Saga<void> {
   const {
     id,
   } = action.payload;
@@ -15,4 +15,4 @@ const removeSaga = function* (action: a.RemoveAction): Saga<void> {
   yield put(actions.apiDelete(id));
 };
 
-export default removeSaga;
+export default remove;

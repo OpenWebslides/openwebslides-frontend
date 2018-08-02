@@ -9,7 +9,7 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-export const apiGetSaga = function* (action: a.GetAction): Saga<void> {
+const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   try {
     const response = yield call(api.topics.get, action.payload.id);
 
@@ -28,3 +28,5 @@ export const apiGetSaga = function* (action: a.GetAction): Saga<void> {
     throw error;
   }
 };
+
+export default apiGet;
