@@ -12,8 +12,8 @@ import toggleEditing from './toggleEditing';
 const taskSagaActions = {
   add,
   edit,
-  move,
   indent,
+  move,
   remove,
   removeAndTogglePreviousItem,
   reverseIndent,

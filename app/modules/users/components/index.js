@@ -1,11 +1,11 @@
 // @flow
 
-import UserProfile from './UserProfile';
 import UserAccountMenu from './UserAccountMenu';
+import UserProfile from './UserProfile';
 
 const index = {
-  UserProfile,
   UserAccountMenu,
+  UserProfile,
 };
 
 /* istanbul ignore next */

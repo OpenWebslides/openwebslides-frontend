@@ -3,14 +3,14 @@
 import api from './api';
 import common from './common';
 import contentItems from './contentItems';
-import errors from './errors';
 import editor from './editor';
-import global from './global';
+import errors from './errors';
 import feed from './feed';
 import flash from './flash';
+import global from './global';
 import platform from './platform';
-import users from './users';
 import topics from './topics';
+import users from './users';
 
 const index = {
   api,
@@ -20,10 +20,10 @@ const index = {
   errors,
   feed,
   flash,
-  platform,
-  users,
   global,
+  platform,
   topics,
+  users,
 };
 
 export default index;

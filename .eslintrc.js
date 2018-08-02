@@ -350,6 +350,26 @@ module.exports = {
   'overrides': [
     {
       'files': [
+        '**/api/**/index.js',
+        '**/errors/**/index.js',
+        '**/i18n/**/index.js',
+        '**/modules/*/actions/*/index.js',
+        '**/modules/*/components/index.js',
+        '**/modules/*/saga/**/index.js',
+        '**/modules/*/selectors/index.js',
+        '**/store/rootReducer.js',
+        '**/store/modulesReducer.js',
+        '**/store/rootSaga.js',
+        '**/types/state.js',
+      ],
+      'rules': {
+        'sort-imports': 'error',
+        'sort-keys': 'error',
+        'flowtype/sort-keys': 'error',
+      },
+    },
+    {
+      'files': [
         '*.test.js',
       ],
       'rules': {

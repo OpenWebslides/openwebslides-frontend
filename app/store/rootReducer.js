@@ -1,22 +1,24 @@
 // @flow
 
+/* eslint-disable sort-imports */
+
 /**
  * Sets up the root reducer.
  */
 
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 import { reducer as flashReducer } from 'redux-flash';
+import { reducer as formReducer } from 'redux-form';
 
-import modulesReducer from './modulesReducer';
 import errorReducer from './errorReducer';
+import modulesReducer from './modulesReducer';
 
 // Don't forget to edit types/state.js when a new state part is added here.
 const rootReducer = combineReducers({
-  modules: modulesReducer,
-  form: formReducer,
-  flash: flashReducer,
   error: errorReducer,
+  flash: flashReducer,
+  form: formReducer,
+  modules: modulesReducer,
 });
 
 export default rootReducer;

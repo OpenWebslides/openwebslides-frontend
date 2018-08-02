@@ -13,6 +13,8 @@ import { type UsersState } from 'modules/users/model';
 export type ErrorState = {||};
 
 export type State = {|
+  +error: {},
+  +form: {},
   +modules: {
     +apiRequestsStatus: ApiRequestsStatusState,
     +contentItems: ContentItemsState,
@@ -21,6 +23,4 @@ export type State = {|
     +topics: TopicsState,
     +users: UsersState,
   },
-  +form: {},
-  +error: {},
 |};

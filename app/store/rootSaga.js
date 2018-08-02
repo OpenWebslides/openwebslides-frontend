@@ -1,6 +1,6 @@
 // @flow
 
-/* eslint-disable import/no-internal-modules */
+/* eslint-disable import/no-internal-modules, sort-imports */
 // ^ note: make exception to the rule of only importing entire modules to avoid dependency cycles
 
 import { type Saga } from 'redux-saga';
