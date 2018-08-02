@@ -1,9 +1,11 @@
 // @flow
 
-import postEmail from './postEmail';
+import post from './post';
+import patch from './patch';
 
 const passwordApi = {
-  postEmail,
+  patch,
+  post,
 };
 
 export default passwordApi;

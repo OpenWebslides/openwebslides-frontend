@@ -1,7 +1,9 @@
 // @flow
 
 /**
- * API docs: #TODO
+ * PATCH normalized content on topics/content endpoint, update course content for a topic
+ *
+ * API docs: https://openwebslides.github.io/documentation/#update-topic-content
  */
 
 import contentItems from 'modules/contentItems';

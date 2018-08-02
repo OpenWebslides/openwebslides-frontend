@@ -12,9 +12,9 @@ describe(`api.confirmation.post`, (): void => {
   });
 
   it(`executes the correct fetch call`, async (): Promise<mixed> => {
-    const dummyConfirmationToken = 'foobarToken';
+    const dummyEmail = 'test@test.be';
     fetch.mockResponseOnce('', { status: 200 });
-    await api.confirmation.post(dummyConfirmationToken);
+    await api.confirmation.post(dummyEmail);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
@@ -27,7 +27,7 @@ describe(`api.confirmation.post`, (): void => {
       data: {
         type: 'confirmations',
         attributes: {
-          confirmation_token: dummyConfirmationToken,
+          email: dummyEmail,
         },
       },
     });

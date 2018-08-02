@@ -2,11 +2,12 @@
 
 import * as a from '../../actionTypes';
 
-const resetPassword = (email: string): a.ResetPasswordAction => {
+const resetPassword = (password: string, resetPasswordToken: string): a.ResetPasswordAction => {
   return {
     type: a.RESET_PASSWORD,
     payload: {
-      email,
+      password,
+      resetPasswordToken,
     },
   };
 };

@@ -1,6 +1,9 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+import { push } from 'connected-react-router';
+
+import * as paths from 'config/routes';
 
 import actions from '../../actions';
 
@@ -8,17 +11,21 @@ import { sagas } from '..';
 
 describe(`resetPassword`, (): void => {
 
-  let dummyEmail: string;
+  let dummyPassword: string;
+  let dummyResetPasswordToken: string;
 
   beforeEach((): void => {
-    dummyEmail = 'test@test.be';
+    dummyResetPasswordToken = 'foobarToken';
+    dummyPassword = 'P@ssword1';
   });
 
-  it(`puts an apiPostPassword action`, (): void => {
-    const dummyAction = actions.resetPassword(dummyEmail);
+  it(`puts an apiPatchPassword action and redirects to signin on successful request`, (): void => {
+    const dummyAction = actions.resetPassword(dummyPassword, dummyResetPasswordToken);
 
     return expectSaga(sagas.resetPassword, dummyAction)
-      .put(actions.apiPostEmailToPassword(dummyEmail))
+      .put(actions.apiPatchPassword(dummyPassword, dummyResetPasswordToken))
+      .dispatch({ type: 'apiRequestsStatus/SET_SUCCESS' })
+      .put(push(paths.AUTH_SIGNIN_ROUTE))
       .run();
   });
 

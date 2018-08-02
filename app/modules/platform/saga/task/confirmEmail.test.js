@@ -1,6 +1,9 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+import { push } from 'connected-react-router';
+
+import * as paths from 'config/routes';
 
 import actions from '../../actions';
 
@@ -14,11 +17,13 @@ describe(`confirmEmail`, (): void => {
     dummyConfirmationToken = 'foobarToken';
   });
 
-  it(`puts an apiPostConfirmation action`, (): void => {
+  it(`puts an apiPatchConfirmation action and redirects to signin on successful request`, (): void => {
     const dummyAction = actions.confirmEmail(dummyConfirmationToken);
 
     return expectSaga(sagas.confirmEmail, dummyAction)
-      .put(actions.apiPostConfirmation(dummyConfirmationToken))
+      .put(actions.apiPatchConfirmation(dummyConfirmationToken))
+      .dispatch({ type: 'apiRequestsStatus/SET_SUCCESS' })
+      .put(push(paths.AUTH_SIGNIN_ROUTE))
       .run();
   });
 

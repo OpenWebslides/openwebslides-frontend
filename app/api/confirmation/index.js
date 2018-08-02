@@ -1,11 +1,11 @@
 // @flow
 
 import post from './post';
-import postEmail from './postEmail';
+import patch from './patch';
 
 const confirmationApi = {
+  patch,
   post,
-  postEmail,
 };
 
 export default confirmationApi;

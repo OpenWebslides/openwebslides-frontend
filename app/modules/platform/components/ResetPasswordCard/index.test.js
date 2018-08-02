@@ -12,17 +12,25 @@ import ResetPasswordCard, { PureResetPasswordCard } from '.';
 
 describe(`ResetPasswordCard`, (): void => {
 
-  let dummyEmail: string;
+  let dummyPassword: string;
+  let dummyResetPasswordToken: string;
+
   let dummyDispatch: any;
 
   beforeEach((): void => {
-    dummyEmail = 'test@test.be';
+    dummyPassword = 'P@ssword1';
+    dummyResetPasswordToken = 'foobarToken';
+
     dummyDispatch = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureResetPasswordCard {...dummyProviderProps.translatorProps} onEmailFormSubmit={jest.fn()} />,
+      <PureResetPasswordCard
+        {...dummyProviderProps.translatorProps}
+        onResetPasswordFormSubmit={jest.fn()}
+        resetPasswordToken={dummyResetPasswordToken}
+      />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });
@@ -30,25 +38,29 @@ describe(`ResetPasswordCard`, (): void => {
   it(`dispatches a resetPassword action, when its form is submitted with complete values`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyDispatch={dummyDispatch}>
-        <ResetPasswordCard />
+        <ResetPasswordCard
+          resetPasswordToken={dummyResetPasswordToken}
+        />
       </DummyProviders>,
     );
-    const onEmailFormSubmit = enzymeWrapper.find('PureResetPasswordCard').props().onEmailFormSubmit;
+    const onResetPasswordFormSubmit = enzymeWrapper.find('PureResetPasswordCard').props().onResetPasswordFormSubmit;
 
-    onEmailFormSubmit({ email: dummyEmail });
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.resetPassword(dummyEmail));
+    onResetPasswordFormSubmit({ password: dummyPassword, resetPasswordToken: dummyResetPasswordToken });
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.resetPassword(dummyPassword, dummyResetPasswordToken));
   });
 
   it(`throws an InvalidArgumentError, when its form is submitted with incomplete values`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyDispatch={dummyDispatch}>
-        <ResetPasswordCard />
+        <ResetPasswordCard
+          resetPasswordToken={dummyResetPasswordToken}
+        />
       </DummyProviders>,
     );
-    const onEmailFormSubmit = enzymeWrapper.find('PureResetPasswordCard').props().onEmailFormSubmit;
+    const onResetPasswordFormSubmit = enzymeWrapper.find('PureResetPasswordCard').props().onResetPasswordFormSubmit;
 
     expect((): void => {
-      onEmailFormSubmit({});
+      onResetPasswordFormSubmit({});
     }).toThrow(InvalidArgumentError);
   });
 

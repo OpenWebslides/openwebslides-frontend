@@ -8,7 +8,7 @@ import { type ContextRouter as RouterProps } from 'react-router-dom';
 
 import { type Action } from 'types/action';
 import { InvalidArgumentError } from 'errors';
-import PageWrapper from 'components/PageWrapper';
+import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
 
@@ -30,16 +30,20 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
 
 class PureConfirmEmailPage extends React.Component<Props> {
   componentDidMount(): void {
-    const { match, confirmEmail } = this.props;
-    if (match.params.confirmationToken == null) throw new InvalidArgumentError(`This shouldn't happen.`);
-    confirmEmail(match.params.confirmationToken);
+    const { location, confirmEmail } = this.props;
+    const params = new URLSearchParams(location.search);
+    const confirmationToken = params.get('confirmationToken');
+
+    if (!confirmationToken) throw new InvalidArgumentError(`Invalid confirmationToken`);
+
+    confirmEmail(confirmationToken);
   }
 
   render(): React.Node {
     return (
-      <PageWrapper>
+      <ContainerPageWrapper>
         <ApiDimmer requestIds={[platform.actions.apiPostConfirmation('dummy').type]} />
-      </PageWrapper>
+      </ContainerPageWrapper>
     );
   }
 }

@@ -27,18 +27,18 @@ describe(`ConfirmEmailPage`, (): void => {
         apiRequestsStatus: {},
         platform: { userAuth: null },
       },
+      flash: {
+        messages: [],
+      },
     };
   });
 
   it(`renders without errors`, (): void => {
     const fixedDummyRouterProps = {
       ...dummyProviderProps.routerProps,
-      match: {
-        ...dummyProviderProps.routerProps.match,
-        params: {
-          ...dummyProviderProps.routerProps.match.params,
-          confirmationToken: dummyConfirmationToken,
-        },
+      location: {
+        ...dummyProviderProps.routerProps.location,
+        search: `?confirmationToken=${dummyConfirmationToken}`,
       },
     };
 
@@ -55,12 +55,9 @@ describe(`ConfirmEmailPage`, (): void => {
   it(`dispatches a confirmEmail() action with the passed confirmationToken`, (): void => {
     const fixedDummyRouterProps = {
       ...dummyProviderProps.routerProps,
-      match: {
-        ...dummyProviderProps.routerProps.match,
-        params: {
-          ...dummyProviderProps.routerProps.match.params,
-          confirmationToken: dummyConfirmationToken,
-        },
+      location: {
+        ...dummyProviderProps.routerProps.location,
+        search: `?confirmationToken=${dummyConfirmationToken}`,
       },
     };
 

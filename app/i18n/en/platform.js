@@ -27,13 +27,20 @@ const platform = {
       signin: 'Sign in',
     },
   },
-  resetPasswordCard: {
-    title: 'Reset password',
-    description: 'Enter your email address to reset your password.',
+  sendResetPasswordEmailCard: {
+    title: 'Send reset password email',
+    description: 'Enter your email address to send an email containing instructions for resetting your password.',
   },
   resendConfirmationEmailCard: {
     title: 'Resend confirmation email',
-    description: 'Enter your email address to resend the confirmation email.',
+    description: 'Enter your email address to resend the email containing instructions to confirm your account.',
+  },
+  resetPasswordCard: {
+    title: 'Reset account password',
+    description: 'Enter a new password below to reset your account password.',
+    button: {
+      submit: 'Reset password',
+    },
   },
 };
 

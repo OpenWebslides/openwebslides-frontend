@@ -9,7 +9,7 @@ import { Card, Button, Icon } from 'semantic-ui-react';
 
 import { type Action } from 'types/action';
 import {
-  AUTH_SIGNUP_ROUTE, AUTH_RESET_PASSWORD_ROUTE, AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE,
+  AUTH_SIGNUP_ROUTE, AUTH_SEND_RESET_PASSWORD_EMAIL_ROUTE, AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE,
 } from 'config/routes';
 import { InvalidArgumentError } from 'errors';
 import EmailAndPasswordForm, { type EmailAndPasswordFormValues } from 'forms/EmailAndPasswordForm';
@@ -69,7 +69,7 @@ const PureSigninCard = (props: Props): React.Node => {
       </Card.Content>
       <Card.Content>
         <Button.Group fluid={true} vertical={true} basic={true}>
-          <Button as={Link} to={AUTH_RESET_PASSWORD_ROUTE}>
+          <Button as={Link} to={AUTH_SEND_RESET_PASSWORD_EMAIL_ROUTE}>
             {t('platform:signinCard.link.forgotPassword')}
           </Button>
           <Button as={Link} to={AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE}>

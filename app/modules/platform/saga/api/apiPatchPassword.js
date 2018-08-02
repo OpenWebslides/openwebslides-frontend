@@ -1,5 +1,6 @@
 // @flow
 
+import { flashMessage, flashErrorMessage } from 'redux-flash';
 import { type Saga } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
@@ -8,19 +9,21 @@ import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import * as a from '../../actionTypes';
 
-const apiPostEmailToConfirmation = function* (
-  action: a.ApiPostEmailToConfirmationAction,
+const apiPatchPassword = function* (
+  action: a.ApiPatchPasswordAction,
 ): Saga<void> {
   yield put(apiRequestsStatus.actions.setPending(action.type));
 
   try {
-    const { email } = action.payload;
-    yield call(api.confirmation.postEmail, email);
+    const { password, resetPasswordToken } = action.payload;
+    yield call(api.password.patch, password, resetPasswordToken);
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
+    yield put(flashMessage('api:password.patch.success'));
   }
   catch (error) {
     yield put(apiRequestsStatus.actions.setFailure(action.type, error));
+    yield put(flashErrorMessage('api:password.patch.failure'));
   }
 };
 
-export default apiPostEmailToConfirmation;
+export default apiPatchPassword;

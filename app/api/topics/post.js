@@ -1,7 +1,9 @@
 // @flow
 
 /**
- * API docs: #TODO
+ * POST on topics endpoint, create a new topic
+ *
+ * API docs: https://openwebslides.github.io/documentation/#create-a-topic
  */
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';

@@ -1,7 +1,9 @@
 // @flow
 
 /**
- * API docs: #TODO
+ * DELETE on topics endpoint, deletes a topic
+ *
+ * API documentation: https://openwebslides.github.io/documentation/#delete-a-topic
  */
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';

@@ -7,6 +7,7 @@ import UnauthWrapper from './UnauthWrapper';
 import AuthMenu from './AuthMenu';
 import ResendConfirmationEmailCard from './ResendConfirmationEmailCard';
 import ResetPasswordCard from './ResetPasswordCard';
+import SendResetPasswordEmailCard from './SendResetPasswordEmailCard';
 import SigninCard from './SigninCard';
 import SignupCard from './SignupCard';
 // Settings
@@ -14,15 +15,16 @@ import SidebarsMenu from './SidebarsMenu';
 import Sidebars from './Sidebars';
 
 const components = {
-  AuthWrapper,
-  UnauthWrapper,
   AuthMenu,
+  AuthWrapper,
   ResendConfirmationEmailCard,
   ResetPasswordCard,
+  SendResetPasswordEmailCard,
+  Sidebars,
+  SidebarsMenu,
   SigninCard,
   SignupCard,
-  SidebarsMenu,
-  Sidebars,
+  UnauthWrapper,
 };
 
 /* istanbul ignore next */

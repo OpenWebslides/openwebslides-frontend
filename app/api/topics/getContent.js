@@ -1,7 +1,9 @@
 // @flow
 
 /**
- * API docs: #TODO
+ * GET on topics/content endpoint, retrieve course content for a topic
+ *
+ * API docs: https://openwebslides.github.io/documentation/#get-topic-content
  */
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';

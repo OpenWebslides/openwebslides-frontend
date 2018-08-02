@@ -8,6 +8,7 @@ import * as a from '../../actionTypes';
 import confirmEmail from './confirmEmail';
 import resendConfirmationEmail from './resendConfirmationEmail';
 import resetPassword from './resetPassword';
+import sendResetPasswordEmail from './sendResetPasswordEmail';
 import signin from './signin';
 import signout from './signout';
 import signup from './signup';
@@ -18,6 +19,7 @@ const taskSaga = function* (): Saga<void> {
     takeEvery(a.CONFIRM_EMAIL, confirmEmail),
     takeEvery(a.RESEND_CONFIRMATION_EMAIL, resendConfirmationEmail),
     takeEvery(a.RESET_PASSWORD, resetPassword),
+    takeEvery(a.SEND_RESET_PASSWORD_EMAIL, sendResetPasswordEmail),
     takeEvery(a.SIGNIN, signin),
     takeEvery(a.SIGNOUT, signout),
     takeEvery(a.SIGNUP, signup),
@@ -29,6 +31,7 @@ const taskSagas = {
   confirmEmail,
   resendConfirmationEmail,
   resetPassword,
+  sendResetPasswordEmail,
   signin,
   signout,
   signup,
