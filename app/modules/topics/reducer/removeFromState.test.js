@@ -1,5 +1,6 @@
 // @flow
 
+import { ObjectNotFoundError } from 'errors';
 import { dummyTopicData } from 'lib/testResources';
 
 import * as a from '../actionTypes';
@@ -17,7 +18,7 @@ describe(`reducer`, (): void => {
     dummyTopic2 = { ...dummyTopicData.topic2 };
   });
 
-  it(`handles topic REMOVE_FROM_STATE action`, (): void => {
+  it(`removes the topic with the passed id from the state`, (): void => {
     const prevState: m.TopicsState = {
       byId: {
         [dummyTopic1.id]: dummyTopic1,
@@ -35,8 +36,30 @@ describe(`reducer`, (): void => {
         [dummyTopic1.id]: dummyTopic1,
       },
     };
+    const resultState = reducer(prevState, removeFromStateAction);
 
-    expect(reducer(prevState, removeFromStateAction)).toEqual(nextState);
+    expect(resultState).toEqual(nextState);
+    expect(resultState).not.toBe(prevState);
+    expect(resultState.byId).not.toBe(prevState.byId);
+  });
+
+  it(`throws an ObjectNotFoundError, when no topic with the passed id could be found in the state`, (): void => {
+    const prevState: m.TopicsState = {
+      byId: {
+        [dummyTopic1.id]: dummyTopic1,
+        [dummyTopic2.id]: dummyTopic2,
+      },
+    };
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
+      payload: {
+        id: 'InvalidId',
+      },
+    };
+
+    expect((): void => {
+      reducer(prevState, removeFromStateAction);
+    }).toThrow(ObjectNotFoundError);
   });
 
 });

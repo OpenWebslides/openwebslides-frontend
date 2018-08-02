@@ -8,7 +8,7 @@ describe(`reducer`, (): void => {
     const dummyAction: any = {
       type: 'DUMMY_ACTION',
     };
-    expect(reducer(undefined, dummyAction)).toEqual(initialState);
+    expect(reducer(undefined, dummyAction)).toBe(initialState);
   });
 
 });

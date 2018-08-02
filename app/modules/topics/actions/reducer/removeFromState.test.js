@@ -6,16 +6,22 @@ import actions from '..';
 
 describe(`removeFromState`, (): void => {
 
-  it(`returns a topic REMOVE_FROM_STATE action, when parameters are valid`, (): void => {
-    const id = 'abcdefghij';
+  let dummyId: string;
+
+  beforeEach((): void => {
+    dummyId = 'abcdefghij';
+  });
+
+  it(`returns a topic REMOVE_FROM_STATE action containing the passed arguments`, (): void => {
     const expectedAction: a.RemoveFromStateAction = {
       type: a.REMOVE_FROM_STATE,
       payload: {
-        id,
+        id: dummyId,
       },
     };
+    const actualAction = actions.removeFromState(dummyId);
 
-    expect(actions.removeFromState(id)).toEqual(expectedAction);
+    expect(actualAction).toEqual(expectedAction);
   });
 
 });

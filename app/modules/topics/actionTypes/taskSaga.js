@@ -31,8 +31,10 @@ export type EditAction = {|
   type: typeof EDIT,
   payload: {
     id: string,
-    title: ?string,
-    description: ?string,
+    editedProps: {|
+      title?: string,
+      description?: ?string,
+    |},
   },
 |};
 

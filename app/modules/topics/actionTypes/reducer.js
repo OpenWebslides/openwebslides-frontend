@@ -18,8 +18,10 @@ export type EditInStateAction = {|
   type: typeof EDIT_IN_STATE,
   payload: {
     id: string,
-    title: ?string,
-    description: ?string,
+    editedProps: {|
+      title?: string,
+      description?: ?string,
+    |},
   },
 |};
 
