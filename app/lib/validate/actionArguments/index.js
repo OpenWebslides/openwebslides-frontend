@@ -16,6 +16,7 @@ const defaultActionArgumentsValidationOptions: ActionArgumentsValidationOptions 
   trimString: true,
 };
 
+// #TODO remove in favor of validateStringProps
 const validateActionArguments = (
   argsObject: {},
   argsKeys: $ReadOnlyArray<string>,
