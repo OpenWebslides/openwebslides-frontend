@@ -14,7 +14,12 @@ const save = function* (action: a.SaveContentAction): Saga<void> {
   const { id } = action.payload;
   const topic: ?m.Topic = yield select(selectors.getById, { id });
   if (topic == null) throw new ObjectNotFoundError(`topics:topic`, id);
-  yield put(contentItems.actions.apiPatchAllByTopicIdAndRoot(id, topic.rootContentItemId));
+
+  // #TODO save topic title & description
+
+  if (topic.rootContentItemId != null) {
+    yield put(contentItems.actions.apiPatchAllByTopicIdAndRoot(id, topic.rootContentItemId));
+  }
 };
 
 export default save;

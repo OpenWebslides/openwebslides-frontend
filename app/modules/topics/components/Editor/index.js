@@ -8,7 +8,7 @@ import { Button, Header } from 'semantic-ui-react';
 
 import { type State } from 'types/state';
 import { type Action } from 'types/action';
-import { ObjectNotFoundError } from 'errors';
+import { CorruptedInternalStateError } from 'errors';
 import contentItems from 'modules/contentItems';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
@@ -21,7 +21,7 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  topic: m.Topic,
+  topic: ?m.Topic,
 |};
 
 type DispatchProps = {|
@@ -36,7 +36,6 @@ const { ApiDimmer } = apiRequestsStatus.components;
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { topicId } = props;
   const topic = selectors.getById(state, { id: topicId });
-  if (topic == null) throw new ObjectNotFoundError(`topics:topic`, topicId);
 
   return {
     topic,
@@ -67,46 +66,48 @@ class PureEditor extends React.Component<Props> {
     onSaveButtonClick(topicId);
   };
 
-  // const {
-  //   t,
-  //   topicId,
-  //   topic,
-  //   onSaveButtonClick,
-  //   onLoadButtonClick,
-  // } = props;
-
   render = (): React.Node => {
     const { t, topic } = this.props;
 
-    if (!topic) {
+    if (topic == null) {
       this.onLoadButtonClick();
 
       return (
         <div>
-          <ApiDimmer requestIds={['contentItems/API_GET_ALL_BY_TOPIC_ID']}>{t('editor:api.load.pending')}</ApiDimmer>
+          <ApiDimmer requestIds={['contentItems/API_GET_ALL_BY_TOPIC_ID']}>
+            {t('editor:api.load.pending')}
+          </ApiDimmer>
         </div>
       );
     }
+    else {
+      const { rootContentItemId } = topic;
+      if (rootContentItemId == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
 
-    return (
-      <div>
-        <Header as="h1">{topic.title}</Header>
+      return (
+        <div>
+          <Header as="h1">{topic.title}</Header>
 
-        <ApiDimmer requestIds={['contentItems/API_GET_ALL_BY_TOPIC_ID']}>{t('editor:api.load.pending')}</ApiDimmer>
-        <ApiDimmer requestIds={['contentItems/API_GET_ALL_BY_TOPIC_ID']}>{t('editor:api.save.pending')}</ApiDimmer>
+          <ApiDimmer requestIds={['contentItems/API_GET_ALL_BY_TOPIC_ID']}>
+            {t('editor:api.load.pending')}
+          </ApiDimmer>
+          <ApiDimmer requestIds={['contentItems/API_GET_ALL_BY_TOPIC_ID']}>
+            {t('editor:api.save.pending')}
+          </ApiDimmer>
 
-        <p>
-          <Button primary={true} onClick={this.onSaveButtonClick}>
-            {t('common:button.save')}
-          </Button>
-          <Button onClick={this.onLoadButtonClick}>
-            Load
-          </Button>
-        </p>
+          <p>
+            <Button primary={true} onClick={this.onSaveButtonClick}>
+              {t('common:button.save')}
+            </Button>
+            <Button onClick={this.onLoadButtonClick}>
+              Load
+            </Button>
+          </p>
 
-        <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
-      </div>
-    );
+          <ContentItemEditableDisplay contentItemId={rootContentItemId} />
+        </div>
+      );
+    }
   }
 }
 

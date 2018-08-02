@@ -18,7 +18,7 @@ type PassedProps = {|
 
 type StateProps = {|
   // A denormalized ROOT item containing the content to be displayed on this slide.
-  contentItemTreeRootItem: contentItems.model.DenormalizedRootContentItem,
+  contentItemTreeRootItem: ?contentItems.model.DenormalizedRootContentItem,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
@@ -29,31 +29,37 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const topic = selectors.getById(state, { id: topicId });
   if (topic == null) throw new ObjectNotFoundError('topics:topic', topicId);
 
-  const contentItemTreeRootItemId = topic.rootContentItemId;
-  const contentItemTreeRootItem = contentItems.selectors.getDenormalizedById(
-    state, { id: contentItemTreeRootItemId },
-  );
-
-  if (contentItemTreeRootItem == null) {
-    throw new CorruptedInternalStateError(`topic rootContentItem not found.`);
+  if (topic.rootContentItemId == null) {
+    return {
+      contentItemTreeRootItem: null,
+    };
   }
-  else if (contentItemTreeRootItem.type !== contentItems.model.contentItemTypes.ROOT) {
-    throw new CorruptedInternalStateError('Topic rootContentItem not a ROOT contentItem.');
-  }
+  else {
+    const contentItemTreeRootItemId = topic.rootContentItemId;
+    const contentItemTreeRootItem = contentItems.selectors.getDenormalizedById(
+      state, { id: contentItemTreeRootItemId },
+    );
 
-  return {
-    contentItemTreeRootItem,
-  };
+    if (contentItemTreeRootItem == null) {
+      throw new CorruptedInternalStateError(`Topic rootContentItem not found.`);
+    }
+    else if (contentItemTreeRootItem.type !== contentItems.model.contentItemTypes.ROOT) {
+      throw new CorruptedInternalStateError('Topic rootContentItem not a ROOT contentItem.');
+    }
+
+    return {
+      contentItemTreeRootItem,
+    };
+  }
 };
 
 const PureSlides = (props: Props): React.Node => {
   const { contentItemTreeRootItem } = props;
-  const contentItemsArray = split(contentItemTreeRootItem);
 
-  return (
+  return (contentItemTreeRootItem == null) ? null : (
     <div className="ows_slides_container">
       {
-        contentItemsArray.map((contentItem) => (
+        split(contentItemTreeRootItem).map((contentItem) => (
           <Slide key={contentItem.id} contentItem={contentItem} />
         ))
       }
