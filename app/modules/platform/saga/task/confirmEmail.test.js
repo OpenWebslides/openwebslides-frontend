@@ -17,7 +17,7 @@ describe(`confirmEmail`, (): void => {
     dummyConfirmationToken = 'foobarToken';
   });
 
-  it(`puts an apiPatchConfirmation action`, (): void => {
+  it(`puts an apiPatchConfirmation action and redirects to signin on successful request`, (): void => {
     const dummyAction = actions.confirmEmail(dummyConfirmationToken);
 
     return expectSaga(sagas.confirmEmail, dummyAction)

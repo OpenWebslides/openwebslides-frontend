@@ -17,7 +17,7 @@ describe(`resendConfirmationEmail`, (): void => {
     dummyEmail = 'test@test.be';
   });
 
-  it(`puts an apiPostConfirmation action and redirects on successful request`, (): void => {
+  it(`puts an apiPostConfirmation action and redirects to signin on successful request`, (): void => {
     const dummyAction = actions.resendConfirmationEmail(dummyEmail);
 
     return expectSaga(sagas.resendConfirmationEmail, dummyAction)

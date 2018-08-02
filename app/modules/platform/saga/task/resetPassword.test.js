@@ -19,7 +19,7 @@ describe(`resetPassword`, (): void => {
     dummyPassword = 'P@ssword1';
   });
 
-  it(`puts an apiPatchPassword action`, (): void => {
+  it(`puts an apiPatchPassword action and redirects to signin on successful request`, (): void => {
     const dummyAction = actions.resetPassword(dummyPassword, dummyResetPasswordToken);
 
     return expectSaga(sagas.resetPassword, dummyAction)

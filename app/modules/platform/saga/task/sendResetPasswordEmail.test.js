@@ -17,7 +17,7 @@ describe(`sendResetPasswordEmail`, (): void => {
     dummyEmail = 'test@test.be';
   });
 
-  it(`puts an apiPostPassword action`, (): void => {
+  it(`puts an apiPostPassword action and redirects to signin on successful request`, (): void => {
     const dummyAction = actions.sendResetPasswordEmail(dummyEmail);
 
     return expectSaga(sagas.sendResetPasswordEmail, dummyAction)
