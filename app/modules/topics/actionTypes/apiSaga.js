@@ -7,7 +7,6 @@
 
 export const API_DELETE: 'topics/API_DELETE' = 'topics/API_DELETE';
 export const API_GET: 'topics/API_GET' = 'topics/API_GET';
-export const API_GET_ALL_BY_USERID: 'topics/API_GET_ALL_BY_USERID' = 'topics/API_GET_ALL_BY_USERID';
 export const API_POST: 'topics/API_POST' = 'topics/API_POST';
 
 
@@ -27,13 +26,6 @@ export type ApiGetTopicAction = {|
   },
 |};
 
-export type ApiGetAllTopicsByUserIdAction = {|
-  type: typeof API_GET_ALL_BY_USERID,
-  payload: {
-    userId: string,
-  },
-|};
-
 export type ApiPostTopicAction = {|
   type: typeof API_POST,
   payload: {
@@ -49,5 +41,4 @@ export type ApiPostTopicAction = {|
 export type ApiSagaAction =
   | ApiDeleteTopicAction
   | ApiGetTopicAction
-  | ApiGetAllTopicsByUserIdAction
   | ApiPostTopicAction;

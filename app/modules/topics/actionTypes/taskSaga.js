@@ -9,7 +9,6 @@ export const ADD: 'topics/ADD' = 'topics/ADD';
 export const EDIT: 'topics/EDIT' = 'topics/EDIT';
 export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
 export const GET: 'topics/GET' = 'topics/GET';
-export const GET_ALL_BY_USERID: 'topics/GET_ALL_BY_USERID' = 'topics/GET_ALL_BY_USERID';
 export const SAVE: 'topics/SAVE' = 'topics/SAVE';
 export const LOAD: 'topics/LOAD' = 'topics/LOAD';
 
@@ -52,13 +51,6 @@ export type GetAction = {|
   },
 |};
 
-export type GetAllByUserIdAction = {|
-  type: typeof GET_ALL_BY_USERID,
-  payload: {
-    userId: string,
-  },
-|};
-
 export type SaveContentAction = {|
   type: typeof SAVE,
   payload: {
@@ -81,6 +73,5 @@ export type TaskSagaAction =
   | EditAction
   | RemoveAction
   | GetAction
-  | GetAllByUserIdAction
   | SaveContentAction
   | LoadContentAction;

@@ -28,27 +28,3 @@ export const apiGetSaga = function* (action: a.GetAction): Saga<void> {
     throw error;
   }
 };
-
-export const apiGetAllByUserIdSaga = function* (
-  action: a.GetAllByUserIdAction,
-): Saga<void> {
-  try {
-    const response = yield call(api.topics.getAllByUserId, action.payload.userId);
-
-    // eslint-disable-next-line flowtype/no-weak-types
-    const data = response.body.data.map((item: Object): m.Topic => {
-      return {
-        id: item.id,
-        title: item.attributes.title,
-        description: item.attributes.description,
-        rootContentItemId: 'w4lg2u0p1h', // TODO: can't find in api call response
-      };
-    });
-
-    yield put(actions.setMultipleInState(data));
-  }
-  catch (error) {
-    // TODO: fix saga error handling
-    throw error;
-  }
-};
