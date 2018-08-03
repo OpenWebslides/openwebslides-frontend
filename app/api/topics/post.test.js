@@ -17,7 +17,7 @@ describe(`api.topics.post`, (): void => {
     const dummyDescription = 'Topic description goes here';
     const dummyToken = 'foobarToken';
     fetch.mockResponseOnce('', { status: 200 });
-    await api.topics.post(dummyUserId, dummyTitle, dummyDescription, dummyToken);
+    await api.topics.post(dummyTitle, dummyDescription, dummyUserId, dummyToken);
 
     expect(fetch.mock.calls).toHaveLength(1);
 

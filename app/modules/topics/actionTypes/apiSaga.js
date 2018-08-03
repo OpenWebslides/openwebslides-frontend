@@ -5,33 +5,33 @@
 
 // Action constants --------------------------------------------------------------------------------
 
-export const API_DELETE: 'topics/API_DELETE' = 'topics/API_DELETE';
 export const API_GET: 'topics/API_GET' = 'topics/API_GET';
 export const API_POST: 'topics/API_POST' = 'topics/API_POST';
+export const API_DELETE: 'topics/API_DELETE' = 'topics/API_DELETE';
 
 
 // Action types ------------------------------------------------------------------------------------
 
-export type ApiDeleteTopicAction = {|
-  type: typeof API_DELETE,
-  payload: {
-    id: string,
-  },
-|};
-
-export type ApiGetTopicAction = {|
+export type ApiGetAction = {|
   type: typeof API_GET,
   payload: {
     id: string,
   },
 |};
 
-export type ApiPostTopicAction = {|
+export type ApiPostAction = {|
   type: typeof API_POST,
   payload: {
-    userId: string,
     title: string,
     description: ?string,
+    userId: string,
+  },
+|};
+
+export type ApiDeleteAction = {|
+  type: typeof API_DELETE,
+  payload: {
+    id: string,
   },
 |};
 
@@ -39,6 +39,6 @@ export type ApiPostTopicAction = {|
 // ApiSaga action ----------------------------------------------------------------------------------
 
 export type ApiSagaAction =
-  | ApiDeleteTopicAction
-  | ApiGetTopicAction
-  | ApiPostTopicAction;
+  | ApiGetAction
+  | ApiPostAction
+  | ApiDeleteAction;

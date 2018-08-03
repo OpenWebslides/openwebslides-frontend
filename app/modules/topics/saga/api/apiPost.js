@@ -11,15 +11,14 @@ import platform from 'modules/platform';
 import * as a from '../../actionTypes';
 
 const apiPost = function* (action: a.ApiPostAction): Saga<void> {
-  const { userId, title, description } = action.payload;
   yield put(apiRequestsStatus.actions.setPending(action.type));
 
   try {
+    const { userId, title, description } = action.payload;
     const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
     if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
-    // TODO: add rootContentItemId later
-    yield call(api.topics.post, userId, title, description, userAuth.apiToken);
+    yield call(api.topics.post, title, description, userId, userAuth.apiToken);
 
     yield put(apiRequestsStatus.actions.setSuccess(action.type));
   }

@@ -2,9 +2,7 @@
 
 import * as a from '../../actionTypes';
 
-const apiGet = (
-  id: string,
-): a.ApiGetTopicAction => {
+const apiGet = (id: string): a.ApiGetAction => {
   return {
     type: a.API_GET,
     payload: {

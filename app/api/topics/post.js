@@ -11,9 +11,9 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 import { TOPICS_ENDPOINT } from '../endpoints';
 
 const post = (
-  userId: string,
   title: string,
   description: ?string,
+  userId: string,
   token: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
