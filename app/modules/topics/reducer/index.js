@@ -2,14 +2,13 @@
 
 import * as a from '../actionTypes';
 import * as m from '../model';
-import { dummyTopicsById } from '../dummyData';
 
 import editInState from './editInState';
 import removeFromState from './removeFromState';
 import setMultipleInState from './setMultipleInState';
 
 const initialState: m.TopicsState = {
-  byId: dummyTopicsById,
+  byId: {},
 };
 
 const reducer = (state: m.TopicsState = initialState, action: a.ReducerAction): m.TopicsState => {

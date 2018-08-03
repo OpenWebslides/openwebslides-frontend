@@ -2,7 +2,6 @@
 
 import * as a from '../actionTypes';
 import * as m from '../model';
-import { dummyContentItemsById } from '../dummyData';
 
 import addToState from './addToState';
 import editPropsForTypeInState from './editPropsForTypeInState';
@@ -12,7 +11,7 @@ import removeFromState from './removeFromState';
 import setMultipleInState from './setMultipleInState';
 
 const initialState: m.ContentItemsState = {
-  byId: dummyContentItemsById,
+  byId: {},
 };
 
 const reducer = (
@@ -39,4 +38,5 @@ const reducer = (
   }
 };
 
+export { initialState };
 export default reducer;
