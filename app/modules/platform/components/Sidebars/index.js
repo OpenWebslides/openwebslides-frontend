@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { type State } from 'types/state';
-import { ObjectNotFoundError } from 'errors';
+import FetchWrapper from 'components/FetchWrapper';
 import topics from 'modules/topics';
 
 import * as m from '../../model';
@@ -17,41 +17,50 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  topic: topics.model.Topic,
   activeSidebarIds: $ReadOnlyArray<m.SidebarId>,
 |};
 
 type Props = {| ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
-  const { topicId } = props;
-  const topic = topics.selectors.getById(state, { id: topicId });
-  if (topic == null) throw new ObjectNotFoundError(`topics:topic`, topicId);
-
   return {
-    topic,
     activeSidebarIds: selectors.getSettingByKey(state, { key: 'activeSidebarIds' }),
   };
 };
 
-const PureSidebars = (props: Props): React.Node => {
-  const { topic, activeSidebarIds } = props;
-  let SidebarComponent: React.ComponentType<{| topic: topics.model.Topic |}>;
+class PureSidebars extends React.Component<Props> {
+  renderSidebars = (topic: topics.model.Topic): React.Node => {
+    const { activeSidebarIds } = this.props;
+    let SidebarComponent: React.ComponentType<{| topic: topics.model.Topic |}>;
 
-  return (
-    <div className="sidebars__grid">
-      { /* Reverse order so that newly activated sidebars appear to the left of existing ones */ }
-      {[...activeSidebarIds].reverse().map((sidebarId: m.SidebarId): React.Node => {
-        SidebarComponent = sidebarIdsToComponentsMap[sidebarId];
-        return (
-          <div key={sidebarId} className="sidebars__grid-item" data-test-id="sidebars-grid-item">
-            <SidebarComponent topic={topic} />
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+    return (
+      <div className="sidebars__grid">
+        {/* Reverse order so that newly activated sidebars appear to the left of existing ones */}
+        {[...activeSidebarIds].reverse().map((sidebarId: m.SidebarId): React.Node => {
+          SidebarComponent = sidebarIdsToComponentsMap[sidebarId];
+          return (
+            <div key={sidebarId} className="sidebars__grid-item" data-test-id="sidebars-grid-item">
+              <SidebarComponent topic={topic} />
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  render(): React.Node {
+    const { topicId } = this.props;
+
+    return (
+      <FetchWrapper
+        render={this.renderSidebars}
+        fetchId={topicId}
+        fetchAction={topics.actions.get}
+        fetchedPropSelector={topics.selectors.getById}
+      />
+    );
+  }
+}
 
 const Sidebars = connect(mapStateToProps)(PureSidebars);
 
