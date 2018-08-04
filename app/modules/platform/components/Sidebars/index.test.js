@@ -72,7 +72,7 @@ describe(`Sidebars`, (): void => {
       </DummyProviders>,
     );
 
-    expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.get(dummyTopic.id));
+    expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyTopic.id));
   });
 
 });

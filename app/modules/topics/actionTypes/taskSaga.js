@@ -8,7 +8,7 @@
 export const CREATE: 'topics/CREATE' = 'topics/CREATE';
 export const EDIT: 'topics/EDIT' = 'topics/EDIT';
 export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
-export const GET: 'topics/GET' = 'topics/GET';
+export const FETCH: 'topics/FETCH' = 'topics/FETCH';
 export const SAVE: 'topics/SAVE' = 'topics/SAVE';
 export const LOAD: 'topics/LOAD' = 'topics/LOAD';
 
@@ -42,8 +42,8 @@ export type RemoveAction = {|
   },
 |};
 
-export type GetAction = {|
-  type: typeof GET,
+export type FetchAction = {|
+  type: typeof FETCH,
   payload: {
     id: string,
   },
@@ -70,6 +70,6 @@ export type TaskSagaAction =
   | CreateAction
   | EditAction
   | RemoveAction
-  | GetAction
+  | FetchAction
   | SaveContentAction
   | LoadContentAction;

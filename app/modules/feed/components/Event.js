@@ -52,7 +52,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     fetchTopic: (id: string): void => {
       dispatch(
-        topics.actions.get(id),
+        topics.actions.fetch(id),
       );
     },
     fetchUser: (id: string): void => {

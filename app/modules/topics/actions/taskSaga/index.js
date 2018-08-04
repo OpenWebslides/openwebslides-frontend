@@ -2,7 +2,7 @@
 
 import create from './create';
 import edit from './edit';
-import get from './get';
+import fetch from './fetch';
 import load from './load';
 import remove from './remove';
 import save from './save';
@@ -10,7 +10,7 @@ import save from './save';
 const taskSagaActions = {
   create,
   edit,
-  get,
+  fetch,
   load,
   remove,
   save,

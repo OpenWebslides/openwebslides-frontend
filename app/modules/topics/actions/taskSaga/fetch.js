@@ -2,15 +2,13 @@
 
 import * as a from '../../actionTypes';
 
-const get = (
-  id: string,
-): a.GetAction => {
+const fetch = (id: string): a.FetchAction => {
   return {
-    type: a.GET,
+    type: a.FETCH,
     payload: {
       id,
     },
   };
 };
 
-export default get;
+export default fetch;

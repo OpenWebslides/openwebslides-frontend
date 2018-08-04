@@ -55,7 +55,7 @@ class PureSidebars extends React.Component<Props> {
       <FetchWrapper
         render={this.renderSidebars}
         fetchId={topicId}
-        fetchAction={topics.actions.get}
+        fetchAction={topics.actions.fetch}
         fetchedPropSelector={topics.selectors.getById}
       />
     );
