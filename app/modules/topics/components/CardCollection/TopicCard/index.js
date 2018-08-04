@@ -11,6 +11,7 @@ import { type State } from 'types/state';
 import { type Action } from 'types/action';
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import { ObjectNotFoundError } from 'errors';
+import makeRoute from 'lib/makeRoute';
 
 import actions from '../../../actions';
 import * as m from '../../../model';
@@ -77,12 +78,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
 
   render = (): React.Node => {
     const { open } = this.state;
-    const {
-      t,
-      topic,
-    } = this.props;
-
-    const topicId = topic.id;
+    const { t, topic } = this.props;
 
     return (
       <React.Fragment>
@@ -92,7 +88,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
             description={(topic.description != null) ? topic.description : `(${t('topics:noDescription')})`}
           />
           <Card.Content extra={true}>
-            <Link to={`${TOPIC_EDITOR_ROUTE}/${topicId}`}>
+            <Link to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}>
               <Button as="span" primary={true}>
                 Edit
               </Button>
