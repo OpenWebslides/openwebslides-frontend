@@ -5,7 +5,7 @@
 
 // Action constants --------------------------------------------------------------------------------
 
-export const ADD: 'topics/ADD' = 'topics/ADD';
+export const CREATE: 'topics/CREATE' = 'topics/CREATE';
 export const EDIT: 'topics/EDIT' = 'topics/EDIT';
 export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
 export const GET: 'topics/GET' = 'topics/GET';
@@ -15,14 +15,12 @@ export const LOAD: 'topics/LOAD' = 'topics/LOAD';
 
 // Action types ------------------------------------------------------------------------------------
 
-export type AddAction = {|
-  type: typeof ADD,
+export type CreateAction = {|
+  type: typeof CREATE,
   payload: {
-    id: string,
-    userId: string,
     title: string,
-    description: string,
-    rootContentItemId: string,
+    description: ?string,
+    userId: string,
   },
 |};
 
@@ -69,7 +67,7 @@ export type LoadContentAction = {|
 // TaskSaga action ---------------------------------------------------------------------------------
 
 export type TaskSagaAction =
-  | AddAction
+  | CreateAction
   | EditAction
   | RemoveAction
   | GetAction

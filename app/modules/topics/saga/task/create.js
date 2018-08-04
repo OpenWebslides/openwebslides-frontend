@@ -10,7 +10,7 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 
 // eslint-disable-next-line require-yield
-const add = function* (action: a.AddAction): Saga<void> {
+const create = function* (action: a.CreateAction): Saga<void> {
   const { title, description, userId } = action.payload;
 
   yield put(actions.apiPost(title, description, userId));
@@ -21,4 +21,4 @@ const add = function* (action: a.AddAction): Saga<void> {
   yield put(push(USER_PROFILE_ROUTE));
 };
 
-export default add;
+export default create;

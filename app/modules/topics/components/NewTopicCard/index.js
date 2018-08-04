@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
       title: string,
       description: string,
     ): void => {
-      dispatch(actions.add(userId, title, description));
+      dispatch(actions.create(title, description, userId));
     },
   };
 };

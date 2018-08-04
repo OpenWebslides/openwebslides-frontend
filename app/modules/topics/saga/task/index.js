@@ -7,7 +7,7 @@ import { all, takeEvery } from 'redux-saga/effects';
 
 import * as a from '../../actionTypes';
 
-import add from './add';
+import create from './create';
 import edit from './edit';
 import get from './get';
 import load from './load';
@@ -16,7 +16,7 @@ import save from './save';
 
 const taskSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.ADD, add),
+    takeEvery(a.CREATE, create),
     takeEvery(a.EDIT, edit),
     takeEvery(a.GET, get),
     takeEvery(a.LOAD, load),
@@ -26,7 +26,7 @@ const taskSaga = function* (): Saga<void> {
 };
 
 const taskSagas = {
-  add,
+  create,
   edit,
   get,
   load,
