@@ -39,13 +39,6 @@ const baseConfig = {
     historyApiFallback: true,
   },
 
-  plugins: [
-    // Automatically insert the webpack-generated app.bundle.js script into index.html
-    new HtmlWebpackPlugin({
-      template: path.join(paths.PUBLIC, 'index.html'),
-    }),
-  ],
-
   module: {
     rules: [
       // Transpile .js and .jsx files using Babel
@@ -120,6 +113,9 @@ const devConfig = {
   plugins: [
     // Include hot reloading functionality
     new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.join(paths.PUBLIC, 'index.dev.html'),
+    }),
   ],
 
   module: {
@@ -156,6 +152,9 @@ const prodConfig = {
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css',
       chunkFilename: '[id].[hash].css',
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(paths.PUBLIC, 'index.prod.html'),
     }),
   ],
 
