@@ -16,6 +16,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const RobotsTxtPlugin = require('robotstxt-webpack-plugin').default;
 
 // Path name constants
 const paths = {
@@ -85,6 +86,18 @@ const baseConfig = {
       },
     ],
   },
+
+  plugins: [
+    new RobotsTxtPlugin({
+      policy: [
+        {
+          userAgent: '*',
+          allow: '/',
+          disallow: ['/api', '/oauth'],
+        },
+      ],
+    }),
+  ],
 
   resolve: {
     // Enable importing files of these types without specifying their extentions
