@@ -8,7 +8,7 @@ import { DummyProviders } from 'lib/testResources';
 
 import FetchWrapper, { PureFetchWrapper } from '.';
 
-type DummyType = {| foo: string, bar: string |};
+type DummyType = {| foo: string, bar: string, fetchCondition: boolean |};
 
 describe(`FetchWrapper`, (): void => {
 
@@ -19,7 +19,7 @@ describe(`FetchWrapper`, (): void => {
   let dummyFetchedPropSelector: (state: State, { id: string }) => ?DummyType;
 
   beforeEach((): void => {
-    dummyFetchedProp = { foo: 'foo', bar: 'bar' };
+    dummyFetchedProp = { foo: 'foo', bar: 'bar', fetchCondition: false };
     dummyRender = jest.fn((fetchedProp: DummyType): React.Node => <p>{`${fetchedProp.foo}&${fetchedProp.bar}`}</p>);
     dummyFetchId = 'dummyId';
   });
@@ -84,6 +84,54 @@ describe(`FetchWrapper`, (): void => {
     expect(dummyFetchAction).toHaveBeenCalledTimes(0);
     expect(dummyRender).toHaveBeenCalledWith(dummyFetchedProp);
     expect(enzymeWrapper.find('PureFetchWrapper').text()).toContain('foo&bar');
+  });
+
+  it(`executes the passed fetchAction, when a custom fetchCondition returns TRUE`, (): void => {
+    dummyFetchAction = jest.fn();
+    dummyFetchedPropSelector = jest.fn((state: State, props: { id: string }): ?DummyType => {
+      const { id } = props;
+      if (id === dummyFetchId) return { ...dummyFetchedProp, fetchCondition: true };
+      else throw new Error(`This shouldnt happen`);
+    });
+    const dummyFetchCondition = jest.fn((fetchedProp: ?DummyType): boolean => (fetchedProp != null && fetchedProp.fetchCondition === true));
+
+    mount(
+      <DummyProviders>
+        <FetchWrapper
+          render={dummyRender}
+          fetchId={dummyFetchId}
+          fetchAction={dummyFetchAction}
+          fetchedPropSelector={dummyFetchedPropSelector}
+          fetchCondition={dummyFetchCondition}
+        />
+      </DummyProviders>,
+    );
+
+    expect(dummyFetchAction).toHaveBeenCalledWith(dummyFetchId);
+  });
+
+  it(`does not execute the passed fetchAction, when a custom fetchCondition returns FALSE`, (): void => {
+    dummyFetchAction = jest.fn();
+    dummyFetchedPropSelector = jest.fn((state: State, props: { id: string }): ?DummyType => {
+      const { id } = props;
+      if (id === dummyFetchId) return dummyFetchedProp;
+      else throw new Error(`This shouldnt happen`);
+    });
+    const dummyFetchCondition = jest.fn((fetchedProp: ?DummyType): boolean => (fetchedProp != null && fetchedProp.fetchCondition === true));
+
+    mount(
+      <DummyProviders>
+        <FetchWrapper
+          render={dummyRender}
+          fetchId={dummyFetchId}
+          fetchAction={dummyFetchAction}
+          fetchedPropSelector={dummyFetchedPropSelector}
+          fetchCondition={dummyFetchCondition}
+        />
+      </DummyProviders>,
+    );
+
+    expect(dummyFetchAction).toHaveBeenCalledTimes(0);
   });
 
 });

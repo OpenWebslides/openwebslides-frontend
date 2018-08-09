@@ -12,6 +12,10 @@ type PassedProps<T> = {|
   fetchId: string,
   fetchAction: (id: string) => Action,
   fetchedPropSelector: (state: State, { id: string }) => T,
+  // #TODO this should not be optional, since it has a default
+  // but flow doesn't seem to correctly interpret the defaultProps (perhaps because of the <T>),
+  // so we make this optional so that we only need one a single flowfixme.
+  fetchCondition?: (fetchedProp: ?T) => boolean,
 |};
 
 type StateProps<T> = {|
@@ -47,9 +51,14 @@ const mapDispatchToProps = <T>(
 };
 
 class PureFetchWrapper<T> extends React.Component<Props<T>> {
+  static defaultProps = {
+    fetchCondition: (fetchedProp: ?T): boolean => (fetchedProp == null),
+  };
+
   componentDidMount(): void {
-    const { fetchedProp, fetch } = this.props;
-    if (fetchedProp == null) fetch();
+    const { fetchedProp, fetchCondition, fetch } = this.props;
+    // $FlowFixMe see note on PassedProps above
+    if (fetchCondition(fetchedProp)) fetch();
   }
 
   render(): React.Node {
