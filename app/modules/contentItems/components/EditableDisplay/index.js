@@ -7,7 +7,6 @@ import { type Dispatch } from 'redux';
 
 import { type State } from 'types/state';
 import { type Action } from 'types/action';
-import { ObjectNotFoundError } from 'errors';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -20,7 +19,7 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  contentItem: m.ContentItem,
+  contentItem: ?m.ContentItem,
 |};
 
 type DispatchProps = {|
@@ -49,14 +48,8 @@ const passThroughProps = [
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { contentItemId } = props;
-  const contentItem = selectors.getById(state, { id: contentItemId });
-
-  if (contentItem == null) {
-    throw new ObjectNotFoundError('contentItems:contentItem', props.contentItemId);
-  }
-
   return {
-    contentItem,
+    contentItem: selectors.getById(state, { id: contentItemId }),
   };
 };
 
@@ -107,52 +100,55 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): Dis
   };
 };
 
-const SubItemsEditableDisplay = (props: Props): React.Node => {
-  const { contentItem } = props;
-
-  if (contentItem.subItemIds == null) {
-    return null;
-  }
-  else if (contentItem.subItemIds.length === 0) {
-    return null;
-  }
-  else {
-    return (
-      <div
-        className="content-item-editable-display__sub-items"
-        data-test-id="content-item-editable-display__sub-items"
-      >
-        {contentItem.subItemIds.map(
-          (subItemId: string): React.Node => (
+class PureEditableDisplay extends React.Component<Props> {
+  renderSubItemsEditableDisplay = (contentItem: m.ContentItem): React.Node => {
+    if (
+      contentItem == null
+      || contentItem.subItemIds == null
+      || contentItem.subItemIds.length === 0
+    ) {
+      return null;
+    }
+    else {
+      return (
+        <div
+          className="content-item-editable-display__sub-items"
+          data-test-id="content-item-editable-display__sub-items"
+        >
+          {contentItem.subItemIds.map((subItemId: string): React.Node => (
             <EditableDisplay
-              {..._.pick(props, passThroughProps)}
+              {..._.pick(this.props, passThroughProps)}
               key={subItemId}
               contentItemId={subItemId}
             />
-          ),
-        )}
+          ))}
+        </div>
+      );
+    }
+  };
+
+  renderEditableDisplay = (contentItem: m.ContentItem): React.Node => {
+    const DisplayComponent = typesToComponentsMap[contentItem.type];
+
+    return (
+      <div
+        className="content-item-editable-display"
+        data-test-id="content-item-editable-display"
+      >
+        <DisplayComponent
+          {..._.pick(this.props, passThroughProps)}
+          contentItem={contentItem}
+        />
+        {this.renderSubItemsEditableDisplay(contentItem)}
       </div>
     );
+  };
+
+  render(): React.Node {
+    const { contentItem } = this.props;
+    return (contentItem == null) ? null : this.renderEditableDisplay(contentItem);
   }
-};
-
-const PureEditableDisplay = (props: Props): React.Node => {
-  const { contentItem } = props;
-  const DisplayComponent = typesToComponentsMap[contentItem.type];
-
-  return (
-    <div
-      className="content-item-editable-display"
-      data-test-id="content-item-editable-display"
-    >
-      <DisplayComponent
-        {..._.pick(props, passThroughProps)}
-        contentItem={contentItem}
-      />
-      <SubItemsEditableDisplay {...props} />
-    </div>
-  );
-};
+}
 
 const EditableDisplay = connect(mapStateToProps, mapDispatchToProps)(PureEditableDisplay);
 
