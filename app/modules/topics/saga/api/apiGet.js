@@ -18,7 +18,6 @@ import * as m from '../../model';
 const { contentItemTypes, contextTypes } = contentItems.model;
 
 const createInitialTopicRoot = function* (rootContentItemId: string): Saga<void> {
-  // #TODO move new rootContentItem generation to load saga
   yield put(contentItems.actions.addToState(
     rootContentItemId,
     contentItemTypes.ROOT,
@@ -47,9 +46,6 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   try {
     const { id } = action.payload;
     const topicsResponseData: ApiResponseData = yield call(api.topics.get, id);
-    // #TODO replace double request with setting rootContentItemId to NULL intially
-    // and then getting it on topic load, after proper saga communication has been implemented
-    // and it is possible for topics load saga to wait for contentItems apiGetAllByTopicId results
     const contentItemsResponseData: ApiResponseData = yield call(api.topics.getContent, id);
     if (topicsResponseData.body == null || contentItemsResponseData.body == null) {
       throw new UnexpectedHttpResponseError();

@@ -17,9 +17,7 @@ const save = function* (action: a.SaveContentAction): Saga<void> {
 
   // #TODO save topic title & description
 
-  if (topic.rootContentItemId != null) {
-    yield put(contentItems.actions.apiPatchAllByTopicIdAndRoot(id, topic.rootContentItemId));
-  }
+  yield put(contentItems.actions.apiPatchAllByTopicIdAndRoot(id, topic.rootContentItemId));
 };
 
 export default save;
