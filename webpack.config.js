@@ -87,18 +87,6 @@ const baseConfig = {
     ],
   },
 
-  plugins: [
-    new RobotsTxtPlugin({
-      policy: [
-        {
-          userAgent: '*',
-          allow: '/',
-          disallow: ['/api', '/oauth'],
-        },
-      ],
-    }),
-  ],
-
   resolve: {
     // Enable importing files of these types without specifying their extentions
     extensions: ['.js', '.jsx'],
@@ -168,6 +156,15 @@ const prodConfig = {
     }),
     new HtmlWebpackPlugin({
       template: path.join(paths.PUBLIC, 'index.prod.html'),
+    }),
+    new RobotsTxtPlugin({
+      policy: [
+        {
+          userAgent: '*',
+          allow: '/',
+          disallow: ['/api', '/oauth'],
+        },
+      ],
     }),
   ],
 
