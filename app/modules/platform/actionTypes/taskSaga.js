@@ -9,6 +9,7 @@ import * as m from '../model';
 
 // Authentication
 export const SIGNIN: 'platform/SIGNIN' = 'platform/SIGNIN';
+export const SIGNIN_SSO: 'platform/SIGNIN_SSO' = 'platform/SIGNIN_SSO';
 export const SIGNOUT: 'platform/SIGNOUT' = 'platform/SIGNOUT';
 export const SIGNUP: 'platform/SIGNUP' = 'platform/SIGNUP';
 export const CONFIRM_EMAIL: 'platform/CONFIRM_EMAIL' = 'platform/CONFIRM_EMAIL';
@@ -26,6 +27,14 @@ export type SigninAction = {|
   payload: {
     email: string,
     password: string,
+  },
+|};
+
+export type SigninSSOAction = {|
+  type: typeof SIGNIN_SSO,
+  payload: {
+    apiToken: string,
+    userId: string,
   },
 |};
 
@@ -84,6 +93,7 @@ export type ToggleSidebarAction = {|
 
 export type TaskSagaAction =
   | SigninAction
+  | SigninSSOAction
   | SignoutAction
   | SignupAction
   | ConfirmEmailAction
