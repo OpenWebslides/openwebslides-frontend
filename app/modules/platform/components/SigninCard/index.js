@@ -14,6 +14,7 @@ import {
   AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE,
   AUTH_SSO_GOOGLE,
   AUTH_SSO_FACEBOOK,
+  AUTH_SSO_UGENT,
 } from 'config/routes';
 import { InvalidArgumentError } from 'errors';
 import EmailAndPasswordForm, { type EmailAndPasswordFormValues } from 'forms/EmailAndPasswordForm';
@@ -83,11 +84,14 @@ const PureSigninCard = (props: Props): React.Node => {
       </Card.Content>
       <Card.Content>
         <Button.Group fluid={true} vertical={true} basic={true}>
-          <Button as={Link} to={AUTH_SSO_GOOGLE}>
+          <Button as="a" href={AUTH_SSO_GOOGLE}>
             {t('platform:signinCard.link.signinWithProvider', { provider: 'Google' })}
           </Button>
-          <Button as={Link} to={AUTH_SSO_FACEBOOK}>
+          <Button as="a" href={AUTH_SSO_FACEBOOK}>
             {t('platform:signinCard.link.signinWithProvider', { provider: 'Facebook' })}
+          </Button>
+          <Button as="a" href={AUTH_SSO_UGENT}>
+            {t('platform:signinCard.link.signinWithProvider', { provider: 'UGent CAS' })}
           </Button>
         </Button.Group>
       </Card.Content>
