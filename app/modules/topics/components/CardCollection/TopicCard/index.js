@@ -72,7 +72,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
       >
         <Modal.Header>{topic.title}</Modal.Header>
         <Modal.Content>
-          <p>{t(`topics:modal.remove.message`)}</p>
+          <p>{t(`topics:modals.remove.message`)}</p>
           <p>{t(`common:undoWarning`)}</p>
         </Modal.Content>
         <Modal.Actions>

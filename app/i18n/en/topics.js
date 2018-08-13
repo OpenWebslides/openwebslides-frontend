@@ -12,7 +12,7 @@ const topics = {
     title: 'Title',
     description: 'Description',
   },
-  modal: {
+  modals: {
     remove: {
       message: 'Are you sure you want to delete this topic?',
     },
