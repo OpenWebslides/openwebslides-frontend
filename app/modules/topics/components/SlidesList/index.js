@@ -7,9 +7,10 @@ import { connect } from 'react-redux';
 import { type State } from 'types/state';
 import contentItems from 'modules/contentItems';
 import contentItemSplit from 'lib/contentItemSplit';
-import Slide from 'components/Slide';
 
 import selectors from '../../selectors';
+
+import Slide from './Slide';
 
 type PassedProps = {|
   topicId: string,
@@ -41,11 +42,11 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   }
 };
 
-const PureSlides = (props: Props): React.Node => {
+const PureSlidesList = (props: Props): React.Node => {
   const { rootContentItems } = props;
 
   return (rootContentItems == null) ? null : (
-    <div className="ows_slides_container">
+    <div className="ows_slides_list">
       {rootContentItems.map((contentItem) => (
         <Slide key={contentItem.id} contentItem={contentItem} />
       ))}
@@ -53,7 +54,7 @@ const PureSlides = (props: Props): React.Node => {
   );
 };
 
-const Slides = connect(mapStateToProps)(translate()(PureSlides));
+const SlidesList = connect(mapStateToProps)(translate()(PureSlidesList));
 
-export { PureSlides };
-export default Slides;
+export { PureSlidesList };
+export default SlidesList;

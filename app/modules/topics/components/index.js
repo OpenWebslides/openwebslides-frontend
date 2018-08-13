@@ -3,13 +3,13 @@
 import CardCollection from './CardCollection';
 import Editor from './Editor';
 import NewTopicCard from './NewTopicCard';
-import Slides from './Slides';
+import SlidesList from './SlidesList';
 
 const index = {
   CardCollection,
   Editor,
   NewTopicCard,
-  Slides,
+  SlidesList,
 };
 
 /* istanbul ignore next */

@@ -9,9 +9,9 @@ import contentItems from 'modules/contentItems';
 
 import * as m from '../../model';
 
-import Slides, { PureSlides } from '.';
+import SlidesList, { PureSlidesList } from '.';
 
-describe(`Slides`, (): void => {
+describe(`SlidesList`, (): void => {
 
   let dummyHeading2: contentItems.model.HeadingContentItem;
   let dummyHeading1: contentItems.model.HeadingContentItem;
@@ -42,7 +42,7 @@ describe(`Slides`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureSlides
+      <PureSlidesList
         {...dummyProviderProps.translatorProps}
         topicId="dummyTopicId"
         rootContentItems={[]}
@@ -54,7 +54,7 @@ describe(`Slides`, (): void => {
   it(`renders a slide for each of the rootContentItems returned by the contentItemSplit function`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState}>
-        <Slides topicId={dummyTopic.id} />
+        <SlidesList topicId={dummyTopic.id} />
       </DummyProviders>,
     );
 
@@ -66,11 +66,11 @@ describe(`Slides`, (): void => {
   it(`renders NULL, when the topic for the passed id could not be found`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyEmptyState}>
-        <Slides topicId={dummyTopic.id} />
+        <SlidesList topicId={dummyTopic.id} />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('PureSlides').isEmptyRender()).toBe(true);
+    expect(enzymeWrapper.find('PureSlidesList').isEmptyRender()).toBe(true);
   });
 
 });

@@ -13,7 +13,7 @@ type PassedProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
-const { Slides } = topics.components;
+const { SlidesList } = topics.components;
 
 const PureSlidePreviewsSidebar = (props: Props): React.Node => {
   const { t, topic } = props;
@@ -24,7 +24,7 @@ const PureSlidePreviewsSidebar = (props: Props): React.Node => {
       header={t('topics:sidebars.slidePreviews.header')}
       icon="image"
     >
-      <Slides topicId={topic.id} />
+      <SlidesList topicId={topic.id} />
     </Sidebar>
   );
 };
