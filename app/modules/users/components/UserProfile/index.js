@@ -61,6 +61,7 @@ class PureUserProfile extends React.Component<Props> {
     return (
       <FetchWrapper
         render={this.renderUserProfile}
+        renderPropsAndState={this.props}
         fetchId={userId}
         fetchAction={actions.fetch}
         fetchedPropSelector={selectors.getById}

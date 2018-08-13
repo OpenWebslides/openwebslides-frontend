@@ -47,6 +47,7 @@ class PureUserAccountMenu extends React.Component<Props> {
     return (
       <FetchWrapper
         render={this.renderUserAccountMenu}
+        renderPropsAndState={this.props}
         fetchId={userId}
         fetchAction={actions.fetch}
         fetchedPropSelector={selectors.getById}

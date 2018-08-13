@@ -28,6 +28,7 @@ describe(`FetchWrapper`, (): void => {
     const enzymeWrapper = shallow(
       <PureFetchWrapper
         render={dummyRender}
+        renderPropsAndState={{}}
         fetchId={dummyFetchId}
         fetchAction={jest.fn()}
         fetchedPropSelector={jest.fn()}
@@ -50,6 +51,7 @@ describe(`FetchWrapper`, (): void => {
       <DummyProviders>
         <FetchWrapper
           render={dummyRender}
+          renderPropsAndState={{}}
           fetchId={dummyFetchId}
           fetchAction={dummyFetchAction}
           fetchedPropSelector={dummyFetchedPropSelector}
@@ -74,6 +76,7 @@ describe(`FetchWrapper`, (): void => {
       <DummyProviders>
         <FetchWrapper
           render={dummyRender}
+          renderPropsAndState={{}}
           fetchId={dummyFetchId}
           fetchAction={dummyFetchAction}
           fetchedPropSelector={dummyFetchedPropSelector}
@@ -99,6 +102,7 @@ describe(`FetchWrapper`, (): void => {
       <DummyProviders>
         <FetchWrapper
           render={dummyRender}
+          renderPropsAndState={{}}
           fetchId={dummyFetchId}
           fetchAction={dummyFetchAction}
           fetchedPropSelector={dummyFetchedPropSelector}
@@ -123,6 +127,7 @@ describe(`FetchWrapper`, (): void => {
       <DummyProviders>
         <FetchWrapper
           render={dummyRender}
+          renderPropsAndState={{}}
           fetchId={dummyFetchId}
           fetchAction={dummyFetchAction}
           fetchedPropSelector={dummyFetchedPropSelector}
