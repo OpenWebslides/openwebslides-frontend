@@ -5,7 +5,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { type Dispatch } from 'redux';
-import { Card, Button, Modal, Icon } from 'semantic-ui-react';
+import { Button, Card, Icon, Modal } from 'semantic-ui-react';
 
 import { type Action } from 'types/action';
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
@@ -77,6 +77,15 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
         </Modal.Content>
         <Modal.Actions>
           <Button
+            icon={true}
+            labelPosition="left"
+            onClick={this.removeModalCancel}
+            data-test-id="topic-card-remove-modal-cancel-button"
+          >
+            <Icon name="cancel" />
+            {t(`common:button.cancel`)}
+          </Button>
+          <Button
             primary={true}
             icon={true}
             labelPosition="left"
@@ -85,15 +94,6 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
           >
             <Icon name="trash" />
             {t(`common:button.delete`)}
-          </Button>
-          <Button
-            icon={true}
-            labelPosition="left"
-            onClick={this.removeModalCancel}
-            data-test-id="topic-card-remove-modal-cancel-button"
-          >
-            <Icon name="cancel" />
-            {t(`common:button.cancel`)}
           </Button>
         </Modal.Actions>
       </Modal>
@@ -120,6 +120,15 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
           <Card.Content extra={true}>
             <div className="ui two buttons">
               <Button
+                onClick={this.showRemoveModal}
+                icon={true}
+                labelPosition="left"
+                data-test-id="topic-card-remove-button"
+              >
+                <Icon name="trash" />
+                {t('common:button.delete')}
+              </Button>
+              <Button
                 primary={true}
                 icon={true}
                 labelPosition="left"
@@ -128,15 +137,6 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
               >
                 <Icon name="pencil" />
                 Edit
-              </Button>
-              <Button
-                onClick={this.showRemoveModal}
-                icon={true}
-                labelPosition="left"
-                data-test-id="topic-card-remove-button"
-              >
-                <Icon name="trash" />
-                {t('common:button.delete')}
               </Button>
             </div>
           </Card.Content>
