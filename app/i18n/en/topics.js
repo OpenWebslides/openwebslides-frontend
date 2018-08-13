@@ -8,7 +8,7 @@ const topics = {
     noDescription: 'No description found',
     accessLevel: 'Access level',
   },
-  form: {
+  forms: {
     title: 'Title',
     description: 'Description',
   },
@@ -24,6 +24,10 @@ const topics = {
     slidePreviews: {
       header: 'Slide Previews',
     },
+  },
+  newTopicCard: {
+    title: 'Create a new topic',
+    description: 'Please fill out the following info to create new topic.',
   },
 };
 

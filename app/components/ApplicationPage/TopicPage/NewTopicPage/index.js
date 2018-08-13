@@ -31,7 +31,7 @@ const PureNewTopicPage = (props: Props): React.Node => {
   return (
     <AuthWrapper>
       <ContainerPageWrapper>
-        <NewTopicCard userId={currentUserId} />
+        { (currentUserId == null) ? null : <NewTopicCard userId={currentUserId} />}
       </ContainerPageWrapper>
     </AuthWrapper>
   );
