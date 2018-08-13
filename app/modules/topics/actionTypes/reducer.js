@@ -10,6 +10,7 @@ import * as m from '../model';
 export const EDIT_IN_STATE: 'topics/EDIT_IN_STATE' = 'topics/EDIT_IN_STATE';
 export const REMOVE_FROM_STATE: 'topics/REMOVE_FROM_STATE' = 'topics/REMOVE_FROM_STATE';
 export const SET_MULTIPLE_IN_STATE: 'topics/SET_MULTIPLE_IN_STATE' = 'topics/SET_MULTIPLE_IN_STATE';
+export const TOGGLE_CONTENT_FETCHED: 'topics/TOGGLE_CONTENT_FETCHED' = 'topics/TOGGLE_CONTENT_FETCHED';
 
 
 // Action types ------------------------------------------------------------------------------------
@@ -39,10 +40,18 @@ export type SetMultipleInStateAction = {|
   },
 |};
 
+export type ToggleContentFetchedAction = {|
+  type: typeof TOGGLE_CONTENT_FETCHED,
+  payload: {
+    id: string,
+  },
+|};
+
 
 // Reducer action ----------------------------------------------------------------------------------
 
 export type ReducerAction =
   | EditInStateAction
   | RemoveFromStateAction
-  | SetMultipleInStateAction;
+  | SetMultipleInStateAction
+  | ToggleContentFetchedAction;

@@ -5,6 +5,7 @@ export type Topic = {|
   +title: string,
   +description: ?string,
   +rootContentItemId: string,
+  +isContentFetched: boolean,
 |};
 
 // eslint-disable-next-line flowtype/require-exact-type

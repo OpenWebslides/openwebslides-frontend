@@ -76,7 +76,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.getContent, dummyId), dummyContentResponse],
       ])
       .call(api.topics.get, dummyId)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyContent[0].id }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyContent[0].id, isContentFetched: false }]))
       .run();
   });
 
@@ -101,7 +101,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.getContent, dummyId), dummyContentResponse],
       ])
       .call(api.topics.get, dummyId)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyGeneratedId1 }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyGeneratedId1, isContentFetched: false }]))
       .put(contentItems.actions.addToState(dummyGeneratedId1, contentItemTypes.ROOT, null, {}))
       .put(contentItems.actions.addToState(dummyGeneratedId2, contentItemTypes.HEADING, { contextType: contextTypes.PARENT, contextItemId: dummyGeneratedId1 }, { text: 'Placeholder' }))
       .run();

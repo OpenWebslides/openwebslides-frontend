@@ -15,6 +15,7 @@ const load = function* (action: a.LoadContentAction): Saga<void> {
 
   yield put(actions.apiGet(id));
   yield put(contentItems.actions.apiGetAllByTopicId(id));
+  yield put(actions.toggleContentFetched(id));
 };
 
 export default load;

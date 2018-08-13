@@ -71,6 +71,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
       title: topicAttributes.title,
       description: topicAttributes.description,
       rootContentItemId,
+      isContentFetched: false,
     };
 
     yield put(actions.setMultipleInState([topic]));
