@@ -21,6 +21,13 @@ const api = {
       failure: 'Failed to reset your account password.',
     },
   },
+  topic: {
+    save: {
+      pending: 'Saving...',
+      success: 'Topic saved',
+      failure: 'Failed to save topic',
+    },
+  },
 };
 
 export default api;

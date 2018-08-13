@@ -4,11 +4,10 @@ import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { Button, Header } from 'semantic-ui-react';
+import { Button, Header, Icon } from 'semantic-ui-react';
 
-import { type State } from 'types/state';
 import { type Action } from 'types/action';
-import { CorruptedInternalStateError } from 'errors';
+import FetchWrapper from 'components/FetchWrapper';
 import contentItems from 'modules/contentItems';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
 
@@ -20,98 +19,83 @@ type PassedProps = {|
   topicId: string,
 |};
 
-type StateProps = {|
-  topic: ?m.Topic,
-|};
-
 type DispatchProps = {|
-  onSaveButtonClick: (string) => void,
-  onLoadButtonClick: (string) => void,
+  onSave: () => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
 
 const { ApiDimmer } = apiRequestsStatus.components;
+const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
 
-const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
   const { topicId } = props;
-  const topic = selectors.getById(state, { id: topicId });
 
   return {
-    topic,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
-  return {
-    onSaveButtonClick: (id: string): void => {
-      dispatch(actions.save(id));
-    },
-    onLoadButtonClick: (id: string): void => {
-      dispatch(actions.load(id));
+    onSave: (): void => {
+      dispatch(actions.save(topicId));
     },
   };
 };
-
-const ContentItemEditableDisplay = contentItems.components.EditableDisplay;
 
 class PureEditor extends React.Component<Props> {
-  onLoadButtonClick = (): void => {
-    const { topicId, onLoadButtonClick } = this.props;
-    onLoadButtonClick(topicId);
+  handleSaveButtonClick = (): void => {
+    const { onSave } = this.props;
+    onSave();
   };
 
-  onSaveButtonClick = (): void => {
-    const { topicId, onSaveButtonClick } = this.props;
-    onSaveButtonClick(topicId);
+  fetchCondition = (topic: ?m.Topic): boolean => {
+    return (topic == null || !topic.isContentFetched);
   };
 
-  render = (): React.Node => {
-    const { t, topic } = this.props;
+  renderEditor = (topic: m.Topic): React.Node => {
+    const { t } = this.props;
 
-    if (topic == null) {
-      this.onLoadButtonClick();
+    return (
+      <div data-test-id="topic-editor">
 
-      return (
-        <div>
-          <ApiDimmer requestIds={['contentItems/API_GET_ALL_BY_TOPIC_ID']}>
-            {t('editor:api.load.pending')}
-          </ApiDimmer>
+        <ApiDimmer requestIds={['contentItems/API_PATCH_ALL_BY_TOPIC_ID']}>
+          {t('api:topic.save.pending')}
+        </ApiDimmer>
+
+        <div style={{ overflow: 'hidden' }}>
+          <Header floated="left" as="h1">{topic.title}</Header>
+          <Button
+            floated="right"
+            primary={true}
+            icon={true}
+            labelPosition="left"
+            onClick={this.handleSaveButtonClick}
+            data-test-id="topic-editor-save-button"
+          >
+            <Icon name="save" />
+            {t('common:button.save')}
+          </Button>
         </div>
-      );
-    }
-    else {
-      const { rootContentItemId } = topic;
-      if (rootContentItemId == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
 
-      return (
-        <div>
-          <Header as="h1">{topic.title}</Header>
+        <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
 
-          <ApiDimmer requestIds={['contentItems/API_GET_ALL_BY_TOPIC_ID']}>
-            {t('editor:api.load.pending')}
-          </ApiDimmer>
-          <ApiDimmer requestIds={['contentItems/API_GET_ALL_BY_TOPIC_ID']}>
-            {t('editor:api.save.pending')}
-          </ApiDimmer>
+      </div>
+    );
+  };
 
-          <p>
-            <Button primary={true} onClick={this.onSaveButtonClick}>
-              {t('common:button.save')}
-            </Button>
-            <Button onClick={this.onLoadButtonClick}>
-              Load
-            </Button>
-          </p>
+  render(): React.Node {
+    const { topicId } = this.props;
 
-          <ContentItemEditableDisplay contentItemId={rootContentItemId} />
-        </div>
-      );
-    }
+    return (
+      <FetchWrapper
+        render={this.renderEditor}
+        renderPropsAndState={this.props}
+        fetchId={topicId}
+        fetchAction={actions.load}
+        fetchedPropSelector={selectors.getById}
+        fetchCondition={this.fetchCondition}
+      />
+    );
   }
 }
 
-const Editor = connect(mapStateToProps, mapDispatchToProps)(translate()(PureEditor));
+const Editor = connect(null, mapDispatchToProps)(translate()(PureEditor));
 
 export { PureEditor };
 export default Editor;

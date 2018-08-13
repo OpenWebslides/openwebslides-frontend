@@ -5,12 +5,17 @@ const topics = {
   props: {
     title: 'Title',
     description: 'Description',
+    noDescription: 'No description found',
     accessLevel: 'Access level',
   },
-  noDescription: 'No description found',
   form: {
     title: 'Title',
     description: 'Description',
+  },
+  modal: {
+    remove: {
+      message: 'Are you sure you want to delete this topic?',
+    },
   },
   sidebars: {
     topicInfo: {
