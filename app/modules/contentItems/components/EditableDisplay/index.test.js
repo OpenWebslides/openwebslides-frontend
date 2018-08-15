@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { ObjectNotFoundError } from 'errors';
 import { DummyProviders, dummyContentItemData as dummyData } from 'lib/testResources';
 
 import actions from '../../actions';
@@ -121,18 +120,15 @@ describe(`EditableDisplay`, (): void => {
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
   });
 
-  it(`throws an ObjectNotFoundError, when the passed contentItemId is invalid`, (): void => {
-    // Suppress console.error from mount $FlowFixMe
-    console.error = jest.fn();
-    expect((): void => {
-      mount(
-        <DummyProviders dummyState={dummyState}>
-          <EditableDisplay
-            contentItemId="DefinitelyNotValidId"
-          />
-        </DummyProviders>,
-      );
-    }).toThrow(ObjectNotFoundError);
+  it(`renders NULL, when the contentItem with the passed id could not be found`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState}>
+        <EditableDisplay
+          contentItemId="InvalidId"
+        />
+      </DummyProviders>,
+    );
+    expect(enzymeWrapper.find('PureEditableDisplay').isEmptyRender()).toBe(true);
   });
 
   it(`renders all of the contentItem's sub items, when the contentItem is subable and has sub items`, (): void => {

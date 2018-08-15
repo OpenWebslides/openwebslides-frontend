@@ -5,8 +5,8 @@
 import { type Saga } from 'redux-saga';
 import { all, call } from 'redux-saga/effects';
 
-import apiSaga from './api';
-import taskSaga from './task';
+import apiSaga, { apiSagas } from './api';
+import taskSaga, { taskSagas } from './task';
 
 const saga = function* (): Saga<void> {
   yield all([
@@ -15,4 +15,10 @@ const saga = function* (): Saga<void> {
   ]);
 };
 
+const sagas = {
+  ...apiSagas,
+  ...taskSagas,
+};
+
+export { sagas };
 export default saga;

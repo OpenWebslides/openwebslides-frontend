@@ -21,6 +21,8 @@ describe(`apiGet`, (): void => {
   let dummyName: string;
   let dummyGravatarHash: string;
   let dummyToken: string;
+  let dummyTopicId1: string;
+  let dummyTopicId2: string;
 
   beforeEach((): void => {
     dummyId = 'dummyUserId';
@@ -28,6 +30,8 @@ describe(`apiGet`, (): void => {
     dummyName = 'Test Tester';
     dummyGravatarHash = 'test';
     dummyToken = 'foobarToken';
+    dummyTopicId1 = 'dummyTopicId1';
+    dummyTopicId2 = 'dummyTopicId2';
   });
 
   it(`sends a GET request for the passed id to the uses API endpoint, processes the response and sets the user in the state`, (): void => {
@@ -42,6 +46,14 @@ describe(`apiGet`, (): void => {
             name: dummyName,
             gravatarHash: dummyGravatarHash,
           },
+          relationships: {
+            topics: {
+              data: [
+                { type: 'topics', id: dummyTopicId1 },
+                { type: 'topics', id: dummyTopicId2 },
+              ],
+            },
+          },
         },
       },
     };
@@ -52,7 +64,7 @@ describe(`apiGet`, (): void => {
         [call(api.users.get, dummyId, dummyToken), dummyApiResponse],
       ])
       .call(api.users.get, dummyId, dummyToken)
-      .put(actions.setMultipleInState([{ id: dummyId, email: dummyEmail, name: dummyName, gravatarHash: dummyGravatarHash }]))
+      .put(actions.setMultipleInState([{ id: dummyId, email: dummyEmail, name: dummyName, gravatarHash: dummyGravatarHash, topicIds: [dummyTopicId1, dummyTopicId2] }]))
       .run();
   });
 
@@ -67,6 +79,14 @@ describe(`apiGet`, (): void => {
             email: dummyEmail,
             name: dummyName,
             gravatarHash: dummyGravatarHash,
+          },
+          relationships: {
+            topics: {
+              data: [
+                { type: 'topics', id: dummyTopicId1 },
+                { type: 'topics', id: dummyTopicId2 },
+              ],
+            },
           },
         },
       },
@@ -113,6 +133,14 @@ describe(`apiGet`, (): void => {
             email: dummyEmail,
             name: dummyName,
             gravatarHash: dummyGravatarHash,
+          },
+          relationships: {
+            topics: {
+              data: [
+                { type: 'topics', id: dummyTopicId1 },
+                { type: 'topics', id: dummyTopicId2 },
+              ],
+            },
           },
         },
       },

@@ -52,7 +52,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
     fetchTopic: (id: string): void => {
       dispatch(
-        topics.actions.get(id),
+        topics.actions.fetch(id),
       );
     },
     fetchUser: (id: string): void => {
@@ -111,7 +111,7 @@ class PureEventWrapper extends React.Component<Props, State> {
             &nbsp;
             {t('feed:event.action', { context: `${event.predicate}` })}
             &nbsp;
-            <Link className="secondaryLink" to={`${TOPIC_EDITOR_ROUTE}/${topic.id}`}>
+            <Link className="secondaryLink" to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}>
               {topic.title}
             </Link>
           </Feed.Summary>

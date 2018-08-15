@@ -3,6 +3,7 @@
 import * as a from '../actionTypes';
 import * as m from '../model';
 
+import editTopicIdsInState from './editTopicIdsInState';
 import setMultipleInState from './setMultipleInState';
 
 const initialState: m.UsersState = {
@@ -14,6 +15,8 @@ const reducer = (
   action: a.ReducerAction,
 ): m.UsersState => {
   switch (action.type) {
+    case a.EDIT_TOPIC_IDS_IN_STATE:
+      return editTopicIdsInState(state, action);
     case a.SET_MULTIPLE_IN_STATE:
       return setMultipleInState(state, action);
     default:

@@ -5,12 +5,17 @@ const topics = {
   props: {
     title: 'Title',
     description: 'Description',
+    noDescription: 'No description found',
     accessLevel: 'Access level',
   },
-  noDescription: 'No description found',
-  form: {
+  forms: {
     title: 'Title',
     description: 'Description',
+  },
+  modals: {
+    remove: {
+      message: 'Are you sure you want to delete this topic?',
+    },
   },
   sidebars: {
     topicInfo: {
@@ -19,6 +24,10 @@ const topics = {
     slidePreviews: {
       header: 'Slide Previews',
     },
+  },
+  newTopicCard: {
+    title: 'Create a new topic',
+    description: 'Please fill out the following info to create new topic.',
   },
 };
 

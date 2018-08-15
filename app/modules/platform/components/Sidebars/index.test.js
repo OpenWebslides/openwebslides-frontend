@@ -45,7 +45,6 @@ describe(`Sidebars`, (): void => {
       <PureSidebars
         activeSidebarIds={[]}
         topicId={dummyTopic.id}
-        topic={dummyTopic}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -62,6 +61,18 @@ describe(`Sidebars`, (): void => {
 
     expect(sidebarsGridItemNodes.at(0).find('PureTopicInfoSidebar')).toHaveLength(1);
     expect(sidebarsGridItemNodes.at(1).find('PureSlidePreviewsSidebar')).toHaveLength(1);
+  });
+
+  it(`fetches the topic for the passed id, when the topic was not previously present in the state`, (): void => {
+    dummyState.modules.topics.byId = {};
+
+    mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Sidebars topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyTopic.id));
   });
 
 });

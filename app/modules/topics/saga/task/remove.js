@@ -3,16 +3,14 @@
 import { type Saga } from 'redux-saga';
 import { put } from 'redux-saga/effects';
 
+import actions from '../../actions';
 import * as a from '../../actionTypes';
-import { apiDelete } from '../../actions';
 
 // eslint-disable-next-line require-yield
-const removeSaga = function* (action: a.RemoveAction): Saga<void> {
-  const {
-    id,
-  } = action.payload;
-
-  yield put(apiDelete(id));
+const remove = function* (action: a.RemoveAction): Saga<void> {
+  const { id } = action.payload;
+  yield put(actions.apiDelete(id));
+  yield put(actions.removeFromState(id));
 };
 
-export default removeSaga;
+export default remove;

@@ -14,6 +14,7 @@ const get = (id: string, token: ?string): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.GET)
     .addPathSegment(USERS_ENDPOINT)
     .addPathSegment(id)
+    .setParameter('include', 'topics')
     .setToken(token)
     .execute();
 };

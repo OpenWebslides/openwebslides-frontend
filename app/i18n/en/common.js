@@ -20,6 +20,7 @@ const common = {
     delete: 'Delete',
   },
   loading: 'Loading...',
+  undoWarning: 'This action cannot be undone.',
 };
 
 export default common;

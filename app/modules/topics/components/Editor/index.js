@@ -1,0 +1,101 @@
+// @flow
+
+import * as React from 'react';
+import { translate, type TranslatorProps } from 'react-i18next';
+import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
+import { Button, Header, Icon } from 'semantic-ui-react';
+
+import { type Action } from 'types/action';
+import FetchWrapper from 'components/FetchWrapper';
+import contentItems from 'modules/contentItems';
+import apiRequestsStatus from 'modules/apiRequestsStatus';
+
+import actions from '../../actions';
+import * as m from '../../model';
+import selectors from '../../selectors';
+
+type PassedProps = {|
+  topicId: string,
+|};
+
+type DispatchProps = {|
+  onSave: () => void,
+|};
+
+type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
+
+const { ApiDimmer } = apiRequestsStatus.components;
+const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
+
+const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
+  const { topicId } = props;
+
+  return {
+    onSave: (): void => {
+      dispatch(actions.patchWithContent(topicId));
+    },
+  };
+};
+
+class PureEditor extends React.Component<Props> {
+  handleSaveButtonClick = (): void => {
+    const { onSave } = this.props;
+    onSave();
+  };
+
+  fetchCondition = (topic: ?m.Topic): boolean => {
+    return (topic == null || !topic.isContentFetched);
+  };
+
+  renderEditor = (topic: m.Topic): React.Node => {
+    const { t } = this.props;
+
+    return (
+      <div data-test-id="topic-editor">
+
+        <ApiDimmer requestIds={['contentItems/API_PATCH_ALL_BY_TOPIC_ID']}>
+          {t('api:topic.save.pending')}
+        </ApiDimmer>
+
+        <div style={{ overflow: 'hidden' }}>
+          <Header floated="left" as="h1">{topic.title}</Header>
+          <Button
+            floated="right"
+            primary={true}
+            icon={true}
+            labelPosition="left"
+            onClick={this.handleSaveButtonClick}
+            data-test-id="topic-editor-save-button"
+          >
+            <Icon name="save" />
+            {t('common:button.save')}
+          </Button>
+        </div>
+
+        <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
+
+      </div>
+    );
+  };
+
+  render(): React.Node {
+    const { topicId } = this.props;
+
+    return (
+      <FetchWrapper
+        render={this.renderEditor}
+        renderPropsAndState={this.props}
+        fetchId={topicId}
+        fetchAction={actions.fetchWithContent}
+        fetchedPropSelector={selectors.getById}
+        fetchCondition={this.fetchCondition}
+      />
+    );
+  }
+}
+
+const Editor = connect(null, mapDispatchToProps)(translate()(PureEditor));
+
+export { PureEditor };
+export default Editor;

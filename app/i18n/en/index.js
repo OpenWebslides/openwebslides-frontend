@@ -3,7 +3,6 @@
 import api from './api';
 import common from './common';
 import contentItems from './contentItems';
-import editor from './editor';
 import errors from './errors';
 import feed from './feed';
 import flash from './flash';
@@ -16,7 +15,6 @@ const index = {
   api,
   common,
   contentItems,
-  editor,
   errors,
   feed,
   flash,

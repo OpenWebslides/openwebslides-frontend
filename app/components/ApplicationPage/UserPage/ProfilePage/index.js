@@ -34,7 +34,6 @@ class PureProfilePage extends React.Component<Props> {
     const userId = match.params.userId;
 
     return (
-      // $FlowFixMe not sure how to tell Flow userId can never be undefined
       <UserProfile userId={userId} isCurrentUser={userId === currentUserId} />
     );
   };

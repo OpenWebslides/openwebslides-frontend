@@ -25,12 +25,13 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
 
     if (responseData.body == null) throw new UnexpectedHttpResponseError();
 
-    const { attributes } = responseData.body.data;
+    const { attributes, relationships } = responseData.body.data;
     const user: m.User = {
       id,
       email: attributes.email,
       name: attributes.name,
       gravatarHash: attributes.gravatarHash,
+      topicIds: relationships.topics.data.map((item: { type: string, id: string }) => item.id),
     };
     yield put(actions.setMultipleInState([user]));
 
