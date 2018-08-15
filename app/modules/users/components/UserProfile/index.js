@@ -2,9 +2,11 @@
 
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Divider, Item } from 'semantic-ui-react';
 
+import { type Action } from 'types/action';
 import FetchWrapper from 'components/FetchWrapper';
 import topics from 'modules/topics';
 
@@ -18,9 +20,23 @@ type PassedProps = {|
   isCurrentUser: boolean,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type DispatchProps = {|
+  removeTopicFromUser: (topicId: string) => void,
+|};
 
-const { CardCollection } = topics.components;
+type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
+
+const { CardCollection: TopicCardCollection } = topics.components;
+
+const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
+  const { userId } = props;
+
+  return {
+    removeTopicFromUser: (topicId: string): void => {
+      dispatch(actions.removeTopic(userId, topicId));
+    },
+  };
+};
 
 class PureUserProfile extends React.Component<Props> {
   static defaultProps = {
@@ -28,7 +44,7 @@ class PureUserProfile extends React.Component<Props> {
   };
 
   renderUserProfile = (user: m.User): React.Node => {
-    const { t, isCurrentUser } = this.props;
+    const { t, isCurrentUser, removeTopicFromUser } = this.props;
 
     return (
       <React.Fragment>
@@ -50,7 +66,11 @@ class PureUserProfile extends React.Component<Props> {
           </Item>
         </Item.Group>
         <Divider section={true} />
-        <CardCollection topicIds={user.topicIds} />
+        <TopicCardCollection
+          topicIds={user.topicIds}
+          isCurrentUser={isCurrentUser}
+          onRemoveTopic={removeTopicFromUser}
+        />
       </React.Fragment>
     );
   };
@@ -70,7 +90,7 @@ class PureUserProfile extends React.Component<Props> {
   }
 }
 
-const UserProfile = translate()(PureUserProfile);
+const UserProfile = translate()(connect(null, mapDispatchToProps)(PureUserProfile));
 
 export { PureUserProfile };
 export default UserProfile;

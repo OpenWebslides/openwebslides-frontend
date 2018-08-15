@@ -41,7 +41,7 @@ describe(`apiDelete`, (): void => {
     const dummyAction = actions.apiDelete(dummyId);
     const dummyApiResponse = { status: 204 };
 
-    return expectSaga(sagas.apiPost, dummyAction)
+    return expectSaga(sagas.apiDelete, dummyAction)
       .provide([
         [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
         [call(api.topics.delete, dummyId, dummyToken), dummyApiResponse],

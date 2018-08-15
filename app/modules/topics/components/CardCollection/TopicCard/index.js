@@ -2,12 +2,9 @@
 
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { type Dispatch } from 'redux';
 import { Button, Card, Icon, Modal } from 'semantic-ui-react';
 
-import { type Action } from 'types/action';
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 import makeRoute from 'lib/makeRoute';
@@ -18,27 +15,15 @@ import selectors from '../../../selectors';
 
 type PassedProps = {|
   topicId: string,
+  isCurrentUser: boolean,
+  onRemoveTopic: (topicId: string) => void,
 |};
 
-type DispatchProps = {|
-  onRemove: () => void,
-|};
-
-type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
+type Props = {| ...TranslatorProps, ...PassedProps |};
 
 type ComponentState = {|
   isRemoveModalOpen: boolean,
 |};
-
-const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
-  const { topicId } = props;
-
-  return {
-    onRemove: (): void => {
-      dispatch(actions.remove(topicId));
-    },
-  };
-};
 
 class PureTopicCard extends React.Component<Props, ComponentState> {
   state: ComponentState = {
@@ -50,8 +35,8 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
   };
 
   removeModalSubmit = (): void => {
-    const { onRemove } = this.props;
-    onRemove();
+    const { topicId, onRemoveTopic } = this.props;
+    onRemoveTopic(topicId);
     this.setState({ isRemoveModalOpen: false });
   };
 
@@ -100,6 +85,33 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
     );
   };
 
+  renderTopicCardButtons = (topic: m.Topic): React.Node => {
+    const { isCurrentUser } = this.props;
+
+    return (isCurrentUser === false) ? null : (
+      <Card.Content extra={true}>
+        <div className="ui two buttons">
+          <Button
+            onClick={this.showRemoveModal}
+            icon={true}
+            data-test-id="topic-card-remove-button"
+          >
+            <Icon name="trash" />
+          </Button>
+          <Button
+            primary={true}
+            icon={true}
+            as={Link}
+            to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}
+            data-test-id="topic-card-edit-button"
+          >
+            <Icon name="pencil" />
+          </Button>
+        </div>
+      </Card.Content>
+    );
+  };
+
   renderTopicCard = (topic: m.Topic): React.Node => {
     const { t } = this.props;
 
@@ -117,29 +129,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
               }
             </Card.Description>
           </Card.Content>
-          <Card.Content extra={true}>
-            <div className="ui two buttons">
-              <Button
-                onClick={this.showRemoveModal}
-                icon={true}
-                labelPosition="left"
-                data-test-id="topic-card-remove-button"
-              >
-                <Icon name="trash" />
-                {t('common:button.delete')}
-              </Button>
-              <Button
-                primary={true}
-                icon={true}
-                labelPosition="left"
-                as={Link}
-                to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}
-              >
-                <Icon name="pencil" />
-                Edit
-              </Button>
-            </div>
-          </Card.Content>
+          {this.renderTopicCardButtons(topic)}
         </Card>
         {this.renderRemoveModal(topic)}
       </React.Fragment>
@@ -160,7 +150,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
   }
 }
 
-const TopicCard = connect(null, mapDispatchToProps)(translate()(PureTopicCard));
+const TopicCard = translate()(PureTopicCard);
 
 export { PureTopicCard };
 export default TopicCard;

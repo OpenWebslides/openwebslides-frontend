@@ -11,15 +11,16 @@ import TopicCard from './TopicCard';
 
 type PassedProps = {|
   topicIds: $ReadOnlyArray<string>,
+  isCurrentUser: boolean,
+  onRemoveTopic: (topicId: string) => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
-const PureCardCollection = (props: Props): React.Node => {
-  const { t, topicIds } = props;
-
-  return (
-    <Card.Group itemsPerRow={4} doubling={true}>
+class PureCardCollection extends React.Component<Props> {
+  renderNewTopicButton = (): React.Node => {
+    const { t, isCurrentUser } = this.props;
+    return (isCurrentUser === false) ? null : (
       <Card>
         <Button
           as={Link}
@@ -28,17 +29,32 @@ const PureCardCollection = (props: Props): React.Node => {
           labelPosition="left"
           size="big"
           className="topics-list__add-button"
+          data-test-id="topics-list-add-button"
         >
           <Icon name="plus" />
           {t('global:title.createNewTopic')}
         </Button>
       </Card>
-      {topicIds.map((topicId) => (
-        <TopicCard key={topicId} topicId={topicId} />
-      ))}
-    </Card.Group>
-  );
-};
+    );
+  };
+
+  render(): React.Node {
+    const { topicIds, isCurrentUser, onRemoveTopic } = this.props;
+    return (
+      <Card.Group itemsPerRow={4} doubling={true} stackable={true}>
+        {this.renderNewTopicButton()}
+        {[...topicIds].reverse().map((topicId) => (
+          <TopicCard
+            key={topicId}
+            topicId={topicId}
+            isCurrentUser={isCurrentUser}
+            onRemoveTopic={onRemoveTopic}
+          />
+        ))}
+      </Card.Group>
+    );
+  }
+}
 
 const CardCollection = translate()(PureCardCollection);
 

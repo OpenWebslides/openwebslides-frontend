@@ -2,7 +2,10 @@
 
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
+import { push } from 'connected-react-router';
 
+import { USER_PROFILE_ROUTE } from 'config/routes';
+import { CorruptedInternalStateError } from 'errors';
 import { DummyProviders, dummyUserData } from 'lib/testResources';
 import users from 'modules/users';
 
@@ -12,6 +15,7 @@ describe(`NewTopicPage`, (): void => {
 
   let dummyCurrentUser: users.model.User;
   let dummyState: any;
+  let dummyDispatch: any;
 
   beforeEach((): void => {
     dummyCurrentUser = { ...dummyUserData.user };
@@ -31,11 +35,12 @@ describe(`NewTopicPage`, (): void => {
       },
       flash: { messages: [] },
     };
+    dummyDispatch = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureNewTopicPage currentUserId="dummyUserId" />,
+      <PureNewTopicPage currentUserId="dummyUserId" addTopicToCurrentUser={jest.fn()} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });
@@ -44,7 +49,7 @@ describe(`NewTopicPage`, (): void => {
     dummyState.modules.platform.userAuth = null;
 
     const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState}>
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <NewTopicPage />
       </DummyProviders>,
     );
@@ -52,14 +57,29 @@ describe(`NewTopicPage`, (): void => {
     expect(enzymeWrapper.find(`PureNewTopicPage`).props().currentUserId).toBeNull();
   });
 
-  it(`renders a NewTopicCard with userId the current user's id, when there is a current user`, (): void => {
+  it(`dispatches a user ADD_TOPIC action for the current user and redirects to USER_PROFILE_ROUTE, when the onAddTopic function passed to NewTopicCard is called`, (): void => {
+    const dummyTopicId = 'dummyTopicId';
     const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState}>
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <NewTopicPage />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find(`PureNewTopicCard`).props().userId).toBe(dummyCurrentUser.id);
+    const onAddTopic = enzymeWrapper.find(`PureNewTopicCard`).props().onAddTopic;
+    onAddTopic(dummyTopicId);
+
+    expect(dummyDispatch).toHaveBeenCalledWith(users.actions.addTopic(dummyCurrentUser.id, dummyTopicId));
+    expect(dummyDispatch).toHaveBeenCalledWith(push(USER_PROFILE_ROUTE));
+  });
+
+  it(`throws a CorruptedInternalStateError when handleAddTopic is called while currentUserId is NULL`, (): void => {
+    const enzymeWrapper = shallow(
+      <PureNewTopicPage currentUserId={null} addTopicToCurrentUser={jest.fn()} />,
+    );
+
+    expect((): void => {
+      enzymeWrapper.instance().handleAddTopic('title', 'description');
+    }).toThrow(CorruptedInternalStateError);
   });
 
 });
