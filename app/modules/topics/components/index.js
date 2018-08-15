@@ -1,15 +1,15 @@
 // @flow
 
-import CardCollection from './CardCollection';
 import Editor from './Editor';
 import NewTopicCard from './NewTopicCard';
 import SlidesList from './SlidesList';
+import TopicsList from './TopicsList';
 
 const index = {
-  CardCollection,
   Editor,
   NewTopicCard,
   SlidesList,
+  TopicsList,
 };
 
 /* istanbul ignore next */

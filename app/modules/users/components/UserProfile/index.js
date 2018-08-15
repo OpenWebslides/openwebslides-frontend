@@ -26,7 +26,7 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
 
-const { CardCollection: TopicCardCollection } = topics.components;
+const { TopicsList } = topics.components;
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
   const { userId } = props;
@@ -66,7 +66,7 @@ class PureUserProfile extends React.Component<Props> {
           </Item>
         </Item.Group>
         <Divider section={true} />
-        <TopicCardCollection
+        <TopicsList
           topicIds={user.topicIds}
           isCurrentUser={isCurrentUser}
           onRemoveTopic={removeTopicFromUser}

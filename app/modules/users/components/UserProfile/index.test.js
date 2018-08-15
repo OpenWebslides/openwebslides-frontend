@@ -83,14 +83,14 @@ describe(`UserProfile`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="user-profile-edit-button"]').hostNodes()).toHaveLength(0);
   });
 
-  it(`dispatches a users REMOVE_TOPIC action, when the onRemoveTopic function passed to CardCollection is called`, (): void => {
+  it(`dispatches a users REMOVE_TOPIC action, when the onRemoveTopic function passed to TopicsList is called`, (): void => {
     const dummyTopicId = 'dummyTopicId';
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <UserProfile userId={dummyUser.id} />
       </DummyProviders>,
     );
-    const onRemoveTopic = enzymeWrapper.find('PureCardCollection').props().onRemoveTopic;
+    const onRemoveTopic = enzymeWrapper.find('PureTopicsList').props().onRemoveTopic;
     onRemoveTopic(dummyTopicId);
 
     expect(dummyDispatch).toHaveBeenCalledWith(actions.removeTopic(dummyUser.id, dummyTopicId));

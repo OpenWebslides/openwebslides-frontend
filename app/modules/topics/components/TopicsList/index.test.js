@@ -7,9 +7,9 @@ import { DummyProviders, dummyProviderProps, dummyTopicData } from 'lib/testReso
 
 import * as m from '../../model';
 
-import CardCollection, { PureCardCollection } from '.';
+import TopicsList, { PureTopicsList } from '.';
 
-describe(`CardCollection`, (): void => {
+describe(`TopicsList`, (): void => {
 
   let dummyTopic2: m.Topic;
   let dummyTopic1: m.Topic;
@@ -28,7 +28,7 @@ describe(`CardCollection`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureCardCollection
+      <PureTopicsList
         {...dummyProviderProps.translatorProps}
         topicIds={[]}
         isCurrentUser={false}
@@ -40,7 +40,7 @@ describe(`CardCollection`, (): void => {
 
   it(`renders a new topic button, when isCurrentUser is TRUE`, (): void => {
     const enzymeWrapper = shallow(
-      <PureCardCollection
+      <PureTopicsList
         {...dummyProviderProps.translatorProps}
         topicIds={[]}
         isCurrentUser={true}
@@ -53,7 +53,7 @@ describe(`CardCollection`, (): void => {
   it(`renders a TopicCard for each topicId, in reverse order`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState}>
-        <CardCollection topicIds={dummyTopicIds} isCurrentUser={false} onRemoveTopic={jest.fn()} />
+        <TopicsList topicIds={dummyTopicIds} isCurrentUser={false} onRemoveTopic={jest.fn()} />
       </DummyProviders>,
     );
     const topicCardNodes = enzymeWrapper.find(`PureTopicCard`);

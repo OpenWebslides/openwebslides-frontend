@@ -17,7 +17,7 @@ type PassedProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
-class PureCardCollection extends React.Component<Props> {
+class PureTopicsList extends React.Component<Props> {
   renderNewTopicButton = (): React.Node => {
     const { t, isCurrentUser } = this.props;
     return (isCurrentUser === false) ? null : (
@@ -56,7 +56,7 @@ class PureCardCollection extends React.Component<Props> {
   }
 }
 
-const CardCollection = translate()(PureCardCollection);
+const TopicsList = translate()(PureTopicsList);
 
-export { PureCardCollection };
-export default CardCollection;
+export { PureTopicsList };
+export default TopicsList;
