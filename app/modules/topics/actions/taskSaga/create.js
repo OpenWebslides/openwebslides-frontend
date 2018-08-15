@@ -4,7 +4,7 @@ import validate from 'lib/validate';
 
 import * as a from '../../actionTypes';
 
-const create = (title: string, description: ?string = null, userId: string): a.CreateAction => {
+const create = (title: string, description: ?string, userId: string): a.CreateAction => {
   const validatedProps = validate.stringProps(['title'], ['description'], { title, description });
 
   return {

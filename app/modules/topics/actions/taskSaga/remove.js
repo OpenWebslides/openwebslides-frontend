@@ -2,9 +2,7 @@
 
 import * as a from '../../actionTypes';
 
-const remove = (
-  id: string,
-): a.RemoveAction => {
+const remove = (id: string): a.RemoveAction => {
   return {
     type: a.REMOVE,
     payload: {
