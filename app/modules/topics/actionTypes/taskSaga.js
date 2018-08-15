@@ -9,8 +9,8 @@ export const CREATE: 'topics/CREATE' = 'topics/CREATE';
 export const EDIT: 'topics/EDIT' = 'topics/EDIT';
 export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
 export const FETCH: 'topics/FETCH' = 'topics/FETCH';
-export const SAVE: 'topics/SAVE' = 'topics/SAVE';
-export const LOAD: 'topics/LOAD' = 'topics/LOAD';
+export const FETCH_WITH_CONTENT: 'topics/FETCH_WITH_CONTENT' = 'topics/FETCH_WITH_CONTENT';
+export const PATCH_WITH_CONTENT: 'topics/PATCH_WITH_CONTENT' = 'topics/PATCH_WITH_CONTENT';
 
 
 // Action types ------------------------------------------------------------------------------------
@@ -49,15 +49,15 @@ export type FetchAction = {|
   },
 |};
 
-export type SaveContentAction = {|
-  type: typeof SAVE,
+export type FetchWithContentAction = {|
+  type: typeof FETCH_WITH_CONTENT,
   payload: {
     id: string,
   },
 |};
 
-export type LoadContentAction = {|
-  type: typeof LOAD,
+export type PatchWithContentAction = {|
+  type: typeof PATCH_WITH_CONTENT,
   payload: {
     id: string,
   },
@@ -71,5 +71,5 @@ export type TaskSagaAction =
   | EditAction
   | RemoveAction
   | FetchAction
-  | SaveContentAction
-  | LoadContentAction;
+  | FetchWithContentAction
+  | PatchWithContentAction;

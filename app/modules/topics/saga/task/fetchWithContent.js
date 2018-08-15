@@ -8,14 +8,12 @@ import contentItems from 'modules/contentItems';
 import actions from '../../actions';
 import * as a from '../../actionTypes';
 
-const load = function* (action: a.LoadContentAction): Saga<void> {
-  const {
-    id,
-  } = action.payload;
+const fetchWithContent = function* (action: a.FetchWithContentAction): Saga<void> {
+  const { id } = action.payload;
 
   yield put(actions.apiGet(id));
   yield put(contentItems.actions.apiGetAllByTopicId(id));
   yield put(actions.toggleContentFetched(id));
 };
 
-export default load;
+export default fetchWithContent;

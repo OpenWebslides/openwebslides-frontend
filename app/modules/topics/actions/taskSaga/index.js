@@ -3,17 +3,17 @@
 import create from './create';
 import edit from './edit';
 import fetch from './fetch';
-import load from './load';
+import fetchWithContent from './fetchWithContent';
+import patchWithContent from './patchWithContent';
 import remove from './remove';
-import save from './save';
 
 const taskSagaActions = {
   create,
   edit,
   fetch,
-  load,
+  fetchWithContent,
+  patchWithContent,
   remove,
-  save,
 };
 
 export default taskSagaActions;

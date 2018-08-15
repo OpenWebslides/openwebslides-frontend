@@ -10,18 +10,18 @@ import * as a from '../../actionTypes';
 import create from './create';
 import edit from './edit';
 import fetch from './fetch';
-import load from './load';
+import fetchWithContent from './fetchWithContent';
+import patchWithContent from './patchWithContent';
 import remove from './remove';
-import save from './save';
 
 const taskSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.CREATE, create),
     takeEvery(a.EDIT, edit),
     takeEvery(a.FETCH, fetch),
-    takeEvery(a.LOAD, load),
+    takeEvery(a.FETCH_WITH_CONTENT, fetchWithContent),
+    takeEvery(a.PATCH_WITH_CONTENT, patchWithContent),
     takeEvery(a.REMOVE, remove),
-    takeEvery(a.SAVE, save),
   ]);
 };
 
@@ -29,9 +29,9 @@ const taskSagas = {
   create,
   edit,
   fetch,
-  load,
+  fetchWithContent,
+  patchWithContent,
   remove,
-  save,
 };
 
 export { taskSagas };

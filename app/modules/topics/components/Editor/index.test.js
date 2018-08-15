@@ -53,7 +53,7 @@ describe(`Editor`, (): void => {
       </DummyProviders>,
     );
 
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.load(dummyTopic.id));
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.fetchWithContent(dummyTopic.id));
     expect(enzymeWrapper.find('[data-test-id="topic-editor"]').hostNodes()).toHaveLength(0);
   });
 
@@ -76,7 +76,7 @@ describe(`Editor`, (): void => {
     );
     enzymeWrapper.find('[data-test-id="topic-editor-save-button"]').hostNodes().simulate('click');
 
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.save(dummyTopic.id));
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.patchWithContent(dummyTopic.id));
   });
 
 });

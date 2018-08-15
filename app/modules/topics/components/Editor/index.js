@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): Dis
 
   return {
     onSave: (): void => {
-      dispatch(actions.save(topicId));
+      dispatch(actions.patchWithContent(topicId));
     },
   };
 };
@@ -87,7 +87,7 @@ class PureEditor extends React.Component<Props> {
         render={this.renderEditor}
         renderPropsAndState={this.props}
         fetchId={topicId}
-        fetchAction={actions.load}
+        fetchAction={actions.fetchWithContent}
         fetchedPropSelector={selectors.getById}
         fetchCondition={this.fetchCondition}
       />
