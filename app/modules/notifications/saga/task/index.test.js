@@ -2,10 +2,11 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import taskSaga from '..';
+import * as a from '../../actionTypes';
 
-import fetchSaga from '../fetch';
-import * as a from '../../../actionTypes';
+import fetchSaga from './fetch';
+
+import taskSaga from '..';
 
 describe(`taskSaga`, (): void => {
   it(`takes every FETCH action and forks fetchSaga`, (): void => {

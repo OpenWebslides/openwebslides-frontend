@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { PureFeedWrapper } from '../Feed';
+import { PureFeedWrapper } from './Feed';
 
 describe(`Feed`, (): void => {
 

@@ -4,8 +4,9 @@ import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
 
-import * as a from '../../../actionTypes';
-import { apiGetNotificationsSaga } from '../notifications';
+import * as a from '../../actionTypes';
+
+import { apiGetNotificationsSaga } from './notifications';
 
 describe(` notifications`, (): void => {
 

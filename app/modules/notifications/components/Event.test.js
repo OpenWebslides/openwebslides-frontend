@@ -5,8 +5,9 @@ import { shallow } from 'enzyme';
 
 import { dummyProviderProps, dummyUserData, dummyTopicData } from 'lib/testResources';
 
-import { PureEventWrapper } from '../Event';
-import * as m from '../../model';
+import * as m from '../model';
+
+import { PureEventWrapper } from './Event';
 
 describe(`Event`, (): void => {
 

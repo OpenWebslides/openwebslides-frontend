@@ -4,8 +4,8 @@ import {
   getById,
   getAllById,
   getAll,
-} from '../selectors';
-import * as m from '../model';
+} from './selectors';
+import * as m from './model';
 
 const exampleState: any = {
   modules: {

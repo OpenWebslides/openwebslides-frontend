@@ -1,8 +1,8 @@
 // @flow
 
-import * as actions from '../actions';
-import * as a from '../actionTypes';
-import * as m from '../model';
+import * as actions from './actions';
+import * as a from './actionTypes';
+import * as m from './model';
 
 describe(`actions`, (): void => {
   describe(`reducer actions`, (): void => {

@@ -1,8 +1,8 @@
 // @flow
 
-import reducer from '../reducer';
-import * as a from '../actionTypes';
-import * as m from '../model';
+import reducer from './reducer';
+import * as a from './actionTypes';
+import * as m from './model';
 
 describe(`reducer`, (): void => {
   it(`handles SET_EVENTS action`, (): void => {
