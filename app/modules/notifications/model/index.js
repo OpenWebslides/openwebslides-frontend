@@ -2,15 +2,15 @@
 
 /* eslint-disable flowtype/require-types-at-top */
 
+const COMMENT: 'notificationTypes/COMMENT' = 'notificationTypes/COMMENT';
 const CREATE: 'notificationTypes/CREATE' = 'notificationTypes/CREATE';
 const FORK: 'notificationTypes/FORK' = 'notificationTypes/FORK';
-const COMMENT: 'notificationTypes/COMMENT' = 'notificationTypes/COMMENT';
 const UPDATE: 'notificationTypes/UPDATE' = 'notificationTypes/UPDATE';
 
 export const notificationTypes = {
+  COMMENT,
   CREATE,
   FORK,
-  COMMENT,
   UPDATE,
 };
 
