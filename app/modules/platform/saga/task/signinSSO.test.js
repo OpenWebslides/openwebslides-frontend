@@ -2,8 +2,6 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
-import users from 'modules/users';
-
 import actions from '../../actions';
 
 import { sagas } from '..';
@@ -22,7 +20,6 @@ describe(`signinSSO`, (): void => {
     const dummyAction = actions.signinSSO(dummyApiToken, dummyUserId);
 
     return expectSaga(sagas.signinSSO, dummyAction)
-      .put(users.actions.fetch(dummyUserId))
       .put(actions.setUserAuthInState({ apiToken: dummyApiToken, userId: dummyUserId }))
       .run();
   });

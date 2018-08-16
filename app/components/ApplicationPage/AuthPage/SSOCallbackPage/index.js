@@ -32,6 +32,11 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   };
 };
 
+/**
+ * SSO Callback Page - After the user successfully authenticates with an external provider,
+ * the user is redirected to this page given an API token and a user ID - signalling that
+ * the user should now be successfully signed in in the frontend.
+ */
 class PureSSOCallbackPage extends React.Component<Props> {
   componentDidMount(): void {
     const { location, signinSSO, flashErrorAndRedirect } = this.props;
