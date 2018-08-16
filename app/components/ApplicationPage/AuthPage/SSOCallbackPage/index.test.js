@@ -95,23 +95,39 @@ describe(`SSOCallbackPage`, (): void => {
   });
 
   it(`throws an InvalidArgumentError, when no apiToken is passed`, (): void => {
+    const noApiTokenDummyRouterProps = {
+      ...dummyProviderProps.routerProps,
+      location: {
+        ...dummyProviderProps.routerProps.location,
+        search: `?userId=foobarId`,
+      },
+    };
+
     expect((): void => {
       shallow(
         <PureSSOCallbackPage
           {...dummyProviderProps.translatorProps}
-          {...dummyProviderProps.routerProps}
+          {...noApiTokenDummyRouterProps}
           signinSSO={dummySigninSSO}
         />,
       );
     }).toThrow(InvalidArgumentError);
   });
 
-  it(`throws an InvalidArgumentError, when no id is passed`, (): void => {
+  it(`throws an InvalidArgumentError, when no userId is passed`, (): void => {
+    const noUserIdDummyRouterProps = {
+      ...dummyProviderProps.routerProps,
+      location: {
+        ...dummyProviderProps.routerProps.location,
+        search: `?apiToken=foobarToken`,
+      },
+    };
+
     expect((): void => {
       shallow(
         <PureSSOCallbackPage
           {...dummyProviderProps.translatorProps}
-          {...dummyProviderProps.routerProps}
+          {...noUserIdDummyRouterProps}
           signinSSO={dummySigninSSO}
         />,
       );
