@@ -23,7 +23,7 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  event: m.Event,
+  event: m.Notification,
   user: ?users.model.User,
   topic: ?topics.model.Topic,
 |};
@@ -109,7 +109,7 @@ class PureEventWrapper extends React.Component<Props, State> {
               {user.name}
             </Link>
             &nbsp;
-            {t('feed:event.action', { context: `${event.predicate}` })}
+            {t('feed:event.action', { context: `${event.type}` })}
             &nbsp;
             <Link className="secondaryLink" to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}>
               {topic.title}

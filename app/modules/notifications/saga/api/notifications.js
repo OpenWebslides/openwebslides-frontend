@@ -11,21 +11,21 @@ import { setEventsInState } from '../../actions';
 
 // TODO: change this to topic once backend is deployed
 const mapEventTypeToPredicateType = {
-  topic_created: m.predicate.CREATE,
-  topic_updated: m.predicate.UPDATE,
+  topic_created: m.notificationTypes.CREATE,
+  topic_updated: m.notificationTypes.UPDATE,
 };
 
-export const apiGetFeedItemsSaga = function* (action: a.FetchAction): Saga<void> {
+export const apiGetNotificationsSaga = function* (action: a.FetchAction): Saga<void> {
   try {
-    const response = yield call(api.feedItems.getAll);
+    const response = yield call(api.notifications.getAll);
 
     // eslint-disable-next-line flowtype/no-weak-types
-    const data = response.body.data.map((item: Object): m.Event => {
+    const data = response.body.data.map((item: Object): m.Notification => {
       return {
         id: item.id,
         userId: item.relationships.user.data.id,
         topicId: item.relationships.topic.data.id,
-        predicate: mapEventTypeToPredicateType[item.attributes.eventType],
+        type: mapEventTypeToPredicateType[item.attributes.eventType],
         timestamp: Number(item.meta.createdAt) * 1000,
       };
     });

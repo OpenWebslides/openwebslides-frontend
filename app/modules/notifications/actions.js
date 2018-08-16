@@ -5,7 +5,7 @@ import * as m from './model';
 
 // Reducer actions
 export const setEventsInState = (
-  items: ?$ReadOnlyArray<m.Event>,
+  items: ?$ReadOnlyArray<m.Notification>,
 ): a.SetEventsAction => {
   return {
     type: a.SET_EVENTS,

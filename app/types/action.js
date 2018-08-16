@@ -5,7 +5,7 @@
 
 import { type ModuleAction as ApiRequestsStatusAction } from 'modules/apiRequestsStatus/actionTypes';
 import { type ModuleAction as ContentItemsAction } from 'modules/contentItems/actionTypes';
-import { type ModuleAction as FeedAction } from 'modules/feed/actionTypes';
+import { type ModuleAction as NotificationsAction } from 'modules/notifications/actionTypes';
 import { type ModuleAction as PlatformAction } from 'modules/platform/actionTypes';
 import { type ModuleAction as TopicsAction } from 'modules/topics/actionTypes';
 import { type ModuleAction as UsersAction } from 'modules/users/actionTypes';
@@ -13,7 +13,7 @@ import { type ModuleAction as UsersAction } from 'modules/users/actionTypes';
 export type Action =
   | ApiRequestsStatusAction
   | ContentItemsAction
-  | FeedAction
+  | NotificationsAction
   | PlatformAction
   | TopicsAction
   | UsersAction;

@@ -5,11 +5,11 @@ import * as model from './model';
 import * as selectors from './selectors';
 import components from './components';
 
-const feedItems = {
+const notifications = {
   actions,
   components,
   model,
   selectors,
 };
 
-export default feedItems;
+export default notifications;

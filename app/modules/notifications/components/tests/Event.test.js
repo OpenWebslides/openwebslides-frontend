@@ -17,7 +17,7 @@ describe(`Event`, (): void => {
       id: 'zzzzzzzzzz',
       userId: 'xxxxxxxxxx',
       topicId: 'yyyyyyyyyy',
-      predicate: m.predicate.CREATE,
+      type: m.notificationTypes.CREATE,
       timestamp: 1511622599112,
     };
 

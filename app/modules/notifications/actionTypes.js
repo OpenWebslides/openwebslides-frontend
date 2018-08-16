@@ -21,7 +21,7 @@ export const API_GET_NOTIFICATIONS: 'feed/API_GET_NOTIFICATIONS' = 'feed/API_GET
 export type SetEventsAction = {|
   type: typeof SET_EVENTS,
   payload: {
-    items: ?$ReadOnlyArray<m.Event>,
+    items: ?$ReadOnlyArray<m.Notification>,
   },
 |};
 

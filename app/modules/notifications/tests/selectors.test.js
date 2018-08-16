@@ -9,12 +9,12 @@ import * as m from '../model';
 
 const exampleState: any = {
   modules: {
-    feed: {
+    notifications: {
       '1': {
         id: '1',
         userId: '1',
         topicId: '1',
-        predicate: m.predicate.CREATE,
+        type: m.notificationTypes.CREATE,
         timestamp: 1524490428,
       },
     },
@@ -28,7 +28,7 @@ describe(`selectors`, (): void => {
         id: '1',
         userId: '1',
         topicId: '1',
-        predicate: m.predicate.CREATE,
+        type: m.notificationTypes.CREATE,
         timestamp: 1524490428,
       });
     });
@@ -45,7 +45,7 @@ describe(`selectors`, (): void => {
           id: '1',
           userId: '1',
           topicId: '1',
-          predicate: m.predicate.CREATE,
+          type: m.notificationTypes.CREATE,
           timestamp: 1524490428,
         },
       });
@@ -58,7 +58,7 @@ describe(`selectors`, (): void => {
         id: '1',
         userId: '1',
         topicId: '1',
-        predicate: m.predicate.CREATE,
+        type: m.notificationTypes.CREATE,
         timestamp: 1524490428,
       }]);
     });
