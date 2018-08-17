@@ -5,12 +5,12 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { Grid } from 'semantic-ui-react';
 
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
-import notifications from 'modules/notifications';
+import feedItems from 'modules/feedItems';
 import platform from 'modules/platform';
 
 type Props = {| ...TranslatorProps |};
 
-const { Feed } = notifications.components;
+const { Feed } = feedItems.components;
 const { AuthWrapper } = platform.components;
 
 const PureHomePage = (props: Props): React.Node => {

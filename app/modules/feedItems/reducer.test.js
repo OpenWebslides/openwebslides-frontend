@@ -13,19 +13,19 @@ describe(`reducer`, (): void => {
           id: '1',
           userId: '1',
           topicId: '1',
-          type: m.notificationTypes.CREATE,
+          type: m.feedItemTypes.CREATE,
           timestamp: 1524490428,
         }],
       },
     };
 
-    const nextState: m.NotificationsState = {
+    const nextState: m.FeedItemsState = {
       byId: {
         '1': {
           id: '1',
           userId: '1',
           topicId: '1',
-          type: m.notificationTypes.CREATE,
+          type: m.feedItemTypes.CREATE,
           timestamp: 1524490428,
         },
       },
@@ -42,6 +42,6 @@ describe(`reducer`, (): void => {
       },
     };
 
-    expect(reducer({ byId: {} }, setEventsAction)).toEqual({});
+    expect(reducer({ byId: {} }, setEventsAction)).toEqual({ byId: {} });
   });
 });

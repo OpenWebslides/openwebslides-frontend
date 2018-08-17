@@ -9,13 +9,15 @@ import * as m from './model';
 
 const exampleState: any = {
   modules: {
-    notifications: {
-      '1': {
-        id: '1',
-        userId: '1',
-        topicId: '1',
-        type: m.notificationTypes.CREATE,
-        timestamp: 1524490428,
+    feedItems: {
+      byId: {
+        '1': {
+          id: '1',
+          userId: '1',
+          topicId: '1',
+          type: m.feedItemTypes.CREATE,
+          timestamp: 1524490428,
+        },
       },
     },
   },
@@ -28,7 +30,7 @@ describe(`selectors`, (): void => {
         id: '1',
         userId: '1',
         topicId: '1',
-        type: m.notificationTypes.CREATE,
+        type: m.feedItemTypes.CREATE,
         timestamp: 1524490428,
       });
     });
@@ -45,7 +47,7 @@ describe(`selectors`, (): void => {
           id: '1',
           userId: '1',
           topicId: '1',
-          type: m.notificationTypes.CREATE,
+          type: m.feedItemTypes.CREATE,
           timestamp: 1524490428,
         },
       });
@@ -58,7 +60,7 @@ describe(`selectors`, (): void => {
         id: '1',
         userId: '1',
         topicId: '1',
-        type: m.notificationTypes.CREATE,
+        type: m.feedItemTypes.CREATE,
         timestamp: 1524490428,
       }]);
     });

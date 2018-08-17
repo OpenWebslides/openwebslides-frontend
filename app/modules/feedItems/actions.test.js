@@ -13,7 +13,7 @@ describe(`actions`, (): void => {
             id: '1',
             userId: '1',
             topicId: '1',
-            type: m.notificationTypes.CREATE,
+            type: m.feedItemTypes.CREATE,
             timestamp: 1524490428,
           },
         ];

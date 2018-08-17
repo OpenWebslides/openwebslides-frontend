@@ -3,16 +3,16 @@
 import * as a from './actionTypes';
 import * as m from './model';
 
-const initialState: m.NotificationsState = { byId: {} };
+const initialState: m.FeedItemsState = { byId: {} };
 
 const setEvents = (
-  state: m.NotificationsState,
+  state: m.FeedItemsState,
   action: a.SetEventsAction,
-): m.NotificationsState => {
+): m.FeedItemsState => {
   const newEvents = { byId: {} };
 
   if (action.payload.items) {
-    action.payload.items.forEach((item: m.Notification): void => {
+    action.payload.items.forEach((item: m.FeedItem): void => {
       newEvents.byId[item.id] = item;
     });
   }
@@ -21,9 +21,9 @@ const setEvents = (
 };
 
 const reducer = (
-  state: m.NotificationsState = initialState,
+  state: m.FeedItemsState = initialState,
   action: a.ReducerAction,
-): m.NotificationsState => {
+): m.FeedItemsState => {
   switch (action.type) {
     case a.SET_EVENTS:
       return setEvents(state, action);

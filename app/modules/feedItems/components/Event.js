@@ -23,7 +23,7 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  event: m.Notification,
+  event: m.FeedItem,
   user: ?users.model.User,
   topic: ?topics.model.Topic,
 |};

@@ -8,7 +8,7 @@ import { all, call } from 'redux-saga/effects';
 
 import apiRequestsStatusSaga from 'modules/apiRequestsStatus/saga';
 import contentItemsSaga from 'modules/contentItems/saga';
-import notificationsSaga from 'modules/notifications/saga';
+import feedItemsSaga from 'modules/feedItems/saga';
 import platformSaga from 'modules/platform/saga';
 import topicsSaga from 'modules/topics/saga';
 import usersSaga from 'modules/users/saga';
@@ -21,7 +21,7 @@ const rootSaga = function* (): Saga<void> {
   yield all([
     call(apiRequestsStatusSaga),
     call(contentItemsSaga),
-    call(notificationsSaga),
+    call(feedItemsSaga),
     call(platformSaga),
     call(topicsSaga),
     call(usersSaga),
