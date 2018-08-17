@@ -3,17 +3,17 @@
 import * as a from './actionTypes';
 import * as m from './model';
 
-const initialState: m.NotificationsState = {};
+const initialState: m.NotificationsState = { byId: {} };
 
 const setEvents = (
   state: m.NotificationsState,
   action: a.SetEventsAction,
 ): m.NotificationsState => {
-  const newEvents = {};
+  const newEvents = { byId: {} };
 
   if (action.payload.items) {
     action.payload.items.forEach((item: m.Notification): void => {
-      newEvents[item.id] = item;
+      newEvents.byId[item.id] = item;
     });
   }
 

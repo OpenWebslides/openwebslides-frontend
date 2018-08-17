@@ -20,16 +20,18 @@ describe(`reducer`, (): void => {
     };
 
     const nextState: m.NotificationsState = {
-      '1': {
-        id: '1',
-        userId: '1',
-        topicId: '1',
-        type: m.notificationTypes.CREATE,
-        timestamp: 1524490428,
+      byId: {
+        '1': {
+          id: '1',
+          userId: '1',
+          topicId: '1',
+          type: m.notificationTypes.CREATE,
+          timestamp: 1524490428,
+        },
       },
     };
 
-    expect(reducer({}, setEventsAction)).toEqual(nextState);
+    expect(reducer({ byId: {} }, setEventsAction)).toEqual(nextState);
   });
 
   it(`handles empty SET_EVENTS action`, (): void => {
@@ -40,6 +42,6 @@ describe(`reducer`, (): void => {
       },
     };
 
-    expect(reducer({}, setEventsAction)).toEqual({});
+    expect(reducer({ byId: {} }, setEventsAction)).toEqual({});
   });
 });

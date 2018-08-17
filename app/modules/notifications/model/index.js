@@ -25,6 +25,10 @@ export type Notification = {|
 |};
 
 // eslint-disable-next-line flowtype/require-exact-type
-export type NotificationsState = {
+export type NotificationsById = {
   +[notificationId: string]: Notification,
 };
+
+export type NotificationsState = {|
+  +byId: NotificationsById,
+|};
