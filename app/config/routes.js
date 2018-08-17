@@ -18,6 +18,11 @@ export const AUTH_CONFIRM_EMAIL_ROUTE = '/auth/confirmation';
 export const AUTH_RESET_PASSWORD_ROUTE = '/auth/password';
 export const AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE = '/auth/resend';
 export const AUTH_SEND_RESET_PASSWORD_EMAIL_ROUTE = '/auth/reset';
+// SSO AUTH
+export const AUTH_SSO_CALLBACK = '/auth/sso';
+export const AUTH_SSO_GOOGLE = '/oauth/google_oauth2';
+export const AUTH_SSO_FACEBOOK = '/oauth/facebook';
+export const AUTH_SSO_UGENT = '/oauth/cas';
 // DEV
 export const DEV_ROUTE = '/dev';
 export const DEV_GENERATE_RANDOM_STRING_ROUTE = '/dev/generaterandomstring';

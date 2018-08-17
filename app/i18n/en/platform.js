@@ -11,6 +11,7 @@ const platform = {
       signup: 'Sign up',
       forgotPassword: 'Forgot password?',
       resendConfirmationEmail: 'Resend confirmation email',
+      signinWithProvider: 'Sign in with {{provider}}',
     },
     // request: {
     //   pending: 'Signing in...',

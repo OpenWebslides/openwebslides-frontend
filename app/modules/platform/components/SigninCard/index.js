@@ -9,7 +9,12 @@ import { Card, Button, Icon } from 'semantic-ui-react';
 
 import { type Action } from 'types/action';
 import {
-  AUTH_SIGNUP_ROUTE, AUTH_SEND_RESET_PASSWORD_EMAIL_ROUTE, AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE,
+  AUTH_SIGNUP_ROUTE,
+  AUTH_SEND_RESET_PASSWORD_EMAIL_ROUTE,
+  AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE,
+  AUTH_SSO_GOOGLE,
+  AUTH_SSO_FACEBOOK,
+  AUTH_SSO_UGENT,
 } from 'config/routes';
 import { InvalidArgumentError } from 'errors';
 import EmailAndPasswordForm, { type EmailAndPasswordFormValues } from 'forms/EmailAndPasswordForm';
@@ -74,6 +79,19 @@ const PureSigninCard = (props: Props): React.Node => {
           </Button>
           <Button as={Link} to={AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE}>
             {t('platform:signinCard.link.resendConfirmationEmail')}
+          </Button>
+        </Button.Group>
+      </Card.Content>
+      <Card.Content>
+        <Button.Group fluid={true} vertical={true} basic={true}>
+          <Button as="a" href={AUTH_SSO_GOOGLE}>
+            {t('platform:signinCard.link.signinWithProvider', { provider: 'Google' })}
+          </Button>
+          <Button as="a" href={AUTH_SSO_FACEBOOK}>
+            {t('platform:signinCard.link.signinWithProvider', { provider: 'Facebook' })}
+          </Button>
+          <Button as="a" href={AUTH_SSO_UGENT}>
+            {t('platform:signinCard.link.signinWithProvider', { provider: 'UGent CAS' })}
           </Button>
         </Button.Group>
       </Card.Content>
