@@ -12,6 +12,7 @@ const webpack = require('webpack');
 // Allows merging base / dev / prod configs together
 const merge = require('webpack-merge');
 // Require plugins
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -86,6 +87,11 @@ const baseConfig = {
       },
     ],
   },
+
+  plugins: [
+    // Generate favicons in different sizes and formats
+    new FaviconsWebpackPlugin(path.join(__dirname, 'app/assets/images/logo/logo-color.svg')),
+  ],
 
   resolve: {
     // Enable importing files of these types without specifying their extentions
