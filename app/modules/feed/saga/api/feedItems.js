@@ -15,9 +15,9 @@ const mapEventTypeToPredicateType = {
   topic_updated: m.predicate.UPDATE,
 };
 
-export const apiGetNotificationsSaga = function* (action: a.FetchAction): Saga<void> {
+export const apiGetFeedItemsSaga = function* (action: a.FetchAction): Saga<void> {
   try {
-    const response = yield call(api.notifications.getAll);
+    const response = yield call(api.feedItems.getAll);
 
     // eslint-disable-next-line flowtype/no-weak-types
     const data = response.body.data.map((item: Object): m.Event => {
