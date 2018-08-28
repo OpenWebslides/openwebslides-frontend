@@ -1,18 +1,18 @@
 // @flow
 
 /**
- * GET on notifications endpoint, get all notifications (events) for the recent activity feed
+ * GET on feedItems endpoint, get all Recent Activity feed items
  *
- * API documentation: https://openwebslides.github.io/documentation/#get-all-notifications
+ * API documentation: https://openwebslides.github.io/documentation/#get-all-feed-items
  */
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 
-import { NOTIFICATIONS_ENDPOINT } from '../endpoints';
+import { FEED_ITEMS_ENDPOINT } from '../endpoints';
 
 const getAll = (): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.GET)
-    .addPathSegment(NOTIFICATIONS_ENDPOINT)
+    .addPathSegment(FEED_ITEMS_ENDPOINT)
     .setParameter('sort', '-createdAt')
     .setParameter('page[limit]', '10')
     .setParameter('page[offset]', '0')

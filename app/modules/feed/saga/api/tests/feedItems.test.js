@@ -5,22 +5,22 @@ import { expectSaga } from 'redux-saga-test-plan';
 import api from 'api';
 
 import * as a from '../../../actionTypes';
-import { apiGetNotificationsSaga } from '../notifications';
+import { apiGetFeedItemsSaga } from '../feedItems';
 
-describe(` notifications`, (): void => {
+describe(`feedItems`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
   });
 
-  describe(`apiGetNotificationsSaga`, (): void => {
+  describe(`apiGetFeedItemsSaga`, (): void => {
 
     it(`calls AuthApi.getAll and puts SET_FEED_ITEMS action`, (): void => {
       const dummyData = {
         data: [
           {
             id: '1',
-            type: 'notifications',
+            type: 'feedItems',
             attributes: {
               eventType: 'topic_created',
             },
@@ -45,12 +45,12 @@ describe(` notifications`, (): void => {
 
       fetch.mockResponseOnce(JSON.stringify(dummyData), { status: 200 });
 
-      const dummyGetNotificationsAction: a.ApiGetNotificationsAction = {
+      const dummyGetFeedItemsAction: a.ApiGetNotificationsAction = {
         type: a.API_GET_NOTIFICATIONS,
       };
 
-      return expectSaga(apiGetNotificationsSaga, dummyGetNotificationsAction)
-        .call(api.notifications.getAll)
+      return expectSaga(apiGetFeedItemsSaga, dummyGetFeedItemsAction)
+        .call(api.feedItems.getAll)
         .put.like({ action: { type: a.SET_EVENTS } })
         .run();
     });

@@ -7,11 +7,11 @@ import { all, takeLatest } from 'redux-saga/effects';
 
 import * as a from '../../actionTypes';
 
-import { apiGetNotificationsSaga } from './notifications';
+import { apiGetFeedItemsSaga } from './feedItems';
 
 const apiSaga = function* (): Saga<void> {
   yield all([
-    takeLatest(a.API_GET_NOTIFICATIONS, apiGetNotificationsSaga),
+    takeLatest(a.API_GET_NOTIFICATIONS, apiGetFeedItemsSaga),
   ]);
 };
 
