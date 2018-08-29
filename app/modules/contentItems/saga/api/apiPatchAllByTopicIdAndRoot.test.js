@@ -22,6 +22,7 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
   let dummyState: any;
   let dummyTopicId: string;
   let dummyTopicContentItems: $ReadOnlyArray<m.ContentItem>;
+  let dummyMessage: string;
   let dummyToken: string;
 
   beforeEach((): void => {
@@ -40,25 +41,26 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
     dummyTopicId = 'dummyTopicId';
     // $FlowFixMe couldn't decide which case to select; probable bug
     dummyTopicContentItems = [dummyRoot, dummyHeading, dummyParagraph];
+    dummyMessage = 'This is a dummy message';
     dummyToken = 'foobarToken';
   });
 
   it(`creates an array of topic contentItems and sends a PATCH request containing these contentItems to the topics endpoint`, (): void => {
-    const dummyAction = actions.apiPatchAllByTopicIdAndRoot(dummyTopicId, dummyRoot.id);
+    const dummyAction = actions.apiPatchAllByTopicIdAndRoot(dummyTopicId, dummyRoot.id, dummyMessage);
     const dummyApiResponse = { status: 204 };
 
     return expectSaga(sagas.apiPatchAllByTopicIdAndRoot, dummyAction)
       .withState(dummyState)
       .provide([
         [select(platform.selectors.getUserAuth), { userId: 'dummyId', apiToken: dummyToken }],
-        [call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyToken), dummyApiResponse],
+        [call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyMessage, dummyToken), dummyApiResponse],
       ])
-      .call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyToken)
+      .call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyMessage, dummyToken)
       .run();
   });
 
   it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<mixed> => {
-    const dummyAction = actions.apiPatchAllByTopicIdAndRoot(dummyTopicId, dummyRoot.id);
+    const dummyAction = actions.apiPatchAllByTopicIdAndRoot(dummyTopicId, dummyRoot.id, dummyMessage);
     const dummyApiResponse = { status: 204 };
 
     // Suppress console.error from redux-saga $FlowFixMe
@@ -68,7 +70,7 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
         .withState(dummyState)
         .provide([
           [select(platform.selectors.getUserAuth), null],
-          [call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyToken), dummyApiResponse],
+          [call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyMessage, dummyToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);
