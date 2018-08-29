@@ -5,7 +5,7 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
-import { Button, Header, Icon } from 'semantic-ui-react';
+import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 
 import { type AppState, type ModulesAction } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
@@ -24,12 +24,16 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  onSave: () => void,
+  onSave: (message: string) => void,
   onSetDirty: (dirty: boolean) => void,
   onDiscard: () => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+
+type ComponentState = {|
+  isSaveModalOpen: boolean,
+|};
 
 const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
 
@@ -48,9 +52,8 @@ const mapDispatchToProps = (
   const { topicId } = props;
 
   return {
-    onSave: (): void => {
-      // TODO: commit message
-      dispatch(actions.patchWithContent(topicId, 'commit message'));
+    onSave: (message: string): void => {
+      dispatch(actions.patchWithContent(topicId, message));
     },
     onSetDirty: (dirty: boolean): void => {
       dispatch(actions.setDirtyInState(topicId, dirty));
@@ -61,10 +64,23 @@ const mapDispatchToProps = (
   };
 };
 
-class PureEditor extends React.Component<Props> {
-  handleSaveButtonClick = (): void => {
+class PureEditor extends React.Component<Props, ComponentState> {
+  state: ComponentState = {
+    isSaveModalOpen: false,
+  };
+
+  showSaveModal = (): void => {
+    this.setState({ isSaveModalOpen: true });
+  };
+
+  saveModalSubmit = (): void => {
     const { onSave } = this.props;
-    onSave();
+    onSave('message');
+    this.setState({ isSaveModalOpen: false });
+  };
+
+  saveModalCancel = (): void => {
+    this.setState({ isSaveModalOpen: false });
   };
 
   beforeUnloadHandler = (event: Event): boolean => {
@@ -103,6 +119,46 @@ class PureEditor extends React.Component<Props> {
     return (topic == null || !topic.isContentFetched);
   };
 
+  renderSaveModal = (): React.Node => {
+    const { isSaveModalOpen } = this.state;
+    const { t } = this.props;
+
+    return (
+      <Modal
+        size="mini"
+        open={isSaveModalOpen}
+        onClose={this.saveModalCancel}
+        data-test-id="topic-card-save-modal"
+      >
+        <Modal.Header>{t('topics:modals.save.title')}</Modal.Header>
+        <Modal.Content>
+          <p>{t('topics:modals.save.message')}</p>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button
+            icon={true}
+            labelPosition="left"
+            onClick={this.saveModalCancel}
+            data-test-id="topic-card-save-modal-cancel-button"
+          >
+            <Icon name="cancel" />
+            {t('common:button.cancel')}
+          </Button>
+          <Button
+            primary={true}
+            icon={true}
+            labelPosition="left"
+            onClick={this.saveModalSubmit}
+            data-test-id="topic-card-save-modal-submit-button"
+          >
+            <Icon name="save" />
+            {t('common:button.save')}
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    );
+  };
+
   renderEditor = (topic: m.Topic): React.Node => {
     const { t, onSetDirty } = this.props;
 
@@ -121,7 +177,7 @@ class PureEditor extends React.Component<Props> {
             primary={true}
             icon={true}
             labelPosition="left"
-            onClick={this.handleSaveButtonClick}
+            onClick={this.showSaveModal}
             data-test-id="topic-editor-save-button"
           >
             <Icon name="save" />
@@ -137,6 +193,8 @@ class PureEditor extends React.Component<Props> {
           contentItemId={topic.rootContentItemId}
           setTopicDirty={onSetDirty}
         />
+
+        {this.renderSaveModal()}
       </div>
     );
   };
@@ -147,7 +205,7 @@ class PureEditor extends React.Component<Props> {
     return (
       <FetchWrapper
         render={this.renderEditor}
-        renderPropsAndState={this.props}
+        renderPropsAndState={{ ...this.props, ...this.state }}
         fetchId={topicId}
         fetchAction={actions.fetchWithContent}
         fetchedPropSelector={selectors.getById}
