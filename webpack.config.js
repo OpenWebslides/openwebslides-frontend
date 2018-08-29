@@ -120,6 +120,10 @@ const devConfig = {
   plugins: [
     // Include hot reloading functionality
     new webpack.HotModuleReplacementPlugin(),
+    // Allow specifying an API_URL override on the command line
+    new webpack.DefinePlugin({
+      'window.API_URL': process.env.API_URL ? `"${process.env.API_URL}"` : false,
+    }),
     new HtmlWebpackPlugin({
       template: path.join(paths.PUBLIC, 'index.dev.html'),
     }),
