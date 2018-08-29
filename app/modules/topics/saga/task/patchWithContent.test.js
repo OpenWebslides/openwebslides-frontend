@@ -19,13 +19,15 @@ import { sagas } from '..';
 describe(`patchWithContent`, (): void => {
 
   let dummyTopic: m.Topic;
+  let dummyMessage: string;
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic };
+    dummyMessage = 'dummyMessage';
   });
 
   it(`gets the topic rootContentItemId from the state and puts a contentItems API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT action, and a SET_DIRTY_IN_STATE action`, (): void => {
-    const dummyAction = actions.patchWithContent(dummyTopic.id);
+    const dummyAction = actions.patchWithContent(dummyTopic.id, dummyMessage);
 
     return expectSaga(sagas.patchWithContent, dummyAction)
       .provide([
@@ -34,13 +36,14 @@ describe(`patchWithContent`, (): void => {
           return (action.type === contentItems.actionTypes.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT) ? null : next();
         })],
       ])
-      .call(asyncRequests.lib.putAndReturn, contentItems.actions.apiPatchAllByTopicIdAndRoot(dummyTopic.id, dummyTopic.rootContentItemId))
+      .call(asyncRequests.lib.putAndReturn, contentItems.actions.apiPatchAllByTopicIdAndRoot(dummyTopic.id, dummyTopic.rootContentItemId, dummyMessage))
       .put(actions.setDirtyInState(dummyTopic.id, false))
+      .call(asyncRequests.lib.putAndReturn, contentItems.actions.apiPatchAllByTopicIdAndRoot(dummyTopic.id, dummyTopic.rootContentItemId, dummyMessage))
       .run();
   });
 
   it(`throws an ObjectNotFoundError, when the topic for the passed id could not be found`, async (): Promise<mixed> => {
-    const dummyAction = actions.patchWithContent(dummyTopic.id);
+    const dummyAction = actions.patchWithContent(dummyTopic.id, dummyMessage);
 
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();

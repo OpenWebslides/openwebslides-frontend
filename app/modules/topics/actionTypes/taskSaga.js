@@ -85,6 +85,7 @@ export type PatchWithContentAction = {|
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
     id: string,
+    message: string,
   |},
 |};
 

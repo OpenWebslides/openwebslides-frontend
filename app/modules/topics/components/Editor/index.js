@@ -49,7 +49,8 @@ const mapDispatchToProps = (
 
   return {
     onSave: (): void => {
-      dispatch(actions.patchWithContent(topicId));
+      // TODO: commit message
+      dispatch(actions.patchWithContent(topicId, 'commit message'));
     },
     onSetDirty: (dirty: boolean): void => {
       dispatch(actions.setDirtyInState(topicId, dirty));

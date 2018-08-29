@@ -16,6 +16,7 @@ describe(`Editor`, (): void => {
   let dummyTopic: m.Topic;
   let dummyDirtyTopic: m.Topic;
   let dummyTopicsById: m.TopicsById;
+  let dummyMessage: string;
   let dummyState: any;
   let dummyDispatch: any;
   let dummyOnSave: any;
@@ -43,6 +44,7 @@ describe(`Editor`, (): void => {
         },
       },
     };
+    dummyMessage = 'dummyMessage';
     dummyDispatch = jest.fn();
     dummyOnSave = jest.fn();
     dummyOnSetDirty = jest.fn();
@@ -106,7 +108,8 @@ describe(`Editor`, (): void => {
 
     enzymeWrapper.find('[data-test-id="topic-editor-save-button"]').hostNodes().simulate('click');
 
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.patchWithContent(dummyDirtyTopic.id));
+    // TODO: don't hardcode commit message
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.patchWithContent(dummyDirtyTopic.id, 'commit message'));
   });
 
   it(`does not dispatch a topic UPDATE_WITH_CONTENT action, when the topic is not dirty and the save button is clicked`, (): void => {

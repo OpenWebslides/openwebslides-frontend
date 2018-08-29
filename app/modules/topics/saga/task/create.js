@@ -24,7 +24,8 @@ const create = function* (action: a.CreateAction): Saga<{ id: string }> {
   // and wait for request completion.
   yield call(putAndReturn, actions.fetch(id));
   // Save the initial topic content in the backend.
-  yield put(actions.patchWithContent(id));
+  // TODO: Internationalize this string
+  yield put(actions.patchWithContent(id, 'Initial content'));
 
   // Return the topic id.
   return { id };
