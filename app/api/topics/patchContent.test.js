@@ -16,8 +16,9 @@ describe(`api.topics.patchContent`, (): void => {
     const dummyTopicId = 'ThisIsAnId';
     const dummyToken = 'foobarToken';
     const dummyContent = [dummyData.rootContentItem, dummyData.headingContentItem];
+    const dummyMessage = 'This is a dummy commit message';
     fetch.mockResponseOnce('', { status: 200 });
-    await api.topics.patchContent(dummyTopicId, dummyContent, dummyToken);
+    await api.topics.patchContent(dummyTopicId, dummyContent, dummyMessage, dummyToken);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
@@ -31,6 +32,7 @@ describe(`api.topics.patchContent`, (): void => {
         type: 'contents',
         attributes: {
           content: dummyContent,
+          message: dummyMessage,
         },
       },
     });
