@@ -9,11 +9,13 @@ import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 
 import { type AppState, type ModulesAction } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
+import CommitForm, { type CommitFormValues } from 'forms/CommitForm';
 import contentItems from 'modules/contentItems';
 
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
+import { InvalidArgumentError } from '../../../../errors';
 
 type PassedProps = {|
   topicId: string,
@@ -24,7 +26,7 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  onSave: (message: string) => void,
+  onCommitFormSubmit: (values: CommitFormValues) => void,
   onSetDirty: (dirty: boolean) => void,
   onDiscard: () => void,
 |};
@@ -32,7 +34,7 @@ type DispatchProps = {|
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
 
 type ComponentState = {|
-  isSaveModalOpen: boolean,
+  isCommitModalOpen: boolean,
 |};
 
 const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
@@ -52,8 +54,12 @@ const mapDispatchToProps = (
   const { topicId } = props;
 
   return {
-    onSave: (message: string): void => {
-      dispatch(actions.patchWithContent(topicId, message));
+    onCommitFormSubmit: (values: CommitFormValues): void => {
+      if (values.message == null) {
+        // Make flow happy; #TODO replace with proper redux-form validation
+        throw new InvalidArgumentError(`Form data incomplete`);
+      }
+      dispatch(actions.patchWithContent(topicId, values.message));
     },
     onSetDirty: (dirty: boolean): void => {
       dispatch(actions.setDirtyInState(topicId, dirty));
@@ -66,21 +72,21 @@ const mapDispatchToProps = (
 
 class PureEditor extends React.Component<Props, ComponentState> {
   state: ComponentState = {
-    isSaveModalOpen: false,
+    isCommitModalOpen: false,
   };
 
-  showSaveModal = (): void => {
-    this.setState({ isSaveModalOpen: true });
+  showCommitModal = (): void => {
+    this.setState({ isCommitModalOpen: true });
   };
 
-  saveModalSubmit = (): void => {
-    const { onSave } = this.props;
-    onSave('message');
-    this.setState({ isSaveModalOpen: false });
+  commitModalSubmit = (values: CommitFormValues): void => {
+    const { onCommitFormSubmit } = this.props;
+    onCommitFormSubmit(values);
+    this.setState({ isCommitModalOpen: false });
   };
 
-  saveModalCancel = (): void => {
-    this.setState({ isSaveModalOpen: false });
+  commitModalCancel = (): void => {
+    this.setState({ isCommitModalOpen: false });
   };
 
   beforeUnloadHandler = (event: Event): boolean => {
@@ -119,37 +125,42 @@ class PureEditor extends React.Component<Props, ComponentState> {
     return (topic == null || !topic.isContentFetched);
   };
 
-  renderSaveModal = (): React.Node => {
-    const { isSaveModalOpen } = this.state;
+  renderCommitModal = (): React.Node => {
+    const { isCommitModalOpen } = this.state;
     const { t } = this.props;
 
     return (
       <Modal
         size="mini"
-        open={isSaveModalOpen}
-        onClose={this.saveModalCancel}
-        data-test-id="topic-card-save-modal"
+        open={isCommitModalOpen}
+        onClose={this.commitModalCancel}
+        data-test-id="topic-editor-commit-modal"
       >
-        <Modal.Header>{t('topics:modals.save.title')}</Modal.Header>
+        <Modal.Header>{t('topics:modals.commit.title')}</Modal.Header>
         <Modal.Content>
-          <p>{t('topics:modals.save.message')}</p>
+          <p>{t('topics:modals.commit.message')}</p>
+          <CommitForm
+            onSubmit={this.commitModalSubmit}
+            data-test-id="topic-editor-commit-form"
+          />
         </Modal.Content>
         <Modal.Actions>
           <Button
             icon={true}
             labelPosition="left"
-            onClick={this.saveModalCancel}
-            data-test-id="topic-card-save-modal-cancel-button"
+            onClick={this.commitModalCancel}
+            data-test-id="topic-editor-commit-modal-cancel-button"
           >
             <Icon name="cancel" />
             {t('common:button.cancel')}
           </Button>
           <Button
+            type="submit"
             primary={true}
+            form="topic-editor-commit-modal-form"
             icon={true}
             labelPosition="left"
-            onClick={this.saveModalSubmit}
-            data-test-id="topic-card-save-modal-submit-button"
+            data-test-id="topic-editor-commit-modal-submit-button"
           >
             <Icon name="save" />
             {t('common:button.save')}
@@ -177,8 +188,8 @@ class PureEditor extends React.Component<Props, ComponentState> {
             primary={true}
             icon={true}
             labelPosition="left"
-            onClick={this.showSaveModal}
-            data-test-id="topic-editor-save-button"
+            onClick={this.showCommitModal}
+            data-test-id="topic-editor-commit-button"
           >
             <Icon name="save" />
             {t('common:button.save')}
@@ -194,7 +205,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
           setTopicDirty={onSetDirty}
         />
 
-        {this.renderSaveModal()}
+        {this.renderCommitModal()}
       </div>
     );
   };

@@ -11,6 +11,7 @@ const topics = {
   forms: {
     title: 'Title',
     description: 'Description',
+    message: 'Message',
     errors: {
       title: 'Title cannot be empty',
     },
@@ -22,7 +23,7 @@ const topics = {
     unsavedChanges: {
       message: 'You have unsaved changes, are you sure you wish to discard these changes and leave?',
     },
-    save: {
+    commit: {
       title: 'Save changes',
       message: 'Enter a small message that briefly describes the changes you\'ve made. This message will be visible to the topic owner and collaborators.',
     },
