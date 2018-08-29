@@ -29,6 +29,7 @@ export type ApiPatchAllByTopicIdAndRootAction = {|
     ...$PropertyType<ApiSagaAction, 'payload'>,
     topicId: string,
     rootContentItemId: string,
+    message: string,
   |},
 |};
 
