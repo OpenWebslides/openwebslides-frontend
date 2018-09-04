@@ -51,7 +51,7 @@ describe(` notifications`, (): void => {
       };
 
       return expectSaga(apiGetNotificationsSaga, dummyGetNotificationsAction)
-        .call(api.notifications.getAll)
+        .call(api.feedItems.getAll)
         .put.like({ action: { type: a.SET_EVENTS } })
         .run();
     });
