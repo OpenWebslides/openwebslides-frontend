@@ -19,7 +19,7 @@ const PureResetPasswordPage = (props: Props): React.Node => {
   const params = new URLSearchParams(location.search);
   const resetPasswordToken = params.get('resetPasswordToken');
 
-  if (!resetPasswordToken) throw new InvalidArgumentError(`Invalid resetPasswordToken`);
+  if (resetPasswordToken == null) throw new InvalidArgumentError(`Invalid resetPasswordToken`);
 
   return (
     <ContainerPageWrapper>

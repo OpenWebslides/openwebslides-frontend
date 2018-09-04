@@ -34,7 +34,7 @@ class PureConfirmEmailPage extends React.Component<Props> {
     const params = new URLSearchParams(location.search);
     const confirmationToken = params.get('confirmationToken');
 
-    if (!confirmationToken) throw new InvalidArgumentError(`Invalid confirmationToken`);
+    if (confirmationToken == null) throw new InvalidArgumentError(`Invalid confirmationToken`);
 
     confirmEmail(confirmationToken);
   }

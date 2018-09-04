@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { push } from 'connected-react-router';
 
 import { type Action } from 'types/action';

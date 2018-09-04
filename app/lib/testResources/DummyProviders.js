@@ -3,7 +3,7 @@
 /* eslint-disable flowtype/no-weak-types */
 
 import * as React from 'react';
-import { createStore } from 'redux';
+import { createStore, type Dispatch } from 'redux';
 import { Provider } from 'react-redux';
 import { MemoryRouter, type LocationShape } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
@@ -13,7 +13,7 @@ import i18nextConfig from 'config/i18next';
 type PassedProps = {|
   children: React.Node,
   dummyState?: Object,
-  dummyDispatch?: Dispatch<{}>,
+  dummyDispatch?: Dispatch<any>,
   // eslint-disable-next-line flowtype/no-mutable-array
   dummyRouterEntries?: Array<LocationShape | string>,
 |};

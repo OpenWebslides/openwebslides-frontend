@@ -167,6 +167,7 @@ const prodConfig = {
     new HtmlWebpackPlugin({
       template: path.join(paths.PUBLIC, 'index.prod.html'),
     }),
+    // Generate a /robots.txt served by the web server to prevent bots from indexing certain routes
     new RobotsTxtPlugin({
       policy: [
         {
