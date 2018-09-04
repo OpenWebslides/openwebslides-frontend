@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { Link } from 'react-router-dom';
 import { Button, Divider, Item } from 'semantic-ui-react';
 
