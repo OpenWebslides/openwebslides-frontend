@@ -1,5 +1,5 @@
-// flow-typed signature: 5d711696751fb77e7b11b26ffe6d1116
-// flow-typed version: 6ce6a0467c/enzyme_v3.x.x/flow_>=v0.53.x
+// flow-typed signature: e50486ad88c5bbfcdfde9fef4fc4c5d1
+// flow-typed version: ab187b275b/enzyme_v3.x.x/flow_>=v0.53.x
 
 import * as React from "react";
 
@@ -53,6 +53,7 @@ declare module "enzyme" {
     prop(key: string): any,
     key(): string,
     simulate(event: string, ...args: Array<any>): this,
+    slice(begin?: number, end?: number): this,
     setState(state: {}, callback?: Function): this,
     setProps(props: {}): this,
     setContext(context: Object): this,
