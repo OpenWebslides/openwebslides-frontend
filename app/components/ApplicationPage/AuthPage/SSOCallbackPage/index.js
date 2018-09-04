@@ -46,13 +46,13 @@ class PureSSOCallbackPage extends React.Component<Props> {
     const apiToken = params.get('apiToken');
     const userId = params.get('userId');
 
-    if (error) {
+    if (error != null) {
       flashErrorAndRedirect(error);
       return;
     }
 
-    if (!apiToken) throw new InvalidArgumentError(`Invalid token`);
-    if (!userId) throw new InvalidArgumentError(`Invalid id`);
+    if (apiToken == null) throw new InvalidArgumentError(`Invalid token`);
+    if (userId == null) throw new InvalidArgumentError(`Invalid id`);
 
     signinSSO(apiToken, userId);
   }
