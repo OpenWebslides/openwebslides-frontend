@@ -108,9 +108,7 @@ class PureEventWrapper extends React.Component<Props, State> {
             <Link as="Feed.User" to={makeRoute(USER_PROFILE_BY_ID_ROUTE, { userId: user.id })}>
               {user.name}
             </Link>
-            &nbsp;
-            {t('feed:event.action', { context: `${event.type}` })}
-            &nbsp;
+            {t(`feedItems:actionForType.${event.type}`)}
             <Link className="secondaryLink" to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}>
               {topic.title}
             </Link>
