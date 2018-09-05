@@ -7,15 +7,11 @@ import { call } from 'redux-saga/effects';
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
-// eslint-disable-next-line import/no-internal-modules
-import generateId from 'modules/contentItems/lib/generateId'; // #TODO
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
 
 import { sagas } from '..';
-
-jest.mock('modules/contentItems/lib/generateId');
 
 describe(`apiGet`, (): void => {
 
@@ -23,19 +19,12 @@ describe(`apiGet`, (): void => {
   let dummyTitle: string;
   let dummyDescription: string;
   let dummyRootContentId: string;
-  let dummyGeneratedId1: string;
-  let dummyGeneratedId2: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
     dummyTitle = 'The Title';
     dummyDescription = 'The description.';
     dummyRootContentId = 'dummyRootContentItemId';
-    dummyGeneratedId1 = 'dummyGeneratedId1';
-    dummyGeneratedId2 = 'dummyGeneratedId2';
-    (generateId: any)
-      .mockReturnValueOnce(dummyGeneratedId1)
-      .mockReturnValueOnce(dummyGeneratedId2);
   });
 
   it(`sends a GET request for the passed id to the topics endpoint, processes the response and puts the topic in the state`, (): void => {

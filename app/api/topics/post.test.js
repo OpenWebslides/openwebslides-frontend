@@ -15,9 +15,10 @@ describe(`api.topics.post`, (): void => {
     const dummyUserId = 'ThisIsAnId';
     const dummyTitle = 'Lorem ipsum dolor sit amet';
     const dummyDescription = 'Topic description goes here';
+    const dummyRootContentItemId = 'foobarId';
     const dummyToken = 'foobarToken';
     fetch.mockResponseOnce('', { status: 200 });
-    await api.topics.post(dummyTitle, dummyDescription, dummyUserId, dummyToken);
+    await api.topics.post(dummyTitle, dummyDescription, dummyRootContentItemId, dummyUserId, dummyToken);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
@@ -33,6 +34,7 @@ describe(`api.topics.post`, (): void => {
           title: dummyTitle,
           description: dummyDescription,
           state: 'public_access',
+          rootContentItemId: dummyRootContentItemId,
         },
         relationships: {
           user: {

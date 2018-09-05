@@ -24,6 +24,7 @@ export type ApiPostAction = {|
   payload: {
     title: string,
     description: ?string,
+    rootContentItemId: string,
     userId: string,
   },
 |};
