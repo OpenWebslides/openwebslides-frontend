@@ -11,12 +11,13 @@ import { Feed, Image } from 'semantic-ui-react';
 import { USER_PROFILE_BY_ID_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
 import { type State } from 'types/state';
 import { type Action } from 'types/action';
+import { ObjectNotFoundError } from 'errors';
 import makeRoute from 'lib/makeRoute';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
 import * as m from '../model';
-import { getById } from '../selectors';
+import selectors from '../selectors';
 
 type PassedProps = {|
   eventId: string,
@@ -37,7 +38,9 @@ type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchPr
 
 const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   const { eventId } = props;
-  const event = getById(state, eventId);
+  const event = selectors.getById(state, { id: eventId });
+  if (event == null) throw new ObjectNotFoundError('feedItems:feedItem', eventId);
+
   const topic = topics.selectors.getById(state, { id: event.topicId });
   const user = users.selectors.getById(state, { id: event.userId });
 

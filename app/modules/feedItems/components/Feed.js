@@ -9,7 +9,7 @@ import { type State } from 'types/state';
 import { type Action } from 'types/action';
 
 import actions from '../actions';
-import { getAll } from '../selectors';
+import selectors from '../selectors';
 
 import Event from './Event';
 
@@ -25,7 +25,7 @@ type Props = {| ...StateProps, ...DispatchProps |};
 
 const mapStateToProps = (state: State): StateProps => {
   return {
-    eventIds: getAll(state).map((event) => event.id),
+    eventIds: selectors.getAll(state).map((event) => event.id),
   };
 };
 

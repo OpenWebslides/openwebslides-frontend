@@ -1,6 +1,7 @@
 // @flow
 
 const feedItems = {
+  feedItem: 'feedItem',
   actionForType: {
     'feedItemTypes/COMMENT': 'commented on topic',
     'feedItemTypes/CREATE': 'created the topic',
