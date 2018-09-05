@@ -3,16 +3,21 @@
 /* eslint-disable sort-imports */
 
 import { type Saga } from 'redux-saga';
-import { all, takeLatest } from 'redux-saga/effects';
+import { all, takeEvery } from 'redux-saga/effects';
 
 import * as a from '../../actionTypes';
 
-import { apiGetNotificationsSaga } from './notifications';
+import apiGetAll from './apiGetAll';
 
 const apiSaga = function* (): Saga<void> {
   yield all([
-    takeLatest(a.API_GET_NOTIFICATIONS, apiGetNotificationsSaga),
+    takeEvery(a.API_GET_ALL, apiGetAll),
   ]);
 };
 
+const apiSagas = {
+  apiGetAll,
+};
+
+export { apiSagas };
 export default apiSaga;
