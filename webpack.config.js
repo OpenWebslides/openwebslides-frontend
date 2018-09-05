@@ -29,7 +29,7 @@ const paths = {
 // Webpack base configuration
 const baseConfig = {
 
-  entry: ['babel-polyfill', path.join(paths.APP, 'index.js')],
+  entry: ['@babel/polyfill', path.join(paths.APP, 'index.js')],
 
   output: {
     filename: 'app.bundle.js',
