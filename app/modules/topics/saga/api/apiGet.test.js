@@ -6,9 +6,7 @@ import { call } from 'redux-saga/effects';
 
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
-import { dummyContentItemData } from 'lib/testResources';
 import apiRequestsStatus from 'modules/apiRequestsStatus';
-import contentItems from 'modules/contentItems';
 // eslint-disable-next-line import/no-internal-modules
 import generateId from 'modules/contentItems/lib/generateId'; // #TODO
 
@@ -19,14 +17,12 @@ import { sagas } from '..';
 
 jest.mock('modules/contentItems/lib/generateId');
 
-const { contentItemTypes, contextTypes } = contentItems.model;
-
 describe(`apiGet`, (): void => {
 
   let dummyId: string;
   let dummyTitle: string;
   let dummyDescription: string;
-  let dummyContent: $ReadOnlyArray<contentItems.model.ContentItem>;
+  let dummyRootContentId: string;
   let dummyGeneratedId1: string;
   let dummyGeneratedId2: string;
 
@@ -34,11 +30,7 @@ describe(`apiGet`, (): void => {
     dummyId = 'dummyId';
     dummyTitle = 'The Title';
     dummyDescription = 'The description.';
-    dummyContent = [
-      { ...dummyContentItemData.rootContentItem, childItemIds: [dummyContentItemData.headingContentItem.id] },
-      // $FlowFixMe could not decide which case to select; probably bug
-      { ...dummyContentItemData.headingContentItem },
-    ];
+    dummyRootContentId = 'dummyRootContentItemId';
     dummyGeneratedId1 = 'dummyGeneratedId1';
     dummyGeneratedId2 = 'dummyGeneratedId2';
     (generateId: any)
@@ -55,16 +47,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             title: dummyTitle,
             description: dummyDescription,
-          },
-        },
-      },
-    };
-    const dummyContentResponse = {
-      status: 200,
-      body: {
-        data: {
-          attributes: {
-            content: dummyContent,
+            rootContentItemId: dummyRootContentId,
           },
         },
       },
@@ -73,37 +56,9 @@ describe(`apiGet`, (): void => {
     return expectSaga(sagas.apiGet, dummyAction)
       .provide([
         [call(api.topics.get, dummyId), dummyApiResponse],
-        [call(api.topics.getContent, dummyId), dummyContentResponse],
       ])
       .call(api.topics.get, dummyId)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyContent[0].id, isContentFetched: false }]))
-      .run();
-  });
-
-  it(`creates placeholder topic content, when the api returns empty content`, (): void => {
-    const dummyAction = actions.apiGet(dummyId);
-    const dummyApiResponse = {
-      status: 200,
-      body: {
-        data: {
-          attributes: {
-            title: dummyTitle,
-            description: dummyDescription,
-          },
-        },
-      },
-    };
-    const dummyContentResponse = { status: 200, body: { data: { attributes: { content: [] } } } };
-
-    return expectSaga(sagas.apiGet, dummyAction)
-      .provide([
-        [call(api.topics.get, dummyId), dummyApiResponse],
-        [call(api.topics.getContent, dummyId), dummyContentResponse],
-      ])
-      .call(api.topics.get, dummyId)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyGeneratedId1, isContentFetched: false }]))
-      .put(contentItems.actions.addToState(dummyGeneratedId1, contentItemTypes.ROOT, null, {}))
-      .put(contentItems.actions.addToState(dummyGeneratedId2, contentItemTypes.HEADING, { contextType: contextTypes.PARENT, contextItemId: dummyGeneratedId1 }, { text: 'Placeholder' }))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyRootContentId, isContentFetched: false }]))
       .run();
   });
 
@@ -116,16 +71,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             title: dummyTitle,
             description: dummyDescription,
-          },
-        },
-      },
-    };
-    const dummyContentResponse = {
-      status: 200,
-      body: {
-        data: {
-          attributes: {
-            content: dummyContent,
+            rootContentItemId: dummyRootContentId,
           },
         },
       },
@@ -134,7 +80,6 @@ describe(`apiGet`, (): void => {
     return expectSaga(sagas.apiGet, dummyAction)
       .provide([
         [call(api.topics.get, dummyId), dummyApiResponse],
-        [call(api.topics.getContent, dummyId), dummyContentResponse],
       ])
       .put(apiRequestsStatus.actions.setPending(a.API_GET))
       .put(apiRequestsStatus.actions.setSuccess(a.API_GET))
@@ -160,21 +105,10 @@ describe(`apiGet`, (): void => {
   it(`sets its request status to PENDING and then sets its request status to FAILURE, when the api response does not contain a body`, async (): Promise<mixed> => {
     const dummyAction = actions.apiGet(dummyId);
     const dummyApiResponse = { status: 200, body: null };
-    const dummyContentResponse = {
-      status: 200,
-      body: {
-        data: {
-          attributes: {
-            content: dummyContent,
-          },
-        },
-      },
-    };
 
     const result = await expectSaga(sagas.apiGet, dummyAction)
       .provide([
         [call(api.topics.get, dummyId), dummyApiResponse],
-        [call(api.topics.getContent, dummyId), dummyContentResponse],
       ])
       .put(apiRequestsStatus.actions.setPending(a.API_GET))
       .put.actionType(apiRequestsStatus.actions.setFailure(a.API_GET, new UnexpectedHttpResponseError()).type)
@@ -183,7 +117,7 @@ describe(`apiGet`, (): void => {
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnexpectedHttpResponseError);
   });
 
-  it(`sets its request status to PENDING and then sets its request status to FAILURE, when the content api response does not contain a ROOT as the first item`, async (): Promise<mixed> => {
+  it(`sets its request status to PENDING and then sets its request status to FAILURE, when the api response does not contain a root content item id`, async (): Promise<mixed> => {
     const dummyAction = actions.apiGet(dummyId);
     const dummyApiResponse = {
       status: 200,
@@ -196,23 +130,10 @@ describe(`apiGet`, (): void => {
         },
       },
     };
-    const dummyContentResponse = {
-      status: 200,
-      body: {
-        data: {
-          attributes: {
-            content: [
-              { ...dummyContentItemData.headingContentItem },
-            ],
-          },
-        },
-      },
-    };
 
     const result = await expectSaga(sagas.apiGet, dummyAction)
       .provide([
         [call(api.topics.get, dummyId), dummyApiResponse],
-        [call(api.topics.getContent, dummyId), dummyContentResponse],
       ])
       .put(apiRequestsStatus.actions.setPending(a.API_GET))
       .put.actionType(apiRequestsStatus.actions.setFailure(a.API_GET, new UnexpectedHttpResponseError()).type)
