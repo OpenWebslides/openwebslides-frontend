@@ -4,7 +4,7 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -45,8 +45,8 @@ describe(`apiPost`, (): void => {
       .provide([
         [call(api.users.post, dummyEmail, dummyName, dummyPassword, dummyTosAccepted), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_POST))
-      .put(apiRequestsStatus.actions.setSuccess(a.API_POST))
+      .put(asyncRequests.actions.setPending(a.API_POST))
+      .put(asyncRequests.actions.setSuccess(a.API_POST))
       .run();
   });
 
@@ -61,8 +61,8 @@ describe(`apiPost`, (): void => {
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(a.API_POST))
-      .put(apiRequestsStatus.actions.setFailure(a.API_POST, dummyError))
+      .put(asyncRequests.actions.setPending(a.API_POST))
+      .put(asyncRequests.actions.setFailure(a.API_POST, dummyError))
       .run();
   });
 

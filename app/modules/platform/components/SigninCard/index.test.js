@@ -23,7 +23,7 @@ describe(`SigninCard`, (): void => {
     dummyPassword = 'MahPasswordY0';
 
     dummyDispatch = jest.fn();
-    dummyState = { modules: { apiRequestsStatus: {} } };
+    dummyState = { modules: { asyncRequests: { byId: {} } } };
   });
 
   it(`renders without errors`, (): void => {

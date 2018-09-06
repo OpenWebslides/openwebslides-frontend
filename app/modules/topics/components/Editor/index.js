@@ -9,7 +9,7 @@ import { Button, Header, Icon } from 'semantic-ui-react';
 import { type Action } from 'types/action';
 import FetchWrapper from 'components/FetchWrapper';
 import contentItems from 'modules/contentItems';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -25,7 +25,7 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
 
-const { ApiDimmer } = apiRequestsStatus.components;
+const { ApiDimmer } = asyncRequests.components;
 const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
@@ -54,7 +54,7 @@ class PureEditor extends React.Component<Props> {
     return (
       <div data-test-id="topic-editor">
 
-        <ApiDimmer requestIds={['contentItems/API_PATCH_ALL_BY_TOPIC_ID']}>
+        <ApiDimmer ids={['contentItems/API_PATCH_ALL_BY_TOPIC_ID']}>
           {t('api:topic.save.pending')}
         </ApiDimmer>
 

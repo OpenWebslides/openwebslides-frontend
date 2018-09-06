@@ -9,7 +9,7 @@ import { type ContextRouter as RouterProps } from 'react-router-dom';
 import { type Action } from 'types/action';
 import { InvalidArgumentError } from 'errors';
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 import platform from 'modules/platform';
 
 type DispatchProps = {|
@@ -18,7 +18,7 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...RouterProps, ...DispatchProps |};
 
-const { ApiDimmer } = apiRequestsStatus.components;
+const { ApiDimmer } = asyncRequests.components;
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
@@ -42,7 +42,7 @@ class PureConfirmEmailPage extends React.Component<Props> {
   render(): React.Node {
     return (
       <ContainerPageWrapper>
-        <ApiDimmer requestIds={[platform.actions.apiPostConfirmation('dummy').type]} />
+        <ApiDimmer ids={[platform.actions.apiPostConfirmation('dummy').type]} />
       </ContainerPageWrapper>
     );
   }

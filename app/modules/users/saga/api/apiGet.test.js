@@ -6,7 +6,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 import platform from 'modules/platform';
 
 import actions from '../../actions';
@@ -97,8 +97,8 @@ describe(`apiGet`, (): void => {
         [select(platform.selectors.getUserAuth), { userId: 'dummyId', apiToken: dummyToken }],
         [call(api.users.get, dummyId, dummyToken), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put(apiRequestsStatus.actions.setSuccess(a.API_GET))
+      .put(asyncRequests.actions.setPending(a.API_GET))
+      .put(asyncRequests.actions.setSuccess(a.API_GET))
       .run();
   });
 
@@ -117,8 +117,8 @@ describe(`apiGet`, (): void => {
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put(apiRequestsStatus.actions.setFailure(a.API_GET, dummyError))
+      .put(asyncRequests.actions.setPending(a.API_GET))
+      .put(asyncRequests.actions.setFailure(a.API_GET, dummyError))
       .run();
   });
 
@@ -151,8 +151,8 @@ describe(`apiGet`, (): void => {
         [select(platform.selectors.getUserAuth), null],
         [call(api.users.get, dummyId, null), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put(apiRequestsStatus.actions.setSuccess(a.API_GET))
+      .put(asyncRequests.actions.setPending(a.API_GET))
+      .put(asyncRequests.actions.setSuccess(a.API_GET))
       .run();
   });
 
@@ -168,8 +168,8 @@ describe(`apiGet`, (): void => {
         [select(platform.selectors.getUserAuth), null],
         [call(api.users.get, dummyId, null), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_GET, new UnexpectedHttpResponseError()).type)
+      .put(asyncRequests.actions.setPending(a.API_GET))
+      .put.actionType(asyncRequests.actions.setFailure(a.API_GET, new UnexpectedHttpResponseError()).type)
       .run();
 
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnexpectedHttpResponseError);

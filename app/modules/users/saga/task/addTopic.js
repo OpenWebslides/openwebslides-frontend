@@ -15,13 +15,13 @@ const addTopic = function* (action: a.AddTopicAction): Saga<void> {
   yield put(topics.actions.create(title, description, id));
 
   // Wait for api request to complete #TODO use unique request identifiers for this
-  const successAction = yield take('apiRequestsStatus/SET_SUCCESS');
+  const successAction = yield take('asyncRequests/SET_SUCCESS');
 
   // Get the new topic id from the success action and add it to the user's topicIds
-  const { requestId, value } = successAction.payload;
+  const { id: asyncRequestId, value } = successAction.payload;
   // #TODO note: this currently causes an error
   // which I can't easily fix until saga communication has been implemented
-  if (requestId !== 'topics/API_POST' || value == null || value.id == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
+  if (asyncRequestId !== 'topics/API_POST' || value == null || value.id == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
   yield put(actions.addTopicId(id, value.id));
 };
 

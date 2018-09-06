@@ -5,7 +5,7 @@
 
 import { combineReducers } from 'redux';
 
-import apiRequestsStatusReducer from 'modules/apiRequestsStatus/reducer';
+import asyncRequestsReducer from 'modules/asyncRequests/reducer';
 import contentItemsReducer from 'modules/contentItems/reducer';
 import feedItemsReducer from 'modules/feedItems/reducer';
 import platformReducer from 'modules/platform/reducer';
@@ -14,7 +14,7 @@ import usersReducer from 'modules/users/reducer';
 
 // Don't forget to edit types/state.js when a new state part is added here.
 const modulesReducer = combineReducers({
-  apiRequestsStatus: apiRequestsStatusReducer,
+  asyncRequests: asyncRequestsReducer,
   contentItems: contentItemsReducer,
   feedItems: feedItemsReducer,
   platform: platformReducer,

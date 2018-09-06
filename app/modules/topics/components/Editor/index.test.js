@@ -25,7 +25,7 @@ describe(`Editor`, (): void => {
       [dummyTopic.id]: dummyTopic,
     };
     dummyState = { modules: {
-      apiRequestsStatus: {},
+      asyncRequests: { byId: {} },
       contentItems: { byId: {} },
       topics: { byId: dummyTopicsById },
     } };

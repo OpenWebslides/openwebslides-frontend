@@ -7,7 +7,7 @@ import { flashErrorMessage } from 'redux-flash';
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
 import { type ApiResponseData } from 'lib/ApiRequest';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -18,7 +18,7 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
 ): Saga<void> {
   const { email, password } = action.payload;
 
-  yield put(apiRequestsStatus.actions.setPending(action.type));
+  yield put(asyncRequests.actions.setPending(action.type));
 
   try {
     const responseData: ApiResponseData = yield call(api.token.postSignin, email, password);
@@ -37,11 +37,11 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
     // Store UserAuth in state
     yield put(actions.setUserAuthInState(currentUserAuth));
 
-    yield put(apiRequestsStatus.actions.setSuccess(action.type));
+    yield put(asyncRequests.actions.setSuccess(action.type));
   }
   catch (error) {
     yield put(flashErrorMessage('auth:signin.failure')); // #TODO solve this in a more general way
-    yield put(apiRequestsStatus.actions.setFailure(action.type, error));
+    yield put(asyncRequests.actions.setFailure(action.type, error));
   }
 };
 

@@ -7,7 +7,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -70,8 +70,8 @@ describe(`apiGetAllByTopicId`, (): void => {
       .provide([
         [call(api.topics.getContent, dummyTopicId), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_GET_ALL_BY_TOPIC_ID))
-      .put(apiRequestsStatus.actions.setSuccess(a.API_GET_ALL_BY_TOPIC_ID))
+      .put(asyncRequests.actions.setPending(a.API_GET_ALL_BY_TOPIC_ID))
+      .put(asyncRequests.actions.setSuccess(a.API_GET_ALL_BY_TOPIC_ID))
       .run();
   });
 
@@ -86,8 +86,8 @@ describe(`apiGetAllByTopicId`, (): void => {
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(a.API_GET_ALL_BY_TOPIC_ID))
-      .put(apiRequestsStatus.actions.setFailure(a.API_GET_ALL_BY_TOPIC_ID, dummyError))
+      .put(asyncRequests.actions.setPending(a.API_GET_ALL_BY_TOPIC_ID))
+      .put(asyncRequests.actions.setFailure(a.API_GET_ALL_BY_TOPIC_ID, dummyError))
       .run();
   });
 
@@ -99,8 +99,8 @@ describe(`apiGetAllByTopicId`, (): void => {
       .provide([
         [call(api.topics.getContent, dummyTopicId), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_GET_ALL_BY_TOPIC_ID))
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_GET_ALL_BY_TOPIC_ID, new Error()).type)
+      .put(asyncRequests.actions.setPending(a.API_GET_ALL_BY_TOPIC_ID))
+      .put.actionType(asyncRequests.actions.setFailure(a.API_GET_ALL_BY_TOPIC_ID, new Error()).type)
       .run();
 
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnexpectedHttpResponseError);

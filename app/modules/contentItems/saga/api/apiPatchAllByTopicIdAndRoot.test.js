@@ -7,7 +7,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import api from 'api';
 import { UnsupportedOperationError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 import platform from 'modules/platform';
 
 import actions from '../../actions';
@@ -70,8 +70,8 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
         [select(platform.selectors.getUserAuth), { userId: 'dummyId', apiToken: dummyToken }],
         [call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyToken), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT))
-      .put(apiRequestsStatus.actions.setSuccess(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT))
+      .put(asyncRequests.actions.setPending(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT))
+      .put(asyncRequests.actions.setSuccess(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT))
       .run();
   });
 
@@ -91,8 +91,8 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT))
-      .put(apiRequestsStatus.actions.setFailure(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT, dummyError))
+      .put(asyncRequests.actions.setPending(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT))
+      .put(asyncRequests.actions.setFailure(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT, dummyError))
       .run();
   });
 
@@ -106,8 +106,8 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
         [select(platform.selectors.getUserAuth), null],
         [call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyToken), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT))
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT, new Error()).type)
+      .put(asyncRequests.actions.setPending(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT))
+      .put.actionType(asyncRequests.actions.setFailure(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT, new Error()).type)
       .run();
 
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnsupportedOperationError);

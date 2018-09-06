@@ -6,7 +6,7 @@ import { call } from 'redux-saga/effects';
 
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -70,8 +70,8 @@ describe(`apiGet`, (): void => {
       .provide([
         [call(api.topics.get, dummyId), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put(apiRequestsStatus.actions.setSuccess(a.API_GET))
+      .put(asyncRequests.actions.setPending(a.API_GET))
+      .put(asyncRequests.actions.setSuccess(a.API_GET))
       .run();
   });
 
@@ -86,8 +86,8 @@ describe(`apiGet`, (): void => {
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put(apiRequestsStatus.actions.setFailure(a.API_GET, dummyError))
+      .put(asyncRequests.actions.setPending(a.API_GET))
+      .put(asyncRequests.actions.setFailure(a.API_GET, dummyError))
       .run();
   });
 
@@ -99,8 +99,8 @@ describe(`apiGet`, (): void => {
       .provide([
         [call(api.topics.get, dummyId), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_GET, new UnexpectedHttpResponseError()).type)
+      .put(asyncRequests.actions.setPending(a.API_GET))
+      .put.actionType(asyncRequests.actions.setFailure(a.API_GET, new UnexpectedHttpResponseError()).type)
       .run();
 
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnexpectedHttpResponseError);

@@ -6,7 +6,7 @@ import { call, select } from 'redux-saga/effects';
 
 import api from 'api';
 import { UnsupportedOperationError } from 'errors';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 import platform from 'modules/platform';
 
 import actions from '../../actions';
@@ -46,8 +46,8 @@ describe(`apiDelete`, (): void => {
         [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
         [call(api.topics.delete, dummyId, dummyToken), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_DELETE))
-      .put(apiRequestsStatus.actions.setSuccess(a.API_DELETE))
+      .put(asyncRequests.actions.setPending(a.API_DELETE))
+      .put(asyncRequests.actions.setSuccess(a.API_DELETE))
       .run();
   });
 
@@ -66,8 +66,8 @@ describe(`apiDelete`, (): void => {
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(a.API_DELETE))
-      .put(apiRequestsStatus.actions.setFailure(a.API_DELETE, dummyError))
+      .put(asyncRequests.actions.setPending(a.API_DELETE))
+      .put(asyncRequests.actions.setFailure(a.API_DELETE, dummyError))
       .run();
   });
 
@@ -80,8 +80,8 @@ describe(`apiDelete`, (): void => {
         [select(platform.selectors.getUserAuth), null],
         [call(api.topics.delete, dummyId, dummyToken), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_DELETE))
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_DELETE, new Error()).type)
+      .put(asyncRequests.actions.setPending(a.API_DELETE))
+      .put.actionType(asyncRequests.actions.setFailure(a.API_DELETE, new Error()).type)
       .run();
 
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnsupportedOperationError);

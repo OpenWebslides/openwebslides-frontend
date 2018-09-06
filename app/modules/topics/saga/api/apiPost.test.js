@@ -6,7 +6,7 @@ import { call, select } from 'redux-saga/effects';
 
 import api from 'api';
 import { UnexpectedHttpResponseError, UnsupportedOperationError } from 'errors';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 import platform from 'modules/platform';
 
 import actions from '../../actions';
@@ -68,8 +68,8 @@ describe(`apiPost`, (): void => {
         [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
         [call(api.topics.post, dummyTitle, dummyDescription, dummyRootContentItemId, dummyUserId, dummyToken), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_POST))
-      .put(apiRequestsStatus.actions.setSuccess(a.API_POST, { id: dummyId }))
+      .put(asyncRequests.actions.setPending(a.API_POST))
+      .put(asyncRequests.actions.setSuccess(a.API_POST, { id: dummyId }))
       .run();
   });
 
@@ -88,8 +88,8 @@ describe(`apiPost`, (): void => {
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(a.API_POST))
-      .put(apiRequestsStatus.actions.setFailure(a.API_POST, dummyError))
+      .put(asyncRequests.actions.setPending(a.API_POST))
+      .put(asyncRequests.actions.setFailure(a.API_POST, dummyError))
       .run();
   });
 
@@ -109,8 +109,8 @@ describe(`apiPost`, (): void => {
         [select(platform.selectors.getUserAuth), null],
         [call(api.topics.post, dummyTitle, dummyDescription, dummyRootContentItemId, dummyUserId, dummyToken), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_POST))
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_POST, new Error()).type)
+      .put(asyncRequests.actions.setPending(a.API_POST))
+      .put.actionType(asyncRequests.actions.setFailure(a.API_POST, new Error()).type)
       .run();
 
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnsupportedOperationError);
@@ -125,8 +125,8 @@ describe(`apiPost`, (): void => {
         [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
         [call(api.topics.post, dummyTitle, dummyDescription, dummyRootContentItemId, dummyUserId, dummyToken), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_POST))
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_POST, new Error()).type)
+      .put(asyncRequests.actions.setPending(a.API_POST))
+      .put.actionType(asyncRequests.actions.setFailure(a.API_POST, new Error()).type)
       .run();
 
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnexpectedHttpResponseError);

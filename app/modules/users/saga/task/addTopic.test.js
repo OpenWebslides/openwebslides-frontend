@@ -3,7 +3,7 @@
 import { expectSaga } from 'redux-saga-test-plan';
 
 import { CorruptedInternalStateError } from 'errors';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 import topics from 'modules/topics';
 
 import actions from '../../actions';
@@ -29,7 +29,7 @@ describe(`addTopic`, (): void => {
 
     return expectSaga(sagas.addTopic, dummyAction)
       .put(topics.actions.create(dummyTitle, dummyDescription, dummyUserId))
-      .dispatch(apiRequestsStatus.actions.setSuccess(`topics/API_POST`, { id: dummyTopicId }))
+      .dispatch(asyncRequests.actions.setSuccess(`topics/API_POST`, { id: dummyTopicId }))
       .put(actions.addTopicId(dummyUserId, dummyTopicId))
       .run();
   });
@@ -42,7 +42,7 @@ describe(`addTopic`, (): void => {
     await expect(
       expectSaga(sagas.addTopic, dummyAction)
         .put(topics.actions.create(dummyTitle, dummyDescription, dummyUserId))
-        .dispatch(apiRequestsStatus.actions.setSuccess(`topics/API_POST`, null))
+        .dispatch(asyncRequests.actions.setSuccess(`topics/API_POST`, null))
         .run(),
     ).rejects.toBeInstanceOf(CorruptedInternalStateError);
   });

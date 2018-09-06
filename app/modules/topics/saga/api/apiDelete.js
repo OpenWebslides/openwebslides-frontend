@@ -5,13 +5,13 @@ import { call, put, select } from 'redux-saga/effects';
 
 import api from 'api';
 import { UnsupportedOperationError } from 'errors';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 import platform from 'modules/platform';
 
 import * as a from '../../actionTypes';
 
 const apiDelete = function* (action: a.ApiDeleteAction): Saga<void> {
-  yield put(apiRequestsStatus.actions.setPending(action.type));
+  yield put(asyncRequests.actions.setPending(action.type));
 
   try {
     const { id } = action.payload;
@@ -19,10 +19,10 @@ const apiDelete = function* (action: a.ApiDeleteAction): Saga<void> {
     if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
     yield call(api.topics.delete, id, userAuth.apiToken);
-    yield put(apiRequestsStatus.actions.setSuccess(action.type));
+    yield put(asyncRequests.actions.setSuccess(action.type));
   }
   catch (error) {
-    yield put(apiRequestsStatus.actions.setFailure(action.type, error));
+    yield put(asyncRequests.actions.setFailure(action.type, error));
   }
 };
 

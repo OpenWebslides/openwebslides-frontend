@@ -4,7 +4,7 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -39,8 +39,8 @@ describe(`apiPatchConfirmation`, (): void => {
       .provide([
         [call(api.confirmation.patch, dummyToken), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_PATCH_CONFIRMATION))
-      .put(apiRequestsStatus.actions.setSuccess(a.API_PATCH_CONFIRMATION))
+      .put(asyncRequests.actions.setPending(a.API_PATCH_CONFIRMATION))
+      .put(asyncRequests.actions.setSuccess(a.API_PATCH_CONFIRMATION))
       .run();
   });
 
@@ -55,8 +55,8 @@ describe(`apiPatchConfirmation`, (): void => {
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(a.API_PATCH_CONFIRMATION))
-      .put(apiRequestsStatus.actions.setFailure(a.API_PATCH_CONFIRMATION, dummyError))
+      .put(asyncRequests.actions.setPending(a.API_PATCH_CONFIRMATION))
+      .put(asyncRequests.actions.setFailure(a.API_PATCH_CONFIRMATION, dummyError))
       .run();
   });
 

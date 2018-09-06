@@ -4,7 +4,7 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -39,8 +39,8 @@ describe(`apiPostPassword`, (): void => {
       .provide([
         [call(api.password.post, dummyEmail), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_POST_PASSWORD))
-      .put(apiRequestsStatus.actions.setSuccess(a.API_POST_PASSWORD))
+      .put(asyncRequests.actions.setPending(a.API_POST_PASSWORD))
+      .put(asyncRequests.actions.setSuccess(a.API_POST_PASSWORD))
       .run();
   });
 
@@ -55,8 +55,8 @@ describe(`apiPostPassword`, (): void => {
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(a.API_POST_PASSWORD))
-      .put(apiRequestsStatus.actions.setFailure(a.API_POST_PASSWORD, dummyError))
+      .put(asyncRequests.actions.setPending(a.API_POST_PASSWORD))
+      .put(asyncRequests.actions.setFailure(a.API_POST_PASSWORD, dummyError))
       .run();
   });
 

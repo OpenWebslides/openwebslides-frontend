@@ -5,7 +5,7 @@ import { call, put, select } from 'redux-saga/effects';
 
 import { UnsupportedOperationError } from 'errors';
 import api from 'api';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 import platform from 'modules/platform';
 
 import * as a from '../../actionTypes';
@@ -15,7 +15,7 @@ import find from '../../lib/find';
 const apiPatchAllByTopicIdAndRoot = function* (
   action: a.ApiPatchAllByTopicIdAndRootAction,
 ): Saga<void> {
-  yield put(apiRequestsStatus.actions.setPending(action.type));
+  yield put(asyncRequests.actions.setPending(action.type));
 
   try {
     const { topicId, rootContentItemId } = action.payload;
@@ -29,10 +29,10 @@ const apiPatchAllByTopicIdAndRoot = function* (
 
     yield call(api.topics.patchContent, topicId, topicContentItems, userAuth.apiToken);
 
-    yield put(apiRequestsStatus.actions.setSuccess(action.type));
+    yield put(asyncRequests.actions.setSuccess(action.type));
   }
   catch (error) {
-    yield put(apiRequestsStatus.actions.setFailure(action.type, error));
+    yield put(asyncRequests.actions.setFailure(action.type, error));
   }
 };
 

@@ -4,7 +4,7 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -41,8 +41,8 @@ describe(`apiPatchPassword`, (): void => {
       .provide([
         [call(api.password.patch, dummyPassword, dummyToken), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_PATCH_PASSWORD))
-      .put(apiRequestsStatus.actions.setSuccess(a.API_PATCH_PASSWORD))
+      .put(asyncRequests.actions.setPending(a.API_PATCH_PASSWORD))
+      .put(asyncRequests.actions.setSuccess(a.API_PATCH_PASSWORD))
       .run();
   });
 
@@ -57,8 +57,8 @@ describe(`apiPatchPassword`, (): void => {
           else return next();
         },
       })
-      .put(apiRequestsStatus.actions.setPending(a.API_PATCH_PASSWORD))
-      .put(apiRequestsStatus.actions.setFailure(a.API_PATCH_PASSWORD, dummyError))
+      .put(asyncRequests.actions.setPending(a.API_PATCH_PASSWORD))
+      .put(asyncRequests.actions.setFailure(a.API_PATCH_PASSWORD, dummyError))
       .run();
   });
 

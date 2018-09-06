@@ -6,12 +6,12 @@ import { type ContextRouter as RouterProps } from 'react-router-dom';
 
 import { InvalidArgumentError } from 'errors';
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
+import asyncRequests from 'modules/asyncRequests';
 import platform from 'modules/platform';
 
 type Props = {| ...TranslatorProps, ...RouterProps |};
 
-const { ApiDimmer } = apiRequestsStatus.components;
+const { ApiDimmer } = asyncRequests.components;
 const { ResetPasswordCard } = platform.components;
 
 const PureResetPasswordPage = (props: Props): React.Node => {
@@ -23,7 +23,7 @@ const PureResetPasswordPage = (props: Props): React.Node => {
 
   return (
     <ContainerPageWrapper>
-      <ApiDimmer requestIds={[platform.actions.apiPatchPassword('dummy', 'dummy').type]} />
+      <ApiDimmer ids={[platform.actions.apiPatchPassword('dummy', 'dummy').type]} />
 
       <ResetPasswordCard resetPasswordToken={resetPasswordToken} />
     </ContainerPageWrapper>
