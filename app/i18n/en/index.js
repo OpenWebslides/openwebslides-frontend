@@ -4,7 +4,7 @@ import api from './api';
 import common from './common';
 import contentItems from './contentItems';
 import errors from './errors';
-import feed from './feed';
+import feedItems from './feedItems';
 import flash from './flash';
 import global from './global';
 import platform from './platform';
@@ -16,7 +16,7 @@ const index = {
   common,
   contentItems,
   errors,
-  feed,
+  feedItems,
   flash,
   global,
   platform,

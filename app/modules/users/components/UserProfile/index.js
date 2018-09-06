@@ -51,7 +51,7 @@ class PureUserProfile extends React.Component<Props> {
       <React.Fragment>
         <Item.Group data-test-id="user-profile-info">
           <Item>
-            <Item.Image src={lib.getGravatarSrc(user, 500)} size="small" />
+            <Item.Image src={lib.getGravatarSrc(user, 500)} size="tiny" />
             <Item.Content verticalAlign="middle">
               <Item.Header as="h1">
                 {user.name}

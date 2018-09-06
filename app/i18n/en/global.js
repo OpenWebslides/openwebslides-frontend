@@ -14,7 +14,6 @@ const global = {
     createNewTopic: 'Create new topic',
     profile: 'Profile',
     topics: 'Topics',
-    recentActivity: 'Recent activity',
   },
 };
 
