@@ -3,11 +3,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch, type ContextRouter as RouterProps } from 'react-router-dom';
+import { Grid } from 'semantic-ui-react';
 
 import * as paths from 'config/routes';
 import { type State } from 'types/state';
 import { UnsupportedOperationError } from 'errors';
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
+import feedItems from 'modules/feedItems';
 import platform from 'modules/platform';
 import users from 'modules/users';
 
@@ -17,6 +19,7 @@ type StateProps = {|
 
 type Props = {| ...RouterProps, ...StateProps |};
 
+const { Feed } = feedItems.components;
 const { UserProfile } = users.components;
 
 const mapStateToProps = (state: State): StateProps => {
@@ -50,10 +53,17 @@ class PureProfilePage extends React.Component<Props> {
   render(): React.Node {
     return (
       <ContainerPageWrapper>
-        <Switch>
-          <Route path={paths.USER_PROFILE_BY_ID_ROUTE} render={this.renderProfileForPassedId} />
-          <Route path={paths.USER_PROFILE_ROUTE} render={this.renderProfileForCurrentUserId} />
-        </Switch>
+        <Grid stackable={true} celled="internally">
+          <Grid.Column width={12}>
+            <Switch>
+              <Route path={paths.USER_PROFILE_BY_ID_ROUTE} render={this.renderProfileForPassedId} />
+              <Route path={paths.USER_PROFILE_ROUTE} render={this.renderProfileForCurrentUserId} />
+            </Switch>
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <Feed />
+          </Grid.Column>
+        </Grid>
       </ContainerPageWrapper>
     );
   }

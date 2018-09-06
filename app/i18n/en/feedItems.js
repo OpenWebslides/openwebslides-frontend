@@ -3,7 +3,7 @@
 const feedItems = {
   feedItem: 'feedItem',
   feed: {
-    header: 'Recent activity',
+    header: 'Platform activity',
   },
   actionForType: {
     'feedItemTypes/COMMENT': 'commented on',

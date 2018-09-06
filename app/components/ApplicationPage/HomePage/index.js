@@ -1,38 +1,19 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
-import { Grid } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
 
-import ContainerPageWrapper from 'components/ContainerPageWrapper';
-import feedItems from 'modules/feedItems';
-import platform from 'modules/platform';
+import { USER_PROFILE_ROUTE } from 'config/routes';
 
-type Props = {| ...TranslatorProps |};
-
-const { Feed } = feedItems.components;
-const { AuthWrapper } = platform.components;
+type Props = {| |};
 
 const PureHomePage = (props: Props): React.Node => {
-  const { t } = props;
-
   return (
-    <AuthWrapper>
-      <ContainerPageWrapper>
-        <Grid.Row>
-          <Grid padded="vertically">
-            <Grid.Column>
-              <h1>{t('global:title.recentActivity')}</h1>
-              <Feed />
-            </Grid.Column>
-          </Grid>
-        </Grid.Row>
-      </ContainerPageWrapper>
-    </AuthWrapper>
+    <Redirect to={USER_PROFILE_ROUTE} />
   );
 };
 
-const HomePage = translate()(PureHomePage);
+const HomePage = PureHomePage;
 
 export { PureHomePage };
 export default HomePage;

@@ -37,6 +37,7 @@ describe(`ProfilePage`, (): void => {
         },
         users: { byId: { [dummyUser.id]: dummyUser } },
         topics: { byId: {} },
+        feedItems: { byId: { } },
       },
       flash: { messages: [] },
     };
@@ -58,6 +59,7 @@ describe(`ProfilePage`, (): void => {
         },
         users: { byId: { [dummyUser.id]: dummyUser } },
         topics: { byId: {} },
+        feedItems: { byId: { } },
       },
       flash: { messages: [] },
     };
@@ -79,6 +81,7 @@ describe(`ProfilePage`, (): void => {
         },
         users: { byId: { [dummyUser.id]: dummyUser } },
         topics: { byId: {} },
+        feedItems: { byId: { } },
       },
       flash: { messages: [] },
     };

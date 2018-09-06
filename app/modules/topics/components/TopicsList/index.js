@@ -41,7 +41,7 @@ class PureTopicsList extends React.Component<Props> {
   render(): React.Node {
     const { topicIds, isCurrentUser, onRemoveTopic } = this.props;
     return (
-      <Card.Group itemsPerRow={4} doubling={true} stackable={true}>
+      <Card.Group itemsPerRow={3} doubling={true} stackable={true}>
         {this.renderNewTopicButton()}
         {[...topicIds].reverse().map((topicId) => (
           <TopicCard
