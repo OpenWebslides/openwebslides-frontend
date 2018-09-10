@@ -1,9 +1,11 @@
 // @flow
 
-/* eslint-disable sort-imports */
+/* eslint-disable max-len, sort-imports */
 
 import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
+
+import asyncRequestSagaWrapper from 'lib/asyncRequestSagaWrapper';
 
 import * as a from '../../actionTypes';
 
@@ -18,14 +20,14 @@ import toggleEditing from './toggleEditing';
 
 const taskSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.ADD, add),
-    takeEvery(a.EDIT, edit),
-    takeEvery(a.INDENT, indent),
-    takeEvery(a.MOVE, move),
-    takeEvery(a.REMOVE, remove),
-    takeEvery(a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM, removeAndTogglePreviousItem),
-    takeEvery(a.REVERSE_INDENT, reverseIndent),
-    takeEvery(a.TOGGLE_EDITING, toggleEditing),
+    takeEvery(a.ADD, asyncRequestSagaWrapper, add),
+    takeEvery(a.EDIT, asyncRequestSagaWrapper, edit),
+    takeEvery(a.INDENT, asyncRequestSagaWrapper, indent),
+    takeEvery(a.MOVE, asyncRequestSagaWrapper, move),
+    takeEvery(a.REMOVE, asyncRequestSagaWrapper, remove),
+    takeEvery(a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM, asyncRequestSagaWrapper, removeAndTogglePreviousItem),
+    takeEvery(a.REVERSE_INDENT, asyncRequestSagaWrapper, reverseIndent),
+    takeEvery(a.TOGGLE_EDITING, asyncRequestSagaWrapper, toggleEditing),
   ]);
 };
 

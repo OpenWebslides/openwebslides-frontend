@@ -6,7 +6,6 @@ import { call, put } from 'redux-saga/effects';
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
 import { type ApiResponseData } from 'lib/ApiRequest';
-import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -19,31 +18,22 @@ const apiEventTypesToFeedItemTypesMap = {
 };
 
 const apiGetAll = function* (action: a.ApiGetAllAction): Saga<void> {
-  yield put(asyncRequests.actions.setPending(action.type));
-
-  try {
-    const responseData: ApiResponseData = yield call(api.feedItems.getAll);
-    if (responseData.body == null) {
-      throw new UnexpectedHttpResponseError();
-    }
-
-    // eslint-disable-next-line flowtype/no-weak-types
-    const data = responseData.body.data.map((item: Object): m.FeedItem => {
-      return {
-        id: item.id,
-        userId: item.relationships.user.data.id,
-        topicId: item.relationships.topic.data.id,
-        type: apiEventTypesToFeedItemTypesMap[item.attributes.eventType],
-        timestamp: Number(item.meta.createdAt) * 1000,
-      };
-    });
-    yield put(actions.setMultipleInState(data));
-
-    yield put(asyncRequests.actions.setSuccess(action.type));
+  const responseData: ApiResponseData = yield call(api.feedItems.getAll);
+  if (responseData.body == null) {
+    throw new UnexpectedHttpResponseError();
   }
-  catch (error) {
-    yield put(asyncRequests.actions.setFailure(action.type, error));
-  }
+
+  // eslint-disable-next-line flowtype/no-weak-types
+  const data = responseData.body.data.map((item: Object): m.FeedItem => {
+    return {
+      id: item.id,
+      userId: item.relationships.user.data.id,
+      topicId: item.relationships.topic.data.id,
+      type: apiEventTypesToFeedItemTypesMap[item.attributes.eventType],
+      timestamp: Number(item.meta.createdAt) * 1000,
+    };
+  });
+  yield put(actions.setMultipleInState(data));
 };
 
 export { apiEventTypesToFeedItemTypesMap };

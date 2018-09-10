@@ -1,9 +1,11 @@
 // @flow
 
-/* eslint-disable sort-imports */
+/* eslint-disable max-len, sort-imports */
 
 import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
+
+import asyncRequestSagaWrapper from 'lib/asyncRequestSagaWrapper';
 
 import * as a from '../../actionTypes';
 
@@ -19,15 +21,15 @@ import toggleSidebar from './toggleSidebar';
 
 const taskSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.CONFIRM_EMAIL, confirmEmail),
-    takeEvery(a.RESEND_CONFIRMATION_EMAIL, resendConfirmationEmail),
-    takeEvery(a.RESET_PASSWORD, resetPassword),
-    takeEvery(a.SEND_RESET_PASSWORD_EMAIL, sendResetPasswordEmail),
-    takeEvery(a.SIGNIN, signin),
-    takeEvery(a.SIGNIN_SSO, signinSSO),
-    takeEvery(a.SIGNOUT, signout),
-    takeEvery(a.SIGNUP, signup),
-    takeEvery(a.TOGGLE_SIDEBAR, toggleSidebar),
+    takeEvery(a.CONFIRM_EMAIL, asyncRequestSagaWrapper, confirmEmail),
+    takeEvery(a.RESEND_CONFIRMATION_EMAIL, asyncRequestSagaWrapper, resendConfirmationEmail),
+    takeEvery(a.RESET_PASSWORD, asyncRequestSagaWrapper, resetPassword),
+    takeEvery(a.SEND_RESET_PASSWORD_EMAIL, asyncRequestSagaWrapper, sendResetPasswordEmail),
+    takeEvery(a.SIGNIN, asyncRequestSagaWrapper, signin),
+    takeEvery(a.SIGNIN_SSO, asyncRequestSagaWrapper, signinSSO),
+    takeEvery(a.SIGNOUT, asyncRequestSagaWrapper, signout),
+    takeEvery(a.SIGNUP, asyncRequestSagaWrapper, signup),
+    takeEvery(a.TOGGLE_SIDEBAR, asyncRequestSagaWrapper, toggleSidebar),
   ]);
 };
 

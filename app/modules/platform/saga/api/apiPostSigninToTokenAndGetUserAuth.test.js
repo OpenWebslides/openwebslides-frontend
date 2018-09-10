@@ -1,6 +1,5 @@
 // @flow
 
-import _ from 'lodash';
 import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
@@ -58,48 +57,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
       .run();
   });
 
-  it(`sets its request status to PENDING and then sets its request status to SUCCESS, when the saga completes without errors`, (): void => {
-    const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
-    const dummyApiResponse = {
-      body: {
-        data: {
-          id: dummyId,
-          attributes: {
-            name: dummyName,
-            gravatarHash: dummyGravatarHash,
-          },
-        },
-      },
-      status: 201,
-      token: dummyToken,
-    };
-
-    return expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
-      .provide([
-        [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
-      ])
-      .put(asyncRequests.actions.setPending(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH))
-      .put(asyncRequests.actions.setSuccess(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH))
-      .run();
-  });
-
-  it(`sets its request status to PENDING and then sets its request status to FAILURE, when the api call fails`, (): void => {
-    const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
-    const dummyError = new Error('Boo!');
-
-    return expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
-      .provide({
-        call(effect: any, next: any): any {
-          if (effect.fn === api.token.postSignin) throw dummyError;
-          else return next();
-        },
-      })
-      .put(asyncRequests.actions.setPending(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH))
-      .put(asyncRequests.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, dummyError))
-      .run();
-  });
-
-  it(`sets its request status to FAILURE and passes on the correct error, when the api response does not contain a token`, async (): Promise<mixed> => {
+  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a token`, async (): Promise<mixed> => {
     const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
     const dummyApiResponse = {
       body: null,
@@ -107,17 +65,19 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
       token: dummyToken,
     };
 
-    const result = await expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
-      .provide([
-        [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
-      ])
-      .put.actionType(asyncRequests.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new UnexpectedHttpResponseError()).type)
-      .run();
-
-    expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(Error);
+    // Suppress console.error from redux-saga $FlowFixMe
+    console.error = jest.fn();
+    await expect(
+      expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
+        .provide([
+          [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
+        ])
+        .put.actionType(asyncRequests.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new UnexpectedHttpResponseError()).type)
+        .run(),
+    ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);
   });
 
-  it(`sets its request status to FAILURE and passes on the correct error, when the api response does not contain a body`, async (): Promise<mixed> => {
+  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<mixed> => {
     const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
     const dummyApiResponse = {
       body: {
@@ -132,14 +92,15 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
       status: 201,
     };
 
-    const result = await expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
-      .provide([
-        [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
-      ])
-      .put.actionType(asyncRequests.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new UnexpectedHttpResponseError()).type)
-      .run();
-
-    expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(Error);
+    // Suppress console.error from redux-saga $FlowFixMe
+    console.error = jest.fn();
+    await expect(
+      expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
+        .provide([
+          [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
+        ])
+        .run(),
+    ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);
   });
 
 });

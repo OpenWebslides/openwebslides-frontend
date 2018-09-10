@@ -1,9 +1,11 @@
 // @flow
 
-/* eslint-disable sort-imports */
+/* eslint-disable max-len, sort-imports */
 
 import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
+
+import asyncRequestSagaWrapper from 'lib/asyncRequestSagaWrapper';
 
 import * as a from '../../actionTypes';
 
@@ -16,12 +18,12 @@ import apiPostSigninToTokenAndGetUserAuth from './apiPostSigninToTokenAndGetUser
 
 const apiSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.API_DELETE_TOKEN, apiDeleteToken),
-    takeEvery(a.API_PATCH_CONFIRMATION, apiPatchConfirmation),
-    takeEvery(a.API_POST_CONFIRMATION, apiPostConfirmation),
-    takeEvery(a.API_PATCH_PASSWORD, apiPatchPassword),
-    takeEvery(a.API_POST_PASSWORD, apiPostPassword),
-    takeEvery(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, apiPostSigninToTokenAndGetUserAuth),
+    takeEvery(a.API_DELETE_TOKEN, asyncRequestSagaWrapper, apiDeleteToken),
+    takeEvery(a.API_PATCH_CONFIRMATION, asyncRequestSagaWrapper, apiPatchConfirmation),
+    takeEvery(a.API_POST_CONFIRMATION, asyncRequestSagaWrapper, apiPostConfirmation),
+    takeEvery(a.API_PATCH_PASSWORD, asyncRequestSagaWrapper, apiPatchPassword),
+    takeEvery(a.API_POST_PASSWORD, asyncRequestSagaWrapper, apiPostPassword),
+    takeEvery(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, asyncRequestSagaWrapper, apiPostSigninToTokenAndGetUserAuth),
   ]);
 };
 
