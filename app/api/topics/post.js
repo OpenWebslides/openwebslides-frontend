@@ -13,6 +13,7 @@ import { TOPICS_ENDPOINT } from '../endpoints';
 const post = (
   title: string,
   description: ?string,
+  rootContentItemId: string,
   userId: string,
   token: string,
 ): Promise<ApiResponseData> => {
@@ -23,6 +24,7 @@ const post = (
         title,
         state: 'public_access', // TODO: change when private topics can be created
         description,
+        rootContentItemId,
       },
       relationships: {
         user: {

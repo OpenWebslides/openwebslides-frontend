@@ -15,12 +15,12 @@ const apiPost = function* (action: a.ApiPostAction): Saga<void> {
   yield put(apiRequestsStatus.actions.setPending(action.type));
 
   try {
-    const { userId, title, description } = action.payload;
+    const { userId, title, description, rootContentItemId } = action.payload;
     const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
     if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
     const responseData: ApiResponseData = yield call(
-      api.topics.post, title, description, userId, userAuth.apiToken,
+      api.topics.post, title, description, rootContentItemId, userId, userAuth.apiToken,
     );
     if (responseData.body == null) throw new UnexpectedHttpResponseError();
 

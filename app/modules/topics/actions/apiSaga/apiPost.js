@@ -4,11 +4,16 @@ import validate from 'lib/validate';
 
 import * as a from '../../actionTypes';
 
-const apiPost = (title: string, description: ?string, userId: string): a.ApiPostAction => {
+const apiPost = (
+  title: string,
+  description: ?string,
+  rootContentItemId: string,
+  userId: string,
+): a.ApiPostAction => {
   const validatedPayload = validate.stringProps(
-    ['title'],
+    ['title', 'rootContentItemId'],
     ['description'],
-    { title, description, userId },
+    { title, description, rootContentItemId, userId },
   );
 
   return {

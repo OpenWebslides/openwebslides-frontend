@@ -10,11 +10,13 @@ describe(`apiPost`, (): void => {
 
   let dummyTitle: string;
   let dummyDescription: string;
+  let dummyRootContentItemId: string;
   let dummyUserId: string;
 
   beforeEach((): void => {
     dummyTitle = 'This is the title';
     dummyDescription = 'A description';
+    dummyRootContentItemId = 'foobarId';
     dummyUserId = 'dummyUserId';
   });
 
@@ -24,10 +26,11 @@ describe(`apiPost`, (): void => {
       payload: {
         title: dummyTitle,
         description: dummyDescription,
+        rootContentItemId: dummyRootContentItemId,
         userId: dummyUserId,
       },
     };
-    const actualAction = actions.apiPost(dummyTitle, dummyDescription, dummyUserId);
+    const actualAction = actions.apiPost(dummyTitle, dummyDescription, dummyRootContentItemId, dummyUserId);
 
     expect(actualAction).toEqual(expectedAction);
   });
@@ -35,14 +38,15 @@ describe(`apiPost`, (): void => {
   it(`calls validate.stringProps with the correct arguments and passes the result into the action`, (): void => {
     const dummyValidatedProps = { dummy: 'props' };
     validate.stringProps = jest.fn((): any => dummyValidatedProps);
-    const actualAction = actions.apiPost(dummyTitle, dummyDescription, dummyUserId);
+    const actualAction = actions.apiPost(dummyTitle, dummyDescription, dummyRootContentItemId, dummyUserId);
 
     expect(validate.stringProps).toHaveBeenCalledWith(
-      ['title'],
+      ['title', 'rootContentItemId'],
       ['description'],
       {
         title: dummyTitle,
         description: dummyDescription,
+        rootContentItemId: dummyRootContentItemId,
         userId: dummyUserId,
       },
     );
