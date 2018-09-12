@@ -23,10 +23,6 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     }
 
     const { attributes } = topicsResponseData.body.data;
-    if (attributes.rootContentItemId == null) {
-      throw new UnexpectedHttpResponseError(`Empty topic content item id topic with id ${id}.`);
-    }
-
     const topic: m.Topic = {
       id,
       title: attributes.title,

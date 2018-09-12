@@ -106,29 +106,4 @@ describe(`apiGet`, (): void => {
     expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnexpectedHttpResponseError);
   });
 
-  it(`sets its request status to PENDING and then sets its request status to FAILURE, when the api response does not contain a root content item id`, async (): Promise<mixed> => {
-    const dummyAction = actions.apiGet(dummyId);
-    const dummyApiResponse = {
-      status: 200,
-      body: {
-        data: {
-          attributes: {
-            title: dummyTitle,
-            description: dummyDescription,
-          },
-        },
-      },
-    };
-
-    const result = await expectSaga(sagas.apiGet, dummyAction)
-      .provide([
-        [call(api.topics.get, dummyId), dummyApiResponse],
-      ])
-      .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_GET, new UnexpectedHttpResponseError()).type)
-      .run();
-
-    expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnexpectedHttpResponseError);
-  });
-
 });
