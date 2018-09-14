@@ -32,6 +32,7 @@ describe(`ProfilePage`, (): void => {
   it(`renders the profile of the current user, when no userId route parameter is passed`, (): void => {
     const dummyState = {
       modules: {
+        asyncRequests: { byId: {} },
         platform: {
           userAuth: { userId: dummyUser.id, apiToken: 'foobarToken' },
         },
@@ -54,6 +55,7 @@ describe(`ProfilePage`, (): void => {
   it(`renders the profile for the user for the passed userId, when a userId route parameter is passed`, (): void => {
     const dummyState = {
       modules: {
+        asyncRequests: { byId: {} },
         platform: {
           userAuth: null,
         },
@@ -76,6 +78,7 @@ describe(`ProfilePage`, (): void => {
   it(`throws an UnsupportedOperationError, when attempting to render the current user's profile while there is no current user`, (): void => {
     const dummyState = {
       modules: {
+        asyncRequests: { byId: {} },
         platform: {
           userAuth: null,
         },

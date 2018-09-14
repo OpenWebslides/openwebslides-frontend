@@ -9,6 +9,7 @@ import { type ContextRouter as RouterProps } from 'react-router-dom';
 import { push } from 'connected-react-router';
 
 import { type Action } from 'types/action';
+import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import { InvalidArgumentError } from 'errors';
 import platform from 'modules/platform';
 import * as paths from 'config/routes';
@@ -57,8 +58,13 @@ class PureSSOCallbackPage extends React.Component<Props> {
     signinSSO(apiToken, userId);
   }
 
+  // #TODO should anything be displayed here at all or is ApiDimmer sufficient?
   render(): React.Node {
-    return null; // TODO: use ApiDimmer for GET /user?
+    return (
+      <ContainerPageWrapper>
+        <p>You will be redirected soon.</p>
+      </ContainerPageWrapper>
+    );
   }
 }
 

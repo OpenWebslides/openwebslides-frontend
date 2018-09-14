@@ -21,6 +21,7 @@ describe(`NewTopicPage`, (): void => {
     dummyCurrentUser = { ...dummyUserData.user };
     dummyState = {
       modules: {
+        asyncRequests: { byId: {} },
         platform: {
           userAuth: {
             userId: dummyCurrentUser.id,

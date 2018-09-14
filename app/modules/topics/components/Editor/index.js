@@ -9,7 +9,6 @@ import { Button, Header, Icon } from 'semantic-ui-react';
 import { type Action } from 'types/action';
 import FetchWrapper from 'components/FetchWrapper';
 import contentItems from 'modules/contentItems';
-import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -25,7 +24,6 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
 
-const { ApiDimmer } = asyncRequests.components;
 const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
@@ -53,11 +51,6 @@ class PureEditor extends React.Component<Props> {
 
     return (
       <div data-test-id="topic-editor">
-
-        <ApiDimmer ids={['contentItems/API_PATCH_ALL_BY_TOPIC_ID']}>
-          {t('api:topic.save.pending')}
-        </ApiDimmer>
-
         <div style={{ overflow: 'hidden' }}>
           <Header floated="left" as="h1">{topic.title}</Header>
           <Button
@@ -72,9 +65,7 @@ class PureEditor extends React.Component<Props> {
             {t('common:button.save')}
           </Button>
         </div>
-
         <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
-
       </div>
     );
   };

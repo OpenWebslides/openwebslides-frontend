@@ -9,7 +9,6 @@ import { type ContextRouter as RouterProps } from 'react-router-dom';
 import { type Action } from 'types/action';
 import { InvalidArgumentError } from 'errors';
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
-import asyncRequests from 'modules/asyncRequests';
 import platform from 'modules/platform';
 
 type DispatchProps = {|
@@ -17,8 +16,6 @@ type DispatchProps = {|
 |};
 
 type Props = {| ...TranslatorProps, ...RouterProps, ...DispatchProps |};
-
-const { ApiDimmer } = asyncRequests.components;
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
@@ -39,10 +36,11 @@ class PureConfirmEmailPage extends React.Component<Props> {
     confirmEmail(confirmationToken);
   }
 
+  // #TODO should anything be displayed here at all or is ApiDimmer sufficient?
   render(): React.Node {
     return (
       <ContainerPageWrapper>
-        <ApiDimmer ids={[platform.actions.apiPostConfirmation('dummy').type]} />
+        <p>You will be redirected soon.</p>
       </ContainerPageWrapper>
     );
   }

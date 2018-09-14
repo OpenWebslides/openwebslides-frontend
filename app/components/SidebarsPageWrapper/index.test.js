@@ -20,6 +20,7 @@ describe(`SidebarsPageWrapper`, (): void => {
     dummyTopic = { ...dummyTopicData.topic, rootContentItemId: dummyContentItemData.rootContentItem.id };
     dummyState = {
       modules: {
+        asyncRequests: { byId: {} },
         contentItems: {
           byId: {
             [dummyContentItemData.rootContentItem.id]: dummyContentItemData.rootContentItem,

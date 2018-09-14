@@ -18,18 +18,14 @@ import {
 } from 'config/routes';
 import { InvalidArgumentError } from 'errors';
 import EmailAndPasswordForm, { type EmailAndPasswordFormValues } from 'forms/EmailAndPasswordForm';
-import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
-import * as a from '../../actionTypes';
 
 type DispatchProps = {|
   onEmailAndPasswordFormSubmit: (values: EmailAndPasswordFormValues) => void,
 |};
 
 type Props = {| ...TranslatorProps, ...DispatchProps |};
-
-const { ApiDimmer } = asyncRequests.components;
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   return {
@@ -48,8 +44,6 @@ const PureSigninCard = (props: Props): React.Node => {
 
   return (
     <Card centered={true}>
-      <ApiDimmer ids={[a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH]} />
-
       <Card.Content>
         <Card.Header>
           {t('platform:signinCard.title')}

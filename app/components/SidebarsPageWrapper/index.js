@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { type State } from 'types/state';
 import FlashMessages from 'components/FlashMessages';
+import asyncRequests from 'modules/asyncRequests';
 import platform from 'modules/platform';
 
 import PageWrapper from '../PageWrapper';
@@ -20,6 +21,7 @@ type StateProps = {|
 
 type Props = {| ...PassedProps, ...StateProps |};
 
+const { ApiDimmer } = asyncRequests.components;
 const { Sidebars, SidebarsMenu } = platform.components;
 
 const mapStateToProps = (state: State): StateProps => {
@@ -43,6 +45,7 @@ const PureSidebarsPageWrapper = (props: Props): React.Node => {
           style={{ width: `${100 - sidebarsWidthPercentage}%` }}
         >
           <div className="page__main-content">
+            <ApiDimmer />
             <FlashMessages />
             {children}
           </div>

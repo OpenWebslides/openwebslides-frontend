@@ -1,5 +1,6 @@
 // @flow
 
+import _ from 'lodash';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
@@ -38,70 +39,38 @@ describe(`ApiDimmer`, (): void => {
     const enzymeWrapper = shallow(
       <PureApiDimmer
         {...dummyProviderProps.translatorProps}
-        ids={['foobar']}
         isActive={true}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
   });
 
-  it(`renders its children, when it is active`, (): void => {
-    const enzymeWrapper = shallow(
-      <PureApiDimmer
-        {...dummyProviderProps.translatorProps}
-        ids={['foobar']}
-        isActive={true}
-      >
-        <p data-test-id="enzyme">test.is.active</p>
-      </PureApiDimmer>,
-    );
-    expect(enzymeWrapper.find('[data-test-id="enzyme"]').text()).toBe('test.is.active');
-  });
-
   it(`does not render, when it is inactive`, (): void => {
     const enzymeWrapper = shallow(
       <PureApiDimmer
         {...dummyProviderProps.translatorProps}
-        ids={['foobar']}
         isActive={false}
-      >
-        <p data-test-id="enzyme">test.is.active</p>
-      </PureApiDimmer>,
+      />,
     );
 
     expect(enzymeWrapper.isEmptyRender()).toEqual(true);
   });
 
-  it(`is active, when the requestStatus for a single passed requestId is PENDING`, (): void => {
+  it(`is active, when there are one or more PENDING requests in the state`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState}>
-        <ApiDimmer ids={[dummyPendingAsyncRequest.id, dummySuccessAsyncRequest.id, dummyFailureAsyncRequest.id]}>
-          <p data-test-id="enzyme">test.is.active</p>
-        </ApiDimmer>
+        <ApiDimmer />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="enzyme"]').text()).toBe('test.is.active');
+    expect(enzymeWrapper.find('PureApiDimmer').isEmptyRender()).toEqual(false);
   });
 
   it(`is not active, when the requestStatus none of the passed requestIds is PENDING`, (): void => {
+    dummyState.modules.asyncRequests.byId = _.omit(dummyState.modules.asyncRequests.byId, dummyPendingAsyncRequest.id);
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState}>
-        <ApiDimmer ids={[dummySuccessAsyncRequest.id, dummyFailureAsyncRequest.id]}>
-          <p data-test-id="enzyme">test.is.active</p>
-        </ApiDimmer>
-      </DummyProviders>,
-    );
-
-    expect(enzymeWrapper.find('PureApiDimmer').isEmptyRender()).toEqual(true);
-  });
-
-  it(`ignores invalid requestIds`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState}>
-        <ApiDimmer ids={[dummySuccessAsyncRequest.id, dummyFailureAsyncRequest.id, 'invalidId']}>
-          <p data-test-id="enzyme">test.is.active</p>
-        </ApiDimmer>
+        <ApiDimmer />
       </DummyProviders>,
     );
 
