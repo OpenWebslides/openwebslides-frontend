@@ -91,7 +91,7 @@ export type ToggleSidebarAction = {|
 
 // TaskSaga action ---------------------------------------------------------------------------------
 
-export type TaskSagaAction =
+export type PlatformTaskSagaAction =
   | SigninAction
   | SigninSSOAction
   | SignoutAction

@@ -65,7 +65,7 @@ export type SetMultipleInStateAction = {|
   },
 |};
 
-export type ReducerAction =
+export type ContentItemsReducerAction =
   | AddToStateAction
   | EditPropsForTypeInStateAction
   | SwitchEditingInStateAction

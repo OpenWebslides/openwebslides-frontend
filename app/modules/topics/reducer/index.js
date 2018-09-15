@@ -12,7 +12,10 @@ const initialState: m.TopicsState = {
   byId: {},
 };
 
-const reducer = (state: m.TopicsState = initialState, action: a.ReducerAction): m.TopicsState => {
+const reducer = (
+  state: m.TopicsState = initialState,
+  action: a.TopicsReducerAction,
+): m.TopicsState => {
   switch (action.type) {
     case a.EDIT_IN_STATE:
       return editInState(state, action);

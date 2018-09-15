@@ -50,7 +50,7 @@ export type ToggleContentFetchedAction = {|
 
 // Reducer action ----------------------------------------------------------------------------------
 
-export type ReducerAction =
+export type TopicsReducerAction =
   | EditInStateAction
   | RemoveFromStateAction
   | SetMultipleInStateAction

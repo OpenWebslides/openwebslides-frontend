@@ -1,10 +1,13 @@
 // @flow
 
-import { type ReducerAction } from './reducer';
-import { type ApiSagaAction } from './apiSaga';
-import { type TaskSagaAction } from './taskSaga';
+import { type AsyncRequestsReducerAction } from './reducer';
+import { type AsyncRequestsApiSagaAction } from './apiSaga';
+import { type AsyncRequestsTaskSagaAction } from './taskSaga';
 
-export type AsyncRequestsAction = ReducerAction | ApiSagaAction | TaskSagaAction;
+export type AsyncRequestsAction =
+  | AsyncRequestsReducerAction
+  | AsyncRequestsApiSagaAction
+  | AsyncRequestsTaskSagaAction;
 
 export * from './reducer';
 export * from './apiSaga';

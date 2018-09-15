@@ -31,6 +31,6 @@ export type SetMultipleInStateAction = {|
 
 // Reducer action ----------------------------------------------------------------------------------
 
-export type ReducerAction =
+export type UsersReducerAction =
   | EditTopicIdsInStateAction
   | SetMultipleInStateAction;

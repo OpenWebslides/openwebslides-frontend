@@ -17,5 +17,5 @@ export type FetchAllAction = {|
 
 // TaskSaga action ---------------------------------------------------------------------------------
 
-export type TaskSagaAction =
+export type FeedItemsTaskSagaAction =
   | FetchAllAction;

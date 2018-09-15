@@ -29,6 +29,6 @@ export type ApiPatchAllByTopicIdAndRootAction = {|
 
 // ApiSaga action ----------------------------------------------------------------------------------
 
-export type ApiSagaAction =
+export type ContentItemsApiSagaAction =
   | ApiGetAllByTopicIdAction
   | ApiPatchAllByTopicIdAndRootAction;

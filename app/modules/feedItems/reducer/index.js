@@ -11,7 +11,7 @@ const initialState: m.FeedItemsState = {
 
 const reducer = (
   state: m.FeedItemsState = initialState,
-  action: a.ReducerAction,
+  action: a.FeedItemsReducerAction,
 ): m.FeedItemsState => {
   switch (action.type) {
     case a.SET_MULTIPLE_IN_STATE:

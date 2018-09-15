@@ -60,7 +60,7 @@ export type ApiPatchPasswordAction = {|
 
 // ApiSaga action ----------------------------------------------------------------------------------
 
-export type ApiSagaAction =
+export type PlatformApiSagaAction =
   | ApiPostSigninToTokenAndGetUserAuthAction
   | ApiDeleteTokenAction
   | ApiPostConfirmationAction

@@ -57,7 +57,7 @@ export type AddTopicIdAction = {|
 
 // TaskSaga action ---------------------------------------------------------------------------------
 
-export type TaskSagaAction =
+export type UsersTaskSagaAction =
   | AddTopicAction
   | AddTopicIdAction
   | FetchAction

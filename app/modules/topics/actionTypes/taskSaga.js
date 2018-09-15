@@ -66,7 +66,7 @@ export type PatchWithContentAction = {|
 
 // TaskSaga action ---------------------------------------------------------------------------------
 
-export type TaskSagaAction =
+export type TopicsTaskSagaAction =
   | CreateAction
   | EditAction
   | RemoveAction

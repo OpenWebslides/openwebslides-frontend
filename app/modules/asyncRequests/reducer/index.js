@@ -11,7 +11,7 @@ const initialState: m.AsyncRequestsState = {
 
 const reducer = (
   state: m.AsyncRequestsState = initialState,
-  action: a.ReducerAction,
+  action: a.AsyncRequestsReducerAction,
 ): m.AsyncRequestsState => {
   switch (action.type) {
     case a.SET_IN_STATE:

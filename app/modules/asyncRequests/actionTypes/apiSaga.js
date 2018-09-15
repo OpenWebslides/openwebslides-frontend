@@ -11,4 +11,4 @@
 
 // ApiSaga action ----------------------------------------------------------------------------------
 
-export type ApiSagaAction = {| type: string |};
+export type AsyncRequestsApiSagaAction = {| type: string |};

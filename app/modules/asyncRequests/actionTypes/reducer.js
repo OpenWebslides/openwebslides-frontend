@@ -22,5 +22,5 @@ export type SetInStateAction = {|
 
 // Reducer action ----------------------------------------------------------------------------------
 
-export type ReducerAction =
+export type AsyncRequestsReducerAction =
   | SetInStateAction;

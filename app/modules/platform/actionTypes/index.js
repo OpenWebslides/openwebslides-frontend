@@ -1,10 +1,13 @@
 // @flow
 
-import { type ReducerAction } from './reducer';
-import { type ApiSagaAction } from './apiSaga';
-import { type TaskSagaAction } from './taskSaga';
+import { type PlatformReducerAction } from './reducer';
+import { type PlatformApiSagaAction } from './apiSaga';
+import { type PlatformTaskSagaAction } from './taskSaga';
 
-export type PlatformAction = ReducerAction | ApiSagaAction | TaskSagaAction;
+export type PlatformAction =
+  | PlatformReducerAction
+  | PlatformApiSagaAction
+  | PlatformTaskSagaAction;
 
 export * from './reducer';
 export * from './apiSaga';

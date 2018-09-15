@@ -83,7 +83,7 @@ export type RemoveAndTogglePreviousItemAction = {|
 
 // TaskSaga action ---------------------------------------------------------------------------------
 
-export type TaskSagaAction =
+export type ContentItemsTaskSagaAction =
   | AddAction
   | EditAction
   | ToggleEditingAction

@@ -30,6 +30,6 @@ export type SetSettingInStateAction = {|
 
 // Reducer action ----------------------------------------------------------------------------------
 
-export type ReducerAction =
+export type PlatformReducerAction =
   | SetUserAuthInStateAction
   | SetSettingInStateAction;

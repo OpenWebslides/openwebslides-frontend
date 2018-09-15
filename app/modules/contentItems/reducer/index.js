@@ -16,7 +16,7 @@ const initialState: m.ContentItemsState = {
 
 const reducer = (
   state: m.ContentItemsState = initialState,
-  action: a.ReducerAction,
+  action: a.ContentItemsReducerAction,
 ): m.ContentItemsState => {
   switch (action.type) {
     case a.ADD_TO_STATE:

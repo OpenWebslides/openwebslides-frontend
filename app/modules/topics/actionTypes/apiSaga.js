@@ -39,7 +39,7 @@ export type ApiDeleteAction = {|
 
 // ApiSaga action ----------------------------------------------------------------------------------
 
-export type ApiSagaAction =
+export type TopicsApiSagaAction =
   | ApiGetAction
   | ApiPostAction
   | ApiDeleteAction;

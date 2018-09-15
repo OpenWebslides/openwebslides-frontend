@@ -22,5 +22,5 @@ export type SetMultipleInStateAction = {|
 
 // Reducer action ----------------------------------------------------------------------------------
 
-export type ReducerAction =
+export type FeedItemsReducerAction =
   | SetMultipleInStateAction;

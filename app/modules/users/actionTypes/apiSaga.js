@@ -31,6 +31,6 @@ export type ApiPostAction = {|
 
 // ApiSaga action ----------------------------------------------------------------------------------
 
-export type ApiSagaAction =
+export type UsersApiSagaAction =
   | ApiGetAction
   | ApiPostAction;

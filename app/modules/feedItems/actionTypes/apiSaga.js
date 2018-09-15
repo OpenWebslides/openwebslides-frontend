@@ -17,5 +17,5 @@ export type ApiGetAllAction = {|
 
 // ApiSaga action ----------------------------------------------------------------------------------
 
-export type ApiSagaAction =
+export type FeedItemsApiSagaAction =
   | ApiGetAllAction;

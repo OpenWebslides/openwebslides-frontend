@@ -38,7 +38,7 @@ export type SetFailureAction = {|
 
 // TaskSaga action ---------------------------------------------------------------------------------
 
-export type TaskSagaAction =
+export type AsyncRequestsTaskSagaAction =
   | SetPendingAction
   | SetSuccessAction
   | SetFailureAction;
