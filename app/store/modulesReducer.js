@@ -12,7 +12,7 @@ import platformReducer from 'modules/platform/reducer';
 import topicsReducer from 'modules/topics/reducer';
 import usersReducer from 'modules/users/reducer';
 
-// Don't forget to edit types/state.js when a new state part is added here.
+// Don't forget to edit types/redux.js when a new state part is added here.
 const modulesReducer = combineReducers({
   asyncRequests: asyncRequestsReducer,
   contentItems: contentItemsReducer,

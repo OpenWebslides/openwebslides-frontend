@@ -6,7 +6,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { Message } from 'semantic-ui-react';
 import { getLatestMessage } from 'redux-flash';
 
-import { type State } from 'types/state';
+import { type AppState } from 'types/redux';
 
 type Flash = {|
   id: string,
@@ -23,7 +23,7 @@ type StateProps = {|
 
 type Props = {| ...TranslatorProps, ...StateProps |};
 
-const mapStateToProps = (state: State): StateProps => {
+const mapStateToProps = (state: AppState): StateProps => {
   return {
     flash: getLatestMessage(state),
   };

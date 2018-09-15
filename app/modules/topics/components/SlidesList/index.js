@@ -4,7 +4,7 @@ import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 
-import { type State } from 'types/state';
+import { type AppState } from 'types/redux';
 import contentItems from 'modules/contentItems';
 import contentItemSplit from 'lib/contentItemSplit';
 
@@ -23,7 +23,7 @@ type StateProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
 
-const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { topicId } = props;
   const topic = selectors.getById(state, { id: topicId });
   const denormalizedTopicRoot = (topic != null)

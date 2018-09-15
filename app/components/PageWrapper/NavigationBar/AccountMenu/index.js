@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { type State } from 'types/state';
+import { type AppState } from 'types/redux';
 import platform from 'modules/platform';
 import users from 'modules/users';
 
@@ -16,7 +16,7 @@ type Props = {| ...StateProps |};
 const { AuthMenu } = platform.components;
 const { UserAccountMenu } = users.components;
 
-const mapStateToProps = (state: State): StateProps => {
+const mapStateToProps = (state: AppState): StateProps => {
   const userAuth = platform.selectors.getUserAuth(state);
   return {
     currentUserId: (userAuth != null) ? userAuth.userId : null,

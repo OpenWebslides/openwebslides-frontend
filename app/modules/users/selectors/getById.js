@@ -1,10 +1,10 @@
 // @flow
 
-import { type State } from 'types/state';
+import { type AppState } from 'types/redux';
 
 import * as m from '../model';
 
-const getById = (state: State, props: { id: string }): ?m.User => {
+const getById = (state: AppState, props: { id: string }): ?m.User => {
   const { id } = props;
   return state.modules.users.byId[id] || null;
 };

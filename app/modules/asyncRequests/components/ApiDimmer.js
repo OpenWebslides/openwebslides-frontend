@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Dimmer, Loader } from 'semantic-ui-react';
 
-import { type State } from 'types/state';
+import { type AppState } from 'types/redux';
 
 import selectors from '../selectors';
 
@@ -17,7 +17,7 @@ type StateProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
 
-const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const pendingRequests = selectors.getAllPending(state);
   return {
     isActive: (pendingRequests.length !== 0),

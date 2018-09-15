@@ -7,7 +7,7 @@ import { type Dispatch } from 'redux';
 import { Link } from 'react-router-dom';
 import { Button, Divider, Item } from 'semantic-ui-react';
 
-import { type Action } from 'types/action';
+import { type ModulesAction } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
 import topics from 'modules/topics';
 
@@ -29,7 +29,10 @@ type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
 
 const { TopicsList } = topics.components;
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
+const mapDispatchToProps = (
+  dispatch: Dispatch<ModulesAction>,
+  props: PassedProps,
+): DispatchProps => {
   const { userId } = props;
 
   return {

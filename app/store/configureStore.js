@@ -24,14 +24,13 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { type State } from 'types/state';
-import { type Action } from 'types/action';
+import { type ModulesAction, type AppState } from 'types/redux';
 
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
 
 const configureStore = (): {
-  store: Store<State, Action>,
+  store: Store<AppState, ModulesAction>,
   history: BrowserHistory,
   persistor: Persistor,
 } => {

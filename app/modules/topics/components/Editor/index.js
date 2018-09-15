@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { Button, Header, Icon } from 'semantic-ui-react';
 
-import { type Action } from 'types/action';
+import { type ModulesAction } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
 import contentItems from 'modules/contentItems';
 
@@ -26,7 +26,10 @@ type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
 
 const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
+const mapDispatchToProps = (
+  dispatch: Dispatch<ModulesAction>,
+  props: PassedProps,
+): DispatchProps => {
   const { topicId } = props;
 
   return {

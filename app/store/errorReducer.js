@@ -1,7 +1,6 @@
 // @flow
 
-import { type ErrorAction } from 'types/error';
-import { type ErrorState } from 'types/state';
+import { type ErrorAction, type ErrorState } from 'types/error';
 
 // $FlowFixMe https://github.com/facebook/flow/issues/2977
 const initialState: ErrorState = {};

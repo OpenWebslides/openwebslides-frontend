@@ -6,7 +6,7 @@ import { type Dispatch } from 'redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Card, Button, Icon } from 'semantic-ui-react';
 
-import { type Action } from 'types/action';
+import { type ModulesAction } from 'types/redux';
 import { InvalidArgumentError } from 'errors';
 import ResetPasswordForm, { type ResetPasswordFormValues } from 'forms/ResetPasswordForm';
 
@@ -22,7 +22,7 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
     onResetPasswordFormSubmit: (values: ResetPasswordFormValues): void => {
       if (

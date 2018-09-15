@@ -6,8 +6,7 @@ import { type Dispatch } from 'redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Feed as SemanticUiFeed, Header } from 'semantic-ui-react';
 
-import { type State } from 'types/state';
-import { type Action } from 'types/action';
+import { type ModulesAction, type AppState } from 'types/redux';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -25,13 +24,13 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...StateProps, ...DispatchProps |};
 
-const mapStateToProps = (state: State): StateProps => {
+const mapStateToProps = (state: AppState): StateProps => {
   return {
     sortedFeedItems: selectors.getAllSortedDescByTimestamp(state),
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
     handleFetchAll: (): void => {
       dispatch(actions.fetchAll());
@@ -39,7 +38,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
   };
 };
 
-class PureFeed extends React.Component<Props, State> {
+class PureFeed extends React.Component<Props> {
   componentDidMount(): void {
     const { handleFetchAll } = this.props;
     handleFetchAll();

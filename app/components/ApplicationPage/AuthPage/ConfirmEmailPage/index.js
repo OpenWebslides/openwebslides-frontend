@@ -6,7 +6,7 @@ import { type Dispatch } from 'redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
 
-import { type Action } from 'types/action';
+import { type ModulesAction } from 'types/redux';
 import { InvalidArgumentError } from 'errors';
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import platform from 'modules/platform';
@@ -17,7 +17,7 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...RouterProps, ...DispatchProps |};
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
     confirmEmail: (confirmationToken: string): void => {
       dispatch(platform.actions.confirmEmail(confirmationToken));

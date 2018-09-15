@@ -8,7 +8,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
 import { push } from 'connected-react-router';
 
-import { type Action } from 'types/action';
+import { type ModulesAction } from 'types/redux';
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import { InvalidArgumentError } from 'errors';
 import platform from 'modules/platform';
@@ -21,7 +21,7 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...RouterProps, ...DispatchProps |};
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
     signinSSO: (token: string, id: string): void => {
       dispatch(platform.actions.signinSSO(token, id));
