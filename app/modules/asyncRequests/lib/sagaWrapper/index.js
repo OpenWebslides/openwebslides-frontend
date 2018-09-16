@@ -4,7 +4,8 @@ import { type Saga } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
 import { type SagaAction } from 'types/actions';
-import asyncRequests from 'modules/asyncRequests';
+
+import actions from '../../actions';
 
 import lib from '..';
 
@@ -21,16 +22,16 @@ function* sagaWrapper<A: SagaAction>(
 
   try {
     // Set status to PENDING and call the passed saga.
-    yield put(asyncRequests.actions.setPending(asyncRequestId));
+    yield put(actions.setPending(asyncRequestId));
     const returnValue = yield call(saga, action);
 
     // If no error occurred, set status to SUCCESS and pass on the return value.
-    yield put(asyncRequests.actions.setSuccess(asyncRequestId, returnValue));
+    yield put(actions.setSuccess(asyncRequestId, returnValue));
     // #TODO flash success message
   }
   catch (error) {
     // If an error occurred, set status to FAILURE and pass on the error.
-    yield put(asyncRequests.actions.setFailure(asyncRequestId, error));
+    yield put(actions.setFailure(asyncRequestId, error));
     // #TODO flash error message
   }
 }

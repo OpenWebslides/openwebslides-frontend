@@ -4,7 +4,8 @@ import { type Saga } from 'redux-saga';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import { type SagaAction } from 'types/actions';
-import asyncRequests from 'modules/asyncRequests';
+
+import actions from '../../actions';
 
 import lib from '..';
 
@@ -26,9 +27,9 @@ describe(`sagaWrapper`, (): void => {
     const dummyAction = { type: 'dummy', asyncRequestId: 'dummyId' };
 
     return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
-      .put(asyncRequests.actions.setPending(dummyAction.asyncRequestId))
+      .put(actions.setPending(dummyAction.asyncRequestId))
       .call(dummySaga, dummyAction)
-      .put(asyncRequests.actions.setSuccess(dummyAction.asyncRequestId, dummyReturnValue))
+      .put(actions.setSuccess(dummyAction.asyncRequestId, dummyReturnValue))
       .run();
   });
 
@@ -41,9 +42,9 @@ describe(`sagaWrapper`, (): void => {
     const dummyAction = { type: 'dummy', asyncRequestId: 'dummyId' };
 
     return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
-      .put(asyncRequests.actions.setPending(dummyAction.asyncRequestId))
+      .put(actions.setPending(dummyAction.asyncRequestId))
       .call(dummySaga, dummyAction)
-      .put(asyncRequests.actions.setFailure(dummyAction.asyncRequestId, dummyError))
+      .put(actions.setFailure(dummyAction.asyncRequestId, dummyError))
       .run();
   });
 
@@ -55,7 +56,7 @@ describe(`sagaWrapper`, (): void => {
     const dummyAction = { type: 'dummy' };
 
     return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
-      .put(asyncRequests.actions.setPending(dummyId))
+      .put(actions.setPending(dummyId))
       .run();
   });
 
