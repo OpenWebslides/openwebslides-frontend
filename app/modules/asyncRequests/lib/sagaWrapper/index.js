@@ -4,8 +4,9 @@ import { type Saga } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
 import { type SagaAction } from 'types/actions';
-import generateRandomString from 'lib/generateRandomString';
 import asyncRequests from 'modules/asyncRequests';
+
+import lib from '..';
 
 // eslint-disable-next-line func-style
 function* sagaWrapper<A: SagaAction>(
@@ -14,10 +15,9 @@ function* sagaWrapper<A: SagaAction>(
 ): Saga<void> {
   // Get the actions asyncRequestId, if present;
   // if no asyncRequestId was passed, generate a random one.
-  // Note: we include the action type in the random id for easier debugging.
   const asyncRequestId = (action.asyncRequestId != null)
     ? action.asyncRequestId
-    : `${action.type}-${generateRandomString(20)}`;
+    : lib.generateId(action.type);
 
   try {
     // Set status to PENDING and call the passed saga.

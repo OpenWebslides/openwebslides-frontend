@@ -4,20 +4,17 @@ import { type Saga } from 'redux-saga';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import { type SagaAction } from 'types/actions';
-import generateRandomString from 'lib/generateRandomString';
 import asyncRequests from 'modules/asyncRequests';
 
 import lib from '..';
 
-jest.mock('lib/generateRandomString');
-
 describe(`sagaWrapper`, (): void => {
 
-  let dummyRandomString: string;
+  let dummyId: string;
 
   beforeEach((): void => {
-    dummyRandomString = 'supposedToBeRandom';
-    (generateRandomString: any).mockReturnValue(dummyRandomString);
+    dummyId = 'dummyId';
+    lib.generateId = jest.fn((): string => dummyId);
   });
 
   it(`sets the request's asyncRequests status to PENDING, calls the passed saga and then sets the request's asyncRequests status to SUCCESS, when the passed saga completes without errors`, (): void => {
@@ -58,7 +55,7 @@ describe(`sagaWrapper`, (): void => {
     const dummyAction = { type: 'dummy' };
 
     return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
-      .put(asyncRequests.actions.setPending(`${dummyAction.type}-${dummyRandomString}`))
+      .put(asyncRequests.actions.setPending(dummyId))
       .run();
   });
 
