@@ -29,11 +29,13 @@ export type ReducerAction = {|
 export type ApiSagaAction = {|
   ...Action,
   payload: SagaActionPayload,
+  asyncRequestId?: string,
 |};
 
 export type TaskSagaAction = {|
   ...Action,
   payload: SagaActionPayload,
+  asyncRequestId?: string,
 |};
 
 export type SagaAction =
