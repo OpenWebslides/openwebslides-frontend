@@ -14,9 +14,9 @@ export const SET_MULTIPLE_IN_STATE: 'feedItems/SET_MULTIPLE_IN_STATE' = 'feedIte
 
 export type SetMultipleInStateAction = {|
   type: typeof SET_MULTIPLE_IN_STATE,
-  payload: {
+  payload: {|
     feedItems: $ReadOnlyArray<m.FeedItem>,
-  },
+  |},
 |};
 
 

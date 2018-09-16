@@ -14,26 +14,26 @@ export const API_DELETE: 'topics/API_DELETE' = 'topics/API_DELETE';
 
 export type ApiGetAction = {|
   type: typeof API_GET,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 export type ApiPostAction = {|
   type: typeof API_POST,
-  payload: {
+  payload: {|
     title: string,
     description: ?string,
     rootContentItemId: string,
     userId: string,
-  },
+  |},
 |};
 
 export type ApiDeleteAction = {|
   type: typeof API_DELETE,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 

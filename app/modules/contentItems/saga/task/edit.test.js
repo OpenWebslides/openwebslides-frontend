@@ -139,7 +139,6 @@ describe(`edit`, (): void => {
       type: a.EDIT,
       payload: {
         id: dummyRoot.id,
-        isEditing: false,
         propsForType: {},
       },
     };

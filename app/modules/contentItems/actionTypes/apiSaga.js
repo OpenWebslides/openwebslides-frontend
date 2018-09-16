@@ -13,17 +13,17 @@ export const API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT: 'topics/API_PATCH_ALL_BY_TOPIC_
 
 export type ApiGetAllByTopicIdAction = {|
   type: typeof API_GET_ALL_BY_TOPIC_ID,
-  payload: {
+  payload: {|
     topicId: string,
-  },
+  |},
 |};
 
 export type ApiPatchAllByTopicIdAndRootAction = {|
   type: typeof API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT,
-  payload: {
+  payload: {|
     topicId: string,
     rootContentItemId: string,
-  },
+  |},
 |};
 
 

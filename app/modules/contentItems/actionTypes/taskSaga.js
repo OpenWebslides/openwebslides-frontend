@@ -21,63 +21,63 @@ export const REMOVE_AND_TOGGLE_PREVIOUS_ITEM: 'contentItems/REMOVE_AND_TOGGLE_PR
 
 export type AddAction = {|
   type: typeof ADD,
-  payload: {
+  payload: {|
     type: m.ContentItemType,
     context: ?m.Context,
     propsForType: $Shape<m.AllPropsForAllTypes>,
-  },
+  |},
 |};
 
 export type EditAction = {|
   type: typeof EDIT,
-  payload: {
+  payload: {|
     id: string,
     propsForType: $Shape<m.AllPropsForAllTypes>,
-  },
+  |},
 |};
 
 export type ToggleEditingAction = {|
   type: typeof TOGGLE_EDITING,
-  payload: {
+  payload: {|
     id: string,
     isEditing?: boolean,
-  },
+  |},
 |};
 
 export type MoveAction = {|
   type: typeof MOVE,
-  payload: {
+  payload: {|
     id: string,
     nextContext: m.VerticalContext,
-  },
+  |},
 |};
 
 export type IndentAction = {|
   type: typeof INDENT,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 export type ReverseIndentAction = {|
   type: typeof REVERSE_INDENT,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 export type RemoveAction = {|
   type: typeof REMOVE,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 export type RemoveAndTogglePreviousItemAction = {|
   type: typeof REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 

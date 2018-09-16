@@ -19,50 +19,50 @@ export const SET_MULTIPLE_IN_STATE: 'contentItems/SET_MULTIPLE_IN_STATE' = 'cont
 
 export type AddToStateAction = {|
   type: typeof ADD_TO_STATE,
-  payload: {
+  payload: {|
     id: string,
     type: m.ContentItemType,
     context: ?m.VerticalContext,
     propsForType: $Shape<m.AllPropsForAllTypes>,
-  },
+  |},
 |};
 
 export type EditPropsForTypeInStateAction = {|
   type: typeof EDIT_PROPS_FOR_TYPE_IN_STATE,
-  payload: {
+  payload: {|
     contentItem: m.ContentItem,
     propsForType: $Shape<m.AllPropsForAllTypes>,
-  },
+  |},
 |};
 
 export type SwitchEditingInStateAction = {|
   type: typeof SWITCH_EDITING_IN_STATE,
-  payload: {
+  payload: {|
     previousEditingItemId: ?string,
     nextEditingItemId: ?string,
-  },
+  |},
 |};
 
 export type MoveInStateAction = {|
   type: typeof MOVE_IN_STATE,
-  payload: {
+  payload: {|
     id: string,
     nextContext: m.VerticalContext,
-  },
+  |},
 |};
 
 export type RemoveFromStateAction = {|
   type: typeof REMOVE_FROM_STATE,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 export type SetMultipleInStateAction = {|
   type: typeof SET_MULTIPLE_IN_STATE,
-  payload: {
+  payload: {|
     contentItems: $ReadOnlyArray<m.ContentItem>,
-  },
+  |},
 |};
 
 export type ContentItemsReducerAction =

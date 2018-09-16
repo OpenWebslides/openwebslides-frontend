@@ -24,18 +24,18 @@ export const TOGGLE_SIDEBAR: 'platform/TOGGLE_SIDEBAR' = 'platform/TOGGLE_SIDEBA
 
 export type SigninAction = {|
   type: typeof SIGNIN,
-  payload: {
+  payload: {|
     email: string,
     password: string,
-  },
+  |},
 |};
 
 export type SigninSSOAction = {|
   type: typeof SIGNIN_SSO,
-  payload: {
+  payload: {|
     apiToken: string,
     userId: string,
-  },
+  |},
 |};
 
 export type SignoutAction = {|
@@ -44,48 +44,48 @@ export type SignoutAction = {|
 
 export type SignupAction = {|
   type: typeof SIGNUP,
-  payload: {
+  payload: {|
     email: string,
     name: string,
     password: string,
     tosAccepted: boolean,
-  },
+  |},
 |};
 
 export type ConfirmEmailAction = {|
   type: typeof CONFIRM_EMAIL,
-  payload: {
+  payload: {|
     confirmationToken: string,
-  },
+  |},
 |};
 
 export type ResendConfirmationEmailAction = {|
   type: typeof RESEND_CONFIRMATION_EMAIL,
-  payload: {
+  payload: {|
     email: string,
-  },
+  |},
 |};
 
 export type ResetPasswordAction = {|
   type: typeof RESET_PASSWORD,
-  payload: {
+  payload: {|
     password: string,
     resetPasswordToken: string,
-  },
+  |},
 |};
 
 export type SendResetPasswordEmailAction = {|
   type: typeof SEND_RESET_PASSWORD_EMAIL,
-  payload: {
+  payload: {|
     email: string,
-  },
+  |},
 |};
 
 export type ToggleSidebarAction = {|
   type: typeof TOGGLE_SIDEBAR,
-  payload: {
+  payload: {|
     sidebarId: m.SidebarId,
-  },
+  |},
 |};
 
 

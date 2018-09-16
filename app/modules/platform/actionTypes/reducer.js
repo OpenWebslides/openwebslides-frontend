@@ -15,16 +15,16 @@ export const SET_SETTING_IN_STATE: 'platform/SET_SETTING_IN_STATE' = 'platform/S
 
 export type SetUserAuthInStateAction = {|
   type: typeof SET_USER_AUTH_IN_STATE,
-  payload: {
+  payload: {|
     userAuth: ?m.UserAuth,
-  },
+  |},
 |};
 
 export type SetSettingInStateAction = {|
   type: typeof SET_SETTING_IN_STATE,
-  payload: {
+  payload: {|
     keyValuePair: m.UserSetting,
-  },
+  |},
 |};
 
 

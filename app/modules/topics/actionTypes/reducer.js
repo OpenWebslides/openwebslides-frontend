@@ -17,34 +17,34 @@ export const TOGGLE_CONTENT_FETCHED: 'topics/TOGGLE_CONTENT_FETCHED' = 'topics/T
 
 export type EditInStateAction = {|
   type: typeof EDIT_IN_STATE,
-  payload: {
+  payload: {|
     id: string,
     editedProps: {|
       title?: string,
       description?: ?string,
     |},
-  },
+  |},
 |};
 
 export type RemoveFromStateAction = {|
   type: typeof REMOVE_FROM_STATE,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 export type SetMultipleInStateAction = {|
   type: typeof SET_MULTIPLE_IN_STATE,
-  payload: {
+  payload: {|
     topics: $ReadOnlyArray<m.Topic>,
-  },
+  |},
 |};
 
 export type ToggleContentFetchedAction = {|
   type: typeof TOGGLE_CONTENT_FETCHED,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 

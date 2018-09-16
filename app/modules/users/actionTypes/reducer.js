@@ -15,17 +15,17 @@ export const SET_MULTIPLE_IN_STATE: 'users/SET_MULTIPLE_IN_STATE' = 'users/SET_M
 
 export type EditTopicIdsInStateAction = {|
   type: typeof EDIT_TOPIC_IDS_IN_STATE,
-  payload: {
+  payload: {|
     id: string,
     topicIds: $ReadOnlyArray<string>,
-  },
+  |},
 |};
 
 export type SetMultipleInStateAction = {|
   type: typeof SET_MULTIPLE_IN_STATE,
-  payload: {
+  payload: {|
     users: $ReadOnlyArray<m.User>,
-  },
+  |},
 |};
 
 

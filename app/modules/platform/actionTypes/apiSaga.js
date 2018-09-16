@@ -16,46 +16,46 @@ export const API_PATCH_PASSWORD: 'platform/API_PATCH_PASSWORD' = 'platform/API_P
 
 export type ApiPostSigninToTokenAndGetUserAuthAction = {|
   type: typeof API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH,
-  payload: {
+  payload: {|
     email: string,
     password: string,
-  },
+  |},
 |};
 
 export type ApiDeleteTokenAction = {|
   type: typeof API_DELETE_TOKEN,
-  payload: {
+  payload: {|
     token: string,
-  },
+  |},
 |};
 
 export type ApiPostConfirmationAction = {|
   type: typeof API_POST_CONFIRMATION,
-  payload: {
+  payload: {|
     email: string,
-  },
+  |},
 |};
 
 export type ApiPatchConfirmationAction = {|
   type: typeof API_PATCH_CONFIRMATION,
-  payload: {
+  payload: {|
     confirmationToken: string,
-  },
+  |},
 |};
 
 export type ApiPostPasswordAction = {|
   type: typeof API_POST_PASSWORD,
-  payload: {
+  payload: {|
     email: string,
-  },
+  |},
 |};
 
 export type ApiPatchPasswordAction = {|
   type: typeof API_PATCH_PASSWORD,
-  payload: {
+  payload: {|
     password: string,
     resetPasswordToken: string,
-  },
+  |},
 |};
 
 // ApiSaga action ----------------------------------------------------------------------------------

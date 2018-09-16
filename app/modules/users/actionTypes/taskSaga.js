@@ -16,42 +16,42 @@ export const REMOVE_TOPIC_ID: 'users/REMOVE_TOPIC_ID' = 'users/REMOVE_TOPIC_ID';
 
 export type AddTopicAction = {|
   type: typeof ADD_TOPIC,
-  payload: {
+  payload: {|
     id: string,
     title: string,
     description: ?string,
-  },
+  |},
 |};
 
 export type RemoveTopicIdAction = {|
   type: typeof REMOVE_TOPIC_ID,
-  payload: {
+  payload: {|
     id: string,
     topicId: string,
-  },
+  |},
 |};
 
 export type FetchAction = {|
   type: typeof FETCH,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 export type RemoveTopicAction = {|
   type: typeof REMOVE_TOPIC,
-  payload: {
+  payload: {|
     id: string,
     topicId: string,
-  },
+  |},
 |};
 
 export type AddTopicIdAction = {|
   type: typeof ADD_TOPIC_ID,
-  payload: {
+  payload: {|
     id: string,
     topicId: string,
-  },
+  |},
 |};
 
 

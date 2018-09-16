@@ -14,9 +14,9 @@ export const SET_IN_STATE: 'asyncRequests/SET_STATUS_IN_STATE' = 'asyncRequests/
 
 export type SetInStateAction = {|
   type: typeof SET_IN_STATE,
-  payload: {
+  payload: {|
     asyncRequest: m.AsyncRequest,
-  },
+  |},
 |};
 
 

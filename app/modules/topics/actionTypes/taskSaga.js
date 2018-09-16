@@ -17,50 +17,50 @@ export const PATCH_WITH_CONTENT: 'topics/PATCH_WITH_CONTENT' = 'topics/PATCH_WIT
 
 export type CreateAction = {|
   type: typeof CREATE,
-  payload: {
+  payload: {|
     title: string,
     description: ?string,
     userId: string,
-  },
+  |},
 |};
 
 export type EditAction = {|
   type: typeof EDIT,
-  payload: {
+  payload: {|
     id: string,
     editedProps: {|
       title?: string,
       description?: ?string,
     |},
-  },
+  |},
 |};
 
 export type RemoveAction = {|
   type: typeof REMOVE,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 export type FetchAction = {|
   type: typeof FETCH,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 export type FetchWithContentAction = {|
   type: typeof FETCH_WITH_CONTENT,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 export type PatchWithContentAction = {|
   type: typeof PATCH_WITH_CONTENT,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 

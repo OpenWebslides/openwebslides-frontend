@@ -13,19 +13,19 @@ export const API_POST: 'users/API_POST' = 'users/API_POST';
 
 export type ApiGetAction = {|
   type: typeof API_GET,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 export type ApiPostAction = {|
   type: typeof API_POST,
-  payload: {
+  payload: {|
     email: string,
     name: string,
     password: string,
     tosAccepted: boolean,
-  },
+  |},
 |};
 
 

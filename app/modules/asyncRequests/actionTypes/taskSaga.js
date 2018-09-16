@@ -14,25 +14,25 @@ export const SET_FAILURE: 'asyncRequests/SET_FAILURE' = 'asyncRequests/SET_FAILU
 
 export type SetPendingAction = {|
   type: typeof SET_PENDING,
-  payload: {
+  payload: {|
     id: string,
-  },
+  |},
 |};
 
 export type SetSuccessAction = {|
   type: typeof SET_SUCCESS,
-  payload: {
+  payload: {|
     id: string,
     value: mixed,
-  },
+  |},
 |};
 
 export type SetFailureAction = {|
   type: typeof SET_FAILURE,
-  payload: {
+  payload: {|
     id: string,
     error: Error,
-  },
+  |},
 |};
 
 
