@@ -5,7 +5,7 @@
 import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
 
-import asyncRequestSagaWrapper from 'lib/asyncRequestSagaWrapper';
+import asyncRequests from 'modules/asyncRequests';
 
 import * as a from '../../actionTypes';
 
@@ -18,12 +18,12 @@ import apiPostSigninToTokenAndGetUserAuth from './apiPostSigninToTokenAndGetUser
 
 const apiSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.API_DELETE_TOKEN, asyncRequestSagaWrapper, apiDeleteToken),
-    takeEvery(a.API_PATCH_CONFIRMATION, asyncRequestSagaWrapper, apiPatchConfirmation),
-    takeEvery(a.API_POST_CONFIRMATION, asyncRequestSagaWrapper, apiPostConfirmation),
-    takeEvery(a.API_PATCH_PASSWORD, asyncRequestSagaWrapper, apiPatchPassword),
-    takeEvery(a.API_POST_PASSWORD, asyncRequestSagaWrapper, apiPostPassword),
-    takeEvery(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, asyncRequestSagaWrapper, apiPostSigninToTokenAndGetUserAuth),
+    takeEvery(a.API_DELETE_TOKEN, asyncRequests.lib.sagaWrapper, apiDeleteToken),
+    takeEvery(a.API_PATCH_CONFIRMATION, asyncRequests.lib.sagaWrapper, apiPatchConfirmation),
+    takeEvery(a.API_POST_CONFIRMATION, asyncRequests.lib.sagaWrapper, apiPostConfirmation),
+    takeEvery(a.API_PATCH_PASSWORD, asyncRequests.lib.sagaWrapper, apiPatchPassword),
+    takeEvery(a.API_POST_PASSWORD, asyncRequests.lib.sagaWrapper, apiPostPassword),
+    takeEvery(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, asyncRequests.lib.sagaWrapper, apiPostSigninToTokenAndGetUserAuth),
   ]);
 };
 

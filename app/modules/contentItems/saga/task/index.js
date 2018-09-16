@@ -5,7 +5,7 @@
 import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
 
-import asyncRequestSagaWrapper from 'lib/asyncRequestSagaWrapper';
+import asyncRequests from 'modules/asyncRequests';
 
 import * as a from '../../actionTypes';
 
@@ -20,14 +20,14 @@ import toggleEditing from './toggleEditing';
 
 const taskSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.ADD, asyncRequestSagaWrapper, add),
-    takeEvery(a.EDIT, asyncRequestSagaWrapper, edit),
-    takeEvery(a.INDENT, asyncRequestSagaWrapper, indent),
-    takeEvery(a.MOVE, asyncRequestSagaWrapper, move),
-    takeEvery(a.REMOVE, asyncRequestSagaWrapper, remove),
-    takeEvery(a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM, asyncRequestSagaWrapper, removeAndTogglePreviousItem),
-    takeEvery(a.REVERSE_INDENT, asyncRequestSagaWrapper, reverseIndent),
-    takeEvery(a.TOGGLE_EDITING, asyncRequestSagaWrapper, toggleEditing),
+    takeEvery(a.ADD, asyncRequests.lib.sagaWrapper, add),
+    takeEvery(a.EDIT, asyncRequests.lib.sagaWrapper, edit),
+    takeEvery(a.INDENT, asyncRequests.lib.sagaWrapper, indent),
+    takeEvery(a.MOVE, asyncRequests.lib.sagaWrapper, move),
+    takeEvery(a.REMOVE, asyncRequests.lib.sagaWrapper, remove),
+    takeEvery(a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM, asyncRequests.lib.sagaWrapper, removeAndTogglePreviousItem),
+    takeEvery(a.REVERSE_INDENT, asyncRequests.lib.sagaWrapper, reverseIndent),
+    takeEvery(a.TOGGLE_EDITING, asyncRequests.lib.sagaWrapper, toggleEditing),
   ]);
 };
 

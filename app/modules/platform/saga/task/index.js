@@ -5,7 +5,7 @@
 import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
 
-import asyncRequestSagaWrapper from 'lib/asyncRequestSagaWrapper';
+import asyncRequests from 'modules/asyncRequests';
 
 import * as a from '../../actionTypes';
 
@@ -21,15 +21,15 @@ import toggleSidebar from './toggleSidebar';
 
 const taskSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.CONFIRM_EMAIL, asyncRequestSagaWrapper, confirmEmail),
-    takeEvery(a.RESEND_CONFIRMATION_EMAIL, asyncRequestSagaWrapper, resendConfirmationEmail),
-    takeEvery(a.RESET_PASSWORD, asyncRequestSagaWrapper, resetPassword),
-    takeEvery(a.SEND_RESET_PASSWORD_EMAIL, asyncRequestSagaWrapper, sendResetPasswordEmail),
-    takeEvery(a.SIGNIN, asyncRequestSagaWrapper, signin),
-    takeEvery(a.SIGNIN_SSO, asyncRequestSagaWrapper, signinSSO),
-    takeEvery(a.SIGNOUT, asyncRequestSagaWrapper, signout),
-    takeEvery(a.SIGNUP, asyncRequestSagaWrapper, signup),
-    takeEvery(a.TOGGLE_SIDEBAR, asyncRequestSagaWrapper, toggleSidebar),
+    takeEvery(a.CONFIRM_EMAIL, asyncRequests.lib.sagaWrapper, confirmEmail),
+    takeEvery(a.RESEND_CONFIRMATION_EMAIL, asyncRequests.lib.sagaWrapper, resendConfirmationEmail),
+    takeEvery(a.RESET_PASSWORD, asyncRequests.lib.sagaWrapper, resetPassword),
+    takeEvery(a.SEND_RESET_PASSWORD_EMAIL, asyncRequests.lib.sagaWrapper, sendResetPasswordEmail),
+    takeEvery(a.SIGNIN, asyncRequests.lib.sagaWrapper, signin),
+    takeEvery(a.SIGNIN_SSO, asyncRequests.lib.sagaWrapper, signinSSO),
+    takeEvery(a.SIGNOUT, asyncRequests.lib.sagaWrapper, signout),
+    takeEvery(a.SIGNUP, asyncRequests.lib.sagaWrapper, signup),
+    takeEvery(a.TOGGLE_SIDEBAR, asyncRequests.lib.sagaWrapper, toggleSidebar),
   ]);
 };
 

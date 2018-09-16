@@ -5,7 +5,7 @@
 import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
 
-import asyncRequestSagaWrapper from 'lib/asyncRequestSagaWrapper';
+import asyncRequests from 'modules/asyncRequests';
 
 import * as a from '../../actionTypes';
 
@@ -17,11 +17,11 @@ import removeTopicId from './removeTopicId';
 
 const taskSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.ADD_TOPIC, asyncRequestSagaWrapper, addTopic),
-    takeEvery(a.ADD_TOPIC_ID, asyncRequestSagaWrapper, addTopicId),
-    takeEvery(a.FETCH, asyncRequestSagaWrapper, fetch),
-    takeEvery(a.REMOVE_TOPIC, asyncRequestSagaWrapper, removeTopic),
-    takeEvery(a.REMOVE_TOPIC_ID, asyncRequestSagaWrapper, removeTopicId),
+    takeEvery(a.ADD_TOPIC, asyncRequests.lib.sagaWrapper, addTopic),
+    takeEvery(a.ADD_TOPIC_ID, asyncRequests.lib.sagaWrapper, addTopicId),
+    takeEvery(a.FETCH, asyncRequests.lib.sagaWrapper, fetch),
+    takeEvery(a.REMOVE_TOPIC, asyncRequests.lib.sagaWrapper, removeTopic),
+    takeEvery(a.REMOVE_TOPIC_ID, asyncRequests.lib.sagaWrapper, removeTopicId),
   ]);
 };
 

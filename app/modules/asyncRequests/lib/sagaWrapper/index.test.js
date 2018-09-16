@@ -7,11 +7,11 @@ import { type SagaAction } from 'types/actions';
 import generateRandomString from 'lib/generateRandomString';
 import asyncRequests from 'modules/asyncRequests';
 
-import asyncRequestSagaWrapper from '.';
+import lib from '..';
 
 jest.mock('lib/generateRandomString');
 
-describe(`asyncRequestSagaWrapper`, (): void => {
+describe(`sagaWrapper`, (): void => {
 
   let dummyRandomString: string;
 
@@ -28,7 +28,7 @@ describe(`asyncRequestSagaWrapper`, (): void => {
     };
     const dummyAction = { type: 'dummy', asyncRequestId: 'dummyId' };
 
-    return expectSaga(asyncRequestSagaWrapper, dummySaga, dummyAction)
+    return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
       .put(asyncRequests.actions.setPending(dummyAction.asyncRequestId))
       .call(dummySaga, dummyAction)
       .put(asyncRequests.actions.setSuccess(dummyAction.asyncRequestId, dummyReturnValue))
@@ -43,7 +43,7 @@ describe(`asyncRequestSagaWrapper`, (): void => {
     };
     const dummyAction = { type: 'dummy', asyncRequestId: 'dummyId' };
 
-    return expectSaga(asyncRequestSagaWrapper, dummySaga, dummyAction)
+    return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
       .put(asyncRequests.actions.setPending(dummyAction.asyncRequestId))
       .call(dummySaga, dummyAction)
       .put(asyncRequests.actions.setFailure(dummyAction.asyncRequestId, dummyError))
@@ -57,7 +57,7 @@ describe(`asyncRequestSagaWrapper`, (): void => {
     };
     const dummyAction = { type: 'dummy' };
 
-    return expectSaga(asyncRequestSagaWrapper, dummySaga, dummyAction)
+    return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
       .put(asyncRequests.actions.setPending(`${dummyAction.type}-${dummyRandomString}`))
       .run();
   });

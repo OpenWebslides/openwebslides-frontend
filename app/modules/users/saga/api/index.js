@@ -5,7 +5,7 @@
 import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
 
-import asyncRequestSagaWrapper from 'lib/asyncRequestSagaWrapper';
+import asyncRequests from 'modules/asyncRequests';
 
 import * as a from '../../actionTypes';
 
@@ -14,8 +14,8 @@ import apiPost from './apiPost';
 
 const apiSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.API_GET, asyncRequestSagaWrapper, apiGet),
-    takeEvery(a.API_POST, asyncRequestSagaWrapper, apiPost),
+    takeEvery(a.API_GET, asyncRequests.lib.sagaWrapper, apiGet),
+    takeEvery(a.API_POST, asyncRequests.lib.sagaWrapper, apiPost),
   ]);
 };
 

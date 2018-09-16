@@ -8,7 +8,7 @@ import generateRandomString from 'lib/generateRandomString';
 import asyncRequests from 'modules/asyncRequests';
 
 // eslint-disable-next-line func-style
-function* asyncRequestSagaWrapper<A: SagaAction>(
+function* sagaWrapper<A: SagaAction>(
   saga: (action: A) => (Saga<mixed> | Saga<void>),
   action: A,
 ): Saga<void> {
@@ -35,4 +35,4 @@ function* asyncRequestSagaWrapper<A: SagaAction>(
   }
 }
 
-export default asyncRequestSagaWrapper;
+export default sagaWrapper;
