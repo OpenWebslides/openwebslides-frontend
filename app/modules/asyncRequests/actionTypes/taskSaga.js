@@ -2,6 +2,8 @@
 
 /* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
+import { type TaskSagaAction } from 'types/actions';
+
 
 // Action constants --------------------------------------------------------------------------------
 
@@ -13,23 +15,29 @@ export const SET_FAILURE: 'asyncRequests/SET_FAILURE' = 'asyncRequests/SET_FAILU
 // Action types ------------------------------------------------------------------------------------
 
 export type SetPendingAction = {|
+  ...TaskSagaAction,
   type: typeof SET_PENDING,
   payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
     id: string,
   |},
 |};
 
 export type SetSuccessAction = {|
+  ...TaskSagaAction,
   type: typeof SET_SUCCESS,
   payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
     id: string,
     value: mixed,
   |},
 |};
 
 export type SetFailureAction = {|
+  ...TaskSagaAction,
   type: typeof SET_FAILURE,
   payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
     id: string,
     error: Error,
   |},

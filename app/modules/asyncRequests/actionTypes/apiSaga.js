@@ -2,6 +2,8 @@
 
 /* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
+import { type ApiSagaAction } from 'types/actions';
+
 
 // Action constants --------------------------------------------------------------------------------
 
@@ -11,4 +13,4 @@
 
 // ApiSaga action ----------------------------------------------------------------------------------
 
-export type AsyncRequestsApiSagaAction = {| type: string |};
+export type AsyncRequestsApiSagaAction = ApiSagaAction;

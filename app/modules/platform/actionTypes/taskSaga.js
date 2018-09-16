@@ -2,6 +2,8 @@
 
 /* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
+import { type TaskSagaAction } from 'types/actions';
+
 import * as m from '../model';
 
 
@@ -23,28 +25,38 @@ export const TOGGLE_SIDEBAR: 'platform/TOGGLE_SIDEBAR' = 'platform/TOGGLE_SIDEBA
 // Action types ------------------------------------------------------------------------------------
 
 export type SigninAction = {|
+  ...TaskSagaAction,
   type: typeof SIGNIN,
   payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
     email: string,
     password: string,
   |},
 |};
 
 export type SigninSSOAction = {|
+  ...TaskSagaAction,
   type: typeof SIGNIN_SSO,
   payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
     apiToken: string,
     userId: string,
   |},
 |};
 
 export type SignoutAction = {|
+  ...TaskSagaAction,
   type: typeof SIGNOUT,
+  payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
+  |},
 |};
 
 export type SignupAction = {|
+  ...TaskSagaAction,
   type: typeof SIGNUP,
   payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
     email: string,
     name: string,
     password: string,
@@ -53,37 +65,47 @@ export type SignupAction = {|
 |};
 
 export type ConfirmEmailAction = {|
+  ...TaskSagaAction,
   type: typeof CONFIRM_EMAIL,
   payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
     confirmationToken: string,
   |},
 |};
 
 export type ResendConfirmationEmailAction = {|
+  ...TaskSagaAction,
   type: typeof RESEND_CONFIRMATION_EMAIL,
   payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
     email: string,
   |},
 |};
 
 export type ResetPasswordAction = {|
+  ...TaskSagaAction,
   type: typeof RESET_PASSWORD,
   payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
     password: string,
     resetPasswordToken: string,
   |},
 |};
 
 export type SendResetPasswordEmailAction = {|
+  ...TaskSagaAction,
   type: typeof SEND_RESET_PASSWORD_EMAIL,
   payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
     email: string,
   |},
 |};
 
 export type ToggleSidebarAction = {|
+  ...TaskSagaAction,
   type: typeof TOGGLE_SIDEBAR,
   payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
     sidebarId: m.SidebarId,
   |},
 |};
