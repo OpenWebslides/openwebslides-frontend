@@ -12,16 +12,12 @@ import * as a from '../../actionTypes';
 const addTopic = function* (action: a.AddTopicAction): Saga<void> {
   const { id, title, description } = action.payload;
 
-  const createRequestId = yield call(
-    asyncRequests.lib.putAndGetId,
+  const { id: topicId } = yield call(
+    asyncRequests.lib.putAndReturn,
     topics.actions.create(title, description, id),
   );
-  const createReturnValue = yield call(
-    asyncRequests.lib.takeSuccessById,
-    createRequestId,
-  );
 
-  yield put(actions.addTopicId(id, createReturnValue.id));
+  yield put(actions.addTopicId(id, topicId));
 };
 
 export default addTopic;

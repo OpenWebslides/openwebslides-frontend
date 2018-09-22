@@ -44,13 +44,9 @@ const create = function* (action: a.CreateAction): Saga<{ id: string }> {
   const rootContentItemId = generateId();
   yield call(createInitialTopicRoot, rootContentItemId);
 
-  const apiPostId = yield call(
-    asyncRequests.lib.putAndGetId,
-    actions.apiPost(title, description, rootContentItemId, userId),
-  );
   const apiPostReturnValue = yield call(
-    asyncRequests.lib.takeSuccessById,
-    apiPostId,
+    asyncRequests.lib.putAndReturn,
+    actions.apiPost(title, description, rootContentItemId, userId),
   );
 
   return apiPostReturnValue;

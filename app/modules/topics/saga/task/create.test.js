@@ -1,6 +1,7 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
 
 import asyncRequests from 'modules/asyncRequests';
 import contentItems from 'modules/contentItems';
@@ -22,9 +23,6 @@ describe(`create`, (): void => {
   let dummyDescription: string;
   let dummyUserId: string;
 
-  let dummyApiPostAsyncRequestId: string;
-  let dummyApiPostReturnValue: mixed;
-
   let dummyGeneratedId1: string;
   let dummyGeneratedId2: string;
 
@@ -33,10 +31,6 @@ describe(`create`, (): void => {
     dummyTitle = 'dummyTitle';
     dummyDescription = 'Lorem ipsum dolor sit amet.';
     dummyUserId = 'dummyUserId';
-
-    dummyApiPostAsyncRequestId = 'dummyApiPostAsyncRequestId';
-    dummyApiPostReturnValue = { id: dummyId };
-    asyncRequests.lib.generateId = jest.fn((): string => dummyApiPostAsyncRequestId);
 
     dummyGeneratedId1 = 'dummyGeneratedId1';
     dummyGeneratedId2 = 'dummyGeneratedId2';
@@ -49,9 +43,10 @@ describe(`create`, (): void => {
     const dummyAction = actions.create(dummyTitle, dummyDescription, dummyUserId);
 
     return expectSaga(sagas.create, dummyAction)
-      .put.like({ action: actions.apiPost(dummyTitle, dummyDescription, dummyGeneratedId1, dummyUserId) })
-      .dispatch(asyncRequests.actions.setSuccess(dummyApiPostAsyncRequestId, dummyApiPostReturnValue))
-      .returns(dummyApiPostReturnValue)
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), { id: dummyId }],
+      ])
+      .returns({ id: dummyId })
       .run();
   });
 
@@ -59,9 +54,11 @@ describe(`create`, (): void => {
     const dummyAction = actions.create(dummyTitle, dummyDescription, dummyUserId);
 
     return expectSaga(sagas.create, dummyAction)
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), { id: dummyId }],
+      ])
       .put(contentItems.actions.addToState(dummyGeneratedId1, contentItemTypes.ROOT, null, {}))
       .put(contentItems.actions.addToState(dummyGeneratedId2, contentItemTypes.HEADING, { contextType: contextTypes.PARENT, contextItemId: dummyGeneratedId1 }, { text: 'Placeholder' }))
-      .dispatch(asyncRequests.actions.setSuccess(dummyApiPostAsyncRequestId, dummyApiPostReturnValue))
       .run();
   });
 
