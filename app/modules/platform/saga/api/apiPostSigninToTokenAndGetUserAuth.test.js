@@ -5,10 +5,8 @@ import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
-import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
-import * as a from '../../actionTypes';
 
 import { sagas } from '..';
 
@@ -72,7 +70,6 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
         .provide([
           [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
         ])
-        .put.actionType(asyncRequests.actions.setFailure(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, new UnexpectedHttpResponseError()).type)
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);
   });
