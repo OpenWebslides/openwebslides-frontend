@@ -7,7 +7,7 @@ import * as m from '../../model';
 
 import lib from '..';
 
-const takeFailureById = function* (asyncRequestId: string): Saga<mixed> {
+const takeSuccessById = function* (asyncRequestId: string): Saga<mixed> {
   const matchingAction = yield call(
     lib.takeByIdAndStatusType,
     asyncRequestId,
@@ -17,4 +17,4 @@ const takeFailureById = function* (asyncRequestId: string): Saga<mixed> {
   return matchingAction.payload.value;
 };
 
-export default takeFailureById;
+export default takeSuccessById;
