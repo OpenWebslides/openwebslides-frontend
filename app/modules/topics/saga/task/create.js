@@ -3,6 +3,7 @@
 import { type Saga } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
+import asyncRequests from 'modules/asyncRequests';
 import contentItems from 'modules/contentItems';
 // eslint-disable-next-line import/no-internal-modules
 import generateId from 'modules/contentItems/lib/generateId'; // #TODO
@@ -35,7 +36,7 @@ const createInitialTopicRoot = function* (rootContentItemId: string): Saga<void>
   yield put(contentItems.actions.toggleEditing(headingContentItemId, true));
 };
 
-const create = function* (action: a.CreateAction): Saga<void> {
+const create = function* (action: a.CreateAction): Saga<{ id: string }> {
   const { title, description, userId } = action.payload;
 
   // Generate initial topic content
@@ -43,7 +44,16 @@ const create = function* (action: a.CreateAction): Saga<void> {
   const rootContentItemId = generateId();
   yield call(createInitialTopicRoot, rootContentItemId);
 
-  yield put(actions.apiPost(title, description, rootContentItemId, userId));
+  const apiPostId = yield call(
+    asyncRequests.lib.putAndGetId,
+    actions.apiPost(title, description, rootContentItemId, userId),
+  );
+  const apiPostReturnValue = yield call(
+    asyncRequests.lib.takeSuccessById,
+    apiPostId,
+  );
+
+  return apiPostReturnValue;
 };
 
 export default create;
