@@ -4,8 +4,8 @@ import { InvalidArgumentError, NotYetImplementedError, UnsupportedOperationError
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as a from '../actionTypes';
+import lib from '../lib';
 import * as m from '../model';
-import edit from '../lib/edit';
 
 import reducer from '.';
 
@@ -376,7 +376,7 @@ describe(`ADD_TO_STATE`, (): void => {
       },
     };
 
-    edit.validateChildOrSubItemsInContext = jest.fn((): void => {
+    lib.edit.validateChildOrSubItemsInContext = jest.fn((): void => {
       throw new Error(dummyMessage);
     });
 

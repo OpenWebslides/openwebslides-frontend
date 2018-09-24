@@ -3,9 +3,8 @@
 import { InvalidArgumentError, ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
+import lib from '../..';
 import * as m from '../../../model';
-
-import edit from '..';
 
 describe(`removeChildOrSubItemIdFromContext`, (): void => {
 
@@ -42,7 +41,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
     };
-    const actualResult = edit.removeChildOrSubItemIdFromContext(dummyContext, dummyParagraph11.id, dummyContentItemsById);
+    const actualResult = lib.edit.removeChildOrSubItemIdFromContext(dummyContext, dummyParagraph11.id, dummyContentItemsById);
     const expectedResult = { ...dummyHeading1, subItemIds: [dummyParagraph12.id] };
 
     expect(actualResult).toEqual(expectedResult);
@@ -55,7 +54,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextType: m.contextTypes.PARENT,
       contextItemId: dummyRoot.id,
     };
-    const actualResult = edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
+    const actualResult = lib.edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
     const expectedResult = { ...dummyRoot, childItemIds: [dummyHeading1.id] };
 
     expect(actualResult).toEqual(expectedResult);
@@ -69,7 +68,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextItemId: 'DefinitelyNotValidId',
     };
     expect((): void => {
-      edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
+      lib.edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
     }).toThrow(ObjectNotFoundError);
   });
 
@@ -79,7 +78,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextItemId: dummyRoot.id,
     };
     expect((): void => {
-      edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
+      lib.edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -89,7 +88,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextItemId: dummyHeading1.id,
     };
     expect((): void => {
-      edit.removeChildOrSubItemIdFromContext(dummyContext, dummyParagraph11.id, dummyContentItemsById);
+      lib.edit.removeChildOrSubItemIdFromContext(dummyContext, dummyParagraph11.id, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -101,7 +100,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextItemId: dummyHeading1.id,
     };
     expect((): void => {
-      edit.removeChildOrSubItemIdFromContext(dummyContext, dummyParagraph11.id, dummyContentItemsById);
+      lib.edit.removeChildOrSubItemIdFromContext(dummyContext, dummyParagraph11.id, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -113,7 +112,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextItemId: dummyRoot.id,
     };
     expect((): void => {
-      edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
+      lib.edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -123,7 +122,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
       contextItemId: dummyRoot.id,
     };
     expect((): void => {
-      edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
+      lib.edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 

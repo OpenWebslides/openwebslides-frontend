@@ -8,8 +8,8 @@ import api from 'api';
 import platform from 'modules/platform';
 
 import * as a from '../../actionTypes';
+import lib from '../../lib';
 import selectors from '../../selectors';
-import find from '../../lib/find';
 
 const apiPatchAllByTopicIdAndRoot = function* (
   action: a.ApiPatchAllByTopicIdAndRootAction,
@@ -20,7 +20,9 @@ const apiPatchAllByTopicIdAndRoot = function* (
 
   const contentItemsById = yield select(selectors.getAllById);
   const rootContentItem = yield select(selectors.getById, { id: rootContentItemId });
-  const descendantItems = yield call(find.allDescendantItems, rootContentItem, contentItemsById);
+  const descendantItems = yield call(
+    lib.find.allDescendantItems, rootContentItem, contentItemsById,
+  );
   const topicContentItems = [rootContentItem, ...descendantItems];
 
   yield call(api.topics.patchContent, topicId, topicContentItems, userAuth.apiToken);

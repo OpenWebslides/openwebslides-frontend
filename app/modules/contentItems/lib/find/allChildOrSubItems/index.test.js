@@ -5,9 +5,8 @@ import _ from 'lodash';
 import { CorruptedInternalStateError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
+import lib from '../..';
 import * as m from '../../../model';
-
-import find from '..';
 
 describe(`findAllChildOrSubItems`, (): void => {
 
@@ -82,14 +81,14 @@ describe(`findAllChildOrSubItems`, (): void => {
   });
 
   it(`returns an array containing all subItems, when the passed contentItem is a superItem`, (): void => {
-    const actualResult = find.allChildOrSubItems(dummyHeading3, dummyContentItemsById);
+    const actualResult = lib.find.allChildOrSubItems(dummyHeading3, dummyContentItemsById);
     expect(actualResult).toHaveLength(2);
     expect(actualResult[0]).toBe(dummyParagraph31);
     expect(actualResult[1]).toBe(dummyParagraph32);
   });
 
   it(`returns an array containing all childItems, when the passed contentItem is a parentItem`, (): void => {
-    const actualResult = find.allChildOrSubItems(dummyRoot, dummyContentItemsById);
+    const actualResult = lib.find.allChildOrSubItems(dummyRoot, dummyContentItemsById);
     expect(actualResult).toHaveLength(5);
     expect(actualResult[0]).toBe(dummyParagraph1);
     expect(actualResult[1]).toBe(dummyParagraph2);
@@ -99,7 +98,7 @@ describe(`findAllChildOrSubItems`, (): void => {
   });
 
   it(`returns an array containg all childItems and subItems with the childItems before the subItems, when the passed contentItem is a superItem as well as a parentItem`, (): void => {
-    const actualResult = find.allChildOrSubItems(dummyTestParentAndSuperItem52, dummyContentItemsById);
+    const actualResult = lib.find.allChildOrSubItems(dummyTestParentAndSuperItem52, dummyContentItemsById);
     expect(actualResult).toHaveLength(4);
     expect(actualResult[0]).toBe(dummyParagraph521);
     expect(actualResult[1]).toBe(dummyParagraph522);
@@ -108,12 +107,12 @@ describe(`findAllChildOrSubItems`, (): void => {
   });
 
   it(`returns an empty array, when the passed contentItem is neither a superItem nor a parentItem`, (): void => {
-    const actualResult = find.allChildOrSubItems(dummyParagraph41, dummyContentItemsById);
+    const actualResult = lib.find.allChildOrSubItems(dummyParagraph41, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });
 
   it(`returns an empty array, when the passed contentItem is NULL`, (): void => {
-    const actualResult = find.allChildOrSubItems(null, dummyContentItemsById);
+    const actualResult = lib.find.allChildOrSubItems(null, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });
 
@@ -121,7 +120,7 @@ describe(`findAllChildOrSubItems`, (): void => {
     dummyContentItemsById = _.omit(dummyContentItemsById, dummyParagraph31.id);
 
     expect((): void => {
-      find.allChildOrSubItems(dummyHeading3, dummyContentItemsById);
+      lib.find.allChildOrSubItems(dummyHeading3, dummyContentItemsById);
     }).toThrow(CorruptedInternalStateError);
   });
 

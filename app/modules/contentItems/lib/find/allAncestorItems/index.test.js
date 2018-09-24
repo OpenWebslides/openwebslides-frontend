@@ -2,9 +2,8 @@
 
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
+import lib from '../..';
 import * as m from '../../../model';
-
-import find from '..';
 
 describe(`findAllAncestorItems`, (): void => {
 
@@ -73,7 +72,7 @@ describe(`findAllAncestorItems`, (): void => {
   });
 
   it(`returns an array containing all of the passed contentItem's ancestorItems, when the passed contentItem is a subItem`, (): void => {
-    const actualResult = find.allAncestorItems(dummyParagraph1122, dummyContentItemsById);
+    const actualResult = lib.find.allAncestorItems(dummyParagraph1122, dummyContentItemsById);
     expect(actualResult).toHaveLength(4);
     expect(actualResult[0]).toBe(dummyParagraph112);
     expect(actualResult[1]).toBe(dummyHeading11);
@@ -82,18 +81,18 @@ describe(`findAllAncestorItems`, (): void => {
   });
 
   it(`returns an array containing all of the passed contentItem's ancestorItems, when the passed contentItem is a childItem`, (): void => {
-    const actualResult = find.allAncestorItems(dummyHeading1, dummyContentItemsById);
+    const actualResult = lib.find.allAncestorItems(dummyHeading1, dummyContentItemsById);
     expect(actualResult).toHaveLength(1);
     expect(actualResult[0]).toBe(dummyRoot);
   });
 
   it(`returns an empty array, when the passed contentItem is neither a child- nor a subItem (i.e. is a ROOT)`, (): void => {
-    const actualResult = find.allAncestorItems(dummyRoot, dummyContentItemsById);
+    const actualResult = lib.find.allAncestorItems(dummyRoot, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });
 
   it(`returns an empty array, when the passed contentItem is NULL`, (): void => {
-    const actualResult = find.allAncestorItems(null, dummyContentItemsById);
+    const actualResult = lib.find.allAncestorItems(null, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });
 

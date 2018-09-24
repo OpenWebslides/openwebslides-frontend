@@ -10,9 +10,9 @@ import { ObjectNotFoundError } from 'errors';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
+import lib from '../../lib';
 import * as m from '../../model';
 import selectors from '../../selectors';
-import find from '../../lib/find';
 
 const indentSaga = function* (action: a.IndentAction): Saga<void> {
   const { id } = action.payload;
@@ -21,7 +21,7 @@ const indentSaga = function* (action: a.IndentAction): Saga<void> {
   if (contentItemToIndent == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
 
   const contentItemsById = yield select(selectors.getAllById);
-  const previousSiblingItem = find.previousSiblingItem(contentItemToIndent, contentItemsById);
+  const previousSiblingItem = lib.find.previousSiblingItem(contentItemToIndent, contentItemsById);
 
   if (
     previousSiblingItem != null

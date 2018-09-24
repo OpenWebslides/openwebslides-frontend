@@ -4,7 +4,7 @@ import createCachedSelector from 're-reselect';
 
 import { type AppState } from 'types/redux';
 
-import denormalize from '../lib/denormalize';
+import lib from '../lib';
 import * as m from '../model';
 
 import getById from './getById';
@@ -16,7 +16,7 @@ const getDenormalizedById = createCachedSelector(
     contentItem: ?m.ContentItem,
     contentItemsById: m.ContentItemsById,
   ): ?m.DenormalizedContentItem => {
-    return denormalize(contentItem, contentItemsById);
+    return lib.denormalize(contentItem, contentItemsById);
   },
 )(
   // eslint-disable-next-line react/destructuring-assignment

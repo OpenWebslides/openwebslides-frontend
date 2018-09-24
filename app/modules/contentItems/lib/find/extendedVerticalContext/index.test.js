@@ -3,9 +3,8 @@
 import { InvalidArgumentError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
+import lib from '../..';
 import * as m from '../../../model';
-
-import find from '..';
 
 describe(`findExtendedVerticalContext`, (): void => {
 
@@ -50,7 +49,7 @@ describe(`findExtendedVerticalContext`, (): void => {
   });
 
   it(`returns the correct context, when the passed contentItem is a subItem`, (): void => {
-    const actualResult = find.extendedVerticalContext(dummyParagraph11, dummyContentItemsById);
+    const actualResult = lib.find.extendedVerticalContext(dummyParagraph11, dummyContentItemsById);
     const expectedResult: m.ExtendedVerticalContext = {
       contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
@@ -61,7 +60,7 @@ describe(`findExtendedVerticalContext`, (): void => {
   });
 
   it(`returns the correct context, when the passed contentItem is a childItem`, (): void => {
-    const actualResult = find.extendedVerticalContext(dummyHeading2, dummyContentItemsById);
+    const actualResult = lib.find.extendedVerticalContext(dummyHeading2, dummyContentItemsById);
     const expectedResult: m.ExtendedVerticalContext = {
       contextType: m.contextTypes.PARENT,
       contextItemId: dummyRoot.id,
@@ -72,7 +71,7 @@ describe(`findExtendedVerticalContext`, (): void => {
   });
 
   it(`returns the correct context, when the passed contentItem is the first in its list of siblings`, (): void => {
-    const actualResult = find.extendedVerticalContext(dummyParagraph21, dummyContentItemsById);
+    const actualResult = lib.find.extendedVerticalContext(dummyParagraph21, dummyContentItemsById);
     const expectedResult: m.ExtendedVerticalContext = {
       contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading2.id,
@@ -83,7 +82,7 @@ describe(`findExtendedVerticalContext`, (): void => {
   });
 
   it(`returns the correct context, when the passed contentItem is the last in its list of siblings`, (): void => {
-    const actualResult = find.extendedVerticalContext(dummyParagraph23, dummyContentItemsById);
+    const actualResult = lib.find.extendedVerticalContext(dummyParagraph23, dummyContentItemsById);
     const expectedResult: m.ExtendedVerticalContext = {
       contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading2.id,
@@ -94,7 +93,7 @@ describe(`findExtendedVerticalContext`, (): void => {
   });
 
   it(`returns the correct context, when the passed contentItem is neither the first nor the last in its list of siblings`, (): void => {
-    const actualResult = find.extendedVerticalContext(dummyParagraph22, dummyContentItemsById);
+    const actualResult = lib.find.extendedVerticalContext(dummyParagraph22, dummyContentItemsById);
     const expectedResult: m.ExtendedVerticalContext = {
       contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading2.id,
@@ -105,7 +104,7 @@ describe(`findExtendedVerticalContext`, (): void => {
   });
 
   it(`returns the correct context, when the parentOrSuperItem is passed as a argument`, (): void => {
-    const actualResult = find.extendedVerticalContext(dummyParagraph11, dummyContentItemsById, dummyHeading1);
+    const actualResult = lib.find.extendedVerticalContext(dummyParagraph11, dummyContentItemsById, dummyHeading1);
     const expectedResult: m.ExtendedVerticalContext = {
       contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
@@ -117,17 +116,17 @@ describe(`findExtendedVerticalContext`, (): void => {
 
   it(`throws an InvalidArgumentError, when the passed parentOrSuperItem doesn't contain the passed contentItem as a subItem or childItem`, (): void => {
     expect((): void => {
-      find.extendedVerticalContext(dummyParagraph11, dummyContentItemsById, dummyHeading2);
+      lib.find.extendedVerticalContext(dummyParagraph11, dummyContentItemsById, dummyHeading2);
     }).toThrow(InvalidArgumentError);
   });
 
   it(`returns NULL, when the passed contentItem is neither a child- nor a subItem (i.e. is a ROOT)`, (): void => {
-    const actualResult = find.extendedVerticalContext(dummyRoot, dummyContentItemsById);
+    const actualResult = lib.find.extendedVerticalContext(dummyRoot, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
   it(`returns NULL, when the passed contentItem is NULL`, (): void => {
-    const actualResult = find.extendedVerticalContext(null, dummyContentItemsById);
+    const actualResult = lib.find.extendedVerticalContext(null, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 

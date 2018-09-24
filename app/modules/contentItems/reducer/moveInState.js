@@ -7,9 +7,8 @@ import {
 } from 'errors';
 
 import * as a from '../actionTypes';
+import lib from '../lib';
 import * as m from '../model';
-import find from '../lib/find';
-import edit from '../lib/edit';
 
 const moveInState = (
   state: m.ContentItemsState,
@@ -21,7 +20,7 @@ const moveInState = (
   if (contentItemToMove == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
   if (contentItemToMove.type === m.contentItemTypes.ROOT) throw new UnsupportedOperationError(`Can't move a ROOT.`);
 
-  const previousContext = find.extendedVerticalContext(contentItemToMove, state.byId);
+  const previousContext = lib.find.extendedVerticalContext(contentItemToMove, state.byId);
   if (previousContext == null) throw new CorruptedInternalStateError(`Invalid contentItemsById: could not find parentOrSuperItem for a non-ROOT contentItem.`);
 
   // If the previousContext is the same as the nextContext
@@ -35,12 +34,12 @@ const moveInState = (
   }
   // If the move is meaningful
   else {
-    const editedPreviousParentOrSuperItem = edit.removeChildOrSubItemIdFromContext(
+    const editedPreviousParentOrSuperItem = lib.edit.removeChildOrSubItemIdFromContext(
       previousContext,
       contentItemToMove.id,
       state.byId,
     );
-    const editedNextParentOrSuperItem = edit.addChildOrSubItemIdToContext(
+    const editedNextParentOrSuperItem = lib.edit.addChildOrSubItemIdToContext(
       nextContext,
       contentItemToMove.id,
       state.byId,
@@ -56,7 +55,7 @@ const moveInState = (
     };
 
     try {
-      edit.validateChildOrSubItemsInContext(nextContext, newState.byId);
+      lib.edit.validateChildOrSubItemsInContext(nextContext, newState.byId);
     }
     catch (e) {
       if (e instanceof CorruptedInternalStateError) {
