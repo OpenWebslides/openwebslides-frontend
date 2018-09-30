@@ -5,50 +5,33 @@ import { call, put } from 'redux-saga/effects';
 
 import asyncRequests from 'modules/asyncRequests';
 import contentItems from 'modules/contentItems';
-// eslint-disable-next-line import/no-internal-modules
-import generateId from 'modules/contentItems/lib/generateId'; // #TODO
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
 
-const { contentItemTypes, contextTypes } = contentItems.model;
-
-const createInitialTopicRoot = function* (rootContentItemId: string): Saga<void> {
-  yield put(contentItems.actions.addToState(
-    rootContentItemId,
-    contentItemTypes.ROOT,
-    null,
-    {},
-  ));
-  const headingContentItemId = generateId();
-  yield put(contentItems.actions.addToState(
-    headingContentItemId,
-    contentItemTypes.HEADING,
-    {
-      contextType: contextTypes.PARENT,
-      contextItemId: rootContentItemId,
-    },
-    {
-      // #TODO prevent from being deleted
-      text: 'Placeholder',
-    },
-  ));
-  yield put(contentItems.actions.toggleEditing(headingContentItemId, true));
-};
-
 const create = function* (action: a.CreateAction): Saga<{ id: string }> {
   const { title, description, userId } = action.payload;
 
-  // Generate initial topic content
-  // #TODO move this to contentItems module as soom as saga communication has been fixed
-  const rootContentItemId = generateId();
-  yield call(createInitialTopicRoot, rootContentItemId);
-
+  // Create the intitial topic ROOT and placeholder content.
+  const createRootReturnValue = yield call(
+    asyncRequests.lib.putAndReturn,
+    contentItems.actions.generateRoot(),
+  );
+  // Create the new topic in the backend.
   const apiPostReturnValue = yield call(
     asyncRequests.lib.putAndReturn,
-    actions.apiPost(title, description, rootContentItemId, userId),
+    actions.apiPost(title, description, createRootReturnValue.rootContentItemId, userId),
   );
+  // Fetch the new topic from the backend so the state is up-to-date,
+  // and wait for request completion.
+  yield call(
+    asyncRequests.lib.putAndReturn,
+    actions.fetch(apiPostReturnValue.id),
+  );
+  // Save the initial topic content in the backend.
+  yield put(actions.patchWithContent(apiPostReturnValue.id));
 
+  // Return the topic id.
   return apiPostReturnValue;
 };
 

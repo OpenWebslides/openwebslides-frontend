@@ -11,6 +11,7 @@ import * as a from '../../actionTypes';
 
 import add from './add';
 import edit from './edit';
+import generateRoot from './generateRoot';
 import indent from './indent';
 import move from './move';
 import remove from './remove';
@@ -22,6 +23,7 @@ const taskSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.ADD, asyncRequests.lib.sagaWrapper, add),
     takeEvery(a.EDIT, asyncRequests.lib.sagaWrapper, edit),
+    takeEvery(a.GENERATE_ROOT, asyncRequests.lib.sagaWrapper, generateRoot),
     takeEvery(a.INDENT, asyncRequests.lib.sagaWrapper, indent),
     takeEvery(a.MOVE, asyncRequests.lib.sagaWrapper, move),
     takeEvery(a.REMOVE, asyncRequests.lib.sagaWrapper, remove),
@@ -34,6 +36,7 @@ const taskSaga = function* (): Saga<void> {
 const taskSagas = {
   add,
   edit,
+  generateRoot,
   indent,
   move,
   remove,

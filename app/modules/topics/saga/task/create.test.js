@@ -2,19 +2,15 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 import * as matchers from 'redux-saga-test-plan/matchers';
+import { dynamic } from 'redux-saga-test-plan/providers';
 
 import asyncRequests from 'modules/asyncRequests';
 import contentItems from 'modules/contentItems';
-// eslint-disable-next-line import/no-internal-modules
-import generateId from 'modules/contentItems/lib/generateId'; // #TODO
 
 import actions from '../../actions';
+import * as a from '../../actionTypes';
 
 import { sagas } from '..';
-
-jest.mock('modules/contentItems/lib/generateId');
-
-const { contentItemTypes, contextTypes } = contentItems.model;
 
 describe(`create`, (): void => {
 
@@ -22,43 +18,36 @@ describe(`create`, (): void => {
   let dummyTitle: string;
   let dummyDescription: string;
   let dummyUserId: string;
-
-  let dummyGeneratedId1: string;
-  let dummyGeneratedId2: string;
+  let dummyRootId: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
     dummyTitle = 'dummyTitle';
     dummyDescription = 'Lorem ipsum dolor sit amet.';
     dummyUserId = 'dummyUserId';
-
-    dummyGeneratedId1 = 'dummyGeneratedId1';
-    dummyGeneratedId2 = 'dummyGeneratedId2';
-    (generateId: any)
-      .mockReturnValueOnce(dummyGeneratedId1)
-      .mockReturnValueOnce(dummyGeneratedId2);
+    dummyRootId = 'dummyRootId';
   });
 
-  it(`puts a topics apiPost action and returns its result`, (): void => {
+  it(`puts a contentItems generateRoot action, puts a topics apiPost action anda patchWithContent action and returns the apiPost result`, (): void => {
     const dummyAction = actions.create(dummyTitle, dummyDescription, dummyUserId);
 
     return expectSaga(sagas.create, dummyAction)
       .provide([
-        [matchers.call.fn(asyncRequests.lib.putAndReturn), { id: dummyId }],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === contentItems.actions.generateRoot().type) ? { rootContentItemId: dummyRootId } : next();
+        })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.API_POST) ? { id: dummyId } : next();
+        })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.FETCH) ? null : next();
+        })],
       ])
+      .call(asyncRequests.lib.putAndReturn, contentItems.actions.generateRoot())
+      .call(asyncRequests.lib.putAndReturn, actions.apiPost(dummyTitle, dummyDescription, dummyRootId, dummyUserId))
+      .call(asyncRequests.lib.putAndReturn, actions.fetch(dummyId))
+      .put(actions.patchWithContent(dummyId))
       .returns({ id: dummyId })
-      .run();
-  });
-
-  it(`creates placeholder topic content`, (): void => {
-    const dummyAction = actions.create(dummyTitle, dummyDescription, dummyUserId);
-
-    return expectSaga(sagas.create, dummyAction)
-      .provide([
-        [matchers.call.fn(asyncRequests.lib.putAndReturn), { id: dummyId }],
-      ])
-      .put(contentItems.actions.addToState(dummyGeneratedId1, contentItemTypes.ROOT, null, {}))
-      .put(contentItems.actions.addToState(dummyGeneratedId2, contentItemTypes.HEADING, { contextType: contextTypes.PARENT, contextItemId: dummyGeneratedId1 }, { text: 'Placeholder' }))
       .run();
   });
 
