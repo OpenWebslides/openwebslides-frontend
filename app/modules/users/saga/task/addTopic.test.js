@@ -1,10 +1,9 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
 
-import { CorruptedInternalStateError } from 'errors';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
-import topics from 'modules/topics';
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 
@@ -28,23 +27,11 @@ describe(`addTopic`, (): void => {
     const dummyAction = actions.addTopic(dummyUserId, dummyTitle, dummyDescription);
 
     return expectSaga(sagas.addTopic, dummyAction)
-      .put(topics.actions.create(dummyTitle, dummyDescription, dummyUserId))
-      .dispatch(apiRequestsStatus.actions.setSuccess(`topics/API_POST`, { id: dummyTopicId }))
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), { id: dummyTopicId }],
+      ])
       .put(actions.addTopicId(dummyUserId, dummyTopicId))
       .run();
-  });
-
-  it(`throws a CorruptedInternalState error, when the taken action is of the wrong type or has the wrong content`, async (): Promise<mixed> => {
-    const dummyAction = actions.addTopic(dummyUserId, dummyTitle, dummyDescription);
-
-    // Suppress console.error from redux-saga $FlowFixMe
-    console.error = jest.fn();
-    await expect(
-      expectSaga(sagas.addTopic, dummyAction)
-        .put(topics.actions.create(dummyTitle, dummyDescription, dummyUserId))
-        .dispatch(apiRequestsStatus.actions.setSuccess(`topics/API_POST`, null))
-        .run(),
-    ).rejects.toBeInstanceOf(CorruptedInternalStateError);
   });
 
 });

@@ -1,6 +1,9 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 
@@ -14,11 +17,14 @@ describe(`fetch`, (): void => {
     dummyId = 'dummyId';
   });
 
-  it(`puts a topics apiGet action`, (): void => {
+  it(`puts a topics apiGet action and waits for the request to complete`, (): void => {
     const dummyAction = actions.fetch(dummyId);
 
     return expectSaga(sagas.fetch, dummyAction)
-      .put(actions.apiGet(dummyId))
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), null],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.apiGet(dummyId))
       .run();
   });
 

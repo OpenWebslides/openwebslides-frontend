@@ -1,9 +1,11 @@
 // @flow
 
-/* eslint-disable sort-imports */
+/* eslint-disable max-len, sort-imports */
 
 import { type Saga } from 'redux-saga';
 import { all, takeEvery } from 'redux-saga/effects';
+
+import asyncRequests from 'modules/asyncRequests';
 
 import * as a from '../../actionTypes';
 
@@ -12,8 +14,8 @@ import apiPatchAllByTopicIdAndRoot from './apiPatchAllByTopicIdAndRoot';
 
 const apiSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.API_GET_ALL_BY_TOPIC_ID, apiGetAllByTopicId),
-    takeEvery(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT, apiPatchAllByTopicIdAndRoot),
+    takeEvery(a.API_GET_ALL_BY_TOPIC_ID, asyncRequests.lib.sagaWrapper, apiGetAllByTopicId),
+    takeEvery(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT, asyncRequests.lib.sagaWrapper, apiPatchAllByTopicIdAndRoot),
   ]);
 };
 

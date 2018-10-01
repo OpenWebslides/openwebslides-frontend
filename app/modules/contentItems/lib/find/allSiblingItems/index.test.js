@@ -5,9 +5,8 @@ import _ from 'lodash';
 import { CorruptedInternalStateError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
+import lib from '../..';
 import * as m from '../../../model';
-
-import find from '..';
 
 describe(`findAllSiblingItems`, (): void => {
 
@@ -82,14 +81,14 @@ describe(`findAllSiblingItems`, (): void => {
   });
 
   it(`returns an array containing all subItems of the passed contentItem's superItem, when the passed contentItem is a subItem`, (): void => {
-    const actualResult = find.allSiblingItems(dummyParagraph32, dummyContentItemsById);
+    const actualResult = lib.find.allSiblingItems(dummyParagraph32, dummyContentItemsById);
     expect(actualResult).toHaveLength(2);
     expect(actualResult[0]).toBe(dummyParagraph31);
     expect(actualResult[1]).toBe(dummyParagraph32);
   });
 
   it(`returns an array containing all childItems of the passed contentItem's parentItem, when the passed contentItem is a childItem`, (): void => {
-    const actualResult = find.allSiblingItems(dummyHeading4, dummyContentItemsById);
+    const actualResult = lib.find.allSiblingItems(dummyHeading4, dummyContentItemsById);
     expect(actualResult).toHaveLength(5);
     expect(actualResult[0]).toBe(dummyParagraph1);
     expect(actualResult[1]).toBe(dummyParagraph2);
@@ -99,32 +98,32 @@ describe(`findAllSiblingItems`, (): void => {
   });
 
   it(`returns an array containg all subItems of the passed contentItem's superItem, when the passed contentItem's parentOrSuperItem is a superItem as well as a parentItem`, (): void => {
-    const actualResult = find.allSiblingItems(dummyParagraph523, dummyContentItemsById);
+    const actualResult = lib.find.allSiblingItems(dummyParagraph523, dummyContentItemsById);
     expect(actualResult).toHaveLength(2);
     expect(actualResult[0]).toBe(dummyParagraph523);
     expect(actualResult[1]).toBe(dummyParagraph524);
   });
 
   it(`returns an array containg all childItems of the passed contentItem's parentItem, when the passed contentItem's parentOrSuperItem is a superItem as well as a parentItem`, (): void => {
-    const actualResult = find.allSiblingItems(dummyParagraph521, dummyContentItemsById);
+    const actualResult = lib.find.allSiblingItems(dummyParagraph521, dummyContentItemsById);
     expect(actualResult).toHaveLength(2);
     expect(actualResult[0]).toBe(dummyParagraph521);
     expect(actualResult[1]).toBe(dummyParagraph522);
   });
 
   it(`returns an array containing only the passed contentItem itself, when the passed contentItem doesn't have siblings`, (): void => {
-    const actualResult = find.allSiblingItems(dummyParagraph41, dummyContentItemsById);
+    const actualResult = lib.find.allSiblingItems(dummyParagraph41, dummyContentItemsById);
     expect(actualResult).toHaveLength(1);
     expect(actualResult[0]).toBe(dummyParagraph41);
   });
 
   it(`returns an empty array, when the passed contentItem is NULL`, (): void => {
-    const actualResult = find.allSiblingItems(null, dummyContentItemsById);
+    const actualResult = lib.find.allSiblingItems(null, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });
 
   it(`returns an empty array, when the passed contentItem is neither a child- nor a subItem (i.e. is a ROOT)`, (): void => {
-    const actualResult = find.allSiblingItems(dummyRoot, dummyContentItemsById);
+    const actualResult = lib.find.allSiblingItems(dummyRoot, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });
 
@@ -132,7 +131,7 @@ describe(`findAllSiblingItems`, (): void => {
     dummyContentItemsById = _.omit(dummyContentItemsById, dummyParagraph31.id);
 
     expect((): void => {
-      find.allSiblingItems(dummyParagraph32, dummyContentItemsById);
+      lib.find.allSiblingItems(dummyParagraph32, dummyContentItemsById);
     }).toThrow(CorruptedInternalStateError);
   });
 

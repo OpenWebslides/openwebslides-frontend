@@ -6,7 +6,7 @@ import { type Dispatch } from 'redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Card } from 'semantic-ui-react';
 
-import { type Action } from 'types/action';
+import { type ModulesAction } from 'types/redux';
 import { InvalidArgumentError } from 'errors';
 import EmailForm, { type EmailFormValues } from 'forms/EmailForm';
 
@@ -18,7 +18,7 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...DispatchProps |};
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
     onEmailFormSubmit: (values: EmailFormValues): void => {
       if (values.email == null) {

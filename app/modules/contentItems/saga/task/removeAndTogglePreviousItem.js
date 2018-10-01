@@ -5,10 +5,10 @@ import { put, select } from 'redux-saga/effects';
 
 import { ObjectNotFoundError } from 'errors';
 
-import * as a from '../../actionTypes';
 import actions from '../../actions';
+import * as a from '../../actionTypes';
+import lib from '../../lib';
 import selectors from '../../selectors';
-import find from '../../lib/find';
 
 const removeAndTogglePreviousItemSaga = function* (
   action: a.RemoveAndTogglePreviousItemAction,
@@ -20,7 +20,7 @@ const removeAndTogglePreviousItemSaga = function* (
   if (contentItemToRemove == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
 
   // Find the previousEditorItem, if it exists. Do this before removing the contentItem.
-  const previousEditorItem = find.previousEditorItem(contentItemToRemove, contentItemsById);
+  const previousEditorItem = lib.find.previousEditorItem(contentItemToRemove, contentItemsById);
 
   // Remove the contentItem.
   yield put(actions.remove(id));

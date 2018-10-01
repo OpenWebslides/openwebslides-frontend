@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { type State } from 'types/state';
+import { type AppState } from 'types/redux';
 import { DummyProviders } from 'lib/testResources';
 
 import FetchWrapper, { PureFetchWrapper } from '.';
@@ -16,7 +16,7 @@ describe(`FetchWrapper`, (): void => {
   let dummyRender: (DummyType) => React.Node;
   let dummyFetchId: string;
   let dummyFetchAction: (id: string) => {};
-  let dummyFetchedPropSelector: (state: State, { id: string }) => ?DummyType;
+  let dummyFetchedPropSelector: (state: AppState, { id: string }) => ?DummyType;
 
   beforeEach((): void => {
     dummyFetchedProp = { foo: 'foo', bar: 'bar', fetchCondition: false };
@@ -41,7 +41,7 @@ describe(`FetchWrapper`, (): void => {
 
   it(`renders NULL and executes the passed fetchAction, when the passed fetchedPropSelector returns NULL`, (): void => {
     dummyFetchAction = jest.fn();
-    dummyFetchedPropSelector = jest.fn((state: State, props: { id: string }): ?DummyType => {
+    dummyFetchedPropSelector = jest.fn((state: AppState, props: { id: string }): ?DummyType => {
       const { id } = props;
       if (id === dummyFetchId) return null;
       else throw new Error(`This shouldnt happen`);
@@ -66,7 +66,7 @@ describe(`FetchWrapper`, (): void => {
 
   it(`renders the passed render function with the correct argument and does not execute the passed fetchAction, when the passed fetchedPropSelector does not return NULL`, (): void => {
     dummyFetchAction = jest.fn();
-    dummyFetchedPropSelector = jest.fn((state: State, props: { id: string }): ?DummyType => {
+    dummyFetchedPropSelector = jest.fn((state: AppState, props: { id: string }): ?DummyType => {
       const { id } = props;
       if (id === dummyFetchId) return dummyFetchedProp;
       else throw new Error(`This shouldnt happen`);
@@ -91,7 +91,7 @@ describe(`FetchWrapper`, (): void => {
 
   it(`executes the passed fetchAction, when a custom fetchCondition returns TRUE`, (): void => {
     dummyFetchAction = jest.fn();
-    dummyFetchedPropSelector = jest.fn((state: State, props: { id: string }): ?DummyType => {
+    dummyFetchedPropSelector = jest.fn((state: AppState, props: { id: string }): ?DummyType => {
       const { id } = props;
       if (id === dummyFetchId) return { ...dummyFetchedProp, fetchCondition: true };
       else throw new Error(`This shouldnt happen`);
@@ -116,7 +116,7 @@ describe(`FetchWrapper`, (): void => {
 
   it(`does not execute the passed fetchAction, when a custom fetchCondition returns FALSE`, (): void => {
     dummyFetchAction = jest.fn();
-    dummyFetchedPropSelector = jest.fn((state: State, props: { id: string }): ?DummyType => {
+    dummyFetchedPropSelector = jest.fn((state: AppState, props: { id: string }): ?DummyType => {
       const { id } = props;
       if (id === dummyFetchId) return dummyFetchedProp;
       else throw new Error(`This shouldnt happen`);

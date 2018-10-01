@@ -12,8 +12,8 @@ import {
 } from 'errors';
 
 import * as a from '../actionTypes';
+import lib from '../lib';
 import * as m from '../model';
-import edit from '../lib/edit';
 
 const createNewContentItemFromPropsForType = (
   id: string,
@@ -93,7 +93,7 @@ const addToState = (
     }
   }
   else {
-    const editedParentOrSuperItem = edit.addChildOrSubItemIdToContext(
+    const editedParentOrSuperItem = lib.edit.addChildOrSubItemIdToContext(
       context,
       newContentItem.id,
       state.byId,
@@ -108,7 +108,7 @@ const addToState = (
     };
 
     try {
-      edit.validateChildOrSubItemsInContext(context, newState.byId);
+      lib.edit.validateChildOrSubItemsInContext(context, newState.byId);
     }
     catch (e) {
       if (e instanceof CorruptedInternalStateError) {

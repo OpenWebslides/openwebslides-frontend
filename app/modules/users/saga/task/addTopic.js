@@ -1,9 +1,9 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { put, take } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 
-import { CorruptedInternalStateError } from 'errors';
+import asyncRequests from 'modules/asyncRequests';
 import topics from 'modules/topics';
 
 import actions from '../../actions';
@@ -12,17 +12,12 @@ import * as a from '../../actionTypes';
 const addTopic = function* (action: a.AddTopicAction): Saga<void> {
   const { id, title, description } = action.payload;
 
-  yield put(topics.actions.create(title, description, id));
+  const { id: topicId } = yield call(
+    asyncRequests.lib.putAndReturn,
+    topics.actions.create(title, description, id),
+  );
 
-  // Wait for api request to complete #TODO use unique request identifiers for this
-  const successAction = yield take('apiRequestsStatus/SET_SUCCESS');
-
-  // Get the new topic id from the success action and add it to the user's topicIds
-  const { requestId, value } = successAction.payload;
-  // #TODO note: this currently causes an error
-  // which I can't easily fix until saga communication has been implemented
-  if (requestId !== 'topics/API_POST' || value == null || value.id == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
-  yield put(actions.addTopicId(id, value.id));
+  yield put(actions.addTopicId(id, topicId));
 };
 
 export default addTopic;

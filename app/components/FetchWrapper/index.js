@@ -4,8 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 
-import { type State } from 'types/state';
-import { type Action } from 'types/action';
+import { type ModulesAction, type AppState } from 'types/redux';
 
 type PassedProps<T> = {|
   // Render prop. See https://reactjs.org/docs/render-props.html
@@ -16,9 +15,9 @@ type PassedProps<T> = {|
   // The id that will be passed to fetchAction and fetchedPropSelector.
   fetchId: string,
   // An action that fetches the item with id fetchId from the api and sets it in the state.
-  fetchAction: (id: string) => Action,
+  fetchAction: (id: string) => ModulesAction,
   // A selector that returns the fetchedProp when it is present in the state, or NULL otherwise.
-  fetchedPropSelector: (state: State, { id: string }) => T,
+  fetchedPropSelector: (state: AppState, { id: string }) => T,
   // The condition for calling fetchAction; defaults to (fetchedProp == NULL).
   // Note: this should actually not be optional, since it has a default,  but flow doesn't seem to
   // correctly interpret the defaultProps (perhaps because of the <T>), so we make this optional
@@ -37,7 +36,7 @@ type DispatchProps = {|
 type Props<T> = {| ...PassedProps<T>, ...StateProps<T>, ...DispatchProps |};
 
 const mapStateToProps = <T>(
-  state: State, props: PassedProps<T>,
+  state: AppState, props: PassedProps<T>,
 ): StateProps<T> => {
   const { fetchId, fetchedPropSelector } = props;
 
@@ -47,7 +46,7 @@ const mapStateToProps = <T>(
 };
 
 const mapDispatchToProps = <T>(
-  dispatch: Dispatch<Action>, props: PassedProps<T>,
+  dispatch: Dispatch<ModulesAction>, props: PassedProps<T>,
 ): DispatchProps => {
   const { fetchAction, fetchId } = props;
 

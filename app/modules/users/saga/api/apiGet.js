@@ -6,7 +6,6 @@ import { call, put, select } from 'redux-saga/effects';
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
 import { type ApiResponseData } from 'lib/ApiRequest';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
 
 import actions from '../../actions';
@@ -14,32 +13,23 @@ import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 const apiGet = function* (action: a.ApiGetAction): Saga<void> {
-  yield put(apiRequestsStatus.actions.setPending(action.type));
+  const { id } = action.payload;
+  const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
+  const token: ?string = (userAuth == null ? null : userAuth.apiToken);
 
-  try {
-    const { id } = action.payload;
-    const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
-    const token: ?string = (userAuth == null ? null : userAuth.apiToken);
+  const responseData: ApiResponseData = yield call(api.users.get, id, token);
 
-    const responseData: ApiResponseData = yield call(api.users.get, id, token);
+  if (responseData.body == null) throw new UnexpectedHttpResponseError();
 
-    if (responseData.body == null) throw new UnexpectedHttpResponseError();
-
-    const { attributes, relationships } = responseData.body.data;
-    const user: m.User = {
-      id,
-      email: attributes.email,
-      name: attributes.name,
-      gravatarHash: attributes.gravatarHash,
-      topicIds: relationships.topics.data.map((item: { type: string, id: string }) => item.id),
-    };
-    yield put(actions.setMultipleInState([user]));
-
-    yield put(apiRequestsStatus.actions.setSuccess(action.type));
-  }
-  catch (error) {
-    yield put(apiRequestsStatus.actions.setFailure(action.type, error));
-  }
+  const { attributes, relationships } = responseData.body.data;
+  const user: m.User = {
+    id,
+    email: attributes.email,
+    name: attributes.name,
+    gravatarHash: attributes.gravatarHash,
+    topicIds: relationships.topics.data.map((item: { type: string, id: string }) => item.id),
+  };
+  yield put(actions.setMultipleInState([user]));
 };
 
 export default apiGet;

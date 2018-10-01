@@ -6,10 +6,9 @@ import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { Button, Header, Icon } from 'semantic-ui-react';
 
-import { type Action } from 'types/action';
+import { type ModulesAction } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
 import contentItems from 'modules/contentItems';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -25,10 +24,12 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
 
-const { ApiDimmer } = apiRequestsStatus.components;
 const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
+const mapDispatchToProps = (
+  dispatch: Dispatch<ModulesAction>,
+  props: PassedProps,
+): DispatchProps => {
   const { topicId } = props;
 
   return {
@@ -53,11 +54,6 @@ class PureEditor extends React.Component<Props> {
 
     return (
       <div data-test-id="topic-editor">
-
-        <ApiDimmer requestIds={['contentItems/API_PATCH_ALL_BY_TOPIC_ID']}>
-          {t('api:topic.save.pending')}
-        </ApiDimmer>
-
         <div style={{ overflow: 'hidden' }}>
           <Header floated="left" as="h1">{topic.title}</Header>
           <Button
@@ -72,9 +68,7 @@ class PureEditor extends React.Component<Props> {
             {t('common:button.save')}
           </Button>
         </div>
-
         <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
-
       </div>
     );
   };

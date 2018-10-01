@@ -7,11 +7,11 @@ import { put, select } from 'redux-saga/effects';
 
 import { CorruptedInternalStateError, ObjectNotFoundError } from 'errors';
 
-import * as a from '../../actionTypes';
 import actions from '../../actions';
+import * as a from '../../actionTypes';
+import lib from '../../lib';
 import * as m from '../../model';
 import selectors from '../../selectors';
-import find from '../../lib/find';
 
 const removeSaga = function* (action: a.RemoveAction): Saga<void> {
   const { id } = action.payload;
@@ -22,7 +22,7 @@ const removeSaga = function* (action: a.RemoveAction): Saga<void> {
   // If the contentItemToRemove is a HEADING
   if (contentItemToRemove.type === m.contentItemTypes.HEADING) {
     const contentItemsById = yield select(selectors.getAllById);
-    const previousSiblingItem = find.previousSiblingItem(contentItemToRemove, contentItemsById);
+    const previousSiblingItem = lib.find.previousSiblingItem(contentItemToRemove, contentItemsById);
     let moveContext: m.VerticalContext;
 
     // Move its subItems to either the end of the previous HEADING, if there is one
@@ -37,7 +37,7 @@ const removeSaga = function* (action: a.RemoveAction): Saga<void> {
     }
     // Or, if there is no previous HEADING, to the location where the removed HEADING used to be
     else {
-      const context = find.extendedVerticalContext(contentItemToRemove, contentItemsById);
+      const context = lib.find.extendedVerticalContext(contentItemToRemove, contentItemsById);
       if (context == null) throw new CorruptedInternalStateError(`Invalid contentItemsById: could not find parentOrSuperItem for a non-ROOT contentItem.`);
 
       moveContext = context;

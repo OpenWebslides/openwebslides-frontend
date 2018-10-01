@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { push } from 'connected-react-router';
 
-import { type Action } from 'types/action';
-import { type State } from 'types/state';
+import { type ModulesAction, type AppState } from 'types/redux';
 import { USER_PROFILE_ROUTE } from 'config/routes';
 import { CorruptedInternalStateError } from 'errors';
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
@@ -27,7 +26,7 @@ type Props = {| ...StateProps, ...DispatchProps |};
 const { AuthWrapper } = platform.components;
 const { NewTopicCard } = topics.components;
 
-const mapStateToProps = (state: State): StateProps => {
+const mapStateToProps = (state: AppState): StateProps => {
   const userAuth = platform.selectors.getUserAuth(state);
 
   return {
@@ -35,7 +34,7 @@ const mapStateToProps = (state: State): StateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
     addTopicToCurrentUser: (currentUserId: string, title: string, description: ?string): void => {
       dispatch(users.actions.addTopic(currentUserId, title, description));

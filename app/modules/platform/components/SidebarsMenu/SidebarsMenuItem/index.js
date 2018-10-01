@@ -7,8 +7,7 @@ import { type Dispatch } from 'redux';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { Menu, Icon } from 'semantic-ui-react';
 
-import { type State } from 'types/state';
-import { type Action } from 'types/action';
+import { type ModulesAction, type AppState } from 'types/redux';
 
 import actions from '../../../actions';
 import * as m from '../../../model';
@@ -33,7 +32,7 @@ const sidebarIdsToIconsMap = {
   [m.sidebarIds.SLIDE_PREVIEWS]: 'image',
 };
 
-const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { sidebarId } = props;
   const activeSidebarIds = selectors.getSettingByKey(state, { key: 'activeSidebarIds' });
 
@@ -42,7 +41,10 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
+const mapDispatchToProps = (
+  dispatch: Dispatch<ModulesAction>,
+  props: PassedProps,
+): DispatchProps => {
   const { sidebarId } = props;
 
   return {

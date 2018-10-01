@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { type State } from 'types/state';
+import { type AppState } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
 import topics from 'modules/topics';
 
@@ -22,7 +22,7 @@ type StateProps = {|
 
 type Props = {| ...PassedProps, ...StateProps |};
 
-const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   return {
     activeSidebarIds: selectors.getSettingByKey(state, { key: 'activeSidebarIds' }),
   };

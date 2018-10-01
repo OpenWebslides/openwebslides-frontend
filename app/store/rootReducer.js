@@ -13,7 +13,7 @@ import { reducer as formReducer } from 'redux-form';
 import errorReducer from './errorReducer';
 import modulesReducer from './modulesReducer';
 
-// Don't forget to edit types/state.js when a new state part is added here.
+// Don't forget to edit types/redux.js when a new state part is added here.
 const rootReducer = combineReducers({
   error: errorReducer,
   flash: flashReducer,

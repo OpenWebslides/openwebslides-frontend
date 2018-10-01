@@ -7,7 +7,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { type State } from 'types/state';
+import { type AppState } from 'types/redux';
 import { AUTH_SIGNIN_ROUTE } from 'config/routes';
 import ConditionalWrapper from 'components/ConditionalWrapper';
 
@@ -29,7 +29,7 @@ type StateProps = {|
 
 type Props = {| ...PassedProps, ...StateProps |};
 
-const mapStateToProps = (state: State): StateProps => {
+const mapStateToProps = (state: AppState): StateProps => {
   return {
     isAuthenticated: selectors.isAuthenticated(state),
   };

@@ -1,16 +1,13 @@
 // @flow
 
-import _ from 'lodash';
 import { call, select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
 import platform from 'modules/platform';
 
 import actions from '../../actions';
-import * as a from '../../actionTypes';
 
 import { sagas } from '..';
 
@@ -68,61 +65,7 @@ describe(`apiGet`, (): void => {
       .run();
   });
 
-  it(`sets its request status to PENDING and then sets its request status to SUCCESS, when the saga completes without errors`, (): void => {
-    const dummyAction = actions.apiGet(dummyId);
-    const dummyApiResponse = {
-      status: 200,
-      body: {
-        data: {
-          attributes: {
-            id: dummyId,
-            email: dummyEmail,
-            name: dummyName,
-            gravatarHash: dummyGravatarHash,
-          },
-          relationships: {
-            topics: {
-              data: [
-                { type: 'topics', id: dummyTopicId1 },
-                { type: 'topics', id: dummyTopicId2 },
-              ],
-            },
-          },
-        },
-      },
-    };
-
-    return expectSaga(sagas.apiGet, dummyAction)
-      .provide([
-        [select(platform.selectors.getUserAuth), { userId: 'dummyId', apiToken: dummyToken }],
-        [call(api.users.get, dummyId, dummyToken), dummyApiResponse],
-      ])
-      .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put(apiRequestsStatus.actions.setSuccess(a.API_GET))
-      .run();
-  });
-
-  it(`sets its request status to PENDING and then sets its request status to FAILURE, when the api call fails`, (): void => {
-    const dummyAction = actions.apiGet(dummyId);
-    const dummyError = new Error('Boo!');
-
-    return expectSaga(sagas.apiGet, dummyAction)
-      .provide({
-        select({ selector }: any, next: any): any {
-          if (selector === platform.selectors.getUserAuth) return { userId: 'dummyId', apiToken: dummyToken };
-          else return next();
-        },
-        call({ fn }: any, next: any): any {
-          if (fn === api.users.get) throw dummyError;
-          else return next();
-        },
-      })
-      .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put(apiRequestsStatus.actions.setFailure(a.API_GET, dummyError))
-      .run();
-  });
-
-  it(`sets its request status to PENDING and then sets its request status to SUCCESS, when there is no currently signed in user`, (): void => {
+  it(`completes without errors, when there is no currently signed in user`, (): void => {
     const dummyAction = actions.apiGet(dummyId);
     const dummyApiResponse = {
       status: 200,
@@ -151,28 +94,26 @@ describe(`apiGet`, (): void => {
         [select(platform.selectors.getUserAuth), null],
         [call(api.users.get, dummyId, null), dummyApiResponse],
       ])
-      .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put(apiRequestsStatus.actions.setSuccess(a.API_GET))
       .run();
   });
 
-  it(`sets its request status to FAILURE, when the api response does not contain a body`, async (): Promise<mixed> => {
+  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<mixed> => {
     const dummyAction = actions.apiGet(dummyId);
     const dummyApiResponse = {
       status: 200,
       body: null,
     };
 
-    const result = await expectSaga(sagas.apiGet, dummyAction)
-      .provide([
-        [select(platform.selectors.getUserAuth), null],
-        [call(api.users.get, dummyId, null), dummyApiResponse],
-      ])
-      .put(apiRequestsStatus.actions.setPending(a.API_GET))
-      .put.actionType(apiRequestsStatus.actions.setFailure(a.API_GET, new UnexpectedHttpResponseError()).type)
-      .run();
-
-    expect(_.last(result.allEffects).PUT.action.payload.error).toBeInstanceOf(UnexpectedHttpResponseError);
+    // Suppress console.error from redux-saga $FlowFixMe
+    console.error = jest.fn();
+    await expect(
+      expectSaga(sagas.apiGet, dummyAction)
+        .provide([
+          [select(platform.selectors.getUserAuth), null],
+          [call(api.users.get, dummyId, null), dummyApiResponse],
+        ])
+        .run(),
+    ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);
   });
 
 });

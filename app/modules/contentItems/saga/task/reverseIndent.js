@@ -5,11 +5,11 @@ import { put, select } from 'redux-saga/effects';
 
 import { ObjectNotFoundError } from 'errors';
 
-import * as a from '../../actionTypes';
 import actions from '../../actions';
+import * as a from '../../actionTypes';
+import lib from '../../lib';
 import * as m from '../../model';
 import selectors from '../../selectors';
-import find from '../../lib/find';
 
 const reverseIndentSaga = function* (action: a.ReverseIndentAction): Saga<void> {
   const { id } = action.payload;
@@ -18,10 +18,16 @@ const reverseIndentSaga = function* (action: a.ReverseIndentAction): Saga<void> 
   if (contentItemToReverseIndent == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
 
   const contentItemsById = yield select(selectors.getAllById);
-  const parentOrSuperItem = find.parentOrSuperItem(contentItemToReverseIndent, contentItemsById);
+  const parentOrSuperItem = lib.find.parentOrSuperItem(
+    contentItemToReverseIndent,
+    contentItemsById,
+  );
 
   if (parentOrSuperItem != null) {
-    const parentOrSuperContext = find.extendedVerticalContext(parentOrSuperItem, contentItemsById);
+    const parentOrSuperContext = lib.find.extendedVerticalContext(
+      parentOrSuperItem,
+      contentItemsById,
+    );
 
     if (parentOrSuperContext != null) {
       if (

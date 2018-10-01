@@ -2,6 +2,8 @@
 
 /* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
+import { type ApiSagaAction } from 'types/actions';
+
 
 // Action constants --------------------------------------------------------------------------------
 
@@ -12,23 +14,27 @@ export const API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT: 'topics/API_PATCH_ALL_BY_TOPIC_
 // Action types ------------------------------------------------------------------------------------
 
 export type ApiGetAllByTopicIdAction = {|
+  ...ApiSagaAction,
   type: typeof API_GET_ALL_BY_TOPIC_ID,
-  payload: {
+  payload: {|
+    ...$PropertyType<ApiSagaAction, 'payload'>,
     topicId: string,
-  },
+  |},
 |};
 
 export type ApiPatchAllByTopicIdAndRootAction = {|
+  ...ApiSagaAction,
   type: typeof API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT,
-  payload: {
+  payload: {|
+    ...$PropertyType<ApiSagaAction, 'payload'>,
     topicId: string,
     rootContentItemId: string,
-  },
+  |},
 |};
 
 
 // ApiSaga action ----------------------------------------------------------------------------------
 
-export type ApiSagaAction =
+export type ContentItemsApiSagaAction =
   | ApiGetAllByTopicIdAction
   | ApiPatchAllByTopicIdAndRootAction;

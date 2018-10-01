@@ -2,9 +2,8 @@
 
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
+import lib from '../..';
 import * as m from '../../../model';
-
-import find from '..';
 
 describe(`findFurthest`, (): void => {
 
@@ -73,32 +72,32 @@ describe(`findFurthest`, (): void => {
   });
 
   it(`returns the last recursive singleFindFunction result, when no predicate is passed`, (): void => {
-    const actualResult = find.furthest(dummyParagraph1121, dummyContentItemsById, find.parentOrSuperItem);
+    const actualResult = lib.find.furthest(dummyParagraph1121, dummyContentItemsById, lib.find.parentOrSuperItem);
     const expectedResult = dummyRoot;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns the last recursive singleFindFunction result for which the passed predicate returns TRUE`, (): void => {
     const dummyPredicate = (contentItem: m.ContentItem): boolean => (contentItem.type === m.contentItemTypes.HEADING);
-    const actualResult = find.furthest(dummyParagraph1121, dummyContentItemsById, find.parentOrSuperItem, dummyPredicate);
+    const actualResult = lib.find.furthest(dummyParagraph1121, dummyContentItemsById, lib.find.parentOrSuperItem, dummyPredicate);
     const expectedResult = dummyHeading1;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns NULL, when there is no recursive singleFindFunction result for which the passed predicate returns TRUE`, (): void => {
     const dummyPredicate = (contentItem: m.ContentItem): boolean => (contentItem.type === m.contentItemTypes.BLOCKQUOTE);
-    const actualResult = find.furthest(dummyParagraph1121, dummyContentItemsById, find.parentOrSuperItem, dummyPredicate);
+    const actualResult = lib.find.furthest(dummyParagraph1121, dummyContentItemsById, lib.find.parentOrSuperItem, dummyPredicate);
     expect(actualResult).toBeNull();
   });
 
   it(`returns NULL, when the passed contentItem is NULL`, (): void => {
-    const actualResult = find.furthest(null, dummyContentItemsById, find.parentOrSuperItem, jest.fn(() => true));
+    const actualResult = lib.find.furthest(null, dummyContentItemsById, lib.find.parentOrSuperItem, jest.fn(() => true));
     expect(actualResult).toBeNull();
   });
 
   it(`calls the passed precicate function with the correct arguments`, (): void => {
     const dummyPredicate = jest.fn(() => false);
-    find.furthest(dummyParagraph1121, dummyContentItemsById, find.parentOrSuperItem, dummyPredicate);
+    lib.find.furthest(dummyParagraph1121, dummyContentItemsById, lib.find.parentOrSuperItem, dummyPredicate);
     expect(dummyPredicate.mock.calls).toEqual([
       [dummyParagraph112, [dummyParagraph1121.id], dummyContentItemsById],
       [dummyHeading11, [dummyParagraph1121.id, dummyParagraph112.id], dummyContentItemsById],

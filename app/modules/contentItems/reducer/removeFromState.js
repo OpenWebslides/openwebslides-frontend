@@ -7,9 +7,8 @@ import _ from 'lodash';
 import { CorruptedInternalStateError, ObjectNotFoundError } from 'errors';
 
 import * as a from '../actionTypes';
+import lib from '../lib';
 import * as m from '../model';
-import find from '../lib/find';
-import edit from '../lib/edit';
 
 const removeChildrenAndSubItemsFromState = (
   state: m.ContentItemsState,
@@ -64,7 +63,7 @@ const removeFromState = (
   if (contentItemToRemove == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
 
   // Find its context
-  const context = find.extendedVerticalContext(contentItemToRemove, state.byId);
+  const context = lib.find.extendedVerticalContext(contentItemToRemove, state.byId);
 
   // Remove it from the byId object
   newState = {
@@ -82,7 +81,7 @@ const removeFromState = (
     }
   }
   else {
-    const editedParentOrSuperItem = edit.removeChildOrSubItemIdFromContext(
+    const editedParentOrSuperItem = lib.edit.removeChildOrSubItemIdFromContext(
       context,
       contentItemToRemove.id,
       state.byId,

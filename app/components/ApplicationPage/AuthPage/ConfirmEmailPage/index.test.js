@@ -24,7 +24,7 @@ describe(`ConfirmEmailPage`, (): void => {
     dummyDispatch = jest.fn();
     dummyState = {
       modules: {
-        apiRequestsStatus: {},
+        asyncRequests: { byId: {} },
         platform: { userAuth: null },
       },
       flash: {

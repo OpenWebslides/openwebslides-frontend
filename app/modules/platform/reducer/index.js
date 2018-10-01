@@ -15,7 +15,7 @@ const initialState: m.PlatformState = {
 
 const reducer = (
   state: m.PlatformState = initialState,
-  action: a.ReducerAction,
+  action: a.PlatformReducerAction,
 ): m.PlatformState => {
   switch (action.type) {
     case a.SET_USER_AUTH_IN_STATE:

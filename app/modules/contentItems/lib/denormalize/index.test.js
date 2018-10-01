@@ -7,7 +7,7 @@ import { dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as m from '../../model';
 
-import denormalize from '.';
+import lib from '..';
 
 describe(`denormalize`, (): void => {
 
@@ -76,7 +76,7 @@ describe(`denormalize`, (): void => {
   });
 
   it(`returns a denormalized subable contentItem, when the passed contentItem is a subable contentItem`, (): void => {
-    const denormalizedContentItem = denormalize(dummyHeading11, dummyContentItemsById);
+    const denormalizedContentItem = lib.denormalize(dummyHeading11, dummyContentItemsById);
     const expectedResult: m.DenormalizedHeadingContentItem = {
       ..._.omit(dummyHeading11, 'subItemIds'),
       subItems: [
@@ -94,7 +94,7 @@ describe(`denormalize`, (): void => {
   });
 
   it(`returns a denormalized container contentItem, when the passed contentItem is a container contentItem`, (): void => {
-    const denormalizedContentItem = denormalize(dummyRoot2, dummyContentItemsById);
+    const denormalizedContentItem = lib.denormalize(dummyRoot2, dummyContentItemsById);
     const expectedResult: m.DenormalizedRootContentItem = {
       ..._.omit(dummyRoot2, 'childItemIds'),
       childItems: [
@@ -112,7 +112,7 @@ describe(`denormalize`, (): void => {
   });
 
   it(`returns a denormalized subable / container contentItem, when the passed contentItem is a subable / container contentItem`, (): void => {
-    const denormalizedContentItem = denormalize(dummyTestParentAndSuperItem31, dummyContentItemsById);
+    const denormalizedContentItem = lib.denormalize(dummyTestParentAndSuperItem31, dummyContentItemsById);
     const expectedResult = {
       ..._.omit(_.omit(dummyTestParentAndSuperItem31, 'subItemIds'), 'childItemIds'),
       childItems: [
@@ -140,13 +140,13 @@ describe(`denormalize`, (): void => {
   });
 
   it(`returns an unchanged contentItem, when the passed contentItem is neither subable nor a container`, (): void => {
-    const denormalizedContentItem = denormalize(dummySlideBreak32, dummyContentItemsById);
+    const denormalizedContentItem = lib.denormalize(dummySlideBreak32, dummyContentItemsById);
     const expectedResult: m.DenormalizedSlideBreakContentItem = { ...dummySlideBreak32 };
     expect(denormalizedContentItem).toEqual(expectedResult);
   });
 
   it(`returns a multilevel denormalized contentItem, when the passed contentItem has multiple levels of descendants`, (): void => {
-    const denormalizedContentItem = denormalize(dummyRoot1, dummyContentItemsById);
+    const denormalizedContentItem = lib.denormalize(dummyRoot1, dummyContentItemsById);
     const expectedResult: m.DenormalizedRootContentItem = {
       ..._.omit(dummyRoot1, 'childItemIds'),
       childItems: [
@@ -184,7 +184,7 @@ describe(`denormalize`, (): void => {
   it(`throws a CorruptedInternalStateError, when the passed contentItemsById structure is corrupted`, (): void => {
     dummyContentItemsById = _.omit(dummyContentItemsById, dummyParagraph111.id);
     expect((): void => {
-      denormalize(dummyRoot1, dummyContentItemsById);
+      lib.denormalize(dummyRoot1, dummyContentItemsById);
     }).toThrow(CorruptedInternalStateError);
   });
 

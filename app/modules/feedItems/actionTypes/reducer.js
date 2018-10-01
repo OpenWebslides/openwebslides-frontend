@@ -2,6 +2,8 @@
 
 /* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
+import { type ReducerAction } from 'types/actions';
+
 import * as m from '../model';
 
 
@@ -13,14 +15,16 @@ export const SET_MULTIPLE_IN_STATE: 'feedItems/SET_MULTIPLE_IN_STATE' = 'feedIte
 // Action types ------------------------------------------------------------------------------------
 
 export type SetMultipleInStateAction = {|
+  ...ReducerAction,
   type: typeof SET_MULTIPLE_IN_STATE,
-  payload: {
+  payload: {|
+    ...$PropertyType<ReducerAction, 'payload'>,
     feedItems: $ReadOnlyArray<m.FeedItem>,
-  },
+  |},
 |};
 
 
 // Reducer action ----------------------------------------------------------------------------------
 
-export type ReducerAction =
+export type FeedItemsReducerAction =
   | SetMultipleInStateAction;

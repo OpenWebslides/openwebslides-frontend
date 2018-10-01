@@ -6,7 +6,7 @@ import { withRouter, Route, Switch, type ContextRouter as RouterProps } from 're
 import { Grid } from 'semantic-ui-react';
 
 import * as paths from 'config/routes';
-import { type State } from 'types/state';
+import { type AppState } from 'types/redux';
 import { UnsupportedOperationError } from 'errors';
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import feedItems from 'modules/feedItems';
@@ -22,7 +22,7 @@ type Props = {| ...RouterProps, ...StateProps |};
 const { Feed } = feedItems.components;
 const { UserProfile } = users.components;
 
-const mapStateToProps = (state: State): StateProps => {
+const mapStateToProps = (state: AppState): StateProps => {
   const userAuth = platform.selectors.getUserAuth(state);
 
   return {

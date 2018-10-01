@@ -6,7 +6,7 @@ const toggleEditing = (
   id: string,
   isEditing: ?boolean = null,
 ): a.ToggleEditingAction => {
-  let payload: { id: string, isEditing?: boolean } = {
+  let payload: {| id: string, isEditing?: boolean |} = {
     id,
   };
 

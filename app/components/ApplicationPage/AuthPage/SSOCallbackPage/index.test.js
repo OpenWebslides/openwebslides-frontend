@@ -29,32 +29,13 @@ describe(`SSOCallbackPage`, (): void => {
     dummyDispatch = jest.fn();
     dummyState = {
       modules: {
-        apiRequestsStatus: {},
+        asyncRequests: { byId: {} },
         platform: { userAuth: null },
       },
       flash: {
         messages: [],
       },
     };
-  });
-
-  it(`renders without errors`, (): void => {
-    const fixedDummyRouterProps = {
-      ...dummyProviderProps.routerProps,
-      location: {
-        ...dummyProviderProps.routerProps.location,
-        search: `?apiToken=${dummyApiToken}&userId=${dummyId}`,
-      },
-    };
-
-    const enzymeWrapper = shallow(
-      <PureSSOCallbackPage
-        {...dummyProviderProps.translatorProps}
-        {...fixedDummyRouterProps}
-        signinSSO={dummySigninSSO}
-      />,
-    );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(true);
   });
 
   it(`dispatches a signinSSO() action with the passed apiToken and id`, (): void => {

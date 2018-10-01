@@ -2,7 +2,7 @@
 
 import generateRandomString from 'lib/generateRandomString';
 
-import generateId from '.';
+import lib from '..';
 
 jest.mock('lib/generateRandomString');
 
@@ -16,7 +16,7 @@ describe(`generateId`, (): void => {
 
   it(`calls generateRandomString`, (): void => {
     (generateRandomString: any).mockReturnValue(dummyRandomString);
-    expect(generateId()).toEqual(dummyRandomString);
+    expect(lib.generateId()).toEqual(dummyRandomString);
   });
 
 });

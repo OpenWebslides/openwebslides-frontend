@@ -2,6 +2,8 @@
 
 /* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
+import { type ApiSagaAction } from 'types/actions';
+
 
 // Action constants --------------------------------------------------------------------------------
 
@@ -15,52 +17,64 @@ export const API_PATCH_PASSWORD: 'platform/API_PATCH_PASSWORD' = 'platform/API_P
 // Action types ------------------------------------------------------------------------------------
 
 export type ApiPostSigninToTokenAndGetUserAuthAction = {|
+  ...ApiSagaAction,
   type: typeof API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH,
-  payload: {
+  payload: {|
+    ...$PropertyType<ApiSagaAction, 'payload'>,
     email: string,
     password: string,
-  },
+  |},
 |};
 
 export type ApiDeleteTokenAction = {|
+  ...ApiSagaAction,
   type: typeof API_DELETE_TOKEN,
-  payload: {
+  payload: {|
+    ...$PropertyType<ApiSagaAction, 'payload'>,
     token: string,
-  },
+  |},
 |};
 
 export type ApiPostConfirmationAction = {|
+  ...ApiSagaAction,
   type: typeof API_POST_CONFIRMATION,
-  payload: {
+  payload: {|
+    ...$PropertyType<ApiSagaAction, 'payload'>,
     email: string,
-  },
+  |},
 |};
 
 export type ApiPatchConfirmationAction = {|
+  ...ApiSagaAction,
   type: typeof API_PATCH_CONFIRMATION,
-  payload: {
+  payload: {|
+    ...$PropertyType<ApiSagaAction, 'payload'>,
     confirmationToken: string,
-  },
+  |},
 |};
 
 export type ApiPostPasswordAction = {|
+  ...ApiSagaAction,
   type: typeof API_POST_PASSWORD,
-  payload: {
+  payload: {|
+    ...$PropertyType<ApiSagaAction, 'payload'>,
     email: string,
-  },
+  |},
 |};
 
 export type ApiPatchPasswordAction = {|
+  ...ApiSagaAction,
   type: typeof API_PATCH_PASSWORD,
-  payload: {
+  payload: {|
+    ...$PropertyType<ApiSagaAction, 'payload'>,
     password: string,
     resetPasswordToken: string,
-  },
+  |},
 |};
 
 // ApiSaga action ----------------------------------------------------------------------------------
 
-export type ApiSagaAction =
+export type PlatformApiSagaAction =
   | ApiPostSigninToTokenAndGetUserAuthAction
   | ApiDeleteTokenAction
   | ApiPostConfirmationAction

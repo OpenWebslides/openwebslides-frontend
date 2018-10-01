@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 
-import { type Action } from 'types/action';
+import { type ModulesAction } from 'types/redux';
 import platform from 'modules/platform';
 
 type DispatchProps = {|
@@ -13,7 +13,7 @@ type DispatchProps = {|
 
 type Props = {| ...DispatchProps |};
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
     onSignout: (): void => {
       dispatch(platform.actions.signout());

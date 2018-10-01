@@ -5,7 +5,7 @@ import { dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as m from '../../model';
 
-import convertContextToVerticalContext from '.';
+import lib from '..';
 
 describe(`convertContextToVerticalContext`, (): void => {
 
@@ -51,7 +51,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       contextType: m.contextTypes.SIBLING,
       contextItemId: dummyParagraph11.id,
     };
-    const actualResult = convertContextToVerticalContext(dummyContext, dummyContentItemsById);
+    const actualResult = lib.convertContextToVerticalContext(dummyContext, dummyContentItemsById);
     const expectedResult: m.ExtendedVerticalContext = {
       contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
@@ -66,7 +66,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       contextType: m.contextTypes.SIBLING,
       contextItemId: dummyHeading2.id,
     };
-    const actualResult = convertContextToVerticalContext(dummyContext, dummyContentItemsById);
+    const actualResult = lib.convertContextToVerticalContext(dummyContext, dummyContentItemsById);
     const expectedResult: m.ExtendedVerticalContext = {
       contextType: m.contextTypes.PARENT,
       contextItemId: dummyRoot.id,
@@ -82,7 +82,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       contextItemId: dummyParagraph12.id,
       indexInSiblingItemsShift: 0,
     };
-    const actualResult = convertContextToVerticalContext(dummyContext, dummyContentItemsById);
+    const actualResult = lib.convertContextToVerticalContext(dummyContext, dummyContentItemsById);
     const expectedResult: m.ExtendedVerticalContext = {
       contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
@@ -98,7 +98,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       contextItemId: dummyParagraph11.id,
       indexInSiblingItemsShift: 1,
     };
-    const actualResult = convertContextToVerticalContext(dummyContext, dummyContentItemsById);
+    const actualResult = lib.convertContextToVerticalContext(dummyContext, dummyContentItemsById);
     const expectedResult: m.ExtendedVerticalContext = {
       contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
@@ -114,7 +114,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       contextItemId: dummyParagraph12.id,
       indexInSiblingItemsShift: -2,
     };
-    const actualResult = convertContextToVerticalContext(dummyContext, dummyContentItemsById);
+    const actualResult = lib.convertContextToVerticalContext(dummyContext, dummyContentItemsById);
     const expectedResult: m.ExtendedVerticalContext = {
       contextType: m.contextTypes.SUPER,
       contextItemId: dummyHeading1.id,
@@ -129,12 +129,12 @@ describe(`convertContextToVerticalContext`, (): void => {
       contextType: m.contextTypes.PARENT,
       contextItemId: dummyRoot.id,
     };
-    const actualResult = convertContextToVerticalContext(dummyContext, dummyContentItemsById);
+    const actualResult = lib.convertContextToVerticalContext(dummyContext, dummyContentItemsById);
     expect(actualResult).toBe(dummyContext);
   });
 
   it(`returns NULL, when the passed context is NULL`, (): void => {
-    const actualResult = convertContextToVerticalContext(null, dummyContentItemsById);
+    const actualResult = lib.convertContextToVerticalContext(null, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
@@ -144,7 +144,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       contextItemId: 'DefinitelyNotValidId',
     };
     expect((): void => {
-      convertContextToVerticalContext(dummyContext, dummyContentItemsById);
+      lib.convertContextToVerticalContext(dummyContext, dummyContentItemsById);
     }).toThrow(ObjectNotFoundError);
   });
 
@@ -155,7 +155,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       indexInSiblingItemsShift: -3,
     };
     expect((): void => {
-      convertContextToVerticalContext(dummyContext, dummyContentItemsById);
+      lib.convertContextToVerticalContext(dummyContext, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -166,7 +166,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       indexInSiblingItemsShift: 1,
     };
     expect((): void => {
-      convertContextToVerticalContext(dummyContext, dummyContentItemsById);
+      lib.convertContextToVerticalContext(dummyContext, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -176,7 +176,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       contextItemId: dummyRoot.id,
     };
     expect((): void => {
-      convertContextToVerticalContext(dummyContext, dummyContentItemsById);
+      lib.convertContextToVerticalContext(dummyContext, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 
@@ -186,7 +186,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       contextItemId: dummyParagraph12.id,
     };
     expect((): void => {
-      convertContextToVerticalContext(dummyContext, dummyContentItemsById);
+      lib.convertContextToVerticalContext(dummyContext, dummyContentItemsById);
     }).toThrow(InvalidArgumentError);
   });
 

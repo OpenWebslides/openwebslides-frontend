@@ -7,7 +7,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Card, Button, Icon } from 'semantic-ui-react';
 
-import { type Action } from 'types/action';
+import { type ModulesAction } from 'types/redux';
 import {
   AUTH_SIGNUP_ROUTE,
   AUTH_SEND_RESET_PASSWORD_EMAIL_ROUTE,
@@ -18,10 +18,8 @@ import {
 } from 'config/routes';
 import { InvalidArgumentError } from 'errors';
 import EmailAndPasswordForm, { type EmailAndPasswordFormValues } from 'forms/EmailAndPasswordForm';
-import apiRequestsStatus from 'modules/apiRequestsStatus';
 
 import actions from '../../actions';
-import * as a from '../../actionTypes';
 
 type DispatchProps = {|
   onEmailAndPasswordFormSubmit: (values: EmailAndPasswordFormValues) => void,
@@ -29,9 +27,7 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...DispatchProps |};
 
-const { ApiDimmer } = apiRequestsStatus.components;
-
-const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
     onEmailAndPasswordFormSubmit: (values: EmailAndPasswordFormValues): void => {
       if (values.email == null || values.password == null) {
@@ -48,8 +44,6 @@ const PureSigninCard = (props: Props): React.Node => {
 
   return (
     <Card centered={true}>
-      <ApiDimmer requestIds={[a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH]} />
-
       <Card.Content>
         <Card.Header>
           {t('platform:signinCard.title')}

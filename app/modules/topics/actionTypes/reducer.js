@@ -2,6 +2,8 @@
 
 /* eslint-disable no-multiple-empty-lines, flowtype/require-types-at-top */
 
+import { type ReducerAction } from 'types/actions';
+
 import * as m from '../model';
 
 
@@ -16,41 +18,49 @@ export const TOGGLE_CONTENT_FETCHED: 'topics/TOGGLE_CONTENT_FETCHED' = 'topics/T
 // Action types ------------------------------------------------------------------------------------
 
 export type EditInStateAction = {|
+  ...ReducerAction,
   type: typeof EDIT_IN_STATE,
-  payload: {
+  payload: {|
+    ...$PropertyType<ReducerAction, 'payload'>,
     id: string,
     editedProps: {|
       title?: string,
       description?: ?string,
     |},
-  },
+  |},
 |};
 
 export type RemoveFromStateAction = {|
+  ...ReducerAction,
   type: typeof REMOVE_FROM_STATE,
-  payload: {
+  payload: {|
+    ...$PropertyType<ReducerAction, 'payload'>,
     id: string,
-  },
+  |},
 |};
 
 export type SetMultipleInStateAction = {|
+  ...ReducerAction,
   type: typeof SET_MULTIPLE_IN_STATE,
-  payload: {
+  payload: {|
+    ...$PropertyType<ReducerAction, 'payload'>,
     topics: $ReadOnlyArray<m.Topic>,
-  },
+  |},
 |};
 
 export type ToggleContentFetchedAction = {|
+  ...ReducerAction,
   type: typeof TOGGLE_CONTENT_FETCHED,
-  payload: {
+  payload: {|
+    ...$PropertyType<ReducerAction, 'payload'>,
     id: string,
-  },
+  |},
 |};
 
 
 // Reducer action ----------------------------------------------------------------------------------
 
-export type ReducerAction =
+export type TopicsReducerAction =
   | EditInStateAction
   | RemoveFromStateAction
   | SetMultipleInStateAction

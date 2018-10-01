@@ -5,8 +5,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 
-import { type State } from 'types/state';
-import { type Action } from 'types/action';
+import { type ModulesAction, type AppState } from 'types/redux';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -46,14 +45,17 @@ const passThroughProps = [
   'onReverseIndent',
 ];
 
-const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { contentItemId } = props;
   return {
     contentItem: selectors.getById(state, { id: contentItemId }),
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
+const mapDispatchToProps = (
+  dispatch: Dispatch<ModulesAction>,
+  props: PassedProps,
+): DispatchProps => {
   return {
     onStartEditing: (id: string): void => {
       dispatch(actions.toggleEditing(id, true));

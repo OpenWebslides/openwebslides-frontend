@@ -1,10 +1,10 @@
 // @flow
 
-import { type State } from 'types/state';
+import { type AppState } from 'types/redux';
 
 import * as m from '../model';
 
-const getAllById = (state: State): m.FeedItemsById => {
+const getAllById = (state: AppState): m.FeedItemsById => {
   return state.modules.feedItems.byId;
 };
 

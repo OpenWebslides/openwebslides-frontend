@@ -12,7 +12,7 @@ const initialState: m.UsersState = {
 
 const reducer = (
   state: m.UsersState = initialState,
-  action: a.ReducerAction,
+  action: a.UsersReducerAction,
 ): m.UsersState => {
   switch (action.type) {
     case a.EDIT_TOPIC_IDS_IN_STATE:

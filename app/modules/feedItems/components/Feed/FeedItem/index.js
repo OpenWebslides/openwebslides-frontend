@@ -9,8 +9,7 @@ import { Feed, Image } from 'semantic-ui-react';
 import moment from 'moment';
 
 import { USER_PROFILE_BY_ID_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
-import { type State } from 'types/state';
-import { type Action } from 'types/action';
+import { type ModulesAction, type AppState } from 'types/redux';
 import makeRoute from 'lib/makeRoute';
 import topics from 'modules/topics';
 import users from 'modules/users';
@@ -33,7 +32,7 @@ type DispatchProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
 
-const mapStateToProps = (state: State, props: PassedProps): StateProps => {
+const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { feedItem } = props;
 
   return {
@@ -42,7 +41,10 @@ const mapStateToProps = (state: State, props: PassedProps): StateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): DispatchProps => {
+const mapDispatchToProps = (
+  dispatch: Dispatch<ModulesAction>,
+  props: PassedProps,
+): DispatchProps => {
   const { feedItem } = props;
 
   return {
@@ -55,7 +57,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>, props: PassedProps): Dis
   };
 };
 
-class PureFeedItem extends React.Component<Props, State> {
+class PureFeedItem extends React.Component<Props> {
   componentDidMount(): void {
     const { topic, user, fetchTopic, fetchUser } = this.props;
     if (topic == null) fetchTopic();

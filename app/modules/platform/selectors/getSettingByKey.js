@@ -1,11 +1,11 @@
 // @flow
 
-import { type State } from 'types/state';
+import { type AppState } from 'types/redux';
 
 import * as m from '../model';
 
 const getSettingByKey = <K: $Keys<m.UserSettings>>(
-  state: State,
+  state: AppState,
   props: { key: K },
 ): $ElementType<m.UserSettings, K> => {
   const { key } = props;
