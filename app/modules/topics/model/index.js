@@ -6,6 +6,7 @@ export type Topic = {|
   +description: ?string,
   +rootContentItemId: string,
   +upstreamTopicId: ?string,
+  +forkedTopicIds: $ReadOnlyArray<string>,
   +isContentFetched: boolean,
 |};
 

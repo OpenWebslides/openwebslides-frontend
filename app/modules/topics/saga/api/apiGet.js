@@ -29,6 +29,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     description: attributes.description,
     rootContentItemId: attributes.rootContentItemId,
     upstreamTopicId,
+    forkedTopicIds: [], // TODO
     isContentFetched: false,
   };
 
