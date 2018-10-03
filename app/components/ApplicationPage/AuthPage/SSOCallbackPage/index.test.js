@@ -16,7 +16,7 @@ describe(`SSOCallbackPage`, (): void => {
 
   let dummyApiToken: string;
   let dummyId: any;
-  let dummySigninSSO: any;
+  let dummySetUserAuth: any;
 
   let dummyDispatch: any;
   let dummyState: any;
@@ -24,7 +24,7 @@ describe(`SSOCallbackPage`, (): void => {
   beforeEach((): void => {
     dummyApiToken = 'foobarApiToken';
     dummyId = 'foobarId';
-    dummySigninSSO = jest.fn();
+    dummySetUserAuth = jest.fn();
 
     dummyDispatch = jest.fn();
     dummyState = {
@@ -38,7 +38,7 @@ describe(`SSOCallbackPage`, (): void => {
     };
   });
 
-  it(`dispatches a signinSSO() action with the passed apiToken and id`, (): void => {
+  it(`dispatches a dummySetUserAuth() action with the passed apiToken and id`, (): void => {
     const fixedDummyRouterProps = {
       ...dummyProviderProps.routerProps,
       location: {
@@ -53,7 +53,7 @@ describe(`SSOCallbackPage`, (): void => {
       </DummyProviders>,
     );
 
-    expect(dummyDispatch).toHaveBeenCalledWith(platform.actions.signinSSO(dummyApiToken, dummyId));
+    expect(dummyDispatch).toHaveBeenCalledWith(platform.actions.setUserAuth(dummyApiToken, dummyId));
   });
 
   it(`sets a flash message and redirects to signin page when an error URL param is passed`, (): void => {
@@ -89,7 +89,7 @@ describe(`SSOCallbackPage`, (): void => {
         <PureSSOCallbackPage
           {...dummyProviderProps.translatorProps}
           {...noApiTokenDummyRouterProps}
-          signinSSO={dummySigninSSO}
+          setUserAuth={dummySetUserAuth}
         />,
       );
     }).toThrow(InvalidArgumentError);
@@ -109,7 +109,7 @@ describe(`SSOCallbackPage`, (): void => {
         <PureSSOCallbackPage
           {...dummyProviderProps.translatorProps}
           {...noUserIdDummyRouterProps}
-          signinSSO={dummySigninSSO}
+          setUserAuth={dummySetUserAuth}
         />,
       );
     }).toThrow(InvalidArgumentError);
