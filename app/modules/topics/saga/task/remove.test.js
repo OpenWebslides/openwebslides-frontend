@@ -1,8 +1,13 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import { dynamic } from 'redux-saga-test-plan/providers';
+
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
+import * as a from '../../actionTypes';
 
 import { sagas } from '..';
 
@@ -18,7 +23,12 @@ describe(`remove`, (): void => {
     const dummyAction = actions.remove(dummyId);
 
     return expectSaga(sagas.remove, dummyAction)
-      .put(actions.apiDelete(dummyId))
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.API_DELETE) ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.apiDelete(dummyId))
       .put(actions.removeFromState(dummyId))
       .run();
   });

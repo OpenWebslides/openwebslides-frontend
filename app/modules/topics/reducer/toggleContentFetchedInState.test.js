@@ -8,7 +8,7 @@ import * as m from '../model';
 
 import reducer from '.';
 
-describe(`toggleContentFetched`, (): void => {
+describe(`toggleContentFetchedInState`, (): void => {
 
   let dummyTopic: m.Topic;
 
@@ -22,8 +22,8 @@ describe(`toggleContentFetched`, (): void => {
         [dummyTopic.id]: dummyTopic,
       },
     };
-    const toggleContentFetchedAction: a.ToggleContentFetchedAction = {
-      type: a.TOGGLE_CONTENT_FETCHED,
+    const toggleContentFetchedInStateAction: a.ToggleContentFetchedInStateAction = {
+      type: a.TOGGLE_CONTENT_FETCHED_IN_STATE,
       payload: {
         id: dummyTopic.id,
       },
@@ -33,7 +33,7 @@ describe(`toggleContentFetched`, (): void => {
         [dummyTopic.id]: { ...dummyTopic, isContentFetched: true },
       },
     };
-    const resultState = reducer(prevState, toggleContentFetchedAction);
+    const resultState = reducer(prevState, toggleContentFetchedInStateAction);
 
     expect(resultState).toEqual(nextState);
     expect(resultState).not.toBe(prevState);
@@ -47,13 +47,13 @@ describe(`toggleContentFetched`, (): void => {
         [dummyTopic.id]: { ...dummyTopic, isContentFetched: true },
       },
     };
-    const toggleContentFetchedAction: a.ToggleContentFetchedAction = {
-      type: a.TOGGLE_CONTENT_FETCHED,
+    const toggleContentFetchedInStateAction: a.ToggleContentFetchedInStateAction = {
+      type: a.TOGGLE_CONTENT_FETCHED_IN_STATE,
       payload: {
         id: dummyTopic.id,
       },
     };
-    const resultState = reducer(prevState, toggleContentFetchedAction);
+    const resultState = reducer(prevState, toggleContentFetchedInStateAction);
 
     expect(resultState).toEqual(prevState);
     expect(resultState).toBe(prevState);
@@ -67,15 +67,15 @@ describe(`toggleContentFetched`, (): void => {
         [dummyTopic.id]: { ...dummyTopic, isContentFetched: true },
       },
     };
-    const toggleContentFetchedAction: a.ToggleContentFetchedAction = {
-      type: a.TOGGLE_CONTENT_FETCHED,
+    const toggleContentFetchedInStateAction: a.ToggleContentFetchedInStateAction = {
+      type: a.TOGGLE_CONTENT_FETCHED_IN_STATE,
       payload: {
         id: 'InvalidId',
       },
     };
 
     expect((): void => {
-      reducer(prevState, toggleContentFetchedAction);
+      reducer(prevState, toggleContentFetchedInStateAction);
     }).toThrow(ObjectNotFoundError);
   });
 

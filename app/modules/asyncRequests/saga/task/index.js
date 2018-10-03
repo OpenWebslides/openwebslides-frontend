@@ -11,6 +11,8 @@ import setFailure from './setFailure';
 import setPending from './setPending';
 import setSuccess from './setSuccess';
 
+// Note: these should not use asyncRequests.lib.sagaWrapper
+// because they're dispatched from inside sagaWrapper.
 const taskSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.SET_FAILURE, setFailure),

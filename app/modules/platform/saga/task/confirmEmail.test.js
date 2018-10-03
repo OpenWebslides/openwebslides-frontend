@@ -1,11 +1,15 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import { dynamic } from 'redux-saga-test-plan/providers';
 import { push } from 'connected-react-router';
 
 import * as paths from 'config/routes';
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
+import * as a from '../../actionTypes';
 
 import { sagas } from '..';
 
@@ -21,8 +25,12 @@ describe(`confirmEmail`, (): void => {
     const dummyAction = actions.confirmEmail(dummyConfirmationToken);
 
     return expectSaga(sagas.confirmEmail, dummyAction)
-      .put(actions.apiPatchConfirmation(dummyConfirmationToken))
-      .dispatch({ type: 'apiRequestsStatus/SET_SUCCESS' })
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.API_PATCH_CONFIRMATION) ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.apiPatchConfirmation(dummyConfirmationToken))
       .put(push(paths.AUTH_SIGNIN_ROUTE))
       .run();
   });

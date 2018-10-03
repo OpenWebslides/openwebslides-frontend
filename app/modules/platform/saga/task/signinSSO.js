@@ -7,6 +7,7 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
+// #TODO rename this to setUserAuth
 const signinSSO = function* (action: a.SigninSSOAction): Saga<void> {
   const { apiToken, userId } = action.payload;
 

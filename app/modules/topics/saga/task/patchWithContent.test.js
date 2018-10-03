@@ -2,9 +2,12 @@
 
 import { select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import { dynamic } from 'redux-saga-test-plan/providers';
 
 import { ObjectNotFoundError } from 'errors';
 import { dummyTopicData } from 'lib/testResources';
+import asyncRequests from 'modules/asyncRequests';
 import contentItems from 'modules/contentItems';
 
 import actions from '../../actions';
@@ -27,8 +30,11 @@ describe(`patchWithContent`, (): void => {
     return expectSaga(sagas.patchWithContent, dummyAction)
       .provide([
         [select(selectors.getById, { id: dummyTopic.id }), dummyTopic],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === contentItems.actions.apiPatchAllByTopicIdAndRoot('dummy', 'dummy').type) ? null : next();
+        })],
       ])
-      .put(contentItems.actions.apiPatchAllByTopicIdAndRoot(dummyTopic.id, dummyTopic.rootContentItemId))
+      .call(asyncRequests.lib.putAndReturn, contentItems.actions.apiPatchAllByTopicIdAndRoot(dummyTopic.id, dummyTopic.rootContentItemId))
       .run();
   });
 
@@ -41,6 +47,9 @@ describe(`patchWithContent`, (): void => {
       expectSaga(sagas.patchWithContent, dummyAction)
         .provide([
           [select(selectors.getById, { id: dummyTopic.id }), null],
+          [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+            return (action.type === contentItems.actions.apiPatchAllByTopicIdAndRoot('dummy', 'dummy').type) ? null : next();
+          })],
         ])
         .run(),
     ).rejects.toBeInstanceOf(ObjectNotFoundError);

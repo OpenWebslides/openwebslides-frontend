@@ -19,9 +19,7 @@ const apiEventTypesToFeedItemTypesMap = {
 
 const apiGetAll = function* (action: a.ApiGetAllAction): Saga<void> {
   const responseData: ApiResponseData = yield call(api.feedItems.getAll);
-  if (responseData.body == null) {
-    throw new UnexpectedHttpResponseError();
-  }
+  if (responseData.body == null) throw new UnexpectedHttpResponseError();
 
   // eslint-disable-next-line flowtype/no-weak-types
   const data = responseData.body.data.map((item: Object): m.FeedItem => {

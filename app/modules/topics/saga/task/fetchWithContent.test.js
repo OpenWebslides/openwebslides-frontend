@@ -1,10 +1,14 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import { dynamic } from 'redux-saga-test-plan/providers';
 
+import asyncRequests from 'modules/asyncRequests';
 import contentItems from 'modules/contentItems';
 
 import actions from '../../actions';
+import * as a from '../../actionTypes';
 
 import { sagas } from '..';
 
@@ -20,9 +24,20 @@ describe(`fetchWithContent`, (): void => {
     const dummyAction = actions.fetchWithContent(dummyId);
 
     return expectSaga(sagas.fetchWithContent, dummyAction)
-      .put(actions.apiGet(dummyId))
-      .put(contentItems.actions.apiGetAllByTopicId(dummyId))
-      .put(actions.toggleContentFetched(dummyId))
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.API_GET) ? null : next();
+        })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === contentItems.actions.apiGetAllByTopicId('dummy').type) ? null : next();
+        })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.TOGGLE_CONTENT_FETCHED_IN_STATE) ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.apiGet(dummyId))
+      .call(asyncRequests.lib.putAndReturn, contentItems.actions.apiGetAllByTopicId(dummyId))
+      .put(actions.toggleContentFetchedInState(dummyId))
       .run();
   });
 
