@@ -5,6 +5,7 @@ export type Topic = {|
   +title: string,
   +description: ?string,
   +rootContentItemId: string,
+  +upstreamTopicId: ?string,
   +isContentFetched: boolean,
 |};
 

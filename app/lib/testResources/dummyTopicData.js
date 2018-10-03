@@ -7,6 +7,7 @@ export const topic: topics.model.Topic = {
   title: 'Dummy Topic',
   description: 'This is a dummy topic for testing purposes',
   rootContentItemId: 'dummyRootContentItemId',
+  upstreamTopicId: null,
   isContentFetched: false,
 };
 
@@ -15,6 +16,7 @@ export const topic2: topics.model.Topic = {
   title: 'Anoterh dummy Topic',
   description: null,
   rootContentItemId: 'dummyRootContentItemId',
+  upstreamTopicId: null,
   isContentFetched: false,
 };
 
@@ -23,6 +25,7 @@ export const topic3: topics.model.Topic = {
   title: 'This topic is a dummy',
   description: null,
   rootContentItemId: 'dummyRootContentItemId',
+  upstreamTopicId: null,
   isContentFetched: false,
 };
 
@@ -31,5 +34,6 @@ export const topic4: topics.model.Topic = {
   title: 'Lorme ipsum dolor sit amet',
   description: 'Lorem ipsum descriptium',
   rootContentItemId: 'dummyRootContentItemId',
+  upstreamTopicId: null,
   isContentFetched: false,
 };
