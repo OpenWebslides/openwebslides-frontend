@@ -2,12 +2,9 @@
 
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
-import { Item, Icon } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Item } from 'semantic-ui-react';
 
-import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import topics from 'modules/topics';
-import makeRoute from 'lib/makeRoute';
 
 import Sidebar from './Sidebar';
 
@@ -16,6 +13,8 @@ type PassedProps = {|
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
+
+const { ForkInfo } = topics.components;
 
 const PureTopicInfoSidebar = (props: Props): React.Node => {
   const { t, topic } = props;
@@ -33,12 +32,7 @@ const PureTopicInfoSidebar = (props: Props): React.Node => {
             <Item.Description>{topic.title}</Item.Description>
             {(topic.upstreamTopicId != null) ? (
               <Item.Extra>
-                <Icon name="fork" size="small" />
-                <Link to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.upstreamTopicId })}>
-                  <small>
-                    {t('topics:sidebars.topicInfo.forkedFrom', { topic: topic.upstreamTopicId })}
-                  </small>
-                </Link>
+                <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
               </Item.Extra>
             ) : ''}
           </Item.Content>
