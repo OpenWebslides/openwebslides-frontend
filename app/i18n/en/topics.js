@@ -20,6 +20,7 @@ const topics = {
   sidebars: {
     topicInfo: {
       header: 'Topic Info',
+      forkedFrom: '{{ topic }}',
     },
     slidePreviews: {
       header: 'Slide Previews',
