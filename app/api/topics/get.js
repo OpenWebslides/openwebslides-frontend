@@ -14,7 +14,7 @@ const get = (id: string): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.GET)
     .addPathSegment(TOPICS_ENDPOINT)
     .addPathSegment(id)
-    .setParameter('include', 'upstream')
+    .setParameter('include', 'upstream,forks')
     .execute();
 };
 

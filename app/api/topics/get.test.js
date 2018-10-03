@@ -21,7 +21,7 @@ describe(`api.topics.get`, (): void => {
     const mockUrl = fetch.mock.calls[0][0];
     const mockOptions = fetch.mock.calls[0][1];
 
-    expect(mockUrl).toBe(`${API_URL}/topics/${dummyTopicId}`);
+    expect(mockUrl).toBe(`${API_URL}/topics/${dummyTopicId}?include=upstream${encodeURIComponent(',')}forks`);
     expect(mockOptions.method).toBe(httpMethods.GET);
     expect(mockOptions.body).toBeNull();
   });

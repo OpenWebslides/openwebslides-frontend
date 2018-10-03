@@ -20,16 +20,13 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
 
   const { attributes, relationships } = topicsResponseData.body.data;
 
-  // 'upstream' relationship is only non-empty when the topic is a fork
-  const upstreamTopicId = relationships.upstream.data ? relationships.upstream.data.id : null;
-
   const topic: m.Topic = {
     id,
     title: attributes.title,
     description: attributes.description,
     rootContentItemId: attributes.rootContentItemId,
-    upstreamTopicId,
-    forkedTopicIds: [], // TODO
+    upstreamTopicId: relationships.upstream.data ? relationships.upstream.data.id : null,
+    forkedTopicIds: relationships.forks.data.map((item: { type: string, id: string }) => item.id),
     isContentFetched: false,
   };
 
