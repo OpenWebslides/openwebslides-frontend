@@ -21,3 +21,6 @@
 
 // Slides
 & { @import "../../custom/ows_slide"; }
+
+// Course
+& { @import "../../custom/course-menu"; }
