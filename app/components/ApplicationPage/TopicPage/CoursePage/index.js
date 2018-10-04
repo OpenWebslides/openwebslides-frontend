@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
+import { Button, Menu } from 'semantic-ui-react';
 
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import platform from 'modules/platform';
@@ -18,6 +19,16 @@ const PureCoursePage = (props: Props): React.Node => {
   return (topicId == null) ? null : (
     <AuthWrapper>
       <ContainerPageWrapper>
+        <Menu attached={true} borderless={true} className="course-menu">
+          <Menu.Menu position="right">
+            <Menu attached={true} className="course-menu">
+              <Menu.Item>
+                <Button>Fork</Button>
+              </Menu.Item>
+            </Menu>
+          </Menu.Menu>
+        </Menu>
+
         <TopicCourse topicId={topicId} />
       </ContainerPageWrapper>
     </AuthWrapper>
