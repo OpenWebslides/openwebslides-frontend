@@ -3,6 +3,7 @@
 export const HOME_ROUTE = '/';
 // TOPIC
 export const TOPIC_ROUTE = '/topic';
+export const TOPIC_COURSE_ROUTE = '/topic/:topicId/course';
 export const TOPIC_EDITOR_ROUTE = '/topic/:topicId/editor';
 export const TOPIC_NEW_ROUTE = '/topic/new';
 // USER
