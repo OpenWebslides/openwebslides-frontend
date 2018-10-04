@@ -13,11 +13,13 @@ import apiDelete from './apiDelete';
 import apiGet from './apiGet';
 import apiPost from './apiPost';
 
+const { sagaWrapper } = asyncRequests.lib;
+
 const apiSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.API_DELETE, asyncRequests.lib.sagaWrapper, apiDelete),
-    takeEvery(a.API_GET, asyncRequests.lib.sagaWrapper, apiGet),
-    takeEvery(a.API_POST, asyncRequests.lib.sagaWrapper, apiPost),
+    takeEvery(a.API_DELETE, sagaWrapper, apiDelete),
+    takeEvery(a.API_GET, sagaWrapper, apiGet),
+    takeEvery(a.API_POST, sagaWrapper, apiPost),
   ]);
 };
 

@@ -12,10 +12,12 @@ import * as a from '../../actionTypes';
 import apiGetAllByTopicId from './apiGetAllByTopicId';
 import apiPatchAllByTopicIdAndRoot from './apiPatchAllByTopicIdAndRoot';
 
+const { sagaWrapper } = asyncRequests.lib;
+
 const apiSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.API_GET_ALL_BY_TOPIC_ID, asyncRequests.lib.sagaWrapper, apiGetAllByTopicId),
-    takeEvery(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT, asyncRequests.lib.sagaWrapper, apiPatchAllByTopicIdAndRoot),
+    takeEvery(a.API_GET_ALL_BY_TOPIC_ID, sagaWrapper, apiGetAllByTopicId),
+    takeEvery(a.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT, sagaWrapper, apiPatchAllByTopicIdAndRoot),
   ]);
 };
 

@@ -19,17 +19,19 @@ import removeAndTogglePreviousItem from './removeAndTogglePreviousItem';
 import reverseIndent from './reverseIndent';
 import toggleEditing from './toggleEditing';
 
+const { sagaWrapper } = asyncRequests.lib;
+
 const taskSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.ADD, asyncRequests.lib.sagaWrapper, add),
-    takeEvery(a.EDIT, asyncRequests.lib.sagaWrapper, edit),
-    takeEvery(a.GENERATE_ROOT, asyncRequests.lib.sagaWrapper, generateRoot),
-    takeEvery(a.INDENT, asyncRequests.lib.sagaWrapper, indent),
-    takeEvery(a.MOVE, asyncRequests.lib.sagaWrapper, move),
-    takeEvery(a.REMOVE, asyncRequests.lib.sagaWrapper, remove),
-    takeEvery(a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM, asyncRequests.lib.sagaWrapper, removeAndTogglePreviousItem),
-    takeEvery(a.REVERSE_INDENT, asyncRequests.lib.sagaWrapper, reverseIndent),
-    takeEvery(a.TOGGLE_EDITING, asyncRequests.lib.sagaWrapper, toggleEditing),
+    takeEvery(a.ADD, sagaWrapper, add),
+    takeEvery(a.EDIT, sagaWrapper, edit),
+    takeEvery(a.GENERATE_ROOT, sagaWrapper, generateRoot),
+    takeEvery(a.INDENT, sagaWrapper, indent),
+    takeEvery(a.MOVE, sagaWrapper, move),
+    takeEvery(a.REMOVE, sagaWrapper, remove),
+    takeEvery(a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM, sagaWrapper, removeAndTogglePreviousItem),
+    takeEvery(a.REVERSE_INDENT, sagaWrapper, reverseIndent),
+    takeEvery(a.TOGGLE_EDITING, sagaWrapper, toggleEditing),
   ]);
 };
 

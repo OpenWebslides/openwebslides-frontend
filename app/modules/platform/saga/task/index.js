@@ -19,17 +19,19 @@ import signout from './signout';
 import signup from './signup';
 import toggleSidebar from './toggleSidebar';
 
+const { sagaWrapper } = asyncRequests.lib;
+
 const taskSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.CONFIRM_EMAIL, asyncRequests.lib.sagaWrapper, confirmEmail),
-    takeEvery(a.RESEND_CONFIRMATION_EMAIL, asyncRequests.lib.sagaWrapper, resendConfirmationEmail),
-    takeEvery(a.RESET_PASSWORD, asyncRequests.lib.sagaWrapper, resetPassword),
-    takeEvery(a.SEND_RESET_PASSWORD_EMAIL, asyncRequests.lib.sagaWrapper, sendResetPasswordEmail),
-    takeEvery(a.SET_USER_AUTH, asyncRequests.lib.sagaWrapper, setUserAuth),
-    takeEvery(a.SIGNIN, asyncRequests.lib.sagaWrapper, signin),
-    takeEvery(a.SIGNOUT, asyncRequests.lib.sagaWrapper, signout),
-    takeEvery(a.SIGNUP, asyncRequests.lib.sagaWrapper, signup),
-    takeEvery(a.TOGGLE_SIDEBAR, asyncRequests.lib.sagaWrapper, toggleSidebar),
+    takeEvery(a.CONFIRM_EMAIL, sagaWrapper, confirmEmail),
+    takeEvery(a.RESEND_CONFIRMATION_EMAIL, sagaWrapper, resendConfirmationEmail),
+    takeEvery(a.RESET_PASSWORD, sagaWrapper, resetPassword),
+    takeEvery(a.SEND_RESET_PASSWORD_EMAIL, sagaWrapper, sendResetPasswordEmail),
+    takeEvery(a.SET_USER_AUTH, sagaWrapper, setUserAuth),
+    takeEvery(a.SIGNIN, sagaWrapper, signin),
+    takeEvery(a.SIGNOUT, sagaWrapper, signout),
+    takeEvery(a.SIGNUP, sagaWrapper, signup),
+    takeEvery(a.TOGGLE_SIDEBAR, sagaWrapper, toggleSidebar),
   ]);
 };
 

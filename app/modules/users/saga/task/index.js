@@ -15,13 +15,15 @@ import fetch from './fetch';
 import removeTopic from './removeTopic';
 import removeTopicId from './removeTopicId';
 
+const { sagaWrapper } = asyncRequests.lib;
+
 const taskSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.ADD_TOPIC, asyncRequests.lib.sagaWrapper, addTopic),
-    takeEvery(a.ADD_TOPIC_ID, asyncRequests.lib.sagaWrapper, addTopicId),
-    takeEvery(a.FETCH, asyncRequests.lib.sagaWrapper, fetch),
-    takeEvery(a.REMOVE_TOPIC, asyncRequests.lib.sagaWrapper, removeTopic),
-    takeEvery(a.REMOVE_TOPIC_ID, asyncRequests.lib.sagaWrapper, removeTopicId),
+    takeEvery(a.ADD_TOPIC, sagaWrapper, addTopic),
+    takeEvery(a.ADD_TOPIC_ID, sagaWrapper, addTopicId),
+    takeEvery(a.FETCH, sagaWrapper, fetch),
+    takeEvery(a.REMOVE_TOPIC, sagaWrapper, removeTopic),
+    takeEvery(a.REMOVE_TOPIC_ID, sagaWrapper, removeTopicId),
   ]);
 };
 

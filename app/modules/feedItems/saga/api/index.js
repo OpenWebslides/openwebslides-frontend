@@ -11,9 +11,11 @@ import * as a from '../../actionTypes';
 
 import apiGetAll from './apiGetAll';
 
+const { sagaWrapper } = asyncRequests.lib;
+
 const apiSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.API_GET_ALL, asyncRequests.lib.sagaWrapper, apiGetAll),
+    takeEvery(a.API_GET_ALL, sagaWrapper, apiGetAll),
   ]);
 };
 
