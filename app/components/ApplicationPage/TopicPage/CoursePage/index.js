@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
 
-import SidebarsPageWrapper from 'components/SidebarsPageWrapper';
+import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import platform from 'modules/platform';
 import topics from 'modules/topics';
 
@@ -17,9 +17,9 @@ const PureCoursePage = (props: Props): React.Node => {
 
   return (topicId == null) ? null : (
     <AuthWrapper>
-      <SidebarsPageWrapper topicId={topicId}>
+      <ContainerPageWrapper>
         <TopicCourse topicId={topicId} />
-      </SidebarsPageWrapper>
+      </ContainerPageWrapper>
     </AuthWrapper>
   );
 };
