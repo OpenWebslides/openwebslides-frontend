@@ -68,15 +68,10 @@ describe(`apiPostFork`, (): void => {
 
   it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<mixed> => {
     const dummyAction = actions.apiPostFork(dummyId);
-    const dummyApiResponse = {
-      status: 201,
-      body: {
-        data: {
-          id: dummyForkedId,
-        },
-      },
-    };
+    const dummyApiResponse = { status: 201 };
 
+    // Suppress console.error from redux-saga $FlowFixMe
+    console.error = jest.fn();
     await expect(
       expectSaga(sagas.apiPostFork, dummyAction)
         .provide([
