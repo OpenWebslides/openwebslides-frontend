@@ -15,7 +15,7 @@ type PassedProps = {|
 
 type StateProps = {|
   // Denormalized topic root content item
-  rootContentItem: ?contentItems.model.DenormalizedRootContentItem,
+  rootContentItem: contentItems.model.DenormalizedRootContentItem,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
@@ -25,9 +25,10 @@ const { HtmlDisplay: ContentItemHtmlDisplay } = contentItems.components;
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { topic } = props;
 
-  const rootContentItem = (topic != null)
-    ? contentItems.selectors.getDenormalizedById(state, { id: topic.rootContentItemId })
-    : null;
+  const rootContentItem = contentItems.selectors.getDenormalizedById(
+    state,
+    { id: topic.rootContentItemId },
+  );
 
   return {
     rootContentItem,
