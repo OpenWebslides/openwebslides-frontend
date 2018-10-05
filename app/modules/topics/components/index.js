@@ -6,6 +6,7 @@ import ForkInfo from './ForkInfo';
 import NewTopicCard from './NewTopicCard';
 import SlidesList from './SlidesList';
 import TopicsList from './TopicsList';
+import Viewer from './Viewer';
 
 const index = {
   Course,
@@ -14,6 +15,7 @@ const index = {
   NewTopicCard,
   SlidesList,
   TopicsList,
+  Viewer,
 };
 
 /* istanbul ignore next */
