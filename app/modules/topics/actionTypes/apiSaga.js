@@ -10,6 +10,7 @@ import { type ApiSagaAction } from 'types/actions';
 export const API_GET: 'topics/API_GET' = 'topics/API_GET';
 export const API_POST: 'topics/API_POST' = 'topics/API_POST';
 export const API_DELETE: 'topics/API_DELETE' = 'topics/API_DELETE';
+export const API_POST_FORK: 'topics/API_POST_FORK' = 'topics/API_POST_FORK';
 
 
 // Action types ------------------------------------------------------------------------------------
@@ -44,10 +45,20 @@ export type ApiDeleteAction = {|
   |},
 |};
 
+export type ApiPostForkAction = {|
+  ...ApiSagaAction,
+  type: typeof API_POST_FORK,
+  payload: {|
+    ...$PropertyType<ApiSagaAction, 'payload'>,
+    id: string,
+  |},
+|};
+
 
 // ApiSaga action ----------------------------------------------------------------------------------
 
 export type TopicsApiSagaAction =
   | ApiGetAction
   | ApiPostAction
-  | ApiDeleteAction;
+  | ApiDeleteAction
+  | ApiPostForkAction;
