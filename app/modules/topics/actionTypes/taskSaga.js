@@ -9,7 +9,7 @@ import { type TaskSagaAction } from 'types/actions';
 
 export const CREATE: 'topics/CREATE' = 'topics/CREATE';
 export const DISCARD: 'topics/DISCARD' = 'topics/DISCARD';
-export const EDIT: 'topics/EDIT' = 'topics/EDIT';
+export const UPDATE: 'topics/UPDATE' = 'topics/UPDATE';
 export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
 export const FETCH: 'topics/FETCH' = 'topics/FETCH';
 export const FETCH_WITH_CONTENT: 'topics/FETCH_WITH_CONTENT' = 'topics/FETCH_WITH_CONTENT';
@@ -39,13 +39,13 @@ export type DiscardAction = {|
   |},
 |};
 
-export type EditAction = {|
+export type UpdateAction = {|
   ...TaskSagaAction,
-  type: typeof EDIT,
+  type: typeof UPDATE,
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
     id: string,
-    editedProps: {|
+    updatedProps: {|
       title?: string,
       description?: ?string,
     |},
@@ -104,7 +104,7 @@ export type ForkAction = {|
 export type TopicsTaskSagaAction =
   | CreateAction
   | DiscardAction
-  | EditAction
+  | UpdateAction
   | RemoveAction
   | FetchAction
   | FetchWithContentAction
