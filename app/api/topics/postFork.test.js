@@ -28,25 +28,6 @@ describe(`api.topics.postFork`, (): void => {
 
     expect(mockUrl).toBe(`${API_URL}/topics/${dummyTopicId}/fork`);
     expect(mockOptions.method).toBe(httpMethods.POST);
-    expect(JSON.parse(mockOptions.body)).toEqual({
-      data: {
-        type: 'topics',
-        attributes: {
-          title: dummyTitle,
-          description: dummyDescription,
-          state: 'public_access',
-          rootContentItemId: dummyRootContentItemId,
-        },
-        relationships: {
-          user: {
-            data: {
-              type: 'users',
-              id: dummyUserId,
-            },
-          },
-        },
-      },
-    });
     expect(mockOptions.headers.Authorization).toBe(`Bearer ${dummyToken}`);
   });
 
