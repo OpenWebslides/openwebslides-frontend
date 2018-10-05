@@ -44,8 +44,7 @@ const mapDispatchToProps = (
 
   return {
     onFork: (): void => {
-      // TODO: dispatch fork action
-      console.log(topicId);
+      dispatch(actions.fork(topicId));
     },
   };
 };

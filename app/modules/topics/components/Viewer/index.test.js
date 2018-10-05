@@ -105,7 +105,7 @@ describe(`Viewer`, (): void => {
     );
     enzymeWrapper.find('[data-test-id="topic-viewer-fork-button"]').hostNodes().simulate('click');
 
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.patchWithContent(dummyTopic.id));
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.fork(dummyTopic.id));
   });
 
 });
