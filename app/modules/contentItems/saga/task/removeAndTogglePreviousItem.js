@@ -1,16 +1,19 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { put, select } from 'redux-saga/effects';
+import { call, select } from 'redux-saga/effects';
 
 import { ObjectNotFoundError } from 'errors';
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
 import lib from '../../lib';
 import selectors from '../../selectors';
 
-const removeAndTogglePreviousItemSaga = function* (
+const { putAndReturn } = asyncRequests.lib;
+
+const removeAndTogglePreviousItem = function* (
   action: a.RemoveAndTogglePreviousItemAction,
 ): Saga<void> {
   const contentItemsById = yield select(selectors.getAllById);
@@ -23,12 +26,12 @@ const removeAndTogglePreviousItemSaga = function* (
   const previousEditorItem = lib.find.previousEditorItem(contentItemToRemove, contentItemsById);
 
   // Remove the contentItem.
-  yield put(actions.remove(id));
+  yield call(putAndReturn, actions.remove(id));
 
   // Move the cursor to the previousEditorItem.
   if (previousEditorItem != null) {
-    yield put(actions.toggleEditing(previousEditorItem.id, true));
+    yield call(putAndReturn, actions.toggleEditing(previousEditorItem.id, true));
   }
 };
 
-export default removeAndTogglePreviousItemSaga;
+export default removeAndTogglePreviousItem;

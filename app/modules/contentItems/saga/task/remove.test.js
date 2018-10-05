@@ -1,10 +1,14 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import { dynamic } from 'redux-saga-test-plan/providers';
 
 import { CorruptedInternalStateError, ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
+import asyncRequests from 'modules/asyncRequests';
 
+import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
@@ -72,165 +76,126 @@ describe(`remove`, (): void => {
   });
 
   it(`puts a REMOVE_FROM_STATE action`, (): void => {
-    const dummyRemoveAction: a.RemoveAction = {
-      type: a.REMOVE,
-      payload: {
-        id: dummyParagraph111.id,
-      },
-    };
+    const dummyAction = actions.remove(dummyParagraph111.id);
 
-    return expectSaga(sagas.remove, dummyRemoveAction)
+    return expectSaga(sagas.remove, dummyAction)
       .withState(dummyState)
-      .put.like({
-        action: {
-          type: a.REMOVE_FROM_STATE,
-          payload: {
-            id: dummyParagraph111.id,
-          },
-        },
-      })
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+      ])
+      .put(actions.removeFromState(dummyParagraph111.id))
       .run();
   });
 
-  it(`puts MOVE actions to move its subItems to the end of the previous HEADING, when the contentItem is a HEADING and its previousSibling is also a HEADING`, (): void => {
-    const dummyRemoveAction: a.RemoveAction = {
-      type: a.REMOVE,
-      payload: {
-        id: dummyHeading12.id,
-      },
-    };
+  it(`moves the contentItem's subItems to the end of the previous HEADING, when the contentItem is a HEADING and its previousSibling is also a HEADING`, (): void => {
+    const dummyAction = actions.remove(dummyHeading12.id);
 
-    return expectSaga(sagas.remove, dummyRemoveAction)
+    return expectSaga(sagas.remove, dummyAction)
       .withState(dummyState)
-      .put.like({
-        action: {
-          type: a.MOVE,
-          payload: {
-            id: dummyParagraph122.id,
-            nextContext: {
-              contextType: m.contextTypes.SUPER,
-              contextItemId: dummyHeading11.id,
-              indexInSiblingItems: 2,
-            },
-          },
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.move(
+        dummyParagraph122.id,
+        {
+          contextType: m.contextTypes.SUPER,
+          contextItemId: dummyHeading11.id,
+          indexInSiblingItems: 2,
         },
-      })
-      .put.like({
-        action: {
-          type: a.MOVE,
-          payload: {
-            id: dummyParagraph121.id,
-            nextContext: {
-              contextType: m.contextTypes.SUPER,
-              contextItemId: dummyHeading11.id,
-              indexInSiblingItems: 2,
-            },
-          },
+      ))
+      .call(asyncRequests.lib.putAndReturn, actions.move(
+        dummyParagraph121.id,
+        {
+          contextType: m.contextTypes.SUPER,
+          contextItemId: dummyHeading11.id,
+          indexInSiblingItems: 2,
         },
-      })
-      .put.like({
-        action: {
-          type: a.REMOVE_FROM_STATE,
-          payload: {
-            id: dummyHeading12.id,
-          },
-        },
-      })
+      ))
+      .put(actions.removeFromState(dummyHeading12.id))
       .run();
   });
 
-  it(`puts MOVE actions to move its subItems to its own previous location, when the contentItem is a HEADING and its previousSibling is not a HEADING`, (): void => {
-    const dummyRemoveAction: a.RemoveAction = {
-      type: a.REMOVE,
-      payload: {
-        id: dummyHeading11.id,
-      },
-    };
+  it(`moves the contentItem's subItems to its own previous location, when the contentItem is a HEADING and its previousSibling is not a HEADING`, (): void => {
+    const dummyAction = actions.remove(dummyHeading11.id);
 
-    return expectSaga(sagas.remove, dummyRemoveAction)
+    return expectSaga(sagas.remove, dummyAction)
       .withState(dummyState)
-      .put.like({
-        action: {
-          type: a.MOVE,
-          payload: {
-            id: dummyParagraph112.id,
-            nextContext: {
-              contextType: m.contextTypes.SUPER,
-              contextItemId: dummyHeading1.id,
-              indexInSiblingItems: 0,
-            },
-          },
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.move(
+        dummyParagraph112.id,
+        {
+          contextType: m.contextTypes.SUPER,
+          contextItemId: dummyHeading1.id,
+          siblingItemIds: [dummyHeading11.id, dummyHeading12.id],
+          indexInSiblingItems: 0,
         },
-      })
-      .put.like({
-        action: {
-          type: a.MOVE,
-          payload: {
-            id: dummyParagraph111.id,
-            nextContext: {
-              contextType: m.contextTypes.SUPER,
-              contextItemId: dummyHeading1.id,
-              indexInSiblingItems: 0,
-            },
-          },
+      ))
+      .call(asyncRequests.lib.putAndReturn, actions.move(
+        dummyParagraph111.id,
+        {
+          contextType: m.contextTypes.SUPER,
+          contextItemId: dummyHeading1.id,
+          siblingItemIds: [dummyHeading11.id, dummyHeading12.id],
+          indexInSiblingItems: 0,
         },
-      })
-      .put.like({
-        action: {
-          type: a.REMOVE_FROM_STATE,
-          payload: {
-            id: dummyHeading11.id,
-          },
-        },
-      })
+      ))
+      .put(actions.removeFromState(dummyHeading11.id))
       .run();
   });
 
-  it(`does not put any MOVE actions, when the contentItem is not a HEADING`, (): void => {
-    const dummyRemoveAction: a.RemoveAction = {
-      type: a.REMOVE,
-      payload: {
-        id: dummyParagraph111.id,
-      },
-    };
-    return expectSaga(sagas.remove, dummyRemoveAction)
+  it(`does not move the contentItem's subItems, when the contentItem is not a HEADING`, (): void => {
+    const dummyAction = actions.remove(dummyParagraph111.id);
+
+    return expectSaga(sagas.remove, dummyAction)
       .withState(dummyState)
-      .not.put.actionType(a.MOVE)
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+      ])
+      .not.call.fn(asyncRequests.lib.putAndReturn)
       .run();
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<mixed> => {
-    const dummyRemoveAction: a.RemoveAction = {
-      type: a.REMOVE,
-      payload: {
-        id: 'DefinitelyNotValidId',
-      },
-    };
+    const dummyAction = actions.remove('invalidId');
 
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(sagas.remove, dummyRemoveAction)
+      expectSaga(sagas.remove, dummyAction)
         .withState(dummyState)
+        .provide([
+          [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+            return (action.type === a.MOVE) ? null : next();
+          })],
+        ])
         .run(),
     ).rejects.toBeInstanceOf(ObjectNotFoundError);
   });
 
   it(`throws a CorruptedInternalStateError, when the passed contentItemsById structure is corrupted`, async (): Promise<mixed> => {
     dummyHeading1.subItemIds = [dummyHeading12.id];
-
-    const dummyRemoveAction: a.RemoveAction = {
-      type: a.REMOVE,
-      payload: {
-        id: dummyHeading11.id,
-      },
-    };
+    const dummyAction = actions.remove(dummyHeading11.id);
 
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(sagas.remove, dummyRemoveAction)
+      expectSaga(sagas.remove, dummyAction)
         .withState(dummyState)
+        .provide([
+          [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+            return (action.type === a.MOVE) ? null : next();
+          })],
+        ])
         .run(),
     ).rejects.toBeInstanceOf(CorruptedInternalStateError);
   });
