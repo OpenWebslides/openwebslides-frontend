@@ -7,9 +7,12 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 
 // eslint-disable-next-line require-yield
-const edit = function* (action: a.EditAction): Saga<void> {
-  const { id, editedProps } = action.payload;
-  yield put(actions.editInState(id, editedProps));
+const update = function* (action: a.UpdateAction): Saga<void> {
+  const { id, updatedProps } = action.payload;
+
+  yield put(actions.editInState(id, updatedProps));
+
+  // TODO: API call
 };
 
-export default edit;
+export default update;
