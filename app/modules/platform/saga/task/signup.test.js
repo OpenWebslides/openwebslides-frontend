@@ -1,7 +1,10 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import { dynamic } from 'redux-saga-test-plan/providers';
 
+import asyncRequests from 'modules/asyncRequests';
 import users from 'modules/users';
 
 import actions from '../../actions';
@@ -26,7 +29,12 @@ describe(`signup`, (): void => {
     const dummyAction = actions.signup(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
 
     return expectSaga(sagas.signup, dummyAction)
-      .put(users.actions.apiPost(dummyEmail, dummyName, dummyPassword, dummyTosAccepted))
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === users.actions.apiPost('dummy', 'dummy', 'dummy', true).type) ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, users.actions.apiPost(dummyEmail, dummyName, dummyPassword, dummyTosAccepted))
       .run();
   });
 

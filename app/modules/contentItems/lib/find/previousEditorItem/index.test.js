@@ -62,15 +62,9 @@ describe(`findPreviousEditorItem`, (): void => {
     };
   });
 
-  it(`returns the superItem, when the passed contentItem is the first in its list of siblings but has a superItem`, (): void => {
+  it(`returns the parent- or superItem, when the passed contentItem is the first in its list of siblings but has a parent- or superItem`, (): void => {
     const actualResult = lib.find.previousEditorItem(dummyParagraph131, dummyContentItemsById);
     const expectedResult = dummyHeading13;
-    expect(actualResult).toBe(expectedResult);
-  });
-
-  it(`returns the parentItem, when the passed contentItem is the first in its list of siblings but has a parentItem`, (): void => {
-    const actualResult = lib.find.previousEditorItem(dummyParagraph11, dummyContentItemsById);
-    const expectedResult = dummyHeading1;
     expect(actualResult).toBe(expectedResult);
   });
 
@@ -86,8 +80,13 @@ describe(`findPreviousEditorItem`, (): void => {
     expect(actualResult).toBe(expectedResult);
   });
 
-  it(`returns NULL, if no previous item can be found`, (): void => {
+  it(`returns NULL, when no previous item can be found`, (): void => {
     const actualResult = lib.find.previousEditorItem(dummyRoot, dummyContentItemsById);
+    expect(actualResult).toBeNull();
+  });
+
+  it(`returns NULL, when the only previousEditorItem option would be the ROOT`, (): void => {
+    const actualResult = lib.find.previousEditorItem(dummyHeading1, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 

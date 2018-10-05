@@ -5,9 +5,9 @@ import { ObjectNotFoundError } from 'errors';
 import * as a from '../actionTypes';
 import * as m from '../model';
 
-const toggleContentFetched = (
+const toggleContentFetchedInState = (
   state: m.TopicsState,
-  action: a.ToggleContentFetchedAction,
+  action: a.ToggleContentFetchedInStateAction,
 ): m.TopicsState => {
   const { id } = action.payload;
   const topicToEdit = state.byId[id];
@@ -27,4 +27,4 @@ const toggleContentFetched = (
   }
 };
 
-export default toggleContentFetched;
+export default toggleContentFetchedInState;

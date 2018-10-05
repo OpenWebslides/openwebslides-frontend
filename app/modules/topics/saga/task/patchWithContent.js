@@ -1,14 +1,17 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { put, select } from 'redux-saga/effects';
+import { call, select } from 'redux-saga/effects';
 
 import { ObjectNotFoundError } from 'errors';
+import asyncRequests from 'modules/asyncRequests';
 import contentItems from 'modules/contentItems';
 
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 import selectors from '../../selectors';
+
+const { putAndReturn } = asyncRequests.lib;
 
 const patchWithContent = function* (action: a.PatchWithContentAction): Saga<void> {
   const { id } = action.payload;
@@ -16,7 +19,9 @@ const patchWithContent = function* (action: a.PatchWithContentAction): Saga<void
   if (topic == null) throw new ObjectNotFoundError(`topics:topic`, id);
 
   // #TODO patch topic title & description
-  yield put(contentItems.actions.apiPatchAllByTopicIdAndRoot(id, topic.rootContentItemId));
+  yield call(putAndReturn, contentItems.actions.apiPatchAllByTopicIdAndRoot(
+    id, topic.rootContentItemId,
+  ));
 };
 
 export default patchWithContent;

@@ -1,10 +1,14 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import { dynamic } from 'redux-saga-test-plan/providers';
 
 import { ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
+import asyncRequests from 'modules/asyncRequests';
 
+import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
@@ -42,73 +46,57 @@ describe(`removeAndTogglePreviousItem`, (): void => {
     };
   });
 
-  it(`puts a REMOVE action`, (): void => {
-    const dummyRemoveAndTogglePreviousItemAction: a.RemoveAndTogglePreviousItemAction = {
-      type: a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
-      payload: {
-        id: dummyParagraph11.id,
-      },
-    };
-    return expectSaga(sagas.removeAndTogglePreviousItem, dummyRemoveAndTogglePreviousItemAction)
+  it(`removes the contentItem`, (): void => {
+    const dummyAction = actions.removeAndTogglePreviousItem(dummyHeading1.id);
+
+    return expectSaga(sagas.removeAndTogglePreviousItem, dummyAction)
       .withState(dummyState)
-      .put.like({
-        action: {
-          type: a.REMOVE,
-          payload: {
-            id: dummyParagraph11.id,
-          },
-        },
-      })
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.REMOVE) ? null : next();
+        })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.TOGGLE_EDITING) ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.remove(dummyHeading1.id))
       .run();
   });
 
-  it(`puts a TOGGLE_EDITING action which moves the isEditing state to the removed contentItem's previousEditorItem, when the removed contentItem has a previousEditorItem`, (): void => {
-    const dummyRemoveAndTogglePreviousItemAction: a.RemoveAndTogglePreviousItemAction = {
-      type: a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
-      payload: {
-        id: dummyParagraph11.id,
-      },
-    };
-    return expectSaga(sagas.removeAndTogglePreviousItem, dummyRemoveAndTogglePreviousItemAction)
-      .withState(dummyState)
-      .put.like({
-        action: {
-          type: a.TOGGLE_EDITING,
-          payload: {
-            id: dummyHeading1.id,
-            isEditing: true,
-          },
-        },
-      })
-      .run();
-  });
+  it(`removes the contentItem and moves the isEditing state to the removed contentItem's previousEditorItem, when the removed contentItem has a previousEditorItem`, (): void => {
+    const dummyAction = actions.removeAndTogglePreviousItem(dummyParagraph11.id);
 
-  it(`does not put a TOGGLE_EDITING action, when the removed contentItem does not have a previousEditorItem`, (): void => {
-    const dummyRemoveAndTogglePreviousItemAction: a.RemoveAndTogglePreviousItemAction = {
-      type: a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
-      payload: {
-        id: dummyRoot.id,
-      },
-    };
-    return expectSaga(sagas.removeAndTogglePreviousItem, dummyRemoveAndTogglePreviousItemAction)
+    return expectSaga(sagas.removeAndTogglePreviousItem, dummyAction)
       .withState(dummyState)
-      .not.put.actionType(a.TOGGLE_EDITING)
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.REMOVE) ? null : next();
+        })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.TOGGLE_EDITING) ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.toggleEditing(dummyHeading1.id, true))
+      .call(asyncRequests.lib.putAndReturn, actions.remove(dummyParagraph11.id))
       .run();
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<mixed> => {
-    const dummyRemoveAndTogglePreviousItemAction: a.RemoveAndTogglePreviousItemAction = {
-      type: a.REMOVE_AND_TOGGLE_PREVIOUS_ITEM,
-      payload: {
-        id: 'ThisIdIsNotVeryValid',
-      },
-    };
+    const dummyAction = actions.removeAndTogglePreviousItem('invalidId');
 
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(sagas.removeAndTogglePreviousItem, dummyRemoveAndTogglePreviousItemAction)
+      expectSaga(sagas.removeAndTogglePreviousItem, dummyAction)
         .withState(dummyState)
+        .provide([
+          [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+            return (action.type === a.REMOVE) ? null : next();
+          })],
+          [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+            return (action.type === a.TOGGLE_EDITING) ? null : next();
+          })],
+        ])
         .run(),
     ).rejects.toBeInstanceOf(ObjectNotFoundError);
   });

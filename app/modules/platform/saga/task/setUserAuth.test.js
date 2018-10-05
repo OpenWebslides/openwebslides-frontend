@@ -6,7 +6,7 @@ import actions from '../../actions';
 
 import { sagas } from '..';
 
-describe(`signinSSO`, (): void => {
+describe(`setUserAuth`, (): void => {
 
   let dummyApiToken: string;
   let dummyUserId: string;
@@ -16,10 +16,10 @@ describe(`signinSSO`, (): void => {
     dummyUserId = 'foobarUserId';
   });
 
-  it(`puts a fetch and a setUserAuthInState action`, (): void => {
-    const dummyAction = actions.signinSSO(dummyApiToken, dummyUserId);
+  it(`puts a setUserAuthInState action`, (): void => {
+    const dummyAction = actions.setUserAuth(dummyApiToken, dummyUserId);
 
-    return expectSaga(sagas.signinSSO, dummyAction)
+    return expectSaga(sagas.setUserAuth, dummyAction)
       .put(actions.setUserAuthInState({ apiToken: dummyApiToken, userId: dummyUserId }))
       .run();
   });

@@ -1,10 +1,14 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import { dynamic } from 'redux-saga-test-plan/providers';
 
 import { ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
+import asyncRequests from 'modules/asyncRequests';
 
+import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
@@ -71,108 +75,103 @@ describe(`reverseIndent`, (): void => {
     dummyState = { modules: { contentItems: dummyContentItemsState } };
   });
 
-  it(`puts a MOVE action whichs moves the contentItem right after its parentOrSuperItem, when it has a valid parentOrSuperItem`, (): void => {
-    const dummyReverseIndentAction: a.ReverseIndentAction = {
-      type: a.REVERSE_INDENT,
-      payload: {
-        id: dummyParagraph122.id,
-      },
-    };
-    return expectSaga(sagas.reverseIndent, dummyReverseIndentAction)
+  it(`moves the contentItem right after its parentOrSuperItem, when it has a valid parentOrSuperItem`, (): void => {
+    const dummyAction = actions.reverseIndent(dummyParagraph122.id);
+
+    return expectSaga(sagas.reverseIndent, dummyAction)
       .withState(dummyState)
-      .put.like({
-        action: {
-          type: a.MOVE,
-          payload: {
-            id: dummyParagraph122.id,
-            nextContext: {
-              contextType: m.contextTypes.SUPER,
-              contextItemId: dummyHeading1.id,
-              indexInSiblingItems: 2,
-            },
-          },
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.move(
+        dummyParagraph122.id,
+        {
+          contextType: m.contextTypes.SUPER,
+          contextItemId: dummyHeading1.id,
+          indexInSiblingItems: 2,
         },
-      })
+      ))
       .run();
   });
 
   it(`correctly calculates the indexInSiblings for the MOVE action context`, (): void => {
-    const dummyReverseIndentAction: a.ReverseIndentAction = {
-      type: a.REVERSE_INDENT,
-      payload: {
-        id: dummyHeading221.id,
-      },
-    };
-    return expectSaga(sagas.reverseIndent, dummyReverseIndentAction)
+    const dummyAction = actions.reverseIndent(dummyHeading221.id);
+
+    return expectSaga(sagas.reverseIndent, dummyAction)
       .withState(dummyState)
-      .put.like({
-        action: {
-          type: a.MOVE,
-          payload: {
-            id: dummyHeading221.id,
-            nextContext: {
-              contextType: m.contextTypes.SUPER,
-              contextItemId: dummyHeading2.id,
-              indexInSiblingItems: 2,
-            },
-          },
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.move(
+        dummyHeading221.id,
+        {
+          contextType: m.contextTypes.SUPER,
+          contextItemId: dummyHeading2.id,
+          indexInSiblingItems: 2,
         },
-      })
+      ))
       .run();
   });
 
-  it(`does not put a MOVE action, when the contentItem does not have a parentOrSuperItem`, (): void => {
-    const dummyReverseIndentAction: a.ReverseIndentAction = {
-      type: a.REVERSE_INDENT,
-      payload: {
-        id: dummyRoot.id,
-      },
-    };
-    return expectSaga(sagas.reverseIndent, dummyReverseIndentAction)
+  it(`does not move the contentItem, when the contentItem does not have a parentOrSuperItem`, (): void => {
+    const dummyAction = actions.reverseIndent(dummyRoot.id);
+
+    return expectSaga(sagas.reverseIndent, dummyAction)
       .withState(dummyState)
-      .not.put.actionType(a.MOVE)
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+      ])
+      .not.call.fn(asyncRequests.lib.putAndReturn)
       .run();
   });
 
-  it(`does not put a MOVE action, when the contentItem's parentOrSuperItem does not have a parentOrSuperItem`, (): void => {
-    const dummyReverseIndentAction: a.ReverseIndentAction = {
-      type: a.REVERSE_INDENT,
-      payload: {
-        id: dummyHeading2.id,
-      },
-    };
-    return expectSaga(sagas.reverseIndent, dummyReverseIndentAction)
+  it(`does not move the contentItem, when the contentItem's parentOrSuperItem does not have a parentOrSuperItem`, (): void => {
+    const dummyAction = actions.reverseIndent(dummyHeading2.id);
+
+    return expectSaga(sagas.reverseIndent, dummyAction)
       .withState(dummyState)
-      .not.put.actionType(a.MOVE)
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+      ])
+      .not.call.fn(asyncRequests.lib.putAndReturn)
       .run();
   });
 
-  it(`does not put a MOVE action, when the move would result in a HEADING being followed by anything other than a HEADING`, (): void => {
-    const dummyReverseIndentAction: a.ReverseIndentAction = {
-      type: a.REVERSE_INDENT,
-      payload: {
-        id: dummyParagraph12.id,
-      },
-    };
-    return expectSaga(sagas.reverseIndent, dummyReverseIndentAction)
+  it(`does not move the contentItem, when the move would result in a HEADING being followed by anything other than a HEADING`, (): void => {
+    const dummyAction = actions.reverseIndent(dummyParagraph12.id);
+
+    return expectSaga(sagas.reverseIndent, dummyAction)
       .withState(dummyState)
-      .not.put.actionType(a.MOVE)
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+      ])
+      .not.call.fn(asyncRequests.lib.putAndReturn)
       .run();
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, async (): Promise<mixed> => {
-    const dummyReverseIndentAction: a.ReverseIndentAction = {
-      type: a.REVERSE_INDENT,
-      payload: {
-        id: 'DefinitelyNotValidId',
-      },
-    };
+    const dummyAction = actions.reverseIndent('invalidId');
 
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(sagas.reverseIndent, dummyReverseIndentAction)
+      expectSaga(sagas.reverseIndent, dummyAction)
         .withState(dummyState)
+        .provide([
+          [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+            return (action.type === a.MOVE) ? null : next();
+          })],
+        ])
         .run(),
     ).rejects.toBeInstanceOf(ObjectNotFoundError);
   });

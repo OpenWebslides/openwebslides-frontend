@@ -27,7 +27,10 @@ const findPreviousEditorItem: SingleFindFunction = (
   // If the contentItem is the first in its list of siblings,
   // the previousEditorItem is its parentOrSuperItem.
   if (indexInSiblingItems == null || indexInSiblingItems === 0) {
-    return parentOrSuperItem;
+    // Make an exception for the ROOT, which is not a valid previousEditorItem.
+    return (parentOrSuperItem.type !== m.contentItemTypes.ROOT)
+      ? parentOrSuperItem
+      : null;
   }
   // If the contentItem is not the first in its list of siblings,
   // the previousEditorItem is the last nested child or subItem of its previous sibling.

@@ -3,13 +3,13 @@
 import editInState from './editInState';
 import removeFromState from './removeFromState';
 import setMultipleInState from './setMultipleInState';
-import toggleContentFetched from './toggleContentFetched';
+import toggleContentFetchedInState from './toggleContentFetchedInState';
 
 const reducerActions = {
   editInState,
   removeFromState,
   setMultipleInState,
-  toggleContentFetched,
+  toggleContentFetchedInState,
 };
 
 export default reducerActions;

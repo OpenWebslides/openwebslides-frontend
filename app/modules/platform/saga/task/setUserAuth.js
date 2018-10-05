@@ -7,7 +7,7 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-const signinSSO = function* (action: a.SigninSSOAction): Saga<void> {
+const setUserAuth = function* (action: a.SetUserAuthAction): Saga<void> {
   const { apiToken, userId } = action.payload;
 
   // Dispatch action to set authenticated state
@@ -18,4 +18,4 @@ const signinSSO = function* (action: a.SigninSSOAction): Saga<void> {
   yield put(actions.setUserAuthInState(currentUserAuth));
 };
 
-export default signinSSO;
+export default setUserAuth;

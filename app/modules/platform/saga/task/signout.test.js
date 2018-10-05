@@ -2,10 +2,14 @@
 
 import { select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import { dynamic } from 'redux-saga-test-plan/providers';
 
 import { UnsupportedOperationError } from 'errors';
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
+import * as a from '../../actionTypes';
 import selectors from '../../selectors';
 
 import { sagas } from '..';
@@ -24,9 +28,12 @@ describe(`signout`, (): void => {
     return expectSaga(sagas.signout, dummyAction)
       .provide([
         [select(selectors.getUserAuth), { userId: 'dummyId', apiToken: dummyToken }],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.API_DELETE_TOKEN) ? null : next();
+        })],
       ])
-      .put(actions.apiDeleteToken(dummyToken))
       .put(actions.setUserAuthInState(null))
+      .call(asyncRequests.lib.putAndReturn, actions.apiDeleteToken(dummyToken))
       .run();
   });
 
@@ -39,6 +46,9 @@ describe(`signout`, (): void => {
       expectSaga(sagas.signout, dummyAction)
         .provide([
           [select(selectors.getUserAuth), null],
+          [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+            return (action.type === a.API_DELETE_TOKEN) ? null : next();
+          })],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);

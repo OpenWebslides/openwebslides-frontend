@@ -8,11 +8,11 @@ import asyncRequests from 'modules/asyncRequests';
 import actions from '../../actions';
 import * as a from '../../actionTypes';
 
+const { putAndReturn } = asyncRequests.lib;
+
 const fetch = function* (action: a.FetchAction): Saga<void> {
-  yield call(
-    asyncRequests.lib.putAndReturn,
-    actions.apiGet(action.payload.id),
-  );
+  const { id } = action.payload;
+  yield call(putAndReturn, actions.apiGet(id));
 };
 
 export default fetch;

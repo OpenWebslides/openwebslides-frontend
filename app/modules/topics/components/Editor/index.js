@@ -3,10 +3,12 @@
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { type Dispatch } from 'redux';
 import { Button, Header, Icon } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
+import { USER_PROFILE_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 import contentItems from 'modules/contentItems';
 
@@ -66,6 +68,17 @@ class PureEditor extends React.Component<Props> {
           >
             <Icon name="save" />
             {t('common:button.save')}
+          </Button>
+          <Button
+            floated="right"
+            icon={true}
+            labelPosition="left"
+            data-test-id="topic-editor-cancel-button"
+            as={Link}
+            to={USER_PROFILE_ROUTE}
+          >
+            <Icon name="cancel" />
+            {t('common:button.cancel')}
           </Button>
         </div>
         <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />

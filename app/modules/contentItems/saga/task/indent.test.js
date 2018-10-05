@@ -1,10 +1,14 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import { dynamic } from 'redux-saga-test-plan/providers';
 
 import { ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
+import asyncRequests from 'modules/asyncRequests';
 
+import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
@@ -59,95 +63,83 @@ describe(`indent`, (): void => {
     dummyState = { modules: { contentItems: dummyContentItemsState } };
   });
 
-  it(`puts a MOVE action whichs moves the contentItem to the end of the subItems of its previousSiblingItem, when the contentItem has a subable previousSiblingItem`, (): void => {
-    const dummyIndentAction: a.IndentAction = {
-      type: a.INDENT,
-      payload: {
-        id: dummyParagraph12.id,
-      },
-    };
-    return expectSaga(sagas.indent, dummyIndentAction)
+  it(`moves the contentItem to the end of the subItems of its previousSiblingItem, when the contentItem has a subable previousSiblingItem`, (): void => {
+    const dummyAction = actions.indent(dummyParagraph12.id);
+
+    return expectSaga(sagas.indent, dummyAction)
       .withState(dummyState)
-      .put.like({
-        action: {
-          type: a.MOVE,
-          payload: {
-            id: dummyParagraph12.id,
-            nextContext: {
-              contextType: m.contextTypes.SUPER,
-              contextItemId: dummyParagraph11.id,
-              indexInSiblingItems: 0,
-            },
-          },
-        },
-      })
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.move(dummyParagraph12.id, {
+        contextType: m.contextTypes.SUPER,
+        contextItemId: dummyParagraph11.id,
+        indexInSiblingItems: 0,
+      }))
       .run();
   });
 
   it(`correctly calculates the indexInSiblings for the MOVE action context`, (): void => {
-    const dummyIndentAction: a.IndentAction = {
-      type: a.INDENT,
-      payload: {
-        id: dummyHeading2.id,
-      },
-    };
-    return expectSaga(sagas.indent, dummyIndentAction)
+    const dummyAction = actions.indent(dummyHeading2.id);
+
+    return expectSaga(sagas.indent, dummyAction)
       .withState(dummyState)
-      .put.like({
-        action: {
-          type: a.MOVE,
-          payload: {
-            id: dummyHeading2.id,
-            nextContext: {
-              contextType: m.contextTypes.SUPER,
-              contextItemId: dummyHeading1.id,
-              indexInSiblingItems: 2,
-            },
-          },
-        },
-      })
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.move(dummyHeading2.id, {
+        contextType: m.contextTypes.SUPER,
+        contextItemId: dummyHeading1.id,
+        indexInSiblingItems: 2,
+      }))
       .run();
   });
 
-  it(`does not put a MOVE action, when the contentItem does not have a previousSiblingItem`, (): void => {
-    const dummyIndentAction: a.IndentAction = {
-      type: a.INDENT,
-      payload: {
-        id: dummyParagraph11.id,
-      },
-    };
-    return expectSaga(sagas.indent, dummyIndentAction)
+  it(`does not move the contentItem, when the contentItem does not have a previousSiblingItem`, (): void => {
+    const dummyAction = actions.indent(dummyParagraph11.id);
+
+    return expectSaga(sagas.indent, dummyAction)
       .withState(dummyState)
-      .not.put.actionType(a.MOVE)
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+      ])
+      .not.call.fn(asyncRequests.lib.putAndReturn)
       .run();
   });
 
-  it(`does not put a MOVE action, when the contentItem's previousSiblingItem is not subable`, (): void => {
-    const dummyIndentAction: a.IndentAction = {
-      type: a.INDENT,
-      payload: {
-        id: dummyParagraph24.id,
-      },
-    };
-    return expectSaga(sagas.indent, dummyIndentAction)
+  it(`does not move the contentItem, when the contentItem's previousSiblingItem is not subable`, (): void => {
+    const dummyAction = actions.indent(dummyParagraph24.id);
+
+    return expectSaga(sagas.indent, dummyAction)
       .withState(dummyState)
-      .not.put.actionType(a.MOVE)
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+      ])
+      .not.call.fn(asyncRequests.lib.putAndReturn)
       .run();
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, async (): Promise<mixed> => {
-    const dummyIndentAction: a.IndentAction = {
-      type: a.INDENT,
-      payload: {
-        id: 'DefinitelyNotValidId',
-      },
-    };
+    const dummyAction = actions.indent('invalidId');
 
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(sagas.indent, dummyIndentAction)
+      expectSaga(sagas.indent, dummyAction)
         .withState(dummyState)
+        .provide([
+          [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+            return (action.type === a.MOVE) ? null : next();
+          })],
+        ])
         .run(),
     ).rejects.toBeInstanceOf(ObjectNotFoundError);
   });

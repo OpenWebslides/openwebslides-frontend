@@ -16,14 +16,16 @@ import fetchWithContent from './fetchWithContent';
 import patchWithContent from './patchWithContent';
 import remove from './remove';
 
+const { sagaWrapper } = asyncRequests.lib;
+
 const taskSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.CREATE, asyncRequests.lib.sagaWrapper, create),
-    takeEvery(a.EDIT, asyncRequests.lib.sagaWrapper, edit),
-    takeEvery(a.FETCH, asyncRequests.lib.sagaWrapper, fetch),
-    takeEvery(a.FETCH_WITH_CONTENT, asyncRequests.lib.sagaWrapper, fetchWithContent),
-    takeEvery(a.PATCH_WITH_CONTENT, asyncRequests.lib.sagaWrapper, patchWithContent),
-    takeEvery(a.REMOVE, asyncRequests.lib.sagaWrapper, remove),
+    takeEvery(a.CREATE, sagaWrapper, create),
+    takeEvery(a.EDIT, sagaWrapper, edit),
+    takeEvery(a.FETCH, sagaWrapper, fetch),
+    takeEvery(a.FETCH_WITH_CONTENT, sagaWrapper, fetchWithContent),
+    takeEvery(a.PATCH_WITH_CONTENT, sagaWrapper, patchWithContent),
+    takeEvery(a.REMOVE, sagaWrapper, remove),
   ]);
 };
 

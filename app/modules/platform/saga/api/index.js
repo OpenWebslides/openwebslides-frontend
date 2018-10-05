@@ -16,14 +16,16 @@ import apiPatchPassword from './apiPatchPassword';
 import apiPostPassword from './apiPostPassword';
 import apiPostSigninToTokenAndGetUserAuth from './apiPostSigninToTokenAndGetUserAuth';
 
+const { sagaWrapper } = asyncRequests.lib;
+
 const apiSaga = function* (): Saga<void> {
   yield all([
-    takeEvery(a.API_DELETE_TOKEN, asyncRequests.lib.sagaWrapper, apiDeleteToken),
-    takeEvery(a.API_PATCH_CONFIRMATION, asyncRequests.lib.sagaWrapper, apiPatchConfirmation),
-    takeEvery(a.API_POST_CONFIRMATION, asyncRequests.lib.sagaWrapper, apiPostConfirmation),
-    takeEvery(a.API_PATCH_PASSWORD, asyncRequests.lib.sagaWrapper, apiPatchPassword),
-    takeEvery(a.API_POST_PASSWORD, asyncRequests.lib.sagaWrapper, apiPostPassword),
-    takeEvery(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, asyncRequests.lib.sagaWrapper, apiPostSigninToTokenAndGetUserAuth),
+    takeEvery(a.API_DELETE_TOKEN, sagaWrapper, apiDeleteToken),
+    takeEvery(a.API_PATCH_CONFIRMATION, sagaWrapper, apiPatchConfirmation),
+    takeEvery(a.API_POST_CONFIRMATION, sagaWrapper, apiPostConfirmation),
+    takeEvery(a.API_PATCH_PASSWORD, sagaWrapper, apiPatchPassword),
+    takeEvery(a.API_POST_PASSWORD, sagaWrapper, apiPostPassword),
+    takeEvery(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, sagaWrapper, apiPostSigninToTokenAndGetUserAuth),
   ]);
 };
 

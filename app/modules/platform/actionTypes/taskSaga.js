@@ -10,8 +10,8 @@ import * as m from '../model';
 // Action constants --------------------------------------------------------------------------------
 
 // Authentication
+export const SET_USER_AUTH: 'platform/SET_USER_AUTH' = 'platform/SET_USER_AUTH';
 export const SIGNIN: 'platform/SIGNIN' = 'platform/SIGNIN';
-export const SIGNIN_SSO: 'platform/SIGNIN_SSO' = 'platform/SIGNIN_SSO';
 export const SIGNOUT: 'platform/SIGNOUT' = 'platform/SIGNOUT';
 export const SIGNUP: 'platform/SIGNUP' = 'platform/SIGNUP';
 export const CONFIRM_EMAIL: 'platform/CONFIRM_EMAIL' = 'platform/CONFIRM_EMAIL';
@@ -24,6 +24,16 @@ export const TOGGLE_SIDEBAR: 'platform/TOGGLE_SIDEBAR' = 'platform/TOGGLE_SIDEBA
 
 // Action types ------------------------------------------------------------------------------------
 
+export type SetUserAuthAction = {|
+  ...TaskSagaAction,
+  type: typeof SET_USER_AUTH,
+  payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
+    apiToken: string,
+    userId: string,
+  |},
+|};
+
 export type SigninAction = {|
   ...TaskSagaAction,
   type: typeof SIGNIN,
@@ -31,16 +41,6 @@ export type SigninAction = {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
     email: string,
     password: string,
-  |},
-|};
-
-export type SigninSSOAction = {|
-  ...TaskSagaAction,
-  type: typeof SIGNIN_SSO,
-  payload: {|
-    ...$PropertyType<TaskSagaAction, 'payload'>,
-    apiToken: string,
-    userId: string,
   |},
 |};
 
@@ -114,8 +114,8 @@ export type ToggleSidebarAction = {|
 // TaskSaga action ---------------------------------------------------------------------------------
 
 export type PlatformTaskSagaAction =
+  | SetUserAuthAction
   | SigninAction
-  | SigninSSOAction
   | SignoutAction
   | SignupAction
   | ConfirmEmailAction

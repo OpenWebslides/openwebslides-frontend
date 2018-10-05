@@ -15,7 +15,7 @@ import platform from 'modules/platform';
 import * as paths from 'config/routes';
 
 type DispatchProps = {|
-  signinSSO: (token: string, id: string) => void,
+  setUserAuth: (token: string, id: string) => void,
   flashErrorAndRedirect: (error: string) => void,
 |};
 
@@ -23,8 +23,8 @@ type Props = {| ...TranslatorProps, ...RouterProps, ...DispatchProps |};
 
 const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
-    signinSSO: (token: string, id: string): void => {
-      dispatch(platform.actions.signinSSO(token, id));
+    setUserAuth: (token: string, id: string): void => {
+      dispatch(platform.actions.setUserAuth(token, id));
     },
     flashErrorAndRedirect: (error: string): void => {
       dispatch(flashErrorMessage(error));
@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps =>
  */
 class PureSSOCallbackPage extends React.Component<Props> {
   componentDidMount(): void {
-    const { location, signinSSO, flashErrorAndRedirect } = this.props;
+    const { location, setUserAuth, flashErrorAndRedirect } = this.props;
     const params = new URLSearchParams(location.search);
 
     const error = params.get('error');
@@ -55,7 +55,7 @@ class PureSSOCallbackPage extends React.Component<Props> {
     if (apiToken == null) throw new InvalidArgumentError(`Invalid token`);
     if (userId == null) throw new InvalidArgumentError(`Invalid id`);
 
-    signinSSO(apiToken, userId);
+    setUserAuth(apiToken, userId);
   }
 
   // #TODO should anything be displayed here at all or is ApiDimmer sufficient?
