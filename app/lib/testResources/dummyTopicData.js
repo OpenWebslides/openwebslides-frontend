@@ -41,3 +41,33 @@ export const topic4: topics.model.Topic = {
   forkedTopicIds: [],
   isContentFetched: false,
 };
+
+export const upstream: topics.model.Topic = {
+  id: 'upstreamTopic',
+  title: 'Lorme ipsum dolor sit amet',
+  description: 'Lorem ipsum descriptium',
+  rootContentItemId: 'dummyRootContentItemId',
+  upstreamTopicId: null,
+  forkedTopicIds: ['downstreamTopic', 'downstreamTopic2'],
+  isContentFetched: false,
+};
+
+export const downstream: topics.model.Topic = {
+  id: 'downstreamTopic',
+  title: 'Lorme ipsum dolor sit amet',
+  description: 'Lorem ipsum descriptium',
+  rootContentItemId: 'dummyRootContentItemId',
+  upstreamTopicId: 'upstreamTopic',
+  forkedTopicIds: [],
+  isContentFetched: false,
+};
+
+export const downstream2: topics.model.Topic = {
+  id: 'downstreamTopic2',
+  title: 'Lorme ipsum dolor sit amet',
+  description: 'Lorem ipsum descriptium',
+  rootContentItemId: 'dummyRootContentItemId',
+  upstreamTopicId: 'upstreamTopic',
+  forkedTopicIds: [],
+  isContentFetched: false,
+};

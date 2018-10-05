@@ -18,6 +18,7 @@ const common = {
     add: 'Add',
     edit: 'Edit',
     delete: 'Delete',
+    fork: 'Create personal copy',
   },
   loading: 'Loading...',
   undoWarning: 'This action cannot be undone.',
