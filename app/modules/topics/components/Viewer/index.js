@@ -5,9 +5,11 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { Header, Menu, Button, Icon } from 'semantic-ui-react';
+import { push } from 'connected-react-router';
 
 import { type ModulesAction, type AppState } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
+import { USER_PROFILE_ROUTE } from 'config/routes';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -45,6 +47,7 @@ const mapDispatchToProps = (
   return {
     onFork: (): void => {
       dispatch(actions.fork(topicId));
+      dispatch(push(USER_PROFILE_ROUTE));
     },
   };
 };

@@ -25,7 +25,7 @@ const apiPostFork = function* (action: a.ApiPostForkAction): Saga<void> {
     throw new UnexpectedHttpResponseError();
   }
 
-  const { attributes, relationships, id: forkedId } = topicsResponseData.body.data;
+  const { attributes, id: forkedId } = topicsResponseData.body.data;
 
   const topic: m.Topic = {
     id: forkedId,
