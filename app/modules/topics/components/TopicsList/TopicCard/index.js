@@ -88,24 +88,37 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
   renderTopicCardButtons = (topic: m.Topic): React.Node => {
     const { isCurrentUser } = this.props;
 
-    return (isCurrentUser === false) ? null : (
+    return (
       <Card.Content extra={true}>
-        <div className="ui two buttons">
-          <Button
-            onClick={this.showRemoveModal}
-            icon={true}
-            data-test-id="topic-card-remove-button"
-          >
-            <Icon name="trash" />
-          </Button>
+        <div className={`ui ${isCurrentUser === true ? 'three' : 'two'} buttons`}>
+          {(isCurrentUser !== false) ? (
+            <>
+              <Button
+                onClick={this.showRemoveModal}
+                icon={true}
+                data-test-id="topic-card-remove-button"
+              >
+                <Icon name="trash" />
+              </Button>
+              <Button
+                icon={true}
+                as={Link}
+                to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}
+                data-test-id="topic-card-edit-button"
+              >
+                <Icon name="pencil" />
+              </Button>
+            </>
+          ) : null }
+
           <Button
             primary={true}
             icon={true}
             as={Link}
-            to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}
-            data-test-id="topic-card-edit-button"
+            to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: topic.id })}
+            data-test-id="topic-card-view-button"
           >
-            <Icon name="pencil" />
+            <Icon name="eye" />
           </Button>
         </div>
       </Card.Content>

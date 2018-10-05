@@ -1,12 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
-import { dummyTopicData as dummyData, dummyProviderProps, DummyProviders } from 'lib/testResources';
+import { dummyTopicData as dummyData, dummyProviderProps } from 'lib/testResources';
 import topics from 'modules/topics';
 
-import TopicInfoSidebar, { PureTopicInfoSidebar } from './TopicInfoSidebar';
+import { PureTopicInfoSidebar } from './TopicInfoSidebar';
 
 describe(`TopicInfoSidebar`, (): void => {
 
