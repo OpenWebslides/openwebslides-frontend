@@ -2,29 +2,30 @@
 
 import { expectSaga } from 'redux-saga-test-plan';
 
+import asyncRequests from 'modules/asyncRequests';
+
 import actions from '../../actions';
-import * as a from '../../actionTypes';
 
 import { sagas } from '..';
 
 describe(`update`, (): void => {
 
   let dummyId: string;
-  let dummyUpdatedProps: $PropertyType<$PropertyType<a.UpdateAction, 'payload'>, 'updatedProps'>;
+  let dummyTitle: string;
+  let dummyDescription: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
-    dummyUpdatedProps = {
-      title: 'dummyTitle',
-      description: null,
-    };
+    dummyTitle = 'dummyTitle';
+    dummyDescription = 'dummyDescription';
   });
 
-  it(`puts a topics updateInState action`, (): void => {
-    const dummyAction = actions.update(dummyId, dummyUpdatedProps);
+  it(`puts a topics apiPatch action, and a fetch action`, (): void => {
+    const dummyAction = actions.update(dummyId, dummyTitle, dummyDescription);
 
     return expectSaga(sagas.update, dummyAction)
-      .put(actions.editInState(dummyId, dummyUpdatedProps))
+      .call(asyncRequests.lib.putAndReturn, actions.apiPatch(dummyId, dummyTitle, dummyDescription))
+      .call(asyncRequests.lib.putAndReturn, actions.fetch(dummyId))
       .run();
   });
 

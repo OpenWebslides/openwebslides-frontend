@@ -1,18 +1,29 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { put } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
+
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
 
 // eslint-disable-next-line require-yield
 const update = function* (action: a.UpdateAction): Saga<void> {
-  const { id, updatedProps } = action.payload;
+  const { id, title, description } = action.payload;
 
-  yield put(actions.editInState(id, updatedProps));
+  // Update the topic in the backend.
+  yield call(
+    asyncRequests.lib.putAndReturn,
+    actions.apiPatch(id, title, description),
+  );
 
-  // TODO: API call
+  // Fetch the new topic from the backend so the state is up-to-date,
+  // and wait for request completion.
+  yield call(
+    asyncRequests.lib.putAndReturn,
+    actions.fetch(id),
+  );
 };
 
 export default update;
