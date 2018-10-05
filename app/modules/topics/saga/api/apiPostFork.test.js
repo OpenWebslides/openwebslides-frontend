@@ -4,7 +4,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { call, select } from 'redux-saga/effects';
 
 import api from 'api';
-import { UnexpectedHttpResponseError } from 'errors';
+import { UnexpectedHttpResponseError, UnsupportedOperationError } from 'errors';
 import platform from 'modules/platform';
 
 import actions from '../../actions';
@@ -64,6 +64,27 @@ describe(`apiPostFork`, (): void => {
       .put(actions.setMultipleInState([{ id: dummyForkedId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyRootContentId, upstreamTopicId: dummyId, forkedTopicIds: [], isContentFetched: false }]))
       .returns({ userId: dummyUserId, topicId: dummyForkedId })
       .run();
+  });
+
+  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<mixed> => {
+    const dummyAction = actions.apiPostFork(dummyId);
+    const dummyApiResponse = {
+      status: 201,
+      body: {
+        data: {
+          id: dummyForkedId,
+        },
+      },
+    };
+
+    await expect(
+      expectSaga(sagas.apiPostFork, dummyAction)
+        .provide([
+          [select(platform.selectors.getUserAuth), null],
+          [call(api.topics.postFork, dummyId, dummyToken), dummyApiResponse],
+        ])
+        .run(),
+    ).rejects.toBeInstanceOf(UnsupportedOperationError);
   });
 
   it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<mixed> => {
