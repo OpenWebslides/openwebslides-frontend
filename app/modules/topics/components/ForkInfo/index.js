@@ -14,7 +14,7 @@ import * as m from '../../model';
 import selectors from '../../selectors';
 
 type PassedProps = {|
-  upstreamTopicId: ?string,
+  upstreamTopicId: string,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
