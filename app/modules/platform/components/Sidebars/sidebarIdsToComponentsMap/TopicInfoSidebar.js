@@ -31,7 +31,7 @@ const PureTopicInfoSidebar = (props: Props): React.Node => {
             <Item.Header>{t('topics:props.title')}</Item.Header>
             <Item.Description>{topic.title}</Item.Description>
             {(topic.upstreamTopicId != null) ? (
-              <Item.Extra>
+              <Item.Extra data-test-id="topic-info-sidebar-fork-info">
                 <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
               </Item.Extra>
             ) : ''}
