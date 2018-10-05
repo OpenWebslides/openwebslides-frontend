@@ -12,6 +12,7 @@ import FetchWrapper from 'components/FetchWrapper';
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
+import Course from '../Course';
 
 type PassedProps = {|
   topicId: string,
@@ -85,7 +86,7 @@ class PureViewer extends React.Component<Props> {
 
         <Header as="h1">{topic.title}</Header>
 
-        {/* <Course topic={topic} /> */}
+        <Course topic={topic} />
       </div>
     );
   };
