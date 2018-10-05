@@ -12,10 +12,6 @@ describe(`api.topics.postFork`, (): void => {
   });
 
   it(`executes the correct fetch call`, async (): Promise<mixed> => {
-    const dummyUserId = 'ThisIsAnId';
-    const dummyTitle = 'Lorem ipsum dolor sit amet';
-    const dummyDescription = 'Topic description goes here';
-    const dummyRootContentItemId = 'foobarId';
     const dummyTopicId = 'ThisIsAnId';
     const dummyToken = 'foobarToken';
     fetch.mockResponseOnce('', { status: 201 });
