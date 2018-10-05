@@ -3,7 +3,6 @@
 import * as a from '../actionTypes';
 import * as m from '../model';
 
-import editInState from './editInState';
 import removeFromState from './removeFromState';
 import setDirtyInState from './setDirtyInState';
 import setMultipleInState from './setMultipleInState';
@@ -18,8 +17,6 @@ const reducer = (
   action: a.TopicsReducerAction,
 ): m.TopicsState => {
   switch (action.type) {
-    case a.EDIT_IN_STATE:
-      return editInState(state, action);
     case a.REMOVE_FROM_STATE:
       return removeFromState(state, action);
     case a.SET_DIRTY_IN_STATE:
