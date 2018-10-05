@@ -7,7 +7,7 @@ import * as paths from 'config/routes';
 
 import NotFoundPage from '../NotFoundPage';
 
-import CoursePage from './CoursePage';
+import ViewerPage from './ViewerPage';
 import EditorPage from './EditorPage';
 import NewTopicPage from './NewTopicPage';
 
@@ -16,7 +16,7 @@ type Props = {| |};
 const PureTopicPage = (props: Props): React.Node => {
   return (
     <Switch>
-      <Route path={paths.TOPIC_COURSE_ROUTE} component={CoursePage} />
+      <Route path={paths.TOPIC_VIEWER_ROUTE} component={ViewerPage} />
       <Route path={paths.TOPIC_EDITOR_ROUTE} component={EditorPage} />
       <Route path={paths.TOPIC_NEW_ROUTE} component={NewTopicPage} />
       <Route component={NotFoundPage} />

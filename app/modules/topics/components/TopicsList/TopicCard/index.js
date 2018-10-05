@@ -5,7 +5,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, Card, Icon, Modal } from 'semantic-ui-react';
 
-import { TOPIC_EDITOR_ROUTE, TOPIC_COURSE_ROUTE } from 'config/routes';
+import { TOPIC_EDITOR_ROUTE, TOPIC_VIEWER_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 import makeRoute from 'lib/makeRoute';
 
@@ -120,7 +120,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
         <Card data-test-id="topic-card">
           <Card.Content>
             <Card.Header>
-              <Link to={makeRoute(TOPIC_COURSE_ROUTE, { topicId: topic.id })}>
+              <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: topic.id })}>
                 {topic.title}
               </Link>
             </Card.Header>
