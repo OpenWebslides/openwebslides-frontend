@@ -30,6 +30,7 @@ export type ApiPatchAction = {|
   type: typeof API_PATCH,
   payload: {|
     ...$PropertyType<ApiSagaAction, 'payload'>,
+    id: string,
     title: string,
     description: ?string,
   |},

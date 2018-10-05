@@ -11,6 +11,7 @@ import * as a from '../../actionTypes';
 
 import apiDelete from './apiDelete';
 import apiGet from './apiGet';
+import apiPatch from './apiPatch';
 import apiPost from './apiPost';
 import apiPostFork from './apiPostFork';
 
@@ -20,6 +21,7 @@ const apiSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.API_DELETE, sagaWrapper, apiDelete),
     takeEvery(a.API_GET, sagaWrapper, apiGet),
+    takeEvery(a.API_PATCH, sagaWrapper, apiGet),
     takeEvery(a.API_POST, sagaWrapper, apiPost),
     takeEvery(a.API_POST_FORK, sagaWrapper, apiPostFork),
   ]);
@@ -28,6 +30,7 @@ const apiSaga = function* (): Saga<void> {
 const apiSagas = {
   apiDelete,
   apiGet,
+  apiPatch,
   apiPost,
   apiPostFork,
 };
