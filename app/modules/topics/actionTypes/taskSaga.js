@@ -45,10 +45,8 @@ export type UpdateAction = {|
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
     id: string,
-    updatedProps: {|
-      title?: string,
-      description?: ?string,
-    |},
+    title?: string,
+    description?: ?string,
   |},
 |};
 

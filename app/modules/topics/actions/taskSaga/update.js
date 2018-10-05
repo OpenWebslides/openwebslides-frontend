@@ -4,13 +4,15 @@ import * as a from '../../actionTypes';
 
 const update = (
   id: string,
-  updatedProps: $PropertyType<$PropertyType<a.UpdateAction, 'payload'>, 'updatedProps'>,
+  title?: string,
+  description?: ?string,
 ): a.UpdateAction => {
   return {
     type: a.UPDATE,
     payload: {
       id,
-      updatedProps,
+      title,
+      description,
     },
   };
 };

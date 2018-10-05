@@ -7,14 +7,13 @@ import actions from '..';
 describe(`update`, (): void => {
 
   let dummyId: string;
-  let dummyUpdatedProps: $PropertyType<$PropertyType<a.UpdateAction, 'payload'>, 'updatedProps'>;
+  let dummyTitle: string;
+  let dummyDescription: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
-    dummyUpdatedProps = {
-      title: 'dummyTitle',
-      description: null,
-    };
+    dummyTitle = 'dummyTitle';
+    dummyDescription = 'dummyDescription';
   });
 
   it(`returns a topics UPDATE action containing the passed arguments`, (): void => {
@@ -22,10 +21,11 @@ describe(`update`, (): void => {
       type: a.UPDATE,
       payload: {
         id: dummyId,
-        updatedProps: dummyUpdatedProps,
+        title: dummyTitle,
+        description: dummyDescription,
       },
     };
-    const actualAction = actions.update(dummyId, dummyUpdatedProps);
+    const actualAction = actions.update(dummyId, dummyTitle, dummyDescription);
 
     expect(actualAction).toStrictEqual(expectedAction);
   });

@@ -6,8 +6,8 @@ import * as a from '../../actionTypes';
 
 const apiPatch = (
   id: string,
-  title: string,
-  description: ?string,
+  title?: string,
+  description?: ?string,
 ): a.ApiPatchAction => {
   const validatedPayload = validate.stringProps(
     ['title'],
