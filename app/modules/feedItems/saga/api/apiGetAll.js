@@ -11,10 +11,10 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-// TODO: change this to topic once backend is deployed
 const apiEventTypesToFeedItemTypesMap = {
   topic_created: m.feedItemTypes.CREATE,
   topic_updated: m.feedItemTypes.UPDATE,
+  topic_forked: m.feedItemTypes.FORK,
 };
 
 const apiGetAll = function* (action: a.ApiGetAllAction): Saga<void> {
