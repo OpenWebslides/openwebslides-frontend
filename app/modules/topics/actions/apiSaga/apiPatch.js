@@ -5,6 +5,7 @@ import validate from 'lib/validate';
 import * as a from '../../actionTypes';
 
 const apiPatch = (
+  id: string,
   title: string,
   description: ?string,
 ): a.ApiPatchAction => {
@@ -17,6 +18,7 @@ const apiPatch = (
   return {
     type: a.API_PATCH,
     payload: {
+      id,
       ...validatedPayload,
     },
   };

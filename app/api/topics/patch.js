@@ -8,7 +8,7 @@
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 
-import { TOPICS_ENDPOINT, TOPICS_CONTENT_ENDPOINT } from '../endpoints';
+import { TOPICS_ENDPOINT } from '../endpoints';
 
 const patch = (
   topicId: string,
