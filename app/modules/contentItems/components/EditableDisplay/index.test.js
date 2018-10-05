@@ -206,11 +206,10 @@ describe(`EditableDisplay`, (): void => {
       expect(dummyDispatch).toHaveBeenCalledWith(actions.edit(dummyId, { text: dummyText }));
     });
 
-    it(`dispatches the correct TOGGLE_EDITING and ADD actions, when onAddEmptySubItem is called`, (): void => {
+    it(`dispatches the correct ADD action, when onAddEmptySubItem is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onAddEmptySubItem(dummyId);
-      expect(dummyDispatch).toHaveBeenCalledWith(actions.toggleEditing(dummyId, false));
       expect(dummyDispatch).toHaveBeenCalledWith(actions.add(
         m.contentItemTypes.PARAGRAPH,
         {
@@ -222,11 +221,10 @@ describe(`EditableDisplay`, (): void => {
       ));
     });
 
-    it(`dispatches the correct TOGGLE_EDITING and ADD actions, when onAddEmptySiblingItemBelow is called`, (): void => {
+    it(`dispatches the correct ADD action, when onAddEmptySiblingItemBelow is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
       mapDispatchToProps(dummyDispatch, ({}: any)).onAddEmptySiblingItemBelow(dummyId);
-      expect(dummyDispatch).toHaveBeenCalledWith(actions.toggleEditing(dummyId, false));
       expect(dummyDispatch).toHaveBeenCalledWith(actions.add(
         m.contentItemTypes.PARAGRAPH,
         {
