@@ -13,16 +13,16 @@ const { putAndReturn } = asyncRequests.lib;
 
 const fork = function* (action: a.ForkAction): Saga<void> {
   // Fork the topic in the backend
-  const { userId, topicId } = yield call(
+  const { userId, id } = yield call(
     asyncRequests.lib.putAndReturn,
     actions.apiPostFork(action.payload.id),
   );
 
   // Fetch the new topic from the backend
-  yield call(putAndReturn, actions.fetch(topicId));
+  yield call(putAndReturn, actions.fetch(id));
 
   // Add the topic to the user
-  yield put(users.actions.addTopicId(userId, topicId));
+  yield put(users.actions.addTopicId(userId, id));
 };
 
 export default fork;

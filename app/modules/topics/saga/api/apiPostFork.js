@@ -12,7 +12,7 @@ import * as a from '../../actionTypes';
 
 const apiPostFork = function* (
   action: a.ApiPostForkAction,
-): Saga<{ userId: string, topicId: string }> {
+): Saga<{ userId: string, id: string }> {
   const { id } = action.payload;
   const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
@@ -27,7 +27,7 @@ const apiPostFork = function* (
 
   const { id: forkedId } = topicsResponseData.body.data;
 
-  return { userId: userAuth.userId, topicId: forkedId };
+  return { id: forkedId, userId: userAuth.userId };
 };
 
 export default apiPostFork;
