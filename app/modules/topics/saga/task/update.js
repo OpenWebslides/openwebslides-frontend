@@ -1,7 +1,7 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { call } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 
 import asyncRequests from 'modules/asyncRequests';
 
@@ -18,12 +18,8 @@ const update = function* (action: a.UpdateAction): Saga<void> {
     actions.apiPatch(id, title, description),
   );
 
-  // Fetch the new topic from the backend so the state is up-to-date,
-  // and wait for request completion.
-  yield call(
-    asyncRequests.lib.putAndReturn,
-    actions.fetch(id),
-  );
+  // Fetch the new topic from the backend so the state is up-to-date
+  yield put(actions.fetch(id));
 };
 
 export default update;
