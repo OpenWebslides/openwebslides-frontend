@@ -67,7 +67,6 @@ const mapDispatchToProps = (
       dispatch(actions.edit(id, { text }));
     },
     onAddEmptySubItem: (id: string): void => {
-      dispatch(actions.toggleEditing(id, false));
       dispatch(actions.add(
         m.contentItemTypes.PARAGRAPH,
         {
@@ -79,7 +78,6 @@ const mapDispatchToProps = (
       ));
     },
     onAddEmptySiblingItemBelow: (id: string): void => {
-      dispatch(actions.toggleEditing(id, false));
       dispatch(actions.add(
         m.contentItemTypes.PARAGRAPH,
         {

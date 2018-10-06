@@ -51,6 +51,9 @@ describe(`toggleEditing`, (): void => {
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.EDIT) ? null : next();
         })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.REMOVE) ? null : next();
+        })],
       ])
       .put(actions.switchEditingInState(dummyHeading1.id, null))
       .run();
@@ -65,6 +68,9 @@ describe(`toggleEditing`, (): void => {
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.EDIT) ? null : next();
         })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.REMOVE) ? null : next();
+        })],
       ])
       .put(actions.switchEditingInState(null, dummyHeading1.id))
       .run();
@@ -78,6 +84,9 @@ describe(`toggleEditing`, (): void => {
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.EDIT) ? null : next();
+        })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.REMOVE) ? null : next();
         })],
       ])
       .put(actions.switchEditingInState(null, dummyHeading1.id))
@@ -94,6 +103,9 @@ describe(`toggleEditing`, (): void => {
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.EDIT) ? null : next();
         })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.REMOVE) ? null : next();
+        })],
       ])
       .put(actions.switchEditingInState(dummyHeading1.id, null))
       .run();
@@ -107,6 +119,9 @@ describe(`toggleEditing`, (): void => {
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.EDIT) ? null : next();
+        })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.REMOVE) ? null : next();
         })],
       ])
       .not.put.actionType(a.SWITCH_EDITING_IN_STATE)
@@ -123,12 +138,34 @@ describe(`toggleEditing`, (): void => {
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.EDIT) ? null : next();
         })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.REMOVE) ? null : next();
+        })],
       ])
       .put(actions.switchEditingInState(dummyHeading2.id, dummyHeading1.id))
       .run();
   });
 
-  it(`executes an EDIT action containing all the contentItem's editablePropsForType, when toggling from TRUE to FALSE`, (): void => {
+  it(`removes the previousEditingItem, when it is empty`, (): void => {
+    dummyHeading2.isEditing = true;
+    dummyHeading2.text = '';
+    const dummyAction = actions.toggleEditing(dummyHeading1.id, true);
+
+    return expectSaga(sagas.toggleEditing, dummyAction)
+      .withState(dummyState)
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.EDIT) ? null : next();
+        })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.REMOVE) ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.remove(dummyHeading2.id))
+      .run();
+  });
+
+  it(`executes an EDIT action on the previousEditingItem containing all its editablePropsForType`, (): void => {
     dummyHeading1.isEditing = true;
     const dummyAction = actions.toggleEditing(dummyHeading1.id, false);
 
@@ -137,6 +174,9 @@ describe(`toggleEditing`, (): void => {
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.EDIT) ? null : next();
+        })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.REMOVE) ? null : next();
         })],
       ])
       .call(asyncRequests.lib.putAndReturn, actions.edit(dummyHeading1.id, _.pick(dummyHeading1, m.editablePropsForType[dummyHeading1.type])))

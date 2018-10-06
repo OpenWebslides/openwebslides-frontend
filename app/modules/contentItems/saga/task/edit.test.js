@@ -1,15 +1,11 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
-import * as matchers from 'redux-saga-test-plan/matchers';
-import { dynamic } from 'redux-saga-test-plan/providers';
 
-import { NotYetImplementedError, ObjectNotFoundError } from 'errors';
+import { ObjectNotFoundError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
-import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
-import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 import { sagas } from '..';
@@ -60,41 +56,7 @@ describe(`edit`, (): void => {
 
     return expectSaga(sagas.edit, dummyAction)
       .withState(dummyState)
-      .provide([
-        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === a.REMOVE) ? null : next();
-        })],
-      ])
       .put(actions.editPropsForTypeInState(dummyParagraph11, { text: dummyEditedText }))
-      .run();
-  });
-
-  it(`removes the contentItem, when a plainText contentItem's isEditing state is FALSE and its text property is being set to an empty string`, (): void => {
-    const dummyAction = actions.edit(dummyParagraph11.id, { text: '' });
-
-    return expectSaga(sagas.edit, dummyAction)
-      .withState(dummyState)
-      .provide([
-        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === a.REMOVE) ? null : next();
-        })],
-      ])
-      .call(asyncRequests.lib.putAndReturn, actions.remove(dummyParagraph11.id))
-      .run();
-  });
-
-  it(`does not remove the contentItem, when a plainText contentItem's isEditing state is TRUE and its text property is being set to an empty string`, (): void => {
-    dummyParagraph11.isEditing = true;
-    const dummyAction = actions.edit(dummyParagraph11.id, { text: '' });
-
-    return expectSaga(sagas.edit, dummyAction)
-      .withState(dummyState)
-      .provide([
-        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === a.REMOVE) ? null : next();
-        })],
-      ])
-      .not.call(asyncRequests.lib.putAndReturn, actions.remove(dummyParagraph11.id))
       .run();
   });
 
@@ -106,30 +68,8 @@ describe(`edit`, (): void => {
     await expect(
       expectSaga(sagas.edit, dummyAction)
         .withState(dummyState)
-        .provide([
-          [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-            return (action.type === a.REMOVE) ? null : next();
-          })],
-        ])
         .run(),
     ).rejects.toBeInstanceOf(ObjectNotFoundError);
-  });
-
-  it(`temporarily throws a NotYetImplementedError, when the contentItem's type is not a plainTextContentItemType`, async (): Promise<mixed> => {
-    const dummyAction = actions.edit(dummyRoot.id, {});
-
-    // Suppress console.error from redux-saga $FlowFixMe
-    console.error = jest.fn();
-    await expect(
-      expectSaga(sagas.edit, dummyAction)
-        .withState(dummyState)
-        .provide([
-          [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-            return (action.type === a.REMOVE) ? null : next();
-          })],
-        ])
-        .run(),
-    ).rejects.toBeInstanceOf(NotYetImplementedError);
   });
 
 });
