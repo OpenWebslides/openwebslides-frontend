@@ -77,7 +77,7 @@ class PureViewer extends React.Component<Props> {
                   onClick={this.handleForkButtonClick}
                   data-test-id="topic-viewer-fork-button"
                 >
-                  <Icon name="fork" />
+                  <Icon name="copy outline" />
                   {t('common:button.fork')}
                 </Button>
               </Menu.Item>

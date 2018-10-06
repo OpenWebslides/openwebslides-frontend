@@ -25,10 +25,11 @@ class PureForkInfo extends React.Component<Props> {
 
     return (
       <div data-test-id="topic-fork-info">
-        <Icon name="fork" size="small" />
+        <Icon name="copy outline" size="small" />
+        {t('topics:sidebars.topicInfo.forkedFrom')}
         <Link to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}>
           <small>
-            {t('topics:sidebars.topicInfo.forkedFrom', { topic: topic.title })}
+            { topic.title }
           </small>
         </Link>
       </div>
