@@ -12,7 +12,7 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 import { TOPICS_ENDPOINT, TOPICS_CONTENT_ENDPOINT } from '../endpoints';
 
 const patchContent = (
-  topicId: string,
+  id: string,
   content: $ReadOnlyArray<contentItems.model.ContentItem>,
   token: string,
 ): Promise<ApiResponseData> => {
@@ -27,7 +27,7 @@ const patchContent = (
 
   return new ApiRequest(httpMethods.PATCH)
     .addPathSegment(TOPICS_ENDPOINT)
-    .addPathSegment(topicId)
+    .addPathSegment(id)
     .addPathSegment(TOPICS_CONTENT_ENDPOINT)
     .setBody(body)
     .setToken(token)
