@@ -11,7 +11,7 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 import { TOPICS_ENDPOINT } from '../endpoints';
 
 const patch = (
-  topicId: string,
+  id: string,
   title: string,
   description: ?string,
   token: string,
@@ -28,7 +28,7 @@ const patch = (
 
   return new ApiRequest(httpMethods.PATCH)
     .addPathSegment(TOPICS_ENDPOINT)
-    .addPathSegment(topicId)
+    .addPathSegment(id)
     .setBody(body)
     .setToken(token)
     .execute();
