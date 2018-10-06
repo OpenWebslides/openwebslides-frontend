@@ -22,7 +22,7 @@ describe(`fork`, (): void => {
     dummyUserId = 'dummyUserId';
   });
 
-  it(`puts a topics apiPostFork and an addTopicId action`, (): void => {
+  it(`puts a topics apiPostFork action, puts a apiGet action and an addTopicId action`, (): void => {
     const dummyAction = actions.fork(dummyId);
 
     return expectSaga(sagas.fork, dummyAction)
@@ -30,8 +30,12 @@ describe(`fork`, (): void => {
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.API_POST_FORK) ? { userId: dummyUserId, topicId: dummyId } : next();
         })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.FETCH) ? { userId: dummyUserId, topicId: dummyId } : next();
+        })],
       ])
       .call(asyncRequests.lib.putAndReturn, actions.apiPostFork(dummyId))
+      .call(asyncRequests.lib.putAndReturn, actions.fetch(dummyId))
       .put(users.actions.addTopicId(dummyUserId, dummyId))
       .run();
   });
