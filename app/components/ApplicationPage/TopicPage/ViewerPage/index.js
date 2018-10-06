@@ -1,30 +1,73 @@
 // @flow
 
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
+import { push } from 'connected-react-router';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
 
+import { type ModulesAction, type AppState } from 'types/redux';
+import { USER_PROFILE_ROUTE } from 'config/routes';
+import { CorruptedInternalStateError } from 'errors';
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import platform from 'modules/platform';
 import topics from 'modules/topics';
+import users from 'modules/users';
 
-type Props = {| ...RouterProps |};
+type StateProps = {|
+  currentUserId: ?string,
+|};
 
-const AuthWrapper = platform.components.AuthWrapper;
-const TopicViewer = topics.components.Viewer;
+type DispatchProps = {|
+  forkTopicToCurrentUser: (currentUserId: string, topicId: string) => void,
+|};
 
-const PureViewerPage = (props: Props): React.Node => {
-  const { match: { params: { topicId } } } = props;
+type Props = {| ...StateProps, ...DispatchProps, ...RouterProps |};
 
-  return (topicId == null) ? null : (
-    <AuthWrapper>
-      <ContainerPageWrapper>
-        <TopicViewer topicId={topicId} />
-      </ContainerPageWrapper>
-    </AuthWrapper>
-  );
+const { AuthWrapper } = platform.components;
+const { Viewer } = topics.components;
+
+const mapStateToProps = (state: AppState): StateProps => {
+  const userAuth = platform.selectors.getUserAuth(state);
+
+  return {
+    currentUserId: (userAuth != null) ? userAuth.userId : null,
+  };
 };
 
-const ViewerPage = PureViewerPage;
+const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
+  return {
+    forkTopicToCurrentUser: (currentUserId: string, topicId: string): void => {
+      dispatch(users.actions.forkTopic(currentUserId, topicId));
+      dispatch(push(USER_PROFILE_ROUTE));
+    },
+  };
+};
+
+class PureViewerPage extends React.Component<Props> {
+  handleForkTopic = (topicId: string): void => {
+    const { forkTopicToCurrentUser, currentUserId } = this.props;
+    if (currentUserId == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
+    forkTopicToCurrentUser(currentUserId, topicId);
+  }
+
+  render(): React.Node {
+    const { currentUserId, match: { params: { topicId } } } = this.props;
+
+    return (topicId == null) ? null : (
+      <AuthWrapper>
+        <ContainerPageWrapper>
+          {(currentUserId == null)
+            ? null
+            : <Viewer topicId={topicId} onForkTopic={this.handleForkTopic} />
+          }
+        </ContainerPageWrapper>
+      </AuthWrapper>
+    );
+  }
+}
+
+const ViewerPage = connect(mapStateToProps, mapDispatchToProps)(PureViewerPage);
 
 export { PureViewerPage };
 export default ViewerPage;

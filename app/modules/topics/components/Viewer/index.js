@@ -3,13 +3,10 @@
 import * as React from 'react';
 import { translate, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
-import { type Dispatch } from 'redux';
 import { Header, Menu, Button, Icon } from 'semantic-ui-react';
-import { push } from 'connected-react-router';
 
-import { type ModulesAction, type AppState } from 'types/redux';
+import { type AppState } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
-import { USER_PROFILE_ROUTE } from 'config/routes';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -18,17 +15,14 @@ import Course from '../Course';
 
 type PassedProps = {|
   topicId: string,
+  onForkTopic: (topicId: string) => void,
 |};
 
 type StateProps = {|
   topic: ?m.Topic,
 |};
 
-type DispatchProps = {|
-  onFork: () => void,
-|};
-
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { topicId } = props;
@@ -38,24 +32,10 @@ const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   };
 };
 
-const mapDispatchToProps = (
-  dispatch: Dispatch<ModulesAction>,
-  props: PassedProps,
-): DispatchProps => {
-  const { topicId } = props;
-
-  return {
-    onFork: (): void => {
-      dispatch(actions.fork(topicId));
-      dispatch(push(USER_PROFILE_ROUTE));
-    },
-  };
-};
-
 class PureViewer extends React.Component<Props> {
   handleForkButtonClick = (): void => {
-    const { onFork } = this.props;
-    onFork();
+    const { onForkTopic, topicId } = this.props;
+    onForkTopic(topicId);
   };
 
   fetchCondition = (topic: ?m.Topic): boolean => {
@@ -109,7 +89,7 @@ class PureViewer extends React.Component<Props> {
   }
 }
 
-const Viewer = connect(mapStateToProps, mapDispatchToProps)(translate()(PureViewer));
+const Viewer = connect(mapStateToProps)(translate()(PureViewer));
 
 export { PureViewer };
 export default Viewer;

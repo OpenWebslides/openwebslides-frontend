@@ -19,7 +19,7 @@ describe(`Viewer`, (): void => {
   let dummyTopicsById: m.TopicsById;
   let dummyState: any;
   let dummyDispatch: any;
-  let dummyOnFork: any;
+  let dummyOnForkTopic: any;
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic, isContentFetched: true };
@@ -36,7 +36,7 @@ describe(`Viewer`, (): void => {
       topics: { byId: dummyTopicsById },
     } };
     dummyDispatch = jest.fn();
-    dummyOnFork = jest.fn();
+    dummyOnForkTopic = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
@@ -45,7 +45,7 @@ describe(`Viewer`, (): void => {
         {...dummyProviderProps.translatorProps}
         topicId={dummyTopic.id}
         topic={dummyTopic}
-        onFork={dummyOnFork}
+        onForkTopic={dummyOnForkTopic}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toEqual(false);
@@ -56,7 +56,7 @@ describe(`Viewer`, (): void => {
 
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Viewer topicId={dummyTopic.id} />
+        <Viewer topicId={dummyTopic.id} onForkTopic={dummyOnForkTopic} />
       </DummyProviders>,
     );
 
@@ -67,7 +67,7 @@ describe(`Viewer`, (): void => {
   it(`renders the topic viewer, when the topic and its content were previously present in the state`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Viewer topicId={dummyTopic.id} />
+        <Viewer topicId={dummyTopic.id} onForkTopic={dummyOnForkTopic} />
       </DummyProviders>,
     );
 
@@ -78,7 +78,7 @@ describe(`Viewer`, (): void => {
   it(`renders the topic fork button, when the topic does not have an upstream`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Viewer topicId={upstreamTopic.id} />
+        <Viewer topicId={upstreamTopic.id} onForkTopic={dummyOnForkTopic} />
       </DummyProviders>,
     );
 
@@ -89,7 +89,7 @@ describe(`Viewer`, (): void => {
   it(`does not render the topic fork button, when the topic has an upstream`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Viewer topicId={downstreamTopic.id} />
+        <Viewer topicId={downstreamTopic.id} onForkTopic={dummyOnForkTopic} />
       </DummyProviders>,
     );
 
@@ -97,15 +97,15 @@ describe(`Viewer`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-viewer-fork-button"]').hostNodes()).toHaveLength(0);
   });
 
-  it(`dispatches a topic FORK action, when the fork button is clicked`, (): void => {
+  it(`calls the passed onForkTopic function, when the fork button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Viewer topicId={dummyTopic.id} />
+        <Viewer topicId={dummyTopic.id} onForkTopic={dummyOnForkTopic} />
       </DummyProviders>,
     );
-    enzymeWrapper.find('[data-test-id="topic-viewer-fork-button"]').hostNodes().simulate('click');
 
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.fork(dummyTopic.id));
+    enzymeWrapper.find('[data-test-id="topic-viewer-fork-button"]').hostNodes().simulate('click');
+    expect(dummyOnForkTopic).toHaveBeenCalledWith(dummyTopic.id);
   });
 
 });
