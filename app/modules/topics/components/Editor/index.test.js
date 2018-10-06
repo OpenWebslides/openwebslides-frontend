@@ -106,7 +106,7 @@ describe(`Editor`, (): void => {
 
     enzymeWrapper.find('[data-test-id="topic-editor-save-button"]').hostNodes().simulate('click');
 
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.patchWithContent(dummyDirtyTopic.id));
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.updateContent(dummyDirtyTopic.id));
   });
 
   it(`does not dispatch a topic UPDATE_WITH_CONTENT action, when the topic is not dirty and the save button is clicked`, (): void => {

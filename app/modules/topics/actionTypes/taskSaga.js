@@ -14,7 +14,6 @@ export const UPDATE_CONTENT: 'topics/UPDATE_CONTENT' = 'topics/UPDATE_CONTENT';
 export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
 export const FETCH: 'topics/FETCH' = 'topics/FETCH';
 export const FETCH_WITH_CONTENT: 'topics/FETCH_WITH_CONTENT' = 'topics/FETCH_WITH_CONTENT';
-export const PATCH_WITH_CONTENT: 'topics/PATCH_WITH_CONTENT' = 'topics/PATCH_WITH_CONTENT';
 export const FORK: 'topics/FORK' = 'topics/FORK';
 
 
@@ -87,15 +86,6 @@ export type FetchWithContentAction = {|
   |},
 |};
 
-export type PatchWithContentAction = {|
-  ...TaskSagaAction,
-  type: typeof PATCH_WITH_CONTENT,
-  payload: {|
-    ...$PropertyType<TaskSagaAction, 'payload'>,
-    id: string,
-  |},
-|};
-
 export type ForkAction = {|
   ...TaskSagaAction,
   type: typeof FORK,
@@ -104,7 +94,6 @@ export type ForkAction = {|
     id: string,
   |},
 |};
-
 
 // TaskSaga action ---------------------------------------------------------------------------------
 
@@ -116,5 +105,4 @@ export type TopicsTaskSagaAction =
   | RemoveAction
   | FetchAction
   | FetchWithContentAction
-  | PatchWithContentAction
   | ForkAction;

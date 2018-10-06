@@ -14,7 +14,7 @@ const { putAndReturn } = asyncRequests.lib;
 const create = function* (action: a.CreateAction): Saga<{ id: string }> {
   const { title, description, userId } = action.payload;
 
-  // Create the intitial topic ROOT and placeholder content.
+  // Create the initial topic ROOT and placeholder content.
   const { rootContentItemId } = yield call(putAndReturn, contentItems.actions.generateRoot());
   // Create the new topic in the backend.
   const { id } = yield call(putAndReturn, actions.apiPost(
@@ -24,7 +24,7 @@ const create = function* (action: a.CreateAction): Saga<{ id: string }> {
   // and wait for request completion.
   yield call(putAndReturn, actions.fetch(id));
   // Save the initial topic content in the backend.
-  yield put(actions.patchWithContent(id));
+  yield put(actions.updateContent(id));
 
   // Return the topic id.
   return { id };

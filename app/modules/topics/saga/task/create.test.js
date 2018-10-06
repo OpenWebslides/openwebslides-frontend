@@ -28,7 +28,7 @@ describe(`create`, (): void => {
     dummyRootId = 'dummyRootId';
   });
 
-  it(`puts a contentItems generateRoot action, puts a topics apiPost action anda patchWithContent action and returns the apiPost result`, (): void => {
+  it(`puts a contentItems generateRoot action, puts a topics apiPost action and a updateContent action and returns the apiPost result`, (): void => {
     const dummyAction = actions.create(dummyTitle, dummyDescription, dummyUserId);
 
     return expectSaga(sagas.create, dummyAction)
@@ -46,7 +46,7 @@ describe(`create`, (): void => {
       .call(asyncRequests.lib.putAndReturn, contentItems.actions.generateRoot())
       .call(asyncRequests.lib.putAndReturn, actions.apiPost(dummyTitle, dummyDescription, dummyRootId, dummyUserId))
       .call(asyncRequests.lib.putAndReturn, actions.fetch(dummyId))
-      .put(actions.patchWithContent(dummyId))
+      .put(actions.updateContent(dummyId))
       .returns({ id: dummyId })
       .run();
   });

@@ -21,7 +21,7 @@ describe(`updateContent`, (): void => {
     };
     const actualAction = actions.updateContent(dummyId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });
