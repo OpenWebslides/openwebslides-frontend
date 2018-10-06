@@ -17,6 +17,7 @@ import fork from './fork';
 import patchWithContent from './patchWithContent';
 import remove from './remove';
 import update from './update';
+import updateContent from './updateContent';
 
 const { sagaWrapper } = asyncRequests.lib;
 
@@ -30,6 +31,7 @@ const taskSaga = function* (): Saga<void> {
     takeEvery(a.PATCH_WITH_CONTENT, sagaWrapper, patchWithContent),
     takeEvery(a.REMOVE, sagaWrapper, remove),
     takeEvery(a.UPDATE, sagaWrapper, update),
+    takeEvery(a.UPDATE_CONTENT, sagaWrapper, updateContent),
   ]);
 };
 
@@ -42,6 +44,7 @@ const taskSagas = {
   patchWithContent,
   remove,
   update,
+  updateContent,
 };
 
 export { taskSagas };
