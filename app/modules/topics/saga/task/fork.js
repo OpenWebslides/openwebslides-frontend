@@ -1,28 +1,29 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { call, put } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 
 import asyncRequests from 'modules/asyncRequests';
-import users from 'modules/users';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
 
 const { putAndReturn } = asyncRequests.lib;
 
-const fork = function* (action: a.ForkAction): Saga<void> {
+const fork = function* (action: a.ForkAction): Saga<{ id: string }> {
+  const { id } = action.payload;
+
   // Fork the topic in the backend
-  const { userId, id } = yield call(
+  const { id: forkedId } = yield call(
     asyncRequests.lib.putAndReturn,
-    actions.apiPostFork(action.payload.id),
+    actions.apiPostFork(id),
   );
 
   // Fetch the new topic from the backend
-  yield call(putAndReturn, actions.fetch(id));
+  yield call(putAndReturn, actions.fetch(forkedId));
 
-  // Add the topic to the user
-  yield put(users.actions.addTopicId(userId, id));
+  // Return the forked topic id
+  return { id: forkedId };
 };
 
 export default fork;

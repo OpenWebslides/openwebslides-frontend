@@ -25,7 +25,7 @@ describe(`apiPostFork`, (): void => {
     dummyToken = 'dummyToken';
   });
 
-  it(`sends a POST request for the passed id to the topics fork endpoint, processes the response and returns the user ID and topic ID`, (): void => {
+  it(`sends a POST request for the passed id to the topics fork endpoint, processes the response and returns the forked topic ID`, (): void => {
     const dummyAction = actions.apiPostFork(dummyId);
     const dummyApiResponse = {
       status: 201,
@@ -42,7 +42,7 @@ describe(`apiPostFork`, (): void => {
         [call(api.topics.postFork, dummyId, dummyToken), dummyApiResponse],
       ])
       .call(api.topics.postFork, dummyId, dummyToken)
-      .returns({ userId: dummyUserId, topicId: dummyForkedId })
+      .returns({ id: dummyForkedId })
       .run();
   });
 

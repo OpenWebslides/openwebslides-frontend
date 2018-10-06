@@ -15,28 +15,30 @@ import { sagas } from '..';
 describe(`fork`, (): void => {
 
   let dummyId: string;
+  let dummyForkedId: string;
   let dummyUserId: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
+    dummyForkedId = 'dummyForkedId';
     dummyUserId = 'dummyUserId';
   });
 
-  it(`puts a topics apiPostFork action, puts a apiGet action and an addTopicId action`, (): void => {
+  it(`puts a topics apiPostFork action, puts a apiGet action and returns the forked topic id`, (): void => {
     const dummyAction = actions.fork(dummyId);
 
     return expectSaga(sagas.fork, dummyAction)
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === a.API_POST_FORK) ? { userId: dummyUserId, topicId: dummyId } : next();
+          return (action.type === a.API_POST_FORK) ? { id: dummyForkedId } : next();
         })],
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === a.FETCH) ? { userId: dummyUserId, topicId: dummyId } : next();
+          return (action.type === a.FETCH) ? { id: dummyForkedId } : next();
         })],
       ])
       .call(asyncRequests.lib.putAndReturn, actions.apiPostFork(dummyId))
-      .call(asyncRequests.lib.putAndReturn, actions.fetch(dummyId))
-      .put(users.actions.addTopicId(dummyUserId, dummyId))
+      .call(asyncRequests.lib.putAndReturn, actions.fetch(dummyForkedId))
+      .returns({ id: dummyForkedId })
       .run();
   });
 
