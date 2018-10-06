@@ -5,7 +5,6 @@ import * as matchers from 'redux-saga-test-plan/matchers';
 import { dynamic } from 'redux-saga-test-plan/providers';
 
 import asyncRequests from 'modules/asyncRequests';
-import users from 'modules/users';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -16,12 +15,10 @@ describe(`fork`, (): void => {
 
   let dummyId: string;
   let dummyForkedId: string;
-  let dummyUserId: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
     dummyForkedId = 'dummyForkedId';
-    dummyUserId = 'dummyUserId';
   });
 
   it(`puts a topics apiPostFork action, puts a apiGet action and returns the forked topic id`, (): void => {
