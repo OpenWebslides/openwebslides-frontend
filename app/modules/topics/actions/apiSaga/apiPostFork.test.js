@@ -12,7 +12,7 @@ describe(`apiPostFork`, (): void => {
     dummyId = 'dummyId';
   });
 
-  it(`returns a topics API_PostFork action containing the passed arguments`, (): void => {
+  it(`returns a topics API_POST_FORK action containing the passed arguments`, (): void => {
     const expectedAction: a.ApiPostForkAction = {
       type: a.API_POST_FORK,
       payload: {
