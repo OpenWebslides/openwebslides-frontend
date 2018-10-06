@@ -1,9 +1,9 @@
 // @flow
 
 /**
- * PATCH normalized content on topics/content endpoint, update course content for a topic
+ * PATCH topics endpoint, update topic information
  *
- * API docs: https://openwebslides.github.io/documentation/#update-topic-content
+ * API docs: https://openwebslides.github.io/documentation/#update-a-topic
  */
 
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
@@ -12,8 +12,8 @@ import { TOPICS_ENDPOINT } from '../endpoints';
 
 const patch = (
   topicId: string,
-  title: string,
-  description: ?string,
+  title?: string,
+  description?: ?string,
   token: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({

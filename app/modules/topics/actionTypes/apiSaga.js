@@ -31,8 +31,8 @@ export type ApiPatchAction = {|
   payload: {|
     ...$PropertyType<ApiSagaAction, 'payload'>,
     id: string,
-    title: string,
-    description: ?string,
+    title?: string,
+    description?: ?string,
   |},
 |};
 
