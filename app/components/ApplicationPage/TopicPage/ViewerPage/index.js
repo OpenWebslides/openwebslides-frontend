@@ -49,7 +49,7 @@ class PureViewerPage extends React.Component<Props> {
     const { forkTopicToCurrentUser, currentUserId } = this.props;
     if (currentUserId == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
     forkTopicToCurrentUser(currentUserId, topicId);
-  }
+  };
 
   render(): React.Node {
     const { currentUserId, match: { params: { topicId } } } = this.props;

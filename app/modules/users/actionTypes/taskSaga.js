@@ -51,6 +51,7 @@ export type ForkTopicAction = {|
   ...TaskSagaAction,
   type: typeof FORK_TOPIC,
   payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
     id: string,
     topicId: string,
   |},
