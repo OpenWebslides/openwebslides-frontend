@@ -93,7 +93,7 @@ describe(`TopicCard`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-card-no-description"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`does not render action buttons, when isCurrentUser is FALSE`, (): void => {
+  it(`does not render edit and remove buttons, when isCurrentUser is FALSE`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <TopicCard
@@ -106,6 +106,23 @@ describe(`TopicCard`, (): void => {
 
     expect(enzymeWrapper.find('[data-test-id="topic-card-remove-button"]').hostNodes()).toHaveLength(0);
     expect(enzymeWrapper.find('[data-test-id="topic-card-edit-button"]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="topic-card-view-button"]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`renders view, edit and remove buttons, when isCurrentUser is TRUE`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <TopicCard
+          topicId={dummyTopic.id}
+          isCurrentUser={true}
+          onRemoveTopic={dummyOnRemoveTopic}
+        />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-card-remove-button"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-card-edit-button"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-card-view-button"]').hostNodes()).toHaveLength(1);
   });
 
   it(`calls the passed onRemoveTopic function, when the remove modal is opened and its submit button clicked`, (): void => {

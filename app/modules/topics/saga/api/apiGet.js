@@ -18,12 +18,15 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     throw new UnexpectedHttpResponseError();
   }
 
-  const { attributes } = topicsResponseData.body.data;
+  const { attributes, relationships } = topicsResponseData.body.data;
+
   const topic: m.Topic = {
     id,
     title: attributes.title,
     description: attributes.description,
     rootContentItemId: attributes.rootContentItemId,
+    upstreamTopicId: relationships.upstream.data ? relationships.upstream.data.id : null,
+    forkedTopicIds: relationships.forks.data.map((item: { type: string, id: string }) => item.id),
     isContentFetched: false,
   };
 

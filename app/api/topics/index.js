@@ -6,6 +6,7 @@ import getAllByUserId from './getAllByUserId';
 import getContent from './getContent';
 import patchContent from './patchContent';
 import post from './post';
+import postFork from './postFork';
 
 const topicApi = {
   delete: deleteFunction,
@@ -14,6 +15,7 @@ const topicApi = {
   getContent,
   patchContent,
   post,
+  postFork,
 };
 
 export default topicApi;

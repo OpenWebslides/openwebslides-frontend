@@ -9,7 +9,7 @@ const feedItems = {
     'feedItemTypes/COMMENT': 'commented on',
     'feedItemTypes/CREATE': 'created',
     'feedItemTypes/UPDATE': 'updated',
-    'feedItemTypes/FORK': 'forked',
+    'feedItemTypes/FORK': 'created a personal copy',
   },
 };
 

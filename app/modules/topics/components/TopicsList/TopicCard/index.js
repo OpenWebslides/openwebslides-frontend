@@ -5,7 +5,7 @@ import { translate, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, Card, Icon, Modal } from 'semantic-ui-react';
 
-import { TOPIC_EDITOR_ROUTE } from 'config/routes';
+import { TOPIC_EDITOR_ROUTE, TOPIC_VIEWER_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 import makeRoute from 'lib/makeRoute';
 
@@ -88,24 +88,37 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
   renderTopicCardButtons = (topic: m.Topic): React.Node => {
     const { isCurrentUser } = this.props;
 
-    return (isCurrentUser === false) ? null : (
+    return (
       <Card.Content extra={true}>
-        <div className="ui two buttons">
-          <Button
-            onClick={this.showRemoveModal}
-            icon={true}
-            data-test-id="topic-card-remove-button"
-          >
-            <Icon name="trash" />
-          </Button>
+        <div className={`ui ${isCurrentUser === true ? 'three' : 'two'} buttons`}>
+          {(isCurrentUser !== false) ? (
+            <>
+              <Button
+                onClick={this.showRemoveModal}
+                icon={true}
+                data-test-id="topic-card-remove-button"
+              >
+                <Icon name="trash" />
+              </Button>
+              <Button
+                icon={true}
+                as={Link}
+                to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}
+                data-test-id="topic-card-edit-button"
+              >
+                <Icon name="pencil" />
+              </Button>
+            </>
+          ) : null }
+
           <Button
             primary={true}
             icon={true}
             as={Link}
-            to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}
-            data-test-id="topic-card-edit-button"
+            to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: topic.id })}
+            data-test-id="topic-card-view-button"
           >
-            <Icon name="pencil" />
+            <Icon name="eye" />
           </Button>
         </div>
       </Card.Content>
@@ -119,7 +132,11 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
       <React.Fragment>
         <Card data-test-id="topic-card">
           <Card.Content>
-            <Card.Header>{topic.title}</Card.Header>
+            <Card.Header>
+              <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: topic.id })}>
+                {topic.title}
+              </Link>
+            </Card.Header>
             <Card.Meta>TODO: creation date</Card.Meta>
             <Card.Description>
               {

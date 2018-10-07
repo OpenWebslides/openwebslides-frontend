@@ -21,3 +21,6 @@
 
 // Slides
 & { @import "../../custom/ows_slide"; }
+
+// Viewer
+& { @import "../../custom/viewer-menu"; }

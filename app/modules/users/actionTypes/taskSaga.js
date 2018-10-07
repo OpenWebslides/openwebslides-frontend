@@ -10,6 +10,7 @@ import { type TaskSagaAction } from 'types/actions';
 export const ADD_TOPIC: 'users/ADD_TOPIC' = 'users/ADD_TOPIC';
 export const ADD_TOPIC_ID: 'users/ADD_TOPIC_ID' = 'users/ADD_TOPIC_ID';
 export const FETCH: 'users/FETCH' = 'users/FETCH';
+export const FORK_TOPIC: 'users/FORK_TOPIC' = 'users/FORK_TOPIC';
 export const REMOVE_TOPIC: 'users/REMOVE_TOPIC' = 'users/REMOVE_TOPIC';
 export const REMOVE_TOPIC_ID: 'users/REMOVE_TOPIC_ID' = 'users/REMOVE_TOPIC_ID';
 
@@ -46,6 +47,16 @@ export type FetchAction = {|
   |},
 |};
 
+export type ForkTopicAction = {|
+  ...TaskSagaAction,
+  type: typeof FORK_TOPIC,
+  payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
+    id: string,
+    topicId: string,
+  |},
+|};
+
 export type RemoveTopicAction = {|
   ...TaskSagaAction,
   type: typeof REMOVE_TOPIC,
@@ -73,5 +84,6 @@ export type UsersTaskSagaAction =
   | AddTopicAction
   | AddTopicIdAction
   | FetchAction
+  | ForkTopicAction
   | RemoveTopicAction
   | RemoveTopicIdAction;

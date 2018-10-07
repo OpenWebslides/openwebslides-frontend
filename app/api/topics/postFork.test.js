@@ -5,7 +5,7 @@ import { httpMethods } from 'lib/ApiRequest';
 
 import api from '..';
 
-describe(`api.topics.get`, (): void => {
+describe(`api.topics.postFork`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
@@ -13,17 +13,18 @@ describe(`api.topics.get`, (): void => {
 
   it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyTopicId = 'ThisIsAnId';
-    fetch.mockResponseOnce('', { status: 200 });
-    await api.topics.get(dummyTopicId);
+    const dummyToken = 'foobarToken';
+    fetch.mockResponseOnce('', { status: 201 });
+    await api.topics.postFork(dummyTopicId, dummyToken);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
     const mockUrl = fetch.mock.calls[0][0];
     const mockOptions = fetch.mock.calls[0][1];
 
-    expect(mockUrl).toBe(`${API_URL}/topics/${dummyTopicId}?include=upstream${encodeURIComponent(',')}forks`);
-    expect(mockOptions.method).toBe(httpMethods.GET);
-    expect(mockOptions.body).toBeNull();
+    expect(mockUrl).toBe(`${API_URL}/topics/${dummyTopicId}/fork`);
+    expect(mockOptions.method).toBe(httpMethods.POST);
+    expect(mockOptions.headers.Authorization).toBe(`Bearer ${dummyToken}`);
   });
 
 });

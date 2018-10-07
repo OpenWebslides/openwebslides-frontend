@@ -13,6 +13,7 @@ import create from './create';
 import edit from './edit';
 import fetch from './fetch';
 import fetchWithContent from './fetchWithContent';
+import fork from './fork';
 import patchWithContent from './patchWithContent';
 import remove from './remove';
 
@@ -24,6 +25,7 @@ const taskSaga = function* (): Saga<void> {
     takeEvery(a.EDIT, sagaWrapper, edit),
     takeEvery(a.FETCH, sagaWrapper, fetch),
     takeEvery(a.FETCH_WITH_CONTENT, sagaWrapper, fetchWithContent),
+    takeEvery(a.FORK, sagaWrapper, fork),
     takeEvery(a.PATCH_WITH_CONTENT, sagaWrapper, patchWithContent),
     takeEvery(a.REMOVE, sagaWrapper, remove),
   ]);
@@ -34,6 +36,7 @@ const taskSagas = {
   edit,
   fetch,
   fetchWithContent,
+  fork,
   patchWithContent,
   remove,
 };

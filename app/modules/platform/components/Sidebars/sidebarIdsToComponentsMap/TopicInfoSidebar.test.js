@@ -11,9 +11,13 @@ import { PureTopicInfoSidebar } from './TopicInfoSidebar';
 describe(`TopicInfoSidebar`, (): void => {
 
   let dummyTopic: topics.model.Topic;
+  let upstreamTopic: topics.model.Topic;
+  let downstreamTopic: topics.model.Topic;
 
   beforeEach((): void => {
     dummyTopic = { ...dummyData.topic };
+    upstreamTopic = { ...dummyData.upstream };
+    downstreamTopic = { ...dummyData.downstream };
   });
 
   it(`renders without errors`, (): void => {
@@ -40,6 +44,28 @@ describe(`TopicInfoSidebar`, (): void => {
     const descriptionNode = enzymeWrapper.find('[data-test-id="topic-info-sidebar-topic-description"]');
 
     expect(descriptionNode.props().children).toContain(dummyNoDescString);
+  });
+
+  it(`renders the upstream topic link when topic has an upstream`, (): void => {
+    const enzymeWrapper = shallow(
+      <PureTopicInfoSidebar
+        topic={downstreamTopic}
+        {...dummyProviderProps.translatorProps}
+      />,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-info-sidebar-fork-info"]')).toHaveLength(1);
+  });
+
+  it(`does not render the upstream topic link when topic does not have an upstream`, (): void => {
+    const enzymeWrapper = shallow(
+      <PureTopicInfoSidebar
+        topic={upstreamTopic}
+        {...dummyProviderProps.translatorProps}
+      />,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-info-sidebar-fork-info"]')).toHaveLength(0);
   });
 
 });

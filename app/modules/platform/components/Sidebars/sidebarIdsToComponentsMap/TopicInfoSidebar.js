@@ -14,6 +14,8 @@ type PassedProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
+const { ForkInfo } = topics.components;
+
 const PureTopicInfoSidebar = (props: Props): React.Node => {
   const { t, topic } = props;
 
@@ -28,6 +30,11 @@ const PureTopicInfoSidebar = (props: Props): React.Node => {
           <Item.Content>
             <Item.Header>{t('topics:props.title')}</Item.Header>
             <Item.Description>{topic.title}</Item.Description>
+            {(topic.upstreamTopicId != null) ? (
+              <Item.Extra data-test-id="topic-info-sidebar-fork-info">
+                <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
+              </Item.Extra>
+            ) : ''}
           </Item.Content>
         </Item>
         <Item>
