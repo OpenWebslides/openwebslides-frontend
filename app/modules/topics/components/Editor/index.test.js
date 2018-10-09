@@ -14,6 +14,8 @@ import Editor, { PureEditor } from '.';
 describe(`Editor`, (): void => {
 
   let dummyTopic: m.Topic;
+  let dummyDirtyTopic: m.Topic;
+  let dummyMessage: string;
   let dummyTopicsById: m.TopicsById;
   let dummyState: any;
   let dummyDispatch: any;
@@ -22,8 +24,11 @@ describe(`Editor`, (): void => {
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic, isContentFetched: true };
+    dummyDirtyTopic = { ...dummyTopicData.topic, id: 'dummyDirtyTopic', isContentFetched: true, isDirty: true };
+    dummyMessage = 'dummyMessage';
     dummyTopicsById = {
       [dummyTopic.id]: dummyTopic,
+      [dummyDirtyTopic.id]: dummyDirtyTopic,
     };
     dummyState = { modules: {
       asyncRequests: { byId: {} },
@@ -125,6 +130,26 @@ describe(`Editor`, (): void => {
     setDirty(true);
 
     expect(dummyDispatch).toHaveBeenCalledWith(actions.setDirtyInState(dummyTopic.id, true));
+  });
+
+  it(`shows only the title when the topic is not dirty`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toEqual(dummyDirtyTopic.title);
+  });
+
+  it(`appends an asterisk to the title when the topic is dirty`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDirtyTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toEqual(`${dummyDirtyTopic.title}*`);
   });
 
 });

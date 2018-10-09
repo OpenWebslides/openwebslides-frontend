@@ -87,7 +87,10 @@ class PureEditor extends React.Component<Props> {
               </Button>
             </Grid.Column>
             <Grid.Column>
-              <Header floated="left" as="h1">{topic.title}</Header>
+              <Header floated="left" as="h1" data-test-id="topic-editor-title">
+                {topic.title}
+                {(topic.isDirty ? '*' : '')}
+              </Header>
             </Grid.Column>
             <Grid.Column width={2}>
               <Button
