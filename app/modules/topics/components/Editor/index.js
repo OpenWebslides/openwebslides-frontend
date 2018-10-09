@@ -67,6 +67,7 @@ class PureEditor extends React.Component<Props> {
           <Header floated="left" as="h1">{topic.title}</Header>
           <Button
             floated="right"
+            disabled={!topic.isDirty}
             primary={true}
             icon={true}
             labelPosition="left"
