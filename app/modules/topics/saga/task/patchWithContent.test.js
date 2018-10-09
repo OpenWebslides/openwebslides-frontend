@@ -24,7 +24,7 @@ describe(`patchWithContent`, (): void => {
     dummyTopic = { ...dummyTopicData.topic };
   });
 
-  it(`gets the topic rootContentItemId from the state and puts a contentItems API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT action`, (): void => {
+  it(`gets the topic rootContentItemId from the state and puts a contentItems API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT action, and a SET_DIRTY_IN_STATE action`, (): void => {
     const dummyAction = actions.patchWithContent(dummyTopic.id);
 
     return expectSaga(sagas.patchWithContent, dummyAction)
@@ -35,6 +35,7 @@ describe(`patchWithContent`, (): void => {
         })],
       ])
       .call(asyncRequests.lib.putAndReturn, contentItems.actions.apiPatchAllByTopicIdAndRoot(dummyTopic.id, dummyTopic.rootContentItemId))
+      .put(actions.setDirtyInState(dummyTopic.id, false))
       .run();
   });
 
