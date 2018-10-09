@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
 import { Button, Header, Icon } from 'semantic-ui-react';
 
@@ -56,6 +56,13 @@ class PureEditor extends React.Component<Props> {
 
     return (
       <div data-test-id="topic-editor">
+        {/* Prompt when user navigates away from the page with unsaved changes */}
+        {/* TODO: actually discard the changes when the user wants to leave */}
+        <Prompt
+          when={topic.isDirty}
+          message={t('topics:modals.unsavedChanges.message')}
+        />
+
         <div style={{ overflow: 'hidden' }}>
           <Header floated="left" as="h1">{topic.title}</Header>
           <Button
