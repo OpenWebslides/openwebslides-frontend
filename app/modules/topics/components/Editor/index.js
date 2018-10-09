@@ -22,6 +22,7 @@ type PassedProps = {|
 
 type DispatchProps = {|
   onSave: () => void,
+  setDirty: (dirty: boolean) => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
@@ -38,6 +39,9 @@ const mapDispatchToProps = (
     onSave: (): void => {
       dispatch(actions.patchWithContent(topicId));
     },
+    setDirty: (dirty: boolean): void => {
+      dispatch(actions.setDirtyInState(topicId, dirty));
+    },
   };
 };
 
@@ -52,7 +56,7 @@ class PureEditor extends React.Component<Props> {
   };
 
   renderEditor = (topic: m.Topic): React.Node => {
-    const { t } = this.props;
+    const { t, setDirty } = this.props;
 
     return (
       <div data-test-id="topic-editor">
@@ -98,7 +102,10 @@ class PureEditor extends React.Component<Props> {
           </Grid.Row>
         </Grid>
 
-        <ContentItemEditableDisplay contentItemId={topic.rootContentItemId} />
+        <ContentItemEditableDisplay
+          contentItemId={topic.rootContentItemId}
+          setTopicDirty={setDirty}
+        />
       </div>
     );
   };

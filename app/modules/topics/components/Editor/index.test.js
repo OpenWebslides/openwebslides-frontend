@@ -18,6 +18,7 @@ describe(`Editor`, (): void => {
   let dummyState: any;
   let dummyDispatch: any;
   let dummyOnSave: any;
+  let dummySetDirty: any;
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic, isContentFetched: true };
@@ -31,6 +32,7 @@ describe(`Editor`, (): void => {
     } };
     dummyDispatch = jest.fn();
     dummyOnSave = jest.fn();
+    dummySetDirty = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
@@ -39,6 +41,7 @@ describe(`Editor`, (): void => {
         {...dummyProviderProps.translatorProps}
         topicId={dummyTopic.id}
         onSave={dummyOnSave}
+        setDirty={dummySetDirty}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
@@ -77,6 +80,19 @@ describe(`Editor`, (): void => {
     enzymeWrapper.find('[data-test-id="topic-editor-save-button"]').hostNodes().simulate('click');
 
     expect(dummyDispatch).toHaveBeenCalledWith(actions.patchWithContent(dummyTopic.id));
+  });
+
+  it(`dispatches a topic SET_DIRTY_IN_STATE action, when the setDirty prop is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    const setDirty = enzymeWrapper.find(`PureEditor`).props().setDirty;
+    setDirty(true);
+
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.setDirtyInState(dummyTopic.id, true));
   });
 
 });
