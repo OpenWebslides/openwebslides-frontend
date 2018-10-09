@@ -40,6 +40,10 @@ const mapDispatchToProps = (
       dispatch(actions.patchWithContent(topicId));
     },
     setDirty: (dirty: boolean): void => {
+      // Catch window refresh events with a prompt when topic is dirty
+      window.onbeforeunload = dirty ? () => true : null;
+
+      // Set topic dirty in state
       dispatch(actions.setDirtyInState(topicId, dirty));
     },
   };
