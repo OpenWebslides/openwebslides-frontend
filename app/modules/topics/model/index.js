@@ -8,6 +8,7 @@ export type Topic = {|
   +upstreamTopicId: ?string,
   +forkedTopicIds: $ReadOnlyArray<string>,
   +isContentFetched: boolean,
+  +isDirty: boolean,
 |};
 
 // eslint-disable-next-line flowtype/require-exact-type
