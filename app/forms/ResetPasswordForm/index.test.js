@@ -24,7 +24,7 @@ describe(`ResetPasswordForm`, (): void => {
         initialValues={{ resetPasswordToken: dummyResetPasswordToken }}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`allows rendering children instead of default form buttons`, (): void => {

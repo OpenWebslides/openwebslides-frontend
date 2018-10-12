@@ -30,7 +30,7 @@ describe(`apiPost`, (): void => {
     };
     const actualAction = actions.apiPost(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

@@ -26,7 +26,7 @@ describe(`api.topics.patchContent`, (): void => {
 
     expect(mockUrl).toBe(`${API_URL}/topics/${dummyTopicId}/content`);
     expect(mockOptions.method).toBe(httpMethods.PATCH);
-    expect(JSON.parse(mockOptions.body)).toEqual({
+    expect(JSON.parse(mockOptions.body)).toStrictEqual({
       data: {
         type: 'contents',
         attributes: {

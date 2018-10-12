@@ -16,7 +16,7 @@ describe(`toggleSidebar`, (): void => {
       },
     };
     const actualAction = actions.toggleSidebar(dummySidebarId);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

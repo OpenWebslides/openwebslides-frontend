@@ -24,7 +24,7 @@ describe(`addTopicId`, (): void => {
     };
     const actualAction = actions.addTopicId(dummyUserId, dummyTopicId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

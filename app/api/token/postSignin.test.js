@@ -24,7 +24,7 @@ describe(`api.token.postSignin`, (): void => {
 
     expect(mockUrl).toBe(`${API_URL}/token`);
     expect(mockOptions.method).toBe(httpMethods.POST);
-    expect(JSON.parse(mockOptions.body)).toEqual({
+    expect(JSON.parse(mockOptions.body)).toStrictEqual({
       data: {
         type: 'tokens',
         attributes: {

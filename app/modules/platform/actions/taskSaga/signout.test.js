@@ -12,7 +12,7 @@ describe(`signout`, (): void => {
       payload: {},
     };
     const actualAction = actions.signout();
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

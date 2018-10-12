@@ -32,7 +32,7 @@ describe(`SignupCard`, (): void => {
     const enzymeWrapper = shallow(
       <PureSignupCard {...dummyProviderProps.translatorProps} onUserFormSubmit={jest.fn()} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`dispatches a signup action, when its form is submitted with complete values`, (): void => {

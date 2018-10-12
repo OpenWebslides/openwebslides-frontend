@@ -29,7 +29,7 @@ describe(`Root`, (): void => {
         headingLevel={1}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders all of its child items`, (): void => {

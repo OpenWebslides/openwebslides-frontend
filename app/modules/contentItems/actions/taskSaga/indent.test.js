@@ -20,7 +20,7 @@ describe(`indent`, (): void => {
       },
     };
     const actualAction = actions.indent(dummyId);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

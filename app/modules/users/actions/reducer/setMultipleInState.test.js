@@ -17,7 +17,7 @@ describe(`setMultipleInState`, (): void => {
     };
     const actualAction = actions.setMultipleInState([dummyUserData.user, dummyUserData.user2]);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

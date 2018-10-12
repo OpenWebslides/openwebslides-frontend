@@ -13,7 +13,7 @@ describe(`errorReducer`, (): void => {
         type: 'DUMMY_ACTION',
       };
 
-      expect(errorReducer(undefined, dummyAction)).toEqual(initialState);
+      expect(errorReducer(undefined, dummyAction)).toBe(initialState);
     });
 
   });

@@ -47,7 +47,7 @@ describe(`Sidebars`, (): void => {
         topicId={dummyTopic.id}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders all active sidebars in reverse order`, (): void => {

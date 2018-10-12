@@ -16,7 +16,7 @@ describe(`apiGetAllByTopicId`, (): void => {
     };
     const actualAction = actions.apiGetAllByTopicId(dummyTopicId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

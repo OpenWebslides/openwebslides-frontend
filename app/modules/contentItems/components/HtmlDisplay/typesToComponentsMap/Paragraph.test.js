@@ -24,7 +24,7 @@ describe(`Paragraph`, (): void => {
         contentItem={dummyParagraph}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders its text prop inside a paragraph tag`, (): void => {
@@ -35,7 +35,7 @@ describe(`Paragraph`, (): void => {
     );
     const paragraphTags = enzymeWrapper.find('p');
     expect(paragraphTags).toHaveLength(1);
-    expect(paragraphTags.first().text()).toEqual(dummyParagraph.text);
+    expect(paragraphTags.first().text()).toBe(dummyParagraph.text);
   });
 
 });

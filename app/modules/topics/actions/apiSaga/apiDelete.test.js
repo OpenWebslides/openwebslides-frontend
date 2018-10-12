@@ -21,7 +21,7 @@ describe(`apiDelete`, (): void => {
     };
     const actualAction = actions.apiDelete(dummyId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

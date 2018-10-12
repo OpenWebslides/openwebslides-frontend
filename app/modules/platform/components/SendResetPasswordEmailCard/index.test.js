@@ -24,7 +24,7 @@ describe(`SendResetPasswordEmailCard`, (): void => {
     const enzymeWrapper = shallow(
       <PureSendResetPasswordEmailCard {...dummyProviderProps.translatorProps} onEmailFormSubmit={jest.fn()} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`dispatches a resetPassword action, when its form is submitted with complete values`, (): void => {

@@ -27,7 +27,7 @@ describe(`move`, (): void => {
       },
     };
     const actualAction = actions.move(dummyId, dummyNextContext);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

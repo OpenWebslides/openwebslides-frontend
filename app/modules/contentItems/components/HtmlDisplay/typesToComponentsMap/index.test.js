@@ -13,7 +13,7 @@ describe(`typesToComponentsMap`, (): void => {
       const enzymeWrapper = shallow(
         <DummyDisplayComponent />,
       );
-      expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+      expect(enzymeWrapper.isEmptyRender()).toBe(false);
     });
 
   });

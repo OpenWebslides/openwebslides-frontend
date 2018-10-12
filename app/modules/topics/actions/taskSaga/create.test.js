@@ -29,7 +29,7 @@ describe(`create`, (): void => {
     };
     const actualAction = actions.create(dummyTitle, dummyDescription, dummyUserId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`calls validate.stringProps with the correct arguments and passes the result into the action`, (): void => {
@@ -45,7 +45,7 @@ describe(`create`, (): void => {
         description: dummyDescription,
       },
     );
-    expect(actualAction.payload).toEqual({ ...dummyValidatedProps, userId: dummyUserId });
+    expect(actualAction.payload).toStrictEqual({ ...dummyValidatedProps, userId: dummyUserId });
   });
 
 });

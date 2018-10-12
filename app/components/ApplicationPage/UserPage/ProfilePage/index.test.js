@@ -26,7 +26,7 @@ describe(`ProfilePage`, (): void => {
         currentUserId="dummyUserId"
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders the profile of the current user, when no userId route parameter is passed`, (): void => {

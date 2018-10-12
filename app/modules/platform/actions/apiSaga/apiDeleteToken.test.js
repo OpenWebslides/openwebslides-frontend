@@ -16,7 +16,7 @@ describe(`apiDeleteToken`, (): void => {
     };
     const actualAction = actions.apiDeleteToken(dummyToken);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

@@ -32,7 +32,7 @@ describe(`editInState`, (): void => {
     };
     const actualAction = actions.editInState(dummyId, { title: dummyTitle, description: dummyDescription });
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`calls validate.stringProps with the correct arguments and passes the result into the action`, (): void => {

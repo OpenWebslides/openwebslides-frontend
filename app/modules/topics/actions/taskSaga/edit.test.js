@@ -27,7 +27,7 @@ describe(`edit`, (): void => {
     };
     const actualAction = actions.edit(dummyId, dummyEditedProps);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

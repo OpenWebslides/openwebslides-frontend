@@ -13,7 +13,7 @@ describe(`UserForm`, (): void => {
     const enzymeWrapper = shallow(
       <PureUserForm {...dummyProviderProps.translatorProps} {...dummyProviderProps.formProps} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`checks its checkbox #TEMP`, (): void => {

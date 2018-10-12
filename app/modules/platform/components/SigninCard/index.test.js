@@ -30,7 +30,7 @@ describe(`SigninCard`, (): void => {
     const enzymeWrapper = shallow(
       <PureSigninCard {...dummyProviderProps.translatorProps} onEmailAndPasswordFormSubmit={jest.fn()} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`dispatches a signin action, when its form is submitted with complete values`, (): void => {

@@ -19,7 +19,7 @@ describe(`setUserAuthInState`, (): void => {
       },
     };
     const actualAction = actions.setUserAuthInState(dummyUserAuth);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`converts an auth argument of UNDEFINED to NULL`, (): void => {
@@ -30,7 +30,7 @@ describe(`setUserAuthInState`, (): void => {
       },
     };
     const actualAction = actions.setUserAuthInState();
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

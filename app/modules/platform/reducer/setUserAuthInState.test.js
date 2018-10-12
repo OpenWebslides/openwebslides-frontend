@@ -29,7 +29,7 @@ describe(`setUserAuthInState`, (): void => {
     };
     const resultState = reducer(prevState, setUserAuthInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
   });
 
@@ -55,7 +55,7 @@ describe(`setUserAuthInState`, (): void => {
     };
     const resultState = reducer(prevState, setUserAuthInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
   });
 
@@ -85,7 +85,7 @@ describe(`setUserAuthInState`, (): void => {
     };
     const resultState = reducer(prevState, setUserAuthInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
   });
 

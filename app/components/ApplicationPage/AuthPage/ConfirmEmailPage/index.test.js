@@ -49,7 +49,7 @@ describe(`ConfirmEmailPage`, (): void => {
         confirmEmail={dummyConfirmEmail}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`dispatches a confirmEmail() action with the passed confirmationToken`, (): void => {

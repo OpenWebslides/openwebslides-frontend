@@ -16,7 +16,7 @@ describe(`apiGet`, (): void => {
     };
     const actualAction = actions.apiGet(dummyUserId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

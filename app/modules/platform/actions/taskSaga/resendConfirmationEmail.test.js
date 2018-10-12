@@ -15,7 +15,7 @@ describe(`resendConfirmationEmail`, (): void => {
       },
     };
     const actualAction = actions.resendConfirmationEmail(dummyEmail);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

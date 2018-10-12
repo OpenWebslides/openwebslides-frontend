@@ -20,7 +20,7 @@ describe(`reverseIndent`, (): void => {
       },
     };
     const actualAction = actions.reverseIndent(dummyId);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

@@ -42,7 +42,7 @@ describe(`editTopicIdsInStateAction`, (): void => {
     };
     const resultState = reducer(prevState, editTopicIdsInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyUser1.id]).not.toBe(prevState.byId[dummyUser1.id]);
@@ -65,7 +65,7 @@ describe(`editTopicIdsInStateAction`, (): void => {
     };
     const resultState = reducer(prevState, editTopicIdsInStateAction);
 
-    expect(resultState).toEqual(prevState);
+    expect(resultState).toStrictEqual(prevState);
     expect(resultState).toBe(prevState);
     expect(resultState.byId).toBe(prevState.byId);
     expect(resultState.byId[dummyUser1.id]).toBe(prevState.byId[dummyUser1.id]);

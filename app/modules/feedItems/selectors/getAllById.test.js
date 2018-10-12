@@ -34,7 +34,7 @@ describe(`getAllById`, (): void => {
 
   it(`returns an empty object, when there are no feedItems in the state`, (): void => {
     const feedItemsById = selectors.getAllById(dummyEmptyState);
-    expect(feedItemsById).toEqual({});
+    expect(feedItemsById).toStrictEqual({});
   });
 
 });

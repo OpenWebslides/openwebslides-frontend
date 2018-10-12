@@ -35,13 +35,13 @@ describe(`getAllPending`, (): void => {
 
   it(`returns an array containing all requests that have the status PENDING, when there are pending requests in the state`, (): void => {
     const asyncRequests = selectors.getAllPending(dummyState);
-    expect(asyncRequests).toEqual([dummyPendingRequest1, dummyPendingRequest2]);
+    expect(asyncRequests).toStrictEqual([dummyPendingRequest1, dummyPendingRequest2]);
   });
 
   it(`returns an empty array, when there are no pending requests in the state`, (): void => {
     dummyState.modules.asyncRequests.byId = _.omit(dummyAsyncRequestsById, [dummyPendingRequest1.id, dummyPendingRequest2.id]);
     const asyncRequests = selectors.getAllPending(dummyState);
-    expect(asyncRequests).toEqual([]);
+    expect(asyncRequests).toStrictEqual([]);
   });
 
 });

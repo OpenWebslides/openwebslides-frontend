@@ -24,7 +24,7 @@ describe(`Slide`, (): void => {
         contentItem={dummyContentItem}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

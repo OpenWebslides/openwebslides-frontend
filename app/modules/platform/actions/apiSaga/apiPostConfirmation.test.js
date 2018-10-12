@@ -16,7 +16,7 @@ describe(`apiPostConfirmation`, (): void => {
     };
     const actualAction = actions.apiPostConfirmation(dummyEmail);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

@@ -34,7 +34,7 @@ describe(`getAllById`, (): void => {
 
   it(`returns an empty object, when there are no asyncRequests in the state`, (): void => {
     const asyncRequestsById = selectors.getAllById(dummyEmptyState);
-    expect(asyncRequestsById).toEqual({});
+    expect(asyncRequestsById).toStrictEqual({});
   });
 
 });

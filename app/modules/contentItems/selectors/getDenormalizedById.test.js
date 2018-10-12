@@ -79,7 +79,7 @@ describe(`getDenormalizedById`, (): void => {
         }: m.DenormalizedHeadingContentItem),
       ],
     };
-    expect(denormalizedContentItem).toEqual(expectedResult);
+    expect(denormalizedContentItem).toStrictEqual(expectedResult);
   });
 
   it(`returns NULL, when the given id is invalid`, (): void => {

@@ -11,7 +11,7 @@ describe(`HomePage`, (): void => {
     const enzymeWrapper = shallow(
       <PureHomePage />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

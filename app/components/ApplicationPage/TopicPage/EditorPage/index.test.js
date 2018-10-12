@@ -23,7 +23,7 @@ describe(`EditorPage`, (): void => {
       <PureEditorPage {...fixedRouterProps} />,
     );
 
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders NULL when match.params.id is NULL`, (): void => {
@@ -31,7 +31,7 @@ describe(`EditorPage`, (): void => {
       <PureEditorPage {...dummyProviderProps.routerProps} />,
     );
 
-    expect(enzymeWrapper.isEmptyRender()).toEqual(true);
+    expect(enzymeWrapper.isEmptyRender()).toBe(true);
   });
 
 });

@@ -17,7 +17,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
       },
     };
     const actualAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

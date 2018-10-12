@@ -35,7 +35,7 @@ describe(`EditableTextContent`, (): void => {
         initialText={dummyText}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders its text prop`, (): void => {
@@ -181,7 +181,7 @@ describe(`EditableTextContent`, (): void => {
         onDeactivate: dummyDeactivate,
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
-      expect(result).toEqual({
+      expect(result).toStrictEqual({
         initialText: dummyNewText,
         text: dummyNewText,
       });
@@ -203,7 +203,7 @@ describe(`EditableTextContent`, (): void => {
         onDeactivate: dummyDeactivate,
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
-      expect(result).toEqual({
+      expect(result).toStrictEqual({
         initialIsActive: true,
         isActive: true,
       });
@@ -225,7 +225,7 @@ describe(`EditableTextContent`, (): void => {
         onDeactivate: dummyDeactivate,
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
-      expect(result).toEqual({});
+      expect(result).toStrictEqual({});
     });
 
   });

@@ -24,7 +24,7 @@ describe(`TopicInfoSidebar`, (): void => {
     const enzymeWrapper = shallow(
       <PureTopicInfoSidebar {...dummyProviderProps.translatorProps} topic={dummyTopic} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders an empty description message, when the passed topic doesn't have a description`, (): void => {

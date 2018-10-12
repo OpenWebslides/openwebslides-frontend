@@ -31,7 +31,7 @@ describe(`ResetPasswordPage`, (): void => {
         {...fixedDummyRouterProps}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`throws an InvalidArgumentError, when no resetPasswordToken is passed`, (): void => {

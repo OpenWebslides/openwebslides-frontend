@@ -17,7 +17,7 @@ describe(`setUserAuth`, (): void => {
       },
     };
     const actualAction = actions.setUserAuth(dummyApiToken, dummyUserId);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

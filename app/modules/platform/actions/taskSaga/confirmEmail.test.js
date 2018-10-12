@@ -15,7 +15,7 @@ describe(`confirmEmail`, (): void => {
       },
     };
     const actualAction = actions.confirmEmail(dummyConfirmationToken);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

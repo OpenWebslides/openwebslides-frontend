@@ -27,7 +27,7 @@ describe(`moveInState`, (): void => {
       },
     };
     const actualAction = actions.moveInState(dummyId, dummyNextContext);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

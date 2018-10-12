@@ -59,7 +59,7 @@ describe(`ViewerPage`, (): void => {
       />,
     );
 
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders with currentUserId NULL, when there is no current user`, (): void => {
@@ -84,7 +84,7 @@ describe(`ViewerPage`, (): void => {
       />,
     );
 
-    expect(enzymeWrapper.isEmptyRender()).toEqual(true);
+    expect(enzymeWrapper.isEmptyRender()).toBe(true);
   });
 
   it(`dispatches a user FORK_TOPIC action for the current user and redirects to USER_PROFILE_ROUTE, when the onForkTopic function passed to Viewer is called`, (): void => {

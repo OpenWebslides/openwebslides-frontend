@@ -20,7 +20,7 @@ describe(`removeAndTogglePreviousItem`, (): void => {
       },
     };
     const actualAction = actions.removeAndTogglePreviousItem(dummyId);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

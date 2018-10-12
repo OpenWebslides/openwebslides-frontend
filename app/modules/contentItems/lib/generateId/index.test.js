@@ -16,7 +16,7 @@ describe(`generateId`, (): void => {
 
   it(`calls generateRandomString`, (): void => {
     (generateRandomString: any).mockReturnValue(dummyRandomString);
-    expect(lib.generateId()).toEqual(dummyRandomString);
+    expect(lib.generateId()).toBe(dummyRandomString);
   });
 
 });

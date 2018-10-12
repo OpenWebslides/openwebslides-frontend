@@ -11,7 +11,7 @@ describe(`Application.js`, (): void => {
     const enzymeWrapper = shallow(
       <PureApplication history={({}: any)} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

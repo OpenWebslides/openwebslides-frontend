@@ -23,7 +23,7 @@ describe(`api.confirmation.patch`, (): void => {
 
     expect(mockUrl).toBe(`${API_URL}/confirmation`);
     expect(mockOptions.method).toBe(httpMethods.PATCH);
-    expect(JSON.parse(mockOptions.body)).toEqual({
+    expect(JSON.parse(mockOptions.body)).toStrictEqual({
       data: {
         type: 'confirmations',
         attributes: {

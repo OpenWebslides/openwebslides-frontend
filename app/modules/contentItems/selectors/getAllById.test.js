@@ -59,7 +59,7 @@ describe(`getAllById`, (): void => {
 
   it(`returns an empty object, when there are no contentItems in the state`, (): void => {
     const contentItemsById = selectors.getAllById(dummyEmptyState);
-    expect(contentItemsById).toEqual({});
+    expect(contentItemsById).toStrictEqual({});
   });
 
 });

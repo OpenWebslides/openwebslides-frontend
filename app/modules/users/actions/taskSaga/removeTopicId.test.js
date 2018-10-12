@@ -24,7 +24,7 @@ describe(`removeTopicId`, (): void => {
     };
     const actualAction = actions.removeTopicId(dummyUserId, dummyTopicId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

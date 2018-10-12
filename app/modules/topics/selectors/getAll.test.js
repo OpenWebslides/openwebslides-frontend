@@ -29,12 +29,12 @@ describe(`getAll`, (): void => {
 
   it(`returns an array containing all topics, when there are one or more topics in the state`, (): void => {
     const topics = selectors.getAll(dummyState);
-    expect(topics).toEqual([dummyTopic1, dummyTopic2]);
+    expect(topics).toStrictEqual([dummyTopic1, dummyTopic2]);
   });
 
   it(`returns an empty array, when there are no topics in the state`, (): void => {
     const topics = selectors.getAll(dummyEmptyState);
-    expect(topics).toEqual([]);
+    expect(topics).toStrictEqual([]);
   });
 
 });

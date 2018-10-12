@@ -21,7 +21,7 @@ describe(`patchWithContent`, (): void => {
     };
     const actualAction = actions.patchWithContent(dummyId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

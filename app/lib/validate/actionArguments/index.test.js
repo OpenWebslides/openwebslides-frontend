@@ -38,7 +38,7 @@ describe(`validateActionArguments`, (): void => {
     };
 
     const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
-    expect(actualReturnValue).toEqual(dummyArgsObject);
+    expect(actualReturnValue).toStrictEqual(dummyArgsObject);
   });
 
   it(`returns an object equal to the argsObject, when all options are set to FALSE and the argsObject contain empty or undefined values`, (): void => {
@@ -59,7 +59,7 @@ describe(`validateActionArguments`, (): void => {
     };
 
     const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
-    expect(actualReturnValue).toEqual(dummyArgsObject);
+    expect(actualReturnValue).toStrictEqual(dummyArgsObject);
   });
 
   it(`returns an object that contains all keys from argsKeys, even if their values are undefined`, (): void => {
@@ -79,7 +79,7 @@ describe(`validateActionArguments`, (): void => {
       [dummyArg2Key]: undefined,
     };
     const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
-    expect(actualReturnValue).toEqual(expectedReturnValue);
+    expect(actualReturnValue).toStrictEqual(expectedReturnValue);
     // Note: we use lodash' isEmpty() because unlike jest's toEqual({}) it returns FALSE when the
     // object contains keys with undefined values.
     expect(_.isEmpty(actualReturnValue)).toBe(false);
@@ -202,7 +202,7 @@ describe(`validateActionArguments`, (): void => {
     };
 
     const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
-    expect(actualReturnValue).toEqual(expectedReturnValue);
+    expect(actualReturnValue).toStrictEqual(expectedReturnValue);
   });
 
   it(`uses a default value of TRUE, when the "trimString" option is not set`, (): void => {
@@ -220,7 +220,7 @@ describe(`validateActionArguments`, (): void => {
     };
 
     const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys);
-    expect(actualReturnValue).toEqual(expectedReturnValue);
+    expect(actualReturnValue).toStrictEqual(expectedReturnValue);
   });
 
   it(`allows NULL values to pass through unchanged`, (): void => {
@@ -239,7 +239,7 @@ describe(`validateActionArguments`, (): void => {
     };
 
     const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
-    expect(actualReturnValue).toEqual(dummyArgsObject);
+    expect(actualReturnValue).toStrictEqual(dummyArgsObject);
   });
 
   it(`allows non-string values to pass through unchanged`, (): void => {
@@ -260,7 +260,7 @@ describe(`validateActionArguments`, (): void => {
     };
 
     const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
-    expect(actualReturnValue).toEqual(dummyArgsObject);
+    expect(actualReturnValue).toStrictEqual(dummyArgsObject);
   });
 
   it(`correctly overrides the default option values, when a subset of options is passed`, (): void => {
@@ -277,7 +277,7 @@ describe(`validateActionArguments`, (): void => {
     };
 
     const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
-    expect(actualReturnValue).toEqual(dummyArgsObject);
+    expect(actualReturnValue).toStrictEqual(dummyArgsObject);
   });
 
   it(`does not mutate the argsObject`, (): void => {
@@ -298,7 +298,7 @@ describe(`validateActionArguments`, (): void => {
 
     const actualReturnValue = validateActionArguments(dummyArgsObject, dummyArgsKeys, dummyOptions);
     expect(actualReturnValue).not.toBe(dummyArgsObject);
-    expect(dummyArgsObject).toEqual(dummyArgsObjectCopy);
+    expect(dummyArgsObject).toStrictEqual(dummyArgsObjectCopy);
   });
 
 });

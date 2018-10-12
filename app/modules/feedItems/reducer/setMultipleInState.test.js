@@ -43,7 +43,7 @@ describe(`setMultipleInState`, (): void => {
     };
     const resultState = reducer(prevState, setMultipleInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
   });
@@ -74,7 +74,7 @@ describe(`setMultipleInState`, (): void => {
     };
     const resultState = reducer(prevState, setMultipleInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
   });
@@ -93,7 +93,7 @@ describe(`setMultipleInState`, (): void => {
     };
     const resultState = reducer(prevState, setMultipleInStateAction);
 
-    expect(resultState).toEqual(prevState);
+    expect(resultState).toStrictEqual(prevState);
     expect(resultState).toBe(prevState);
     expect(resultState.byId).toBe(prevState.byId);
   });

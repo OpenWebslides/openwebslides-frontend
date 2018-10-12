@@ -37,7 +37,7 @@ describe(`ForkInfo`, (): void => {
         upstreamTopicId={dummyTopic.id}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`fetches the topic, when the topic was not previously present in the state`, (): void => {

@@ -16,7 +16,7 @@ describe(`apiPatchConfirmation`, (): void => {
     };
     const actualAction = actions.apiPatchConfirmation(dummyConfirmationToken);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

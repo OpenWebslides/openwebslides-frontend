@@ -20,7 +20,7 @@ describe(`removeFromState`, (): void => {
       },
     };
     const actualAction = actions.removeFromState(dummyId);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

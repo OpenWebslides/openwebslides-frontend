@@ -57,7 +57,7 @@ describe(`Feed`, (): void => {
         handleFetchAll={dummyHandleFetchAll}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders the feedItems from the state sorted by timestamp in reverse order`, (): void => {

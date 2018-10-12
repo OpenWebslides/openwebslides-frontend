@@ -24,7 +24,7 @@ describe(`editTopicIdsInState`, (): void => {
     };
     const actualAction = actions.editTopicIdsInState(dummyUserId, dummyTopicIds);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

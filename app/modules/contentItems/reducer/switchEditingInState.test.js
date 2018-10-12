@@ -54,7 +54,7 @@ describe(`switchEditingInState`, (): void => {
     };
     const resultState = reducer(prevState, switchEditingInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyData.headingContentItem.id]).not.toBe(prevState.byId[dummyData.headingContentItem.id]);

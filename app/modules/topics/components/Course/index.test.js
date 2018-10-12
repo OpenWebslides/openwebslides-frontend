@@ -27,7 +27,7 @@ describe(`Course`, (): void => {
         rootContentItem={dummyRootContentItem}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

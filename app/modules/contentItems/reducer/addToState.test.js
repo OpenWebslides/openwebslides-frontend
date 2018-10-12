@@ -78,7 +78,7 @@ describe(`ADD_TO_STATE`, (): void => {
     };
     const resultState: m.ContentItemsState = reducer(prevState, addToStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(nextState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyRoot.id]).not.toBe(prevState.byId[dummyRoot.id]);
@@ -125,7 +125,7 @@ describe(`ADD_TO_STATE`, (): void => {
     };
     const resultState: m.ContentItemsState = reducer(prevState, addToStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(nextState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyHeading1.id]).not.toBe(prevState.byId[dummyHeading1.id]);
@@ -166,7 +166,7 @@ describe(`ADD_TO_STATE`, (): void => {
     };
     const resultState: m.ContentItemsState = reducer(prevState, addToStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(nextState);
     expect(resultState.byId).not.toBe(prevState.byId);
   });
@@ -210,7 +210,7 @@ describe(`ADD_TO_STATE`, (): void => {
     };
     const resultState: m.ContentItemsState = reducer(prevState, addToStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
   });
 
   it(`uses a default of 0 for context.positionInSiblings, when context.positionInSiblings is not set`, (): void => {
@@ -253,7 +253,7 @@ describe(`ADD_TO_STATE`, (): void => {
     };
     const resultState: m.ContentItemsState = reducer(prevState, addToStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
   });
 
   it(`throws an InvalidArgumentError, when the type is not a valid contentItemType`, (): void => {

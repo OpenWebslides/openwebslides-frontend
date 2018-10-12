@@ -51,7 +51,7 @@ describe(`reducer`, (): void => {
     };
     const resultState = reducer(prevState, editInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyTopic2.id]).not.toBe(prevState.byId[dummyTopic2.id]);
@@ -86,7 +86,7 @@ describe(`reducer`, (): void => {
     };
     const resultState = reducer(prevState, editInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyTopic2.id]).not.toBe(prevState.byId[dummyTopic2.id]);
@@ -119,7 +119,7 @@ describe(`reducer`, (): void => {
     };
     const resultState = reducer(prevState, editInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyTopic2.id]).not.toBe(prevState.byId[dummyTopic2.id]);
@@ -141,7 +141,7 @@ describe(`reducer`, (): void => {
     };
     const resultState = reducer(prevState, editInStateAction);
 
-    expect(resultState).toEqual(prevState);
+    expect(resultState).toStrictEqual(prevState);
     expect(resultState).toBe(prevState);
     expect(resultState.byId).toBe(prevState.byId);
     expect(resultState.byId[dummyTopic2.id]).toBe(prevState.byId[dummyTopic2.id]);
@@ -166,7 +166,7 @@ describe(`reducer`, (): void => {
     };
     const resultState = reducer(prevState, editInStateAction);
 
-    expect(resultState).toEqual(prevState);
+    expect(resultState).toStrictEqual(prevState);
     expect(resultState).toBe(prevState);
     expect(resultState.byId).toBe(prevState.byId);
     expect(resultState.byId[dummyTopic2.id]).toBe(prevState.byId[dummyTopic2.id]);

@@ -21,7 +21,7 @@ describe(`remove`, (): void => {
     };
     const actualAction = actions.remove(dummyId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

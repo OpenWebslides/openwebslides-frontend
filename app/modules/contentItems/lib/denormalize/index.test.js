@@ -90,7 +90,7 @@ describe(`denormalize`, (): void => {
         }: m.DenormalizedParagraphContentItem),
       ],
     };
-    expect(denormalizedContentItem).toEqual(expectedResult);
+    expect(denormalizedContentItem).toStrictEqual(expectedResult);
   });
 
   it(`returns a denormalized container contentItem, when the passed contentItem is a container contentItem`, (): void => {
@@ -108,7 +108,7 @@ describe(`denormalize`, (): void => {
         }: m.DenormalizedHeadingContentItem),
       ],
     };
-    expect(denormalizedContentItem).toEqual(expectedResult);
+    expect(denormalizedContentItem).toStrictEqual(expectedResult);
   });
 
   it(`returns a denormalized subable / container contentItem, when the passed contentItem is a subable / container contentItem`, (): void => {
@@ -136,13 +136,13 @@ describe(`denormalize`, (): void => {
         }: m.DenormalizedParagraphContentItem),
       ],
     };
-    expect(denormalizedContentItem).toEqual(expectedResult);
+    expect(denormalizedContentItem).toStrictEqual(expectedResult);
   });
 
   it(`returns an unchanged contentItem, when the passed contentItem is neither subable nor a container`, (): void => {
     const denormalizedContentItem = lib.denormalize(dummySlideBreak32, dummyContentItemsById);
     const expectedResult: m.DenormalizedSlideBreakContentItem = { ...dummySlideBreak32 };
-    expect(denormalizedContentItem).toEqual(expectedResult);
+    expect(denormalizedContentItem).toStrictEqual(expectedResult);
   });
 
   it(`returns a multilevel denormalized contentItem, when the passed contentItem has multiple levels of descendants`, (): void => {
@@ -178,7 +178,7 @@ describe(`denormalize`, (): void => {
         }: m.DenormalizedHeadingContentItem),
       ],
     };
-    expect(denormalizedContentItem).toEqual(expectedResult);
+    expect(denormalizedContentItem).toStrictEqual(expectedResult);
   });
 
   it(`throws a CorruptedInternalStateError, when the passed contentItemsById structure is corrupted`, (): void => {

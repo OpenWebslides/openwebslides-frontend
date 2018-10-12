@@ -43,7 +43,7 @@ describe(`NewTopicPage`, (): void => {
     const enzymeWrapper = shallow(
       <PureNewTopicPage currentUserId="dummyUserId" addTopicToCurrentUser={jest.fn()} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders with currentUserId NULL, when there is no current user`, (): void => {

@@ -15,7 +15,7 @@ describe(`GenerateRandomStringPage`, (): void => {
         {...dummyProviderProps.routerProps}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

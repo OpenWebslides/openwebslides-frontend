@@ -47,7 +47,7 @@ describe(`addChildOrSubItemIdToContext`, (): void => {
     const actualResult = lib.edit.addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
     const expectedResult = { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyId, dummyParagraph12.id] };
 
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
     expect(actualResult).not.toBe(dummyHeading1);
     expect(((actualResult: any): m.SubableContentItem).subItemIds).not.toBe(((dummyHeading1: any): m.SubableContentItem).subItemIds);
   });
@@ -61,7 +61,7 @@ describe(`addChildOrSubItemIdToContext`, (): void => {
     const actualResult = lib.edit.addChildOrSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
     const expectedResult = { ...dummyRoot, childItemIds: [dummyHeading1.id, dummyHeading2.id, dummyId] };
 
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
     expect(actualResult).not.toBe(dummyHeading1);
     expect(((actualResult: any): m.ContainerContentItem).childItemIds).not.toBe(((dummyHeading1: any): m.ContainerContentItem).childItemIds);
   });

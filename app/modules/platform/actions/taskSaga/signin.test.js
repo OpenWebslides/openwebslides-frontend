@@ -17,7 +17,7 @@ describe(`signin`, (): void => {
       },
     };
     const actualAction = actions.signin(dummyEmail, dummyPassword);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

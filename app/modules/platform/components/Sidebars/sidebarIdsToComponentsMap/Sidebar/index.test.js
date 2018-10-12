@@ -13,7 +13,7 @@ describe(`Sidebar`, (): void => {
         <p>Content goes here</p>
       </PureSidebar>,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

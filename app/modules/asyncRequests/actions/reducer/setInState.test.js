@@ -24,7 +24,7 @@ describe(`setInState`, (): void => {
     };
     const actualAction = actions.setInState(dummyAsyncRequest);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

@@ -34,7 +34,7 @@ describe(`getAllById`, (): void => {
 
   it(`returns an empty object, when there are no topics in the state`, (): void => {
     const topicsById = selectors.getAllById(dummyEmptyState);
-    expect(topicsById).toEqual({});
+    expect(topicsById).toStrictEqual({});
   });
 
 });

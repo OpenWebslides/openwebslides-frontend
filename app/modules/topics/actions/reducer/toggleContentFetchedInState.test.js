@@ -21,7 +21,7 @@ describe(`toggleContentFetchedInState`, (): void => {
     };
     const actualAction = actions.toggleContentFetchedInState(dummyId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

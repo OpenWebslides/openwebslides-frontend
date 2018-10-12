@@ -29,12 +29,12 @@ describe(`getAll`, (): void => {
 
   it(`returns an array containing all asyncRequests, when there are one or more asyncRequests in the state`, (): void => {
     const asyncRequests = selectors.getAll(dummyState);
-    expect(asyncRequests).toEqual([dummyAsyncRequest1, dummyAsyncRequest2]);
+    expect(asyncRequests).toStrictEqual([dummyAsyncRequest1, dummyAsyncRequest2]);
   });
 
   it(`returns an empty array, when there are no asyncRequests in the state`, (): void => {
     const asyncRequests = selectors.getAll(dummyEmptyState);
-    expect(asyncRequests).toEqual([]);
+    expect(asyncRequests).toStrictEqual([]);
   });
 
 });

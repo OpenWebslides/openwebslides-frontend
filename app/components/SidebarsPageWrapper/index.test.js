@@ -51,7 +51,7 @@ describe(`SidebarsPageWrapper`, (): void => {
         <p>Lorem ipsum dolor sit amet.</p>
       </PureSidebarsPageWrapper>,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`gets the correct activeSidebarsCount`, (): void => {

@@ -21,7 +21,7 @@ describe(`apiPostFork`, (): void => {
     };
     const actualAction = actions.apiPostFork(dummyId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

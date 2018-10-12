@@ -16,7 +16,7 @@ describe(`setPending`, (): void => {
     };
     const actualAction = actions.setPending(dummyId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

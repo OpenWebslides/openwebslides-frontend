@@ -27,7 +27,7 @@ describe(`setMultipleInState`, (): void => {
     };
     const actualAction = actions.setMultipleInState([dummyTopic1, dummyTopic2]);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`throws an UnsupportedOperationError, when the passed topics array is empty`, (): void => {
