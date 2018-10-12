@@ -372,7 +372,7 @@ module.exports = {
     'promise/prefer-await-to-then': 'error',
     'promise/prefer-await-to-callbacks': 'error',
 
-    // Doesn't play wel with semantic-ui-react; #TODO look for a way to fix this; perhaps write wrapper for label?
+    // Doesn't play well with semantic-ui-react; #TODO look for a way to fix this; perhaps write wrapper for label?
     'jsx-a11y/label-has-for': 'off',
 
     // Currently doesn't work correctly in combination with Flow.
@@ -424,7 +424,8 @@ module.exports = {
       },
     ],
 
-    // #TODO handle saga errors
+    // Saga errors are handled by modules/asyncRequests/lib/sagaWrapper
+    // in a way that can't be detected by this rule.
     'redux-saga/no-unhandled-errors': 'off',
   },
   'overrides': [
