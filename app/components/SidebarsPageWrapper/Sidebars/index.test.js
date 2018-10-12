@@ -4,9 +4,8 @@ import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import { DummyProviders, dummyTopicData, dummyContentItemData } from 'lib/testResources';
+import platform from 'modules/platform';
 import topics from 'modules/topics';
-
-import * as m from '../../model';
 
 import Sidebars, { PureSidebars } from '.';
 
@@ -32,7 +31,7 @@ describe(`Sidebars`, (): void => {
         },
         platform: {
           settings: {
-            activeSidebarIds: [m.sidebarIds.SLIDE_PREVIEWS, m.sidebarIds.TOPIC_INFO],
+            activeSidebarIds: [platform.model.sidebarIds.SLIDE_PREVIEWS, platform.model.sidebarIds.TOPIC_INFO],
           },
         },
       },

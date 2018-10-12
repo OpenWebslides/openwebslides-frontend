@@ -10,6 +10,8 @@ import platform from 'modules/platform';
 
 import PageWrapper from '../PageWrapper';
 
+import Sidebars from './Sidebars';
+
 type PassedProps = {|
   children: React.Node,
   topicId: string,
@@ -22,7 +24,7 @@ type StateProps = {|
 type Props = {| ...PassedProps, ...StateProps |};
 
 const { ApiDimmer } = asyncRequests.components;
-const { Sidebars, SidebarsMenu } = platform.components;
+const { SidebarsMenu } = platform.components;
 
 const mapStateToProps = (state: AppState): StateProps => {
   const activeSidebarIds = platform.selectors.getSettingByKey(state, { key: 'activeSidebarIds' });
