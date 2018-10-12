@@ -1,7 +1,7 @@
 module.exports = {
   'extends': [
     'airbnb',
-    // #TODO 'plugin:jest/recommended',
+    'plugin:jest/recommended',
     'plugin:flowtype/recommended',
     'plugin:promise/recommended',
     'plugin:redux-saga/recommended',
@@ -289,6 +289,85 @@ module.exports = {
       },
     ],
 
+    // #TODO check https://github.com/jest-community/eslint-plugin-jest/issues/113
+
+    // Enforce using `it` over `test` within a `describe` block;
+    // enfore `test` over `it` outside of a `describe` block
+    'jest/consistent-test-it': [
+      'error',
+      {
+        'fn': 'test',
+        'withinDescribe': 'it',
+      },
+    ],
+
+    // Enforce making at least one 'expect' call in every test.
+    'jest/expect-expect': [
+      'error',
+      {
+        'assertFunctionNames': ['expect', 'expectSaga'],
+      },
+    ],
+
+    // Enforce lowercase first letters of test descriptions.
+    'jest/lowercase-name': [
+      'error',
+      {
+        'ignore': ['describe'],
+      },
+    ],
+
+    // Enforce consistency in jest method names.
+    'jest/no-alias-methods': 'error',
+
+    // Disallow disabling tests using .it.skip().
+    'jest/no-disabled-tests': 'error',
+
+    // Disallow disabling all tests except for one using .it.only().
+    'jest/no-focused-tests': 'error',
+
+    // Disallow duplicate titles within a single test suite.
+    'jest/no-identical-title': 'error',
+
+    // Disallow using undocumented/deprecated jasmine globals.
+    'jest/no-jasmine-globals': 'error',
+
+    // Disallow unnecessary jest imports.
+    'jest/no-jest-import': 'error',
+
+    // Limit the size of snapshots to be more manageable.
+    'jest/no-large-snapshots': 'error',
+
+    // Disallow the use of x and f prefixes to skip / focus tests; use .skip and .only instead.
+    'jest/no-test-prefixes': 'error',
+
+    // Enforce using .toStrictEqual() over .toEqual().
+    'jest/prefer-strict-equal': 'error',
+
+    // Enforce using .toBeNull() over .toBe(null).
+    'jest/prefer-to-be-null': 'error',
+
+    // Enforce using .toBeUndefined() over .toBe(undefined).
+    'jest/prefer-to-be-undefined': 'error',
+
+    // Enforce using .toHaveLength(x) over expect(var.lenght).toBe(x).
+    'jest/prefer-to-have-length': 'error',
+
+    // Enforce using .toMatchInlineSnapshot() over .toMatchSnapshot().
+    'jest/prefer-inline-snapshots': 'error',
+
+    // Enforce .toThrow() to specify an argument in order to more strictly validate thrown errors.
+    'jest/require-tothrow-message': 'error',
+
+    // Validate describe callback function.
+    'jest/valid-describe': 'error',
+
+    // Validate correct use of promises in tests.
+    'jest/valid-expect-in-promise': 'error',
+
+    // Validate correct use of expect().
+    'jest/valid-expect': 'error',
+
     // Enforce using ES2017 async/await syntax for asynchronous functionality.
     'promise/prefer-await-to-then': 'error',
     'promise/prefer-await-to-callbacks': 'error',
@@ -378,23 +457,6 @@ module.exports = {
         'padded-blocks': 'off',
         'flowtype/no-weak-types': 'off',
         'import/max-dependencies': 'off',
-        // #TODO check https://github.com/jest-community/eslint-plugin-jest/issues/113
-        'jest/consistent-test-it': ['error', { 'fn': 'test', 'withinDescribe': 'it' }],
-        'jest/lowercase-name': ['error', { 'ignore': ['describe'] }],
-        'jest/no-disabled-tests': 'error',
-        'jest/no-focused-tests': 'error',
-        'jest/no-identical-title': 'error',
-        'jest/no-jasmine-globals': 'error',
-        'jest/no-jest-import': 'error',
-        'jest/no-large-snapshots': 'error',
-        'jest/no-test-prefixes': 'error',
-        'jest/prefer-expect-assertions': 'off',
-        'jest/prefer-to-be-null': 'error',
-        'jest/prefer-to-be-undefined': 'error',
-        'jest/prefer-to-have-length': 'error',
-        'jest/valid-describe': 'error',
-        'jest/valid-expect-in-promise': 'error',
-        'jest/valid-expect': 'error',
         'react/jsx-no-bind': 'off',
       },
     },

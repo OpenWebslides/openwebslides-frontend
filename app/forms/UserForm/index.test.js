@@ -16,6 +16,7 @@ describe(`UserForm`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
+  // eslint-disable-next-line jest/expect-expect
   it(`checks its checkbox #TEMP`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
