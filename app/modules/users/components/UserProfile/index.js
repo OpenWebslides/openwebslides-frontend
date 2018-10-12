@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { Link } from 'react-router-dom';
@@ -94,7 +94,7 @@ class PureUserProfile extends React.Component<Props> {
   }
 }
 
-const UserProfile = translate()(connect(null, mapDispatchToProps)(PureUserProfile));
+const UserProfile = withNamespaces()(connect(null, mapDispatchToProps)(PureUserProfile));
 
 export { PureUserProfile };
 export default UserProfile;

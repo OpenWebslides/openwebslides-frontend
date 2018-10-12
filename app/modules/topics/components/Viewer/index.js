@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Header, Menu, Button, Icon } from 'semantic-ui-react';
 
@@ -89,7 +89,7 @@ class PureViewer extends React.Component<Props> {
   }
 }
 
-const Viewer = connect(mapStateToProps)(translate()(PureViewer));
+const Viewer = connect(mapStateToProps)(withNamespaces()(PureViewer));
 
 export { PureViewer };
 export default Viewer;

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 
 import topics from 'modules/topics';
 
@@ -29,7 +29,7 @@ const PureSlidePreviewsSidebar = (props: Props): React.Node => {
   );
 };
 
-const SlidePreviewsSidebar = translate()(PureSlidePreviewsSidebar);
+const SlidePreviewsSidebar = withNamespaces()(PureSlidePreviewsSidebar);
 
 export { PureSlidePreviewsSidebar };
 export default SlidePreviewsSidebar;

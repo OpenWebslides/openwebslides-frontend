@@ -1,5 +1,5 @@
-// flow-typed signature: b88eac8c33758c6efd4f04fe38f7475a
-// flow-typed version: 33af59e963/jest_v23.x.x/flow_>=v0.39.x
+// flow-typed signature: 691597c4a5aab83a3b2e6d9ccd01a97d
+// flow-typed version: 71534a866d/jest_v23.x.x/flow_>=v0.39.x
 
 type JestMockFn<TArguments: $ReadOnlyArray<*>, TReturn> = {
   (...args: TArguments): TReturn,
@@ -17,7 +17,12 @@ type JestMockFn<TArguments: $ReadOnlyArray<*>, TReturn> = {
      * An array that contains all the object instances that have been
      * instantiated from this mock function.
      */
-    instances: Array<TReturn>
+    instances: Array<TReturn>,
+    /**
+     * An array that contains all the object results that have been
+     * returned by this mock function call
+     */
+    results: Array<{ isThrow: boolean, value: TReturn }>
   },
   /**
    * Resets all information stored in the mockFn.mock.calls and
@@ -119,7 +124,9 @@ type JestMatcherResult = {
   pass: boolean
 };
 
-type JestMatcher = (actual: any, expected: any) => JestMatcherResult;
+type JestMatcher = (actual: any, expected: any) =>
+  | JestMatcherResult
+  | Promise<JestMatcherResult>;
 
 type JestPromiseType = {
   /**
@@ -168,11 +175,16 @@ type JestStyledComponentsMatchersType = {
  *  Plugin: jest-enzyme
  */
 type EnzymeMatchersType = {
+  // 5.x
+  toBeEmpty(): void,
+  toBePresent(): void,
+  // 6.x
   toBeChecked(): void,
   toBeDisabled(): void,
-  toBeEmpty(): void,
   toBeEmptyRender(): void,
-  toBePresent(): void,
+  toContainMatchingElement(selector: string): void;
+  toContainMatchingElements(n: number, selector: string): void;
+  toContainExactlyOneMatchingElement(selector: string): void;
   toContainReact(element: React$Element<any>): void,
   toExist(): void,
   toHaveClassName(className: string): void,
@@ -183,9 +195,12 @@ type EnzymeMatchersType = {
   toHaveStyle: ((styleKey: string, styleValue?: any) => void) & ((style: Object) => void),
   toHaveTagName(tagName: string): void,
   toHaveText(text: string): void,
-  toIncludeText(text: string): void,
   toHaveValue(value: any): void,
-  toMatchElement(element: React$Element<any>): void,
+  toIncludeText(text: string): void,
+  toMatchElement(
+    element: React$Element<any>,
+    options?: {| ignoreProps?: boolean |},
+  ): void,
   toMatchSelector(selector: string): void
 };
 
@@ -689,14 +704,14 @@ interface JestExpectType {
   /**
    * This ensures that an Object matches the most recent snapshot.
    */
-  toMatchSnapshot(propertyMatchers?: {[key: string]: JestAsymmetricEqualityType}, name?: string): void,
+  toMatchSnapshot(propertyMatchers?: any, name?: string): void,
   /**
    * This ensures that an Object matches the most recent snapshot.
    */
   toMatchSnapshot(name: string): void,
 
   toMatchInlineSnapshot(snapshot?: string): void,
-  toMatchInlineSnapshot(propertyMatchers?: {[key: string]: JestAsymmetricEqualityType}, snapshot?: string): void,
+  toMatchInlineSnapshot(propertyMatchers?: any, snapshot?: string): void,
   /**
    * Use .toThrow to test that a function throws when it is called.
    * If you want to test that a specific error gets thrown, you can provide an

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Card } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
@@ -51,7 +51,7 @@ const PureResendConfirmationEmailCard = (props: Props): React.Node => {
 };
 
 const ResendConfirmationEmailCard = connect(null, mapDispatchToProps)(
-  translate()(PureResendConfirmationEmailCard),
+  withNamespaces()(PureResendConfirmationEmailCard),
 );
 
 export { PureResendConfirmationEmailCard };

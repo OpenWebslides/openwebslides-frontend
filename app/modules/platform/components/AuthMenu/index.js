@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Menu, Icon } from 'semantic-ui-react';
 
@@ -26,7 +26,7 @@ const PureAuthMenu = (props: Props): React.Node => {
   );
 };
 
-const AuthMenu = translate()(PureAuthMenu);
+const AuthMenu = withNamespaces()(PureAuthMenu);
 
 export { PureAuthMenu };
 export default AuthMenu;

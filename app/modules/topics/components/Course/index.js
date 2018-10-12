@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { type AppState } from 'types/redux';
@@ -48,7 +48,7 @@ const PureCourse = (props: Props): React.Node => {
   );
 };
 
-const Course = connect(mapStateToProps)(translate()(PureCourse));
+const Course = connect(mapStateToProps)(withNamespaces()(PureCourse));
 
 export { PureCourse };
 export default Course;

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
@@ -23,7 +23,7 @@ const PureNavigationBar = (props: Props): React.Node => {
   );
 };
 
-const NavigationBar = translate()(PureNavigationBar);
+const NavigationBar = withNamespaces()(PureNavigationBar);
 
 export { PureNavigationBar };
 export default NavigationBar;

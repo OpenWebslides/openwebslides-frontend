@@ -10,6 +10,7 @@ import { createStore, applyMiddleware, type Store } from 'redux';
 import { middleware as flashMiddleware } from 'redux-flash';
 // Redux-persist
 import { persistStore, persistReducer } from 'redux-persist';
+// $FlowFixMe redux-persist had to be ignored in .flowconfig because it caused unsurpressable errors
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 // eslint-disable-next-line flowtype/type-import-style

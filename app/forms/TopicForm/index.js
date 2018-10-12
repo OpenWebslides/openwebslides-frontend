@@ -2,12 +2,10 @@
 
 import * as React from 'react';
 import { Field, reduxForm } from 'redux-form';
-// #TODO see https://github.com/erikras/redux-form/issues/3630#issue-276018629
-// eslint-disable-next-line import/no-internal-modules
-import { type FormProps } from 'redux-form/lib/types.js.flow';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Form, Input } from 'semantic-ui-react';
 
+import { type FormProps } from 'types/form';
 import SubmitButtonGroup from 'components/SubmitButtonGroup';
 
 type TopicFormValues = {|
@@ -52,7 +50,7 @@ PureTopicForm.defaultProps = {
   children: null,
 };
 
-const TopicForm = translate()(reduxForm({ form: 'topicForm' })(PureTopicForm));
+const TopicForm = withNamespaces()(reduxForm({ form: 'topicForm' })(PureTopicForm));
 
 export type { TopicFormValues };
 export { PureTopicForm };

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Card, Button, Icon } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
@@ -65,7 +65,9 @@ const PureResetPasswordCard = (props: Props): React.Node => {
   );
 };
 
-const ResetPasswordCard = connect(null, mapDispatchToProps)(translate()(PureResetPasswordCard));
+const ResetPasswordCard = connect(null, mapDispatchToProps)(
+  withNamespaces()(PureResetPasswordCard),
+);
 
 export { PureResetPasswordCard };
 export default ResetPasswordCard;

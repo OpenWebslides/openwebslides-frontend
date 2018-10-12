@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
 
@@ -17,7 +17,7 @@ const PureNotFoundPage = (props: Props): React.Node => {
   );
 };
 
-const NotFoundPage = translate()(PureNotFoundPage);
+const NotFoundPage = withNamespaces()(PureNotFoundPage);
 
 export { PureNotFoundPage };
 export default NotFoundPage;

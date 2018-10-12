@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { flashErrorMessage } from 'redux-flash';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
 import { push } from 'connected-react-router';
 
@@ -68,7 +68,7 @@ class PureSSOCallbackPage extends React.Component<Props> {
   }
 }
 
-const SSOCallbackPage = translate()(connect(null, mapDispatchToProps)(PureSSOCallbackPage));
+const SSOCallbackPage = withNamespaces()(connect(null, mapDispatchToProps)(PureSSOCallbackPage));
 
 export { PureSSOCallbackPage };
 export default SSOCallbackPage;

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { type AppState } from 'types/redux';
@@ -54,7 +54,7 @@ const PureSlidesList = (props: Props): React.Node => {
   );
 };
 
-const SlidesList = connect(mapStateToProps)(translate()(PureSlidesList));
+const SlidesList = connect(mapStateToProps)(withNamespaces()(PureSlidesList));
 
 export { PureSlidesList };
 export default SlidesList;

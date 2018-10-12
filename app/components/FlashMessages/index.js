@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Message } from 'semantic-ui-react';
 import { getLatestMessage } from 'redux-flash';
 
@@ -50,7 +50,7 @@ const PureFlashMessages = (props: Props): React.Node => {
   );
 };
 
-const FlashMessages = connect(mapStateToProps)(translate()(PureFlashMessages));
+const FlashMessages = connect(mapStateToProps)(withNamespaces()(PureFlashMessages));
 
 export { PureFlashMessages };
 export default FlashMessages;

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
@@ -51,7 +51,7 @@ class PureForkInfo extends React.Component<Props> {
   }
 }
 
-const ForkInfo = translate()(PureForkInfo);
+const ForkInfo = withNamespaces()(PureForkInfo);
 
 export { PureForkInfo };
 export default ForkInfo;

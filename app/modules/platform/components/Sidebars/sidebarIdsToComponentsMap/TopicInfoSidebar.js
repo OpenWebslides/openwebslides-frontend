@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Item } from 'semantic-ui-react';
 
 import topics from 'modules/topics';
@@ -41,7 +41,7 @@ const PureTopicInfoSidebar = (props: Props): React.Node => {
           <Item.Content>
             <Item.Header>{t('topics:props.description')}</Item.Header>
             <Item.Description data-test-id="topic-info-sidebar-topic-description">
-              {(topic.description != null) ? topic.description : `(${t('topics:noDescription')})`}
+              {(topic.description != null) ? topic.description : `(${t('topics:props.noDescription')})`}
             </Item.Description>
           </Item.Content>
         </Item>
@@ -57,7 +57,7 @@ const PureTopicInfoSidebar = (props: Props): React.Node => {
   );
 };
 
-const TopicInfoSidebar = translate()(PureTopicInfoSidebar);
+const TopicInfoSidebar = withNamespaces()(PureTopicInfoSidebar);
 
 export { PureTopicInfoSidebar };
 export default TopicInfoSidebar;

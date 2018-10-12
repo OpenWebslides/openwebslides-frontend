@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Card, Button, Icon } from 'semantic-ui-react';
 
@@ -73,7 +73,7 @@ const PureSignupCard = (props: Props): React.Node => {
   );
 };
 
-const SignupCard = connect(null, mapDispatchToProps)(translate()(PureSignupCard));
+const SignupCard = connect(null, mapDispatchToProps)(withNamespaces()(PureSignupCard));
 
 export { PureSignupCard };
 export default SignupCard;

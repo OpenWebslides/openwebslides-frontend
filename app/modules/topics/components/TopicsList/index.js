@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, Card, Icon } from 'semantic-ui-react';
 
@@ -56,7 +56,7 @@ class PureTopicsList extends React.Component<Props> {
   }
 }
 
-const TopicsList = translate()(PureTopicsList);
+const TopicsList = withNamespaces()(PureTopicsList);
 
 export { PureTopicsList };
 export default TopicsList;
