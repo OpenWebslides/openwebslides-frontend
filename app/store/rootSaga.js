@@ -1,17 +1,16 @@
 // @flow
 
-/* eslint-disable import/no-internal-modules, sort-imports */
-// ^ note: make exception to the rule of only importing entire modules to avoid dependency cycles
+/* eslint-disable sort-imports */
 
 import { type Saga } from 'redux-saga';
 import { all, call } from 'redux-saga/effects';
 
-import asyncRequestsSaga from 'modules/asyncRequests/saga';
-import contentItemsSaga from 'modules/contentItems/saga';
-import feedItemsSaga from 'modules/feedItems/saga';
-import platformSaga from 'modules/platform/saga';
-import topicsSaga from 'modules/topics/saga';
-import usersSaga from 'modules/users/saga';
+import asyncRequests from 'modules/asyncRequests';
+import contentItems from 'modules/contentItems';
+import feedItems from 'modules/feedItems';
+import platform from 'modules/platform';
+import topics from 'modules/topics';
+import users from 'modules/users';
 
 /**
  * Sets up the root saga.
@@ -19,12 +18,12 @@ import usersSaga from 'modules/users/saga';
 
 const rootSaga = function* (): Saga<void> {
   yield all([
-    call(asyncRequestsSaga),
-    call(contentItemsSaga),
-    call(feedItemsSaga),
-    call(platformSaga),
-    call(topicsSaga),
-    call(usersSaga),
+    call(asyncRequests.saga),
+    call(contentItems.saga),
+    call(feedItems.saga),
+    call(platform.saga),
+    call(topics.saga),
+    call(users.saga),
   ]);
 };
 

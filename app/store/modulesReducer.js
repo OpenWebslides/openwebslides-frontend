@@ -1,25 +1,24 @@
 // @flow
 
-/* eslint-disable import/no-internal-modules, sort-imports */
-// ^ note: make exception to the rule of only importing entire modules to avoid dependency cycles
+/* eslint-disable sort-imports */
 
 import { combineReducers } from 'redux';
 
-import asyncRequestsReducer from 'modules/asyncRequests/reducer';
-import contentItemsReducer from 'modules/contentItems/reducer';
-import feedItemsReducer from 'modules/feedItems/reducer';
-import platformReducer from 'modules/platform/reducer';
-import topicsReducer from 'modules/topics/reducer';
-import usersReducer from 'modules/users/reducer';
+import asyncRequests from 'modules/asyncRequests';
+import contentItems from 'modules/contentItems';
+import feedItems from 'modules/feedItems';
+import platform from 'modules/platform';
+import topics from 'modules/topics';
+import users from 'modules/users';
 
 // Don't forget to edit types/redux.js when a new state part is added here.
 const modulesReducer = combineReducers({
-  asyncRequests: asyncRequestsReducer,
-  contentItems: contentItemsReducer,
-  feedItems: feedItemsReducer,
-  platform: platformReducer,
-  topics: topicsReducer,
-  users: usersReducer,
+  asyncRequests: asyncRequests.reducer,
+  contentItems: contentItems.reducer,
+  feedItems: feedItems.reducer,
+  platform: platform.reducer,
+  topics: topics.reducer,
+  users: users.reducer,
 });
 
 export default modulesReducer;
