@@ -16,7 +16,7 @@ describe(`ConditionalWrapper`, (): void => {
         <p>Secure text</p>
       </PureConditionalWrapper>,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders its children, when renderChildren is TRUE`, (): void => {

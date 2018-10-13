@@ -69,7 +69,7 @@ describe(`moveInState`, (): void => {
     };
     const resultState = reducer(prevState, moveInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyHeading1.id]).not.toBe(prevState.byId[dummyHeading1.id]);
@@ -115,7 +115,7 @@ describe(`moveInState`, (): void => {
     };
     const resultState = reducer(prevState, moveInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyRoot.id]).not.toBe(prevState.byId[dummyRoot.id]);
@@ -150,7 +150,7 @@ describe(`moveInState`, (): void => {
     };
     const resultState = reducer(prevState, moveInStateAction);
 
-    expect(resultState).toEqual(prevState);
+    expect(resultState).toStrictEqual(prevState);
     expect(resultState).toBe(prevState);
   });
 

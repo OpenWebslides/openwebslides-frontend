@@ -16,7 +16,7 @@ describe(`fetch`, (): void => {
     };
     const actualAction = actions.fetch(dummyUserId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

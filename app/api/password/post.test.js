@@ -23,7 +23,7 @@ describe(`api.password.post`, (): void => {
 
     expect(mockUrl).toBe(`${API_URL}/password`);
     expect(mockOptions.method).toBe(httpMethods.POST);
-    expect(JSON.parse(mockOptions.body)).toEqual({
+    expect(JSON.parse(mockOptions.body)).toStrictEqual({
       data: {
         type: 'passwords',
         attributes: {

@@ -29,12 +29,12 @@ describe(`getAll`, (): void => {
 
   it(`returns an array containing all feedItems, when there are one or more feedItems in the state`, (): void => {
     const feedItems = selectors.getAll(dummyState);
-    expect(feedItems).toEqual([dummyFeedItem1, dummyFeedItem2]);
+    expect(feedItems).toStrictEqual([dummyFeedItem1, dummyFeedItem2]);
   });
 
   it(`returns an empty array, when there are no feedItems in the state`, (): void => {
     const feedItems = selectors.getAll(dummyEmptyState);
-    expect(feedItems).toEqual([]);
+    expect(feedItems).toStrictEqual([]);
   });
 
 });

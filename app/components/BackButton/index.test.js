@@ -13,7 +13,7 @@ describe(`BackButton`, (): void => {
     const enzymeWrapper = shallow(
       <PureBackButton {...dummyProviderProps.translatorProps} {...dummyProviderProps.routerProps} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

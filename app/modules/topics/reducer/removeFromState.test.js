@@ -38,7 +38,7 @@ describe(`reducer`, (): void => {
     };
     const resultState = reducer(prevState, removeFromStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
   });

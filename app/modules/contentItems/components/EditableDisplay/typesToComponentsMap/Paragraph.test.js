@@ -34,7 +34,7 @@ describe(`Paragraph`, (): void => {
         {...dummyFunctionProps}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders its text prop`, (): void => {

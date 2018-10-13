@@ -26,7 +26,7 @@ describe(`ApiRequest`, (): void => {
 
   it(`correctly sets the method and uses defaults for the rest of the config, when it is created`, (): void => {
     const dummyRequest = new ApiRequest(httpMethods.GET);
-    expect(dummyRequest.config).toEqual({
+    expect(dummyRequest.config).toStrictEqual({
       ...defaultConfig,
       method: httpMethods.GET,
     });

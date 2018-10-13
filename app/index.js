@@ -7,6 +7,7 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+// $FlowFixMe redux-persist had to be ignored in .flowconfig because it caused unsurpressable errors
 import { PersistGate } from 'redux-persist/integration/react';
 
 import configureStore from 'store/configureStore';

@@ -11,7 +11,7 @@ describe(`SidebarsMenu`, (): void => {
     const enzymeWrapper = shallow(
       <PureSidebarsMenu />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

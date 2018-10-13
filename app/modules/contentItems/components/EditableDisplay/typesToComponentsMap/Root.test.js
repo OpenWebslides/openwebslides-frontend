@@ -39,7 +39,7 @@ describe(`Root`, (): void => {
     const enzymeWrapper = shallow(
       <PureRoot contentItem={dummyRoot} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders all of its child items`, (): void => {

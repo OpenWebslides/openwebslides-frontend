@@ -48,7 +48,7 @@ describe(`Viewer`, (): void => {
         onForkTopic={dummyOnForkTopic}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`loads the topic, when the topic or its content was not previously present in the state`, (): void => {

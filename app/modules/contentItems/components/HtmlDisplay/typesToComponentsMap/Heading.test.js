@@ -25,7 +25,7 @@ describe(`Heading`, (): void => {
         headingLevel={1}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders its text prop inside a heading tag of the appropriate level`, (): void => {
@@ -42,17 +42,17 @@ describe(`Heading`, (): void => {
     const h5Tags = enzymeWrapperLevel5.find('h5');
     const h6Tags = enzymeWrapperLevel6.find('h6');
     expect(h1Tags).toHaveLength(1);
-    expect(h1Tags.first().text()).toEqual(dummyHeading.text);
+    expect(h1Tags.first().text()).toBe(dummyHeading.text);
     expect(h2Tags).toHaveLength(1);
-    expect(h2Tags.first().text()).toEqual(dummyHeading.text);
+    expect(h2Tags.first().text()).toBe(dummyHeading.text);
     expect(h3Tags).toHaveLength(1);
-    expect(h3Tags.first().text()).toEqual(dummyHeading.text);
+    expect(h3Tags.first().text()).toBe(dummyHeading.text);
     expect(h4Tags).toHaveLength(1);
-    expect(h4Tags.first().text()).toEqual(dummyHeading.text);
+    expect(h4Tags.first().text()).toBe(dummyHeading.text);
     expect(h5Tags).toHaveLength(1);
-    expect(h5Tags.first().text()).toEqual(dummyHeading.text);
+    expect(h5Tags.first().text()).toBe(dummyHeading.text);
     expect(h6Tags).toHaveLength(1);
-    expect(h6Tags.first().text()).toEqual(dummyHeading.text);
+    expect(h6Tags.first().text()).toBe(dummyHeading.text);
   });
 
   it(`renders a heading level greater than 6 as a h6 tag instead of an invalid higher level heading tag`, (): void => {

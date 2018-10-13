@@ -35,7 +35,7 @@ describe(`EditableTextContent`, (): void => {
         initialText={dummyText}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders its text prop`, (): void => {
@@ -153,6 +153,7 @@ describe(`EditableTextContent`, (): void => {
     expect(dummyKeyDown).toHaveBeenCalled();
   });
 
+  // eslint-disable-next-line jest/expect-expect
   it(`doesn't do anything, when there is no passed onKeyDown function and it is in input mode and receives a keyDown event`, (): void => {
     // Pointless but needed for 100% coverage...
     const enzymeWrapper = mount(
@@ -181,7 +182,7 @@ describe(`EditableTextContent`, (): void => {
         onDeactivate: dummyDeactivate,
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
-      expect(result).toEqual({
+      expect(result).toStrictEqual({
         initialText: dummyNewText,
         text: dummyNewText,
       });
@@ -203,7 +204,7 @@ describe(`EditableTextContent`, (): void => {
         onDeactivate: dummyDeactivate,
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
-      expect(result).toEqual({
+      expect(result).toStrictEqual({
         initialIsActive: true,
         isActive: true,
       });
@@ -225,7 +226,7 @@ describe(`EditableTextContent`, (): void => {
         onDeactivate: dummyDeactivate,
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
-      expect(result).toEqual({});
+      expect(result).toStrictEqual({});
     });
 
   });

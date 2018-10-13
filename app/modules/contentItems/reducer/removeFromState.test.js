@@ -46,7 +46,7 @@ describe(`removeFromState`, (): void => {
     };
     const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(nextState);
     expect(resultState.byId).not.toBe(nextState.byId);
   });
@@ -77,7 +77,7 @@ describe(`removeFromState`, (): void => {
     };
     const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(nextState);
     expect(resultState.byId).not.toBe(nextState.byId);
     expect(resultState.byId[dummyHeading11.id]).not.toBe(nextState.byId[dummyHeading11.id]);
@@ -110,7 +110,7 @@ describe(`removeFromState`, (): void => {
     };
     const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(nextState);
     expect(resultState.byId).not.toBe(nextState.byId);
     expect(resultState.byId[dummyRoot1.id]).not.toBe(nextState.byId[dummyRoot1.id]);
@@ -141,7 +141,7 @@ describe(`removeFromState`, (): void => {
     };
     const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
   });
 
   it(`removes all childItems as well, when the contentItem to delete is a parentItem`, (): void => {
@@ -168,7 +168,7 @@ describe(`removeFromState`, (): void => {
     };
     const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
   });
 
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, (): void => {

@@ -24,7 +24,7 @@ describe(`forkTopic`, (): void => {
     };
     const actualAction = actions.forkTopic(dummyUserId, dummyTopicId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

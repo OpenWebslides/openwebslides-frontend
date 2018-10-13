@@ -15,7 +15,7 @@ describe(`ResendConfirmationEmailPage`, (): void => {
         {...dummyProviderProps.translatorProps}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

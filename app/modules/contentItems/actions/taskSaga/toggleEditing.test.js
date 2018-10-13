@@ -21,7 +21,7 @@ describe(`toggleEditing`, (): void => {
       },
     };
     const actualAction = actions.toggleEditing(dummyId, true);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`does not set an isEditing prop in the action payload, when the isEditing argument was not set`, (): void => {
@@ -32,7 +32,7 @@ describe(`toggleEditing`, (): void => {
       },
     };
     const actualAction = actions.toggleEditing(dummyId);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

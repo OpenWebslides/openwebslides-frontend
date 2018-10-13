@@ -35,7 +35,7 @@ describe(`TopicsList`, (): void => {
         onRemoveTopic={jest.fn()}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders a new topic button, when isCurrentUser is TRUE`, (): void => {

@@ -13,7 +13,7 @@ describe(`fetchAll`, (): void => {
     };
     const actualAction = actions.fetchAll();
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

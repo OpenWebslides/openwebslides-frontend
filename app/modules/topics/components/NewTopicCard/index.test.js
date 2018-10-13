@@ -27,7 +27,7 @@ describe(`NewTopicCard`, (): void => {
         onAddTopic={dummyOnAddTopic}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`calls the passed onAddTopic function, when its form is submitted with complete values`, (): void => {

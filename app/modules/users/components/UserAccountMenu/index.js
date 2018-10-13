@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Menu, Dropdown, Icon } from 'semantic-ui-react';
 
@@ -56,7 +56,7 @@ class PureUserAccountMenu extends React.Component<Props> {
   }
 }
 
-const UserAccountMenu = translate()(PureUserAccountMenu);
+const UserAccountMenu = withNamespaces()(PureUserAccountMenu);
 
 export { PureUserAccountMenu };
 export default UserAccountMenu;

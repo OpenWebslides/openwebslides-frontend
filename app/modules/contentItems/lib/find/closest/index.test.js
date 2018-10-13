@@ -98,7 +98,7 @@ describe(`findClosest`, (): void => {
   it(`calls the passed precicate function with the correct arguments`, (): void => {
     const dummyPredicate = jest.fn(() => false);
     lib.find.closest(dummyParagraph1121, dummyContentItemsById, lib.find.parentOrSuperItem, dummyPredicate);
-    expect(dummyPredicate.mock.calls).toEqual([
+    expect(dummyPredicate.mock.calls).toStrictEqual([
       [dummyParagraph112, [dummyParagraph1121.id], dummyContentItemsById],
       [dummyHeading11, [dummyParagraph1121.id, dummyParagraph112.id], dummyContentItemsById],
       [dummyHeading1, [dummyParagraph1121.id, dummyParagraph112.id, dummyHeading11.id], dummyContentItemsById],

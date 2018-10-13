@@ -38,7 +38,7 @@ describe(`UserProfile`, (): void => {
         removeTopicFromUser={jest.fn()}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`fetches the user's profile, when the user was not previously present in the state`, (): void => {

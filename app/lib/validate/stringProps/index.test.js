@@ -17,7 +17,7 @@ describe(`validateStringProps`, (): void => {
     };
     const resultPropsObject = validate.stringProps(dummyStringKeys, dummyNullableStringKeys, dummyPropsObject);
 
-    expect(resultPropsObject).toEqual(dummyPropsObject);
+    expect(resultPropsObject).toStrictEqual(dummyPropsObject);
   });
 
   it(`trims all string props, when trim is TRUE`, (): void => {
@@ -37,7 +37,7 @@ describe(`validateStringProps`, (): void => {
     };
     const resultPropsObject = validate.stringProps(dummyStringKeys, dummyNullableStringKeys, dummyPropsObject, true);
 
-    expect(resultPropsObject).toEqual(expectedPropsObject);
+    expect(resultPropsObject).toStrictEqual(expectedPropsObject);
   });
 
   it(`does not trim string props, when trim is FALSE`, (): void => {
@@ -51,7 +51,7 @@ describe(`validateStringProps`, (): void => {
     };
     const resultPropsObject = validate.stringProps(dummyStringKeys, dummyNullableStringKeys, dummyPropsObject, false);
 
-    expect(resultPropsObject).toEqual(dummyPropsObject);
+    expect(resultPropsObject).toStrictEqual(dummyPropsObject);
   });
 
   it(`converts all string props that are empty after trimming to NULL`, (): void => {
@@ -71,7 +71,7 @@ describe(`validateStringProps`, (): void => {
     };
     const resultPropsObject = validate.stringProps(dummyStringKeys, dummyNullableStringKeys, dummyPropsObject, true);
 
-    expect(resultPropsObject).toEqual(expectedPropsObject);
+    expect(resultPropsObject).toStrictEqual(expectedPropsObject);
   });
 
   it(`throws an InvalidArgumentError, when a non-nullable string prop is NULL after conversion`, (): void => {
@@ -101,7 +101,7 @@ describe(`validateStringProps`, (): void => {
     };
     const resultPropsObject = validate.stringProps(dummyStringKeys, dummyNullableStringKeys, dummyPropsObject);
 
-    expect(resultPropsObject).toEqual(dummyPropsObject);
+    expect(resultPropsObject).toStrictEqual(dummyPropsObject);
   });
 
   it(`does not mutate the propsObject`, (): void => {
@@ -117,7 +117,7 @@ describe(`validateStringProps`, (): void => {
     const resultPropsObject = validate.stringProps(dummyStringKeys, dummyNullableStringKeys, dummyPropsObject, true);
 
     expect(resultPropsObject).not.toBe(dummyPropsObject);
-    expect(dummyPropsObject).toEqual(dummyPropsObjectCopy);
+    expect(dummyPropsObject).toStrictEqual(dummyPropsObjectCopy);
   });
 
   it(`throws an InvalidArgumentError, when one of the stringKeys is not present in the propsObject`, (): void => {

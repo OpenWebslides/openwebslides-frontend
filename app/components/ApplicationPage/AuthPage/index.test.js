@@ -11,7 +11,7 @@ describe(`AuthPage`, (): void => {
     const enzymeWrapper = shallow(
       <PureAuthPage />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

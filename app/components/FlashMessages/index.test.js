@@ -53,7 +53,7 @@ describe(`FlashMessages`, (): void => {
         flash={flash}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders nothing without flash`, (): void => {
@@ -63,7 +63,7 @@ describe(`FlashMessages`, (): void => {
         flash={null}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(true);
+    expect(enzymeWrapper.isEmptyRender()).toBe(true);
   });
 
   it(`renders the latest flash message`, (): void => {

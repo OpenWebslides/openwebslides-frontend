@@ -48,7 +48,7 @@ describe(`SlidesList`, (): void => {
         rootContentItems={[]}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders a slide for each of the rootContentItems returned by the contentItemSplit function`, (): void => {
@@ -59,7 +59,7 @@ describe(`SlidesList`, (): void => {
     );
 
     enzymeWrapper.find('PureSlide').forEach((pureSlide: any, index: number): void => {
-      expect(pureSlide.props().contentItem).toEqual(dummyRootContentItems[index]);
+      expect(pureSlide.props().contentItem).toStrictEqual(dummyRootContentItems[index]);
     });
   });
 

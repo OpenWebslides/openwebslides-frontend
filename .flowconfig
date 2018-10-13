@@ -2,13 +2,15 @@
 <PROJECT_ROOT>/node_modules/.*
 
 [ignore]
+<PROJECT_ROOT>/node_modules/redux-form/.*
+<PROJECT_ROOT>/node_modules/redux-persist/.*
 
 [include]
 
 [libs]
 
 [lints]
-all=warn
+all=error
 # Unsafe types are already prohibited by eslint flowtype/no-weak-types, which also allows for exceptions in test files.
 unclear-type=off
 

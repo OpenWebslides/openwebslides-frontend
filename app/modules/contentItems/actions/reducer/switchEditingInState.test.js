@@ -25,7 +25,7 @@ describe(`switchEditingInState`, (): void => {
       },
     };
     const actualAction = actions.switchEditingInState(dummyPrevId, dummyNextId);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`converts undefined id values to NULL`, (): void => {
@@ -45,8 +45,8 @@ describe(`switchEditingInState`, (): void => {
     };
     const actualAction1 = actions.switchEditingInState(undefined, dummyNextId);
     const actualAction2 = actions.switchEditingInState(dummyPrevId, undefined);
-    expect(actualAction1).toEqual(expectedAction1);
-    expect(actualAction2).toEqual(expectedAction2);
+    expect(actualAction1).toStrictEqual(expectedAction1);
+    expect(actualAction2).toStrictEqual(expectedAction2);
   });
 
   it(`throws an UnsupportedOperationError, when both ids are NULL`, (): void => {

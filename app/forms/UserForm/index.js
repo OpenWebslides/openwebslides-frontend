@@ -2,12 +2,10 @@
 
 import * as React from 'react';
 import { Field, reduxForm, type FieldProps } from 'redux-form';
-// #TODO see https://github.com/erikras/redux-form/issues/3630#issue-276018629
-// eslint-disable-next-line import/no-internal-modules
-import { type FormProps } from 'redux-form/lib/types.js.flow';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Form, Input, Checkbox } from 'semantic-ui-react';
 
+import { type FormProps } from 'types/form';
 import SubmitButtonGroup from 'components/SubmitButtonGroup';
 
 type UserFormValues = {|
@@ -105,7 +103,7 @@ PureUserForm.defaultProps = {
   children: null,
 };
 
-const UserForm = reduxForm({ form: 'userForm' })(translate()(PureUserForm));
+const UserForm = reduxForm({ form: 'userForm' })(withNamespaces()(PureUserForm));
 
 export type { UserFormValues };
 export { PureUserForm };

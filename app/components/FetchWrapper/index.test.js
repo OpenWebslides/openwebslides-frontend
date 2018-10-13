@@ -36,7 +36,7 @@ describe(`FetchWrapper`, (): void => {
         fetchedProp={dummyFetchedProp}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders NULL and executes the passed fetchAction, when the passed fetchedPropSelector returns NULL`, (): void => {

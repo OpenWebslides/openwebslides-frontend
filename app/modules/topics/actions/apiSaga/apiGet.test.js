@@ -21,7 +21,7 @@ describe(`apiGet`, (): void => {
     };
     const actualAction = actions.apiGet(dummyId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

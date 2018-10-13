@@ -30,7 +30,7 @@ describe(`SidebarsMenuItem`, (): void => {
         handleMenuItemClick={jest.fn()}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`is active, when the corresponding sidebarId is active`, (): void => {

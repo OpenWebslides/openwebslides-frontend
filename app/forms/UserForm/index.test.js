@@ -13,9 +13,10 @@ describe(`UserForm`, (): void => {
     const enzymeWrapper = shallow(
       <PureUserForm {...dummyProviderProps.translatorProps} {...dummyProviderProps.formProps} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
+  // eslint-disable-next-line jest/expect-expect
   it(`checks its checkbox #TEMP`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>

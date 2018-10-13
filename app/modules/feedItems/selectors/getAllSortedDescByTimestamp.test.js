@@ -32,12 +32,12 @@ describe(`getAllSortedDescByTimestamp`, (): void => {
 
   it(`returns an array containing all feedItems sorted by timestamp in descending order, when there are one or more feedItems in the state`, (): void => {
     const feedItems = selectors.getAllSortedDescByTimestamp(dummyState);
-    expect(feedItems).toEqual([dummyFeedItem3, dummyFeedItem2, dummyFeedItem1]);
+    expect(feedItems).toStrictEqual([dummyFeedItem3, dummyFeedItem2, dummyFeedItem1]);
   });
 
   it(`returns an empty array, when there are no feedItems in the state`, (): void => {
     const feedItems = selectors.getAllSortedDescByTimestamp(dummyEmptyState);
-    expect(feedItems).toEqual([]);
+    expect(feedItems).toStrictEqual([]);
   });
 
 });

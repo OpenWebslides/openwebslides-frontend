@@ -20,7 +20,7 @@ describe(`InlineMarkdown`, (): void => {
         text={dummyText}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders an element with class 'inline-markdown'`, (): void => {
@@ -29,7 +29,7 @@ describe(`InlineMarkdown`, (): void => {
         text={dummyText}
       />,
     );
-    expect(enzymeWrapper.hasClass('inline-markdown')).toEqual(true);
+    expect(enzymeWrapper.hasClass('inline-markdown')).toBe(true);
   });
 
   it(`renders only inline HTML elements`, (): void => {
@@ -49,7 +49,7 @@ describe(`InlineMarkdown`, (): void => {
         text={dummyText}
       />,
     );
-    expect(enzymeWrapper.text()).toEqual(dummyTextPlain);
+    expect(enzymeWrapper.text()).toBe(dummyTextPlain);
   });
 
   it(`converts text surrounded by single asterisks to em tags`, (): void => {
@@ -63,7 +63,7 @@ describe(`InlineMarkdown`, (): void => {
     expect(emElements).toHaveLength(dummyTextEm.length);
 
     for (let i: number = 0; i < emElements.length; i += 1) {
-      expect(emElements.eq(i).text()).toEqual(dummyTextEm[i]);
+      expect(emElements.eq(i).text()).toBe(dummyTextEm[i]);
     }
   });
 
@@ -78,7 +78,7 @@ describe(`InlineMarkdown`, (): void => {
     expect(strongElements).toHaveLength(dummyTextStrong.length);
 
     for (let i: number = 0; i < strongElements.length; i += 1) {
-      expect(strongElements.eq(i).text()).toEqual(dummyTextStrong[i]);
+      expect(strongElements.eq(i).text()).toBe(dummyTextStrong[i]);
     }
   });
 
@@ -93,7 +93,7 @@ describe(`InlineMarkdown`, (): void => {
     expect(codeElements).toHaveLength(dummyTextCode.length);
 
     for (let i: number = 0; i < codeElements.length; i += 1) {
-      expect(codeElements.eq(i).text()).toEqual(dummyTextCode[i]);
+      expect(codeElements.eq(i).text()).toBe(dummyTextCode[i]);
     }
   });
 
@@ -108,7 +108,7 @@ describe(`InlineMarkdown`, (): void => {
     expect(anchorElements).toHaveLength(dummyTextAnchor.length);
 
     for (let i: number = 0; i < anchorElements.length; i += 1) {
-      expect(anchorElements.eq(i).text()).toEqual(dummyTextAnchor[i]);
+      expect(anchorElements.eq(i).text()).toBe(dummyTextAnchor[i]);
     }
   });
 

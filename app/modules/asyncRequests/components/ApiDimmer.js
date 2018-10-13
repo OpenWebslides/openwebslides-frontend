@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Dimmer, Loader } from 'semantic-ui-react';
 
 import { type AppState } from 'types/redux';
@@ -41,7 +41,7 @@ const PureApiDimmer = (props: Props): React.Node => {
   }
 };
 
-const ApiDimmer = connect(mapStateToProps)(translate()(PureApiDimmer));
+const ApiDimmer = connect(mapStateToProps)(withNamespaces()(PureApiDimmer));
 
 export { PureApiDimmer };
 export default ApiDimmer;

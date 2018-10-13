@@ -25,7 +25,7 @@ describe(`TypeBlockWrapper`, (): void => {
         <DummyChildComponent />
       </PureTypeBlockWrapper>,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders an icon with the given iconName`, (): void => {

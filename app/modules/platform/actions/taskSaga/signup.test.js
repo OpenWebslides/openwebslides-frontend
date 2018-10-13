@@ -22,7 +22,7 @@ describe(`signup`, (): void => {
     };
     const actualAction = actions.signup(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

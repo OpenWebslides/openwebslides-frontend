@@ -13,7 +13,7 @@ describe(`EmailForm`, (): void => {
     const enzymeWrapper = shallow(
       <PureEmailForm {...dummyProviderProps.translatorProps} {...dummyProviderProps.formProps} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`allows rendering children instead of default form buttons`, (): void => {

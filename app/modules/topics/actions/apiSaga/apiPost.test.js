@@ -32,7 +32,7 @@ describe(`apiPost`, (): void => {
     };
     const actualAction = actions.apiPost(dummyTitle, dummyDescription, dummyRootContentItemId, dummyUserId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`calls validate.stringProps with the correct arguments and passes the result into the action`, (): void => {
@@ -50,7 +50,7 @@ describe(`apiPost`, (): void => {
         userId: dummyUserId,
       },
     );
-    expect(actualAction.payload).toEqual(dummyValidatedProps);
+    expect(actualAction.payload).toStrictEqual(dummyValidatedProps);
   });
 
 });

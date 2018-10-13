@@ -26,7 +26,7 @@ describe(`setMultipleInState`, (): void => {
       },
     };
     const actualAction = actions.setMultipleInState(dummyContentItems);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

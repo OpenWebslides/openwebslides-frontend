@@ -56,7 +56,7 @@ describe(`findExtendedVerticalContext`, (): void => {
       siblingItemIds: [dummyParagraph11.id, dummyParagraph12.id],
       indexInSiblingItems: 0,
     };
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
   });
 
   it(`returns the correct context, when the passed contentItem is a childItem`, (): void => {
@@ -67,7 +67,7 @@ describe(`findExtendedVerticalContext`, (): void => {
       siblingItemIds: [dummyHeading1.id, dummyHeading2.id],
       indexInSiblingItems: 1,
     };
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
   });
 
   it(`returns the correct context, when the passed contentItem is the first in its list of siblings`, (): void => {
@@ -78,7 +78,7 @@ describe(`findExtendedVerticalContext`, (): void => {
       siblingItemIds: [dummyParagraph21.id, dummyParagraph22.id, dummyParagraph23.id],
       indexInSiblingItems: 0,
     };
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
   });
 
   it(`returns the correct context, when the passed contentItem is the last in its list of siblings`, (): void => {
@@ -89,7 +89,7 @@ describe(`findExtendedVerticalContext`, (): void => {
       siblingItemIds: [dummyParagraph21.id, dummyParagraph22.id, dummyParagraph23.id],
       indexInSiblingItems: 2,
     };
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
   });
 
   it(`returns the correct context, when the passed contentItem is neither the first nor the last in its list of siblings`, (): void => {
@@ -100,7 +100,7 @@ describe(`findExtendedVerticalContext`, (): void => {
       siblingItemIds: [dummyParagraph21.id, dummyParagraph22.id, dummyParagraph23.id],
       indexInSiblingItems: 1,
     };
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
   });
 
   it(`returns the correct context, when the parentOrSuperItem is passed as a argument`, (): void => {
@@ -111,7 +111,7 @@ describe(`findExtendedVerticalContext`, (): void => {
       siblingItemIds: [dummyParagraph11.id, dummyParagraph12.id],
       indexInSiblingItems: 0,
     };
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
   });
 
   it(`throws an InvalidArgumentError, when the passed parentOrSuperItem doesn't contain the passed contentItem as a subItem or childItem`, (): void => {

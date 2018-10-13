@@ -21,7 +21,7 @@ describe(`fork`, (): void => {
     };
     const actualAction = actions.fork(dummyId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

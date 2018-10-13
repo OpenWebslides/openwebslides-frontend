@@ -23,7 +23,7 @@ describe(`SlidePreviewsSidebar`, (): void => {
         topic={dummyTopic}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

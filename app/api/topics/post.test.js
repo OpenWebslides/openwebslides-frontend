@@ -27,7 +27,7 @@ describe(`api.topics.post`, (): void => {
 
     expect(mockUrl).toBe(`${API_URL}/topics`);
     expect(mockOptions.method).toBe(httpMethods.POST);
-    expect(JSON.parse(mockOptions.body)).toEqual({
+    expect(JSON.parse(mockOptions.body)).toStrictEqual({
       data: {
         type: 'topics',
         attributes: {

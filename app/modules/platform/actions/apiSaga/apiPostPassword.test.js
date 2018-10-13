@@ -16,7 +16,7 @@ describe(`apiPostPassword`, (): void => {
     };
     const actualAction = actions.apiPostPassword(dummyEmail);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

@@ -32,7 +32,7 @@ describe(`editPropsForTypeInState`, (): void => {
       },
     };
     const actualAction = actions.editPropsForTypeInState(dummyContentItem, dummyPlainTextProps);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`throws an InvalidArgumentError, when the passed props contain invalid keys for the given contentItemType`, (): void => {
@@ -66,7 +66,7 @@ describe(`editPropsForTypeInState`, (): void => {
         text: `   ${String(dummyPlainTextProps.text)}   `,
       },
     );
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`does not trim passed plainText string props, when the contentItem's isEditing value is TRUE and the passed string props contain unnecessary whitespace`, (): void => {
@@ -87,7 +87,7 @@ describe(`editPropsForTypeInState`, (): void => {
         text: `   ${String(dummyPlainTextProps.text)}   `,
       },
     );
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`throws an InvalidArgumentError, when the contentItem's isEditing value is FALSE and a non-nullable plainText string prop is an empty string`, (): void => {
@@ -117,7 +117,7 @@ describe(`editPropsForTypeInState`, (): void => {
         text: '',
       },
     );
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`temporarily throws a NotYetImplementedError, when attempting to add a type other than plainText`, (): void => {

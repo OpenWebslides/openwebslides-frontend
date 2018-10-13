@@ -17,7 +17,7 @@ describe(`UnauthWrapper`, (): void => {
         <p>Secure text</p>
       </PureUnauthWrapper>,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`passes on the correct props to ConditionalWrapper, when the user is not authenticated`, (): void => {

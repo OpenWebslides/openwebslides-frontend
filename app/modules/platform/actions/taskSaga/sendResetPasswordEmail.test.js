@@ -15,7 +15,7 @@ describe(`sendResetPasswordEmail`, (): void => {
       },
     };
     const actualAction = actions.sendResetPasswordEmail(dummyEmail);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

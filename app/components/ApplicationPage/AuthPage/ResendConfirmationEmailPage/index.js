@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import platform from 'modules/platform';
@@ -18,7 +18,7 @@ const PureResendConfirmationEmailPage = (props: Props): React.Node => {
   );
 };
 
-const ResendConfirmationEmailPage = translate()(PureResendConfirmationEmailPage);
+const ResendConfirmationEmailPage = withNamespaces()(PureResendConfirmationEmailPage);
 
 export { PureResendConfirmationEmailPage };
 export default ResendConfirmationEmailPage;

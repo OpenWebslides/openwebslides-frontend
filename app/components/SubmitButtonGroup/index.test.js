@@ -13,7 +13,7 @@ describe(`SubmitButtonGroup`, (): void => {
     const enzymeWrapper = shallow(
       <PureSubmitButtonGroup {...dummyProviderProps.translatorProps} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

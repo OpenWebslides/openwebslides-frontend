@@ -16,7 +16,7 @@ describe(`setSettingInState`, (): void => {
       },
     };
     const actualAction = actions.setSettingInState(dummyKeyValuePair);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

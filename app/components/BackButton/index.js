@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { withRouter, type ContextRouter as RouterProps } from 'react-router-dom';
 import { Button, Icon } from 'semantic-ui-react';
 
@@ -18,7 +18,7 @@ const PureBackButton = (props: Props): React.Node => {
   );
 };
 
-const BackButton = translate()(withRouter(PureBackButton));
+const BackButton = withNamespaces()(withRouter(PureBackButton));
 
 export { PureBackButton };
 export default BackButton;

@@ -53,7 +53,7 @@ describe(`HtmlDisplay`, (): void => {
         headingLevel={1}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders all of the contentItem's nested child- and subItems`, (): void => {
@@ -127,11 +127,11 @@ describe(`HtmlDisplay`, (): void => {
     const h1Tags = enzymeWrapper.find('h1').hostNodes();
     const h2Tags = enzymeWrapper.find('h2').hostNodes();
     expect(h1Tags).toHaveLength(2);
-    expect(h1Tags.at(0).text()).toEqual(dummyHeading1.text);
-    expect(h1Tags.at(1).text()).toEqual(dummyHeading2.text);
+    expect(h1Tags.at(0).text()).toBe(dummyHeading1.text);
+    expect(h1Tags.at(1).text()).toBe(dummyHeading2.text);
     expect(h2Tags).toHaveLength(2);
-    expect(h2Tags.at(0).text()).toEqual(dummyHeading11.text);
-    expect(h2Tags.at(1).text()).toEqual(dummyHeading12.text);
+    expect(h2Tags.at(0).text()).toBe(dummyHeading11.text);
+    expect(h2Tags.at(1).text()).toBe(dummyHeading12.text);
   });
 
 });

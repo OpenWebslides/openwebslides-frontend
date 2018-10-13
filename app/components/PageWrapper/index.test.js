@@ -14,7 +14,7 @@ describe(`PageWrapper`, (): void => {
         <p>Lorem ipsum dolor sit amet.</p>
       </PurePageWrapper>,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Button, Icon } from 'semantic-ui-react';
 
 import BackButton from 'components/BackButton';
@@ -22,7 +22,7 @@ const PureSubmitButtonGroup = (props: Props): React.Node => {
   );
 };
 
-const SubmitButtonGroup = translate()(PureSubmitButtonGroup);
+const SubmitButtonGroup = withNamespaces()(PureSubmitButtonGroup);
 
 export { PureSubmitButtonGroup };
 export default SubmitButtonGroup;

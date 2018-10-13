@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { type Dispatch } from 'redux';
@@ -102,7 +102,7 @@ class PureEditor extends React.Component<Props> {
   }
 }
 
-const Editor = connect(null, mapDispatchToProps)(translate()(PureEditor));
+const Editor = connect(null, mapDispatchToProps)(withNamespaces()(PureEditor));
 
 export { PureEditor };
 export default Editor;

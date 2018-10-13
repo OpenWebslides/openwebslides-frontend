@@ -35,7 +35,7 @@ describe(`toggleContentFetchedInState`, (): void => {
     };
     const resultState = reducer(prevState, toggleContentFetchedInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyTopic.id]).not.toBe(prevState.byId[dummyTopic.id]);
@@ -55,7 +55,7 @@ describe(`toggleContentFetchedInState`, (): void => {
     };
     const resultState = reducer(prevState, toggleContentFetchedInStateAction);
 
-    expect(resultState).toEqual(prevState);
+    expect(resultState).toStrictEqual(prevState);
     expect(resultState).toBe(prevState);
     expect(resultState.byId).toBe(prevState.byId);
     expect(resultState.byId[dummyTopic.id]).toBe(prevState.byId[dummyTopic.id]);

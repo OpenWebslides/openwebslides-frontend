@@ -32,7 +32,7 @@ describe(`setSettingInState`, (): void => {
     };
     const resultState = reducer(prevState, setSettingInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.settings).not.toBe(prevState.settings);
     expect(resultState.settings[dummyKey]).not.toBe(prevState.settings[dummyKey]);

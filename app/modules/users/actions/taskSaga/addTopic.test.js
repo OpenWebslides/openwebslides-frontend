@@ -27,7 +27,7 @@ describe(`addTopic`, (): void => {
     };
     const actualAction = actions.addTopic(dummyUserId, dummyTopicTitle, dummyTopicDescription);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`defaults the description value to NULL, when no description is passed`, (): void => {
@@ -41,7 +41,7 @@ describe(`addTopic`, (): void => {
     };
     const actualAction = actions.addTopic(dummyUserId, dummyTopicTitle);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

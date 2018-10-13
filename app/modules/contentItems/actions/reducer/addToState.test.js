@@ -42,7 +42,7 @@ describe(`addToState`, (): void => {
       dummyContext,
       dummyPlainTextProps,
     );
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`throws an InvalidArgumentError, when the passed type is a plainText type and the passed props don't include all necessary plainText information`, (): void => {
@@ -84,7 +84,7 @@ describe(`addToState`, (): void => {
         text: `   ${dummyPlainTextProps.text}   `,
       },
     );
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`temporarily throws a NotYetImplementedError, when attempting to add a type other than plainText`, (): void => {

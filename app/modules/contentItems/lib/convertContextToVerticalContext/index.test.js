@@ -58,7 +58,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       indexInSiblingItems: 1,
       siblingItemIds: dummyHeading1.subItemIds,
     };
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
   });
 
   it(`returns the correct VerticalContext, when the passed context is a HorizontalContext and the contextItem is a childItem`, (): void => {
@@ -73,7 +73,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       indexInSiblingItems: 2,
       siblingItemIds: dummyRoot.childItemIds,
     };
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
   });
 
   it(`returns the correct VerticalContext, when the passed context is a HorizontalContext and indexInSiblingItemsShift is 0`, (): void => {
@@ -89,7 +89,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       indexInSiblingItems: 2,
       siblingItemIds: dummyHeading1.subItemIds,
     };
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
   });
 
   it(`returns the correct VerticalContext, when the passed context is a HorizontalContext and indexInSiblingItemsShift is a positive number different from 0`, (): void => {
@@ -105,7 +105,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       indexInSiblingItems: 2,
       siblingItemIds: dummyHeading1.subItemIds,
     };
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
   });
 
   it(`returns the correct VerticalContext, when the passed context is a HorizontalContext and indexInSiblingItemsShift is a negative number`, (): void => {
@@ -121,7 +121,7 @@ describe(`convertContextToVerticalContext`, (): void => {
       indexInSiblingItems: 0,
       siblingItemIds: dummyHeading1.subItemIds,
     };
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
   });
 
   it(`returns the passed context unchanged, when the passed context already is a VerticalContext`, (): void => {

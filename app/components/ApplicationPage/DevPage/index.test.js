@@ -11,7 +11,7 @@ describe(`DevPage`, (): void => {
     const enzymeWrapper = shallow(
       <PureDevPage />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

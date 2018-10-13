@@ -10,6 +10,7 @@ type PassedProps = {|
 type Props = {| ...PassedProps |};
 
 const allowedMarkdownTypes = [
+  'text',
   'emphasis',
   'strong',
   'inlineCode',

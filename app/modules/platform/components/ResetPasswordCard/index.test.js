@@ -32,7 +32,7 @@ describe(`ResetPasswordCard`, (): void => {
         resetPasswordToken={dummyResetPasswordToken}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`dispatches a resetPassword action, when its form is submitted with complete values`, (): void => {

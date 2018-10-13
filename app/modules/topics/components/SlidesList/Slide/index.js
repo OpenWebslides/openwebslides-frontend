@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 
 import contentItems from 'modules/contentItems';
 
@@ -37,7 +37,7 @@ PureSlide.defaultProps = {
   rootHeadingLevel: 1,
 };
 
-const Slide = translate()(PureSlide);
+const Slide = withNamespaces()(PureSlide);
 
 export { PureSlide };
 export default Slide;

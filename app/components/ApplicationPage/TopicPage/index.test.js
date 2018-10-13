@@ -11,7 +11,7 @@ describe(`TopicPage`, (): void => {
     const enzymeWrapper = shallow(
       <PureTopicPage />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
 });

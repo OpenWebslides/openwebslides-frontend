@@ -45,7 +45,7 @@ describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
     };
     const resultState = reducer(prevState, editPropsForTypeInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyPlainTextContentItem.id]).not.toBe(prevState.byId[dummyPlainTextContentItem.id]);

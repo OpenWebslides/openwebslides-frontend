@@ -18,7 +18,7 @@ describe(`setFailure`, (): void => {
     };
     const actualAction = actions.setFailure(dummyId, dummyError);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

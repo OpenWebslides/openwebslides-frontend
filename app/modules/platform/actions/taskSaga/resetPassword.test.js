@@ -17,7 +17,7 @@ describe(`resetPassword`, (): void => {
       },
     };
     const actualAction = actions.resetPassword(dummyPassword, dummyToken);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

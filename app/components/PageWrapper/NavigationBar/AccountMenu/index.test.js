@@ -33,7 +33,7 @@ describe(`AccountMenu`, (): void => {
     const enzymeWrapper = shallow(
       <PureAccountMenu currentUserId={null} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders UserAccountMenu, when there is a current user`, (): void => {

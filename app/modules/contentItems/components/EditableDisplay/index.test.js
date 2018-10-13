@@ -74,7 +74,7 @@ describe(`EditableDisplay`, (): void => {
         {...dummyDispatchProps}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders a the correct type component for the type of the passed contentItem`, (): void => {

@@ -54,7 +54,7 @@ describe(`getAll`, (): void => {
 
   it(`returns an array containing all contentItems, when there are one or more contentItems in the state`, (): void => {
     const contentItems = selectors.getAll(dummyState);
-    expect(contentItems).toEqual([dummyRoot, dummyHeading1, dummyParagraph11, dummyParagraph12, dummyHeading2, dummyParagraph21, dummyParagraph22]);
+    expect(contentItems).toStrictEqual([dummyRoot, dummyHeading1, dummyParagraph11, dummyParagraph12, dummyHeading2, dummyParagraph21, dummyParagraph22]);
   });
 
   it(`returns an empty array, when there are no contentItems in the state`, (): void => {

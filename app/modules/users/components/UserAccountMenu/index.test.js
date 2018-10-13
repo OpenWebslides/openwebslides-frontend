@@ -25,7 +25,7 @@ describe(`UserAccountMenu`, (): void => {
         userId={dummyUser.id}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`fetches the user, when the user was not previously present in the state`, (): void => {

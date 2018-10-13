@@ -13,7 +13,7 @@ describe(`generateRoot`, (): void => {
     };
     const actualAction = actions.generateRoot();
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

@@ -18,7 +18,7 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
     };
     const actualAction = actions.apiPatchAllByTopicIdAndRoot(dummyTopicId, dummyRootContentItemId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

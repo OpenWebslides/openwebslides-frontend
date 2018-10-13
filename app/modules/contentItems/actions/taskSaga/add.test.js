@@ -32,7 +32,7 @@ describe(`add`, (): void => {
       },
     };
     const actualAction = actions.add(dummyType, dummyContext, dummyProps);
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

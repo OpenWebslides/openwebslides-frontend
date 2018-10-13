@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Card } from 'semantic-ui-react';
 
 import { InvalidArgumentError } from 'errors';
@@ -45,7 +45,7 @@ class PureNewTopicCard extends React.Component<Props> {
   }
 }
 
-const NewTopicCard = translate()(PureNewTopicCard);
+const NewTopicCard = withNamespaces()(PureNewTopicCard);
 
 export { PureNewTopicCard };
 export default NewTopicCard;

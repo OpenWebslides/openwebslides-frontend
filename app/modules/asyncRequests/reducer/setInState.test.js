@@ -37,7 +37,7 @@ describe(`setInState`, (): void => {
     };
     const resultState = reducer(prevState, setInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
   });
@@ -66,7 +66,7 @@ describe(`setInState`, (): void => {
     };
     const resultState = reducer(prevState, setInStateAction);
 
-    expect(resultState).toEqual(nextState);
+    expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyAsyncRequest1.id]).not.toBe(prevState.byId[dummyAsyncRequest1.id]);
@@ -87,7 +87,7 @@ describe(`setInState`, (): void => {
     };
     const resultState = reducer(prevState, setInStateAction);
 
-    expect(resultState).toEqual(prevState);
+    expect(resultState).toStrictEqual(prevState);
     expect(resultState).toBe(prevState);
   });
 

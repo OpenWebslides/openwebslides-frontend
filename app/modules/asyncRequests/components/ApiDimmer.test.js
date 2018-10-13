@@ -42,7 +42,7 @@ describe(`ApiDimmer`, (): void => {
         isActive={true}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`does not render, when it is inactive`, (): void => {
@@ -53,7 +53,7 @@ describe(`ApiDimmer`, (): void => {
       />,
     );
 
-    expect(enzymeWrapper.isEmptyRender()).toEqual(true);
+    expect(enzymeWrapper.isEmptyRender()).toBe(true);
   });
 
   it(`is active, when there are one or more PENDING requests in the state`, (): void => {
@@ -63,7 +63,7 @@ describe(`ApiDimmer`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('PureApiDimmer').isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.find('PureApiDimmer').isEmptyRender()).toBe(false);
   });
 
   it(`is not active, when the requestStatus none of the passed requestIds is PENDING`, (): void => {
@@ -74,7 +74,7 @@ describe(`ApiDimmer`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('PureApiDimmer').isEmptyRender()).toEqual(true);
+    expect(enzymeWrapper.find('PureApiDimmer').isEmptyRender()).toBe(true);
   });
 
 });

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
 
 import { type ModulesAction } from 'types/redux';
@@ -46,7 +46,7 @@ class PureConfirmEmailPage extends React.Component<Props> {
   }
 }
 
-const ConfirmEmailPage = translate()(connect(null, mapDispatchToProps)(PureConfirmEmailPage));
+const ConfirmEmailPage = withNamespaces()(connect(null, mapDispatchToProps)(PureConfirmEmailPage));
 
 export { PureConfirmEmailPage };
 export default ConfirmEmailPage;

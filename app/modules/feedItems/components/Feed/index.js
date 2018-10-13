@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Feed as SemanticUiFeed, Header } from 'semantic-ui-react';
 
 import { type ModulesAction, type AppState } from 'types/redux';
@@ -58,7 +58,7 @@ class PureFeed extends React.Component<Props> {
   }
 }
 
-const Feed = connect(mapStateToProps, mapDispatchToProps)(translate()(PureFeed));
+const Feed = connect(mapStateToProps, mapDispatchToProps)(withNamespaces()(PureFeed));
 
 export { PureFeed };
 export default Feed;

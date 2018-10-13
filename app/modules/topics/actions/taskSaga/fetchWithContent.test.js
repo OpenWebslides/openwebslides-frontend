@@ -21,7 +21,7 @@ describe(`fetchWithContent`, (): void => {
     };
     const actualAction = actions.fetchWithContent(dummyId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

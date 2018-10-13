@@ -13,7 +13,7 @@ describe(`apiGetAll`, (): void => {
     };
     const actualAction = actions.apiGetAll();
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

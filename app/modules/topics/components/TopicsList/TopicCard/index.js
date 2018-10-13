@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, Card, Icon, Modal } from 'semantic-ui-react';
 
@@ -167,7 +167,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
   }
 }
 
-const TopicCard = translate()(PureTopicCard);
+const TopicCard = withNamespaces()(PureTopicCard);
 
 export { PureTopicCard };
 export default TopicCard;

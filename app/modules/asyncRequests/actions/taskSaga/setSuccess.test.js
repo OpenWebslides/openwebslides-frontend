@@ -18,7 +18,7 @@ describe(`setSuccess`, (): void => {
     };
     const actualAction = actions.setSuccess(dummyId, dummyValue);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
   it(`converts UNDEFINED value argument to NULL`, (): void => {
@@ -32,7 +32,7 @@ describe(`setSuccess`, (): void => {
     };
     const actualAction = actions.setSuccess(dummyId);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

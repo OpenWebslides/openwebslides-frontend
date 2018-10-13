@@ -44,7 +44,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
     const actualResult = lib.edit.removeChildOrSubItemIdFromContext(dummyContext, dummyParagraph11.id, dummyContentItemsById);
     const expectedResult = { ...dummyHeading1, subItemIds: [dummyParagraph12.id] };
 
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
     expect(actualResult).not.toBe(dummyHeading1);
     expect(((actualResult: any): m.SubableContentItem).subItemIds).not.toBe(((dummyHeading1: any): m.SubableContentItem).subItemIds);
   });
@@ -57,7 +57,7 @@ describe(`removeChildOrSubItemIdFromContext`, (): void => {
     const actualResult = lib.edit.removeChildOrSubItemIdFromContext(dummyContext, dummyHeading2.id, dummyContentItemsById);
     const expectedResult = { ...dummyRoot, childItemIds: [dummyHeading1.id] };
 
-    expect(actualResult).toEqual(expectedResult);
+    expect(actualResult).toStrictEqual(expectedResult);
     expect(actualResult).not.toBe(dummyHeading1);
     expect(((actualResult: any): m.ContainerContentItem).childItemIds).not.toBe(((dummyHeading1: any): m.ContainerContentItem).childItemIds);
   });

@@ -32,11 +32,11 @@ describe(`getById`, (): void => {
   });
 
   it(`returns an array containing all the users in the state, when there are users in the state`, (): void => {
-    expect(selectors.getAll(dummyState)).toEqual([dummyUser1, dummyUser2, dummyUser3]);
+    expect(selectors.getAll(dummyState)).toStrictEqual([dummyUser1, dummyUser2, dummyUser3]);
   });
 
   it(`returns an empty array, when there are no users in the state`, (): void => {
-    expect(selectors.getAll(dummyEmptyState)).toEqual([]);
+    expect(selectors.getAll(dummyEmptyState)).toStrictEqual([]);
   });
 
 });

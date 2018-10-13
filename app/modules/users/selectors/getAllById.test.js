@@ -36,7 +36,7 @@ describe(`getById`, (): void => {
   });
 
   it(`returns an empty object, when there are no users in the state`, (): void => {
-    expect(selectors.getAllById(dummyEmptyState)).toEqual({});
+    expect(selectors.getAllById(dummyEmptyState)).toStrictEqual({});
   });
 
 });

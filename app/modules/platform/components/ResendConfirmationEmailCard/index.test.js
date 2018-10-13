@@ -24,7 +24,7 @@ describe(`ResendConfirmationEmailCard`, (): void => {
     const enzymeWrapper = shallow(
       <PureResendConfirmationEmailCard {...dummyProviderProps.translatorProps} onEmailFormSubmit={jest.fn()} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`dispatches a resendConfirmationEmail action, when its form is submitted with complete values`, (): void => {

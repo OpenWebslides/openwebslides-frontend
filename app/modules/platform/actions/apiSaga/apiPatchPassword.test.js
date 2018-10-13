@@ -18,7 +18,7 @@ describe(`apiPatchPassword`, (): void => {
     };
     const actualAction = actions.apiPatchPassword(dummyPassword, dummyResetPasswordToken);
 
-    expect(actualAction).toEqual(expectedAction);
+    expect(actualAction).toStrictEqual(expectedAction);
   });
 
 });

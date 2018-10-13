@@ -22,7 +22,7 @@ describe(`fetchApiResponseData`, (): void => {
 
     await expect(fetchApiResponseData('', {}))
       .resolves
-      .toEqual({
+      .toStrictEqual({
         body: dummyBody,
         status: 200,
         token: null,
@@ -34,7 +34,7 @@ describe(`fetchApiResponseData`, (): void => {
 
     await expect(fetchApiResponseData('', {}))
       .resolves
-      .toEqual({
+      .toStrictEqual({
         body: null,
         status: 204,
         token: null,
@@ -50,7 +50,7 @@ describe(`fetchApiResponseData`, (): void => {
 
     await expect(fetchApiResponseData('', {}))
       .resolves
-      .toEqual({
+      .toStrictEqual({
         body: null,
         status: 200,
         token: dummyToken,

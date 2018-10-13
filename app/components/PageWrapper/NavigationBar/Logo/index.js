@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { translate, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Image, Grid } from 'semantic-ui-react';
 
 import logo from 'assets/images/logo/logo-white.svg';
@@ -25,7 +25,7 @@ const PureLogo = (props: Props): React.Node => {
   );
 };
 
-const Logo = translate()(PureLogo);
+const Logo = withNamespaces()(PureLogo);
 
 export { PureLogo };
 export default Logo;
