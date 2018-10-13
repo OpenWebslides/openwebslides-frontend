@@ -6,8 +6,7 @@ import fetch from './fetch';
 import fetchWithContent from './fetchWithContent';
 import fork from './fork';
 import remove from './remove';
-import update from './update';
-import updateContent from './updateContent';
+import updateWithContent from './updateWithContent';
 
 const taskSagaActions = {
   create,
@@ -16,8 +15,7 @@ const taskSagaActions = {
   fetchWithContent,
   fork,
   remove,
-  update,
-  updateContent,
+  updateWithContent,
 };
 
 export default taskSagaActions;

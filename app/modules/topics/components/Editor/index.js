@@ -49,7 +49,7 @@ const mapDispatchToProps = (
 
   return {
     onSave: (): void => {
-      dispatch(actions.updateContent(topicId));
+      dispatch(actions.updateWithContent(topicId));
     },
     onSetDirty: (dirty: boolean): void => {
       dispatch(actions.setDirtyInState(topicId, dirty));

@@ -46,7 +46,7 @@ describe(`create`, (): void => {
       .call(asyncRequests.lib.putAndReturn, contentItems.actions.generateRoot())
       .call(asyncRequests.lib.putAndReturn, actions.apiPost(dummyTitle, dummyDescription, dummyRootId, dummyUserId))
       .call(asyncRequests.lib.putAndReturn, actions.fetch(dummyId))
-      .put(actions.updateContent(dummyId))
+      .put(actions.updateWithContent(dummyId))
       .returns({ id: dummyId })
       .run();
   });

@@ -4,7 +4,7 @@ import * as a from '../../actionTypes';
 
 import actions from '..';
 
-describe(`update`, (): void => {
+describe(`updateWithContent`, (): void => {
 
   let dummyId: string;
   let dummyTitle: string;
@@ -16,16 +16,16 @@ describe(`update`, (): void => {
     dummyDescription = 'dummyDescription';
   });
 
-  it(`returns a topics UPDATE action containing the passed arguments`, (): void => {
-    const expectedAction: a.UpdateAction = {
-      type: a.UPDATE,
+  it(`returns a topics UPDATE_WITH_CONTENT action containing the passed arguments`, (): void => {
+    const expectedAction: a.UpdateWithContentAction = {
+      type: a.UPDATE_WITH_CONTENT,
       payload: {
         id: dummyId,
         title: dummyTitle,
         description: dummyDescription,
       },
     };
-    const actualAction = actions.update(dummyId, dummyTitle, dummyDescription);
+    const actualAction = actions.updateWithContent(dummyId, dummyTitle, dummyDescription);
 
     expect(actualAction).toStrictEqual(expectedAction);
   });

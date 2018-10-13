@@ -2,13 +2,13 @@
 
 import * as a from '../../actionTypes';
 
-const update = (
+const updateWithContent = (
   id: string,
   title?: string,
   description?: ?string,
-): a.UpdateAction => {
+): a.UpdateWithContentAction => {
   return {
-    type: a.UPDATE,
+    type: a.UPDATE_WITH_CONTENT,
     payload: {
       id,
       title,
@@ -17,4 +17,4 @@ const update = (
   };
 };
 
-export default update;
+export default updateWithContent;
