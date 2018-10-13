@@ -9,6 +9,7 @@ import { type TaskSagaAction } from 'types/actions';
 
 export const ADD_TOPIC: 'users/ADD_TOPIC' = 'users/ADD_TOPIC';
 export const ADD_TOPIC_ID: 'users/ADD_TOPIC_ID' = 'users/ADD_TOPIC_ID';
+export const CREATE: 'users/CREATE' = 'users/CREATE';
 export const FETCH: 'users/FETCH' = 'users/FETCH';
 export const FORK_TOPIC: 'users/FORK_TOPIC' = 'users/FORK_TOPIC';
 export const REMOVE_TOPIC: 'users/REMOVE_TOPIC' = 'users/REMOVE_TOPIC';
@@ -28,13 +29,25 @@ export type AddTopicAction = {|
   |},
 |};
 
-export type RemoveTopicIdAction = {|
+export type AddTopicIdAction = {|
   ...TaskSagaAction,
-  type: typeof REMOVE_TOPIC_ID,
+  type: typeof ADD_TOPIC_ID,
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
     id: string,
     topicId: string,
+  |},
+|};
+
+export type CreateAction = {|
+  ...TaskSagaAction,
+  type: typeof CREATE,
+  payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
+    email: string,
+    name: string,
+    password: string,
+    tosAccepted: boolean,
   |},
 |};
 
@@ -67,9 +80,9 @@ export type RemoveTopicAction = {|
   |},
 |};
 
-export type AddTopicIdAction = {|
+export type RemoveTopicIdAction = {|
   ...TaskSagaAction,
-  type: typeof ADD_TOPIC_ID,
+  type: typeof REMOVE_TOPIC_ID,
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
     id: string,
@@ -83,6 +96,7 @@ export type AddTopicIdAction = {|
 export type UsersTaskSagaAction =
   | AddTopicAction
   | AddTopicIdAction
+  | CreateAction
   | FetchAction
   | ForkTopicAction
   | RemoveTopicAction

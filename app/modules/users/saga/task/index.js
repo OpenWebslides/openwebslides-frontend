@@ -11,6 +11,7 @@ import * as a from '../../actionTypes';
 
 import addTopic from './addTopic';
 import addTopicId from './addTopicId';
+import create from './create';
 import fetch from './fetch';
 import forkTopic from './forkTopic';
 import removeTopic from './removeTopic';
@@ -22,6 +23,7 @@ const taskSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.ADD_TOPIC, sagaWrapper, addTopic),
     takeEvery(a.ADD_TOPIC_ID, sagaWrapper, addTopicId),
+    takeEvery(a.CREATE, sagaWrapper, create),
     takeEvery(a.FETCH, sagaWrapper, fetch),
     takeEvery(a.FORK_TOPIC, sagaWrapper, forkTopic),
     takeEvery(a.REMOVE_TOPIC, sagaWrapper, removeTopic),
@@ -32,6 +34,7 @@ const taskSaga = function* (): Saga<void> {
 const taskSagas = {
   addTopic,
   addTopicId,
+  create,
   fetch,
   forkTopic,
   removeTopic,

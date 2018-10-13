@@ -16,7 +16,6 @@ import sendResetPasswordEmail from './sendResetPasswordEmail';
 import setUserAuth from './setUserAuth';
 import signin from './signin';
 import signout from './signout';
-import signup from './signup';
 import toggleSidebar from './toggleSidebar';
 
 const { sagaWrapper } = asyncRequests.lib;
@@ -30,7 +29,6 @@ const taskSaga = function* (): Saga<void> {
     takeEvery(a.SET_USER_AUTH, sagaWrapper, setUserAuth),
     takeEvery(a.SIGNIN, sagaWrapper, signin),
     takeEvery(a.SIGNOUT, sagaWrapper, signout),
-    takeEvery(a.SIGNUP, sagaWrapper, signup),
     takeEvery(a.TOGGLE_SIDEBAR, sagaWrapper, toggleSidebar),
   ]);
 };
@@ -43,7 +41,6 @@ const taskSagas = {
   setUserAuth,
   signin,
   signout,
-  signup,
   toggleSidebar,
 };
 

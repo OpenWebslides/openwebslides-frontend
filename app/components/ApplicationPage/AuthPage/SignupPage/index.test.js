@@ -1,13 +1,38 @@
 // @flow
 
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
-import { dummyProviderProps } from 'lib/testResources';
+import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import users from 'modules/users';
 
-import { PureSignupPage } from '.';
+import SignupPage, { PureSignupPage } from '.';
 
 describe(`SignupPage`, (): void => {
+
+  let dummyEmail: string;
+  let dummyName: string;
+  let dummyPassword: string;
+  let dummyTosAccepted: boolean;
+
+  let dummyState: any;
+  let dummyDispatch: any;
+
+  beforeEach((): void => {
+    dummyEmail = 'test@test.be';
+    dummyName = 'Test Tester';
+    dummyPassword = 'MahPasswordY0';
+    dummyTosAccepted = true;
+
+    dummyState = {
+      flash: { messages: [] },
+      modules: {
+        asyncRequests: { byId: {} },
+        platform: { userAuth: null },
+      },
+    };
+    dummyDispatch = jest.fn();
+  });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
@@ -16,6 +41,19 @@ describe(`SignupPage`, (): void => {
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
+  });
+
+  it(`dispatches a users CREATE action, when the onCreateUser passed to SignupCard is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <SignupPage />
+      </DummyProviders>,
+    );
+
+    const onCreateUser = enzymeWrapper.find('PureSignupCard').props().onCreateUser;
+
+    onCreateUser(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
+    expect(dummyDispatch).toHaveBeenCalledWith(users.actions.create(dummyEmail, dummyName, dummyPassword, dummyTosAccepted));
   });
 
 });

@@ -4,15 +4,15 @@ import { type Saga } from 'redux-saga';
 import { call } from 'redux-saga/effects';
 
 import asyncRequests from 'modules/asyncRequests';
-import users from 'modules/users';
 
+import actions from '../../actions';
 import * as a from '../../actionTypes';
 
 const { putAndReturn } = asyncRequests.lib;
 
-const signup = function* (action: a.SignupAction): Saga<void> {
+const create = function* (action: a.CreateAction): Saga<void> {
   const { email, name, password, tosAccepted } = action.payload;
-  yield call(putAndReturn, users.actions.apiPost(email, name, password, tosAccepted));
+  yield call(putAndReturn, actions.apiPost(email, name, password, tosAccepted));
 };
 
-export default signup;
+export default create;

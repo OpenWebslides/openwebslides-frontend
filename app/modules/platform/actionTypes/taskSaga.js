@@ -13,7 +13,6 @@ import * as m from '../model';
 export const SET_USER_AUTH: 'platform/SET_USER_AUTH' = 'platform/SET_USER_AUTH';
 export const SIGNIN: 'platform/SIGNIN' = 'platform/SIGNIN';
 export const SIGNOUT: 'platform/SIGNOUT' = 'platform/SIGNOUT';
-export const SIGNUP: 'platform/SIGNUP' = 'platform/SIGNUP';
 export const CONFIRM_EMAIL: 'platform/CONFIRM_EMAIL' = 'platform/CONFIRM_EMAIL';
 export const RESEND_CONFIRMATION_EMAIL: 'platform/RESEND_CONFIRMATION_EMAIL' = 'platform/RESEND_CONFIRMATION_EMAIL';
 export const RESET_PASSWORD: 'platform/RESET_PASSWORD' = 'platform/RESET_PASSWORD';
@@ -49,18 +48,6 @@ export type SignoutAction = {|
   type: typeof SIGNOUT,
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
-  |},
-|};
-
-export type SignupAction = {|
-  ...TaskSagaAction,
-  type: typeof SIGNUP,
-  payload: {|
-    ...$PropertyType<TaskSagaAction, 'payload'>,
-    email: string,
-    name: string,
-    password: string,
-    tosAccepted: boolean,
   |},
 |};
 
@@ -117,7 +104,6 @@ export type PlatformTaskSagaAction =
   | SetUserAuthAction
   | SigninAction
   | SignoutAction
-  | SignupAction
   | ConfirmEmailAction
   | ResendConfirmationEmailAction
   | ResetPasswordAction
