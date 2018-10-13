@@ -2,18 +2,18 @@
 
 import Course from './Course';
 import Editor from './Editor';
-import ForkInfo from './ForkInfo';
 import NewTopicCard from './NewTopicCard';
 import SlidesList from './SlidesList';
+import TopicInfo from './TopicInfo';
 import TopicsList from './TopicsList';
 import Viewer from './Viewer';
 
 const index = {
   Course,
   Editor,
-  ForkInfo,
   NewTopicCard,
   SlidesList,
+  TopicInfo,
   TopicsList,
   Viewer,
 };
