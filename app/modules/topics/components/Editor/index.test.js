@@ -15,7 +15,6 @@ describe(`Editor`, (): void => {
 
   let dummyTopic: m.Topic;
   let dummyDirtyTopic: m.Topic;
-  let dummyMessage: string;
   let dummyTopicsById: m.TopicsById;
   let dummyState: any;
   let dummyDispatch: any;
@@ -25,7 +24,6 @@ describe(`Editor`, (): void => {
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic, isContentFetched: true };
     dummyDirtyTopic = { ...dummyTopicData.topic, id: 'dummyDirtyTopic', isContentFetched: true, isDirty: true };
-    dummyMessage = 'dummyMessage';
     dummyTopicsById = {
       [dummyTopic.id]: dummyTopic,
       [dummyDirtyTopic.id]: dummyDirtyTopic,
@@ -76,15 +74,32 @@ describe(`Editor`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-editor"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`dispatches a topic UPDATE_WITH_CONTENT action, when the save button is clicked`, (): void => {
+  it(`dispatches a topic UPDATE_WITH_CONTENT action, when the topic is dirty and the save button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDirtyTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-save-button"][disabled]').hostNodes()).toHaveLength(0);
+
+    enzymeWrapper.find('[data-test-id="topic-editor-save-button"]').hostNodes().simulate('click');
+
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.patchWithContent(dummyDirtyTopic.id));
+  });
+
+  it(`does not dispatch a topic UPDATE_WITH_CONTENT action, when the topic is not dirty and the save button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyTopic.id} />
       </DummyProviders>,
     );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-save-button"][disabled]').hostNodes()).toHaveLength(1);
+
     enzymeWrapper.find('[data-test-id="topic-editor-save-button"]').hostNodes().simulate('click');
 
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.patchWithContent(dummyTopic.id));
+    expect(dummyDispatch).toHaveBeenCalledTimes(0);
   });
 
   it(`dispatches a topic SET_DIRTY_IN_STATE action and sets a window.unbeforeunload action, when the setDirty prop is called with TRUE`, (): void => {
@@ -139,7 +154,7 @@ describe(`Editor`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toEqual(dummyDirtyTopic.title);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toStrictEqual(dummyDirtyTopic.title);
   });
 
   it(`appends an asterisk to the title when the topic is dirty`, (): void => {
@@ -149,7 +164,7 @@ describe(`Editor`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toEqual(`${dummyDirtyTopic.title}*`);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toStrictEqual(`${dummyDirtyTopic.title}*`);
   });
 
 });
