@@ -13,6 +13,10 @@ const setDirtyInState = (
   const topicToEdit = state.byId[id];
   if (topicToEdit == null) throw new ObjectNotFoundError(`topics:topic`, id);
 
+  if (topicToEdit.isDirty === dirty) {
+    return state;
+  }
+
   else {
     return {
       ...state,

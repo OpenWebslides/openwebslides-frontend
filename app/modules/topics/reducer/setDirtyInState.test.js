@@ -19,7 +19,7 @@ describe(`setDirtyInState`, (): void => {
   it(`sets the isDirty property to TRUE when passed TRUE for the topic with the passed id`, (): void => {
     const prevState: m.TopicsState = {
       byId: {
-        [dummyTopic.id]: dummyTopic,
+        [dummyTopic.id]: { ...dummyTopic, isDirty: false },
       },
     };
     const setDirtyInStateAction: a.SetDirtyInStateAction = {
@@ -45,7 +45,7 @@ describe(`setDirtyInState`, (): void => {
   it(`sets the isDirty property to FALSE when passed FALSE for the topic with the passed id`, (): void => {
     const prevState: m.TopicsState = {
       byId: {
-        [dummyTopic.id]: dummyTopic,
+        [dummyTopic.id]: { ...dummyTopic, isDirty: true },
       },
     };
     const setDirtyInStateAction: a.SetDirtyInStateAction = {
@@ -66,6 +66,27 @@ describe(`setDirtyInState`, (): void => {
     expect(resultState).not.toBe(prevState);
     expect(resultState.byId).not.toBe(prevState.byId);
     expect(resultState.byId[dummyTopic.id]).not.toBe(prevState.byId[dummyTopic.id]);
+  });
+
+  it(`returns the state unchanged, when the topic's isDirty property was already set to the parameter's value`, (): void => {
+    const prevState: m.TopicsState = {
+      byId: {
+        [dummyTopic.id]: { ...dummyTopic, isDirty: true },
+      },
+    };
+    const setDirtyInStateAction: a.SetDirtyInStateAction = {
+      type: a.SET_DIRTY_IN_STATE,
+      payload: {
+        id: dummyTopic.id,
+        dirty: true,
+      },
+    };
+    const resultState = reducer(prevState, setDirtyInStateAction);
+
+    expect(resultState).toStrictEqual(prevState);
+    expect(resultState).toBe(prevState);
+    expect(resultState.byId).toBe(prevState.byId);
+    expect(resultState.byId[dummyTopic.id]).toBe(prevState.byId[dummyTopic.id]);
   });
 
   it(`throws an ObjectNotFoundError, when the topic for the passed id could not be found in the state`, (): void => {
