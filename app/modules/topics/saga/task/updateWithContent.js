@@ -18,13 +18,19 @@ const updateWithContent = function* (action: a.UpdateWithContentAction): Saga<vo
   const topic: ?m.Topic = yield select(selectors.getById, { id });
   if (topic == null) throw new ObjectNotFoundError(`topics:topic`, id);
 
-  // Update the topic in the backend
-  // TODO: determine if this request has to be made
-  // TODO: through non-empty props
-  yield call(
-    asyncRequests.lib.putAndReturn,
-    actions.apiPatch(id, title, description),
-  );
+  if (title !== null && description !== null) {
+    // Update the topic in the backend
+    yield call(
+      asyncRequests.lib.putAndReturn,
+      actions.apiPatch(id, title, description),
+    );
+
+    // Fetch the new topic from the backend so the state is up-to-date
+    yield call(
+      asyncRequests.lib.putAndReturn,
+      actions.fetch(id),
+    );
+  }
 
   // Update the topic content in the backend
   // TODO: determine if this request has to be made
@@ -32,12 +38,6 @@ const updateWithContent = function* (action: a.UpdateWithContentAction): Saga<vo
   yield call(
     asyncRequests.lib.putAndReturn,
     contentItems.actions.apiPatchAllByTopicIdAndRoot(id, topic.rootContentItemId),
-  );
-
-  // Fetch the new topic from the backend so the state is up-to-date
-  yield call(
-    asyncRequests.lib.putAndReturn,
-    actions.fetch(id),
   );
 
   // Mark topic as clean

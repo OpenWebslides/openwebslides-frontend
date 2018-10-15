@@ -30,4 +30,18 @@ describe(`updateWithContent`, (): void => {
     expect(actualAction).toStrictEqual(expectedAction);
   });
 
+  it(`defaults the title and description values to NULL, when no corresponding parameter is passed`, (): void => {
+    const expectedAction: a.UpdateWithContentAction = {
+      type: a.UPDATE_WITH_CONTENT,
+      payload: {
+        id: dummyId,
+        title: null,
+        description: null,
+      },
+    };
+    const actualAction = actions.updateWithContent(dummyId);
+
+    expect(actualAction).toStrictEqual(expectedAction);
+  });
+
 });
