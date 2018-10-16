@@ -10,7 +10,6 @@ export const topic: topics.model.Topic = {
   upstreamTopicId: null,
   forkedTopicIds: [],
   isContentFetched: false,
-  isDirty: false,
 };
 
 export const topic2: topics.model.Topic = {
@@ -21,7 +20,6 @@ export const topic2: topics.model.Topic = {
   upstreamTopicId: null,
   forkedTopicIds: [],
   isContentFetched: false,
-  isDirty: false,
 };
 
 export const topic3: topics.model.Topic = {
@@ -32,7 +30,6 @@ export const topic3: topics.model.Topic = {
   upstreamTopicId: null,
   forkedTopicIds: [],
   isContentFetched: false,
-  isDirty: false,
 };
 
 export const topic4: topics.model.Topic = {
@@ -43,7 +40,6 @@ export const topic4: topics.model.Topic = {
   upstreamTopicId: null,
   forkedTopicIds: [],
   isContentFetched: false,
-  isDirty: false,
 };
 
 export const upstream: topics.model.Topic = {
@@ -54,7 +50,6 @@ export const upstream: topics.model.Topic = {
   upstreamTopicId: null,
   forkedTopicIds: ['downstreamTopic', 'downstreamTopic2'],
   isContentFetched: false,
-  isDirty: false,
 };
 
 export const downstream: topics.model.Topic = {
@@ -65,7 +60,6 @@ export const downstream: topics.model.Topic = {
   upstreamTopicId: 'upstreamTopic',
   forkedTopicIds: [],
   isContentFetched: false,
-  isDirty: false,
 };
 
 export const downstream2: topics.model.Topic = {
@@ -76,5 +70,4 @@ export const downstream2: topics.model.Topic = {
   upstreamTopicId: 'upstreamTopic',
   forkedTopicIds: [],
   isContentFetched: false,
-  isDirty: false,
 };

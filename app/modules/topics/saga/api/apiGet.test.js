@@ -58,7 +58,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [], isContentFetched: false }]))
       .run();
   });
 
@@ -92,7 +92,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyRootContentId, upstreamTopicId: dummyUpstreamTopicId, forkedTopicIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyRootContentId, upstreamTopicId: dummyUpstreamTopicId, forkedTopicIds: [], isContentFetched: false }]))
       .run();
   });
 
@@ -127,7 +127,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [dummyForkedTopicId1, dummyForkedTopicId2], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [dummyForkedTopicId1, dummyForkedTopicId2], isContentFetched: false }]))
       .run();
   });
 

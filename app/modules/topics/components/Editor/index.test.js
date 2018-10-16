@@ -25,7 +25,8 @@ describe(`Editor`, (): void => {
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic, isContentFetched: true };
-    dummyDirtyTopic = { ...dummyTopicData.topic, id: 'dummyDirtyTopic', isContentFetched: true, isDirty: true };
+    // TODO: set topic root content item as dirty
+    dummyDirtyTopic = { ...dummyTopicData.topic, id: 'dummyDirtyTopic', isContentFetched: true };
     dummyTopicsById = {
       [dummyTopic.id]: dummyTopic,
       [dummyDirtyTopic.id]: dummyDirtyTopic,

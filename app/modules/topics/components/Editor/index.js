@@ -88,8 +88,9 @@ class PureEditor extends React.Component<Props> {
       <div data-test-id="topic-editor">
         {/* Prompt when user navigates away from the page with unsaved changes */}
         {/* TODO: actually discard the changes when the user wants to leave */}
+        {/* TODO: show this when topic's root content item is dirty */}
         <Prompt
-          when={topic.isDirty}
+          when={false}
           message={t('topics:modals.unsavedChanges.message')}
         />
 
@@ -111,13 +112,15 @@ class PureEditor extends React.Component<Props> {
             <Grid.Column>
               <Header floated="left" as="h1" data-test-id="topic-editor-title">
                 {topic.title}
-                {(topic.isDirty ? '*' : '')}
+                {/* TODO: show asterisk when topic root content item is dirty */}
+                {(false ? '*' : '')}
               </Header>
             </Grid.Column>
             <Grid.Column width={2}>
+              {/* TODO: enable button when topic is dirty */}
               <Button
                 floated="right"
-                disabled={!topic.isDirty}
+                disabled={!false}
                 primary={true}
                 icon={true}
                 labelPosition="left"
