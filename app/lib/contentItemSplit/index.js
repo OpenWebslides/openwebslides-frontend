@@ -98,6 +98,7 @@ const split = (
     return {
       id: `${rootContentItem.id}-${index}`,
       type: contentItems.model.contentItemTypes.ROOT,
+      isDirty: rootContentItem.isDirty,
       isEditing: false,
       childItems: [item],
     };

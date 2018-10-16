@@ -158,6 +158,8 @@ export type RootContentItemProps = {|
   // Limit contentItem type to ROOT.
   +type: typeof types.contentItemTypes.ROOT,
   // Custom ROOT props go here.
+  // Whether the content item hierarchy has been altered (but not persisted to the server)
+  +isDirty: boolean,
 |};
 
 // Type for a ROOT contentItem.

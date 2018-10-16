@@ -74,7 +74,7 @@ describe(`EditableDisplay`, (): void => {
     const enzymeWrapper = shallow(
       <PureEditableDisplay
         contentItemId="abcdefghij"
-        contentItem={{ id: 'abcdefghij', type: m.contentItemTypes.ROOT, isEditing: false, childItemIds: [] }}
+        contentItem={{ id: 'abcdefghij', type: m.contentItemTypes.ROOT, isDirty: false, isEditing: false, childItemIds: [] }}
         {...dummyDispatchProps}
         setTopicDirty={dummySetTopicDirty}
       />,

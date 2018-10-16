@@ -10,6 +10,7 @@ export const emptyMetadata = {
 export const rootContentItem: contentItems.model.RootContentItem = {
   id: 'dummyRootContentItem',
   type: contentItems.model.contentItemTypes.ROOT,
+  isDirty: false,
   isEditing: false,
   childItemIds: [],
 };
@@ -17,6 +18,7 @@ export const rootContentItem: contentItems.model.RootContentItem = {
 export const rootContentItem2: contentItems.model.RootContentItem = {
   id: 'dummyRootContentItem2',
   type: contentItems.model.contentItemTypes.ROOT,
+  isDirty: false,
   isEditing: false,
   childItemIds: [],
 };
@@ -24,6 +26,7 @@ export const rootContentItem2: contentItems.model.RootContentItem = {
 export const rootContentItem3: contentItems.model.RootContentItem = {
   id: 'dummyRootContentItem3',
   type: contentItems.model.contentItemTypes.ROOT,
+  isDirty: false,
   isEditing: false,
   childItemIds: [],
 };

@@ -14,6 +14,7 @@ describe(`Slide`, (): void => {
     const dummyContentItem: contentItems.model.DenormalizedRootContentItem = {
       id: 'abcdefghij',
       type: contentItems.model.contentItemTypes.ROOT,
+      isDirty: false,
       isEditing: false,
       childItems: [],
     };

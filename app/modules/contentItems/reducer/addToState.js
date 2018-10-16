@@ -51,6 +51,7 @@ const createNewContentItemFromPropsForType = (
       break;
     case m.contentItemTypes.ROOT:
       // Extra root props should be processed here.
+      ((newContentItem: any): m.RootContentItem).isDirty = false;
       break;
     case m.contentItemTypes.LIST:
     case m.contentItemTypes.LIST_ITEM:

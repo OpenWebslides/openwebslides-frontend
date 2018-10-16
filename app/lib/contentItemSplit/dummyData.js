@@ -119,6 +119,7 @@ export const dummyHeadingContentItem5: contentItems.model.DenormalizedHeadingCon
 export const dummyRootContentItem1: contentItems.model.DenormalizedRootContentItem = {
   id: 'ldoivik3dh',
   type: contentItems.model.contentItemTypes.ROOT,
+  isDirty: false,
   isEditing: false,
   childItems: [
     dummyHeadingContentItem1,
@@ -129,6 +130,7 @@ export const dummyRootContentItem1: contentItems.model.DenormalizedRootContentIt
 export const dummyRootContentItem2: contentItems.model.DenormalizedRootContentItem = {
   id: 'ivjdoieo3k',
   type: contentItems.model.contentItemTypes.ROOT,
+  isDirty: false,
   isEditing: false,
   childItems: [
     dummyHeadingContentItem2,
@@ -139,6 +141,7 @@ export const dummyRootContentItem2: contentItems.model.DenormalizedRootContentIt
 export const dummyRootContentItem3: contentItems.model.DenormalizedRootContentItem = {
   id: 'ivjdoieo3k',
   type: contentItems.model.contentItemTypes.ROOT,
+  isDirty: false,
   isEditing: false,
   childItems: [
     dummyHeadingContentItem4,
@@ -148,6 +151,7 @@ export const dummyRootContentItem3: contentItems.model.DenormalizedRootContentIt
 export const dummyRootContentItem4: contentItems.model.DenormalizedRootContentItem = {
   id: 'ocodk2fdoi',
   type: contentItems.model.contentItemTypes.ROOT,
+  isDirty: false,
   isEditing: false,
   childItems: [
     dummyHeadingContentItem5,
