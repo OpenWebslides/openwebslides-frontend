@@ -15,7 +15,6 @@ import typesToComponentsMap from './typesToComponentsMap';
 
 type PassedProps = {|
   contentItemId: string,
-  setTopicDirty: (dirty: boolean) => void,
 |};
 
 type StateProps = {|
@@ -44,7 +43,6 @@ const passThroughProps = [
   'onRemove',
   'onIndent',
   'onReverseIndent',
-  'setTopicDirty',
 ];
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
@@ -58,8 +56,6 @@ const mapDispatchToProps = (
   dispatch: Dispatch<ModulesAction>,
   props: PassedProps,
 ): DispatchProps => {
-  const { setTopicDirty } = props;
-
   return {
     onStartEditing: (id: string): void => {
       dispatch(actions.toggleEditing(id, true));
@@ -68,11 +64,9 @@ const mapDispatchToProps = (
       dispatch(actions.toggleEditing(id, false));
     },
     onEditPlainText: (id: string, text: string): void => {
-      setTopicDirty(true);
       dispatch(actions.edit(id, { text }));
     },
     onAddEmptySubItem: (id: string): void => {
-      setTopicDirty(true);
       dispatch(actions.add(
         m.contentItemTypes.PARAGRAPH,
         {
@@ -84,7 +78,6 @@ const mapDispatchToProps = (
       ));
     },
     onAddEmptySiblingItemBelow: (id: string): void => {
-      setTopicDirty(true);
       dispatch(actions.add(
         m.contentItemTypes.PARAGRAPH,
         {
@@ -96,15 +89,12 @@ const mapDispatchToProps = (
       ));
     },
     onRemove: (id: string): void => {
-      setTopicDirty(true);
       dispatch(actions.removeAndTogglePreviousItem(id));
     },
     onIndent: (id: string): void => {
-      setTopicDirty(true);
       dispatch(actions.indent(id));
     },
     onReverseIndent: (id: string): void => {
-      setTopicDirty(true);
       dispatch(actions.reverseIndent(id));
     },
   };

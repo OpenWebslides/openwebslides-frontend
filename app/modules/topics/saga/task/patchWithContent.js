@@ -7,7 +7,6 @@ import { ObjectNotFoundError } from 'errors';
 import asyncRequests from 'modules/asyncRequests';
 import contentItems from 'modules/contentItems';
 
-import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 import selectors from '../../selectors';
@@ -24,7 +23,7 @@ const patchWithContent = function* (action: a.PatchWithContentAction): Saga<void
     id, topic.rootContentItemId,
   ));
 
-  yield put(actions.setDirtyInState(id, false));
+  yield put(contentItems.actions.setDirtyInState(topic.rootContentItemId, false));
 };
 
 export default patchWithContent;

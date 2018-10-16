@@ -8,6 +8,7 @@ import editPropsForTypeInState from './editPropsForTypeInState';
 import switchEditingInState from './switchEditingInState';
 import moveInState from './moveInState';
 import removeFromState from './removeFromState';
+import setDirtyInState from './setDirtyInState';
 import setMultipleInState from './setMultipleInState';
 
 const initialState: m.ContentItemsState = {
@@ -29,6 +30,8 @@ const reducer = (
       return moveInState(state, action);
     case a.REMOVE_FROM_STATE:
       return removeFromState(state, action);
+    case a.SET_DIRTY_IN_STATE:
+      return setDirtyInState(state, action);
     case a.SET_MULTIPLE_IN_STATE:
       return setMultipleInState(state, action);
     default:

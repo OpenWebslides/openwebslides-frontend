@@ -5,7 +5,6 @@ import * as m from '../model';
 
 import editInState from './editInState';
 import removeFromState from './removeFromState';
-import setDirtyInState from './setDirtyInState';
 import setMultipleInState from './setMultipleInState';
 import toggleContentFetchedInState from './toggleContentFetchedInState';
 
@@ -22,8 +21,6 @@ const reducer = (
       return editInState(state, action);
     case a.REMOVE_FROM_STATE:
       return removeFromState(state, action);
-    case a.SET_DIRTY_IN_STATE:
-      return setDirtyInState(state, action);
     case a.SET_MULTIPLE_IN_STATE:
       return setMultipleInState(state, action);
     case a.TOGGLE_CONTENT_FETCHED_IN_STATE:

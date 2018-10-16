@@ -26,8 +26,6 @@ describe(`EditableDisplay`, (): void => {
   let dummyDispatchProps: DispatchProps;
   let subItemsSelector: string;
 
-  let dummySetTopicDirty: any;
-
   beforeEach((): void => {
     dummyRoot2 = { ...dummyData.rootContentItem2 };
     dummyParagraph1132 = { ...dummyData.paragraphContentItem4 };
@@ -66,8 +64,6 @@ describe(`EditableDisplay`, (): void => {
       onReverseIndent: jest.fn(),
     };
     subItemsSelector = `[data-test-id="content-item-editable-display__sub-items"]`;
-
-    dummySetTopicDirty = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
@@ -76,7 +72,6 @@ describe(`EditableDisplay`, (): void => {
         contentItemId="abcdefghij"
         contentItem={{ id: 'abcdefghij', type: m.contentItemTypes.ROOT, isDirty: false, isEditing: false, childItemIds: [] }}
         {...dummyDispatchProps}
-        setTopicDirty={dummySetTopicDirty}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
@@ -85,43 +80,43 @@ describe(`EditableDisplay`, (): void => {
   it(`renders a the correct type component for the type of the passed contentItem`, (): void => {
     let enzymeWrapper: any;
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.rootContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.rootContentItem} />);
     expect(enzymeWrapper.find('PureRoot')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.headingContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.headingContentItem} />);
     expect(enzymeWrapper.find('PureHeading')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.paragraphContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.paragraphContentItem} />);
     expect(enzymeWrapper.find('PureParagraph')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.listContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.listContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.listItemContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.listItemContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.blockquoteContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.blockquoteContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.codeContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.codeContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.imageContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.imageContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.videoContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.videoContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.audioContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.audioContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.iframeContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.iframeContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.slideBreakContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.slideBreakContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.courseBreakContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.courseBreakContentItem} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
   });
 
@@ -130,7 +125,6 @@ describe(`EditableDisplay`, (): void => {
       <DummyProviders dummyState={dummyState}>
         <EditableDisplay
           contentItemId="InvalidId"
-          setTopicDirty={dummySetTopicDirty}
         />
       </DummyProviders>,
     );
@@ -142,7 +136,6 @@ describe(`EditableDisplay`, (): void => {
       <DummyProviders dummyState={dummyState}>
         <EditableDisplay
           contentItemId={dummyRoot1.id}
-          setTopicDirty={dummySetTopicDirty}
         />
       </DummyProviders>,
     );
@@ -170,7 +163,6 @@ describe(`EditableDisplay`, (): void => {
       <DummyProviders dummyState={dummyState}>
         <EditableDisplay
           contentItemId={dummyRoot2.id}
-          setTopicDirty={dummySetTopicDirty}
         />
       </DummyProviders>,
     );
@@ -183,7 +175,6 @@ describe(`EditableDisplay`, (): void => {
       <DummyProviders dummyState={dummyState}>
         <EditableDisplay
           contentItemId={dummyParagraph111.id}
-          setTopicDirty={dummySetTopicDirty}
         />
       </DummyProviders>,
     );
@@ -211,16 +202,14 @@ describe(`EditableDisplay`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyText = 'Lorem ipsum';
       const dummyDispatch = jest.fn();
-      mapDispatchToProps(dummyDispatch, ({ setTopicDirty: dummySetTopicDirty }: any)).onEditPlainText(dummyId, dummyText);
-      expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+      mapDispatchToProps(dummyDispatch, ({}: any)).onEditPlainText(dummyId, dummyText);
       expect(dummyDispatch).toHaveBeenCalledWith(actions.edit(dummyId, { text: dummyText }));
     });
 
     it(`dispatches the correct ADD action and calls setTopicDirty, when onAddEmptySubItem is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
-      mapDispatchToProps(dummyDispatch, ({ setTopicDirty: dummySetTopicDirty }: any)).onAddEmptySubItem(dummyId);
-      expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+      mapDispatchToProps(dummyDispatch, ({}: any)).onAddEmptySubItem(dummyId);
       expect(dummyDispatch).toHaveBeenCalledWith(actions.add(
         m.contentItemTypes.PARAGRAPH,
         {
@@ -235,8 +224,7 @@ describe(`EditableDisplay`, (): void => {
     it(`dispatches the correct ADD action and calls setTopicDirty, when onAddEmptySiblingItemBelow is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
-      mapDispatchToProps(dummyDispatch, ({ setTopicDirty: dummySetTopicDirty }: any)).onAddEmptySiblingItemBelow(dummyId);
-      expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+      mapDispatchToProps(dummyDispatch, ({}: any)).onAddEmptySiblingItemBelow(dummyId);
       expect(dummyDispatch).toHaveBeenCalledWith(actions.add(
         m.contentItemTypes.PARAGRAPH,
         {
@@ -251,24 +239,21 @@ describe(`EditableDisplay`, (): void => {
     it(`dispatches the correct REMOVE_AND_TOGGLE_PREVIOUS_ITEM action and calls setTopicDirty, when onRemove is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
-      mapDispatchToProps(dummyDispatch, ({ setTopicDirty: dummySetTopicDirty }: any)).onRemove(dummyId);
-      expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+      mapDispatchToProps(dummyDispatch, ({}: any)).onRemove(dummyId);
       expect(dummyDispatch).toHaveBeenCalledWith(actions.removeAndTogglePreviousItem(dummyId));
     });
 
     it(`dispatches the correct INDENT action and calls setTopicDirty, when onIndent is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
-      mapDispatchToProps(dummyDispatch, ({ setTopicDirty: dummySetTopicDirty }: any)).onIndent(dummyId);
-      expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+      mapDispatchToProps(dummyDispatch, ({}: any)).onIndent(dummyId);
       expect(dummyDispatch).toHaveBeenCalledWith(actions.indent(dummyId));
     });
 
     it(`dispatches the correct REVERSE_INDENT action and calls setTopicDirty, when onReverseIndent is called`, (): void => {
       const dummyId = 'abcdefghijklmnopqrst';
       const dummyDispatch = jest.fn();
-      mapDispatchToProps(dummyDispatch, ({ setTopicDirty: dummySetTopicDirty }: any)).onReverseIndent(dummyId);
-      expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+      mapDispatchToProps(dummyDispatch, ({}: any)).onReverseIndent(dummyId);
       expect(dummyDispatch).toHaveBeenCalledWith(actions.reverseIndent(dummyId));
     });
 

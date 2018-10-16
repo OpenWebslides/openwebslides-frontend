@@ -6,14 +6,14 @@ import * as a from '../actionTypes';
 import * as m from '../model';
 
 const setDirtyInState = (
-  state: m.TopicsState,
+  state: m.ContentItemsState,
   action: a.SetDirtyInStateAction,
-): m.TopicsState => {
+): m.ContentItemsState => {
   const { id, dirty } = action.payload;
-  const topicToEdit = state.byId[id];
-  if (topicToEdit == null) throw new ObjectNotFoundError(`topics:topic`, id);
+  const contentItemToEdit = state.byId[id];
+  if (contentItemToEdit == null) throw new ObjectNotFoundError(`contentItems:contentItem`, id);
 
-  if (topicToEdit.isDirty === dirty) {
+  if (contentItemToEdit.isDirty === dirty) {
     return state;
   }
 
@@ -22,7 +22,7 @@ const setDirtyInState = (
       ...state,
       byId: {
         ...state.byId,
-        [id]: { ...topicToEdit, isDirty: dirty },
+        [id]: { ...contentItemToEdit, isDirty: dirty },
       },
     };
   }

@@ -14,6 +14,7 @@ export const EDIT_PROPS_FOR_TYPE_IN_STATE: 'contentItems/EDIT_PROPS_FOR_TYPE_IN_
 export const SWITCH_EDITING_IN_STATE: 'contentItems/SWITCH_EDITING_IN_STATE' = 'contentItems/SWITCH_EDITING_IN_STATE';
 export const MOVE_IN_STATE: 'contentItems/MOVE_IN_STATE' = 'contentItems/MOVE_IN_STATE';
 export const REMOVE_FROM_STATE: 'contentItems/REMOVE_FROM_STATE' = 'contentItems/REMOVE_FROM_STATE';
+export const SET_DIRTY_IN_STATE: 'topics/SET_DIRTY_IN_STATE' = 'topics/SET_DIRTY_IN_STATE';
 export const SET_MULTIPLE_IN_STATE: 'contentItems/SET_MULTIPLE_IN_STATE' = 'contentItems/SET_MULTIPLE_IN_STATE';
 
 
@@ -70,6 +71,16 @@ export type RemoveFromStateAction = {|
   |},
 |};
 
+export type SetDirtyInStateAction = {|
+  ...ReducerAction,
+  type: typeof SET_DIRTY_IN_STATE,
+  payload: {|
+    ...$PropertyType<ReducerAction, 'payload'>,
+    id: string,
+    dirty: boolean,
+  |},
+|};
+
 export type SetMultipleInStateAction = {|
   ...ReducerAction,
   type: typeof SET_MULTIPLE_IN_STATE,
@@ -85,4 +96,5 @@ export type ContentItemsReducerAction =
   | SwitchEditingInStateAction
   | MoveInStateAction
   | RemoveFromStateAction
+  | SetDirtyInStateAction
   | SetMultipleInStateAction;

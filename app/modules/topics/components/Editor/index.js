@@ -54,7 +54,9 @@ const mapDispatchToProps = (
       dispatch(actions.patchWithContent(topicId));
     },
     setDirty: (dirty: boolean): void => {
-      dispatch(actions.setDirtyInState(topicId, dirty));
+      // TODO: execute this piece of code based on topic's root content item dirtiness
+      // Catch window refresh events with a prompt when topic is dirty
+      window.onbeforeunload = dirty ? () => true : null;
     },
     discard: (): void => {
       dispatch(actions.discard(topicId));
@@ -80,15 +82,7 @@ class PureEditor extends React.Component<Props> {
   };
 
   renderEditor = (topic: m.Topic): React.Node => {
-    const { t, setDirty, beforeUnloadHandler } = this.props;
-
-    // Prompt when user refreshes window with unsaved changes
-    if (topic.isDirty) {
-      window.addEventListener('beforeunload', beforeUnloadHandler);
-    }
-    else {
-      window.removeEventListener('beforeunload', beforeUnloadHandler);
-    }
+    const { t } = this.props;
 
     return (
       <div data-test-id="topic-editor">
@@ -139,7 +133,6 @@ class PureEditor extends React.Component<Props> {
 
         <ContentItemEditableDisplay
           contentItemId={topic.rootContentItemId}
-          setTopicDirty={setDirty}
         />
       </div>
     );
