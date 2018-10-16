@@ -4,15 +4,15 @@ import * as a from '../../actionTypes';
 
 import actions from '.';
 
-describe(`create`, (): void => {
+describe(`signup`, (): void => {
 
-  it(`returns a users CREATE action containing the passed props`, (): void => {
+  it(`returns a users SIGNUP action containing the passed props`, (): void => {
     const dummyEmail = 'test@test.be';
     const dummyName = 'Test Tester';
     const dummyPassword = 'MahPasswordY0';
     const dummyTosAccepted = true;
-    const expectedAction: a.CreateAction = {
-      type: a.CREATE,
+    const expectedAction: a.SignupAction = {
+      type: a.SIGNUP,
       payload: {
         email: dummyEmail,
         name: dummyName,
@@ -20,7 +20,7 @@ describe(`create`, (): void => {
         tosAccepted: dummyTosAccepted,
       },
     };
-    const actualAction = actions.create(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
+    const actualAction = actions.signup(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
 
     expect(actualAction).toStrictEqual(expectedAction);
   });

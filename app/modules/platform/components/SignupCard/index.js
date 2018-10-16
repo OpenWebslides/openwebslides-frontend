@@ -10,14 +10,14 @@ import { InvalidArgumentError } from 'errors';
 import UserForm, { type UserFormValues } from 'forms/UserForm';
 
 type PassedProps = {|
-  onCreateUser: (email: string, name: string, password: string, tosAccepted: boolean) => void,
+  onSignup: (email: string, name: string, password: string, tosAccepted: boolean) => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
 class PureSignupCard extends React.Component<Props> {
   handleUserFormSubmit = (values: UserFormValues): void => {
-    const { onCreateUser } = this.props;
+    const { onSignup } = this.props;
 
     if (values.email == null
       || values.name == null
@@ -27,7 +27,7 @@ class PureSignupCard extends React.Component<Props> {
       // Make flow happy; #TODO replace with proper redux-form validation
       throw new InvalidArgumentError(`Form data incomplete`);
     }
-    onCreateUser(values.email, values.name, values.password, values.tosAccepted);
+    onSignup(values.email, values.name, values.password, values.tosAccepted);
   };
 
   render(): React.Node {

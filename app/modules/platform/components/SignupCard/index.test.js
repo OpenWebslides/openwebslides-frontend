@@ -15,7 +15,7 @@ describe(`SignupCard`, (): void => {
   let dummyPassword: string;
   let dummyTosAccepted: boolean;
 
-  let dummyOnCreateUser: any;
+  let dummyOnSignup: any;
 
   beforeEach((): void => {
     dummyEmail = 'test@test.be';
@@ -23,7 +23,7 @@ describe(`SignupCard`, (): void => {
     dummyPassword = 'MahPasswordY0';
     dummyTosAccepted = true;
 
-    dummyOnCreateUser = jest.fn();
+    dummyOnSignup = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
@@ -33,22 +33,22 @@ describe(`SignupCard`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`calls the passed onCreateUser function, when its form is submitted with complete values`, (): void => {
+  it(`calls the passed onSignup function, when its form is submitted with complete values`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <SignupCard onCreateUser={dummyOnCreateUser} />
+        <SignupCard onSignup={dummyOnSignup} />
       </DummyProviders>,
     );
     const handleUserFormSubmit = enzymeWrapper.find('PureSignupCard').instance().handleUserFormSubmit;
 
     handleUserFormSubmit({ email: dummyEmail, name: dummyName, password: dummyPassword, tosAccepted: dummyTosAccepted });
-    expect(dummyOnCreateUser).toHaveBeenCalledWith(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
+    expect(dummyOnSignup).toHaveBeenCalledWith(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
   });
 
   it(`throws an InvalidArgumentError, when its form is submitted with incomplete values`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <SignupCard onCreateUser={dummyOnCreateUser} />
+        <SignupCard onSignup={dummyOnSignup} />
       </DummyProviders>,
     );
     const handleUserFormSubmit = enzymeWrapper.find('PureSignupCard').instance().handleUserFormSubmit;

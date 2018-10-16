@@ -10,9 +10,9 @@ import * as a from '../../actionTypes';
 
 const { putAndReturn } = asyncRequests.lib;
 
-const create = function* (action: a.CreateAction): Saga<void> {
+const signup = function* (action: a.SignupAction): Saga<void> {
   const { email, name, password, tosAccepted } = action.payload;
   yield call(putAndReturn, actions.apiPost(email, name, password, tosAccepted));
 };
 
-export default create;
+export default signup;

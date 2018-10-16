@@ -43,17 +43,17 @@ describe(`SignupPage`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`dispatches a users CREATE action, when the onCreateUser passed to SignupCard is called`, (): void => {
+  it(`dispatches a users SIGNUP action, when the onSignup passed to SignupCard is called`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <SignupPage />
       </DummyProviders>,
     );
 
-    const onCreateUser = enzymeWrapper.find('PureSignupCard').props().onCreateUser;
+    const onSignup = enzymeWrapper.find('PureSignupCard').props().onSignup;
 
-    onCreateUser(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
-    expect(dummyDispatch).toHaveBeenCalledWith(users.actions.create(dummyEmail, dummyName, dummyPassword, dummyTosAccepted));
+    onSignup(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
+    expect(dummyDispatch).toHaveBeenCalledWith(users.actions.signup(dummyEmail, dummyName, dummyPassword, dummyTosAccepted));
   });
 
 });

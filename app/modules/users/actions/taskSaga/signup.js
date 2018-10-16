@@ -2,14 +2,14 @@
 
 import * as a from '../../actionTypes';
 
-const create = (
+const signup = (
   email: string,
   name: string,
   password: string,
   tosAccepted: boolean,
-): a.CreateAction => {
+): a.SignupAction => {
   return {
-    type: a.CREATE,
+    type: a.SIGNUP,
     payload: {
       email,
       name,
@@ -19,4 +19,4 @@ const create = (
   };
 };
 
-export default create;
+export default signup;
