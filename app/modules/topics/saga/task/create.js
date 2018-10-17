@@ -1,7 +1,7 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { call, put } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 
 import asyncRequests from 'modules/asyncRequests';
 import contentItems from 'modules/contentItems';
@@ -24,7 +24,7 @@ const create = function* (action: a.CreateAction): Saga<{ id: string }> {
   // and wait for request completion.
   yield call(putAndReturn, actions.fetch(id));
   // Save the initial topic content in the backend.
-  yield put(actions.updateWithContent(id));
+  yield call(putAndReturn, actions.updateWithContent(id));
 
   // Return the topic id.
   return { id };

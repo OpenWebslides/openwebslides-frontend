@@ -1,7 +1,7 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { put, call, select } from 'redux-saga/effects';
+import { call, select } from 'redux-saga/effects';
 
 import { ObjectNotFoundError } from 'errors';
 import asyncRequests from 'modules/asyncRequests';

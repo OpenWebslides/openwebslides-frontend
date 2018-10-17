@@ -38,6 +38,9 @@ describe(`updateWithContent`, (): void => {
           return (action.type === a.API_PATCH) ? null : next();
         })],
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.FETCH) ? null : next();
+        })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === contentItems.actions.apiPatchAllByTopicIdAndRoot('dummy', 'dummy').type) ? null : next();
         })],
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
