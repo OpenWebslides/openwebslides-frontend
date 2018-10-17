@@ -15,6 +15,8 @@ describe(`Editor`, (): void => {
 
   let dummyTopic: m.Topic;
   let dummyDirtyTopic: m.Topic;
+  let upstreamTopic: m.Topic;
+  let downstreamTopic: m.Topic;
   let dummyTopicsById: m.TopicsById;
   let dummyMessage: string;
   let dummyState: any;
@@ -31,9 +33,13 @@ describe(`Editor`, (): void => {
     dummyTopic = { ...dummyTopicData.topic, isContentFetched: true };
     dummyDirtyTopic = { ...dummyTopicData.topic, id: 'dummyDirtyTopic', isContentFetched: true, isDirty: true };
     dummyMessage = 'dummyMessage';
+    upstreamTopic = { ...dummyTopicData.upstream, isContentFetched: true };
+    downstreamTopic = { ...dummyTopicData.downstream, isContentFetched: true };
     dummyTopicsById = {
       [dummyTopic.id]: dummyTopic,
       [dummyDirtyTopic.id]: dummyDirtyTopic,
+      [upstreamTopic.id]: upstreamTopic,
+      [downstreamTopic.id]: downstreamTopic,
     };
     dummyState = {
       ...dummyInitialState,
@@ -240,6 +246,26 @@ describe(`Editor`, (): void => {
     enzymeWrapper.unmount();
 
     expect(dummyDispatch).toHaveBeenCalledTimes(0);
+  });
+
+  it(`renders the pull request button, when the topic has an upstream`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={downstreamTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-pull-request-button"]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`does not render the pull request button, when the topic does not have an upstream`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={upstreamTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-pull-request-button"]').hostNodes()).toHaveLength(0);
   });
 
 });
