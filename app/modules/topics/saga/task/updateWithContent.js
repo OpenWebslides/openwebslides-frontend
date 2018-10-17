@@ -1,7 +1,7 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { call, select } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 
 import { ObjectNotFoundError } from 'errors';
 import asyncRequests from 'modules/asyncRequests';
@@ -18,19 +18,17 @@ const updateWithContent = function* (action: a.UpdateWithContentAction): Saga<vo
   const topic: ?m.Topic = yield select(selectors.getById, { id });
   if (topic == null) throw new ObjectNotFoundError(`topics:topic`, id);
 
-  if (title !== null && description !== null) {
-    // Update the topic in the backend
-    yield call(
-      asyncRequests.lib.putAndReturn,
-      actions.apiPatch(id, title, description),
-    );
+  // Update the topic in the backend
+  yield call(
+    asyncRequests.lib.putAndReturn,
+    actions.apiPatch(id, title, description),
+  );
 
-    // Fetch the new topic from the backend so the state is up-to-date
-    yield call(
-      asyncRequests.lib.putAndReturn,
-      actions.fetch(id),
-    );
-  }
+  // Fetch the new topic from the backend so the state is up-to-date
+  yield call(
+    asyncRequests.lib.putAndReturn,
+    actions.fetch(id),
+  );
 
   // Update the topic content in the backend
   // TODO: determine if this request has to be made

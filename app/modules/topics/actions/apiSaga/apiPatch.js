@@ -6,12 +6,12 @@ import * as a from '../../actionTypes';
 
 const apiPatch = (
   id: string,
-  title?: string,
+  title?: ?string,
   description?: ?string,
 ): a.ApiPatchAction => {
   const validatedPayload = validate.stringProps(
-    ['title'],
-    ['description'],
+    [],
+    ['title', 'description'],
     { title, description },
   );
 

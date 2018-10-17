@@ -38,8 +38,8 @@ describe(`apiPatch`, (): void => {
     const actualAction = actions.apiPatch(dummyId, dummyTitle, dummyDescription);
 
     expect(validate.stringProps).toHaveBeenCalledWith(
-      ['title'],
-      ['description'],
+      [],
+      ['title', 'description'],
       {
         title: dummyTitle,
         description: dummyDescription,
