@@ -5,10 +5,8 @@ import { connect } from 'react-redux';
 
 import { type AppState } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
+import platform from 'modules/platform';
 import topics from 'modules/topics';
-
-import * as m from '../../model';
-import selectors from '../../selectors';
 
 import sidebarIdsToComponentsMap from './sidebarIdsToComponentsMap';
 
@@ -17,14 +15,14 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  activeSidebarIds: $ReadOnlyArray<m.SidebarId>,
+  activeSidebarIds: $ReadOnlyArray<platform.model.SidebarId>,
 |};
 
 type Props = {| ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   return {
-    activeSidebarIds: selectors.getSettingByKey(state, { key: 'activeSidebarIds' }),
+    activeSidebarIds: platform.selectors.getSettingByKey(state, { key: 'activeSidebarIds' }),
   };
 };
 
@@ -36,7 +34,7 @@ class PureSidebars extends React.Component<Props> {
     return (
       <div className="sidebars__grid">
         {/* Reverse order so that newly activated sidebars appear to the left of existing ones */}
-        {[...activeSidebarIds].reverse().map((sidebarId: m.SidebarId): React.Node => {
+        {[...activeSidebarIds].reverse().map((sidebarId: platform.model.SidebarId): React.Node => {
           SidebarComponent = sidebarIdsToComponentsMap[sidebarId];
           return (
             <div key={sidebarId} className="sidebars__grid-item" data-test-id="sidebars-grid-item">

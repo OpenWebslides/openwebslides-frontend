@@ -5,7 +5,6 @@ import AuthWrapper from './AuthWrapper';
 import ResendConfirmationEmailCard from './ResendConfirmationEmailCard';
 import ResetPasswordCard from './ResetPasswordCard';
 import SendResetPasswordEmailCard from './SendResetPasswordEmailCard';
-import Sidebars from './Sidebars';
 import SidebarsMenu from './SidebarsMenu';
 import SigninCard from './SigninCard';
 import SignupCard from './SignupCard';
@@ -17,7 +16,6 @@ const components = {
   ResendConfirmationEmailCard,
   ResetPasswordCard,
   SendResetPasswordEmailCard,
-  Sidebars,
   SidebarsMenu,
   SigninCard,
   SignupCard,

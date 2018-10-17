@@ -13,6 +13,7 @@ export const FETCH: 'users/FETCH' = 'users/FETCH';
 export const FORK_TOPIC: 'users/FORK_TOPIC' = 'users/FORK_TOPIC';
 export const REMOVE_TOPIC: 'users/REMOVE_TOPIC' = 'users/REMOVE_TOPIC';
 export const REMOVE_TOPIC_ID: 'users/REMOVE_TOPIC_ID' = 'users/REMOVE_TOPIC_ID';
+export const SIGNUP: 'users/SIGNUP' = 'users/SIGNUP';
 
 
 // Action types ------------------------------------------------------------------------------------
@@ -28,9 +29,9 @@ export type AddTopicAction = {|
   |},
 |};
 
-export type RemoveTopicIdAction = {|
+export type AddTopicIdAction = {|
   ...TaskSagaAction,
-  type: typeof REMOVE_TOPIC_ID,
+  type: typeof ADD_TOPIC_ID,
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
     id: string,
@@ -67,13 +68,25 @@ export type RemoveTopicAction = {|
   |},
 |};
 
-export type AddTopicIdAction = {|
+export type RemoveTopicIdAction = {|
   ...TaskSagaAction,
-  type: typeof ADD_TOPIC_ID,
+  type: typeof REMOVE_TOPIC_ID,
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
     id: string,
     topicId: string,
+  |},
+|};
+
+export type SignupAction = {|
+  ...TaskSagaAction,
+  type: typeof SIGNUP,
+  payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
+    email: string,
+    name: string,
+    password: string,
+    tosAccepted: boolean,
   |},
 |};
 
@@ -83,6 +96,7 @@ export type AddTopicIdAction = {|
 export type UsersTaskSagaAction =
   | AddTopicAction
   | AddTopicIdAction
+  | SignupAction
   | FetchAction
   | ForkTopicAction
   | RemoveTopicAction

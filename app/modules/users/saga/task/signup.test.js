@@ -5,7 +5,6 @@ import * as matchers from 'redux-saga-test-plan/matchers';
 import { dynamic } from 'redux-saga-test-plan/providers';
 
 import asyncRequests from 'modules/asyncRequests';
-import users from 'modules/users';
 
 import actions from '../../actions';
 
@@ -31,10 +30,10 @@ describe(`signup`, (): void => {
     return expectSaga(sagas.signup, dummyAction)
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === users.actions.apiPost('dummy', 'dummy', 'dummy', true).type) ? null : next();
+          return (action.type === actions.apiPost('dummy', 'dummy', 'dummy', true).type) ? null : next();
         })],
       ])
-      .call(asyncRequests.lib.putAndReturn, users.actions.apiPost(dummyEmail, dummyName, dummyPassword, dummyTosAccepted))
+      .call(asyncRequests.lib.putAndReturn, actions.apiPost(dummyEmail, dummyName, dummyPassword, dummyTosAccepted))
       .run();
   });
 

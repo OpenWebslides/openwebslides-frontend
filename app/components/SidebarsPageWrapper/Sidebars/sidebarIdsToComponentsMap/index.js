@@ -1,13 +1,13 @@
 // @flow
 
-import * as m from '../../../model';
+import platform from 'modules/platform';
 
 import TopicInfoSidebar from './TopicInfoSidebar';
 import SlidePreviewsSidebar from './SlidePreviewsSidebar';
 
 const sidebarIdsToComponentsMap = {
-  [m.sidebarIds.TOPIC_INFO]: TopicInfoSidebar,
-  [m.sidebarIds.SLIDE_PREVIEWS]: SlidePreviewsSidebar,
+  [platform.model.sidebarIds.TOPIC_INFO]: TopicInfoSidebar,
+  [platform.model.sidebarIds.SLIDE_PREVIEWS]: SlidePreviewsSidebar,
 };
 
 export default sidebarIdsToComponentsMap;

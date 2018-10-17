@@ -6,7 +6,7 @@ import actions from '.';
 
 describe(`signup`, (): void => {
 
-  it(`returns a platform SIGNUP action containing the passed props`, (): void => {
+  it(`returns a users SIGNUP action containing the passed props`, (): void => {
     const dummyEmail = 'test@test.be';
     const dummyName = 'Test Tester';
     const dummyPassword = 'MahPasswordY0';

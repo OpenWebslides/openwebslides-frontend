@@ -15,6 +15,7 @@ import fetch from './fetch';
 import forkTopic from './forkTopic';
 import removeTopic from './removeTopic';
 import removeTopicId from './removeTopicId';
+import signup from './signup';
 
 const { sagaWrapper } = asyncRequests.lib;
 
@@ -26,6 +27,7 @@ const taskSaga = function* (): Saga<void> {
     takeEvery(a.FORK_TOPIC, sagaWrapper, forkTopic),
     takeEvery(a.REMOVE_TOPIC, sagaWrapper, removeTopic),
     takeEvery(a.REMOVE_TOPIC_ID, sagaWrapper, removeTopicId),
+    takeEvery(a.SIGNUP, sagaWrapper, signup),
   ]);
 };
 
@@ -36,6 +38,7 @@ const taskSagas = {
   forkTopic,
   removeTopic,
   removeTopicId,
+  signup,
 };
 
 export { taskSagas };

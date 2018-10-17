@@ -1,7 +1,6 @@
 // @flow
 
 /* eslint-disable import/no-internal-modules */
-// ^ note: make exception to the rule of only importing entire modules to avoid dependency cycles
 
 // AsyncRequests module
 import { type AsyncRequestsAction } from 'modules/asyncRequests/actionTypes';
