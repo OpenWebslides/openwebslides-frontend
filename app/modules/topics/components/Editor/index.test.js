@@ -21,6 +21,9 @@ describe(`Editor`, (): void => {
   let dummyOnSave: any;
   let dummySetDirty: any;
 
+  let dummyAddEventListener: any;
+  let dummyRemoveEventListener: any;
+
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic, isContentFetched: true };
     dummyDirtyTopic = { ...dummyTopicData.topic, id: 'dummyDirtyTopic', isContentFetched: true, isDirty: true };
@@ -36,6 +39,12 @@ describe(`Editor`, (): void => {
     dummyDispatch = jest.fn();
     dummyOnSave = jest.fn();
     dummySetDirty = jest.fn();
+
+    dummyAddEventListener = jest.fn();
+    dummyRemoveEventListener = jest.fn();
+
+    window.addEventListener = dummyAddEventListener;
+    window.removeEventListener = dummyRemoveEventListener;
   });
 
   it(`renders without errors`, (): void => {
@@ -102,38 +111,6 @@ describe(`Editor`, (): void => {
     expect(dummyDispatch).toHaveBeenCalledTimes(0);
   });
 
-  it(`dispatches a topic SET_DIRTY_IN_STATE action and sets a window.unbeforeunload action, when the setDirty prop is called with TRUE`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Editor
-          topicId={dummyTopic.id}
-        />
-      </DummyProviders>,
-    );
-
-    const setDirty = enzymeWrapper.find(`PureEditor`).props().setDirty;
-    setDirty(true);
-
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.setDirtyInState(dummyTopic.id, true));
-    expect(window.onbeforeunload).not.toBeNull();
-  });
-
-  it(`dispatches a topic SET_DIRTY_IN_STATE action and unsets a window.unbeforeunload action, when the setDirty prop is called with FALSE`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Editor
-          topicId={dummyTopic.id}
-        />
-      </DummyProviders>,
-    );
-
-    const setDirty = enzymeWrapper.find(`PureEditor`).props().setDirty;
-    setDirty(false);
-
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.setDirtyInState(dummyTopic.id, false));
-    expect(window.onbeforeunload).toBeNull();
-  });
-
   it(`dispatches a topic SET_DIRTY_IN_STATE action, when the setDirty prop is called`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
@@ -147,24 +124,30 @@ describe(`Editor`, (): void => {
     expect(dummyDispatch).toHaveBeenCalledWith(actions.setDirtyInState(dummyTopic.id, true));
   });
 
-  it(`shows only the title when the topic is not dirty`, (): void => {
+  it(`shows only the title, and removes a window event listener when the topic is not dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyTopic.id} />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toStrictEqual(dummyDirtyTopic.title);
+    const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).props().beforeUnloadHandler;
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toStrictEqual(dummyTopic.title);
+    expect(dummyRemoveEventListener).toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);
   });
 
-  it(`appends an asterisk to the title when the topic is dirty`, (): void => {
+  it(`appends an asterisk to the title, and adds a window event listener when the topic is dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyDirtyTopic.id} />
       </DummyProviders>,
     );
 
+    const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).props().beforeUnloadHandler;
+
     expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toStrictEqual(`${dummyDirtyTopic.title}*`);
+    expect(dummyAddEventListener).toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);
   });
 
 });

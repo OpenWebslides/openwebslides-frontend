@@ -23,6 +23,7 @@ type PassedProps = {|
 type DispatchProps = {|
   onSave: () => void,
   setDirty: (dirty: boolean) => void,
+  beforeUnloadHandler: () => boolean,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
@@ -40,12 +41,9 @@ const mapDispatchToProps = (
       dispatch(actions.patchWithContent(topicId));
     },
     setDirty: (dirty: boolean): void => {
-      // Catch window refresh events with a prompt when topic is dirty
-      window.onbeforeunload = dirty ? () => true : null;
-
-      // Set topic dirty in state
       dispatch(actions.setDirtyInState(topicId, dirty));
     },
+    beforeUnloadHandler: () => true,
   };
 };
 
@@ -60,7 +58,15 @@ class PureEditor extends React.Component<Props> {
   };
 
   renderEditor = (topic: m.Topic): React.Node => {
-    const { t, setDirty } = this.props;
+    const { t, setDirty, beforeUnloadHandler } = this.props;
+
+    // Prompt when user refreshes window with unsaved changes
+    if (topic.isDirty) {
+      window.addEventListener('beforeunload', beforeUnloadHandler);
+    }
+    else {
+      window.removeEventListener('beforeunload', beforeUnloadHandler);
+    }
 
     return (
       <div data-test-id="topic-editor">
