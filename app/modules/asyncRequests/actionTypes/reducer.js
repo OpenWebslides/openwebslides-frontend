@@ -9,7 +9,7 @@ import * as m from '../model';
 
 // Action constants --------------------------------------------------------------------------------
 
-export const SET_IN_STATE: 'asyncRequests/SET_STATUS_IN_STATE' = 'asyncRequests/SET_STATUS_IN_STATE';
+export const SET_IN_STATE: 'asyncRequests/SET_IN_STATE' = 'asyncRequests/SET_IN_STATE';
 
 
 // Action types ------------------------------------------------------------------------------------
