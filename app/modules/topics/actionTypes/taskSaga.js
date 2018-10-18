@@ -8,6 +8,7 @@ import { type TaskSagaAction } from 'types/actions';
 // Action constants --------------------------------------------------------------------------------
 
 export const CREATE: 'topics/CREATE' = 'topics/CREATE';
+export const DISCARD: 'topics/DISCARD' = 'topics/DISCARD';
 export const EDIT: 'topics/EDIT' = 'topics/EDIT';
 export const REMOVE: 'topics/REMOVE' = 'topics/REMOVE';
 export const FETCH: 'topics/FETCH' = 'topics/FETCH';
@@ -26,6 +27,15 @@ export type CreateAction = {|
     title: string,
     description: ?string,
     userId: string,
+  |},
+|};
+
+export type DiscardAction = {|
+  ...TaskSagaAction,
+  type: typeof DISCARD,
+  payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
+    id: string,
   |},
 |};
 
@@ -92,6 +102,7 @@ export type ForkAction = {|
 
 export type TopicsTaskSagaAction =
   | CreateAction
+  | DiscardAction
   | EditAction
   | RemoveAction
   | FetchAction

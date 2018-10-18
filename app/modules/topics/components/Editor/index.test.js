@@ -133,6 +133,7 @@ describe(`Editor`, (): void => {
 
     const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).props().beforeUnloadHandler;
 
+    expect(beforeUnloadHandler()).toStrictEqual(true);
     expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toStrictEqual(dummyTopic.title);
     expect(dummyRemoveEventListener).toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);
   });
@@ -146,6 +147,7 @@ describe(`Editor`, (): void => {
 
     const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).props().beforeUnloadHandler;
 
+    expect(beforeUnloadHandler()).toStrictEqual(true);
     expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toStrictEqual(`${dummyDirtyTopic.title}*`);
     expect(dummyAddEventListener).toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);
   });
