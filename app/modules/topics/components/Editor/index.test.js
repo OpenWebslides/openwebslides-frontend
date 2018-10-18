@@ -150,4 +150,28 @@ describe(`Editor`, (): void => {
     expect(dummyAddEventListener).toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);
   });
 
+  it(`dispatches a topic DISCARD action, when the component is unmounted and the topic is dirty`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDirtyTopic.id} />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.unmount();
+
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.discard(dummyDirtyTopic.id));
+  });
+
+  it(`does not dispatch a topic DISCARD action, when the component is unmounted but the topic is not dirty`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.unmount();
+
+    expect(dummyDispatch).toHaveBeenCalledTimes(0);
+  });
+
 });

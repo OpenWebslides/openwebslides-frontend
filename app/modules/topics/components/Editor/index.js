@@ -7,7 +7,7 @@ import { Link, Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
 import { Button, Header, Icon, Grid } from 'semantic-ui-react';
 
-import { type ModulesAction } from 'types/redux';
+import { type AppState, type ModulesAction } from 'types/redux';
 import { USER_PROFILE_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 import contentItems from 'modules/contentItems';
@@ -20,15 +20,28 @@ type PassedProps = {|
   topicId: string,
 |};
 
+type StateProps = {|
+  topic: ?m.Topic,
+|};
+
 type DispatchProps = {|
   onSave: () => void,
   setDirty: (dirty: boolean) => void,
+  discard: () => void,
   beforeUnloadHandler: () => boolean,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
+
+const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
+  const { topicId } = props;
+
+  return {
+    topic: selectors.getById(state, { id: topicId }),
+  };
+};
 
 const mapDispatchToProps = (
   dispatch: Dispatch<ModulesAction>,
@@ -43,6 +56,9 @@ const mapDispatchToProps = (
     setDirty: (dirty: boolean): void => {
       dispatch(actions.setDirtyInState(topicId, dirty));
     },
+    discard: (): void => {
+      dispatch(actions.discard(topicId));
+    },
     beforeUnloadHandler: () => true,
   };
 };
@@ -51,6 +67,12 @@ class PureEditor extends React.Component<Props> {
   handleSaveButtonClick = (): void => {
     const { onSave } = this.props;
     onSave();
+  };
+
+  componentWillUnmount = (): void => {
+    const { topic, discard } = this.props;
+
+    if (topic.isDirty) discard(topic.id);
   };
 
   fetchCondition = (topic: ?m.Topic): boolean => {
@@ -139,7 +161,7 @@ class PureEditor extends React.Component<Props> {
   }
 }
 
-const Editor = connect(null, mapDispatchToProps)(withNamespaces()(PureEditor));
+const Editor = connect(mapStateToProps, mapDispatchToProps)(withNamespaces()(PureEditor));
 
 export { PureEditor };
 export default Editor;
