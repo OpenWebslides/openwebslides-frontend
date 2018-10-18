@@ -8,7 +8,7 @@ import { type Dispatch } from 'redux';
 import { Button, Header, Icon } from 'semantic-ui-react';
 
 import { type AppState, type ModulesAction } from 'types/redux';
-import { TOPIC_PR_ROUTE } from 'config/routes';
+import { TOPIC_PR_NEW_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 import { type CommitFormValues } from 'forms/CommitForm';
 import CommitModal from 'modals/CommitModal';
@@ -154,7 +154,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
               labelPosition="left"
               data-test-id="topic-editor-pull-request-button"
               as={Link}
-              to={makeRoute(TOPIC_PR_ROUTE, { topicId: topic.id })}
+              to={makeRoute(TOPIC_PR_NEW_ROUTE, { topicId: topic.id })}
             >
               <Icon name="tasks" />
               {t('common:button.pr')}
