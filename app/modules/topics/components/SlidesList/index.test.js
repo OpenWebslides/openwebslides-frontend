@@ -4,7 +4,7 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import contentItemSplit from 'lib/contentItemSplit';
-import { DummyProviders, dummyProviderProps, dummyTopicData, dummyContentItemData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyProviderProps, dummyTopicData, dummyContentItemData } from 'lib/testResources';
 import contentItems from 'modules/contentItems';
 
 import * as m from '../../model';
@@ -27,13 +27,21 @@ describe(`SlidesList`, (): void => {
     dummyRoot = { ...dummyContentItemData.rootContentItem, childItemIds: [dummyHeading1.id, dummyHeading2.id] };
     dummyTopic = { ...dummyTopicData.topic, rootContentItemId: dummyRoot.id };
     dummyState = {
+      ...dummyInitialState,
       modules: {
-        topics: { byId: { [dummyTopic.id]: dummyTopic } },
-        contentItems: { byId: {
-          [dummyRoot.id]: dummyRoot,
-          [dummyHeading1.id]: dummyHeading1,
-          [dummyHeading2.id]: dummyHeading2,
-        } },
+        ...dummyInitialState.modules,
+        topics: {
+          ...dummyInitialState.modules.topics,
+          byId: { [dummyTopic.id]: dummyTopic },
+        },
+        contentItems: {
+          ...dummyInitialState.modules.contentItems,
+          byId: {
+            [dummyRoot.id]: dummyRoot,
+            [dummyHeading1.id]: dummyHeading1,
+            [dummyHeading2.id]: dummyHeading2,
+          },
+        },
       },
     };
     dummyEmptyState = { modules: { topics: { byId: {} }, contentItems: { byId: {} } } };

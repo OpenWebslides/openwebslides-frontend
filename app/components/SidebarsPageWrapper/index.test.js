@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyTopicData, dummyContentItemData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyTopicData, dummyContentItemData } from 'lib/testResources';
 import platform from 'modules/platform';
 import topics from 'modules/topics';
 
@@ -19,26 +19,28 @@ describe(`SidebarsPageWrapper`, (): void => {
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic, rootContentItemId: dummyContentItemData.rootContentItem.id };
     dummyState = {
+      ...dummyInitialState,
       modules: {
-        asyncRequests: { byId: {} },
+        ...dummyInitialState.modules,
         contentItems: {
+          ...dummyInitialState.modules.contentItems,
           byId: {
             [dummyContentItemData.rootContentItem.id]: dummyContentItemData.rootContentItem,
           },
         },
         topics: {
+          ...dummyInitialState.modules.topics,
           byId: {
             [dummyTopic.id]: dummyTopic,
           },
         },
         platform: {
+          ...dummyInitialState.modules.platform,
           settings: {
+            ...dummyInitialState.modules.platform.settings,
             activeSidebarIds: [platform.model.sidebarIds.SLIDE_PREVIEWS, platform.model.sidebarIds.TOPIC_INFO],
           },
         },
-      },
-      flash: {
-        messages: [],
       },
     };
     dummyDispatch = jest.fn();

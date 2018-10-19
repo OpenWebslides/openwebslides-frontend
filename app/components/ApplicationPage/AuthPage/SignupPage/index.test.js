@@ -15,7 +15,6 @@ describe(`SignupPage`, (): void => {
   let dummyPassword: string;
   let dummyTosAccepted: boolean;
 
-  let dummyState: any;
   let dummyDispatch: any;
 
   beforeEach((): void => {
@@ -24,13 +23,6 @@ describe(`SignupPage`, (): void => {
     dummyPassword = 'MahPasswordY0';
     dummyTosAccepted = true;
 
-    dummyState = {
-      flash: { messages: [] },
-      modules: {
-        asyncRequests: { byId: {} },
-        platform: { userAuth: null },
-      },
-    };
     dummyDispatch = jest.fn();
   });
 
@@ -45,7 +37,7 @@ describe(`SignupPage`, (): void => {
 
   it(`dispatches a users SIGNUP action, when the onSignup passed to SignupCard is called`, (): void => {
     const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+      <DummyProviders dummyDispatch={dummyDispatch}>
         <SignupPage />
       </DummyProviders>,
     );

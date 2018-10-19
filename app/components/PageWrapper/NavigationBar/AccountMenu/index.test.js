@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyUserData } from 'lib/testResources';
 import users from 'modules/users';
 
 import AccountMenu, { PureAccountMenu } from '.';
@@ -16,11 +16,15 @@ describe(`AccountMenu`, (): void => {
   beforeEach((): void => {
     dummyUser = { ...dummyUserData.user };
     dummyState = {
+      ...dummyInitialState,
       modules: {
+        ...dummyInitialState.modules,
         platform: {
+          ...dummyInitialState.modules.platform,
           userAuth: { userId: dummyUser.id, apiToken: 'foobarToken' },
         },
         users: {
+          ...dummyInitialState.modules.users,
           byId: {
             [dummyUser.id]: dummyUser,
           },

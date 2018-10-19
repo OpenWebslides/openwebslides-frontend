@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyProviderProps } from 'lib/testResources';
 
 import FlashMessages, { PureFlashMessages } from '.';
 
@@ -22,7 +22,9 @@ describe(`FlashMessages`, (): void => {
       props: {},
     };
     dummyState = {
+      ...dummyInitialState,
       flash: {
+        ...dummyInitialState.flash,
         messages: [
           {
             id: 987654321,

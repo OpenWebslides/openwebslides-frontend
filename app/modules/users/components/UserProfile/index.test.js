@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyProviderProps, dummyUserData } from 'lib/testResources';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -23,10 +23,16 @@ describe(`UserProfile`, (): void => {
     dummyUsersById = {
       [dummyUser.id]: dummyUser,
     };
-    dummyState = { modules: {
-      topics: { byId: {} },
-      users: { byId: dummyUsersById },
-    } };
+    dummyState = {
+      ...dummyInitialState,
+      modules: {
+        ...dummyInitialState.modules,
+        users: {
+          ...dummyInitialState.modules.users,
+          byId: dummyUsersById,
+        },
+      },
+    };
     dummyDispatch = jest.fn();
   });
 

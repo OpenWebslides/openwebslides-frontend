@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyProviderProps, dummyTopicData } from 'lib/testResources';
 
 import actions from '../../../actions';
 import * as m from '../../../model';
@@ -24,10 +24,16 @@ describe(`TopicCard`, (): void => {
     dummyTopicsById = {
       [dummyTopic.id]: dummyTopic,
     };
-    dummyState = { modules: {
-      apiRequestsStatus: {},
-      topics: { byId: dummyTopicsById },
-    } };
+    dummyState = {
+      ...dummyInitialState,
+      modules: {
+        ...dummyInitialState.modules,
+        topics: {
+          ...dummyInitialState.modules.topics,
+          byId: dummyTopicsById,
+        },
+      },
+    };
     dummyDispatch = jest.fn();
     dummyOnRemoveTopic = jest.fn();
   });

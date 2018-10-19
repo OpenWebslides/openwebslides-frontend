@@ -19,7 +19,6 @@ describe(`SSOCallbackPage`, (): void => {
   let dummySetUserAuth: any;
 
   let dummyDispatch: any;
-  let dummyState: any;
 
   beforeEach((): void => {
     dummyApiToken = 'foobarApiToken';
@@ -27,15 +26,6 @@ describe(`SSOCallbackPage`, (): void => {
     dummySetUserAuth = jest.fn();
 
     dummyDispatch = jest.fn();
-    dummyState = {
-      modules: {
-        asyncRequests: { byId: {} },
-        platform: { userAuth: null },
-      },
-      flash: {
-        messages: [],
-      },
-    };
   });
 
   it(`dispatches a dummySetUserAuth() action with the passed apiToken and id`, (): void => {
@@ -48,7 +38,7 @@ describe(`SSOCallbackPage`, (): void => {
     };
 
     mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+      <DummyProviders dummyDispatch={dummyDispatch}>
         <SSOCallbackPage {...fixedDummyRouterProps} />
       </DummyProviders>,
     );
@@ -66,7 +56,7 @@ describe(`SSOCallbackPage`, (): void => {
     };
 
     mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+      <DummyProviders dummyDispatch={dummyDispatch}>
         <SSOCallbackPage {...fixedDummyRouterProps} />
       </DummyProviders>,
     );

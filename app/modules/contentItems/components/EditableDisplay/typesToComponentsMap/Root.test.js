@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyContentItemData as dummyData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as m from '../../../model';
 
@@ -27,8 +27,11 @@ describe(`Root`, (): void => {
       [dummyHeading2.id]: dummyHeading2,
     };
     dummyState = {
+      ...dummyInitialState,
       modules: {
+        ...dummyInitialState.modules,
         contentItems: {
+          ...dummyInitialState.modules.contentItems,
           byId: dummyContentItemsById,
         },
       },

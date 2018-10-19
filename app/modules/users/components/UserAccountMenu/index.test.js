@@ -1,9 +1,10 @@
 // @flow
 
+import _ from 'lodash';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyProviderProps, dummyUserData } from 'lib/testResources';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -13,9 +14,24 @@ import UserAccountMenu, { PureUserAccountMenu } from '.';
 describe(`UserAccountMenu`, (): void => {
 
   let dummyUser: m.User;
+  let dummyUsersById: m.UsersById;
+  let dummyState: any;
+  let dummyDispatch: any;
 
   beforeEach((): void => {
     dummyUser = { ...dummyUserData.user };
+    dummyUsersById = { [dummyUser.id]: dummyUser };
+    dummyState = {
+      ...dummyInitialState,
+      modules: {
+        ...dummyInitialState.modules,
+        users: {
+          ...dummyInitialState.modules.users,
+          byId: dummyUsersById,
+        },
+      },
+    };
+    dummyDispatch = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
@@ -29,9 +45,7 @@ describe(`UserAccountMenu`, (): void => {
   });
 
   it(`fetches the user, when the user was not previously present in the state`, (): void => {
-    const dummyUsersById: m.UsersById = {};
-    const dummyState = { modules: { users: { byId: dummyUsersById } } };
-    const dummyDispatch = jest.fn();
+    _.unset(dummyUsersById, dummyUser.id);
 
     mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
@@ -43,12 +57,6 @@ describe(`UserAccountMenu`, (): void => {
   });
 
   it(`renders the user, when the user was previously present in the state`, (): void => {
-    const dummyUsersById: m.UsersById = {
-      [dummyUser.id]: dummyUser,
-    };
-    const dummyState = { modules: { users: { byId: dummyUsersById } } };
-    const dummyDispatch = jest.fn();
-
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <UserAccountMenu userId={dummyUser.id} />

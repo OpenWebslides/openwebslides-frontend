@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyProviderProps, dummyTopicData } from 'lib/testResources';
 
 import * as m from '../../model';
 
@@ -20,10 +20,19 @@ describe(`TopicsList`, (): void => {
     dummyTopic2 = { ...dummyTopicData.topic2 };
     dummyTopic1 = { ...dummyTopicData.topic };
     dummyTopicIds = [dummyTopic1.id, dummyTopic2.id];
-    dummyState = { modules: { topics: { byId: {
-      [dummyTopic1.id]: dummyTopic1,
-      [dummyTopic2.id]: dummyTopic2,
-    } } } };
+    dummyState = {
+      ...dummyInitialState,
+      modules: {
+        ...dummyInitialState.modules,
+        topics: {
+          ...dummyInitialState.modules.topics,
+          byId: {
+            [dummyTopic1.id]: dummyTopic1,
+            [dummyTopic2.id]: dummyTopic2,
+          },
+        },
+      },
+    };
   });
 
   it(`renders without errors`, (): void => {

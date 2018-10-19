@@ -8,6 +8,7 @@ import * as dummyTopicData from './dummyTopicData';
 import * as dummyUserData from './dummyUserData';
 import * as dummyProviderProps from './dummyProviderProps';
 import DummyProviders from './DummyProviders';
+import dummyInitialState from './dummyInitialState';
 
 export {
   dummyAsyncRequestData,
@@ -18,4 +19,5 @@ export {
   dummyUserData,
   dummyProviderProps,
   DummyProviders,
+  dummyInitialState,
 };
