@@ -431,17 +431,17 @@ module.exports = {
   'overrides': [
     {
       'files': [
-        '**/api/**/index.js',
-        '**/errors/**/index.js',
-        '**/i18n/**/index.js',
-        '**/modules/*/actions/*/index.js',
-        '**/modules/*/components/index.js',
-        '**/modules/*/saga/**/index.js',
-        '**/modules/*/selectors/index.js',
-        '**/store/rootReducer.js',
-        '**/store/modulesReducer.js',
-        '**/store/rootSaga.js',
-        '**/types/state.js',
+        '**/app/api/**/index.js',
+        '**/app/errors/**/index.js',
+        '**/app/i18n/**/index.js',
+        '**/app/modules/*/actions/*/index.js',
+        '**/app/modules/*/components/index.js',
+        '**/app/modules/*/saga/**/index.js',
+        '**/app/modules/*/selectors/index.js',
+        '**/app/store/rootReducer.js',
+        '**/app/store/modulesReducer.js',
+        '**/app/store/rootSaga.js',
+        '**/app/types/redux.js',
       ],
       'rules': {
         'sort-imports': 'error',
