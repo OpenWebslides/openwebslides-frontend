@@ -8,6 +8,9 @@ import { type AsyncRequestsState } from 'modules/asyncRequests/model';
 // ContentItems module
 import { type ContentItemsAction } from 'modules/contentItems/actionTypes';
 import { type ContentItemsState } from 'modules/contentItems/model';
+// Errors module
+import { type ErrorsAction } from 'modules/errors/actionTypes';
+import { type ErrorsState } from 'modules/errors/model';
 // FeedItems module
 import { type FeedItemsAction } from 'modules/feedItems/actionTypes';
 import { type FeedItemsState } from 'modules/feedItems/model';
@@ -21,12 +24,10 @@ import { type TopicsState } from 'modules/topics/model';
 import { type UsersAction } from 'modules/users/actionTypes';
 import { type UsersState } from 'modules/users/model';
 
-// #TODO extract error functionality into module
-import { type ErrorState } from './error';
-
 export type ModulesAction =
   | AsyncRequestsAction
   | ContentItemsAction
+  | ErrorsAction
   | FeedItemsAction
   | PlatformAction
   | TopicsAction
@@ -35,6 +36,7 @@ export type ModulesAction =
 export type ModulesState = {|
   +asyncRequests: AsyncRequestsState,
   +contentItems: ContentItemsState,
+  +errors: ErrorsState,
   +feedItems: FeedItemsState,
   +platform: PlatformState,
   +topics: TopicsState,
@@ -42,7 +44,7 @@ export type ModulesState = {|
 |};
 
 export type AppState = {|
-  +error: ErrorState,
+  +flash: {},
   +form: {},
   +modules: ModulesState,
 |};

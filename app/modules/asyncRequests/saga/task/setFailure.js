@@ -3,7 +3,7 @@
 import { type Saga } from 'redux-saga';
 import { put } from 'redux-saga/effects';
 
-import { type ErrorAction } from 'types/error';
+import errors from 'modules/errors';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -18,8 +18,7 @@ const setFailure = function* (action: a.SetFailureAction): Saga<void> {
   };
 
   yield put(actions.setInState(asyncRequest));
-  // #TODO write proper model / action creators etc for this
-  yield put(({ type: 'ERROR', error }: ErrorAction));
+  yield put(errors.actions.log(error));
 };
 
 export default setFailure;
