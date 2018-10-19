@@ -5,6 +5,7 @@ import putAndGetId from './putAndGetId';
 import putAndReturn from './putAndReturn';
 import takeByIdAndStatusType from './takeByIdAndStatusType';
 import takeFailureById from './takeFailureById';
+import takeFinishedById from './takeFinishedById';
 import takeSuccessById from './takeSuccessById';
 import sagaWrapper from './sagaWrapper';
 
@@ -14,6 +15,7 @@ const lib = {
   putAndReturn,
   takeByIdAndStatusType,
   takeFailureById,
+  takeFinishedById,
   takeSuccessById,
   sagaWrapper,
 };
