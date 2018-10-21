@@ -26,7 +26,7 @@ type StateProps = {|
 
 type DispatchProps = {|
   onSave: () => void,
-  setDirty: (dirty: boolean) => void,
+  onSetDirty: (dirty: boolean) => void,
   discard: () => void,
   beforeUnloadHandler: () => boolean,
 |};
@@ -53,7 +53,7 @@ const mapDispatchToProps = (
     onSave: (): void => {
       dispatch(actions.patchWithContent(topicId));
     },
-    setDirty: (dirty: boolean): void => {
+    onSetDirty: (dirty: boolean): void => {
       dispatch(actions.setDirtyInState(topicId, dirty));
     },
     discard: (): void => {
@@ -80,7 +80,7 @@ class PureEditor extends React.Component<Props> {
   };
 
   renderEditor = (topic: m.Topic): React.Node => {
-    const { t, setDirty, beforeUnloadHandler } = this.props;
+    const { t, onSetDirty, beforeUnloadHandler } = this.props;
 
     // Prompt when user refreshes window with unsaved changes
     if (topic.isDirty) {
@@ -139,7 +139,7 @@ class PureEditor extends React.Component<Props> {
 
         <ContentItemEditableDisplay
           contentItemId={topic.rootContentItemId}
-          setTopicDirty={setDirty}
+          setTopicDirty={onSetDirty}
         />
       </div>
     );

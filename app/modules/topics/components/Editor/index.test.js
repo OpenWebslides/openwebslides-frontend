@@ -19,7 +19,7 @@ describe(`Editor`, (): void => {
   let dummyState: any;
   let dummyDispatch: any;
   let dummyOnSave: any;
-  let dummySetDirty: any;
+  let dummyOnSetDirty: any;
 
   let dummyAddEventListener: any;
   let dummyRemoveEventListener: any;
@@ -38,7 +38,7 @@ describe(`Editor`, (): void => {
     } };
     dummyDispatch = jest.fn();
     dummyOnSave = jest.fn();
-    dummySetDirty = jest.fn();
+    dummyOnSetDirty = jest.fn();
 
     dummyAddEventListener = jest.fn();
     dummyRemoveEventListener = jest.fn();
@@ -53,7 +53,7 @@ describe(`Editor`, (): void => {
         {...dummyProviderProps.translatorProps}
         topicId={dummyTopic.id}
         onSave={dummyOnSave}
-        setDirty={dummySetDirty}
+        onSetDirty={dummyOnSetDirty}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
@@ -111,15 +111,15 @@ describe(`Editor`, (): void => {
     expect(dummyDispatch).toHaveBeenCalledTimes(0);
   });
 
-  it(`dispatches a topic SET_DIRTY_IN_STATE action, when the setDirty prop is called`, (): void => {
+  it(`dispatches a topic SET_DIRTY_IN_STATE action, when the onSetDirty prop is called`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyTopic.id} />
       </DummyProviders>,
     );
 
-    const setDirty = enzymeWrapper.find(`PureEditor`).props().setDirty;
-    setDirty(true);
+    const onSetDirty = enzymeWrapper.find(`PureEditor`).props().onSetDirty;
+    onSetDirty(true);
 
     expect(dummyDispatch).toHaveBeenCalledWith(actions.setDirtyInState(dummyTopic.id, true));
   });
