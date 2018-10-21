@@ -12,19 +12,22 @@ import * as a from '../../actionTypes';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
-const { putAndReturn } = asyncRequests.lib;
-
-const patchWithContent = function* (action: a.PatchWithContentAction): Saga<void> {
+const discard = function* (action: a.DiscardAction): Saga<void> {
   const { id } = action.payload;
   const topic: ?m.Topic = yield select(selectors.getById, { id });
   if (topic == null) throw new ObjectNotFoundError(`topics:topic`, id);
 
-  // #TODO patch topic title & description
-  yield call(putAndReturn, contentItems.actions.apiPatchAllByTopicIdAndRoot(
-    id, topic.rootContentItemId,
-  ));
+  // Remove the topic content from the state, starting at the root content item
+  yield put(contentItems.actions.removeFromState(topic.rootContentItemId));
 
-  yield put(actions.setDirtyInState(id, false));
+  // Remove the topic from the state
+  yield put(actions.removeFromState(id));
+
+  // Refetch the topic from the backend
+  yield call(
+    asyncRequests.lib.putAndReturn,
+    actions.fetch(id),
+  );
 };
 
-export default patchWithContent;
+export default discard;

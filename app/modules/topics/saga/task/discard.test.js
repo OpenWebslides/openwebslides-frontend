@@ -6,51 +6,52 @@ import * as matchers from 'redux-saga-test-plan/matchers';
 import { dynamic } from 'redux-saga-test-plan/providers';
 
 import { ObjectNotFoundError } from 'errors';
-import { dummyTopicData } from 'lib/testResources';
 import asyncRequests from 'modules/asyncRequests';
+import { dummyTopicData } from 'lib/testResources';
 import contentItems from 'modules/contentItems';
 
 import actions from '../../actions';
+import * as a from '../../actionTypes';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
 import { sagas } from '..';
 
-describe(`patchWithContent`, (): void => {
+describe(`discard`, (): void => {
 
   let dummyTopic: m.Topic;
+  let dummyDirtyTopic: m.Topic;
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic };
+    dummyDirtyTopic = { ...dummyTopicData.topic, isDirty: true };
   });
 
-  it(`gets the topic rootContentItemId from the state and puts a contentItems API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT action, and a SET_DIRTY_IN_STATE action`, (): void => {
-    const dummyAction = actions.patchWithContent(dummyTopic.id);
+  it(`puts a content items REMOVE_FROM_STATE, a topics REMOVE_FROM_STATE action and a topics FETCH action`, (): void => {
+    const dummyAction = actions.discard(dummyDirtyTopic.id);
 
-    return expectSaga(sagas.patchWithContent, dummyAction)
+    return expectSaga(sagas.discard, dummyAction)
       .provide([
-        [select(selectors.getById, { id: dummyTopic.id }), dummyTopic],
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === contentItems.actions.apiPatchAllByTopicIdAndRoot('dummy', 'dummy').type) ? null : next();
+          return (action.type === a.FETCH) ? null : next();
         })],
+        [select(selectors.getById, { id: dummyDirtyTopic.id }), dummyDirtyTopic],
       ])
-      .call(asyncRequests.lib.putAndReturn, contentItems.actions.apiPatchAllByTopicIdAndRoot(dummyTopic.id, dummyTopic.rootContentItemId))
-      .put(actions.setDirtyInState(dummyTopic.id, false))
+      .put(contentItems.actions.removeFromState(dummyDirtyTopic.rootContentItemId))
+      .put(actions.removeFromState(dummyDirtyTopic.id))
+      .call(asyncRequests.lib.putAndReturn, actions.fetch(dummyDirtyTopic.id))
       .run();
   });
 
   it(`throws an ObjectNotFoundError, when the topic for the passed id could not be found`, async (): Promise<mixed> => {
-    const dummyAction = actions.patchWithContent(dummyTopic.id);
+    const dummyAction = actions.discard(dummyTopic.id);
 
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(sagas.patchWithContent, dummyAction)
+      expectSaga(sagas.discard, dummyAction)
         .provide([
           [select(selectors.getById, { id: dummyTopic.id }), null],
-          [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-            return (action.type === contentItems.actions.apiPatchAllByTopicIdAndRoot('dummy', 'dummy').type) ? null : next();
-          })],
         ])
         .run(),
     ).rejects.toBeInstanceOf(ObjectNotFoundError);

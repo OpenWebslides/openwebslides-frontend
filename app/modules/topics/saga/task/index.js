@@ -10,6 +10,7 @@ import asyncRequests from 'modules/asyncRequests';
 import * as a from '../../actionTypes';
 
 import create from './create';
+import discard from './discard';
 import edit from './edit';
 import fetch from './fetch';
 import fetchWithContent from './fetchWithContent';
@@ -22,6 +23,7 @@ const { sagaWrapper } = asyncRequests.lib;
 const taskSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.CREATE, sagaWrapper, create),
+    takeEvery(a.DISCARD, sagaWrapper, discard),
     takeEvery(a.EDIT, sagaWrapper, edit),
     takeEvery(a.FETCH, sagaWrapper, fetch),
     takeEvery(a.FETCH_WITH_CONTENT, sagaWrapper, fetchWithContent),
@@ -33,6 +35,7 @@ const taskSaga = function* (): Saga<void> {
 
 const taskSagas = {
   create,
+  discard,
   edit,
   fetch,
   fetchWithContent,

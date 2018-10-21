@@ -28,6 +28,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     upstreamTopicId: relationships.upstream.data ? relationships.upstream.data.id : null,
     forkedTopicIds: relationships.forks.data.map((item: { type: string, id: string }) => item.id),
     isContentFetched: false,
+    isDirty: false,
   };
 
   yield put(actions.setMultipleInState([topic]));

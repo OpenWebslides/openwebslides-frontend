@@ -11,6 +11,7 @@ import * as m from '../model';
 
 export const EDIT_IN_STATE: 'topics/EDIT_IN_STATE' = 'topics/EDIT_IN_STATE';
 export const REMOVE_FROM_STATE: 'topics/REMOVE_FROM_STATE' = 'topics/REMOVE_FROM_STATE';
+export const SET_DIRTY_IN_STATE: 'topics/SET_DIRTY_IN_STATE' = 'topics/SET_DIRTY_IN_STATE';
 export const SET_MULTIPLE_IN_STATE: 'topics/SET_MULTIPLE_IN_STATE' = 'topics/SET_MULTIPLE_IN_STATE';
 export const TOGGLE_CONTENT_FETCHED_IN_STATE: 'topics/TOGGLE_CONTENT_FETCHED_IN_STATE' = 'topics/TOGGLE_CONTENT_FETCHED_IN_STATE';
 
@@ -39,6 +40,16 @@ export type RemoveFromStateAction = {|
   |},
 |};
 
+export type SetDirtyInStateAction = {|
+  ...ReducerAction,
+  type: typeof SET_DIRTY_IN_STATE,
+  payload: {|
+    ...$PropertyType<ReducerAction, 'payload'>,
+    id: string,
+    dirty: boolean,
+  |},
+|};
+
 export type SetMultipleInStateAction = {|
   ...ReducerAction,
   type: typeof SET_MULTIPLE_IN_STATE,
@@ -63,5 +74,6 @@ export type ToggleContentFetchedInStateAction = {|
 export type TopicsReducerAction =
   | EditInStateAction
   | RemoveFromStateAction
+  | SetDirtyInStateAction
   | SetMultipleInStateAction
   | ToggleContentFetchedInStateAction;

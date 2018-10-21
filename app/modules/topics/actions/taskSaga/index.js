@@ -1,6 +1,7 @@
 // @flow
 
 import create from './create';
+import discard from './discard';
 import edit from './edit';
 import fetch from './fetch';
 import fetchWithContent from './fetchWithContent';
@@ -10,6 +11,7 @@ import remove from './remove';
 
 const taskSagaActions = {
   create,
+  discard,
   edit,
   fetch,
   fetchWithContent,
