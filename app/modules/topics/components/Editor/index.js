@@ -26,7 +26,7 @@ type StateProps = {|
 type DispatchProps = {|
   onSave: () => void,
   onSetDirty: (dirty: boolean) => void,
-  discard: () => void,
+  onDiscard: () => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
@@ -54,7 +54,7 @@ const mapDispatchToProps = (
     onSetDirty: (dirty: boolean): void => {
       dispatch(actions.setDirtyInState(topicId, dirty));
     },
-    discard: (): void => {
+    onDiscard: (): void => {
       dispatch(actions.discard(topicId));
     },
   };
@@ -83,16 +83,16 @@ class PureEditor extends React.Component<Props> {
     return topic.isDirty;
   }
 
-  componentWillMount = (): void => {
+  componentDidMount = (): void => {
     // Add event listener to prevent unloading window when topic is dirty
     window.addEventListener('beforeunload', this.beforeUnloadHandler);
   };
 
   componentWillUnmount = (): void => {
-    const { topic, discard } = this.props;
+    const { topic, onDiscard } = this.props;
 
-    // Discard topic when exiting editor
-    if (topic.isDirty) discard(topic.id);
+    // discard topic when exiting editor
+    if (topic.isDirty) onDiscard(topic.id);
 
     // Remove event listener to prevent unloading window when topic is dirty
     window.removeEventListener('beforeunload', this.beforeUnloadHandler);
@@ -108,7 +108,6 @@ class PureEditor extends React.Component<Props> {
     return (
       <div data-test-id="topic-editor">
         {/* Prompt when user navigates away from the page with unsaved changes */}
-        {/* TODO: actually discard the changes when the user wants to leave */}
         <Prompt
           when={topic.isDirty}
           message={t('topics:modals.unsavedChanges.message')}
