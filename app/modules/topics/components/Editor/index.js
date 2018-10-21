@@ -22,13 +22,13 @@ type PassedProps = {|
 
 type StateProps = {|
   topic: ?m.Topic,
+  beforeUnloadHandler: () => boolean,
 |};
 
 type DispatchProps = {|
   onSave: () => void,
   onSetDirty: (dirty: boolean) => void,
   discard: () => void,
-  beforeUnloadHandler: () => boolean,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
@@ -40,6 +40,7 @@ const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
 
   return {
     topic: selectors.getById(state, { id: topicId }),
+    beforeUnloadHandler: () => true,
   };
 };
 
@@ -58,8 +59,7 @@ const mapDispatchToProps = (
     },
     discard: (): void => {
       dispatch(actions.discard(topicId));
-    },
-    beforeUnloadHandler: () => true,
+    }
   };
 };
 
