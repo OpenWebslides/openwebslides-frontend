@@ -21,7 +21,6 @@ type PassedProps = {|
 
 type StateProps = {|
   topic: ?m.Topic,
-  beforeUnloadHandler: () => boolean,
 |};
 
 type DispatchProps = {|
@@ -39,7 +38,6 @@ const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
 
   return {
     topic: selectors.getById(state, { id: topicId }),
-    beforeUnloadHandler: () => true,
   };
 };
 
@@ -68,10 +66,36 @@ class PureEditor extends React.Component<Props> {
     onSave();
   };
 
+  beforeUnloadHandler = (event: Event): boolean => {
+    const { topic } = this.props;
+
+    if (topic.isDirty) {
+      // Cancel the event as stated by the standard
+      event.preventDefault();
+
+      // Chrome requires returnValue to be set
+      /* eslint-disable no-param-reassign */
+      // $FlowFixMe flowtype for Event does not contain the `returnValue` property
+      event.returnValue = '';
+      /* eslint-enable */
+    }
+
+    return topic.isDirty;
+  }
+
+  componentWillMount = (): void => {
+    // Add event listener to prevent unloading window when topic is dirty
+    window.addEventListener('beforeunload', this.beforeUnloadHandler);
+  };
+
   componentWillUnmount = (): void => {
     const { topic, discard } = this.props;
 
+    // Discard topic when exiting editor
     if (topic.isDirty) discard(topic.id);
+
+    // Remove event listener to prevent unloading window when topic is dirty
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
   };
 
   fetchCondition = (topic: ?m.Topic): boolean => {
@@ -79,15 +103,7 @@ class PureEditor extends React.Component<Props> {
   };
 
   renderEditor = (topic: m.Topic): React.Node => {
-    const { t, onSetDirty, beforeUnloadHandler } = this.props;
-
-    // Prompt when user refreshes window with unsaved changes
-    if (topic.isDirty) {
-      window.addEventListener('beforeunload', beforeUnloadHandler);
-    }
-    else {
-      window.removeEventListener('beforeunload', beforeUnloadHandler);
-    }
+    const { t, onSetDirty } = this.props;
 
     return (
       <div data-test-id="topic-editor">

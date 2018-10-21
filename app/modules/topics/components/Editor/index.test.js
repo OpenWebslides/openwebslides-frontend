@@ -20,6 +20,8 @@ describe(`Editor`, (): void => {
   let dummyDispatch: any;
   let dummyOnSave: any;
   let dummyOnSetDirty: any;
+  let dummyPreventDefault: any;
+  let dummyUnloadEvent: any;
 
   let dummyAddEventListener: any;
   let dummyRemoveEventListener: any;
@@ -42,6 +44,11 @@ describe(`Editor`, (): void => {
 
     dummyAddEventListener = jest.fn();
     dummyRemoveEventListener = jest.fn();
+    dummyPreventDefault = jest.fn();
+    dummyUnloadEvent = {
+      preventDefault: dummyPreventDefault,
+      returnValue: undefined,
+    };
 
     window.addEventListener = dummyAddEventListener;
     window.removeEventListener = dummyRemoveEventListener;
@@ -124,32 +131,36 @@ describe(`Editor`, (): void => {
     expect(dummyDispatch).toHaveBeenCalledWith(actions.setDirtyInState(dummyTopic.id, true));
   });
 
-  it(`shows only the title, and removes a window event listener when the topic is not dirty`, (): void => {
+  it(`shows only the title, and does not prevent window unloading when the topic is not dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyTopic.id} />
       </DummyProviders>,
     );
 
-    const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).props().beforeUnloadHandler;
+    const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).instance().beforeUnloadHandler;
 
-    expect(beforeUnloadHandler()).toStrictEqual(true);
+    expect(beforeUnloadHandler(dummyUnloadEvent)).toStrictEqual(false);
+    expect(dummyPreventDefault).toHaveBeenCalledTimes(0);
+    expect(dummyUnloadEvent.returnValue).toBeUndefined();
+
     expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toStrictEqual(dummyTopic.title);
-    expect(dummyRemoveEventListener).toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);
   });
 
-  it(`appends an asterisk to the title, and adds a window event listener when the topic is dirty`, (): void => {
+  it(`appends an asterisk to the title, and prevents the window from unloading when the topic is dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyDirtyTopic.id} />
       </DummyProviders>,
     );
 
-    const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).props().beforeUnloadHandler;
+    const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).instance().beforeUnloadHandler;
 
-    expect(beforeUnloadHandler()).toStrictEqual(true);
+    expect(beforeUnloadHandler(dummyUnloadEvent)).toStrictEqual(true);
+    expect(dummyPreventDefault).toHaveBeenCalled();
+    expect(dummyUnloadEvent.returnValue).not.toBeUndefined();
+
     expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toStrictEqual(`${dummyDirtyTopic.title}*`);
-    expect(dummyAddEventListener).toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);
   });
 
   it(`dispatches a topic DISCARD action, when the component is unmounted and the topic is dirty`, (): void => {
@@ -162,6 +173,24 @@ describe(`Editor`, (): void => {
     enzymeWrapper.unmount();
 
     expect(dummyDispatch).toHaveBeenCalledWith(actions.discard(dummyDirtyTopic.id));
+  });
+
+  it(`adds and removes a window unload event listener during its lifecycle`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDirtyTopic.id} />
+      </DummyProviders>,
+    );
+
+    const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).instance().beforeUnloadHandler;
+
+    expect(dummyAddEventListener).toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);
+    expect(dummyRemoveEventListener).not.toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);
+
+    enzymeWrapper.unmount();
+
+    expect(dummyAddEventListener).toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);
+    expect(dummyRemoveEventListener).toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);
   });
 
   it(`does not dispatch a topic DISCARD action, when the component is unmounted but the topic is not dirty`, (): void => {
