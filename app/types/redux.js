@@ -17,6 +17,9 @@ import { type FeedItemsState } from 'modules/feedItems/model';
 // Platform module
 import { type PlatformAction } from 'modules/platform/actionTypes';
 import { type PlatformState } from 'modules/platform/model';
+// PullRequests module
+import { type PullRequestsAction } from 'modules/pullRequests/actionTypes';
+import { type PullRequestsState } from 'modules/pullRequests/model';
 // Topics module
 import { type TopicsAction } from 'modules/topics/actionTypes';
 import { type TopicsState } from 'modules/topics/model';
@@ -30,6 +33,7 @@ export type ModulesAction =
   | ErrorsAction
   | FeedItemsAction
   | PlatformAction
+  | PullRequestsAction
   | TopicsAction
   | UsersAction;
 
@@ -39,6 +43,7 @@ export type ModulesState = {|
   +errors: ErrorsState,
   +feedItems: FeedItemsState,
   +platform: PlatformState,
+  +pullRequests: PullRequestsState,
   +topics: TopicsState,
   +users: UsersState,
 |};
