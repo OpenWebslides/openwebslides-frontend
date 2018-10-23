@@ -10,6 +10,7 @@ import asyncRequests from 'modules/asyncRequests';
 import * as a from '../../actionTypes';
 
 import fetch from './fetch';
+import submit from './submit';
 
 const { sagaWrapper } = asyncRequests.lib;
 
@@ -21,6 +22,7 @@ const taskSaga = function* (): Saga<void> {
 
 const taskSagas = {
   fetch,
+  submit,
 };
 
 export { taskSagas };
