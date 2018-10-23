@@ -8,6 +8,7 @@ import { type ApiSagaAction } from 'types/actions';
 // Action constants --------------------------------------------------------------------------------
 
 export const API_GET: 'pullRequests/API_GET' = 'pullRequests/API_GET';
+export const API_POST: 'pullRequests/API_POST' = 'pullRequests/API_POST';
 
 
 // Action types ------------------------------------------------------------------------------------
@@ -21,8 +22,20 @@ export type ApiGetAction = {|
   |},
 |};
 
+export type ApiPostAction = {|
+  ...ApiSagaAction,
+  type: typeof API_POST,
+  payload: {|
+    ...$PropertyType<ApiSagaAction, 'payload'>,
+    message: string,
+    topicId: string,
+    userId: string,
+  |},
+|};
+
 
 // ApiSaga action ----------------------------------------------------------------------------------
 
 export type PullRequestsApiSagaAction =
-  | ApiGetAction;
+  | ApiGetAction
+  | ApiPostAction;

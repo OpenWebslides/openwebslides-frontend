@@ -10,17 +10,20 @@ import asyncRequests from 'modules/asyncRequests';
 import * as a from '../../actionTypes';
 
 import apiGet from './apiGet';
+import apiPost from './apiPost';
 
 const { sagaWrapper } = asyncRequests.lib;
 
 const apiSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.API_GET, sagaWrapper, apiGet),
+    takeEvery(a.API_POST, sagaWrapper, apiPost),
   ]);
 };
 
 const apiSagas = {
   apiGet,
+  apiPost,
 };
 
 export { apiSagas };
