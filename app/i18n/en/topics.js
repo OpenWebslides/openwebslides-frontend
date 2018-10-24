@@ -11,6 +11,9 @@ const topics = {
   forms: {
     title: 'Title',
     description: 'Description',
+    errors: {
+      title: 'Title cannot be empty',
+    },
   },
   modals: {
     remove: {
