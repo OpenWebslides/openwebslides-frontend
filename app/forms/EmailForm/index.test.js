@@ -11,7 +11,7 @@ describe(`EmailForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureEmailForm {...dummyProviderProps.translatorProps} {...dummyProviderProps.formProps} />,
+      <PureEmailForm {...dummyProviderProps.translatorProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

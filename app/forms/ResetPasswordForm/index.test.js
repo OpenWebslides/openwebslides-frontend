@@ -20,7 +20,6 @@ describe(`ResetPasswordForm`, (): void => {
     const enzymeWrapper = shallow(
       <PureResetPasswordForm
         {...dummyProviderProps.translatorProps}
-        {...dummyProviderProps.formProps}
         resetPasswordToken={dummyResetPasswordToken}
       />,
     );

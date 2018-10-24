@@ -11,7 +11,7 @@ describe(`TopicForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureTopicForm {...dummyProviderProps.translatorProps} {...dummyProviderProps.formProps} />,
+      <PureTopicForm {...dummyProviderProps.translatorProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

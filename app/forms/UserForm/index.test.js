@@ -11,7 +11,7 @@ describe(`UserForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureUserForm {...dummyProviderProps.translatorProps} {...dummyProviderProps.formProps} />,
+      <PureUserForm {...dummyProviderProps.translatorProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

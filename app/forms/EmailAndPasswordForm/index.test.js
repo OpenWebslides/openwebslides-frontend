@@ -11,7 +11,7 @@ describe(`EmailAndPasswordForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureEmailAndPasswordForm {...dummyProviderProps.translatorProps} {...dummyProviderProps.formProps} />,
+      <PureEmailAndPasswordForm {...dummyProviderProps.translatorProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
