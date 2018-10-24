@@ -66,8 +66,6 @@ describe(`validateStringProps`, (): void => {
     const expectedPropsObject = {
       prop1: 'value1',
       prop2: 'value2',
-      nullableProp1: null,
-      nullableProp2: null,
     };
     const resultPropsObject = validate.stringProps(dummyStringKeys, dummyNullableStringKeys, dummyPropsObject, true);
 
@@ -146,6 +144,24 @@ describe(`validateStringProps`, (): void => {
     expect((): void => {
       validate.stringProps(dummyStringKeys, dummyNullableStringKeys, dummyPropsObject);
     }).toThrow(InvalidArgumentError);
+  });
+
+  it(`omits values in nullableStringKeys when they are NULL after conversion`, (): void => {
+    const dummyStringKeys = ['prop1'];
+    const dummyNullableStringKeys = ['nullableProp1', 'nullableProp2', 'nullableProp3'];
+    const dummyPropsObject = {
+      prop1: 'value1',
+      nullableProp1: 'value3',
+      nullableProp2: '',
+      nullableProp3: null,
+    };
+    const expectedPropsObject = {
+      prop1: 'value1',
+      nullableProp1: 'value3',
+    };
+    const resultPropsObject = validate.stringProps(dummyStringKeys, dummyNullableStringKeys, dummyPropsObject);
+
+    expect(resultPropsObject).toStrictEqual(expectedPropsObject);
   });
 
 });

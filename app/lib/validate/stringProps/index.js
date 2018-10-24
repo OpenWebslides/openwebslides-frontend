@@ -32,6 +32,13 @@ const validateStringProps = <O: {}>(
     }
   });
 
+  nullableStringKeys.forEach((key: string): void => {
+    if (validatedPropsObject[key] === null) {
+      // Omit nullable values that are NULL after conversion
+      delete validatedPropsObject[key];
+    }
+  });
+
   return validatedPropsObject;
 };
 
