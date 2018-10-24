@@ -1,51 +1,73 @@
 // @flow
 
 import * as React from 'react';
-import { Field, reduxForm } from 'redux-form';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Form, Input } from 'semantic-ui-react';
+import { Form, Message } from 'semantic-ui-react';
+import { Formik, Field, ErrorMessage } from 'formik';
 
-import { type FormProps } from 'types/form';
 import SubmitButtonGroup from 'components/SubmitButtonGroup';
 
 type EmailFormValues = {|
-  email?: string,
+  email: string,
 |};
 
 type PassedProps = {|
+  onSubmit: (values: EmailFormValues) => void,
   // Use the component's children to add custom buttons to the form;
   // if not set, default of [Submit] | [Back] is used.
   children: React.Node,
 |};
 
-type Props = {| ...TranslatorProps, ...$Exact<FormProps>, ...PassedProps |};
+type Props = {| ...TranslatorProps, ...PassedProps |};
 
-const PureEmailForm = (props: Props): React.Node => {
-  const { t, handleSubmit, children } = props;
+class PureEmailForm extends React.Component<Props> {
+  validateForm = (values: EmailFormValues): EmailFormValues => {
+    const { t } = this.props;
 
-  return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Field>
-        <Field
-          component={Input}
-          name="email"
-          placeholder={t('users:forms.email')}
-          icon="at"
-          iconPosition="left"
-          required={true}
-        />
-      </Form.Field>
+    const errors = {};
 
-      { (children != null) ? children : (<SubmitButtonGroup />)}
-    </Form>
-  );
-};
+    if (values.email == null || !values.email.includes('@')) {
+      errors.email = t('users:forms.errors.email');
+    }
 
-PureEmailForm.defaultProps = {
-  children: null,
-};
+    return { ...errors };
+  }
 
-const EmailForm = withNamespaces()(reduxForm({ form: 'emailForm' })(PureEmailForm));
+  render(): React.Node {
+    const { t, onSubmit, children } = this.props;
+
+    return (
+      <Formik
+        initialValues={{ email: '' }}
+        validate={this.validateForm}
+        onSubmit={onSubmit}
+      >
+        {({ values, handleChange, handleBlur, handleSubmit }) => (
+          <Form onSubmit={handleSubmit}>
+            <ErrorMessage name="email" component={Message} negative={true} />
+            <Field
+              component={Form.Input}
+              type="email"
+              name="email"
+              id="email"
+              placeholder={t('users:forms.email')}
+              icon="at"
+              iconPosition="left"
+              required={true}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+            />
+
+            { (children != null) ? children : (<SubmitButtonGroup />)}
+          </Form>
+        )}
+      </Formik>
+    );
+  }
+}
+
+const EmailForm = withNamespaces()(PureEmailForm);
 
 export type { EmailFormValues };
 export { PureEmailForm };
