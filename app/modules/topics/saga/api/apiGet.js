@@ -1,11 +1,12 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
 import { type ApiResponseData } from 'lib/ApiRequest';
+import platform from 'modules/platform';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
@@ -13,7 +14,10 @@ import * as m from '../../model';
 
 const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   const { id } = action.payload;
-  const topicsResponseData: ApiResponseData = yield call(api.topics.get, id);
+  const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
+  const apiToken = (userAuth != null) ? userAuth.apiToken : null;
+
+  const topicsResponseData: ApiResponseData = yield call(api.topics.get, id, apiToken);
   if (topicsResponseData.body == null) {
     throw new UnexpectedHttpResponseError();
   }
