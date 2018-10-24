@@ -79,7 +79,6 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-flash": "^2.0.1",
-    "redux-form": "^7.4.2",
     "redux-persist": "^5.10.0",
     "redux-persist-transform-filter": "^0.0.18",
     "redux-saga": "^0.16.2",
