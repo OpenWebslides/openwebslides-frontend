@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { InvalidArgumentError } from 'errors';
 import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
 import actions from '../../actions';
@@ -27,7 +26,7 @@ describe(`ResendConfirmationEmailCard`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`dispatches a resendConfirmationEmail action, when its form is submitted with complete values`, (): void => {
+  it(`dispatches a resendConfirmationEmail action, when its form is submitted`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyDispatch={dummyDispatch}>
         <ResendConfirmationEmailCard />
@@ -37,19 +36,6 @@ describe(`ResendConfirmationEmailCard`, (): void => {
 
     onEmailFormSubmit({ email: dummyEmail });
     expect(dummyDispatch).toHaveBeenCalledWith(actions.resendConfirmationEmail(dummyEmail));
-  });
-
-  it(`throws an InvalidArgumentError, when its form is submitted with incomplete values`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyDispatch={dummyDispatch}>
-        <ResendConfirmationEmailCard />
-      </DummyProviders>,
-    );
-    const onEmailFormSubmit = enzymeWrapper.find('PureResendConfirmationEmailCard').props().onEmailFormSubmit;
-
-    expect((): void => {
-      onEmailFormSubmit({});
-    }).toThrow(InvalidArgumentError);
   });
 
 });

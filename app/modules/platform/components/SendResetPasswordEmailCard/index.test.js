@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { InvalidArgumentError } from 'errors';
 import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
 import actions from '../../actions';
@@ -27,7 +26,7 @@ describe(`SendResetPasswordEmailCard`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`dispatches a resetPassword action, when its form is submitted with complete values`, (): void => {
+  it(`dispatches a resetPassword action, when its form is submitted`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyDispatch={dummyDispatch}>
         <SendResetPasswordEmailCard />
@@ -37,19 +36,6 @@ describe(`SendResetPasswordEmailCard`, (): void => {
 
     onEmailFormSubmit({ email: dummyEmail });
     expect(dummyDispatch).toHaveBeenCalledWith(actions.sendResetPasswordEmail(dummyEmail));
-  });
-
-  it(`throws an InvalidArgumentError, when its form is submitted with incomplete values`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyDispatch={dummyDispatch}>
-        <SendResetPasswordEmailCard />
-      </DummyProviders>,
-    );
-    const onEmailFormSubmit = enzymeWrapper.find('PureSendResetPasswordEmailCard').props().onEmailFormSubmit;
-
-    expect((): void => {
-      onEmailFormSubmit({});
-    }).toThrow(InvalidArgumentError);
   });
 
 });
