@@ -5,9 +5,18 @@ import { shallow, mount } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
-import TopicForm, { PureTopicForm } from '.';
+import TopicForm, { PureTopicForm, type TopicFormValues } from '.';
 
 describe(`TopicForm`, (): void => {
+
+  let dummyFormProps: TopicFormValues;
+
+  beforeEach((): void => {
+    dummyFormProps = {
+      title: 'dummyTitle',
+      description: 'dummyDescription',
+    };
+  });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
@@ -25,6 +34,15 @@ describe(`TopicForm`, (): void => {
       </DummyProviders>,
     );
     expect(enzymeWrapper.find('[data-test-id="test-form-children"]')).toHaveLength(1);
+  });
+
+  it(`validates form props`, (): void => {
+    const enzymeWrapper = shallow(<PureTopicForm {...dummyProviderProps.translatorProps} />);
+    const validate = enzymeWrapper.instance().validateForm;
+
+    expect(validate(dummyFormProps)).toStrictEqual({});
+
+    expect(validate({ ...dummyFormProps, title: '' })).toHaveProperty('title');
   });
 
 });

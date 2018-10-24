@@ -5,9 +5,21 @@ import { shallow, mount } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
-import UserForm, { PureUserForm } from '.';
+import UserForm, { PureUserForm, type UserFormValues } from '.';
 
 describe(`UserForm`, (): void => {
+
+  let dummyFormProps: UserFormValues;
+
+  beforeEach((): void => {
+    dummyFormProps = {
+      email: 'dummy@email',
+      name: 'dummyName',
+      password: 'abcd1234',
+      repeatPassword: 'abcd1234',
+      tosAccepted: true,
+    };
+  });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
@@ -25,6 +37,28 @@ describe(`UserForm`, (): void => {
       </DummyProviders>,
     );
     expect(enzymeWrapper.find('[data-test-id="test-form-children"]')).toHaveLength(1);
+  });
+
+  it(`validates form props`, (): void => {
+    const enzymeWrapper = shallow(<PureUserForm {...dummyProviderProps.translatorProps} />);
+    const validate = enzymeWrapper.instance().validateForm;
+
+    expect(validate(dummyFormProps)).toStrictEqual({});
+
+    expect(validate({ ...dummyFormProps, email: '' })).toHaveProperty('email');
+    expect(validate({ ...dummyFormProps, email: 'foo' })).toHaveProperty('email');
+    expect(validate({ ...dummyFormProps, email: 'foo@bar' })).not.toHaveProperty('email');
+
+    expect(validate({ ...dummyFormProps, name: '' })).toHaveProperty('name');
+
+    expect(validate({ ...dummyFormProps, password: '' })).toHaveProperty('password');
+    expect(validate({ ...dummyFormProps, password: 'abcde' })).toHaveProperty('password');
+    expect(validate({ ...dummyFormProps, password: 'abcdef' })).not.toHaveProperty('password');
+
+    expect(validate({ ...dummyFormProps, password: 'abcdef', repeatPassword: 'abcdeg' })).toHaveProperty('repeatPassword');
+    expect(validate({ ...dummyFormProps, password: 'abcdef', repeatPassword: 'abcdef' })).not.toHaveProperty('repeatPassword');
+
+    expect(validate({ ...dummyFormProps, tosAccepted: false })).toHaveProperty('tosAccepted');
   });
 
 });
