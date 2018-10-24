@@ -17,7 +17,8 @@ const users = {
     repeatpassword: 'Repeat your password',
     tos: 'I agree to the Terms of Service and Privacy Policy',
     errors: {
-      email: 'Email is invalid',
+      email: 'Email cannot be empty',
+      password: 'Password cannot be empty',
     },
   },
 };

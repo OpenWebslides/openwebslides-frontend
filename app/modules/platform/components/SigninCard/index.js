@@ -16,7 +16,6 @@ import {
   AUTH_SSO_FACEBOOK,
   AUTH_SSO_UGENT,
 } from 'config/routes';
-import { InvalidArgumentError } from 'errors';
 import EmailAndPasswordForm, { type EmailAndPasswordFormValues } from 'forms/EmailAndPasswordForm';
 
 import actions from '../../actions';
@@ -30,10 +29,6 @@ type Props = {| ...TranslatorProps, ...DispatchProps |};
 const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
     onEmailAndPasswordFormSubmit: (values: EmailAndPasswordFormValues): void => {
-      if (values.email == null || values.password == null) {
-        // Make flow happy; #TODO replace with proper redux-form validation
-        throw new InvalidArgumentError(`Form data incomplete`);
-      }
       dispatch(actions.signin(values.email, values.password));
     },
   };
