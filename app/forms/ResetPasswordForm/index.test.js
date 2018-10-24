@@ -21,7 +21,7 @@ describe(`ResetPasswordForm`, (): void => {
       <PureResetPasswordForm
         {...dummyProviderProps.translatorProps}
         {...dummyProviderProps.formProps}
-        initialValues={{ resetPasswordToken: dummyResetPasswordToken }}
+        resetPasswordToken={dummyResetPasswordToken}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);

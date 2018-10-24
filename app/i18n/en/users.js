@@ -18,7 +18,9 @@ const users = {
     tos: 'I agree to the Terms of Service and Privacy Policy',
     errors: {
       email: 'Email cannot be empty',
-      password: 'Password cannot be empty',
+      password: 'Password must be longer than 6 characters',
+      repeatPassword: 'Passwords must match',
+      resetPasswordToken: 'Reset password token is invalid',
     },
   },
 };

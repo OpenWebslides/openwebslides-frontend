@@ -7,7 +7,6 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Card, Button, Icon } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
-import { InvalidArgumentError } from 'errors';
 import ResetPasswordForm, { type ResetPasswordFormValues } from 'forms/ResetPasswordForm';
 
 import actions from '../../actions';
@@ -25,13 +24,6 @@ type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
 const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
     onResetPasswordFormSubmit: (values: ResetPasswordFormValues): void => {
-      if (
-        values.password == null
-        || values.resetPasswordToken == null
-      ) {
-        // Make flow happy; #TODO replace with proper redux-form validation
-        throw new InvalidArgumentError(`Form data incomplete`);
-      }
       dispatch(actions.resetPassword(values.password, values.resetPasswordToken));
     },
   };
@@ -53,7 +45,7 @@ const PureResetPasswordCard = (props: Props): React.Node => {
       <Card.Content>
         <ResetPasswordForm
           onSubmit={onResetPasswordFormSubmit}
-          initialValues={{ resetPasswordToken }}
+          resetPasswordToken={resetPasswordToken}
         >
           <Button primary={true} type="submit" fluid={true} icon={true} labelPosition="left">
             <Icon name="user" />
