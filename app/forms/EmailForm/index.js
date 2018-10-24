@@ -26,7 +26,7 @@ class PureEmailForm extends React.Component<Props> {
 
     const errors = {};
 
-    if (values.email == null || !values.email.includes('@')) {
+    if (!values.email.includes('@')) {
       errors.email = t('users:forms.errors.email');
     }
 

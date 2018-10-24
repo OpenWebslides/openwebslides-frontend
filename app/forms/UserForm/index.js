@@ -30,11 +30,11 @@ class PureUserForm extends React.Component<Props> {
 
     const errors = {};
 
-    if (values.email == null || !values.email.includes('@')) {
+    if (!values.email.includes('@')) {
       errors.email = t('users:forms.errors.email');
     }
 
-    if (values.password == null || values.password.length < 6) {
+    if (values.password.length < 6) {
       errors.password = t('users:forms.errors.password');
     }
 
@@ -42,7 +42,7 @@ class PureUserForm extends React.Component<Props> {
       errors.repeatPassword = t('users:forms.errors.repeatPassword');
     }
 
-    if (values.name == null || values.name === '') {
+    if (values.name === '') {
       errors.name = t('users:forms.errors.name');
     }
 

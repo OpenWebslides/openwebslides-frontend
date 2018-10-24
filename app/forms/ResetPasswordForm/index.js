@@ -29,7 +29,7 @@ class PureResetPasswordForm extends React.Component<Props> {
 
     const errors = {};
 
-    if (values.password == null || values.password.length < 6) {
+    if (values.password.length < 6) {
       errors.password = t('users:forms.errors.password');
     }
 
@@ -37,7 +37,7 @@ class PureResetPasswordForm extends React.Component<Props> {
       errors.repeatPassword = t('users:forms.errors.repeatPassword');
     }
 
-    if (values.resetPasswordToken == null || values.resetPasswordToken === '') {
+    if (values.resetPasswordToken === '') {
       errors.resetPasswordToken = t('users:forms.errors.resetPasswordToken');
     }
 

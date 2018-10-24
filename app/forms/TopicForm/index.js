@@ -31,7 +31,7 @@ class PureTopicForm extends React.Component<Props> {
 
     const errors = {};
 
-    if (values.title == null || values.title === '') {
+    if (values.title === '') {
       errors.title = t('topics:forms.errors.title');
     }
 
