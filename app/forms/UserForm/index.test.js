@@ -16,19 +16,6 @@ describe(`UserForm`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  // eslint-disable-next-line jest/expect-expect
-  it(`checks its checkbox #TEMP`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders>
-        <UserForm />
-      </DummyProviders>,
-    );
-
-    const checkboxNode = enzymeWrapper.find('[data-test-id="user-form-tos-accepted"]').hostNodes();
-    checkboxNode.simulate('change');
-    // #TODO
-  });
-
   it(`allows rendering children instead of default form buttons`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>

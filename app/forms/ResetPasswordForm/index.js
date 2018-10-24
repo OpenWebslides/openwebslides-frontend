@@ -76,7 +76,7 @@ class PureResetPasswordForm extends React.Component<Props> {
               type="password"
               name="repeatPassword"
               id="repeatPassword"
-              placeholder={t('users:forms.repeatpassword')}
+              placeholder={t('users:forms.repeatPassword')}
               icon="lock"
               iconPosition="left"
               required={true}
