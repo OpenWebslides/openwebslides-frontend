@@ -1,10 +1,11 @@
 // @flow
 
 import { expectSaga } from 'redux-saga-test-plan';
-import { call } from 'redux-saga/effects';
+import { call, select } from 'redux-saga/effects';
 
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
+import platform from 'modules/platform';
 
 import actions from '../../actions';
 
@@ -19,6 +20,7 @@ describe(`apiGet`, (): void => {
   let dummyUpstreamTopicId: string;
   let dummyForkedTopicId1: string;
   let dummyForkedTopicId2: string;
+  let dummyToken: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
@@ -28,9 +30,10 @@ describe(`apiGet`, (): void => {
     dummyUpstreamTopicId = 'dummyUpstreamTopicId';
     dummyForkedTopicId1 = 'dummyForkedTopicId1';
     dummyForkedTopicId2 = 'dummyForkedTopicId2';
+    dummyToken = 'dummyToken';
   });
 
-  it(`sends a GET request for the passed id to the topics endpoint, processes the response and puts the topic in the state`, (): void => {
+  it(`sends an unauthorized GET request for the passed id to the topics endpoint, processes the response and puts the topic in the state when there is no currently signed in user`, (): void => {
     const dummyAction = actions.apiGet(dummyId);
     const dummyApiResponse = {
       status: 200,
@@ -55,9 +58,43 @@ describe(`apiGet`, (): void => {
 
     return expectSaga(sagas.apiGet, dummyAction)
       .provide([
-        [call(api.topics.get, dummyId), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), null],
+        [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
-      .call(api.topics.get, dummyId)
+      .call(api.topics.get, dummyId, null)
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [], isContentFetched: false, isDirty: false }]))
+      .run();
+  });
+
+  it(`sends an authorized GET request for the passed id to the topics endpoint, processes the response and puts the topic in the state when there is a currently signed in user`, (): void => {
+    const dummyAction = actions.apiGet(dummyId);
+    const dummyApiResponse = {
+      status: 200,
+      body: {
+        data: {
+          attributes: {
+            title: dummyTitle,
+            description: dummyDescription,
+            rootContentItemId: dummyRootContentId,
+          },
+          relationships: {
+            upstream: {
+              data: null,
+            },
+            forks: {
+              data: [],
+            },
+          },
+        },
+      },
+    };
+
+    return expectSaga(sagas.apiGet, dummyAction)
+      .provide([
+        [select(platform.selectors.getUserAuth), { apiToken: dummyToken }],
+        [call(api.topics.get, dummyId, dummyToken), dummyApiResponse],
+      ])
+      .call(api.topics.get, dummyId, dummyToken)
       .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
@@ -89,9 +126,10 @@ describe(`apiGet`, (): void => {
 
     return expectSaga(sagas.apiGet, dummyAction)
       .provide([
-        [call(api.topics.get, dummyId), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), null],
+        [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
-      .call(api.topics.get, dummyId)
+      .call(api.topics.get, dummyId, null)
       .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyRootContentId, upstreamTopicId: dummyUpstreamTopicId, forkedTopicIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
@@ -124,9 +162,10 @@ describe(`apiGet`, (): void => {
 
     return expectSaga(sagas.apiGet, dummyAction)
       .provide([
-        [call(api.topics.get, dummyId), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), null],
+        [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
-      .call(api.topics.get, dummyId)
+      .call(api.topics.get, dummyId, null)
       .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [dummyForkedTopicId1, dummyForkedTopicId2], isContentFetched: false, isDirty: false }]))
       .run();
   });
@@ -140,7 +179,8 @@ describe(`apiGet`, (): void => {
     await expect(
       expectSaga(sagas.apiGet, dummyAction)
         .provide([
-          [call(api.topics.get, dummyId), dummyApiResponse],
+          [select(platform.selectors.getUserAuth), null],
+          [call(api.topics.get, dummyId, null), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);
