@@ -18,6 +18,16 @@ describe(`TopicForm`, (): void => {
     };
   });
 
+  it(`renders default buttons if no children are specified`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <TopicForm />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureSubmitButtonGroup')).toHaveLength(1);
+  });
+
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureTopicForm {...dummyProviderProps.translatorProps} />,

@@ -25,6 +25,16 @@ describe(`EmailAndPasswordForm`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
+  it(`renders default buttons if no children are specified`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <EmailAndPasswordForm />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureSubmitButtonGroup')).toHaveLength(1);
+  });
+
   it(`allows rendering children instead of default form buttons`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
