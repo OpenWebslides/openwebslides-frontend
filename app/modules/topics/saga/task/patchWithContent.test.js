@@ -38,7 +38,6 @@ describe(`patchWithContent`, (): void => {
       ])
       .call(asyncRequests.lib.putAndReturn, contentItems.actions.apiPatchAllByTopicIdAndRoot(dummyTopic.id, dummyTopic.rootContentItemId, dummyMessage))
       .put(actions.setDirtyInState(dummyTopic.id, false))
-      .call(asyncRequests.lib.putAndReturn, contentItems.actions.apiPatchAllByTopicIdAndRoot(dummyTopic.id, dummyTopic.rootContentItemId, dummyMessage))
       .run();
   });
 

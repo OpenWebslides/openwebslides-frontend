@@ -4,7 +4,6 @@ import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { InvalidArgumentError } from 'errors';
 import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
 
 import actions from '../../actions';
@@ -99,7 +98,7 @@ describe(`Editor`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-editor"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`dispatches a topic UPDATE_CONTENT action, when the topic is dirty, the commit modal is opened and its submit button clicked with complete form values`, (): void => {
+  it(`renders the save modal and submit/cancel buttons when the save button is clicked and the topic is dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyDirtyTopic.id} />
@@ -110,23 +109,14 @@ describe(`Editor`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal"]').hostNodes()).toHaveLength(0);
     enzymeWrapper.find('[data-test-id="topic-editor-commit-button"]').hostNodes().simulate('click');
     expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal"]').hostNodes()).toHaveLength(1);
-    enzymeWrapper.find('[data-test-id="commit-form-message-input"]').hostNodes().simulate('change', { target: { value: dummyMessage } });
-    enzymeWrapper.find('[data-test-id="topic-editor-commit-modal-submit-button"]').hostNodes().simulate('click');
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal"]').hostNodes()).toHaveLength(0);
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.patchWithContent(dummyTopic.id, dummyMessage));
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal-submit-button"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal-cancel-button"]').hostNodes()).toHaveLength(1);
+
+    // Enzyme does not support event propagation yet, so we cannot test out the onSubmit callback by triggering the submit button
+    // https://github.com/airbnb/enzyme/issues/308
   });
 
-  it(`disables the save button when the topic is not dirty`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Editor topicId={dummyTopic.id} />
-      </DummyProviders>,
-    );
-
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-button"][disabled]').hostNodes()).toHaveLength(1);
-  });
-
-  it(`does not dispatch a topic UPDATE_CONTENT action, when the commit modal is opened and its cancel button clicked`, (): void => {
+  it(`hides the save modal when the cancel button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyDirtyTopic.id} />
@@ -139,23 +129,30 @@ describe(`Editor`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal"]').hostNodes()).toHaveLength(1);
     enzymeWrapper.find('[data-test-id="topic-editor-commit-modal-cancel-button"]').hostNodes().simulate('click');
     expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal"]').hostNodes()).toHaveLength(0);
-
-    // .toHaveBeenCalledTimes(0) cannot be used here, since redux-form also dispatches actions to (un)register forms
-    expect(dummyDispatch).not.toHaveBeenCalledWith(actions.patchWithContent(dummyTopic.id, dummyMessage));
+    expect(dummyDispatch).toHaveBeenCalledTimes(0);
   });
 
-  it(`throws an InvalidArgumentError, when the commit is submitted with incomplete values`, (): void => {
+  it(`disables the save button when the topic is not dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyTopic.id} />
       </DummyProviders>,
     );
 
-    const onCommitFormSubmit = enzymeWrapper.find('PureEditor').props().onCommitFormSubmit;
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-button"][disabled]').hostNodes()).toHaveLength(1);
+  });
 
-    expect((): void => {
-      onCommitFormSubmit({});
-    }).toThrow(InvalidArgumentError);
+  it(`dispatches a topic UPDATE_CONTENT action, when the topic is dirty and the handleCommitFormSubmit handler is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDirtyTopic.id} />
+      </DummyProviders>,
+    );
+
+    const handleCommitFormSubmit = enzymeWrapper.find('PureEditor').instance().handleCommitFormSubmit;
+    handleCommitFormSubmit({ message: dummyMessage });
+
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.patchWithContent(dummyDirtyTopic.id, dummyMessage));
   });
 
   it(`shows only the title, and does not prevent window unloading when the topic is not dirty`, (): void => {

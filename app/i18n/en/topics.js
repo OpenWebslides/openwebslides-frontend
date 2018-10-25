@@ -14,6 +14,7 @@ const topics = {
     message: 'Message',
     errors: {
       title: 'Title cannot be empty',
+      message: 'Message cannot be empty',
     },
   },
   modals: {

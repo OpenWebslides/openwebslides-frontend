@@ -15,7 +15,6 @@ import contentItems from 'modules/contentItems';
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
-import { InvalidArgumentError } from '../../../../errors';
 
 type PassedProps = {|
   topicId: string,
@@ -55,10 +54,6 @@ const mapDispatchToProps = (
 
   return {
     onCommitFormSubmit: (values: CommitFormValues): void => {
-      if (values.message == null) {
-        // Make flow happy; #TODO replace with proper redux-form validation
-        throw new InvalidArgumentError(`Form data incomplete`);
-      }
       dispatch(actions.patchWithContent(topicId, values.message));
     },
     onSetDirty: (dirty: boolean): void => {
@@ -79,13 +74,13 @@ class PureEditor extends React.Component<Props, ComponentState> {
     this.setState({ isCommitModalOpen: true });
   };
 
-  commitModalSubmit = (values: CommitFormValues): void => {
+  handleCommitFormSubmit = (values: CommitFormValues): void => {
     const { onCommitFormSubmit } = this.props;
     onCommitFormSubmit(values);
     this.setState({ isCommitModalOpen: false });
   };
 
-  commitModalCancel = (): void => {
+  handleCommitFormCancel = (): void => {
     this.setState({ isCommitModalOpen: false });
   };
 
@@ -133,14 +128,14 @@ class PureEditor extends React.Component<Props, ComponentState> {
       <Modal
         size="mini"
         open={isCommitModalOpen}
-        onClose={this.commitModalCancel}
+        onClose={this.handleCommitFormCancel}
         data-test-id="topic-editor-commit-modal"
       >
         <Modal.Header>{t('topics:modals.commit.title')}</Modal.Header>
         <Modal.Content>
           <p>{t('topics:modals.commit.message')}</p>
           <CommitForm
-            onSubmit={this.commitModalSubmit}
+            onSubmit={this.handleCommitFormSubmit}
             data-test-id="topic-editor-commit-form"
           />
         </Modal.Content>
@@ -148,7 +143,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
           <Button
             icon={true}
             labelPosition="left"
-            onClick={this.commitModalCancel}
+            onClick={this.handleCommitFormCancel}
             data-test-id="topic-editor-commit-modal-cancel-button"
           >
             <Icon name="cancel" />
