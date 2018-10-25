@@ -12,18 +12,20 @@ import { TOPICS_ENDPOINT } from '../endpoints';
 
 const post = (
   title: string,
-  description: ?string,
   rootContentItemId: string,
   userId: string,
   token: string,
+  attributes: {
+    description?: ?string,
+  },
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
       type: 'topics',
       attributes: {
+        ...attributes,
         title,
         state: 'public_access', // TODO: change when private topics can be created
-        description,
         rootContentItemId,
       },
       relationships: {

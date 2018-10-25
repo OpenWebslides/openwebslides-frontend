@@ -12,16 +12,17 @@ import { TOPICS_ENDPOINT } from '../endpoints';
 
 const patch = (
   id: string,
-  title?: ?string,
-  description?: ?string,
   token: string,
+  attributes: {
+    title?: string,
+    description?: ?string,
+  },
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
       type: 'topics',
       attributes: {
-        title,
-        description,
+        ...attributes,
       },
     },
   });

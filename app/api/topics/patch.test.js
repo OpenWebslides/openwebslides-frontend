@@ -17,7 +17,7 @@ describe(`api.topics.patch`, (): void => {
     const dummyDescription = 'dummyDescription';
     const dummyToken = 'foobarToken';
     fetch.mockResponseOnce('', { status: 200 });
-    await api.topics.patch(dummyId, dummyTitle, dummyDescription, dummyToken);
+    await api.topics.patch(dummyId, dummyToken, { title: dummyTitle, description: dummyDescription });
 
     expect(fetch.mock.calls).toHaveLength(1);
 
@@ -32,6 +32,29 @@ describe(`api.topics.patch`, (): void => {
         attributes: {
           title: dummyTitle,
           description: dummyDescription,
+        },
+      },
+    });
+    expect(mockOptions.headers.Authorization).toBe(`Bearer ${dummyToken}`);
+  });
+
+  it(`omits the title and description values when the corresponding parameters are not passed`, async (): Promise<mixed> => {
+    const dummyId = 'dummyId';
+    const dummyToken = 'foobarToken';
+    fetch.mockResponseOnce('', { status: 200 });
+    await api.topics.patch(dummyId, dummyToken, {});
+
+    expect(fetch.mock.calls).toHaveLength(1);
+
+    const mockUrl = fetch.mock.calls[0][0];
+    const mockOptions = fetch.mock.calls[0][1];
+
+    expect(mockUrl).toBe(`${API_URL}/topics/${dummyId}`);
+    expect(mockOptions.method).toBe(httpMethods.PATCH);
+    expect(JSON.parse(mockOptions.body)).toStrictEqual({
+      data: {
+        type: 'topics',
+        attributes: {
         },
       },
     });
