@@ -32,7 +32,7 @@ describe(`addTopic`, (): void => {
     return expectSaga(sagas.addTopic, dummyAction)
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === topics.actions.create('dummyTitle', 'dummyDescription', 'dummyUserId').type) ? { id: dummyTopicId } : next();
+          return (action.type === topics.actionTypes.CREATE) ? { id: dummyTopicId } : next();
         })],
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.ADD_TOPIC_ID) ? null : next();

@@ -29,7 +29,7 @@ describe(`forkTopic`, (): void => {
     return expectSaga(sagas.forkTopic, dummyAction)
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === topics.actions.fork('dummyId').type) ? { id: dummyForkedTopicId } : next();
+          return (action.type === topics.actionTypes.FORK) ? { id: dummyForkedTopicId } : next();
         })],
       ])
       .call(asyncRequests.lib.putAndReturn, topics.actions.fork(dummyTopicId))

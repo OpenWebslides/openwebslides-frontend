@@ -28,7 +28,7 @@ describe(`removeTopic`, (): void => {
     return expectSaga(sagas.removeTopic, dummyAction)
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === topics.actions.remove('dummyId').type) ? null : next();
+          return (action.type === topics.actionTypes.REMOVE) ? null : next();
         })],
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.REMOVE_TOPIC_ID) ? null : next();
