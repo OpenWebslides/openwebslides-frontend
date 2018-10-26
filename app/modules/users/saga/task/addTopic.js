@@ -1,7 +1,7 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { call, put } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 
 import asyncRequests from 'modules/asyncRequests';
 import topics from 'modules/topics';
@@ -15,7 +15,7 @@ const addTopic = function* (action: a.AddTopicAction): Saga<void> {
   const { id, title, description } = action.payload;
 
   const { id: topicId } = yield call(putAndReturn, topics.actions.create(title, description, id));
-  yield put(actions.addTopicId(id, topicId));
+  yield call(putAndReturn, actions.addTopicId(id, topicId));
 };
 
 export default addTopic;
