@@ -15,7 +15,7 @@
 import { type Saga } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 
-import { type SagaAction } from 'types/actions';
+import { type SagaAction, type AsyncRequestData } from 'types/actions';
 import errors from 'modules/errors';
 
 import actions from '../../actions';
@@ -27,31 +27,40 @@ function* sagaWrapper<A: SagaAction>(
   saga: (action: A) => (Saga<mixed> | Saga<void>),
   action: A,
 ): Saga<void> {
-  // Get the actions asyncRequestId, if present;
-  // if no asyncRequestId was passed, generate a random one.
-  const asyncRequestId = (action.asyncRequestId != null)
-    ? action.asyncRequestId
-    : lib.generateId(action.type);
-  // Create a copy of the action that has its asyncRequestId property set,
+  let asyncRequestData: AsyncRequestData;
+  let actionWithAsyncRequestData: A;
+
+  // Get the asyncRequestData from the action, if present, or generate a random one;
+  // create a copy of the action that is sure to have its asyncRequestData prop set,
   // in case a saga further down the line needs it.
-  const actionWithId = {
-    ...action,
-    asyncRequestId,
-  };
+  if (action.asyncRequestData != null) {
+    asyncRequestData = action.asyncRequestData;
+    actionWithAsyncRequestData = action;
+  }
+  else {
+    asyncRequestData = {
+      id: lib.generateId(action.type),
+      log: true,
+    };
+    // $FlowFixMe Flow doesn't realize the copied action is still of type A.
+    actionWithAsyncRequestData = {
+      ...action,
+      asyncRequestData,
+    };
+  }
 
   try {
     // Set status to PENDING and call the passed saga.
-    yield put(actions.setPending(actionWithId.asyncRequestId));
-    // $FlowFixMe Flow doesn't realize actionWithId is still of type A.
-    const returnValue = yield call(saga, actionWithId);
+    yield put(actions.setPending(asyncRequestData.id));
+    const returnValue = yield call(saga, actionWithAsyncRequestData);
 
     // If no error occurred, set status to SUCCESS and pass on the return value.
-    yield put(actions.setSuccess(actionWithId.asyncRequestId, returnValue));
+    yield put(actions.setSuccess(asyncRequestData.id, returnValue));
     // #TODO flash success message
   }
   catch (error) {
     // If an error occurred, set status to FAILURE and pass on the error.
-    yield put(actions.setFailure(actionWithId.asyncRequestId, error));
+    yield put(actions.setFailure(asyncRequestData.id, error));
     // Log the error.
     yield put(errors.actions.log(error));
     // #TODO flash error message

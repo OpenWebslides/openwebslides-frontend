@@ -25,12 +25,12 @@ describe(`sagaWrapper`, (): void => {
     const dummySaga = function* (action: SagaAction): Saga<string> {
       return dummyReturnValue;
     };
-    const dummyAction = { type: 'dummy', asyncRequestId: 'dummyId' };
+    const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyId', log: true } };
 
     return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
-      .put(actions.setPending(dummyAction.asyncRequestId))
+      .put(actions.setPending(dummyAction.asyncRequestData.id))
       .call(dummySaga, dummyAction)
-      .put(actions.setSuccess(dummyAction.asyncRequestId, dummyReturnValue))
+      .put(actions.setSuccess(dummyAction.asyncRequestData.id, dummyReturnValue))
       .run();
   });
 
@@ -40,17 +40,17 @@ describe(`sagaWrapper`, (): void => {
     const dummySaga = function* (action: SagaAction): Saga<void> {
       throw dummyError;
     };
-    const dummyAction = { type: 'dummy', asyncRequestId: 'dummyId' };
+    const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyId', log: true } };
 
     return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
-      .put(actions.setPending(dummyAction.asyncRequestId))
+      .put(actions.setPending(dummyAction.asyncRequestData.id))
       .call(dummySaga, dummyAction)
-      .put(actions.setFailure(dummyAction.asyncRequestId, dummyError))
+      .put(actions.setFailure(dummyAction.asyncRequestData.id, dummyError))
       .put(errors.actions.log(dummyError))
       .run();
   });
 
-  it(`generates a random asyncRequestId, when no existing asyncRequestId is set on the action`, (): void => {
+  it(`generates asyncRequestData with a random id, when no existing asyncRequestData is set on the action`, (): void => {
     // eslint-disable-next-line require-yield
     const dummySaga = function* (action: SagaAction): Saga<void> {
       // placeholder
@@ -58,7 +58,7 @@ describe(`sagaWrapper`, (): void => {
     const dummyAction = { type: 'dummy' };
 
     return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
-      .call(dummySaga, { ...dummyAction, asyncRequestId: dummyId })
+      .call(dummySaga, { ...dummyAction, asyncRequestData: { id: dummyId, log: true } })
       .put(actions.setPending(dummyId))
       .run();
   });

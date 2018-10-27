@@ -28,7 +28,7 @@ describe(`putAndReturn`, (): void => {
     const dummyMatchingAction = actions.setSuccess(dummyId, dummyValue);
 
     return expectSaga(lib.putAndReturn, dummyAction)
-      .put({ ...dummyAction, asyncRequestId: dummyId })
+      .put({ ...dummyAction, asyncRequestData: { id: dummyId, log: true } })
       .dispatch(dummyNotMatchingTypeAction)
       .dispatch(dummyNotMatchingStatusAction)
       .dispatch(dummyNotMatchingIdAction)
@@ -48,7 +48,7 @@ describe(`putAndReturn`, (): void => {
     console.error = jest.fn();
     await expect(
       expectSaga(lib.putAndReturn, dummyAction)
-        .put({ ...dummyAction, asyncRequestId: dummyId })
+        .put({ ...dummyAction, asyncRequestData: { id: dummyId, log: true } })
         .dispatch(dummyNotMatchingTypeAction)
         .dispatch(dummyNotMatchingStatusAction)
         .dispatch(dummyNotMatchingIdAction)
@@ -57,13 +57,12 @@ describe(`putAndReturn`, (): void => {
     ).rejects.toStrictEqual(dummyError);
   });
 
-  it(`uses the original asyncRequestId instead of generating a random one, if the passed action has an asyncRequestId`, (): void => {
-    const dummyPassedId = 'dummyPassedId';
-    const dummyAction = { type: 'dummy', asyncRequestId: dummyPassedId };
+  it(`uses the original asyncRequestData instead of generating a random one, if the passed action has asyncRequestData`, (): void => {
+    const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyPassedId', log: true } };
 
     return expectSaga(lib.putAndReturn, dummyAction)
-      .put({ ...dummyAction, asyncRequestId: dummyPassedId })
-      .dispatch(actions.setSuccess(dummyPassedId, dummyValue))
+      .put(dummyAction)
+      .dispatch(actions.setSuccess(dummyAction.asyncRequestData.id, dummyValue))
       .returns(dummyValue)
       .run();
   });

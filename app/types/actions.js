@@ -16,6 +16,11 @@ type SagaActionPayload = {|
   ...ActionPayload,
 |};
 
+export type AsyncRequestData = {|
+  id: string,
+  log: boolean,
+|};
+
 export type Action = {|
   type: string,
   payload: ActionPayload,
@@ -29,13 +34,13 @@ export type ReducerAction = {|
 export type ApiSagaAction = {|
   ...Action,
   payload: SagaActionPayload,
-  asyncRequestId?: string,
+  asyncRequestData?: AsyncRequestData,
 |};
 
 export type TaskSagaAction = {|
   ...Action,
   payload: SagaActionPayload,
-  asyncRequestId?: string,
+  asyncRequestData?: AsyncRequestData,
 |};
 
 export type SagaAction =
