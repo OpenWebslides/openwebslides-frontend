@@ -23,7 +23,7 @@ describe(`setFailureSaga`, (): void => {
     const dummyAction = actions.setFailure(dummyId, dummyError);
 
     return expectSaga(taskSagas.setFailure, dummyAction)
-      .put(actions.setInState({ id: dummyId, status: m.statusTypes.FAILURE, timestamp: dummyTimestamp, error: dummyError }))
+      .put(actions.setAndClearOldInState({ id: dummyId, status: m.statusTypes.FAILURE, timestamp: dummyTimestamp, error: dummyError }))
       .run();
   });
 

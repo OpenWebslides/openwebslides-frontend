@@ -22,7 +22,7 @@ describe(`setPendingSaga`, (): void => {
     const dummyAction = actions.setPending(dummyId);
 
     return expectSaga(taskSagas.setPending, dummyAction)
-      .put(actions.setInState({ id: dummyId, status: m.statusTypes.PENDING, timestamp: dummyTimestamp }))
+      .put(actions.setAndClearOldInState({ id: dummyId, status: m.statusTypes.PENDING, timestamp: dummyTimestamp }))
       .run();
   });
 

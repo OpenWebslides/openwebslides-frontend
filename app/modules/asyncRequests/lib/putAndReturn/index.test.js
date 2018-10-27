@@ -22,7 +22,7 @@ describe(`putAndReturn`, (): void => {
 
   it(`puts the passed action, waits until a matching setSuccess action dispatched, and returns its value`, (): void => {
     const dummyAction = { type: 'dummy' };
-    const dummyNotMatchingTypeAction = actions.setInState({ id: dummyId, status: m.statusTypes.SUCCESS, timestamp: 123456789, value: null });
+    const dummyNotMatchingTypeAction = actions.setAndClearOldInState({ id: dummyId, status: m.statusTypes.SUCCESS, timestamp: 123456789, value: null });
     const dummyNotMatchingStatusAction = actions.setPending(dummyId);
     const dummyNotMatchingIdAction = actions.setSuccess('notMatchingId', null);
     const dummyMatchingAction = actions.setSuccess(dummyId, dummyValue);
@@ -39,7 +39,7 @@ describe(`putAndReturn`, (): void => {
 
   it(`puts the passed action, waits until a matching setFailure action dispatched, and re-throws the error`, async (): Promise<mixed> => {
     const dummyAction = { type: 'dummy' };
-    const dummyNotMatchingTypeAction = actions.setInState({ id: dummyId, status: m.statusTypes.FAILURE, timestamp: 123456789, error: dummyError });
+    const dummyNotMatchingTypeAction = actions.setAndClearOldInState({ id: dummyId, status: m.statusTypes.FAILURE, timestamp: 123456789, error: dummyError });
     const dummyNotMatchingStatusAction = actions.setPending(dummyId);
     const dummyNotMatchingIdAction = actions.setFailure('notMatchingId', dummyError);
     const dummyMatchingAction = actions.setFailure(dummyId, dummyError);

@@ -16,7 +16,7 @@ const setSuccessSaga = function* (action: a.SetSuccessAction): Saga<void> {
     value,
   };
 
-  yield put(actions.setInState(asyncRequest));
+  yield put(actions.setAndClearOldInState(asyncRequest));
 };
 
 export default setSuccessSaga;

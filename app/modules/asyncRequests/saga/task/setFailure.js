@@ -16,7 +16,7 @@ const setFailure = function* (action: a.SetFailureAction): Saga<void> {
     error,
   };
 
-  yield put(actions.setInState(asyncRequest));
+  yield put(actions.setAndClearOldInState(asyncRequest));
 };
 
 export default setFailure;

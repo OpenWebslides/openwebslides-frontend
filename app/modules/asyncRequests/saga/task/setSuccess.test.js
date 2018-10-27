@@ -23,7 +23,7 @@ describe(`setSuccessSaga`, (): void => {
     const dummyAction = actions.setSuccess(dummyId, dummyValue);
 
     return expectSaga(taskSagas.setSuccess, dummyAction)
-      .put(actions.setInState({ id: dummyId, status: m.statusTypes.SUCCESS, timestamp: dummyTimestamp, value: dummyValue }))
+      .put(actions.setAndClearOldInState({ id: dummyId, status: m.statusTypes.SUCCESS, timestamp: dummyTimestamp, value: dummyValue }))
       .run();
   });
 
