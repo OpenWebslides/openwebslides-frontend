@@ -18,8 +18,8 @@ i18next.init({
   lng: 'en',
   // Fallback language; used when a key isn't available in the current language
   fallbackLng: 'en',
-  // Required for i18next.on('missingKey', ...) to work
-  saveMissing: true,
+  // Returns string to display if translator key is not found.
+  parseMissingKeyHandler: (key: string): string => `[TRANSLATOR KEY NOT FOUND: ${key}]`,
 
   // React i18next special options (optional)
   // see https://react.i18next.com/components/i18next-instance.html
@@ -43,13 +43,6 @@ i18next.init({
       return value;
     },
   },
-});
-
-// Handle missing keys by printing an error message to the console.
-// Note: can't get this to trigger if key is missing in current lang but not in fallback lang.
-// #TODO replace with proper logging
-i18next.on('missingKey', (lng: string, ns: string, key: string): void => {
-  console.error(`Missing key '${key}' for language '${lng}' in namespace '${ns}'.`);
 });
 
 export default i18next;

@@ -29,7 +29,7 @@ describe(`fetchWithContent`, (): void => {
           return (action.type === a.API_GET) ? null : next();
         })],
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === contentItems.actions.apiGetAllByTopicId('dummy').type) ? null : next();
+          return (action.type === contentItems.actionTypes.API_GET_ALL_BY_TOPIC_ID) ? null : next();
         })],
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.TOGGLE_CONTENT_FETCHED_IN_STATE) ? null : next();

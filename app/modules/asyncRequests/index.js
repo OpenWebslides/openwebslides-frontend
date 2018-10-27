@@ -1,6 +1,7 @@
 // @flow
 
 import actions from './actions';
+import * as actionTypes from './actionTypes';
 import components from './components';
 import lib from './lib';
 import * as model from './model';
@@ -10,6 +11,7 @@ import selectors from './selectors';
 
 const asyncRequests = {
   actions,
+  actionTypes,
   components,
   lib,
   model,

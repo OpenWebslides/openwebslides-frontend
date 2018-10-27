@@ -12,9 +12,10 @@ const setPendingSaga = function* (action: a.SetPendingAction): Saga<void> {
   const asyncRequest: m.PendingAsyncRequest = {
     id,
     status: m.statusTypes.PENDING,
+    timestamp: Date.now(),
   };
 
-  yield put(actions.setInState(asyncRequest));
+  yield put(actions.setAndClearOldInState(asyncRequest));
 };
 
 export default setPendingSaga;

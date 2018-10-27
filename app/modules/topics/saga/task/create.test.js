@@ -34,7 +34,7 @@ describe(`create`, (): void => {
     return expectSaga(sagas.create, dummyAction)
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === contentItems.actions.generateRoot().type) ? { rootContentItemId: dummyRootId } : next();
+          return (action.type === contentItems.actionTypes.GENERATE_ROOT) ? { rootContentItemId: dummyRootId } : next();
         })],
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.API_POST) ? { id: dummyId } : next();

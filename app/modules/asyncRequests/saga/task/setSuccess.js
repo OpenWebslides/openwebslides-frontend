@@ -12,10 +12,11 @@ const setSuccessSaga = function* (action: a.SetSuccessAction): Saga<void> {
   const asyncRequest: m.SuccessAsyncRequest = {
     id,
     status: m.statusTypes.SUCCESS,
+    timestamp: Date.now(),
     value,
   };
 
-  yield put(actions.setInState(asyncRequest));
+  yield put(actions.setAndClearOldInState(asyncRequest));
 };
 
 export default setSuccessSaga;

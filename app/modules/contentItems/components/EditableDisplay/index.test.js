@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyContentItemData as dummyData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyContentItemData as dummyData } from 'lib/testResources';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -48,8 +48,11 @@ describe(`EditableDisplay`, (): void => {
       [dummyRoot2.id]: dummyRoot2,
     };
     dummyState = {
+      ...dummyInitialState,
       modules: {
+        ...dummyInitialState.modules,
         contentItems: {
+          ...dummyInitialState.modules.contentItems,
           byId: dummyContentItemsById,
         },
       },

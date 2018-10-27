@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyFeedItemData, dummyTopicData, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyProviderProps, dummyFeedItemData, dummyTopicData, dummyUserData } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -24,18 +24,23 @@ describe(`FeedItem`, (): void => {
     dummyUser = { ...dummyUserData.user };
     dummyFeedItem = { ...dummyFeedItemData.feedItem, topicId: dummyTopic.id, userId: dummyUser.id };
     dummyState = {
+      ...dummyInitialState,
       modules: {
+        ...dummyInitialState.modules,
         feedItems: {
+          ...dummyInitialState.modules.feedItems,
           byId: {
             [dummyFeedItem.id]: dummyFeedItem,
           },
         },
         topics: {
+          ...dummyInitialState.modules.topics,
           byId: {
             [dummyTopic.id]: dummyTopic,
           },
         },
         users: {
+          ...dummyInitialState.modules.users,
           byId: {
             [dummyUser.id]: dummyUser,
           },

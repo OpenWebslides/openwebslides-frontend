@@ -15,22 +15,12 @@ describe(`ConfirmEmailPage`, (): void => {
   let dummyConfirmEmail: any;
 
   let dummyDispatch: any;
-  let dummyState: any;
 
   beforeEach((): void => {
     dummyConfirmationToken = 'foobarToken';
     dummyConfirmEmail = jest.fn();
 
     dummyDispatch = jest.fn();
-    dummyState = {
-      modules: {
-        asyncRequests: { byId: {} },
-        platform: { userAuth: null },
-      },
-      flash: {
-        messages: [],
-      },
-    };
   });
 
   it(`renders without errors`, (): void => {
@@ -62,7 +52,7 @@ describe(`ConfirmEmailPage`, (): void => {
     };
 
     mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+      <DummyProviders dummyDispatch={dummyDispatch}>
         <ConfirmEmailPage {...fixedDummyRouterProps} />
       </DummyProviders>,
     );

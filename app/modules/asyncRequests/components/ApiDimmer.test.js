@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyAsyncRequestData as dummyData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAsyncRequestData as dummyData } from 'lib/testResources';
 
 import * as m from '../model';
 
@@ -23,8 +23,11 @@ describe(`ApiDimmer`, (): void => {
     dummySuccessAsyncRequest = { ...dummyData.successAsyncRequest };
     dummyFailureAsyncRequest = { ...dummyData.failureAsyncRequest };
     dummyState = {
+      ...dummyInitialState,
       modules: {
+        ...dummyInitialState.modules,
         asyncRequests: {
+          ...dummyInitialState.modules.asyncRequests,
           byId: {
             [dummyPendingAsyncRequest.id]: dummyPendingAsyncRequest,
             [dummySuccessAsyncRequest.id]: dummySuccessAsyncRequest,

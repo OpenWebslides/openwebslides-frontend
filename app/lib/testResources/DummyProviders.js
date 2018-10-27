@@ -10,6 +10,8 @@ import { I18nextProvider } from 'react-i18next';
 
 import i18nextConfig from 'config/i18next';
 
+import dummyInitialState from './dummyInitialState';
+
 type PassedProps = {|
   children: React.Node,
   dummyState?: Object,
@@ -44,7 +46,7 @@ const DummyProviders = (props: Props): React.Node => {
 };
 
 DummyProviders.defaultProps = {
-  dummyState: {},
+  dummyState: dummyInitialState,
   dummyDispatch: jest.fn(),
   dummyRouterEntries: [''],
 };

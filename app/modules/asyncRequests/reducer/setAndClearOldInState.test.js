@@ -5,6 +5,8 @@ import { dummyAsyncRequestData as dummyData } from 'lib/testResources';
 import * as a from '../actionTypes';
 import * as m from '../model';
 
+import { OLD_AGE } from './setAndClearOldInState';
+
 import reducer from '.';
 
 describe(`setInState`, (): void => {
@@ -23,8 +25,8 @@ describe(`setInState`, (): void => {
         [dummyAsyncRequest1.id]: dummyAsyncRequest1,
       },
     };
-    const setInStateAction: a.SetInStateAction = {
-      type: a.SET_IN_STATE,
+    const setInStateAction: a.SetAndClearOldInStateAction = {
+      type: a.SET_AND_CLEAR_OLD_IN_STATE,
       payload: {
         asyncRequest: dummyAsyncRequest2,
       },
@@ -46,6 +48,7 @@ describe(`setInState`, (): void => {
     const updatedDummyAsyncRequest1: m.SuccessAsyncRequest = {
       id: dummyAsyncRequest1.id,
       status: m.statusTypes.SUCCESS,
+      timestamp: dummyAsyncRequest1.timestamp,
       value: 'dummyReturnValue',
     };
     const prevState: m.AsyncRequestsState = {
@@ -53,8 +56,8 @@ describe(`setInState`, (): void => {
         [dummyAsyncRequest1.id]: dummyAsyncRequest1,
       },
     };
-    const setInStateAction: a.SetInStateAction = {
-      type: a.SET_IN_STATE,
+    const setInStateAction: a.SetAndClearOldInStateAction = {
+      type: a.SET_AND_CLEAR_OLD_IN_STATE,
       payload: {
         asyncRequest: updatedDummyAsyncRequest1,
       },
@@ -72,14 +75,49 @@ describe(`setInState`, (): void => {
     expect(resultState.byId[dummyAsyncRequest1.id]).not.toBe(prevState.byId[dummyAsyncRequest1.id]);
   });
 
+  it(`clears completed requests from the state, when they are older than OLD_AGE`, (): void => {
+    const dummyCurrentTimestamp = 123456789;
+    const prevState: m.AsyncRequestsState = {
+      byId: {
+        [dummyAsyncRequest1.id]: {
+          ...dummyAsyncRequest1,
+          timestamp: dummyCurrentTimestamp - OLD_AGE,
+        },
+      },
+    };
+    const setInStateAction: a.SetAndClearOldInStateAction = {
+      type: a.SET_AND_CLEAR_OLD_IN_STATE,
+      payload: {
+        // $FlowFixMe spread operator bug
+        asyncRequest: {
+          ...dummyAsyncRequest2,
+          timestamp: dummyCurrentTimestamp,
+        },
+      },
+    };
+    const nextState: m.AsyncRequestsState = {
+      byId: {
+        [dummyAsyncRequest2.id]: {
+          ...dummyAsyncRequest2,
+          timestamp: dummyCurrentTimestamp,
+        },
+      },
+    };
+    const resultState = reducer(prevState, setInStateAction);
+
+    expect(resultState).toStrictEqual(nextState);
+    expect(resultState).not.toBe(prevState);
+    expect(resultState.byId).not.toBe(prevState.byId);
+  });
+
   it(`returns the state object unchanged, when the passed requestStatus is identical to the existing requestStatus for the passed requestId`, (): void => {
     const prevState: m.AsyncRequestsState = {
       byId: {
         [dummyAsyncRequest1.id]: dummyAsyncRequest1,
       },
     };
-    const setInStateAction: a.SetInStateAction = {
-      type: a.SET_IN_STATE,
+    const setInStateAction: a.SetAndClearOldInStateAction = {
+      type: a.SET_AND_CLEAR_OLD_IN_STATE,
       payload: {
         // $FlowFixMe flow has all necessary info to determine type; probable bug
         asyncRequest: { ...dummyAsyncRequest1 },

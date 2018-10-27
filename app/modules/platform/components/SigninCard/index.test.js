@@ -16,14 +16,12 @@ describe(`SigninCard`, (): void => {
   let dummyPassword: string;
 
   let dummyDispatch: any;
-  let dummyState: any;
 
   beforeEach((): void => {
     dummyEmail = 'test@test.be';
     dummyPassword = 'MahPasswordY0';
 
     dummyDispatch = jest.fn();
-    dummyState = { modules: { asyncRequests: { byId: {} } } };
   });
 
   it(`renders without errors`, (): void => {
@@ -35,7 +33,7 @@ describe(`SigninCard`, (): void => {
 
   it(`dispatches a signin action, when its form is submitted with complete values`, (): void => {
     const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+      <DummyProviders dummyDispatch={dummyDispatch}>
         <SigninCard />
       </DummyProviders>,
     );
@@ -47,7 +45,7 @@ describe(`SigninCard`, (): void => {
 
   it(`throws an InvalidArgumentError, when its form is submitted with incomplete values`, (): void => {
     const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+      <DummyProviders dummyDispatch={dummyDispatch}>
         <SigninCard />
       </DummyProviders>,
     );

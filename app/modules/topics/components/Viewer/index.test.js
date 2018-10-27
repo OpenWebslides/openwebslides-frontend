@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyProviderProps, dummyTopicData } from 'lib/testResources';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -30,11 +30,16 @@ describe(`Viewer`, (): void => {
       [upstreamTopic.id]: upstreamTopic,
       [downstreamTopic.id]: downstreamTopic,
     };
-    dummyState = { modules: {
-      asyncRequests: { byId: {} },
-      contentItems: { byId: {} },
-      topics: { byId: dummyTopicsById },
-    } };
+    dummyState = {
+      ...dummyInitialState,
+      modules: {
+        ...dummyInitialState.modules,
+        topics: {
+          ...dummyInitialState.modules.topics,
+          byId: dummyTopicsById,
+        },
+      },
+    };
     dummyDispatch = jest.fn();
     dummyOnForkTopic = jest.fn();
   });

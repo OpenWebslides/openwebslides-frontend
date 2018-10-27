@@ -7,7 +7,7 @@ import { push } from 'connected-react-router';
 
 import { USER_PROFILE_ROUTE } from 'config/routes';
 import { CorruptedInternalStateError } from 'errors';
-import { DummyProviders, dummyUserData, dummyTopicData, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyUserData, dummyTopicData, dummyProviderProps } from 'lib/testResources';
 import users from 'modules/users';
 import topics from 'modules/topics';
 
@@ -24,26 +24,29 @@ describe(`ViewerPage`, (): void => {
     dummyTopic = { ...dummyTopicData.topic };
     dummyCurrentUser = { ...dummyUserData.user };
     dummyState = {
+      ...dummyInitialState,
       modules: {
-        asyncRequests: { byId: {} },
+        ...dummyInitialState.modules,
         platform: {
+          ...dummyInitialState.modules.platform,
           userAuth: {
             userId: dummyCurrentUser.id,
             apiToken: 'foobarToken',
           },
         },
         users: {
+          ...dummyInitialState.modules.users,
           byId: {
             [dummyCurrentUser.id]: dummyCurrentUser,
           },
         },
         topics: {
+          ...dummyInitialState.modules.topics,
           byId: {
             [dummyTopic.id]: dummyTopic,
           },
         },
       },
-      flash: { messages: [] },
     };
     dummyDispatch = jest.fn();
   });

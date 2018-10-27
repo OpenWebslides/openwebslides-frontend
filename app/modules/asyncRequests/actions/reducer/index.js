@@ -1,9 +1,9 @@
 // @flow
 
-import setInState from './setInState';
+import setAndClearOldInState from './setAndClearOldInState';
 
 const reducerActions = {
-  setInState,
+  setAndClearOldInState,
 };
 
 export default reducerActions;

@@ -6,7 +6,7 @@ import { push } from 'connected-react-router';
 
 import { USER_PROFILE_ROUTE } from 'config/routes';
 import { CorruptedInternalStateError } from 'errors';
-import { DummyProviders, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyUserData } from 'lib/testResources';
 import users from 'modules/users';
 
 import NewTopicPage, { PureNewTopicPage } from '.';
@@ -20,21 +20,23 @@ describe(`NewTopicPage`, (): void => {
   beforeEach((): void => {
     dummyCurrentUser = { ...dummyUserData.user };
     dummyState = {
+      ...dummyInitialState,
       modules: {
-        asyncRequests: { byId: {} },
+        ...dummyInitialState.modules,
         platform: {
+          ...dummyInitialState.modules.platform,
           userAuth: {
             userId: dummyCurrentUser.id,
             apiToken: 'foobarToken',
           },
         },
         users: {
+          ...dummyInitialState.modules.users,
           byId: {
             [dummyCurrentUser.id]: dummyCurrentUser,
           },
         },
       },
-      flash: { messages: [] },
     };
     dummyDispatch = jest.fn();
   });

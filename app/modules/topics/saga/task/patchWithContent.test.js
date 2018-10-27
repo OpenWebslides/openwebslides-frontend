@@ -31,7 +31,7 @@ describe(`patchWithContent`, (): void => {
       .provide([
         [select(selectors.getById, { id: dummyTopic.id }), dummyTopic],
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === contentItems.actions.apiPatchAllByTopicIdAndRoot('dummy', 'dummy').type) ? null : next();
+          return (action.type === contentItems.actionTypes.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT) ? null : next();
         })],
       ])
       .call(asyncRequests.lib.putAndReturn, contentItems.actions.apiPatchAllByTopicIdAndRoot(dummyTopic.id, dummyTopic.rootContentItemId))
@@ -49,7 +49,7 @@ describe(`patchWithContent`, (): void => {
         .provide([
           [select(selectors.getById, { id: dummyTopic.id }), null],
           [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-            return (action.type === contentItems.actions.apiPatchAllByTopicIdAndRoot('dummy', 'dummy').type) ? null : next();
+            return (action.type === contentItems.actionTypes.API_PATCH_ALL_BY_TOPIC_ID_AND_ROOT) ? null : next();
           })],
         ])
         .run(),

@@ -23,6 +23,7 @@ export type StatusType = $Values<typeof statusTypes>;
 export type BaseAsyncRequest = {|
   +id: string,
   +status: StatusType,
+  +timestamp: number,
 |};
 
 export type PendingAsyncRequest = {|
