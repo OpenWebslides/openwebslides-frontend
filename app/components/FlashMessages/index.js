@@ -31,7 +31,6 @@ const mapStateToProps = (state: AppState): StateProps => {
 
 const PureFlashMessages = (props: Props): React.Node => {
   const { t, flashMessages } = props;
-  let flashTitle: string;
 
   if (flashMessages.length === 0) {
     return null;
@@ -40,14 +39,15 @@ const PureFlashMessages = (props: Props): React.Node => {
     return (
       <div>
         {flashMessages.map((flashMessage: Flash): React.Node => {
-          flashTitle = flashMessage.isError ? t('flash:title.error') : t('flash:title.success');
           return (
             <Message
               positive={!flashMessage.isError}
               negative={flashMessage.isError}
               key={flashMessage.id}
             >
-              <Message.Header>{flashMessage.props.title || flashTitle }</Message.Header>
+              { flashMessage.props.title != null && (
+                <Message.Header>{flashMessage.props.title }</Message.Header>
+              )}
               <p>{t(flashMessage.message)}</p>
             </Message>
           );
