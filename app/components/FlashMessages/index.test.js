@@ -5,77 +5,70 @@ import { shallow, mount } from 'enzyme';
 
 import { DummyProviders, dummyInitialState, dummyProviderProps } from 'lib/testResources';
 
-import FlashMessages, { PureFlashMessages } from '.';
+import FlashMessages, { PureFlashMessages, type Flash } from '.';
 
 describe(`FlashMessages`, (): void => {
 
-  let dummyLatestFlashMessage: any;
+  let dummyFlashMessages: $ReadOnlyArray<Flash>;
 
   let dummyState: any;
-  let dummyDispatch: any;
 
   beforeEach((): void => {
-    dummyLatestFlashMessage = {
-      id: 123456789,
-      message: 'common:test',
-      isError: true,
-      props: {},
-    };
+    dummyFlashMessages = [
+      {
+        id: '123456789',
+        message: 'test.message.1',
+        isError: true,
+        props: {},
+      },
+      {
+        id: '987654321',
+        message: 'test.message.2',
+        isError: false,
+        props: {},
+      },
+    ];
     dummyState = {
       ...dummyInitialState,
       flash: {
         ...dummyInitialState.flash,
-        messages: [
-          {
-            id: 987654321,
-            message: 'Another flash message',
-            isError: false,
-            props: {},
-          },
-          dummyLatestFlashMessage,
-        ],
+        messages: dummyFlashMessages,
       },
     };
-    dummyDispatch = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
-    const flash = {
-      id: 'abcd1234',
-      message: 'Dummy flash',
-      isError: false,
-      props: {
-        title: 'foo',
-      },
-    };
-
     const enzymeWrapper = shallow(
       <PureFlashMessages
         {...dummyProviderProps.translatorProps}
-        flash={flash}
+        flashMessages={dummyFlashMessages}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`renders nothing without flash`, (): void => {
+  it(`renders NULL, when the flashMessages array is empty`, (): void => {
     const enzymeWrapper = shallow(
       <PureFlashMessages
         {...dummyProviderProps.translatorProps}
-        flash={null}
+        flashMessages={[]}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(true);
   });
 
-  it(`renders the latest flash message`, (): void => {
+  it(`renders all flash messages, when the flashMessages array is not empty`, (): void => {
+    // $FlowFixMe suppress console.error caused by translation not being found
+    console.error = jest.fn();
+
     const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+      <DummyProviders dummyState={dummyState}>
         <FlashMessages />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.text()).toContain('test.string.present');
+    expect(enzymeWrapper.text()).toContain(dummyFlashMessages[0].message);
+    expect(enzymeWrapper.text()).toContain(dummyFlashMessages[1].message);
   });
 
 });

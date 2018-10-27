@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Message } from 'semantic-ui-react';
-import { getLatestMessage } from 'redux-flash';
+import { getFlashMessages } from 'redux-flash';
 
 import { type AppState } from 'types/redux';
 
@@ -18,39 +18,47 @@ type Flash = {|
 |};
 
 type StateProps = {|
-  flash: ?Flash,
+  flashMessages: $ReadOnlyArray<Flash>,
 |};
 
 type Props = {| ...TranslatorProps, ...StateProps |};
 
 const mapStateToProps = (state: AppState): StateProps => {
   return {
-    flash: getLatestMessage(state),
+    flashMessages: getFlashMessages(state),
   };
 };
 
 const PureFlashMessages = (props: Props): React.Node => {
-  const { t, flash } = props;
+  const { t, flashMessages } = props;
+  let flashTitle: string;
 
-  if (!flash) {
+  if (flashMessages.length === 0) {
     return null;
   }
-
-  let flashTitle: string = flash.isError ? t('flash:title.error') : t('flash:title.success');
-
-  if (flash.props.title) {
-    flashTitle = t(flash.props.title);
+  else {
+    return (
+      <div>
+        {flashMessages.map((flashMessage: Flash): React.Node => {
+          flashTitle = flashMessage.isError ? t('flash:title.error') : t('flash:title.success');
+          return (
+            <Message
+              positive={!flashMessage.isError}
+              negative={flashMessage.isError}
+              key={flashMessage.id}
+            >
+              <Message.Header>{flashMessage.props.title || flashTitle }</Message.Header>
+              <p>{t(flashMessage.message)}</p>
+            </Message>
+          );
+        })}
+      </div>
+    );
   }
-
-  return (
-    <Message positive={!flash.isError} negative={flash.isError}>
-      <Message.Header>{flashTitle}</Message.Header>
-      <p>{t(flash.message)}</p>
-    </Message>
-  );
 };
 
 const FlashMessages = connect(mapStateToProps)(withNamespaces()(PureFlashMessages));
 
 export { PureFlashMessages };
+export type { Flash };
 export default FlashMessages;
