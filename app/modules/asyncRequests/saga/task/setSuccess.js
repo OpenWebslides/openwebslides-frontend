@@ -12,6 +12,7 @@ const setSuccessSaga = function* (action: a.SetSuccessAction): Saga<void> {
   const asyncRequest: m.SuccessAsyncRequest = {
     id,
     status: m.statusTypes.SUCCESS,
+    timestamp: Date.now(),
     value,
   };
 

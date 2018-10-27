@@ -46,6 +46,7 @@ describe(`setInState`, (): void => {
     const updatedDummyAsyncRequest1: m.SuccessAsyncRequest = {
       id: dummyAsyncRequest1.id,
       status: m.statusTypes.SUCCESS,
+      timestamp: dummyAsyncRequest1.timestamp,
       value: 'dummyReturnValue',
     };
     const prevState: m.AsyncRequestsState = {

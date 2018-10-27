@@ -12,6 +12,7 @@ const setFailure = function* (action: a.SetFailureAction): Saga<void> {
   const asyncRequest: m.FailureAsyncRequest = {
     id,
     status: m.statusTypes.FAILURE,
+    timestamp: Date.now(),
     error,
   };
 
