@@ -58,9 +58,6 @@ describe(`FlashMessages`, (): void => {
   });
 
   it(`renders all flash messages, when the flashMessages array is not empty`, (): void => {
-    // $FlowFixMe suppress console.error caused by translation not being found
-    console.error = jest.fn();
-
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState}>
         <FlashMessages />
