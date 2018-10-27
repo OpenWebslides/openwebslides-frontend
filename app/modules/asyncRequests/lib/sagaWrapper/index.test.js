@@ -4,6 +4,7 @@ import { type Saga } from 'redux-saga';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import { type SagaAction } from 'types/actions';
+import errors from 'modules/errors';
 
 import actions from '../../actions';
 
@@ -33,7 +34,7 @@ describe(`sagaWrapper`, (): void => {
       .run();
   });
 
-  it(`sets the request's asyncRequests status to PENDING, calls the passed saga and then sets the request's asyncRequests status to FAILURE, when the passed saga throws an error`, (): void => {
+  it(`sets the request's asyncRequests status to PENDING, calls the passed saga and then sets the request's asyncRequests status to FAILURE and logs the error, when the passed saga throws an error`, (): void => {
     const dummyError = new Error('dummyError');
     // eslint-disable-next-line require-yield
     const dummySaga = function* (action: SagaAction): Saga<void> {
@@ -45,6 +46,7 @@ describe(`sagaWrapper`, (): void => {
       .put(actions.setPending(dummyAction.asyncRequestId))
       .call(dummySaga, dummyAction)
       .put(actions.setFailure(dummyAction.asyncRequestId, dummyError))
+      .put(errors.actions.log(dummyError))
       .run();
   });
 
@@ -56,6 +58,7 @@ describe(`sagaWrapper`, (): void => {
     const dummyAction = { type: 'dummy' };
 
     return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
+      .call(dummySaga, { ...dummyAction, asyncRequestId: dummyId })
       .put(actions.setPending(dummyId))
       .run();
   });
