@@ -28,7 +28,7 @@ describe(`putAndReturn`, (): void => {
     const dummyMatchingAction = actions.setSuccess(dummyId, dummyValue);
 
     return expectSaga(lib.putAndReturn, dummyAction)
-      .put({ ...dummyAction, asyncRequestData: { id: dummyId, log: true } })
+      .put({ ...dummyAction, asyncRequestData: { id: dummyId, log: false } })
       .dispatch(dummyNotMatchingTypeAction)
       .dispatch(dummyNotMatchingStatusAction)
       .dispatch(dummyNotMatchingIdAction)
@@ -48,7 +48,7 @@ describe(`putAndReturn`, (): void => {
     console.error = jest.fn();
     await expect(
       expectSaga(lib.putAndReturn, dummyAction)
-        .put({ ...dummyAction, asyncRequestData: { id: dummyId, log: true } })
+        .put({ ...dummyAction, asyncRequestData: { id: dummyId, log: false } })
         .dispatch(dummyNotMatchingTypeAction)
         .dispatch(dummyNotMatchingStatusAction)
         .dispatch(dummyNotMatchingIdAction)

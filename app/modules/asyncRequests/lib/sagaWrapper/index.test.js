@@ -34,7 +34,7 @@ describe(`sagaWrapper`, (): void => {
       .run();
   });
 
-  it(`sets the request's asyncRequests status to PENDING, calls the passed saga and then sets the request's asyncRequests status to FAILURE and logs the error, when the passed saga throws an error`, (): void => {
+  it(`sets the request's asyncRequests status to PENDING, calls the passed saga and then sets the request's asyncRequests status to FAILURE, when the passed saga throws an error`, (): void => {
     const dummyError = new Error('dummyError');
     // eslint-disable-next-line require-yield
     const dummySaga = function* (action: SagaAction): Saga<void> {
@@ -46,7 +46,32 @@ describe(`sagaWrapper`, (): void => {
       .put(actions.setPending(dummyAction.asyncRequestData.id))
       .call(dummySaga, dummyAction)
       .put(actions.setFailure(dummyAction.asyncRequestData.id, dummyError))
+      .run();
+  });
+
+  it(`logs the error, when the passed saga throws an error and the action's asyncRequestData.log property is set to TRUE`, (): void => {
+    const dummyError = new Error('dummyError');
+    // eslint-disable-next-line require-yield
+    const dummySaga = function* (action: SagaAction): Saga<void> {
+      throw dummyError;
+    };
+    const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyId', log: true } };
+
+    return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
       .put(errors.actions.log(dummyError))
+      .run();
+  });
+
+  it(`does not log the error, when the passed saga throws an error and the action's asyncRequestData.log property is set to FALSE`, (): void => {
+    const dummyError = new Error('dummyError');
+    // eslint-disable-next-line require-yield
+    const dummySaga = function* (action: SagaAction): Saga<void> {
+      throw dummyError;
+    };
+    const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyId', log: false } };
+
+    return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
+      .not.put.actionType(errors.actionTypes.LOG)
       .run();
   });
 
