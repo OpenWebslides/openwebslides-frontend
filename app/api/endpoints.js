@@ -1,5 +1,6 @@
 // @flow
 
+export const ALERTS_ENDPOINT = '/alerts';
 export const TOKEN_ENDPOINT = '/token';
 export const USERS_ENDPOINT = '/users';
 export const PASSWORD_ENDPOINT = '/password';
