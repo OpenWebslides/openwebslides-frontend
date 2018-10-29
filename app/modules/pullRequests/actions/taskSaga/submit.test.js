@@ -7,12 +7,14 @@ import actions from '..';
 describe(`submit`, (): void => {
 
   let dummyMessage: string;
-  let dummyTopicId: string;
+  let dummySourceTopicId: string;
+  let dummyTargetTopicId: string;
   let dummyUserId: string;
 
   beforeEach((): void => {
     dummyMessage = 'dummyMessage';
-    dummyTopicId = 'dummyTopicId';
+    dummySourceTopicId = 'dummySourceTopicId';
+    dummyTargetTopicId = 'dummyTargetTopicId';
     dummyUserId = 'dummyUserId';
   });
 
@@ -21,11 +23,12 @@ describe(`submit`, (): void => {
       type: a.SUBMIT,
       payload: {
         message: dummyMessage,
-        topicId: dummyTopicId,
+        sourceTopicId: dummySourceTopicId,
+        targetTopicId: dummyTargetTopicId,
         userId: dummyUserId,
       },
     };
-    const actualAction = actions.submit(dummyMessage, dummyTopicId, dummyUserId);
+    const actualAction = actions.submit(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId);
 
     expect(actualAction).toStrictEqual(expectedAction);
   });

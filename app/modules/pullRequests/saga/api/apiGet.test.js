@@ -15,7 +15,8 @@ describe(`apiGet`, (): void => {
 
   let dummyId: string;
   let dummyMessage: string;
-  let dummyTopicId: string;
+  let dummySourceTopicId: string;
+  let dummyTargetTopicId: string;
   let dummyUserId: string;
   let dummyState: string;
   let dummyCreatedAt: number;
@@ -23,7 +24,8 @@ describe(`apiGet`, (): void => {
   beforeEach((): void => {
     dummyId = 'dummyId';
     dummyMessage = 'dummyMessage';
-    dummyTopicId = 'dummyTopicId';
+    dummySourceTopicId = 'dummySourceTopicId';
+    dummyTargetTopicId = 'dummyTargetTopicId';
     dummyUserId = 'dummyUserId';
     dummyState = 'open';
     dummyCreatedAt = 1540308640;
@@ -40,7 +42,8 @@ describe(`apiGet`, (): void => {
             state: dummyState,
           },
           relationships: {
-            topic: { data: { id: dummyTopicId } },
+            source: { data: { id: dummySourceTopicId } },
+            target: { data: { id: dummyTargetTopicId } },
             user: { data: { id: dummyUserId } },
           },
           meta: { createdAt: dummyCreatedAt },
@@ -53,7 +56,7 @@ describe(`apiGet`, (): void => {
         [call(api.pullRequests.get, dummyId), dummyApiResponse],
       ])
       .call(api.pullRequests.get, dummyId)
-      .put(actions.setMultipleInState([{ id: dummyId, message: dummyMessage, topicId: dummyTopicId, userId: dummyUserId, state: pullRequestStates.OPEN, timestamp: (dummyCreatedAt * 1000) }]))
+      .put(actions.setMultipleInState([{ id: dummyId, message: dummyMessage, sourceTopicId: dummySourceTopicId, targetTopicId: dummyTargetTopicId, userId: dummyUserId, state: pullRequestStates.OPEN, timestamp: (dummyCreatedAt * 1000) }]))
       .run();
   });
 

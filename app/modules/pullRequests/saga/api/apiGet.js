@@ -29,7 +29,8 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   const pullRequest: m.PullRequest = {
     id,
     message: attributes.message,
-    topicId: relationships.topic.data.id,
+    sourceTopicId: relationships.source.data.id,
+    targetTopicId: relationships.target.data.id,
     userId: relationships.user.data.id,
     state: apiPullRequestStatesMap[attributes.state],
     timestamp: Number(meta.createdAt) * 1000,

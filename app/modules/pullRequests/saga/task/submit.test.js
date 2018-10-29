@@ -15,18 +15,20 @@ describe(`create`, (): void => {
 
   let dummyId: string;
   let dummyMessage: string;
-  let dummyTopicId: string;
+  let dummySourceTopicId: string;
+  let dummyTargetTopicId: string;
   let dummyUserId: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
     dummyMessage = 'dummyMessage';
-    dummyTopicId = 'Lorem ipsum dolor sit amet.';
+    dummySourceTopicId = 'dummySourceTopicId';
+    dummyTargetTopicId = 'dummyTargetTopicId';
     dummyUserId = 'dummyUserId';
   });
 
   it(`puts a pullRequests apiPost action and returns the apiPost result`, (): void => {
-    const dummyAction = actions.submit(dummyMessage, dummyTopicId, dummyUserId);
+    const dummyAction = actions.submit(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId);
 
     return expectSaga(sagas.submit, dummyAction)
       .provide([
@@ -34,7 +36,7 @@ describe(`create`, (): void => {
           return (action.type === a.API_POST) ? { id: dummyId } : next();
         })],
       ])
-      .call(asyncRequests.lib.putAndReturn, actions.apiPost(dummyMessage, dummyTopicId, dummyUserId))
+      .call(asyncRequests.lib.putAndReturn, actions.apiPost(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId))
       .returns({ id: dummyId })
       .run();
   });

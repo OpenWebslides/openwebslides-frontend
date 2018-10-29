@@ -11,12 +11,12 @@ import platform from 'modules/platform';
 import * as a from '../../actionTypes';
 
 const apiPost = function* (action: a.ApiPostAction): Saga<{ id: string }> {
-  const { message, topicId, userId } = action.payload;
+  const { message, sourceTopicId, targetTopicId, userId } = action.payload;
   const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
   const responseData: ApiResponseData = yield call(
-    api.pullRequests.post, message, topicId, userId, userAuth.apiToken,
+    api.pullRequests.post, message, sourceTopicId, targetTopicId, userId, userAuth.apiToken,
   );
   if (responseData.body == null) throw new UnexpectedHttpResponseError();
 

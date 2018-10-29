@@ -28,7 +28,8 @@ export type ApiPostAction = {|
   payload: {|
     ...$PropertyType<ApiSagaAction, 'payload'>,
     message: string,
-    topicId: string,
+    sourceTopicId: string,
+    targetTopicId: string,
     userId: string,
   |},
 |};

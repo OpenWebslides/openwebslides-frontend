@@ -17,8 +17,8 @@ export type PullRequestState = $Values<typeof pullRequestStates>;
 export type PullRequest = {|
   +id: string,
   +message: string,
-  // Identifier of forked topic
-  +topicId: string,
+  +sourceTopicId: string,
+  +targetTopicId: string,
   +userId: string,
   +state: PullRequestState,
   +timestamp: number,

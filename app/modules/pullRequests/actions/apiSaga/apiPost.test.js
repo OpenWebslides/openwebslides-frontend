@@ -9,12 +9,14 @@ import actions from '..';
 describe(`apiPost`, (): void => {
 
   let dummyMessage: string;
-  let dummyTopicId: string;
+  let dummySourceTopicId: string;
+  let dummyTargetTopicId: string;
   let dummyUserId: string;
 
   beforeEach((): void => {
     dummyMessage = 'dummyMessage';
-    dummyTopicId = 'dummyTopicId';
+    dummySourceTopicId = 'dummySourceTopicId';
+    dummyTargetTopicId = 'dummyTargetTopicId';
     dummyUserId = 'dummyUserId';
   });
 
@@ -23,11 +25,12 @@ describe(`apiPost`, (): void => {
       type: a.API_POST,
       payload: {
         message: dummyMessage,
-        topicId: dummyTopicId,
+        sourceTopicId: dummySourceTopicId,
+        targetTopicId: dummyTargetTopicId,
         userId: dummyUserId,
       },
     };
-    const actualAction = actions.apiPost(dummyMessage, dummyTopicId, dummyUserId);
+    const actualAction = actions.apiPost(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId);
 
     expect(actualAction).toStrictEqual(expectedAction);
   });
@@ -35,14 +38,15 @@ describe(`apiPost`, (): void => {
   it(`calls validate.stringProps with the correct arguments and passes the result into the action`, (): void => {
     const dummyValidatedProps = { dummy: 'props' };
     validate.stringProps = jest.fn((): any => dummyValidatedProps);
-    const actualAction = actions.apiPost(dummyMessage, dummyTopicId, dummyUserId);
+    const actualAction = actions.apiPost(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId);
 
     expect(validate.stringProps).toHaveBeenCalledWith(
-      ['message', 'topicId', 'userId'],
+      ['message', 'sourceTopicId', 'targetTopicId', 'userId'],
       [],
       {
         message: dummyMessage,
-        topicId: dummyTopicId,
+        sourceTopicId: dummySourceTopicId,
+        targetTopicId: dummyTargetTopicId,
         userId: dummyUserId,
       },
     );

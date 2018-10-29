@@ -28,7 +28,8 @@ export type SubmitAction = {|
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
     message: string,
-    topicId: string,
+    sourceTopicId: string,
+    targetTopicId: string,
     userId: string,
   |},
 |};
