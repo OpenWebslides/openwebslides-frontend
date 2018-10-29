@@ -32,4 +32,19 @@ describe(`api.topics.get`, (): void => {
     expect(mockOptions.headers.Authorization).toBe(`Bearer ${dummyToken}`);
   });
 
+  it(`omits token when the corresponding parameter is passed as NULL`, async (): Promise<mixed> => {
+    fetch.mockResponseOnce('', { status: 200 });
+    await api.topics.get(dummyTopicId, null);
+
+    expect(fetch.mock.calls).toHaveLength(1);
+
+    const mockUrl = fetch.mock.calls[0][0];
+    const mockOptions = fetch.mock.calls[0][1];
+
+    expect(mockUrl).toBe(`${API_URL}/topics/${dummyTopicId}?include=upstream${encodeURIComponent(',')}forks`);
+    expect(mockOptions.method).toBe(httpMethods.GET);
+    expect(mockOptions.body).toBeNull();
+    expect(mockOptions.headers.Authorization).toBeUndefined();
+  });
+
 });

@@ -1,11 +1,12 @@
 // @flow
 
-import { call } from 'redux-saga/effects';
+import { call, select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import api from 'api';
 import { UnexpectedHttpResponseError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
+import platform from 'modules/platform';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -16,6 +17,7 @@ describe(`apiGetAllByTopicId`, (): void => {
 
   let dummyTopicId: string;
   let dummyContentItems: $ReadOnlyArray<m.ContentItem>;
+  let dummyToken: string;
 
   beforeEach((): void => {
     dummyTopicId = 'dummyTopicId';
@@ -26,9 +28,10 @@ describe(`apiGetAllByTopicId`, (): void => {
       // $FlowFixMe couldn't decide which case to select; probable bug
       { ...dummyData.paragraphContentItem },
     ];
+    dummyToken = 'dummyToken';
   });
 
-  it(`sends a GET request for the topic content to the topics endpoint, processes the response and sets the contentItems in the state`, (): void => {
+  it(`sends a GET request for the topic content to the topics endpoint, processes the response and sets the contentItems in the state when there is no currently signed in user`, (): void => {
     const dummyAction = actions.apiGetAllByTopicId(dummyTopicId);
     const dummyApiResponse = {
       status: 200,
@@ -43,9 +46,33 @@ describe(`apiGetAllByTopicId`, (): void => {
 
     return expectSaga(sagas.apiGetAllByTopicId, dummyAction)
       .provide([
-        [call(api.topics.getContent, dummyTopicId), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), null],
+        [call(api.topics.getContent, dummyTopicId, null), dummyApiResponse],
       ])
-      .call(api.topics.getContent, dummyTopicId)
+      .call(api.topics.getContent, dummyTopicId, null)
+      .put(actions.setMultipleInState(dummyContentItems))
+      .run();
+  });
+
+  it(`sends a GET request for the topic content to the topics endpoint, processes the response and sets the contentItems in the state when there is a currently signed in user`, (): void => {
+    const dummyAction = actions.apiGetAllByTopicId(dummyTopicId);
+    const dummyApiResponse = {
+      status: 200,
+      body: {
+        data: {
+          attributes: {
+            content: dummyContentItems,
+          },
+        },
+      },
+    };
+
+    return expectSaga(sagas.apiGetAllByTopicId, dummyAction)
+      .provide([
+        [select(platform.selectors.getUserAuth), { apiToken: dummyToken }],
+        [call(api.topics.getContent, dummyTopicId, dummyToken), dummyApiResponse],
+      ])
+      .call(api.topics.getContent, dummyTopicId, dummyToken)
       .put(actions.setMultipleInState(dummyContentItems))
       .run();
   });
@@ -59,7 +86,8 @@ describe(`apiGetAllByTopicId`, (): void => {
     await expect(
       expectSaga(sagas.apiGetAllByTopicId, dummyAction)
         .provide([
-          [call(api.topics.getContent, dummyTopicId), dummyApiResponse],
+          [select(platform.selectors.getUserAuth), null],
+          [call(api.topics.getContent, dummyTopicId, null), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);
