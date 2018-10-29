@@ -81,7 +81,7 @@ class PureEditor extends React.Component<Props> {
     }
 
     return topic.isDirty;
-  }
+  };
 
   componentDidMount = (): void => {
     // Add event listener to prevent unloading window when topic is dirty
