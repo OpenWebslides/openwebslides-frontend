@@ -1,5 +1,6 @@
 // @flow
 
+import * as dummyAlertData from './dummyAlertData';
 import * as dummyAsyncRequestData from './dummyAsyncRequestData';
 import * as dummyContentItemData from './dummyContentItemData';
 import * as dummyFeedItemData from './dummyFeedItemData';
@@ -12,6 +13,7 @@ import DummyProviders from './DummyProviders';
 import dummyInitialState from './dummyInitialState';
 
 export {
+  dummyAlertData,
   dummyAsyncRequestData,
   dummyContentItemData,
   dummyFeedItemData,
