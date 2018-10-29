@@ -5,13 +5,32 @@ import { shallow, mount } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
-import TopicForm, { PureTopicForm } from '.';
+import TopicForm, { PureTopicForm, type TopicFormValues } from '.';
 
 describe(`TopicForm`, (): void => {
 
+  let dummyFormProps: TopicFormValues;
+
+  beforeEach((): void => {
+    dummyFormProps = {
+      title: 'dummyTitle',
+      description: 'dummyDescription',
+    };
+  });
+
+  it(`renders default buttons if no children are specified`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <TopicForm />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureSubmitButtonGroup')).toHaveLength(1);
+  });
+
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureTopicForm {...dummyProviderProps.translatorProps} {...dummyProviderProps.formProps} />,
+      <PureTopicForm {...dummyProviderProps.translatorProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -25,6 +44,15 @@ describe(`TopicForm`, (): void => {
       </DummyProviders>,
     );
     expect(enzymeWrapper.find('[data-test-id="test-form-children"]')).toHaveLength(1);
+  });
+
+  it(`validates form props`, (): void => {
+    const enzymeWrapper = shallow(<PureTopicForm {...dummyProviderProps.translatorProps} />);
+    const validate = enzymeWrapper.instance().validateForm;
+
+    expect(validate(dummyFormProps)).toStrictEqual({});
+
+    expect(validate({ ...dummyFormProps, title: '' })).toHaveProperty('title');
   });
 
 });

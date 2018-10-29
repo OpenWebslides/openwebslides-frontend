@@ -5,28 +5,37 @@ import { shallow, mount } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
-import UserForm, { PureUserForm } from '.';
+import UserForm, { PureUserForm, type UserFormValues } from '.';
 
 describe(`UserForm`, (): void => {
 
+  let dummyFormProps: UserFormValues;
+
+  beforeEach((): void => {
+    dummyFormProps = {
+      email: 'dummy@email',
+      name: 'dummyName',
+      password: 'abcd1234',
+      repeatPassword: 'abcd1234',
+      tosAccepted: true,
+    };
+  });
+
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureUserForm {...dummyProviderProps.translatorProps} {...dummyProviderProps.formProps} />,
+      <PureUserForm {...dummyProviderProps.translatorProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  // eslint-disable-next-line jest/expect-expect
-  it(`checks its checkbox #TEMP`, (): void => {
+  it(`renders default buttons if no children are specified`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <UserForm />
       </DummyProviders>,
     );
 
-    const checkboxNode = enzymeWrapper.find('[data-test-id="user-form-tos-accepted"]').hostNodes();
-    checkboxNode.simulate('change');
-    // #TODO
+    expect(enzymeWrapper.find('PureSubmitButtonGroup')).toHaveLength(1);
   });
 
   it(`allows rendering children instead of default form buttons`, (): void => {
@@ -38,6 +47,28 @@ describe(`UserForm`, (): void => {
       </DummyProviders>,
     );
     expect(enzymeWrapper.find('[data-test-id="test-form-children"]')).toHaveLength(1);
+  });
+
+  it(`validates form props`, (): void => {
+    const enzymeWrapper = shallow(<PureUserForm {...dummyProviderProps.translatorProps} />);
+    const validate = enzymeWrapper.instance().validateForm;
+
+    expect(validate(dummyFormProps)).toStrictEqual({});
+
+    expect(validate({ ...dummyFormProps, email: '' })).toHaveProperty('email');
+    expect(validate({ ...dummyFormProps, email: 'foo' })).toHaveProperty('email');
+    expect(validate({ ...dummyFormProps, email: 'foo@bar' })).not.toHaveProperty('email');
+
+    expect(validate({ ...dummyFormProps, name: '' })).toHaveProperty('name');
+
+    expect(validate({ ...dummyFormProps, password: '' })).toHaveProperty('password');
+    expect(validate({ ...dummyFormProps, password: 'abcde' })).toHaveProperty('password');
+    expect(validate({ ...dummyFormProps, password: 'abcdef' })).not.toHaveProperty('password');
+
+    expect(validate({ ...dummyFormProps, password: 'abcdef', repeatPassword: 'abcdeg' })).toHaveProperty('repeatPassword');
+    expect(validate({ ...dummyFormProps, password: 'abcdef', repeatPassword: 'abcdef' })).not.toHaveProperty('repeatPassword');
+
+    expect(validate({ ...dummyFormProps, tosAccepted: false })).toHaveProperty('tosAccepted');
   });
 
 });

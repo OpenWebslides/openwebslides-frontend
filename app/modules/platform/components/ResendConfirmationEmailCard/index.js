@@ -7,7 +7,6 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Card } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
-import { InvalidArgumentError } from 'errors';
 import EmailForm, { type EmailFormValues } from 'forms/EmailForm';
 
 import actions from '../../actions';
@@ -21,10 +20,6 @@ type Props = {| ...TranslatorProps, ...DispatchProps |};
 const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
     onEmailFormSubmit: (values: EmailFormValues): void => {
-      if (values.email == null) {
-        // Make flow happy; #TODO replace with proper redux-form validation
-        throw new InvalidArgumentError(`Form data incomplete`);
-      }
       dispatch(actions.resendConfirmationEmail(values.email));
     },
   };

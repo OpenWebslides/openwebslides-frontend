@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { InvalidArgumentError } from 'errors';
 import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
 import actions from '../../actions';
@@ -35,7 +34,7 @@ describe(`ResetPasswordCard`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`dispatches a resetPassword action, when its form is submitted with complete values`, (): void => {
+  it(`dispatches a resetPassword action, when its form is submitted`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyDispatch={dummyDispatch}>
         <ResetPasswordCard
@@ -47,21 +46,6 @@ describe(`ResetPasswordCard`, (): void => {
 
     onResetPasswordFormSubmit({ password: dummyPassword, resetPasswordToken: dummyResetPasswordToken });
     expect(dummyDispatch).toHaveBeenCalledWith(actions.resetPassword(dummyPassword, dummyResetPasswordToken));
-  });
-
-  it(`throws an InvalidArgumentError, when its form is submitted with incomplete values`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyDispatch={dummyDispatch}>
-        <ResetPasswordCard
-          resetPasswordToken={dummyResetPasswordToken}
-        />
-      </DummyProviders>,
-    );
-    const onResetPasswordFormSubmit = enzymeWrapper.find('PureResetPasswordCard').props().onResetPasswordFormSubmit;
-
-    expect((): void => {
-      onResetPasswordFormSubmit({});
-    }).toThrow(InvalidArgumentError);
   });
 
 });

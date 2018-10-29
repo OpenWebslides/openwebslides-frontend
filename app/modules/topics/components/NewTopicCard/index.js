@@ -4,7 +4,6 @@ import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Card } from 'semantic-ui-react';
 
-import { InvalidArgumentError } from 'errors';
 import TopicForm, { type TopicFormValues } from 'forms/TopicForm';
 
 type PassedProps = {|
@@ -16,8 +15,6 @@ type Props = {| ...TranslatorProps, ...PassedProps |};
 class PureNewTopicCard extends React.Component<Props> {
   handleTopicFormSubmit = (values: TopicFormValues): void => {
     const { onAddTopic } = this.props;
-    // Make flow happy; #TODO replace with proper redux-form validation
-    if (values.title == null) throw new InvalidArgumentError(`Form data incomplete`);
     onAddTopic(values.title, values.description);
   };
 

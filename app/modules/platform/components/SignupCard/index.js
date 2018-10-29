@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { Card, Button, Icon } from 'semantic-ui-react';
 
 import { AUTH_SIGNIN_ROUTE } from 'config/routes';
-import { InvalidArgumentError } from 'errors';
 import UserForm, { type UserFormValues } from 'forms/UserForm';
 
 type PassedProps = {|
@@ -18,15 +17,6 @@ type Props = {| ...TranslatorProps, ...PassedProps |};
 class PureSignupCard extends React.Component<Props> {
   handleUserFormSubmit = (values: UserFormValues): void => {
     const { onSignup } = this.props;
-
-    if (values.email == null
-      || values.name == null
-      || values.password == null
-      || values.tosAccepted == null
-    ) {
-      // Make flow happy; #TODO replace with proper redux-form validation
-      throw new InvalidArgumentError(`Form data incomplete`);
-    }
     onSignup(values.email, values.name, values.password, values.tosAccepted);
   };
 

@@ -1,65 +1,93 @@
 // @flow
 
 import * as React from 'react';
-import { Field, reduxForm } from 'redux-form';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Form, Input } from 'semantic-ui-react';
+import { Form, Message } from 'semantic-ui-react';
+import { Formik, Field, ErrorMessage } from 'formik';
 
-import { type FormProps } from 'types/form';
 import SubmitButtonGroup from 'components/SubmitButtonGroup';
 
 type EmailAndPasswordFormValues = {|
-  email?: string,
-  password?: string,
+  email: string,
+  password: string,
 |};
 
 type PassedProps = {|
+  onSubmit: (values: EmailAndPasswordFormValues) => void,
   // Use the component's children to add custom buttons to the form;
   // if not set, default of [Submit] | [Back] is used.
   children: React.Node,
 |};
 
-type Props = {| ...TranslatorProps, ...$Exact<FormProps>, ...PassedProps |};
+type Props = {| ...TranslatorProps, ...PassedProps |};
 
-const PureEmailAndPasswordForm = (props: Props): React.Node => {
-  const { t, handleSubmit, children } = props;
+class PureEmailAndPasswordForm extends React.Component<Props> {
+  validateForm = (values: EmailAndPasswordFormValues): EmailAndPasswordFormValues => {
+    const { t } = this.props;
 
-  return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Field>
-        <Field
-          component={Input}
-          name="email"
-          placeholder={t('users:forms.email')}
-          icon="at"
-          iconPosition="left"
-          required={true}
-        />
-      </Form.Field>
-      <Form.Field>
-        <Field
-          component={Input}
-          name="password"
-          type="password"
-          placeholder={t('users:forms.password')}
-          icon="lock"
-          iconPosition="left"
-          required={true}
-        />
-      </Form.Field>
+    const errors = {};
 
-      { (children != null) ? children : (<SubmitButtonGroup />)}
-    </Form>
-  );
-};
+    if (!values.email.includes('@')) {
+      errors.email = t('users:forms.errors.email');
+    }
 
-PureEmailAndPasswordForm.defaultProps = {
-  children: null,
-};
+    if (values.password.length < 6) {
+      errors.password = t('users:forms.errors.password');
+    }
 
-const EmailAndPasswordForm = withNamespaces()(
-  reduxForm({ form: 'emailAndPasswordForm' })(PureEmailAndPasswordForm),
-);
+    return { ...errors };
+  }
+
+  render(): React.Node {
+    const { t, onSubmit, children } = this.props;
+
+    return (
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        validate={this.validateForm}
+        onSubmit={onSubmit}
+      >
+        {({ values, handleChange, handleBlur, handleSubmit }) => (
+          <Form onSubmit={handleSubmit}>
+            <ErrorMessage name="email" component={Message} negative={true} />
+            <Field
+              component={Form.Input}
+              type="email"
+              name="email"
+              id="email"
+              placeholder={t('users:forms.email')}
+              icon="at"
+              iconPosition="left"
+              required={true}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+            />
+
+            <ErrorMessage name="password" component={Message} negative={true} />
+            <Field
+              component={Form.Input}
+              type="password"
+              name="password"
+              id="password"
+              placeholder={t('users:forms.password')}
+              icon="lock"
+              iconPosition="left"
+              required={true}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+            />
+
+            { (children != null) ? children : (<SubmitButtonGroup />)}
+          </Form>
+        )}
+      </Formik>
+    );
+  }
+}
+
+const EmailAndPasswordForm = withNamespaces()(PureEmailAndPasswordForm);
 
 export type { EmailAndPasswordFormValues };
 export { PureEmailAndPasswordForm };

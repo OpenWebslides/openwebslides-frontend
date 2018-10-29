@@ -45,6 +45,5 @@ export type ModulesState = {|
 
 export type AppState = {|
   +flash: {},
-  +form: {},
   +modules: ModulesState,
 |};
