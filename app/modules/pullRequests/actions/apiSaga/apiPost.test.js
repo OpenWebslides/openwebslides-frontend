@@ -41,7 +41,7 @@ describe(`apiPost`, (): void => {
     const actualAction = actions.apiPost(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId);
 
     expect(validate.stringProps).toHaveBeenCalledWith(
-      ['message', 'sourceTopicId', 'targetTopicId', 'userId'],
+      ['message'],
       [],
       {
         message: dummyMessage,

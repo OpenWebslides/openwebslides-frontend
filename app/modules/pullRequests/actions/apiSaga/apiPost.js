@@ -11,7 +11,7 @@ const apiPost = (
   userId: string,
 ): a.ApiPostAction => {
   const validatedPayload = validate.stringProps(
-    ['message', 'sourceTopicId', 'targetTopicId', 'userId'],
+    ['message'],
     [],
     { message, sourceTopicId, targetTopicId, userId },
   );
