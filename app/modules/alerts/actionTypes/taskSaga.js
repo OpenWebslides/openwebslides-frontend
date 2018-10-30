@@ -17,7 +17,6 @@ export type FetchAllAction = {|
   type: typeof FETCH_ALL,
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
-    +userId: string,
   |},
 |};
 
