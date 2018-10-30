@@ -36,7 +36,7 @@ class PureTopicForm extends React.Component<Props> {
     }
 
     return { ...errors };
-  }
+  };
 
   render(): React.Node {
     const { t, onSubmit, children } = this.props;

@@ -1,3 +1,7 @@
+const { rules: airbnbBaseErrorsRules } = require('eslint-config-airbnb-base/rules/errors');
+const { rules: airbnbBaseStyleRules } = require('eslint-config-airbnb-base/rules/style');
+const { rules: airbnbBaseBestPracticeRules } = require('eslint-config-airbnb-base/rules/best-practices');
+
 module.exports = {
   'extends': [
     'airbnb',
@@ -13,6 +17,8 @@ module.exports = {
     'jest': true,
   },
   'plugins': [
+    // ESLint checking for experimental features enabled using babel.
+    'babel',
     // ESLint checking for Flow.
     'flowtype',
     // ESLint checking for Jest tests.
@@ -122,6 +128,15 @@ module.exports = {
         'allowTemplateLiterals': true,
       },
     ],
+
+    // Apply these eslint rules to the experimental JS features enabled by babel
+    'babel/new-cap': airbnbBaseStyleRules['new-cap'],
+    'babel/no-invalid-this': airbnbBaseBestPracticeRules['no-invalid-this'],
+    'babel/object-curly-spacing': airbnbBaseStyleRules['object-curly-spacing'],
+    'babel/quotes': ['error', 'single', { 'allowTemplateLiterals': true } ], // Use same override as for 'quotes' rule above
+    'babel/semi': airbnbBaseStyleRules['semi'],
+    // 'babel/no-unused-expressions': airbnbBaseBestPracticeRules['no-unused-expressions'], // conflicts with flowtype/no-unused-expressions
+    'babel/valid-typeof': airbnbBaseErrorsRules['valid-typeof'],
 
     // Enforce consistency in using array types.
     'flowtype/array-style-complex-type': 'error',
