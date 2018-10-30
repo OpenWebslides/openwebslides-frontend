@@ -4,6 +4,7 @@
 
 import { combineReducers } from 'redux';
 
+import alerts from 'modules/alerts';
 import asyncRequests from 'modules/asyncRequests';
 import contentItems from 'modules/contentItems';
 import errors from 'modules/errors';
@@ -15,6 +16,7 @@ import users from 'modules/users';
 
 // Don't forget to edit types/redux.js when a new state part is added here.
 const modulesReducer = combineReducers({
+  alerts: alerts.reducer,
   asyncRequests: asyncRequests.reducer,
   contentItems: contentItems.reducer,
   errors: errors.reducer,

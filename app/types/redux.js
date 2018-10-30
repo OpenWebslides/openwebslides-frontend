@@ -2,6 +2,9 @@
 
 /* eslint-disable import/no-internal-modules */
 
+// Alerts module
+import { type AlertsAction } from 'modules/alerts/actionTypes';
+import { type AlertsState } from 'modules/alerts/model';
 // AsyncRequests module
 import { type AsyncRequestsAction } from 'modules/asyncRequests/actionTypes';
 import { type AsyncRequestsState } from 'modules/asyncRequests/model';
@@ -28,6 +31,7 @@ import { type UsersAction } from 'modules/users/actionTypes';
 import { type UsersState } from 'modules/users/model';
 
 export type ModulesAction =
+  | AlertsAction
   | AsyncRequestsAction
   | ContentItemsAction
   | ErrorsAction
@@ -38,6 +42,7 @@ export type ModulesAction =
   | UsersAction;
 
 export type ModulesState = {|
+  +alerts: AlertsState,
   +asyncRequests: AsyncRequestsState,
   +contentItems: ContentItemsState,
   +errors: ErrorsState,
