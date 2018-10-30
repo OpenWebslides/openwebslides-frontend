@@ -19,7 +19,7 @@ describe(`setMultipleInState`, (): void => {
     dummyAlert3 = { ...dummyData.updateAlert1 };
   });
 
-  it(`sets the passed Alerts in the state`, (): void => {
+  it(`sets the passed alerts in the state`, (): void => {
     const prevState: m.AlertsState = {
       byId: {
         [dummyAlert1.id]: dummyAlert1,
@@ -28,7 +28,7 @@ describe(`setMultipleInState`, (): void => {
     const setMultipleInStateAction: a.SetMultipleInStateAction = {
       type: a.SET_MULTIPLE_IN_STATE,
       payload: {
-        Alerts: [
+        alerts: [
           dummyAlert2,
           dummyAlert3,
         ],
@@ -48,7 +48,7 @@ describe(`setMultipleInState`, (): void => {
     expect(resultState.byId).not.toBe(prevState.byId);
   });
 
-  it(`overrides existing Alerts, when the id of an existing Alert is the same as the id of one of the passed Alerts`, (): void => {
+  it(`overrides existing alerts, when the id of an existing alert is the same as the id of one of the passed alert`, (): void => {
     const editedDummyAlert2 = { ...dummyAlert2, topicId: 'anotherTopicId' };
     const prevState: m.AlertsState = {
       byId: {
@@ -59,7 +59,7 @@ describe(`setMultipleInState`, (): void => {
     const setMultipleInStateAction: a.SetMultipleInStateAction = {
       type: a.SET_MULTIPLE_IN_STATE,
       payload: {
-        Alerts: [
+        alerts: [
           editedDummyAlert2,
           dummyAlert3,
         ],
@@ -79,7 +79,7 @@ describe(`setMultipleInState`, (): void => {
     expect(resultState.byId).not.toBe(prevState.byId);
   });
 
-  it(`returns the state object unchanged, when the passed Alerts array is empty`, (): void => {
+  it(`returns the state object unchanged, when the passed alerts array is empty`, (): void => {
     const prevState: m.AlertsState = {
       byId: {
         [dummyAlert1.id]: dummyAlert1,
@@ -88,7 +88,7 @@ describe(`setMultipleInState`, (): void => {
     const setMultipleInStateAction: a.SetMultipleInStateAction = {
       type: a.SET_MULTIPLE_IN_STATE,
       payload: {
-        Alerts: [],
+        alerts: [],
       },
     };
     const resultState = reducer(prevState, setMultipleInStateAction);

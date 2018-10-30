@@ -7,16 +7,16 @@ const setMultipleInState = (
   state: m.AlertsState,
   action: a.SetMultipleInStateAction,
 ): m.AlertsState => {
-  const { Alerts } = action.payload;
+  const { alerts } = action.payload;
 
-  if (Alerts.length === 0) {
+  if (alerts.length === 0) {
     return state;
   }
   else {
     const newById = { ...state.byId };
 
-    Alerts.forEach((Alert: m.Alert): void => {
-      newById[Alert.id] = Alert;
+    alerts.forEach((alert: m.Alert): void => {
+      newById[alert.id] = alert;
     });
 
     return {
