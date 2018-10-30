@@ -6,6 +6,7 @@ export const updateAlert1: alerts.model.UpdateAlert = {
   id: 'dummyUpdateAlert1',
   userId: 'dummyUserId',
   timestamp: 1540833592,
+  type: alerts.model.alertTypes.UPDATE,
   topicId: 'dummyTopicId',
   count: 3,
 };
@@ -14,6 +15,7 @@ export const updateAlert2: alerts.model.UpdateAlert = {
   id: 'dummyUpdateAlert2',
   userId: 'dummyUserId',
   timestamp: 1540833392,
+  type: alerts.model.alertTypes.UPDATE,
   topicId: 'dummyTopicId',
   count: 2,
 };
@@ -22,25 +24,28 @@ export const pullRequestAlert1: alerts.model.PullRequestAlert = {
   id: 'dummyPullRequestAlert1',
   userId: 'dummyUser1Id',
   timestamp: 1540833792,
+  type: alerts.model.alertTypes.PULL_REQUEST,
   pullRequestId: 'dummyPullRequestId',
   subjectUserId: 'dummySubjectUserId',
-  type: alerts.model.pullRequestAlertTypes.SUBMITTED,
+  state: alerts.model.pullRequestStateTypes.SUBMITTED,
 };
 
 export const pullRequestAlert2: alerts.model.PullRequestAlert = {
   id: 'dummyPullRequestAlert2',
   userId: 'dummyUser2Id',
   timestamp: 1540833892,
+  type: alerts.model.alertTypes.PULL_REQUEST,
   pullRequestId: 'dummyPullRequestId',
   subjectUserId: 'dummySubjectUserId',
-  type: alerts.model.pullRequestAlertTypes.ACCEPTED,
+  state: alerts.model.pullRequestStateTypes.ACCEPTED,
 };
 
 export const pullRequestAlert3: alerts.model.PullRequestAlert = {
   id: 'dummyPullRequestAlert3',
   userId: 'dummyUser2Id',
   timestamp: 1540833892,
+  type: alerts.model.alertTypes.PULL_REQUEST,
   pullRequestId: 'dummyPullRequestId',
   subjectUserId: 'dummySubjectUserId',
-  type: alerts.model.pullRequestAlertTypes.REJECTED,
+  state: alerts.model.pullRequestStateTypes.REJECTED,
 };
