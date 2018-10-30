@@ -13,11 +13,12 @@ describe(`api.pullRequests.post`, (): void => {
 
   it(`executes the correct fetch call`, async (): Promise<mixed> => {
     const dummyMessage = 'dummyMessage';
-    const dummyTopicId = 'dummyTopicId';
+    const dummySourceTopicId = 'dummySourceTopicId';
+    const dummyTargetTopicId = 'dummyTargetTopicId';
     const dummyUserId = 'dummyUserId';
     const dummyToken = 'dummyToken';
     fetch.mockResponseOnce('', { status: 200 });
-    await api.pullRequests.post(dummyMessage, dummyTopicId, dummyUserId, dummyToken);
+    await api.pullRequests.post(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId, dummyToken);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
@@ -33,10 +34,16 @@ describe(`api.pullRequests.post`, (): void => {
           message: dummyMessage,
         },
         relationships: {
-          topic: {
+          source: {
             data: {
               type: 'topics',
-              id: dummyTopicId,
+              id: dummySourceTopicId,
+            },
+          },
+          target: {
+            data: {
+              type: 'topics',
+              id: dummyTargetTopicId,
             },
           },
           user: {

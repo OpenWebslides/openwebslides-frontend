@@ -12,7 +12,8 @@ import { PULL_REQUESTS_ENDPOINT } from '../endpoints';
 
 const post = (
   message: string,
-  topicId: string,
+  sourceTopicId: string,
+  targetTopicId: string,
   userId: string,
   token: string,
 ): Promise<ApiResponseData> => {
@@ -23,9 +24,15 @@ const post = (
         message,
       },
       relationships: {
-        topic: {
+        source: {
           data: {
-            id: topicId,
+            id: sourceTopicId,
+            type: 'topics',
+          },
+        },
+        target: {
+          data: {
+            id: targetTopicId,
             type: 'topics',
           },
         },
