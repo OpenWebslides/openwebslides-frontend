@@ -26,7 +26,7 @@ export const pullRequestStateTypes = {
 
 export type PullRequestStateType = $Values<typeof pullRequestStateTypes>;
 
-export type Alert = {|
+export type BaseAlert = {|
   +id: string,
   +userId: string,
   +timestamp: number,
@@ -34,18 +34,22 @@ export type Alert = {|
 |};
 
 export type UpdateAlert = {|
-  ...Alert,
+  ...BaseAlert,
   +topicId: string,
   +count: number,
 |};
 
 export type PullRequestAlert = {|
-  ...Alert,
+  ...BaseAlert,
   +pullRequestId: string,
   // Subject of the alert (the user that submitted/accepted/rejected the PR)
   +subjectUserId: string,
   +state: PullRequestStateType,
 |};
+
+export type Alert =
+  | UpdateAlert
+  | PullRequestAlert;
 
 // eslint-disable-next-line flowtype/require-exact-type
 export type AlertsById = {
