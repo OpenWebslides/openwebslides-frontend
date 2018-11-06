@@ -25,3 +25,6 @@
 
 // Viewer
 & { @import "../../custom/viewer-menu"; }
+
+// Alerts
+& { @import "../../custom/alerts"; }

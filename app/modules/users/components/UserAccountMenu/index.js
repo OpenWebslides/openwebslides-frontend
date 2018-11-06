@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Menu, Dropdown, Icon } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 
 import { USER_PROFILE_ROUTE, USER_SIGNOUT_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
@@ -23,21 +23,16 @@ class PureUserAccountMenu extends React.Component<Props> {
     const { t } = this.props;
 
     return (
-      <Menu.Menu position="right" data-test-id="user-account-menu">
-        <Menu.Item as={Link} to="#">
-          <Icon name="bell outline" />
-        </Menu.Item>
-        <Dropdown text={user.name} pointing={true} item={true}>
-          <Dropdown.Menu>
-            <Dropdown.Item as={Link} to={USER_PROFILE_ROUTE}>
-              {t('users:actions.viewProfile')}
-            </Dropdown.Item>
-            <Dropdown.Item as={Link} to={USER_SIGNOUT_ROUTE}>
-              {t('users:actions.signOut')}
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </Menu.Menu>
+      <Dropdown text={user.name} pointing={true} item={true} data-test-id="user-account-menu">
+        <Dropdown.Menu>
+          <Dropdown.Item as={Link} to={USER_PROFILE_ROUTE}>
+            {t('users:actions.viewProfile')}
+          </Dropdown.Item>
+          <Dropdown.Item as={Link} to={USER_SIGNOUT_ROUTE}>
+            {t('users:actions.signOut')}
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
     );
   };
 
