@@ -24,27 +24,6 @@ describe(`CommitForm`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toStrictEqual(false);
   });
 
-  it(`renders default buttons if no children are specified`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders>
-        <CommitForm />
-      </DummyProviders>,
-    );
-
-    expect(enzymeWrapper.find('PureSubmitButtonGroup')).toHaveLength(1);
-  });
-
-  it(`allows rendering children instead of default form buttons`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders>
-        <CommitForm>
-          <p data-test-id="test-form-children">replacement submit buttons would go here</p>
-        </CommitForm>
-      </DummyProviders>,
-    );
-    expect(enzymeWrapper.find('[data-test-id="test-form-children"]')).toHaveLength(1);
-  });
-
   it(`validates form props`, (): void => {
     const enzymeWrapper = shallow(<PureCommitForm {...dummyProviderProps.translatorProps} />);
     const validate = enzymeWrapper.instance().validateForm;

@@ -5,17 +5,12 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Form, Message } from 'semantic-ui-react';
 import { Formik, Field, ErrorMessage } from 'formik';
 
-import SubmitButtonGroup from 'components/SubmitButtonGroup';
-
 type CommitFormValues = {|
   message: string,
 |};
 
 type PassedProps = {|
   onSubmit: (values: CommitFormValues) => void,
-  // Use the component's children to add custom buttons to the form;
-  // if not set, default of [Submit] | [Back] is used.
-  children: React.Node,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
@@ -31,10 +26,10 @@ class PureCommitForm extends React.Component<Props> {
     }
 
     return { ...errors };
-  }
+  };
 
   render(): React.Node {
-    const { t, onSubmit, children } = this.props;
+    const { t, onSubmit } = this.props;
 
     return (
       <Formik
@@ -53,10 +48,8 @@ class PureCommitForm extends React.Component<Props> {
               required={true}
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.email}
+              value={values.message}
             />
-
-            { (children != null) ? children : (<SubmitButtonGroup />)}
           </Form>
         )}
       </Formik>
