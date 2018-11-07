@@ -4,8 +4,7 @@ import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { Link } from 'react-router-dom';
-import { Button, Divider, Item } from 'semantic-ui-react';
+import { Divider, Item } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
@@ -48,7 +47,7 @@ class PureUserProfile extends React.Component<Props> {
   };
 
   renderUserProfile = (user: m.User): React.Node => {
-    const { t, isCurrentUser, removeTopicFromUser } = this.props;
+    const { isCurrentUser, removeTopicFromUser } = this.props;
 
     return (
       <React.Fragment>
@@ -59,11 +58,9 @@ class PureUserProfile extends React.Component<Props> {
               <Item.Header as="h1">
                 {user.name}
               </Item.Header>
-              { isCurrentUser && (
-                <Item.Extra>
-                  <Button as={Link} to="#" data-test-id="user-profile-edit-button">
-                    {t('users:actions.editProfile')} (todo)
-                  </Button>
+              { user.email != null && (
+                <Item.Extra data-test-id="user-profile-email">
+                  {user.email}
                 </Item.Extra>
               )}
             </Item.Content>
