@@ -2,7 +2,12 @@
 
 const alerts = {
   menu: {
-    empty: 'There are currently no alerts',
+    empty: 'You don\'t have any alerts right now',
+    recent: 'Recently',
+    earlier: 'Earlier',
+    updated: 'There is {{count}} update available for {{topicTitle}}',
+    updated_plural: 'There are {{count}} updates available for {{topicTitle}}',
+    submitted: '{{userName}} submitted changes on your topic {{topicTitle}}',
   },
 };
 

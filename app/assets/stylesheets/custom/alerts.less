@@ -7,9 +7,20 @@
   left: auto !important;
   right: 0em;
 
+  .item {
+    width: 25em !important;
+    white-space: pre-line !important;
+    line-height: 135% !important;
+
+    .date {
+      color: rgba(0, 0, 0, 0.4);
+      font-size: 80%;
+    }
+  }
+
   &::after {
     // Move dropdown arrow to the right side
     left: auto !important;
-    right: 1em !important;
+    right: 1.5em !important;
   }
 }
