@@ -13,8 +13,10 @@ import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 const apiAlertTypesMap = {
-  update: m.alertTypes.UPDATE,
-  pullRequest: m.alertTypes.PULL_REQUEST,
+  topic_updated: m.alertTypes.TOPIC_UPDATED,
+  pr_submitted: m.alertTypes.PR_SUBMITTED,
+  pr_approved: m.alertTypes.PR_APPROVED,
+  pr_rejected: m.alertTypes.PR_REJECTED,
 };
 
 const apiAlertPullRequestStateTypesMap = {
@@ -35,7 +37,7 @@ const apiGetAllByUserId = function* (action: a.ApiGetAllByUserIdAction): Saga<vo
 
   // eslint-disable-next-line flowtype/no-weak-types
   const data = responseData.body.data.map((item: Object): m.Alert => {
-    const alertType = apiAlertTypesMap[item.attributes.type];
+    const alertType = apiAlertTypesMap[item.attributes.alertType];
 
     const commonProps = {
       id: item.id,
@@ -44,23 +46,24 @@ const apiGetAllByUserId = function* (action: a.ApiGetAllByUserIdAction): Saga<vo
       type: alertType,
     };
 
-    if (alertType === m.alertTypes.UPDATE) {
-      return {
-        ...commonProps,
-        topicId: item.relationships.topic.data.id,
-        count: item.attributes.count,
-      };
-    }
-    else if (alertType === m.alertTypes.PULL_REQUEST) {
-      return {
-        ...commonProps,
-        pullRequestId: item.relationships.pullRequest.data.id,
-        subjectUserId: item.relationships.subject.data.id,
-        state: apiAlertPullRequestStateTypesMap[item.attributes.state],
-      };
-    }
-    else {
-      throw new UnexpectedHttpResponseError(`wat`);
+    switch (alertType) {
+      case m.alertTypes.TOPIC_UPDATED:
+        return {
+          ...commonProps,
+          topicId: item.relationships.topic.data.id,
+          count: item.attributes.count,
+        };
+      case m.alertTypes.PR_SUBMITTED:
+      case m.alertTypes.PR_APPROVED:
+      case m.alertTypes.PR_REJECTED:
+        return {
+          ...commonProps,
+          pullRequestId: item.relationships.pullRequest.data.id,
+          subjectUserId: item.relationships.subject.data.id,
+          state: apiAlertPullRequestStateTypesMap[item.attributes.state],
+        };
+      default:
+        throw new UnsupportedOperationError(`Unsupported alert type: ${alertType}`);
     }
   });
 
