@@ -20,7 +20,7 @@ describe(`getAllByCurrentUserSortedDescByTimestamp`, (): void => {
     dummyUserId = 'dummyUserId';
     dummyAlert1 = { ...dummyAlertData.updateAlert1, userId: dummyUserId, timestamp: 1 };
     dummyAlert2 = { ...dummyAlertData.updateAlert2, userId: dummyUserId, timestamp: 2 };
-    dummyAlert3 = { ...dummyAlertData.pullRequestAlert1, userId: dummyUserId, timestamp: 3 };
+    dummyAlert3 = { ...dummyAlertData.PRSubmittedAlert, userId: dummyUserId, timestamp: 3 };
     dummyAlertsById = {
       [dummyAlert2.id]: dummyAlert2,
       [dummyAlert1.id]: dummyAlert1,

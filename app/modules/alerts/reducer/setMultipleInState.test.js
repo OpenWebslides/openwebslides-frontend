@@ -14,8 +14,8 @@ describe(`setMultipleInState`, (): void => {
   let dummyAlert3: m.Alert;
 
   beforeEach((): void => {
-    dummyAlert1 = { ...dummyData.pullRequestAlert1 };
-    dummyAlert2 = { ...dummyData.pullRequestAlert2 };
+    dummyAlert1 = { ...dummyData.PRSubmittedAlert };
+    dummyAlert2 = { ...dummyData.PRApprovedAlert };
     dummyAlert3 = { ...dummyData.updateAlert1 };
   });
 

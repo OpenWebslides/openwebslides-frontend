@@ -24,7 +24,7 @@ describe(`Alerts`, (): void => {
     dummyTopic = { ...dummyTopicData.topic };
     dummyUser = { ...dummyUserData.user };
     dummyAlert1 = { ...dummyAlertData.updateAlert1, timestamp: 1, topicId: dummyTopic.id, userId: dummyUser.id };
-    dummyAlert2 = { ...dummyAlertData.pullRequestAlert1, timestamp: 2, userId: dummyUser.id, subjectUserId: dummyUser.id };
+    dummyAlert2 = { ...dummyAlertData.PRSubmittedAlert, timestamp: 2, userId: dummyUser.id, subjectUserId: dummyUser.id };
     dummyState = {
       ...dummyInitialState,
       modules: {

@@ -3,12 +3,16 @@
 /* eslint-disable flowtype/require-types-at-top,import/exports-last */
 
 // Type of alert
-const UPDATE: 'alerts/UPDATE' = 'alerts/UPDATE';
-const PULL_REQUEST: 'alerts/PULL_REQUEST' = 'alerts/PULL_REQUEST';
+const TOPIC_UPDATED: 'alerts/TOPIC_UPDATED' = 'alerts/TOPIC_UPDATED';
+const PR_SUBMITTED: 'alerts/PR_SUBMITTED' = 'alerts/PR_SUBMITTED';
+const PR_APPROVED: 'alerts/PR_APPROVED' = 'alerts/PR_APPROVED';
+const PR_REJECTED: 'alerts/PR_REJECTED' = 'alerts/PR_REJECTED';
 
 export const alertTypes = {
-  UPDATE,
-  PULL_REQUEST,
+  TOPIC_UPDATED,
+  PR_SUBMITTED,
+  PR_APPROVED,
+  PR_REJECTED,
 };
 
 export type AlertType = $Values<typeof alertTypes>;

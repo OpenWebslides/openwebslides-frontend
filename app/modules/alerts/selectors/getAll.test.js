@@ -17,7 +17,7 @@ describe(`getAll`, (): void => {
 
   beforeEach((): void => {
     dummyAlert1 = { ...dummyAlertData.updateAlert1 };
-    dummyAlert2 = { ...dummyAlertData.pullRequestAlert1 };
+    dummyAlert2 = { ...dummyAlertData.PRSubmittedAlert };
     dummyAlertsById = {
       [dummyAlert1.id]: dummyAlert1,
       [dummyAlert2.id]: dummyAlert2,

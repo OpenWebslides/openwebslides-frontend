@@ -22,7 +22,7 @@ describe(`getAllByCurrentUser`, (): void => {
     dummyUser2Id = 'dummyUser2Id';
     dummyAlert1 = { ...dummyAlertData.updateAlert1, userId: dummyUserId };
     dummyAlert2 = { ...dummyAlertData.updateAlert2, userId: dummyUser2Id };
-    dummyAlert3 = { ...dummyAlertData.pullRequestAlert1, userId: dummyUserId };
+    dummyAlert3 = { ...dummyAlertData.PRSubmittedAlert, userId: dummyUserId };
     dummyAlertsById = {
       [dummyAlert1.id]: dummyAlert1,
       [dummyAlert2.id]: dummyAlert2,

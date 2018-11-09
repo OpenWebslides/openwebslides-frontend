@@ -15,8 +15,9 @@ describe(`setMultipleInState`, (): void => {
     dummyAlerts = [
       { ...dummyAlertData.updateAlert1 },
       { ...dummyAlertData.updateAlert2 },
-      { ...dummyAlertData.pullRequestAlert1 },
-      { ...dummyAlertData.pullRequestAlert2 },
+      { ...dummyAlertData.PRSubmittedAlert },
+      { ...dummyAlertData.PRApprovedAlert },
+      { ...dummyAlertData.PRRejectedAlert },
     ];
   });
 
