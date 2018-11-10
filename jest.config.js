@@ -1,12 +1,11 @@
 // @flow
 
 module.exports = {
-  // Print coverage report when running tests.
-  // collectCoverage: true,
   // Only collect coverage for the files in the /app folder.
   collectCoverageFrom: [
     'app/**/*.js',
   ],
+  // Ignore these paths / files when collecting coverage.
   coveragePathIgnorePatterns: [
     'node_modules',
     '.eslintrc.js',
@@ -19,16 +18,16 @@ module.exports = {
     'node_modules',
     'app',
   ],
-  // Path to the jest setup script.
-  setupTestFrameworkScriptFile: '<rootDir>/app/setupTests.js',
-  // Output descriptions of individual tests, instead of just the names of the tested files.
-  // verbose: true,
+  // Mock these file types so their imports do not cause errors.
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|flow)$': '<rootDir>/mocks/fileMock.js',
     '\\.(css|less)$': '<rootDir>/mocks/styleMock.js',
   },
+  // Setup files for mock modules.
   setupFiles: [
     'jest-date-mock',
     'jest-localstorage-mock',
   ],
+  // Path to the jest setup script.
+  setupTestFrameworkScriptFile: '<rootDir>/jest/setupTests.js',
 };
