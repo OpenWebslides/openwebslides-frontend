@@ -22,7 +22,7 @@ describe(`fetchAll`, (): void => {
     dummyUserId = 'dummyUserId';
   });
 
-  it(`selects the current user's id from the state and puts a feedItems apiGetAll action`, (): void => {
+  it(`selects the current user's id from the state and puts an alerts apiGetAll action`, (): void => {
     const dummyAction = actions.fetchAll();
 
     return expectSaga(sagas.fetchAll, dummyAction)

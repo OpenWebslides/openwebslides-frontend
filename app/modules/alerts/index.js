@@ -8,7 +8,7 @@ import reducer from './reducer';
 import selectors from './selectors';
 import saga from './saga';
 
-const feedItems = {
+const alerts = {
   actions,
   actionTypes,
   components,
@@ -18,4 +18,4 @@ const feedItems = {
   selectors,
 };
 
-export default feedItems;
+export default alerts;
