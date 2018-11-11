@@ -36,7 +36,7 @@ const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { alert } = props;
 
   return {
-    topic: topics.selectors.getById(state, { id: alert.topicId }),
+    topic: alert.topicId != null ? topics.selectors.getById(state, { id: alert.topicId }) : null,
     user: users.selectors.getById(state, { id: alert.userId }),
   };
 };
@@ -49,7 +49,7 @@ const mapDispatchToProps = (
 
   return {
     fetchTopic: (): void => {
-      dispatch(topics.actions.fetch(alert.topicId));
+      if (alert.topicId != null) dispatch(topics.actions.fetch(alert.topicId));
     },
     fetchUser: (): void => {
       dispatch(users.actions.fetch(alert.userId));

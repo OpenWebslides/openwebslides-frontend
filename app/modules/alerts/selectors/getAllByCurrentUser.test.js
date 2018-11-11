@@ -5,6 +5,7 @@ import { dummyAlertData } from 'lib/testResources';
 import * as m from '../model';
 
 import selectors from '.';
+import getAllByCurrentUser from './getAllByCurrentUser'
 
 describe(`getAllByCurrentUser`, (): void => {
 
