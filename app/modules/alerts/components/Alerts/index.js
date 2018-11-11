@@ -50,10 +50,10 @@ class PureAlerts extends React.Component<Props> {
 
     const timeLimit = moment().subtract(7, 'days').startOf('day');
 
-    const recentAlerts = sortedAlerts.filter((alert: Alert): boolean => {
+    const recentAlerts = sortedAlerts.filter((alert: m.Alert): boolean => {
       return moment(alert.timestamp).isAfter(timeLimit);
     });
-    const earlierAlerts = sortedAlerts.filter((alert: Alert): boolean => {
+    const earlierAlerts = sortedAlerts.filter((alert: m.Alert): boolean => {
       return moment(alert.timestamp).isBefore(timeLimit);
     });
 
@@ -67,7 +67,7 @@ class PureAlerts extends React.Component<Props> {
           ) : (
             <>
               {recentAlerts.length !== 0 ? <Dropdown.Header content={t('alerts:menu.recent')} data-test-id="alerts-menu-recent" /> : ''}
-              {(recentAlerts.map((alert: Alert): React.Node => {
+              {(recentAlerts.map((alert: m.Alert): React.Node => {
                 return (
                   <Dropdown.Item key={alert.id} className={alert.read ? '' : 'unread'} data-test-id="alerts-menu-alert">
                     <Alert alert={alert} />
@@ -75,7 +75,7 @@ class PureAlerts extends React.Component<Props> {
                 );
               }))}
               {earlierAlerts.length !== 0 ? <Dropdown.Header content={t('alerts:menu.earlier')} data-test-id="alerts-menu-earlier" /> : ''}
-              {(earlierAlerts.map((alert: Alert): React.Node => {
+              {(earlierAlerts.map((alert: m.Alert): React.Node => {
                 return (
                   <Dropdown.Item key={alert.id} className={alert.read ? '' : 'unread'} data-test-id="alerts-menu-alert">
                     <Alert alert={alert} />

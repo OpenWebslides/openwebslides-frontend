@@ -73,7 +73,7 @@ describe(`Alerts`, (): void => {
         <Alerts />
       </DummyProviders>,
     );
-    const AlertNodes = enzymeWrapper.find('PureAlert');
+    const AlertNodes = enzymeWrapper.find('Alert');
 
     expect(AlertNodes).toHaveLength(2);
     expect(AlertNodes.at(0).props().alert.id).toBe(dummyAlert2.id);
@@ -87,7 +87,7 @@ describe(`Alerts`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('PureAlert')).toHaveLength(2);
+    expect(enzymeWrapper.find('Alert')).toHaveLength(2);
     expect(enzymeWrapper.find('[data-test-id="alerts-menu-empty"]')).toHaveLength(0);
     // Length of the recent menu should be 2, because data-test-id is defined
     // on Dropdown.Item, which renders two HTML nodes with the passed data-test-id prop
@@ -118,7 +118,7 @@ describe(`Alerts`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('PureAlert')).toHaveLength(2);
+    expect(enzymeWrapper.find('Alert')).toHaveLength(2);
     expect(enzymeWrapper.find('[data-test-id="alerts-menu-empty"]')).toHaveLength(0);
     expect(enzymeWrapper.find('[data-test-id="alerts-menu-recent"]')).toHaveLength(0);
     // Length of the earlier alerts menu should be 2, because data-test-id is defined
@@ -147,7 +147,7 @@ describe(`Alerts`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('PureAlert')).toHaveLength(2);
+    expect(enzymeWrapper.find('Alert')).toHaveLength(2);
     expect(enzymeWrapper.find('[data-test-id="alerts-menu-empty"]')).toHaveLength(0);
     // Length of the recent alerts menu should be 2, because data-test-id is defined
     // on Dropdown.Item, which renders two HTML nodes with the passed data-test-id prop
@@ -173,7 +173,7 @@ describe(`Alerts`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('PureAlert')).toHaveLength(0);
+    expect(enzymeWrapper.find('Alert')).toHaveLength(0);
     // Length of the 'empty' message should be 2, because data-test-id is defined
     // on Dropdown.Item, which renders two HTML nodes with the passed data-test-id prop
     expect(enzymeWrapper.find('[data-test-id="alerts-menu-empty"]')).toHaveLength(2);

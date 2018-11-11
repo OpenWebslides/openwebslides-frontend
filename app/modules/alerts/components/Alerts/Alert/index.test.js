@@ -2,17 +2,14 @@
 
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
-import { push } from 'connected-react-router';
 
-import { TOPIC_EDITOR_ROUTE } from 'config/routes';
-import makeRoute from 'lib/makeRoute';
 import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, dummyTopicData, dummyUserData } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
 import * as m from '../../../model';
 
-import Alert, { PureAlert } from '.';
+import Alert from '.';
 
 describe(`Alert`, (): void => {
 
@@ -55,7 +52,7 @@ describe(`Alert`, (): void => {
 
   it(`renders empty when the topic has an invalid type`, (): void => {
     const enzymeWrapper = shallow(
-      <PureAlert
+      <Alert
         {...dummyProviderProps.translatorProps}
         alert={{ ...dummyUpdateAlert, type: 'foo' }}
         user={dummyUser}
@@ -71,7 +68,7 @@ describe(`Alert`, (): void => {
 
     it(`renders without errors`, (): void => {
       const enzymeWrapper = shallow(
-        <PureAlert
+        <Alert
           {...dummyProviderProps.translatorProps}
           alert={dummyUpdateAlert}
           user={dummyUser}
@@ -83,50 +80,14 @@ describe(`Alert`, (): void => {
       expect(enzymeWrapper.isEmptyRender()).toBe(false);
     });
 
-    it(`fetches the alert's associated topic, when the topic was not previously present in the state`, (): void => {
-      dummyState.modules.topics.byId = {};
-
-      mount(
-        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <Alert alert={dummyUpdateAlert} />
-        </DummyProviders>,
-      );
-
-      expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyUpdateAlert.topicId));
-    });
-
-    it(`fetches the alert's associated user, when the user was not previously present in the state`, (): void => {
-      dummyState.modules.users.byId = {};
-
-      mount(
-        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <Alert alert={dummyUpdateAlert} />
-        </DummyProviders>,
-      );
-
-      expect(dummyDispatch).toHaveBeenCalledWith(users.actions.fetch(dummyUpdateAlert.userId));
-    });
-
-    it(`renders the alert, when both the associated user and topic were previously present in the state`, (): void => {
+    it(`renders an UpdateAlert when the passed alert prop is an alert of type TOPIC_UPDATED`, (): void => {
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
           <Alert alert={dummyUpdateAlert} />
         </DummyProviders>,
       );
 
-      expect(enzymeWrapper.find('[data-test-id="alert"]').hostNodes()).toHaveLength(1);
-    });
-
-    it(`dispatches a PUSH action to the editor when the alert is clicked`, (): void => {
-      const enzymeWrapper = mount(
-        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <Alert alert={dummyUpdateAlert} />
-        </DummyProviders>,
-      );
-
-      enzymeWrapper.find('[data-test-id="alert"]').hostNodes().simulate('click');
-
-      expect(dummyDispatch).toHaveBeenCalledWith(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: dummyUpdateAlert.topicId })));
+      expect(enzymeWrapper.find('PureUpdateAlert')).toHaveLength(1);
     });
 
   });
