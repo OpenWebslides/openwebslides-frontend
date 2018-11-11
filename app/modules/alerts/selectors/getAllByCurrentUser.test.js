@@ -1,11 +1,10 @@
 // @flow
 
-import { dummyAlertData } from 'lib/testResources';
+import { dummyInitialState, dummyAlertData } from 'lib/testResources';
 
 import * as m from '../model';
 
 import selectors from '.';
-import getAllByCurrentUser from './getAllByCurrentUser'
 
 describe(`getAllByCurrentUser`, (): void => {
 
@@ -17,6 +16,7 @@ describe(`getAllByCurrentUser`, (): void => {
   let dummyAlertsById: m.AlertsById;
   let dummyAlertsState: m.AlertsState;
   let dummyPlatformState: any;
+  let dummyState: any;
 
   beforeEach((): void => {
     dummyUserId = 'dummyUserId';
@@ -31,41 +31,45 @@ describe(`getAllByCurrentUser`, (): void => {
     };
     dummyAlertsState = { byId: dummyAlertsById };
     dummyPlatformState = { userAuth: { userId: dummyUserId } };
-  });
 
-  it(`returns an array containing all alerts of the currently signed in user`, (): void => {
-    const dummyState = {
+    dummyState = {
+      ...dummyInitialState,
       modules: {
+        ...dummyInitialState.modules,
         alerts: dummyAlertsState,
         platform: dummyPlatformState,
       },
     };
+  });
 
+  it(`returns an array containing all alerts of the currently signed in user`, (): void => {
     const alerts = selectors.getAllByCurrentUser(dummyState);
     expect(alerts).toStrictEqual([dummyAlert1, dummyAlert3]);
   });
 
   it(`returns an empty array, when there are no alerts of the currently signed in user in the state`, (): void => {
-    const dummyState = {
+    const dummyEmptyState = {
+      ...dummyState,
       modules: {
+        ...dummyState.modules,
         alerts: { byId: { [dummyAlert2.id]: dummyAlert2 } },
-        platform: dummyPlatformState,
       },
     };
 
-    const alerts = selectors.getAllByCurrentUser(dummyState);
+    const alerts = selectors.getAllByCurrentUser(dummyEmptyState);
     expect(alerts).toStrictEqual([]);
   });
 
   it(`returns an empty array, when there is no user currently signed in`, (): void => {
-    const dummyState = {
+    const dummyNoUserState = {
+      ...dummyState,
       modules: {
-        alerts: dummyAlertsState,
+        ...dummyState.modules,
         platform: { userAuth: null },
       },
     };
 
-    const alerts = selectors.getAllByCurrentUser(dummyState);
+    const alerts = selectors.getAllByCurrentUser(dummyNoUserState);
     expect(alerts).toStrictEqual([]);
   });
 
