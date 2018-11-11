@@ -28,9 +28,9 @@ describe(`create`, (): void => {
   });
 
   it(`puts a pullRequests apiPost action and returns the apiPost result`, (): void => {
-    const dummyAction = actions.submit(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId);
+    const dummyAction = actions.create(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId);
 
-    return expectSaga(sagas.submit, dummyAction)
+    return expectSaga(sagas.create, dummyAction)
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.API_POST) ? { id: dummyId } : next();

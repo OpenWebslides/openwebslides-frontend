@@ -2,14 +2,14 @@
 
 import * as a from '../../actionTypes';
 
-const submit = (
+const create = (
   message: string,
   sourceTopicId: string,
   targetTopicId: string,
   userId: string,
-): a.SubmitAction => {
+): a.CreateAction => {
   return {
-    type: a.SUBMIT,
+    type: a.CREATE,
     payload: {
       message,
       sourceTopicId,
@@ -19,4 +19,4 @@ const submit = (
   };
 };
 
-export default submit;
+export default create;

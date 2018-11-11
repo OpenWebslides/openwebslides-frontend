@@ -9,20 +9,21 @@ import asyncRequests from 'modules/asyncRequests';
 
 import * as a from '../../actionTypes';
 
+import create from './create';
 import fetch from './fetch';
-import submit from './submit';
 
 const { sagaWrapper } = asyncRequests.lib;
 
 const taskSaga = function* (): Saga<void> {
   yield all([
+    takeEvery(a.CREATE, sagaWrapper, create),
     takeEvery(a.FETCH, sagaWrapper, fetch),
   ]);
 };
 
 const taskSagas = {
+  create,
   fetch,
-  submit,
 };
 
 export { taskSagas };

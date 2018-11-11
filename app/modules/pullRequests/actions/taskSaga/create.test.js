@@ -4,7 +4,7 @@ import * as a from '../../actionTypes';
 
 import actions from '..';
 
-describe(`submit`, (): void => {
+describe(`create`, (): void => {
 
   let dummyMessage: string;
   let dummySourceTopicId: string;
@@ -18,9 +18,9 @@ describe(`submit`, (): void => {
     dummyUserId = 'dummyUserId';
   });
 
-  it(`returns a pullRequests SUBMIT action containing the passed arguments`, (): void => {
-    const expectedAction: a.SubmitAction = {
-      type: a.SUBMIT,
+  it(`returns a pullRequests CREATE action containing the passed arguments`, (): void => {
+    const expectedAction: a.CreateAction = {
+      type: a.CREATE,
       payload: {
         message: dummyMessage,
         sourceTopicId: dummySourceTopicId,
@@ -28,7 +28,7 @@ describe(`submit`, (): void => {
         userId: dummyUserId,
       },
     };
-    const actualAction = actions.submit(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId);
+    const actualAction = actions.create(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId);
 
     expect(actualAction).toStrictEqual(expectedAction);
   });

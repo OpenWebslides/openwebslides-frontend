@@ -7,11 +7,23 @@ import { type TaskSagaAction } from 'types/actions';
 
 // Action constants --------------------------------------------------------------------------------
 
+export const CREATE: 'pullRequests/CREATE' = 'pullRequests/CREATE';
 export const FETCH: 'pullRequests/FETCH' = 'pullRequests/FETCH';
-export const SUBMIT: 'pullRequests/SUBMIT' = 'pullRequests/SUBMIT';
 
 
 // Action types ------------------------------------------------------------------------------------
+
+export type CreateAction = {|
+  ...TaskSagaAction,
+  type: typeof CREATE,
+  payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
+    message: string,
+    sourceTopicId: string,
+    targetTopicId: string,
+    userId: string,
+  |},
+|};
 
 export type FetchAction = {|
   ...TaskSagaAction,
@@ -22,21 +34,9 @@ export type FetchAction = {|
   |},
 |};
 
-export type SubmitAction = {|
-  ...TaskSagaAction,
-  type: typeof SUBMIT,
-  payload: {|
-    ...$PropertyType<TaskSagaAction, 'payload'>,
-    message: string,
-    sourceTopicId: string,
-    targetTopicId: string,
-    userId: string,
-  |},
-|};
-
 
 // TaskSaga action ---------------------------------------------------------------------------------
 
 export type PullRequestsTaskSagaAction =
-  | FetchAction
-  | SubmitAction;
+  | CreateAction
+  | FetchAction;

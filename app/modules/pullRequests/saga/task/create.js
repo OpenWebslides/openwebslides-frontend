@@ -10,7 +10,7 @@ import * as a from '../../actionTypes';
 
 const { putAndReturn } = asyncRequests.lib;
 
-const submit = function* (action: a.SubmitAction): Saga<{ id: string }> {
+const create = function* (action: a.CreateAction): Saga<{ id: string }> {
   const { message, sourceTopicId, targetTopicId, userId } = action.payload;
 
   // Create the new pull request in the backend.
@@ -25,4 +25,4 @@ const submit = function* (action: a.SubmitAction): Saga<{ id: string }> {
   return { id };
 };
 
-export default submit;
+export default create;

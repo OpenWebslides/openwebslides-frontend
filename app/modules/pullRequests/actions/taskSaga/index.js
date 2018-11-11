@@ -1,11 +1,11 @@
 // @flow
 
+import create from './create';
 import fetch from './fetch';
-import submit from './submit';
 
 const taskSagaActions = {
+  create,
   fetch,
-  submit,
 };
 
 export default taskSagaActions;
