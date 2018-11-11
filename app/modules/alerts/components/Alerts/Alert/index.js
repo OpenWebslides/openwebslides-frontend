@@ -11,6 +11,7 @@ import moment from 'moment';
 import { USER_PROFILE_BY_ID_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
 import { type ModulesAction, type AppState } from 'types/redux';
 import makeRoute from 'lib/makeRoute';
+import InlineMarkdown from 'components/InlineMarkdown';
 import users from 'modules/users';
 import topics from 'modules/topics';
 
@@ -79,7 +80,7 @@ class PureAlert extends React.Component<Props> {
                 <Icon name="arrow alternate circle up outline" />
               </Grid.Column>
               <Grid.Column width={13}>
-                {t('alerts:menu.updated', { count: alert.count, topicTitle: topic.title })}
+                <InlineMarkdown text={t('alerts:menu.updated', { count: alert.count, topicTitle: topic.title })} />
                 <p className="date">{moment(alert.timestamp).fromNow()}</p>
               </Grid.Column>
             </Grid>
@@ -91,7 +92,7 @@ class PureAlert extends React.Component<Props> {
                 <Icon name="fork" />
               </Grid.Column>
               <Grid.Column width={13}>
-                {t('alerts:menu.submitted', { userName: user.name, topicTitle: topic.title })}
+                <InlineMarkdown text={t('alerts:menu.submitted', { userName: user.name, topicTitle: topic.title })} />
                 <p className="date">{moment(alert.timestamp).fromNow()}</p>
               </Grid.Column>
             </Grid>
