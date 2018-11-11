@@ -4,13 +4,13 @@
 
 .ui.menu .ui.dropdown.alerts-menu .menu {
   // Align dropdown menu on left side of the dropdown button
-  left: auto !important;
+  left: auto;
   right: 0em;
 
   .item {
-    width: 25em !important;
-    white-space: pre-line !important;
-    line-height: 135% !important;
+    width: 25em;
+    white-space: pre-line;
+    line-height: 135%;
 
     .date {
       color: rgba(0, 0, 0, 0.4);
@@ -18,13 +18,17 @@
     }
 
     &.unread {
-      background: rgba(0, 0, 0, 0.035) !important;
+      background: rgba(0, 0, 0, 0.025) !important;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05) !important;
+      }
     }
   }
 
   &::after {
     // Move dropdown arrow to the right side
-    left: auto !important;
-    right: 1.5em !important;
+    left: auto;
+    right: 1.5em;
   }
 }
