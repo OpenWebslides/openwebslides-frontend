@@ -60,9 +60,9 @@ const mapDispatchToProps = (
       // TODO: mark alert as read
 
       // Redirect to editor
-      if (alert.topicId != null) {
-        dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: alert.topicId })));
-      }
+      // $FlowFixMe push different routes based on alert type
+      dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: alert.topicId })));
+
       // TODO: push PR route if pull request alert
     },
   };

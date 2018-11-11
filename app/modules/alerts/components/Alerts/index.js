@@ -69,7 +69,7 @@ class PureAlerts extends React.Component<Props> {
               {recentAlerts.length !== 0 ? <Dropdown.Header content={t('alerts:menu.recent')} data-test-id="alerts-menu-recent" /> : ''}
               {(recentAlerts.map((alert: Alert): React.Node => {
                 return (
-                  <Dropdown.Item key={alert.id} className={alert.read ? '' : 'unread'}>
+                  <Dropdown.Item key={alert.id} className={alert.read ? '' : 'unread'} data-test-id="alerts-menu-alert">
                     <Alert alert={alert} />
                   </Dropdown.Item>
                 );
@@ -77,7 +77,7 @@ class PureAlerts extends React.Component<Props> {
               {earlierAlerts.length !== 0 ? <Dropdown.Header content={t('alerts:menu.earlier')} data-test-id="alerts-menu-earlier" /> : ''}
               {(earlierAlerts.map((alert: Alert): React.Node => {
                 return (
-                  <Dropdown.Item key={alert.id}>
+                  <Dropdown.Item key={alert.id} className={alert.read ? '' : 'unread'} data-test-id="alerts-menu-alert">
                     <Alert alert={alert} />
                   </Dropdown.Item>
                 );

@@ -117,7 +117,7 @@ describe(`Alert`, (): void => {
       expect(enzymeWrapper.find('[data-test-id="alert"]').hostNodes()).toHaveLength(1);
     });
 
-    it(`dispatches a PUSH action when the alert is clicked`, (): void => {
+    it(`dispatches a PUSH action to the editor when the alert is clicked`, (): void => {
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
           <Alert alert={dummyUpdateAlert} />

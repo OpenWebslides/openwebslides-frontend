@@ -67,7 +67,7 @@ describe(`Alerts`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`renders the AlertsItems from the state sorted by timestamp in reverse order`, (): void => {
+  it(`renders the alerts from the state sorted by timestamp in reverse order`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Alerts />
@@ -179,6 +179,58 @@ describe(`Alerts`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="alerts-menu-empty"]')).toHaveLength(2);
     expect(enzymeWrapper.find('[data-test-id="alerts-menu-recent"]')).toHaveLength(0);
     expect(enzymeWrapper.find('[data-test-id="alerts-menu-earlier"]')).toHaveLength(0);
+  });
+
+  it(`renders the alerts from the state with 'unread' class if they are not marked as read`, (): void => {
+    const dummyEarlierState = {
+      ...dummyState,
+      modules: {
+        ...dummyState.modules,
+        alerts: {
+          ...dummyState.modules.alerts,
+          byId: {
+            [dummyAlert1.id]: { ...dummyAlert1, read: false },
+            [dummyAlert2.id]: { ...dummyAlert2, read: false },
+          },
+        },
+      },
+    };
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyEarlierState} dummyDispatch={dummyDispatch}>
+        <Alerts />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="alerts-menu-alert"]').forEach((alertWrapper: any): void => {
+      expect(alertWrapper.hasClass('unread')).toBe(true);
+    });
+  });
+
+  it(`renders the alerts from the state without 'unread' class if they are marked as read`, (): void => {
+    const dummyEarlierState = {
+      ...dummyState,
+      modules: {
+        ...dummyState.modules,
+        alerts: {
+          ...dummyState.modules.alerts,
+          byId: {
+            [dummyAlert1.id]: { ...dummyAlert1, read: true },
+            [dummyAlert2.id]: { ...dummyAlert2, read: true },
+          },
+        },
+      },
+    };
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyEarlierState} dummyDispatch={dummyDispatch}>
+        <Alerts />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="alerts-menu-alert"]').forEach((alertWrapper: any): void => {
+      expect(alertWrapper.hasClass('unread')).toBe(false);
+    });
   });
 
 });

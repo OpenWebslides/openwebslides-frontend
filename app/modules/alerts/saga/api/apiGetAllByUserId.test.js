@@ -131,4 +131,20 @@ describe(`apiGetAllByUserId`, (): void => {
     ).rejects.toBeInstanceOf(UnsupportedOperationError);
   });
 
+  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<mixed> => {
+    const dummyAction = actions.apiGetAllByUserId(dummyUserId);
+    const dummyApiResponse = { status: 204 };
+
+    // Suppress console.error from redux-saga $FlowFixMe
+    console.error = jest.fn();
+    await expect(
+      expectSaga(sagas.apiGetAllByUserId, dummyAction)
+        .provide([
+          [select(platform.selectors.getUserAuth), null],
+          [call(api.alerts.getAllByUserId, dummyUserId, dummyToken), dummyApiResponse],
+        ])
+        .run(),
+    ).rejects.toBeInstanceOf(UnsupportedOperationError);
+  });
+
 });
