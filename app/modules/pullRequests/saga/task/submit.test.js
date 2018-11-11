@@ -35,8 +35,12 @@ describe(`create`, (): void => {
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.API_POST) ? { id: dummyId } : next();
         })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.FETCH) ? null : next();
+        })],
       ])
       .call(asyncRequests.lib.putAndReturn, actions.apiPost(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId))
+      .call(asyncRequests.lib.putAndReturn, actions.fetch(dummyId))
       .returns({ id: dummyId })
       .run();
   });

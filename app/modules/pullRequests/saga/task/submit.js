@@ -17,6 +17,9 @@ const submit = function* (action: a.SubmitAction): Saga<{ id: string }> {
   const { id } = yield call(putAndReturn, actions.apiPost(
     message, sourceTopicId, targetTopicId, userId,
   ));
+  // Fetch the new topic from the backend so the state is up-to-date,
+  // and wait for request completion.
+  yield call(putAndReturn, actions.fetch(id));
 
   // Return the pull request id.
   return { id };
