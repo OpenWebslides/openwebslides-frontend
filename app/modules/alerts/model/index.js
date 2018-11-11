@@ -34,6 +34,7 @@ export type BaseAlert = {|
   +id: string,
   +userId: string,
   +timestamp: number,
+  +read: boolean,
   +type: AlertType,
 |};
 

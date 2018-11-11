@@ -41,6 +41,7 @@ describe(`apiGetAllByUserId`, (): void => {
             attributes: {
               alertType: _.findKey(apiAlertTypesMap, (alertType: string): boolean => alertType === dummyUpdateAlert.type),
               count: 3,
+              read: false,
             },
             relationships: {
               user: { data: { id: dummyUpdateAlert.userId } },
@@ -53,6 +54,7 @@ describe(`apiGetAllByUserId`, (): void => {
             attributes: {
               alertType: _.findKey(apiAlertTypesMap, (alertType: string): boolean => alertType === dummyPRSubmittedAlert.type),
               state: _.findKey(apiAlertPullRequestStateTypesMap, (state: string): boolean => state === dummyPRSubmittedAlert.state),
+              read: false,
             },
             relationships: {
               user: { data: { id: dummyPRSubmittedAlert.userId } },
@@ -105,6 +107,7 @@ describe(`apiGetAllByUserId`, (): void => {
             attributes: {
               alertType: 'unsupported_type',
               count: 3,
+              read: false,
             },
             relationships: {
               user: { data: { id: dummyUpdateAlert.userId } },

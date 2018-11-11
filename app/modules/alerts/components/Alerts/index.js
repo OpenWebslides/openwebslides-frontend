@@ -69,7 +69,7 @@ class PureAlerts extends React.Component<Props> {
               {recentAlerts.length !== 0 ? <Dropdown.Header content={t('alerts:menu.recent')} /> : ''}
               {(recentAlerts.map((alert: Alert): React.Node => {
                 return (
-                  <Dropdown.Item key={alert.id}>
+                  <Dropdown.Item key={alert.id} className={alert.read ? '' : 'unread'}>
                     <Alert alert={alert} />
                   </Dropdown.Item>
                 );

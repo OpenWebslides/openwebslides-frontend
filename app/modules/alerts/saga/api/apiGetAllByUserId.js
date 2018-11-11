@@ -43,6 +43,7 @@ const apiGetAllByUserId = function* (action: a.ApiGetAllByUserIdAction): Saga<vo
       id: item.id,
       userId: item.relationships.user.data.id,
       timestamp: Number(item.meta.createdAt) * 1000,
+      read: item.attributes.read,
       type: alertType,
     };
 
