@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Icon, Popup, Menu, Button, Dropdown } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 import moment from 'moment';
 
 import { type ModulesAction, type AppState } from 'types/redux';
@@ -61,12 +61,12 @@ class PureAlerts extends React.Component<Props> {
       <Dropdown icon="bell" pointing={true} item={true} className="alerts-menu">
         <Dropdown.Menu>
           {(sortedAlerts.length === 0 ? (
-            <Dropdown.Item disabled={true}>
+            <Dropdown.Item disabled={true} data-test-id="alerts-menu-empty">
               <em>{t('alerts:menu.empty')}</em>
             </Dropdown.Item>
           ) : (
             <>
-              {recentAlerts.length !== 0 ? <Dropdown.Header content={t('alerts:menu.recent')} /> : ''}
+              {recentAlerts.length !== 0 ? <Dropdown.Header content={t('alerts:menu.recent')} data-test-id="alerts-menu-recent" /> : ''}
               {(recentAlerts.map((alert: Alert): React.Node => {
                 return (
                   <Dropdown.Item key={alert.id} className={alert.read ? '' : 'unread'}>
@@ -74,7 +74,7 @@ class PureAlerts extends React.Component<Props> {
                   </Dropdown.Item>
                 );
               }))}
-              {earlierAlerts.length !== 0 ? <Dropdown.Header content={t('alerts:menu.earlier')} /> : ''}
+              {earlierAlerts.length !== 0 ? <Dropdown.Header content={t('alerts:menu.earlier')} data-test-id="alerts-menu-earlier" /> : ''}
               {(earlierAlerts.map((alert: Alert): React.Node => {
                 return (
                   <Dropdown.Item key={alert.id}>

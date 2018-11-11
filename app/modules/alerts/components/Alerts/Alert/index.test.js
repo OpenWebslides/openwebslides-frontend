@@ -2,35 +2,38 @@
 
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
+import { push } from 'connected-react-router';
 
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyFeedItemData, dummyTopicData, dummyUserData } from 'lib/testResources';
+import { TOPIC_EDITOR_ROUTE } from 'config/routes';
+import makeRoute from 'lib/makeRoute';
+import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, dummyTopicData, dummyUserData } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
 import * as m from '../../../model';
 
-import FeedItem, { PureFeedItem } from '.';
+import Alert, { PureAlert } from '.';
 
-describe(`FeedItem`, (): void => {
+describe(`Alert`, (): void => {
 
   let dummyTopic: topics.model.Topic;
   let dummyUser: users.model.User;
-  let dummyFeedItem: m.FeedItem;
+  let dummyUpdateAlert: m.UpdateAlert;
   let dummyState: any;
   let dummyDispatch: any;
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic };
     dummyUser = { ...dummyUserData.user };
-    dummyFeedItem = { ...dummyFeedItemData.feedItem, topicId: dummyTopic.id, userId: dummyUser.id };
+    dummyUpdateAlert = { ...dummyAlertData.updateAlert1, topicId: dummyTopic.id, userId: dummyUser.id };
     dummyState = {
       ...dummyInitialState,
       modules: {
         ...dummyInitialState.modules,
-        feedItems: {
-          ...dummyInitialState.modules.feedItems,
+        alerts: {
+          ...dummyInitialState.modules.alerts,
           byId: {
-            [dummyFeedItem.id]: dummyFeedItem,
+            [dummyUpdateAlert.id]: dummyUpdateAlert,
           },
         },
         topics: {
@@ -50,52 +53,84 @@ describe(`FeedItem`, (): void => {
     dummyDispatch = jest.fn();
   });
 
-  it(`renders without errors`, (): void => {
+  it(`renders empty when the topic has an invalid type`, (): void => {
     const enzymeWrapper = shallow(
-      <PureFeedItem
+      <PureAlert
         {...dummyProviderProps.translatorProps}
-        feedItem={dummyFeedItem}
+        alert={{ ...dummyUpdateAlert, type: 'foo' }}
         user={dummyUser}
         topic={dummyTopic}
         fetchTopic={jest.fn()}
         fetchUser={jest.fn()}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toBe(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(true);
   });
 
-  it(`fetches the feedItem's associated topic, when the topic was not previously present in the state`, (): void => {
-    dummyState.modules.topics.byId = {};
+  describe(`update alerts`, (): void => {
 
-    mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <FeedItem feedItem={dummyFeedItem} />
-      </DummyProviders>,
-    );
+    it(`renders without errors`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureAlert
+          {...dummyProviderProps.translatorProps}
+          alert={dummyUpdateAlert}
+          user={dummyUser}
+          topic={dummyTopic}
+          fetchTopic={jest.fn()}
+          fetchUser={jest.fn()}
+        />,
+      );
+      expect(enzymeWrapper.isEmptyRender()).toBe(false);
+    });
 
-    expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyFeedItem.topicId));
+    it(`fetches the alert's associated topic, when the topic was not previously present in the state`, (): void => {
+      dummyState.modules.topics.byId = {};
+
+      mount(
+        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+          <Alert alert={dummyUpdateAlert} />
+        </DummyProviders>,
+      );
+
+      expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyUpdateAlert.topicId));
+    });
+
+    it(`fetches the alert's associated user, when the user was not previously present in the state`, (): void => {
+      dummyState.modules.users.byId = {};
+
+      mount(
+        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+          <Alert alert={dummyUpdateAlert} />
+        </DummyProviders>,
+      );
+
+      expect(dummyDispatch).toHaveBeenCalledWith(users.actions.fetch(dummyUpdateAlert.userId));
+    });
+
+    it(`renders the alert, when both the associated user and topic were previously present in the state`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+          <Alert alert={dummyUpdateAlert} />
+        </DummyProviders>,
+      );
+
+      expect(enzymeWrapper.find('[data-test-id="alert"]').hostNodes()).toHaveLength(1);
+    });
+
+    it(`dispatches a PUSH action when the alert is clicked`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+          <Alert alert={dummyUpdateAlert} />
+        </DummyProviders>,
+      );
+
+      enzymeWrapper.find('[data-test-id="alert"]').hostNodes().simulate('click');
+
+      expect(dummyDispatch).toHaveBeenCalledWith(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: dummyUpdateAlert.topicId })));
+    });
+
   });
 
-  it(`fetches the feedItem's associated user, when the user was not previously present in the state`, (): void => {
-    dummyState.modules.users.byId = {};
-
-    mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <FeedItem feedItem={dummyFeedItem} />
-      </DummyProviders>,
-    );
-
-    expect(dummyDispatch).toHaveBeenCalledWith(users.actions.fetch(dummyFeedItem.userId));
-  });
-
-  it(`renders the feedItem, when both the associated user and topic were previously present in the state`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <FeedItem feedItem={dummyFeedItem} />
-      </DummyProviders>,
-    );
-
-    expect(enzymeWrapper.find('[data-test-id="feed-item"]').hostNodes()).toHaveLength(1);
-  });
+  describe(`pull request alert`, (): void => { /* TODO */ });
 
 });
