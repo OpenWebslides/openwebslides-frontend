@@ -89,7 +89,7 @@ describe(`NewPullRequestPage`, (): void => {
     );
 
     expect((): void => {
-      enzymeWrapper.instance().handleSubmitPullRequest('dummyTopicId');
+      enzymeWrapper.instance().handleCreatePullRequest('dummyTopicId');
     }).toThrow(CorruptedInternalStateError);
   });
 

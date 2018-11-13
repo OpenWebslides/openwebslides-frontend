@@ -19,13 +19,13 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  submitPullRequest: (currentUserId: string, topicId: string) => void,
+  createPullRequest: (currentUserId: string, topicId: string, message: string) => void,
 |};
 
 type Props = {| ...StateProps, ...DispatchProps, ...RouterProps |};
 
 const { AuthWrapper } = platform.components;
-const { PullRequest } = pullRequests.components;
+const { NewPullRequestCard } = pullRequests.components;
 
 const mapStateToProps = (state: AppState): StateProps => {
   const userAuth = platform.selectors.getUserAuth(state);
@@ -37,7 +37,7 @@ const mapStateToProps = (state: AppState): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
-    submitPullRequest: (currentUserId: string, topicId: string): void => {
+    createPullRequest: (currentUserId: string, topicId: string, message: string): void => {
       // TODO: dispatch create new pull request action
       console.log('dispatch(pullRequests.actions.create)');
       dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId })));
@@ -46,10 +46,10 @@ const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps =>
 };
 
 class PureNewPullRequestPage extends React.Component<Props> {
-  handleSubmitPullRequest = (topicId: string): void => {
-    const { submitPullRequest, currentUserId } = this.props;
+  handleCreatePullRequest = (topicId: string, message: string): void => {
+    const { createPullRequest, currentUserId } = this.props;
     if (currentUserId == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
-    submitPullRequest(currentUserId, topicId);
+    createPullRequest(currentUserId, topicId, message);
   };
 
   render(): React.Node {
@@ -58,7 +58,10 @@ class PureNewPullRequestPage extends React.Component<Props> {
     return (topicId == null) ? null : (
       <AuthWrapper>
         <ContainerPageWrapper>
-          <PullRequest topicId={topicId} onSubmitPullRequest={this.handleSubmitPullRequest} />
+          <NewPullRequestCard
+            topicId={topicId}
+            onCreatePullRequest={this.handleCreatePullRequest}
+          />
         </ContainerPageWrapper>
       </AuthWrapper>
     );
