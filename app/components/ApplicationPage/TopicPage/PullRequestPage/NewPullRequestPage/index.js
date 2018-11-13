@@ -61,6 +61,7 @@ class PureNewPullRequestPage extends React.Component<Props> {
           <NewPullRequestCard
             topicId={topicId}
             onCreatePullRequest={this.handleCreatePullRequest}
+            data-test-id="new-pull-request-page-card"
           />
         </ContainerPageWrapper>
       </AuthWrapper>
