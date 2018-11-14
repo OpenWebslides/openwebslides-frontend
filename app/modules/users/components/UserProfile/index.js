@@ -50,7 +50,7 @@ class PureUserProfile extends React.Component<Props> {
     const { isCurrentUser, removeTopicFromUser } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         <Item.Group data-test-id="user-profile-info">
           <Item>
             <Item.Image src={lib.getGravatarSrc(user, 500)} size="tiny" />
@@ -72,7 +72,7 @@ class PureUserProfile extends React.Component<Props> {
           isCurrentUser={isCurrentUser}
           onRemoveTopic={removeTopicFromUser}
         />
-      </React.Fragment>
+      </>
     );
   };
 

@@ -129,7 +129,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
     const { t } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         <Card data-test-id="topic-card">
           <Card.Content>
             <Card.Header>
@@ -149,7 +149,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
           {this.renderTopicCardButtons(topic)}
         </Card>
         {this.renderRemoveModal(topic)}
-      </React.Fragment>
+      </>
     );
   };
 
