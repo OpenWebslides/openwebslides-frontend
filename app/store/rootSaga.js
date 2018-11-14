@@ -10,6 +10,7 @@ import contentItems from 'modules/contentItems';
 import errors from 'modules/errors';
 import feedItems from 'modules/feedItems';
 import platform from 'modules/platform';
+import pullRequests from 'modules/pullRequests';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -24,6 +25,7 @@ const rootSaga = function* (): Saga<void> {
     call(errors.saga),
     call(feedItems.saga),
     call(platform.saga),
+    call(pullRequests.saga),
     call(topics.saga),
     call(users.saga),
   ]);

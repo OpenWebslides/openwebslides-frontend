@@ -9,6 +9,7 @@ import contentItems from 'modules/contentItems';
 import errors from 'modules/errors';
 import feedItems from 'modules/feedItems';
 import platform from 'modules/platform';
+import pullRequests from 'modules/pullRequests';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -19,6 +20,7 @@ const modulesReducer = combineReducers({
   errors: errors.reducer,
   feedItems: feedItems.reducer,
   platform: platform.reducer,
+  pullRequests: pullRequests.reducer,
   topics: topics.reducer,
   users: users.reducer,
 });
