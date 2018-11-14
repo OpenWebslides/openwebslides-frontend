@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Button, Card, Icon } from 'semantic-ui-react';
+import { Header, Grid, Button, Card, Icon } from 'semantic-ui-react';
 
 import { TOPIC_NEW_ROUTE } from 'config/routes';
 
@@ -39,19 +39,26 @@ class PureTopicsList extends React.Component<Props> {
   };
 
   render(): React.Node {
-    const { topicIds, isCurrentUser, onRemoveTopic } = this.props;
+    const { t, topicIds, isCurrentUser, onRemoveTopic } = this.props;
     return (
-      <Card.Group itemsPerRow={3} doubling={true} stackable={true}>
-        {this.renderNewTopicButton()}
-        {[...topicIds].reverse().map((topicId) => (
-          <TopicCard
-            key={topicId}
-            topicId={topicId}
-            isCurrentUser={isCurrentUser}
-            onRemoveTopic={onRemoveTopic}
-          />
-        ))}
-      </Card.Group>
+      <Grid padded={true}>
+        <Grid.Row>
+          <Header>{t('global:title.library')}</Header>
+        </Grid.Row>
+        <Grid.Row>
+          <Card.Group itemsPerRow={3} doubling={true} stackable={true}>
+            {this.renderNewTopicButton()}
+            {[...topicIds].reverse().map((topicId) => (
+              <TopicCard
+                key={topicId}
+                topicId={topicId}
+                isCurrentUser={isCurrentUser}
+                onRemoveTopic={onRemoveTopic}
+              />
+            ))}
+          </Card.Group>
+        </Grid.Row>
+      </Grid>
     );
   }
 }

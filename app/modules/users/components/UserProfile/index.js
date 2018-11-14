@@ -4,7 +4,7 @@ import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { Divider, Item } from 'semantic-ui-react';
+import { Grid, Item } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
@@ -66,7 +66,6 @@ class PureUserProfile extends React.Component<Props> {
             </Item.Content>
           </Item>
         </Item.Group>
-        <Divider section={true} />
         <TopicsList
           topicIds={user.topicIds}
           isCurrentUser={isCurrentUser}
