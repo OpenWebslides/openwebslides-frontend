@@ -26,7 +26,7 @@ describe(`api.pullRequests.get`, (): void => {
     const mockUrl = fetch.mock.calls[0][0];
     const mockOptions = fetch.mock.calls[0][1];
 
-    expect(mockUrl).toBe(`${API_URL}/pullRequests/${dummyPullRequestId}`);
+    expect(mockUrl).toBe(`${API_URL}/pullRequests/${dummyPullRequestId}?include=user${encodeURIComponent(',')}source${encodeURIComponent(',')}target`);
     expect(mockOptions.method).toBe(httpMethods.GET);
     expect(mockOptions.body).toBeNull();
     expect(mockOptions.headers.Authorization).toBe(`Bearer ${dummyToken}`);

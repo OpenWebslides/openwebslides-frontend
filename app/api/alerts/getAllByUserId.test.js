@@ -26,7 +26,7 @@ describe(`api.alerts.getAllByUserId`, (): void => {
     const mockUrl = fetch.mock.calls[0][0];
     const mockOptions = fetch.mock.calls[0][1];
 
-    expect(mockUrl).toBe(`${API_URL}/users/${dummyUserId}/alerts?include=user%2Ctopic%2CpullRequest%2Csubject`);
+    expect(mockUrl).toBe(`${API_URL}/users/${dummyUserId}/alerts?include=user${encodeURIComponent(',')}topic${encodeURIComponent(',')}pullRequest${encodeURIComponent(',')}subject`);
     expect(mockOptions.method).toBe(httpMethods.GET);
     expect(mockOptions.body).toBeNull();
     expect(mockOptions.headers.Authorization).toBe(`Bearer ${dummyToken}`);
