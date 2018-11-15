@@ -52,11 +52,15 @@ const configureStore = (): {
   };
   const sagaMiddleware = createSagaMiddleware();
 
+  const flashOptions = {
+    timeout: 5000,
+  };
+
   const store = createStore(
     connectRouter(history)(persistReducer(persistConfig, rootReducer)),
     composeWithDevTools(
       applyMiddleware(sagaMiddleware),
-      applyMiddleware(flashMiddleware()),
+      applyMiddleware(flashMiddleware(flashOptions)),
       applyMiddleware(routerMiddleware(history)),
     ),
   );

@@ -72,12 +72,20 @@ describe(`FlashMessages`, (): void => {
   it(`renders all flash messages, when the flashMessages array is not empty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState}>
-        <FlashMessages />
+        <PureFlashMessages
+          t={(val: string): string => {
+            return val;
+          }}
+          flashMessages={dummyFlashMessages}
+        />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.text()).toContain(dummyFlashMessages[0].message);
-    expect(enzymeWrapper.text()).toContain(dummyFlashMessages[1].message);
+    const messages = enzymeWrapper.find(`Message`);
+
+    expect(messages).toHaveLength(2);
+    expect(messages.first().text()).toContain(dummyFlashMessages[0].message);
+    expect(messages.last().text()).toContain(dummyFlashMessages[1].message);
   });
 
 });
