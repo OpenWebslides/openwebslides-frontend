@@ -1,11 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { dummyProviderProps } from 'lib/testResources';
 
-import CommitForm, { PureCommitForm, type CommitFormValues } from '.';
+import { PureCommitForm, type CommitFormValues } from '.';
 
 describe(`CommitForm`, (): void => {
 
@@ -31,6 +31,9 @@ describe(`CommitForm`, (): void => {
     expect(validate(dummyFormProps)).toStrictEqual({});
 
     expect(validate({ ...dummyFormProps, message: '' })).toHaveProperty('message');
+    expect(validate({ ...dummyFormProps, message: 'abcd' })).toHaveProperty('message');
+    expect(validate({ ...dummyFormProps, message: '123456789012345678901234567890123456789012345678901234567890' })).not.toHaveProperty('message');
+    expect(validate({ ...dummyFormProps, message: '1234567890123456789012345678901234567890123456789012345678901' })).toHaveProperty('message');
   });
 
 });

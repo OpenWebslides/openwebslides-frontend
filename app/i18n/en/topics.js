@@ -14,7 +14,10 @@ const topics = {
     message: 'Message',
     errors: {
       title: 'Title cannot be empty',
-      message: 'Message cannot be empty',
+      message: {
+        empty: 'Message cannot be empty',
+        length: 'Message must be between 5 and 60 characters',
+      },
     },
   },
   modals: {

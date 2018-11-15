@@ -22,7 +22,11 @@ class PureCommitForm extends React.Component<Props> {
     const errors = {};
 
     if (values.message === '') {
-      errors.message = t('topics:forms.errors.message');
+      errors.message = t('topics:forms.errors.message.empty');
+    }
+
+    if (values.message.length < 5 || values.message.length > 60) {
+      errors.message = t('topics:forms.errors.message.length');
     }
 
     return { ...errors };
