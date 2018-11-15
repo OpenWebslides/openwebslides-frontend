@@ -14,7 +14,7 @@ import selectors from '../../selectors';
 const apiPatchAllByTopicIdAndRoot = function* (
   action: a.ApiPatchAllByTopicIdAndRootAction,
 ): Saga<void> {
-  const { topicId, rootContentItemId } = action.payload;
+  const { topicId, rootContentItemId, message } = action.payload;
   const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
@@ -25,7 +25,7 @@ const apiPatchAllByTopicIdAndRoot = function* (
   );
   const topicContentItems = [rootContentItem, ...descendantItems];
 
-  yield call(api.topics.patchContent, topicId, topicContentItems, userAuth.apiToken);
+  yield call(api.topics.patchContent, topicId, topicContentItems, message, userAuth.apiToken);
 };
 
 export default apiPatchAllByTopicIdAndRoot;

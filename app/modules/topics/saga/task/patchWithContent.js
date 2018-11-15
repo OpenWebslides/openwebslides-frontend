@@ -15,13 +15,13 @@ import selectors from '../../selectors';
 const { putAndReturn } = asyncRequests.lib;
 
 const patchWithContent = function* (action: a.PatchWithContentAction): Saga<void> {
-  const { id } = action.payload;
+  const { id, message } = action.payload;
   const topic: ?m.Topic = yield select(selectors.getById, { id });
   if (topic == null) throw new ObjectNotFoundError(`topics:topic`, id);
 
   // #TODO patch topic title & description
   yield call(putAndReturn, contentItems.actions.apiPatchAllByTopicIdAndRoot(
-    id, topic.rootContentItemId,
+    id, topic.rootContentItemId, message,
   ));
 
   yield put(actions.setDirtyInState(id, false));

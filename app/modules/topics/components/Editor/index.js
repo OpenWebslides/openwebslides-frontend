@@ -5,10 +5,11 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
-import { Button, Header, Icon } from 'semantic-ui-react';
+import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 
 import { type AppState, type ModulesAction } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
+import CommitForm, { type CommitFormValues } from 'forms/CommitForm';
 import contentItems from 'modules/contentItems';
 
 import actions from '../../actions';
@@ -24,12 +25,16 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  onSave: () => void,
+  onCommitFormSubmit: (values: CommitFormValues) => void,
   onSetDirty: (dirty: boolean) => void,
   onDiscard: () => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+
+type ComponentState = {|
+  isCommitModalOpen: boolean,
+|};
 
 const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
 
@@ -48,8 +53,8 @@ const mapDispatchToProps = (
   const { topicId } = props;
 
   return {
-    onSave: (): void => {
-      dispatch(actions.patchWithContent(topicId));
+    onCommitFormSubmit: (values: CommitFormValues): void => {
+      dispatch(actions.patchWithContent(topicId, values.message));
     },
     onSetDirty: (dirty: boolean): void => {
       dispatch(actions.setDirtyInState(topicId, dirty));
@@ -60,10 +65,23 @@ const mapDispatchToProps = (
   };
 };
 
-class PureEditor extends React.Component<Props> {
-  handleSaveButtonClick = (): void => {
-    const { onSave } = this.props;
-    onSave();
+class PureEditor extends React.Component<Props, ComponentState> {
+  state: ComponentState = {
+    isCommitModalOpen: false,
+  };
+
+  showCommitModal = (): void => {
+    this.setState({ isCommitModalOpen: true });
+  };
+
+  handleCommitFormSubmit = (values: CommitFormValues): void => {
+    const { onCommitFormSubmit } = this.props;
+    onCommitFormSubmit(values);
+    this.setState({ isCommitModalOpen: false });
+  };
+
+  handleCommitFormCancel = (): void => {
+    this.setState({ isCommitModalOpen: false });
   };
 
   beforeUnloadHandler = (event: Event): boolean => {
@@ -102,6 +120,51 @@ class PureEditor extends React.Component<Props> {
     return (topic == null || !topic.isContentFetched);
   };
 
+  renderCommitModal = (): React.Node => {
+    const { isCommitModalOpen } = this.state;
+    const { t } = this.props;
+
+    return (
+      <Modal
+        size="mini"
+        open={isCommitModalOpen}
+        onClose={this.handleCommitFormCancel}
+        data-test-id="topic-editor-commit-modal"
+      >
+        <Modal.Header>{t('topics:modals.commit.title')}</Modal.Header>
+        <Modal.Content>
+          <p>{t('topics:modals.commit.message')}</p>
+          <CommitForm
+            onSubmit={this.handleCommitFormSubmit}
+            data-test-id="topic-editor-commit-form"
+          />
+        </Modal.Content>
+        <Modal.Actions>
+          <Button
+            icon={true}
+            labelPosition="left"
+            onClick={this.handleCommitFormCancel}
+            data-test-id="topic-editor-commit-modal-cancel-button"
+          >
+            <Icon name="cancel" />
+            {t('common:button.cancel')}
+          </Button>
+          <Button
+            type="submit"
+            primary={true}
+            form="topic-editor-commit-modal-form"
+            icon={true}
+            labelPosition="left"
+            data-test-id="topic-editor-commit-modal-submit-button"
+          >
+            <Icon name="save" />
+            {t('common:button.save')}
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    );
+  };
+
   renderEditor = (topic: m.Topic): React.Node => {
     const { t, onSetDirty } = this.props;
 
@@ -120,8 +183,8 @@ class PureEditor extends React.Component<Props> {
             primary={true}
             icon={true}
             labelPosition="left"
-            onClick={this.handleSaveButtonClick}
-            data-test-id="topic-editor-save-button"
+            onClick={this.showCommitModal}
+            data-test-id="topic-editor-commit-button"
           >
             <Icon name="save" />
             {t('common:button.save')}
@@ -136,6 +199,8 @@ class PureEditor extends React.Component<Props> {
           contentItemId={topic.rootContentItemId}
           setTopicDirty={onSetDirty}
         />
+
+        {this.renderCommitModal()}
       </div>
     );
   };
@@ -146,7 +211,7 @@ class PureEditor extends React.Component<Props> {
     return (
       <FetchWrapper
         render={this.renderEditor}
-        renderPropsAndState={this.props}
+        renderPropsAndState={{ ...this.props, ...this.state }}
         fetchId={topicId}
         fetchAction={actions.fetchWithContent}
         fetchedPropSelector={selectors.getById}

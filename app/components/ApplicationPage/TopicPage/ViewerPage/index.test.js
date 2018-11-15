@@ -46,13 +46,16 @@ describe(`ViewerPage`, (): void => {
             [dummyTopic.id]: dummyTopic,
           },
         },
+        contentItems: {
+          byId: {},
+        },
       },
     };
     dummyDispatch = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
-    const fixedRouterProps = _.set(_.cloneDeep(dummyProviderProps.routerProps), 'match.params.topicId', dummyTopic);
+    const fixedRouterProps = _.set(_.cloneDeep(dummyProviderProps.routerProps), 'match.params.topicId', dummyTopic.id);
 
     const enzymeWrapper = shallow(
       <PureViewerPage
@@ -66,7 +69,7 @@ describe(`ViewerPage`, (): void => {
   });
 
   it(`renders with currentUserId NULL, when there is no current user`, (): void => {
-    const fixedRouterProps = _.set(_.cloneDeep(dummyProviderProps.routerProps), 'match.params.topicId', dummyTopic);
+    const fixedRouterProps = _.set(_.cloneDeep(dummyProviderProps.routerProps), 'match.params.topicId', dummyTopic.id);
     dummyState.modules.platform.userAuth = null;
 
     const enzymeWrapper = mount(
@@ -91,7 +94,7 @@ describe(`ViewerPage`, (): void => {
   });
 
   it(`dispatches a user FORK_TOPIC action for the current user and redirects to USER_PROFILE_ROUTE, when the onForkTopic function passed to Viewer is called`, (): void => {
-    const fixedRouterProps = _.set(_.cloneDeep(dummyProviderProps.routerProps), 'match.params.topicId', dummyTopic);
+    const fixedRouterProps = _.set(_.cloneDeep(dummyProviderProps.routerProps), 'match.params.topicId', dummyTopic.id);
 
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
@@ -107,7 +110,7 @@ describe(`ViewerPage`, (): void => {
   });
 
   it(`throws a CorruptedInternalStateError when handleForkTopic is called while currentUserId is NULL`, (): void => {
-    const fixedRouterProps = _.set(_.cloneDeep(dummyProviderProps.routerProps), 'match.params.topicId', dummyTopic);
+    const fixedRouterProps = _.set(_.cloneDeep(dummyProviderProps.routerProps), 'match.params.topicId', dummyTopic.id);
 
     const enzymeWrapper = shallow(
       <PureViewerPage

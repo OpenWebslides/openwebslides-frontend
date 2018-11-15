@@ -14,6 +14,7 @@ import { TOPICS_ENDPOINT, TOPICS_CONTENT_ENDPOINT } from '../endpoints';
 const patchContent = (
   topicId: string,
   content: $ReadOnlyArray<contentItems.model.ContentItem>,
+  message: string,
   token: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
@@ -21,6 +22,7 @@ const patchContent = (
       type: 'contents',
       attributes: {
         content,
+        message,
       },
     },
   });
