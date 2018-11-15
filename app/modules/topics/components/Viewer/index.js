@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
-import { Header, Menu, Button, Icon } from 'semantic-ui-react';
+import { Header, Menu, Button } from 'semantic-ui-react';
 
 import { type AppState } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
