@@ -25,13 +25,11 @@ class PureTopicsList extends React.Component<Props> {
         <Button
           as={Link}
           to={TOPIC_NEW_ROUTE}
-          icon={true}
-          labelPosition="left"
+          primary={true}
           size="big"
           className="topics-list__add-button"
           data-test-id="topics-list-add-button"
         >
-          <Icon name="plus" />
           {t('global:title.createNewTopic')}
         </Button>
       </Card>

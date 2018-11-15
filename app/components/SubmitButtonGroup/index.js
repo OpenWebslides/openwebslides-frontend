@@ -12,7 +12,7 @@ const PureSubmitButtonGroup = (props: Props): React.Node => {
   const { t } = props;
 
   return (
-    <Button.Group fluid={true}>
+    <Button.Group fluid={true} inverted={true}>
       <BackButton />
       <Button type="submit" primary={true}>
         {t('common:button.submit')}
