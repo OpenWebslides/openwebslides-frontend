@@ -43,6 +43,11 @@ const platform = {
       submit: 'Reset password',
     },
   },
+  tosCard: {
+    title: 'Terms of Service',
+    description: 'Open Webslides',
+    tos: 'Terms of Service placeholder',
+  },
 };
 
 export default platform;

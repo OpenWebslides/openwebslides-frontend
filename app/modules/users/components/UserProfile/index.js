@@ -4,7 +4,7 @@ import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { Grid, Item } from 'semantic-ui-react';
+import { Item } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';

@@ -1,10 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { Trans, withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Form, Message } from 'semantic-ui-react';
 import { Formik, Field, ErrorMessage } from 'formik';
 
+import { AUTH_TOS_ROUTE } from 'config/routes';
 import SubmitButtonGroup from 'components/SubmitButtonGroup';
 
 type UserFormValues = {|
@@ -121,6 +122,13 @@ class PureUserForm extends React.Component<Props> {
               onBlur={handleBlur}
               value={values.repeatPassword}
             />
+
+            <p>
+              {/* TODO: using <Link> here seems to throw an error */}
+              <Trans i18nKey="users:forms.tosDescription">
+                <a href={AUTH_TOS_ROUTE} target="_blank" rel="noopener noreferrer">TOS</a>
+              </Trans>
+            </p>
 
             <ErrorMessage name="tosAccepted" component={Message} negative={true} />
             <Field

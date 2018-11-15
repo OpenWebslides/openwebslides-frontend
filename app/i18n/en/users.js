@@ -15,14 +15,15 @@ const users = {
     name: 'Name',
     password: 'Password',
     repeatPassword: 'Repeat your password',
-    tos: 'I agree to the Terms of Service and Privacy Policy',
+    tosDescription: 'To use the service, you must agree to and comply with the <0>Terms of Service</0>',
+    tos: 'I agree to the Terms of Service',
     errors: {
       email: 'Email cannot be empty',
       password: 'Password must be longer than 6 characters',
       repeatPassword: 'Passwords must match',
       resetPasswordToken: 'Reset password token is invalid',
       name: 'Name cannot be empty',
-      tosAccepted: 'You must accept the Terms of Service and Privacy Policy',
+      tosAccepted: 'You must accept the Terms of Service',
     },
   },
 };
