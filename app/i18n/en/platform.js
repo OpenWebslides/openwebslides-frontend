@@ -10,7 +10,7 @@ const platform = {
     link: {
       signup: 'Sign up',
       forgotPassword: 'Forgot password?',
-      resendConfirmationEmail: 'Resend confirmation email',
+      resendConfirmationEmail: 'Didn\'t get confirmation email?',
       signinWithProvider: 'Sign in with {{provider}}',
     },
     // request: {

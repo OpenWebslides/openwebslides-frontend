@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, Button, Icon } from 'semantic-ui-react';
+import { Card, Button, Icon, Divider } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
 import {
@@ -49,17 +49,32 @@ const PureSigninCard = (props: Props): React.Node => {
       </Card.Content>
       <Card.Content>
         <EmailAndPasswordForm onSubmit={onEmailAndPasswordFormSubmit}>
-          <Button.Group fluid={true}>
-            <Button as={Link} to={AUTH_SIGNUP_ROUTE} icon={true} labelPosition="left">
-              <Icon name="user" />
+          <Button.Group fluid={true} inverted={true}>
+            <Button as={Link} to={AUTH_SIGNUP_ROUTE} basic={true}>
               {t('platform:signinCard.link.signup')}
             </Button>
-            <Button type="submit" primary={true} icon={true} labelPosition="left">
-              <Icon name="lock" />
+            <Button type="submit" primary={true}>
               {t('platform:signinCard.button.submit')}
             </Button>
           </Button.Group>
         </EmailAndPasswordForm>
+
+        <Divider horizontal={true} section={true}>Or</Divider>
+
+        <Button.Group fluid={true} vertical={true}>
+          <Button as="a" href={AUTH_SSO_GOOGLE} color="google plus">
+            <Icon name="google" />
+            {t('platform:signinCard.link.signinWithProvider', { provider: 'Google' })}
+          </Button>
+          <Button as="a" href={AUTH_SSO_FACEBOOK} color="facebook">
+            <Icon name="facebook f" />
+            {t('platform:signinCard.link.signinWithProvider', { provider: 'Facebook' })}
+          </Button>
+          <Button as="a" href={AUTH_SSO_UGENT} color="ugent">
+            <Icon name="university" />
+            {t('platform:signinCard.link.signinWithProvider', { provider: 'UGent CAS' })}
+          </Button>
+        </Button.Group>
       </Card.Content>
       <Card.Content>
         <Button.Group fluid={true} vertical={true} basic={true}>
@@ -68,19 +83,6 @@ const PureSigninCard = (props: Props): React.Node => {
           </Button>
           <Button as={Link} to={AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE}>
             {t('platform:signinCard.link.resendConfirmationEmail')}
-          </Button>
-        </Button.Group>
-      </Card.Content>
-      <Card.Content>
-        <Button.Group fluid={true} vertical={true} basic={true}>
-          <Button as="a" href={AUTH_SSO_GOOGLE}>
-            {t('platform:signinCard.link.signinWithProvider', { provider: 'Google' })}
-          </Button>
-          <Button as="a" href={AUTH_SSO_FACEBOOK}>
-            {t('platform:signinCard.link.signinWithProvider', { provider: 'Facebook' })}
-          </Button>
-          <Button as="a" href={AUTH_SSO_UGENT}>
-            {t('platform:signinCard.link.signinWithProvider', { provider: 'UGent CAS' })}
           </Button>
         </Button.Group>
       </Card.Content>
