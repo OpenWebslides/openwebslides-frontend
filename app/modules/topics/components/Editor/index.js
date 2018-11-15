@@ -126,7 +126,8 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
     return (
       <Modal
-        size="mini"
+        size="tiny"
+        basic={true}
         open={isCommitModalOpen}
         onClose={this.handleCommitFormCancel}
         data-test-id="topic-editor-commit-modal"
@@ -141,23 +142,20 @@ class PureEditor extends React.Component<Props, ComponentState> {
         </Modal.Content>
         <Modal.Actions>
           <Button
-            icon={true}
-            labelPosition="left"
+            inverted={true}
+            color="white"
             onClick={this.handleCommitFormCancel}
             data-test-id="topic-editor-commit-modal-cancel-button"
           >
-            <Icon name="cancel" />
             {t('common:button.cancel')}
           </Button>
           <Button
             type="submit"
-            primary={true}
             form="topic-editor-commit-modal-form"
-            icon={true}
-            labelPosition="left"
+            color="red"
+            inverted={true}
             data-test-id="topic-editor-commit-modal-submit-button"
           >
-            <Icon name="save" />
             {t('common:button.save')}
           </Button>
         </Modal.Actions>
