@@ -64,7 +64,6 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
         <Modal.Actions>
           <Button
             inverted={true}
-            color="white"
             onClick={this.removeModalCancel}
             data-test-id="topic-card-remove-modal-cancel-button"
           >

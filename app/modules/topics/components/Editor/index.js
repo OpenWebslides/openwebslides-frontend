@@ -126,7 +126,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
     return (
       <Modal
-        size="tiny"
+        size="mini"
         basic={true}
         open={isCommitModalOpen}
         onClose={this.handleCommitFormCancel}
@@ -143,7 +143,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
         <Modal.Actions>
           <Button
             inverted={true}
-            color="white"
             onClick={this.handleCommitFormCancel}
             data-test-id="topic-editor-commit-modal-cancel-button"
           >
