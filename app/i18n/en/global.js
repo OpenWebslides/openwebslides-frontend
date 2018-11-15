@@ -11,7 +11,6 @@ const global = {
   },
   title: {
     library: 'Library',
-    createNewTopic: 'Create new topic',
     profile: 'Profile',
     topics: 'Topics',
   },

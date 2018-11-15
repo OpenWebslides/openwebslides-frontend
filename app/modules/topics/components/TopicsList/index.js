@@ -32,13 +32,16 @@ const PureTopicsList = (props: Props): React.Node => {
               className="topics-list__add-button"
               data-test-id="topics-list-add-button"
             >
-              {t('global:title.createNewTopic')}
+              {t('library:buttons.create')}
             </Button>
           ) : null)}
           <Header as="h3" floated="left">{t('global:title.library')}</Header>
         </div>
       </Grid.Row>
       <Grid.Row>
+        {(topicIds.length === 0 ? (
+          <em data-test-id="topics-list-empty">{t('library:noTopics')}</em>
+        ) : null)}
         <Card.Group itemsPerRow={3} doubling={true} stackable={true}>
           {[...topicIds].reverse().map((topicId) => (
             <TopicCard
