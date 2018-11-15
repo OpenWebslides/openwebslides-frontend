@@ -3,10 +3,10 @@
 /* eslint-disable flowtype/require-types-at-top,import/exports-last */
 
 // Type of alert
-const TOPIC_UPDATED: 'alerts/TOPIC_UPDATED' = 'alerts/TOPIC_UPDATED';
-const PR_SUBMITTED: 'alerts/PR_SUBMITTED' = 'alerts/PR_SUBMITTED';
-const PR_ACCEPTED: 'alerts/PR_ACCEPTED' = 'alerts/PR_ACCEPTED';
-const PR_REJECTED: 'alerts/PR_REJECTED' = 'alerts/PR_REJECTED';
+const TOPIC_UPDATED: 'alertTypes/TOPIC_UPDATED' = 'alertTypes/TOPIC_UPDATED';
+const PR_SUBMITTED: 'alertTypes/PR_SUBMITTED' = 'alertTypes/PR_SUBMITTED';
+const PR_ACCEPTED: 'alertTypes/PR_ACCEPTED' = 'alertTypes/PR_ACCEPTED';
+const PR_REJECTED: 'alertTypes/PR_REJECTED' = 'alertTypes/PR_REJECTED';
 
 export const alertTypes = {
   TOPIC_UPDATED,
@@ -18,9 +18,9 @@ export const alertTypes = {
 export type AlertType = $Values<typeof alertTypes>;
 
 // State of pull request alert
-const SUBMITTED: 'alerts/SUBMITTED' = 'alerts/SUBMITTED';
-const ACCEPTED: 'alerts/ACCEPTED' = 'alerts/ACCEPTED';
-const REJECTED: 'alerts/REJECTED' = 'alerts/REJECTED';
+const SUBMITTED: 'alertStates/SUBMITTED' = 'alertStates/SUBMITTED';
+const ACCEPTED: 'alertStates/ACCEPTED' = 'alertStates/ACCEPTED';
+const REJECTED: 'alertStates/REJECTED' = 'alertStates/REJECTED';
 
 export const pullRequestStateTypes = {
   SUBMITTED,

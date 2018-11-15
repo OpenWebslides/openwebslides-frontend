@@ -7,9 +7,11 @@ const alerts = {
     earlier: 'Earlier',
     updated: 'There is {{count}} update available for **{{topicTitle}}**',
     updated_plural: 'There are {{count}} updates available for **{{topicTitle}}**',
-    submitted: '**{{userName}}** submitted changes on your topic **{{topicTitle}}**',
-    accepted: '**{{userName}}** approved your changes on **{{topicTitle}}**',
-    rejected: '**{{userName}}** rejected your changes on **{{topicTitle}}**',
+  },
+  actionForType: {
+    'alertTypes/PR_SUBMITTED': '**{{userName}}** submitted changes on your topic **{{topicTitle}}**',
+    'alertTypes/PR_ACCEPTED': '**{{userName}}** approved your changes on **{{topicTitle}}**',
+    'alertTypes/PR_REJECTED': '**{{userName}}** rejected your changes on **{{topicTitle}}**',
   },
 };
 
