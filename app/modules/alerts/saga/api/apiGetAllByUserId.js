@@ -15,7 +15,7 @@ import * as m from '../../model';
 const apiAlertTypesMap = {
   topic_updated: m.alertTypes.TOPIC_UPDATED,
   pr_submitted: m.alertTypes.PR_SUBMITTED,
-  pr_approved: m.alertTypes.PR_APPROVED,
+  pr_accepted: m.alertTypes.PR_ACCEPTED,
   pr_rejected: m.alertTypes.PR_REJECTED,
 };
 
@@ -55,7 +55,7 @@ const apiGetAllByUserId = function* (action: a.ApiGetAllByUserIdAction): Saga<vo
           count: item.attributes.count,
         };
       case m.alertTypes.PR_SUBMITTED:
-      case m.alertTypes.PR_APPROVED:
+      case m.alertTypes.PR_ACCEPTED:
       case m.alertTypes.PR_REJECTED:
         return {
           ...commonProps,

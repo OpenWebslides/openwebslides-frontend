@@ -5,13 +5,13 @@
 // Type of alert
 const TOPIC_UPDATED: 'alerts/TOPIC_UPDATED' = 'alerts/TOPIC_UPDATED';
 const PR_SUBMITTED: 'alerts/PR_SUBMITTED' = 'alerts/PR_SUBMITTED';
-const PR_APPROVED: 'alerts/PR_APPROVED' = 'alerts/PR_APPROVED';
+const PR_ACCEPTED: 'alerts/PR_ACCEPTED' = 'alerts/PR_ACCEPTED';
 const PR_REJECTED: 'alerts/PR_REJECTED' = 'alerts/PR_REJECTED';
 
 export const alertTypes = {
   TOPIC_UPDATED,
   PR_SUBMITTED,
-  PR_APPROVED,
+  PR_ACCEPTED,
   PR_REJECTED,
 };
 

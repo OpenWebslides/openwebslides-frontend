@@ -38,7 +38,7 @@ export const PRApprovedAlert: alerts.model.PullRequestAlert = {
   userId: 'dummyUser2Id',
   timestamp: 1540833892,
   read: false,
-  type: alerts.model.alertTypes.PR_APPROVED,
+  type: alerts.model.alertTypes.PR_ACCEPTED,
   pullRequestId: 'dummyPullRequestId',
   subjectUserId: 'dummySubjectUserId',
   state: alerts.model.pullRequestStateTypes.ACCEPTED,
