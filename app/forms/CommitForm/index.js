@@ -48,6 +48,7 @@ class PureCommitForm extends React.Component<Props> {
               component={Form.Input}
               name="message"
               id="message"
+              inverted={true}
               placeholder={t('topics:forms.message')}
               required={true}
               onChange={handleChange}

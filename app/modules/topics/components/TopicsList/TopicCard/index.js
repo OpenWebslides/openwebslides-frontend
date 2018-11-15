@@ -51,6 +51,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
     return (
       <Modal
         size="mini"
+        basic={true}
         open={isRemoveModalOpen}
         onClose={this.removeModalCancel}
         data-test-id="topic-card-remove-modal"
@@ -62,22 +63,18 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
         </Modal.Content>
         <Modal.Actions>
           <Button
-            icon={true}
-            labelPosition="left"
+            inverted={true}
             onClick={this.removeModalCancel}
             data-test-id="topic-card-remove-modal-cancel-button"
           >
-            <Icon name="cancel" />
             {t(`common:button.cancel`)}
           </Button>
           <Button
-            primary={true}
-            icon={true}
-            labelPosition="left"
+            color="red"
+            inverted={true}
             onClick={this.removeModalSubmit}
             data-test-id="topic-card-remove-modal-submit-button"
           >
-            <Icon name="trash" />
             {t(`common:button.delete`)}
           </Button>
         </Modal.Actions>
@@ -129,7 +126,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
     const { t } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         <Card data-test-id="topic-card">
           <Card.Content>
             <Card.Header>
@@ -149,7 +146,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
           {this.renderTopicCardButtons(topic)}
         </Card>
         {this.renderRemoveModal(topic)}
-      </React.Fragment>
+      </>
     );
   };
 

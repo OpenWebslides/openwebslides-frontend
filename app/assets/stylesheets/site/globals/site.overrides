@@ -11,6 +11,7 @@
 & { @import "../../custom/sidebars-menu"; }
 & { @import "../../custom/sidebars"; }
 & { @import "../../custom/sidebar"; }
+& { @import "../../custom/platform"; }
 
 // User profile
 & { @import "../../custom/topics-list"; }

@@ -17,7 +17,7 @@ const PureRoot = (props: Props): React.Node => {
   const { contentItem, headingLevel } = props;
 
   return (
-    <React.Fragment>
+    <>
       {contentItem.childItems.map((childItem: m.DenormalizedContentItem): React.Node => {
         return (
           <HtmlDisplay
@@ -27,7 +27,7 @@ const PureRoot = (props: Props): React.Node => {
           />
         );
       })}
-    </React.Fragment>
+    </>
   );
 };
 

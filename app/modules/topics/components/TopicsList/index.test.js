@@ -59,12 +59,25 @@ describe(`TopicsList`, (): void => {
     expect(enzymeWrapper.find(`[data-test-id="topics-list-add-button"]`)).toHaveLength(1);
   });
 
+  it(`renders an empty message and no TopicCard, when there are no topics`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState}>
+        <TopicsList topicIds={[]} isCurrentUser={false} onRemoveTopic={jest.fn()} />
+      </DummyProviders>,
+    );
+    expect(enzymeWrapper.find(`[data-test-id="topics-list-empty"]`)).toHaveLength(1);
+    expect(enzymeWrapper.find(`PureTopicCard`)).toHaveLength(0);
+  });
+
   it(`renders a TopicCard for each topicId, in reverse order`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState}>
         <TopicsList topicIds={dummyTopicIds} isCurrentUser={false} onRemoveTopic={jest.fn()} />
       </DummyProviders>,
     );
+
+    expect(enzymeWrapper.find(`[data-test-id="topics-list-empty"]`)).toHaveLength(0);
+
     const topicCardNodes = enzymeWrapper.find(`PureTopicCard`);
 
     expect(topicCardNodes).toHaveLength(2);

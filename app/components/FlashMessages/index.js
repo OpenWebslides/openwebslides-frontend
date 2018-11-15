@@ -37,13 +37,14 @@ const PureFlashMessages = (props: Props): React.Node => {
   }
   else {
     return (
-      <div>
+      <>
         {flashMessages.map((flashMessage: Flash): React.Node => {
           return (
             <Message
               positive={!flashMessage.isError}
               negative={flashMessage.isError}
               key={flashMessage.id}
+              floating={true}
             >
               { flashMessage.props.title != null && (
                 <Message.Header>{flashMessage.props.title }</Message.Header>
@@ -52,7 +53,7 @@ const PureFlashMessages = (props: Props): React.Node => {
             </Message>
           );
         })}
-      </div>
+      </>
     );
   }
 };

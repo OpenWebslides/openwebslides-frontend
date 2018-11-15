@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Card, Button, Icon } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
 import ResetPasswordForm, { type ResetPasswordFormValues } from 'forms/ResetPasswordForm';
@@ -47,8 +47,7 @@ const PureResetPasswordCard = (props: Props): React.Node => {
           onSubmit={onResetPasswordFormSubmit}
           resetPasswordToken={resetPasswordToken}
         >
-          <Button primary={true} type="submit" fluid={true} icon={true} labelPosition="left">
-            <Icon name="user" />
+          <Button primary={true} type="submit" fluid={true}>
             {t('platform:resetPasswordCard.button.submit')}
           </Button>
         </ResetPasswordForm>

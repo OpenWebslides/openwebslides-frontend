@@ -10,7 +10,7 @@ const platform = {
     link: {
       signup: 'Sign up',
       forgotPassword: 'Forgot password?',
-      resendConfirmationEmail: 'Resend confirmation email',
+      resendConfirmationEmail: 'Didn\'t get confirmation email?',
       signinWithProvider: 'Sign in with {{provider}}',
     },
     // request: {
@@ -42,6 +42,11 @@ const platform = {
     button: {
       submit: 'Reset password',
     },
+  },
+  tosCard: {
+    title: 'Terms of Service',
+    description: 'Open Webslides',
+    tos: 'Terms of Service placeholder',
   },
 };
 

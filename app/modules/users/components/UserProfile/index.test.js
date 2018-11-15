@@ -69,17 +69,19 @@ describe(`UserProfile`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="user-profile-info"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`renders an 'edit profile' button, when isCurrentUser is set to TRUE`, (): void => {
+  it(`renders the email, when the users's email is present in the user`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <UserProfile userId={dummyUser.id} isCurrentUser={true} />
+        <UserProfile userId={dummyUser.id} />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="user-profile-edit-button"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="user-profile-email"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`does not render an 'edit profile' button, when isCurrentUser is set to TRUE`, (): void => {
+  it(`does not render the email, when user's email is not present in the user`, (): void => {
+    _.unset(dummyUser, 'email');
+
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <UserProfile userId={dummyUser.id} />

@@ -4,6 +4,7 @@ export type Topic = {|
   +id: string,
   +title: string,
   +description: ?string,
+  +userId: string,
   +rootContentItemId: string,
   +upstreamTopicId: ?string,
   +forkedTopicIds: $ReadOnlyArray<string>,

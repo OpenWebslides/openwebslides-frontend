@@ -9,6 +9,10 @@
 @owsPink: #d60b52;
 @owsPurple: #3e2153;
 
+@ugentBlue: #1e64c8;
+@ugentBlueHover: saturate(darken(@ugentBlue, 5), 10, relative);
+@ugentBlueDown: darken(@ugentBlue, 10);
+
 
 /*-------------------
        Colors

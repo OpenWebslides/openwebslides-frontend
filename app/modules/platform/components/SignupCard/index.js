@@ -2,10 +2,9 @@
 
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { Card, Button, Icon } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 
-import { AUTH_SIGNIN_ROUTE } from 'config/routes';
+import BackButton from 'components/BackButton';
 import UserForm, { type UserFormValues } from 'forms/UserForm';
 
 type PassedProps = {|
@@ -35,14 +34,11 @@ class PureSignupCard extends React.Component<Props> {
         </Card.Content>
         <Card.Content>
           <UserForm onSubmit={this.handleUserFormSubmit}>
-            <Button.Group fluid={true}>
-              <Button primary={true} type="submit" icon={true} labelPosition="left">
-                <Icon name="user" />
+            <Button.Group fluid={true} inverted={true}>
+
+              <BackButton />
+              <Button type="submit" primary={true}>
                 {t('platform:signupCard.button.submit')}
-              </Button>
-              <Button as={Link} to={AUTH_SIGNIN_ROUTE} icon={true} labelPosition="left">
-                <Icon name="lock" />
-                {t('platform:signupCard.link.signin')}
               </Button>
             </Button.Group>
           </UserForm>

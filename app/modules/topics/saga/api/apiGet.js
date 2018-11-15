@@ -28,6 +28,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     id,
     title: attributes.title,
     description: attributes.description,
+    userId: relationships.user.data.id,
     rootContentItemId: attributes.rootContentItemId,
     upstreamTopicId: relationships.upstream.data ? relationships.upstream.data.id : null,
     forkedTopicIds: relationships.forks.data.map((item: { type: string, id: string }) => item.id),

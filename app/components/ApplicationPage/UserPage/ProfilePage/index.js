@@ -53,7 +53,7 @@ class PureProfilePage extends React.Component<Props> {
   render(): React.Node {
     return (
       <ContainerPageWrapper>
-        <Grid stackable={true} celled="internally">
+        <Grid stackable={true} relaxed={true}>
           <Grid.Column width={12}>
             <Switch>
               <Route path={paths.USER_PROFILE_BY_ID_ROUTE} render={this.renderProfileForPassedId} />
