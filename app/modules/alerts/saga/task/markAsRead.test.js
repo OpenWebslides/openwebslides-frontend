@@ -32,7 +32,7 @@ describe(`markAsRead`, (): void => {
         })],
       ])
       .call(asyncRequests.lib.putAndReturn, actions.apiPatch(dummyId, true))
-      .call(asyncRequests.lib.putAndReturn, actions.fetchAll())
+      .put(actions.markAsReadInState(dummyId))
       .run();
   });
 

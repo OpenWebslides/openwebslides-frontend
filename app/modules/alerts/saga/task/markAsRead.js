@@ -1,7 +1,7 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { call } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 
 import asyncRequests from 'modules/asyncRequests';
 
@@ -13,11 +13,11 @@ const { putAndReturn } = asyncRequests.lib;
 const markAsReadSaga = function* (action: a.MarkAsReadAction): Saga<void> {
   const { id } = action.payload;
 
-  // Mark alert as read
+  // Mark alert as read in the backend
   yield call(putAndReturn, actions.apiPatch(id, true));
 
-  // Refetch all alerts
-  yield call(putAndReturn, actions.fetchAll());
+  // Mark alert as read in state
+  yield put(actions.markAsReadInState(id));
 };
 
 export default markAsReadSaga;
