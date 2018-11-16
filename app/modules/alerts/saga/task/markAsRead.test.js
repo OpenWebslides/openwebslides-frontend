@@ -27,8 +27,12 @@ describe(`markAsRead`, (): void => {
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.API_PATCH) ? null : next();
         })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.FETCH_ALL) ? null : next();
+        })],
       ])
       .call(asyncRequests.lib.putAndReturn, actions.apiPatch(dummyId, true))
+      .call(asyncRequests.lib.putAndReturn, actions.fetchAll())
       .run();
   });
 
