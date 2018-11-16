@@ -1,6 +1,7 @@
 // @flow
 
 const alerts = {
+  alert: 'alert',
   menu: {
     empty: 'You don\'t have any alerts right now',
     recent: 'Recent',

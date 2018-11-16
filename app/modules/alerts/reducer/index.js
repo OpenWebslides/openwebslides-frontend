@@ -3,6 +3,7 @@
 import * as a from '../actionTypes';
 import * as m from '../model';
 
+import markAsReadInState from './markAsReadInState';
 import setMultipleInState from './setMultipleInState';
 
 const initialState: m.AlertsState = {
@@ -14,6 +15,8 @@ const reducer = (
   action: a.AlertsReducerAction,
 ): m.AlertsState => {
   switch (action.type) {
+    case a.MARK_AS_READ_IN_STATE:
+      return markAsReadInState(state, action);
     case a.SET_MULTIPLE_IN_STATE:
       return setMultipleInState(state, action);
     default:
