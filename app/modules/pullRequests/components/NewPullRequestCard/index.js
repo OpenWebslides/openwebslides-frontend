@@ -1,33 +1,71 @@
 // @flow
 
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Card } from 'semantic-ui-react';
 
+import { type ModulesAction, type AppState } from 'types/redux';
 import InlineMarkdown from 'components/InlineMarkdown';
-import FetchWrapper from 'components/FetchWrapper';
 import PullRequestForm, { type PullRequestFormValues } from 'forms/PullRequestForm';
 import topics from 'modules/topics';
 
 type PassedProps = {|
-  topicId: string,
+  sourceTopicId: string,
+  targetTopicId: string,
   onCreatePullRequest: (topicId: string, message: string) => void,
 |};
 
 type StateProps = {|
-  topic: ?topics.model.Topic,
+  sourceTopic: ?topics.model.Topic,
+  targetTopic: ?topics.model.Topic,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
+type DispatchProps = {|
+  fetchTopic: (topicId: string) => void,
+|};
+
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+
+const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
+  const { sourceTopicId, targetTopicId } = props;
+
+  return {
+    sourceTopic: topics.selectors.getById(state, { id: sourceTopicId }),
+    targetTopic: topics.selectors.getById(state, { id: targetTopicId }),
+  };
+};
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<ModulesAction>,
+  props: PassedProps,
+): DispatchProps => {
+  return {
+    fetchTopic: (topicId: string): void => {
+      dispatch(topics.actions.fetch(topicId));
+    },
+  };
+};
 
 class PureNewPullRequestCard extends React.Component<Props> {
+  componentDidMount(): void {
+    const { sourceTopicId, targetTopicId, sourceTopic, targetTopic, fetchTopic } = this.props;
+    if (sourceTopic == null) fetchTopic(sourceTopicId);
+    if (targetTopic == null) fetchTopic(targetTopicId);
+  }
+
   handlePullRequestFormSubmit = (values: PullRequestFormValues): void => {
     const { onCreatePullRequest, topicId } = this.props;
     onCreatePullRequest(topicId, values.message);
   };
 
-  renderPullRequest = (topic: topics.model.Topic): React.Node => {
-    const { t } = this.props;
+  render(): React.Node {
+    const { t, sourceTopic, targetTopic } = this.props;
+
+    if (sourceTopic == null || targetTopic == null) {
+      return null;
+    }
 
     return (
       <Card centered={true} data-test-id="new-pull-request-card">
@@ -36,7 +74,13 @@ class PureNewPullRequestCard extends React.Component<Props> {
             {t('pullRequests:newPullRequestCard.title')}
           </Card.Header>
           <Card.Description>
-            <InlineMarkdown text={t('pullRequests:newPullRequestCard.description', { topicTitle: topic.title })} />
+            <InlineMarkdown text={t('pullRequests:newPullRequestCard.description', { topicTitle: sourceTopic.title })} />
+            <p>
+              From: <strong>{sourceTopic.title}</strong>
+            </p>
+            <p>
+              To: <strong>{targetTopic.title}</strong>
+            </p>
           </Card.Description>
         </Card.Content>
         <Card.Content>
@@ -47,24 +91,13 @@ class PureNewPullRequestCard extends React.Component<Props> {
         </Card.Content>
       </Card>
     );
-  };
-
-  render(): React.Node {
-    const { topicId } = this.props;
-
-    return (
-      <FetchWrapper
-        render={this.renderPullRequest}
-        renderPropsAndState={this.props}
-        fetchId={topicId}
-        fetchAction={topics.actions.fetchWithContent}
-        fetchedPropSelector={topics.selectors.getById}
-      />
-    );
   }
 }
 
-const NewPullRequestCard = withNamespaces()(PureNewPullRequestCard);
+const NewPullRequestCard = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withNamespaces()(PureNewPullRequestCard));
 
 export { PureNewPullRequestCard };
 export default NewPullRequestCard;

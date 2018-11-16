@@ -8,18 +8,25 @@ import { push } from 'connected-react-router';
 
 import { type ModulesAction, type AppState } from 'types/redux';
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
+import FetchWrapper from 'components/FetchWrapper';
 import { CorruptedInternalStateError } from 'errors';
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import makeRoute from 'lib/makeRoute';
 import platform from 'modules/platform';
 import pullRequests from 'modules/pullRequests';
+import topics from 'modules/topics';
 
 type StateProps = {|
   currentUserId: ?string,
 |};
 
 type DispatchProps = {|
-  createPullRequest: (currentUserId: string, topicId: string, message: string) => void,
+  createPullRequest: (
+    message: string,
+    sourceTopicId: string,
+    targetTopicId: string,
+    currentUserId: string,
+  ) => void,
 |};
 
 type Props = {| ...StateProps, ...DispatchProps, ...RouterProps |};
@@ -37,34 +44,58 @@ const mapStateToProps = (state: AppState): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
-    createPullRequest: (currentUserId: string, topicId: string, message: string): void => {
+    createPullRequest: (
+      message: string,
+      sourceTopicId: string,
+      targetTopicId: string,
+      currentUserId: string,
+    ): void => {
       // TODO: dispatch create new pull request action
+      dispatch(pullRequests.actions.create(message, sourceTopicId, targetTopicId, currentUserId));
       console.log('dispatch(pullRequests.actions.create)');
-      dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId })));
+      dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { sourceTopicId })));
     },
   };
 };
 
 class PureNewPullRequestPage extends React.Component<Props> {
-  handleCreatePullRequest = (topicId: string, message: string): void => {
+  handleCreatePullRequest = (
+    message: string,
+    sourceTopicId: string,
+    targetTopicId: string,
+  ): void => {
     const { createPullRequest, currentUserId } = this.props;
     if (currentUserId == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
-    createPullRequest(currentUserId, topicId, message);
+    createPullRequest(message, sourceTopicId, targetTopicId, currentUserId);
+  };
+
+  renderNewPullRequestPage = (topic: topics.model.Topic): React.Node => {
+    return (
+      <AuthWrapper>
+        <ContainerPageWrapper>
+          <NewPullRequestCard
+            sourceTopicId={topic.id}
+            targetTopicId={topic.upstreamTopicId}
+            onCreatePullRequest={this.handleCreatePullRequest}
+          />
+        </ContainerPageWrapper>
+      </AuthWrapper>
+    );
   };
 
   render(): React.Node {
     const { match: { params: { topicId } } } = this.props;
 
-    return (topicId == null) ? null : (
-      <AuthWrapper>
-        <ContainerPageWrapper>
-          <NewPullRequestCard
-            topicId={topicId}
-            onCreatePullRequest={this.handleCreatePullRequest}
-            data-test-id="new-pull-request-page-card"
-          />
-        </ContainerPageWrapper>
-      </AuthWrapper>
+    if (topicId == null) return null;
+
+    return (
+      <FetchWrapper
+        render={this.renderNewPullRequestPage}
+        renderPropsAndState={this.props}
+        fetchId={topicId}
+        fetchAction={topics.actions.fetch}
+        fetchedPropSelector={topics.selectors.getById}
+      />
     );
   }
 }
