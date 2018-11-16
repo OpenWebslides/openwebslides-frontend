@@ -6,9 +6,8 @@ import { push } from 'connected-react-router';
 
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import makeRoute from 'lib/makeRoute';
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, dummyTopicData, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, dummyTopicData } from 'lib/testResources';
 import topics from 'modules/topics';
-import users from 'modules/users';
 
 import * as m from '../../../../model';
 
@@ -17,15 +16,13 @@ import UpdateAlert, { PureUpdateAlert } from '.';
 describe(`UpdateAlert`, (): void => {
 
   let dummyTopic: topics.model.Topic;
-  let dummyUser: users.model.User;
   let dummyAlert: m.UpdateAlert;
   let dummyState: any;
   let dummyDispatch: any;
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic };
-    dummyUser = { ...dummyUserData.user };
-    dummyAlert = { ...dummyAlertData.updateAlert1, topicId: dummyTopic.id, userId: dummyUser.id };
+    dummyAlert = { ...dummyAlertData.updateAlert1, topicId: dummyTopic.id };
     dummyState = {
       ...dummyInitialState,
       modules: {
@@ -42,12 +39,6 @@ describe(`UpdateAlert`, (): void => {
             [dummyTopic.id]: dummyTopic,
           },
         },
-        users: {
-          ...dummyInitialState.modules.users,
-          byId: {
-            [dummyUser.id]: dummyUser,
-          },
-        },
       },
     };
     dummyDispatch = jest.fn();
@@ -58,10 +49,8 @@ describe(`UpdateAlert`, (): void => {
       <PureUpdateAlert
         {...dummyProviderProps.translatorProps}
         alert={dummyAlert}
-        user={dummyUser}
         topic={dummyTopic}
         fetchTopic={jest.fn()}
-        fetchUser={jest.fn()}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);

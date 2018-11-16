@@ -8,9 +8,7 @@ import { Grid, Icon } from 'semantic-ui-react';
 import moment from 'moment';
 
 import { type ModulesAction, type AppState } from 'types/redux';
-import FetchWrapper from 'components/FetchWrapper';
 import InlineMarkdown from 'components/InlineMarkdown';
-import pullRequests from 'modules/pullRequests';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -21,14 +19,13 @@ type PassedProps = {|
 |};
 
 type StateProps = {|
-  pullRequest: ?pullRequests.model.PullRequest,
   user: ?users.model.User,
-  topicId: ?string,
+  topic: ?topics.model.Topic,
 |};
 
 type DispatchProps = {|
-  fetchPullRequest: () => void,
   fetchUser: () => void,
+  fetchTopic: () => void,
   onClickAlert: () => void,
 |};
 
@@ -37,12 +34,9 @@ type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchPr
 const mapStateToProps = (state: AppState, props: Props): StateProps => {
   const { alert } = props;
 
-  const pullRequest = pullRequests.selectors.getById(state, { id: alert.pullRequestId });
-
   return {
-    pullRequest,
     user: users.selectors.getById(state, { id: alert.subjectUserId }),
-    topicId: pullRequest == null ? null : pullRequest.targetTopicId,
+    topic: topics.selectors.getById(state, { id: alert.topicId }),
   };
 };
 
@@ -53,11 +47,11 @@ const mapDispatchToProps = (
   const { alert } = props;
 
   return {
-    fetchPullRequest: (): void => {
-      dispatch(pullRequests.actions.fetch(alert.pullRequestId));
-    },
     fetchUser: (): void => {
       dispatch(users.actions.fetch(alert.subjectUserId));
+    },
+    fetchTopic: (): void => {
+      dispatch(topics.actions.fetch(alert.topicId));
     },
     onClickAlert: (): void => {
       // TODO: mark alert as read
@@ -68,15 +62,15 @@ const mapDispatchToProps = (
 
 class PurePullRequestAlert extends React.Component<Props> {
   componentDidMount(): void {
-    const { pullRequest, fetchPullRequest, user, fetchUser } = this.props;
-    if (pullRequest == null) fetchPullRequest();
+    const { user, fetchUser, topic, fetchTopic } = this.props;
     if (user == null) fetchUser();
+    if (topic == null) fetchTopic();
   }
 
-  renderAlert = (topic: topics.model.Topic): React.Node => {
-    const { t, alert, user, onClickAlert } = this.props;
+  render(): React.Node {
+    const { t, alert, user, topic, onClickAlert } = this.props;
 
-    if (user == null) return null;
+    if (user == null || topic == null) return null;
 
     const iconName = {
       [m.alertTypes.PR_SUBMITTED]: 'question',
@@ -96,20 +90,6 @@ class PurePullRequestAlert extends React.Component<Props> {
           <p className="date">{moment(alert.timestamp).fromNow()}</p>
         </Grid.Column>
       </Grid>
-    );
-  };
-
-  render(): React.Node {
-    const { topicId } = this.props;
-
-    return topicId === null ? null : (
-      <FetchWrapper
-        render={this.renderAlert}
-        renderPropsAndState={this.props}
-        fetchId={topicId}
-        fetchAction={topics.actions.fetch}
-        fetchedPropSelector={topics.selectors.getById}
-      />
     );
   }
 }
