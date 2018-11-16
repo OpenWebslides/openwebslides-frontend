@@ -99,6 +99,36 @@ describe(`PullRequestAlert`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="alert"]').hostNodes()).toHaveLength(1);
   });
 
+  it(`renders the correct iconName for an alert with type PR_SUBMITTED`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <PullRequestAlert alert={{ ...dummyAlert, type: m.alertTypes.PR_SUBMITTED }} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('i').hostNodes().hasClass('question')).toBe(true);
+  });
+
+  it(`renders the correct iconName for an alert with type PR_ACCEPTED`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <PullRequestAlert alert={{ ...dummyAlert, type: m.alertTypes.PR_ACCEPTED }} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('i').hostNodes().hasClass('check')).toBe(true);
+  });
+
+  it(`renders the correct iconName for an alert with type PR_REJECTED`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <PullRequestAlert alert={{ ...dummyAlert, type: m.alertTypes.PR_REJECTED }} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('i').hostNodes().hasClass('times')).toBe(true);
+  });
+
   it(`dispatches a MARK_AS_READ action when an unread alert is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
