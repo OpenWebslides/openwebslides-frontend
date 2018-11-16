@@ -55,7 +55,8 @@ const mapDispatchToProps = (
       dispatch(topics.actions.fetch(alert.topicId));
     },
     onClickAlert: (): void => {
-      dispatch(actions.markAsRead(alert.id));
+      if (!alert.read) dispatch(actions.markAsRead(alert.id));
+
       // TODO: redirect to PR route
     },
   };

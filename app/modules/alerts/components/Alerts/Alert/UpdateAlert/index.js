@@ -51,7 +51,8 @@ const mapDispatchToProps = (
       dispatch(topics.actions.fetch(alert.topicId));
     },
     onClickAlert: (): void => {
-      dispatch(actions.markAsRead(alert.id));
+      if (!alert.read) dispatch(actions.markAsRead(alert.id));
+
       dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: alert.topicId })));
     },
   };

@@ -99,16 +99,28 @@ describe(`PullRequestAlert`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="alert"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`dispatches a MARK_AS_READ action when the alert is clicked`, (): void => {
+  it(`dispatches a MARK_AS_READ action when an unread alert is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <PullRequestAlert alert={dummyAlert} />
+        <PullRequestAlert alert={{ ...dummyAlert, read: false }} />
       </DummyProviders>,
     );
 
     enzymeWrapper.find('[data-test-id="alert"]').hostNodes().simulate('click');
 
     expect(dummyDispatch).toHaveBeenCalledWith(actions.markAsRead(dummyAlert.id));
+  });
+
+  it(`does not dispatch anything when a read alert is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <PullRequestAlert alert={{ ...dummyAlert, read: true }} />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="alert"]').hostNodes().simulate('click');
+
+    expect(dummyDispatch).not.toHaveBeenCalled();
   });
 
 });
