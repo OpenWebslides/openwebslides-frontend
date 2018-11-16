@@ -1,5 +1,6 @@
 // @flow
 
+import alerts from './alerts';
 import api from './api';
 import common from './common';
 import contentItems from './contentItems';
@@ -13,6 +14,7 @@ import topics from './topics';
 import users from './users';
 
 const index = {
+  alerts,
   api,
   common,
   contentItems,

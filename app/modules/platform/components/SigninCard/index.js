@@ -70,7 +70,7 @@ const PureSigninCard = (props: Props): React.Node => {
             <Icon name="facebook f" />
             {t('platform:signinCard.link.signinWithProvider', { provider: 'Facebook' })}
           </Button>
-          <Button as="a" href={AUTH_SSO_UGENT} color="ugent">
+          <Button as="a" href={AUTH_SSO_UGENT} className="ugent">
             <Icon name="university" />
             {t('platform:signinCard.link.signinWithProvider', { provider: 'UGent CAS' })}
           </Button>

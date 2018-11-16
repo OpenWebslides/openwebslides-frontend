@@ -1,5 +1,6 @@
 // @flow
 
+import alerts from './alerts';
 import confirmation from './confirmation';
 import feedItems from './feedItems';
 import password from './password';
@@ -9,6 +10,7 @@ import topics from './topics';
 import users from './users';
 
 const api = {
+  alerts,
   confirmation,
   feedItems,
   password,

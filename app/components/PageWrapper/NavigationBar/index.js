@@ -14,7 +14,7 @@ type Props = {| ...TranslatorProps |};
 
 const PureNavigationBar = (props: Props): React.Node => {
   return (
-    <Menu inverted={true} attached={true} className="main-menu">
+    <Menu inverted={true} className="main-menu">
       <Menu.Item header={true} as={Link} to={HOME_ROUTE}>
         <Logo />
       </Menu.Item>

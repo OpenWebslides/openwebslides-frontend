@@ -5,6 +5,7 @@
 import { type Saga } from 'redux-saga';
 import { all, call } from 'redux-saga/effects';
 
+import alerts from 'modules/alerts';
 import asyncRequests from 'modules/asyncRequests';
 import contentItems from 'modules/contentItems';
 import errors from 'modules/errors';
@@ -20,6 +21,7 @@ import users from 'modules/users';
 
 const rootSaga = function* (): Saga<void> {
   yield all([
+    call(alerts.saga),
     call(asyncRequests.saga),
     call(contentItems.saga),
     call(errors.saga),

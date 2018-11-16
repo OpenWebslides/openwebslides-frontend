@@ -10,10 +10,12 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 
 import { PULL_REQUESTS_ENDPOINT } from '../endpoints';
 
-const get = (id: string): Promise<ApiResponseData> => {
+const get = (id: string, token: string): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.GET)
     .addPathSegment(PULL_REQUESTS_ENDPOINT)
     .addPathSegment(id)
+    .setParameter('include', 'user,source,target')
+    .setToken(token)
     .execute();
 };
 

@@ -4,4 +4,8 @@
 
 .ui.menu.inverted.main-menu {
   background-color: @owsPurple;
+
+  // Usually, the .attached class sets the border-radius to 0. However, the main menu cannot be attached
+  // because Semantic UI will set the width to 102%, which makes it overflow.
+  border-radius: 0 !important;
 }
