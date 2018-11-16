@@ -7,6 +7,7 @@ import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, 
 import topics from 'modules/topics';
 import users from 'modules/users';
 
+import actions from '../../../../actions';
 import * as m from '../../../../model';
 
 import PullRequestAlert, { PurePullRequestAlert } from '.';
@@ -96,6 +97,18 @@ describe(`PullRequestAlert`, (): void => {
     );
 
     expect(enzymeWrapper.find('[data-test-id="alert"]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`dispatches a MARK_AS_READ action when the alert is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <PullRequestAlert alert={dummyAlert} />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="alert"]').hostNodes().simulate('click');
+
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.markAsRead(dummyAlert.id));
   });
 
 });

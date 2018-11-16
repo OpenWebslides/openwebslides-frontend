@@ -14,6 +14,7 @@ import makeRoute from 'lib/makeRoute';
 import InlineMarkdown from 'components/InlineMarkdown';
 import topics from 'modules/topics';
 
+import actions from '../../../../actions';
 import * as m from '../../../../model';
 
 type PassedProps = {|
@@ -50,8 +51,7 @@ const mapDispatchToProps = (
       dispatch(topics.actions.fetch(alert.topicId));
     },
     onClickAlert: (): void => {
-      // TODO: mark alert as read
-
+      dispatch(actions.markAsRead(alert.id));
       dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: alert.topicId })));
     },
   };

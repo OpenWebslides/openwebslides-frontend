@@ -12,6 +12,7 @@ import InlineMarkdown from 'components/InlineMarkdown';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
+import actions from '../../../../actions';
 import * as m from '../../../../model';
 
 type PassedProps = {|
@@ -54,7 +55,7 @@ const mapDispatchToProps = (
       dispatch(topics.actions.fetch(alert.topicId));
     },
     onClickAlert: (): void => {
-      // TODO: mark alert as read
+      dispatch(actions.markAsRead(alert.id));
       // TODO: redirect to PR route
     },
   };

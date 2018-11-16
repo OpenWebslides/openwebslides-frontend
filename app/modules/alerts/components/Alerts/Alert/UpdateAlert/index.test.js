@@ -9,6 +9,7 @@ import makeRoute from 'lib/makeRoute';
 import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, dummyTopicData } from 'lib/testResources';
 import topics from 'modules/topics';
 
+import actions from '../../../../actions';
 import * as m from '../../../../model';
 
 import UpdateAlert, { PureUpdateAlert } from '.';
@@ -78,7 +79,7 @@ describe(`UpdateAlert`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="alert"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`dispatches a PUSH action to the editor when the alert is clicked`, (): void => {
+  it(`dispatches a MARK_AS_READ action, and a PUSH action to the editor when the alert is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <UpdateAlert alert={dummyAlert} />
@@ -87,6 +88,7 @@ describe(`UpdateAlert`, (): void => {
 
     enzymeWrapper.find('[data-test-id="alert"]').hostNodes().simulate('click');
 
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.markAsRead(dummyAlert.id));
     expect(dummyDispatch).toHaveBeenCalledWith(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: dummyAlert.topicId })));
   });
 
