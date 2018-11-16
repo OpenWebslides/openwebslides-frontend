@@ -58,6 +58,7 @@ describe(`apiGetAllByUserId`, (): void => {
             },
             relationships: {
               user: { data: { id: dummyPRSubmittedAlert.userId } },
+              topic: { data: { id: dummyUpdateAlert.topicId } },
               pullRequest: { data: { id: dummyPRSubmittedAlert.pullRequestId } },
               subject: { data: { id: dummyPRSubmittedAlert.subjectUserId } },
             },

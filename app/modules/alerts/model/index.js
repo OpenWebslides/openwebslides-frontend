@@ -33,6 +33,7 @@ export type PullRequestStateType = $Values<typeof pullRequestStateTypes>;
 export type BaseAlert = {|
   +id: string,
   +userId: string,
+  +topicId: string,
   +timestamp: number,
   +read: boolean,
   +type: AlertType,
@@ -40,7 +41,6 @@ export type BaseAlert = {|
 
 export type UpdateAlert = {|
   ...BaseAlert,
-  +topicId: string,
   +count: number,
 |};
 

@@ -42,6 +42,7 @@ const apiGetAllByUserId = function* (action: a.ApiGetAllByUserIdAction): Saga<vo
     const commonProps = {
       id: item.id,
       userId: item.relationships.user.data.id,
+      topicId: item.relationships.topic.data.id,
       timestamp: Number(item.meta.createdAt) * 1000,
       read: item.attributes.read,
       type: alertType,
@@ -51,7 +52,6 @@ const apiGetAllByUserId = function* (action: a.ApiGetAllByUserIdAction): Saga<vo
       case m.alertTypes.TOPIC_UPDATED:
         return {
           ...commonProps,
-          topicId: item.relationships.topic.data.id,
           count: item.attributes.count,
         };
       case m.alertTypes.PR_SUBMITTED:

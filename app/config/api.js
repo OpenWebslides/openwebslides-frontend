@@ -4,4 +4,4 @@
 export const API_URL = window.API_URL || 'http://owsdev.ugent.be/api';
 
 // API version
-export const API_VERSION = '6.0.0';
+export const API_VERSION = '6.1.0';
