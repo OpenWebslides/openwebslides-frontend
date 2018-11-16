@@ -12,6 +12,7 @@ import FetchWrapper from 'components/FetchWrapper';
 import InlineMarkdown from 'components/InlineMarkdown';
 import pullRequests from 'modules/pullRequests';
 import topics from 'modules/topics';
+import users from 'modules/users';
 
 import * as m from '../../../../model';
 
@@ -21,11 +22,13 @@ type PassedProps = {|
 
 type StateProps = {|
   pullRequest: ?pullRequests.model.PullRequest,
+  user: ?users.model.User,
   topicId: ?string,
 |};
 
 type DispatchProps = {|
   fetchPullRequest: () => void,
+  fetchUser: () => void,
   onClickAlert: () => void,
 |};
 
@@ -38,6 +41,7 @@ const mapStateToProps = (state: AppState, props: Props): StateProps => {
 
   return {
     pullRequest,
+    user: users.selectors.getById(state, { id: alert.subjectUserId }),
     topicId: pullRequest == null ? null : pullRequest.targetTopicId,
   };
 };
@@ -52,6 +56,9 @@ const mapDispatchToProps = (
     fetchPullRequest: (): void => {
       dispatch(pullRequests.actions.fetch(alert.pullRequestId));
     },
+    fetchUser: (): void => {
+      dispatch(users.actions.fetch(alert.subjectUserId));
+    },
     onClickAlert: (): void => {
       // TODO: mark alert as read
       // TODO: redirect to PR route
@@ -61,14 +68,15 @@ const mapDispatchToProps = (
 
 class PurePullRequestAlert extends React.Component<Props> {
   componentDidMount(): void {
-    const { pullRequest, fetchPullRequest } = this.props;
+    const { pullRequest, fetchPullRequest, user, fetchUser } = this.props;
     if (pullRequest == null) fetchPullRequest();
+    if (user == null) fetchUser();
   }
 
   renderAlert = (topic: topics.model.Topic): React.Node => {
-    const { t, alert, onClickAlert } = this.props;
+    const { t, alert, user, onClickAlert } = this.props;
 
-    if (topic == null) return null;
+    if (user == null) return null;
 
     const iconName = {
       [m.alertTypes.PR_SUBMITTED]: 'question',
@@ -83,7 +91,7 @@ class PurePullRequestAlert extends React.Component<Props> {
         </Grid.Column>
         <Grid.Column width={13}>
           <InlineMarkdown
-            text={t(`alerts:actionForType.${alert.type}`, { userName: 'TODO', topicTitle: topic.title })}
+            text={t(`alerts:actionForType.${alert.type}`, { userName: user.name, topicTitle: topic.title })}
           />
           <p className="date">{moment(alert.timestamp).fromNow()}</p>
         </Grid.Column>
