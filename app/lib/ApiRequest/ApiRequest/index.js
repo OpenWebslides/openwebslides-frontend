@@ -18,7 +18,7 @@ import fetchApiResponseData from './fetchApiResponseData';
 const JSONAPI_MEDIA_TYPE = 'application/vnd.api+json';
 
 // Open Webslides API media type, including version parameter
-const OWS_MEDIA_TYPE = `application/vnd.openwebslides+json; version=${API_VERSION}`;
+const OWS_MEDIA_TYPE = `application/vnd.openwebslides+json; version="${API_VERSION}"`;
 
 const defaultConfig = {
   apiUrl: API_URL,
