@@ -1,8 +1,10 @@
 // @flow
 
 import * as React from 'react';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
+import { Message, Icon } from 'semantic-ui-react';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
 import { push } from 'connected-react-router';
 
@@ -29,7 +31,7 @@ type DispatchProps = {|
   ) => void,
 |};
 
-type Props = {| ...StateProps, ...DispatchProps, ...RouterProps |};
+type Props = {| ...TranslatorProps, ...StateProps, ...DispatchProps, ...RouterProps |};
 
 const { AuthWrapper } = platform.components;
 const { NewPullRequestCard } = pullRequests.components;
@@ -50,10 +52,8 @@ const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps =>
       targetTopicId: string,
       currentUserId: string,
     ): void => {
-      // TODO: dispatch create new pull request action
       dispatch(pullRequests.actions.create(message, sourceTopicId, targetTopicId, currentUserId));
-      console.log('dispatch(pullRequests.actions.create)');
-      dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { sourceTopicId })));
+      dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: sourceTopicId })));
     },
   };
 };
@@ -66,18 +66,34 @@ class PureNewPullRequestPage extends React.Component<Props> {
   ): void => {
     const { createPullRequest, currentUserId } = this.props;
     if (currentUserId == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
+
     createPullRequest(message, sourceTopicId, targetTopicId, currentUserId);
   };
 
   renderNewPullRequestPage = (topic: topics.model.Topic): React.Node => {
+    const { t, currentUserId } = this.props;
+
+    if (currentUserId == null) return null;
+
     return (
       <AuthWrapper>
         <ContainerPageWrapper>
-          <NewPullRequestCard
-            sourceTopicId={topic.id}
-            targetTopicId={topic.upstreamTopicId}
-            onCreatePullRequest={this.handleCreatePullRequest}
-          />
+          {(topic.upstreamTopicId == null)
+            ? (
+              <Message error={true} icon={true} data-test-id="new-pull-request-card-no-upstream">
+                <Icon name="exclamation triangle" />
+                <Message.Content>
+                  <Message.Header>{t('pullRequests:newPullRequestCard.noUpstream.title')}</Message.Header>
+                  <p>{t('pullRequests:newPullRequestCard.noUpstream.description')}</p>
+                </Message.Content>
+              </Message>
+            ) : (
+              <NewPullRequestCard
+                sourceTopicId={topic.id}
+                targetTopicId={topic.upstreamTopicId}
+                onCreatePullRequest={this.handleCreatePullRequest}
+              />
+            )}
         </ContainerPageWrapper>
       </AuthWrapper>
     );
@@ -100,7 +116,10 @@ class PureNewPullRequestPage extends React.Component<Props> {
   }
 }
 
-const NewPullRequestPage = connect(mapStateToProps, mapDispatchToProps)(PureNewPullRequestPage);
+const NewPullRequestPage = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withNamespaces()(PureNewPullRequestPage));
 
 export { PureNewPullRequestPage };
 export default NewPullRequestPage;

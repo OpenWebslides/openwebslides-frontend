@@ -14,7 +14,7 @@ import topics from 'modules/topics';
 type PassedProps = {|
   sourceTopicId: string,
   targetTopicId: string,
-  onCreatePullRequest: (topicId: string, message: string) => void,
+  onCreatePullRequest: (message: string, sourceTopicId: string, targetTopicId: string) => void,
 |};
 
 type StateProps = {|
@@ -56,8 +56,8 @@ class PureNewPullRequestCard extends React.Component<Props> {
   }
 
   handlePullRequestFormSubmit = (values: PullRequestFormValues): void => {
-    const { onCreatePullRequest, topicId } = this.props;
-    onCreatePullRequest(topicId, values.message);
+    const { onCreatePullRequest, sourceTopic, targetTopic } = this.props;
+    onCreatePullRequest(values.message, sourceTopic.id, targetTopic.id);
   };
 
   render(): React.Node {
@@ -74,7 +74,9 @@ class PureNewPullRequestCard extends React.Component<Props> {
             {t('pullRequests:newPullRequestCard.title')}
           </Card.Header>
           <Card.Description>
-            <InlineMarkdown text={t('pullRequests:newPullRequestCard.description', { topicTitle: sourceTopic.title })} />
+            <p>
+              <InlineMarkdown text={t('pullRequests:newPullRequestCard.description', { topicTitle: sourceTopic.title })} />
+            </p>
             <p>
               From: <strong>{sourceTopic.title}</strong>
             </p>

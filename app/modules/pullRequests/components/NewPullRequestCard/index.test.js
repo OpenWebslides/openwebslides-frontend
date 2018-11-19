@@ -12,7 +12,8 @@ import NewPullRequestCard, { PureNewPullRequestCard } from '.';
 describe(`NewPullRequestCard`, (): void => {
 
   let dummyMessage: string;
-  let dummyTopic: topics.model.Topic;
+  let dummyDownstreamTopic: topics.model.Topic;
+  let dummyUpstreamTopic: topics.model.Topic;
   let dummyTopicsById: topics.model.TopicsById;
   let dummyState: any;
   let dummyDispatch: any;
@@ -20,9 +21,11 @@ describe(`NewPullRequestCard`, (): void => {
 
   beforeEach((): void => {
     dummyMessage = 'dummyMessage';
-    dummyTopic = dummyTopicData.topic;
+    dummyDownstreamTopic = { ...dummyTopicData.topic, id: 'dummyDownstreamTopic', upstreamTopicId: 'dummyUpstreamTopic' };
+    dummyUpstreamTopic = { ...dummyTopicData.topic2, id: 'dummyUpstreamTopic' };
     dummyTopicsById = {
-      [dummyTopic.id]: dummyTopic,
+      [dummyDownstreamTopic.id]: dummyDownstreamTopic,
+      [dummyUpstreamTopic.id]: dummyUpstreamTopic,
     };
     dummyState = {
       ...dummyInitialState,
@@ -43,28 +46,38 @@ describe(`NewPullRequestCard`, (): void => {
       <PureNewPullRequestCard
         {...dummyProviderProps.translatorProps}
         onCreatePullRequest={dummyOnCreatePullRequest}
+        sourceTopic={dummyDownstreamTopic}
+        targetTopic={dummyUpstreamTopic}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`loads the topic, when the topic or its content was not previously present in the state`, (): void => {
-    _.unset(dummyTopicsById, dummyTopic.id);
+    _.unset(dummyTopicsById, dummyDownstreamTopic.id);
 
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <NewPullRequestCard topicId={dummyTopic.id} />
+        <NewPullRequestCard
+          sourceTopicId={dummyDownstreamTopic.id}
+          targetTopicId={dummyUpstreamTopic.id}
+          onCreatePullRequest={dummyOnCreatePullRequest}
+        />
       </DummyProviders>,
     );
 
-    expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetchWithContent(dummyTopic.id));
+    expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyDownstreamTopic.id));
     expect(enzymeWrapper.find('[data-test-id="new-pull-request-card"]').hostNodes()).toHaveLength(0);
   });
 
   it(`renders the topic editor, when the topic and its content were previously present in the state`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <NewPullRequestCard topicId={dummyTopic.id} />
+        <NewPullRequestCard
+          sourceTopicId={dummyDownstreamTopic.id}
+          targetTopicId={dummyUpstreamTopic.id}
+          onCreatePullRequest={dummyOnCreatePullRequest}
+        />
       </DummyProviders>,
     );
 
@@ -75,13 +88,17 @@ describe(`NewPullRequestCard`, (): void => {
   it(`calls the passed onCreatePullRequest function, when its form is submitted`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <NewPullRequestCard topicId={dummyTopic.id} onCreatePullRequest={dummyOnCreatePullRequest} />
+        <NewPullRequestCard
+          sourceTopicId={dummyDownstreamTopic.id}
+          targetTopicId={dummyUpstreamTopic.id}
+          onCreatePullRequest={dummyOnCreatePullRequest}
+        />
       </DummyProviders>,
     );
     const onSubmit = enzymeWrapper.find('[data-test-id="new-pull-request-card-form"]').at(0).props().onSubmit;
 
     onSubmit({ message: dummyMessage });
-    expect(dummyOnCreatePullRequest).toHaveBeenCalledWith(dummyTopic.id, dummyMessage);
+    expect(dummyOnCreatePullRequest).toHaveBeenCalledWith(dummyMessage, dummyDownstreamTopic.id, dummyUpstreamTopic.id);
   });
 
 });
