@@ -2,7 +2,6 @@
 <PROJECT_ROOT>/node_modules/.*
 
 [ignore]
-<PROJECT_ROOT>/node_modules/redux-form/.*
 <PROJECT_ROOT>/node_modules/redux-persist/.*
 
 [include]
