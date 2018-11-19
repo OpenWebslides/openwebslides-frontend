@@ -2,6 +2,7 @@
 
 const global = {
   openwebslides: 'Open Webslides',
+  version: 'Open Webslides v{{version}}',
   navbar: {
     account: 'Account',
     preferences: 'Preferences',

@@ -4,6 +4,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { clearMessages } from 'redux-flash';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
+
+import { VERSION } from 'config/version';
 
 import NavigationBar from './NavigationBar';
 
@@ -16,7 +19,7 @@ type DispatchProps = {|
   onClearFlashMessages: () => void,
 |};
 
-type Props = {| ...PassedProps, ...DispatchProps |};
+type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
 
 const mapDispatchToProps = (dispatch: Dispatch<{ type: string }>): DispatchProps => {
   return {
@@ -34,7 +37,7 @@ class PurePageWrapper extends React.Component<Props> {
   }
 
   render(): React.Node {
-    const { children, className } = this.props;
+    const { t, children, className } = this.props;
 
     return (
       <div className={`page ${className || ''}`}>
@@ -44,12 +47,17 @@ class PurePageWrapper extends React.Component<Props> {
         <div className="page__main">
           {children}
         </div>
+        <div className="page__version">
+          <small>
+            {t('global:version', { version: VERSION })}
+          </small>
+        </div>
       </div>
     );
   }
 }
 
-const PageWrapper = connect(null, mapDispatchToProps)(PurePageWrapper);
+const PageWrapper = connect(null, mapDispatchToProps)(withNamespaces()(PurePageWrapper));
 
 export { PurePageWrapper };
 export default PageWrapper;

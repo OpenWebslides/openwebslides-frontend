@@ -4,7 +4,7 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { clearMessages } from 'redux-flash';
 
-import { DummyProviders } from 'lib/testResources';
+import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
 import PageWrapper, { PurePageWrapper } from '.';
 
@@ -18,7 +18,7 @@ describe(`PageWrapper`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PurePageWrapper onClearFlashMessages={jest.fn()}>
+      <PurePageWrapper onClearFlashMessages={jest.fn()} {...dummyProviderProps.translatorProps}>
         <h1>Lorem ipsum</h1>
         <p>Lorem ipsum dolor sit amet.</p>
       </PurePageWrapper>,
