@@ -42,7 +42,7 @@ class PurePullRequestForm extends React.Component<Props> {
         onSubmit={onSubmit}
       >
         {({ values, handleChange, handleBlur, handleSubmit }) => (
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} id="pull-request-form">
             <ErrorMessage name="message" component={Message} negative={true} />
             <Field
               component={Form.Input}

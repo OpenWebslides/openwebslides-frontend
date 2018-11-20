@@ -1,9 +1,6 @@
 // @flow
 
-import NewPullRequestCard from './NewPullRequestCard';
-
 const index = {
-  NewPullRequestCard,
 };
 
 /* istanbul ignore next */
