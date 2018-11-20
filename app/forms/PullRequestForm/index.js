@@ -5,8 +5,6 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Form, Message } from 'semantic-ui-react';
 import { Formik, Field, ErrorMessage } from 'formik';
 
-import SubmitButtonGroup from 'components/SubmitButtonGroup';
-
 type PullRequestFormValues = {|
   message: string,
 |};
@@ -17,9 +15,6 @@ type PullRequestFormErrors = {|
 
 type PassedProps = {|
   onSubmit: (values: PullRequestFormValues) => void,
-  // Use the component's children to add custom buttons to the form;
-  // if not set, default of [Submit] | [Back] is used.
-  children: React.Node,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
@@ -38,7 +33,7 @@ class PurePullRequestForm extends React.Component<Props> {
   };
 
   render(): React.Node {
-    const { t, onSubmit, children } = this.props;
+    const { t, onSubmit } = this.props;
 
     return (
       <Formik
@@ -59,8 +54,6 @@ class PurePullRequestForm extends React.Component<Props> {
               onBlur={handleBlur}
               value={values.message}
             />
-
-            { (children != null) ? children : (<SubmitButtonGroup />)}
           </Form>
         )}
       </Formik>
