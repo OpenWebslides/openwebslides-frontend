@@ -3,11 +3,12 @@
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Button, Card, Icon, Modal } from 'semantic-ui-react';
+import { Button, Card, Icon } from 'semantic-ui-react';
 
 import { TOPIC_EDITOR_ROUTE, TOPIC_VIEWER_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 import makeRoute from 'lib/makeRoute';
+import RemoveTopicModal from 'modals/RemoveTopicModal';
 
 import actions from '../../../actions';
 import * as m from '../../../model';
@@ -34,52 +35,14 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
     this.setState({ isRemoveModalOpen: true });
   };
 
-  removeModalSubmit = (): void => {
+  handleRemoveModalSubmit = (): void => {
     const { topicId, onRemoveTopic } = this.props;
     onRemoveTopic(topicId);
     this.setState({ isRemoveModalOpen: false });
   };
 
-  removeModalCancel = (): void => {
+  handleRemoveModalCancel = (): void => {
     this.setState({ isRemoveModalOpen: false });
-  };
-
-  renderRemoveModal = (topic: m.Topic): React.Node => {
-    const { isRemoveModalOpen } = this.state;
-    const { t } = this.props;
-
-    return (
-      <Modal
-        size="mini"
-        basic={true}
-        open={isRemoveModalOpen}
-        onClose={this.removeModalCancel}
-        data-test-id="topic-card-remove-modal"
-      >
-        <Modal.Header>{topic.title}</Modal.Header>
-        <Modal.Content>
-          <p>{t(`topics:modals.remove.message`)}</p>
-          <p>{t(`common:undoWarning`)}</p>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button
-            inverted={true}
-            onClick={this.removeModalCancel}
-            data-test-id="topic-card-remove-modal-cancel-button"
-          >
-            {t(`common:button.cancel`)}
-          </Button>
-          <Button
-            color="red"
-            inverted={true}
-            onClick={this.removeModalSubmit}
-            data-test-id="topic-card-remove-modal-submit-button"
-          >
-            {t(`common:button.delete`)}
-          </Button>
-        </Modal.Actions>
-      </Modal>
-    );
   };
 
   renderTopicCardButtons = (topic: m.Topic): React.Node => {
@@ -124,6 +87,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
 
   renderTopicCard = (topic: m.Topic): React.Node => {
     const { t } = this.props;
+    const { isRemoveModalOpen } = this.state;
 
     return (
       <>
@@ -145,7 +109,13 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
           </Card.Content>
           {this.renderTopicCardButtons(topic)}
         </Card>
-        {this.renderRemoveModal(topic)}
+
+        <RemoveTopicModal
+          topic={topic}
+          isOpen={isRemoveModalOpen}
+          onSubmit={this.handleRemoveModalSubmit}
+          onCancel={this.handleRemoveModalCancel}
+        />
       </>
     );
   };

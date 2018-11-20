@@ -21,9 +21,6 @@ const topics = {
     },
   },
   modals: {
-    remove: {
-      message: 'Are you sure you want to delete this topic?',
-    },
     unsavedChanges: {
       message: 'You have unsaved changes, are you sure you wish to discard these changes and leave?',
     },

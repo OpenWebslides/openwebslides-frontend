@@ -131,7 +131,7 @@ describe(`TopicCard`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-card-view-button"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`calls the passed onRemoveTopic function, when the remove modal is opened and its submit button clicked`, (): void => {
+  it(`shows the remove modal when the remove button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <TopicCard
@@ -142,15 +142,12 @@ describe(`TopicCard`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="topic-card-remove-modal"]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('PureRemoveTopicModal').props().isOpen).toBe(false);
     enzymeWrapper.find('[data-test-id="topic-card-remove-button"]').hostNodes().simulate('click');
-    expect(enzymeWrapper.find('[data-test-id="topic-card-remove-modal"]').hostNodes()).toHaveLength(1);
-    enzymeWrapper.find('[data-test-id="topic-card-remove-modal-submit-button"]').hostNodes().simulate('click');
-    expect(enzymeWrapper.find('[data-test-id="topic-card-remove-modal"]').hostNodes()).toHaveLength(0);
-    expect(dummyOnRemoveTopic).toHaveBeenCalledWith(dummyTopic.id);
+    expect(enzymeWrapper.find('PureRemoveTopicModal').props().isOpen).toBe(true);
   });
 
-  it(`does not dispatch a topic REMOVE action, when the remove modal is opened and its cancel button clicked`, (): void => {
+  it(`closes the remove modal when the onCancel handler passed to the RemoveTopicModal is called`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <TopicCard
@@ -161,12 +158,36 @@ describe(`TopicCard`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="topic-card-remove-modal"]').hostNodes()).toHaveLength(0);
+    const onCancel = enzymeWrapper.find('PureRemoveTopicModal').props().onCancel;
+
+    expect(enzymeWrapper.find('PureRemoveTopicModal').props().isOpen).toBe(false);
     enzymeWrapper.find('[data-test-id="topic-card-remove-button"]').hostNodes().simulate('click');
-    expect(enzymeWrapper.find('[data-test-id="topic-card-remove-modal"]').hostNodes()).toHaveLength(1);
-    enzymeWrapper.find('[data-test-id="topic-card-remove-modal-cancel-button"]').hostNodes().simulate('click');
-    expect(enzymeWrapper.find('[data-test-id="topic-card-remove-modal"]').hostNodes()).toHaveLength(0);
-    expect(dummyOnRemoveTopic).toHaveBeenCalledTimes(0);
+    expect(enzymeWrapper.find('PureRemoveTopicModal').props().isOpen).toBe(true);
+    onCancel();
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('PureRemoveTopicModal').props().isOpen).toBe(false);
+  });
+
+  it(`calls the passed onRemoveTopic function, when the onSubmit handler passed to the RemoveTopicModal is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <TopicCard
+          topicId={dummyTopic.id}
+          isCurrentUser={true}
+          onRemoveTopic={dummyOnRemoveTopic}
+        />
+      </DummyProviders>,
+    );
+
+    const onSubmit = enzymeWrapper.find('PureRemoveTopicModal').props().onSubmit;
+
+    expect(enzymeWrapper.find('PureRemoveTopicModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="topic-card-remove-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureRemoveTopicModal').props().isOpen).toBe(true);
+    onSubmit(dummyTopic.id);
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('PureRemoveTopicModal').props().isOpen).toBe(false);
+    expect(dummyOnRemoveTopic).toHaveBeenCalledWith(dummyTopic.id);
   });
 
 });
