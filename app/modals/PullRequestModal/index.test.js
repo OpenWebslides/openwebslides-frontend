@@ -4,13 +4,15 @@ import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
+import { DummyProviders, dummyProviderProps, dummyTopicData, dummyUserData, dummyInitialState } from 'lib/testResources';
 import topics from 'modules/topics';
+import users from 'modules/users';
 
 import PullRequestModal, { PurePullRequestModal } from '.';
 
 describe(`PullRequestModal`, (): void => {
 
+  let dummyCurrentUser: users.model.User;
   let dummyMessage: string;
   let dummyDownstreamTopic: topics.model.Topic;
   let dummyUpstreamTopic: topics.model.Topic;
@@ -21,6 +23,7 @@ describe(`PullRequestModal`, (): void => {
   let dummyOnCancel: any;
 
   beforeEach((): void => {
+    dummyCurrentUser = { ...dummyUserData.user };
     dummyMessage = 'dummyMessage';
     dummyDownstreamTopic = { ...dummyTopicData.topic, id: 'dummyDownstreamTopic', upstreamTopicId: 'dummyUpstreamTopic' };
     dummyUpstreamTopic = { ...dummyTopicData.topic2, id: 'dummyUpstreamTopic' };
@@ -36,6 +39,13 @@ describe(`PullRequestModal`, (): void => {
           ...dummyInitialState.modules.topics,
           byId: dummyTopicsById,
         },
+        platform: {
+          ...dummyInitialState.modules.platform,
+          userAuth: {
+            userId: dummyCurrentUser.id,
+            apiToken: 'foobarToken',
+          },
+        },
       },
     };
     dummyDispatch = jest.fn();
@@ -49,9 +59,28 @@ describe(`PullRequestModal`, (): void => {
         {...dummyProviderProps.translatorProps}
         sourceTopic={dummyDownstreamTopic}
         targetTopic={dummyUpstreamTopic}
+        currentUserId={dummyCurrentUser.id}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
+  });
+
+  it(`does not render with currentUserId NULL, when there is no current user`, (): void => {
+    dummyState.modules.platform.userAuth = null;
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState}>
+        <PullRequestModal
+          isOpen={true}
+          sourceTopicId={dummyDownstreamTopic.id}
+          targetTopicId={dummyUpstreamTopic.id}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
+        />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find(`PurePullRequestModal`).props().currentUserId).toBeNull();
   });
 
   it(`loads the topics, when the topics or its content were not previously present in the state`, (): void => {
@@ -61,9 +90,12 @@ describe(`PullRequestModal`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <PullRequestModal
+          isOpen={true}
           sourceTopicId={dummyDownstreamTopic.id}
           targetTopicId={dummyUpstreamTopic.id}
-          {...dummyProviderProps.translatorProps}
+          currentUserId={dummyCurrentUser.id}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
         />
       </DummyProviders>,
     );
@@ -77,9 +109,12 @@ describe(`PullRequestModal`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <PullRequestModal
-          {...dummyProviderProps.translatorProps}
+          isOpen={true}
           sourceTopicId={dummyDownstreamTopic.id}
           targetTopicId={dummyUpstreamTopic.id}
+          currentUserId={dummyCurrentUser.id}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
         />
       </DummyProviders>,
     );
@@ -96,6 +131,7 @@ describe(`PullRequestModal`, (): void => {
           isOpen={true}
           sourceTopic={dummyDownstreamTopic}
           targetTopic={dummyUpstreamTopic}
+          currentUserId={dummyCurrentUser.id}
         />
       </DummyProviders>,
     );
@@ -130,6 +166,7 @@ describe(`PullRequestModal`, (): void => {
           isOpen={true}
           sourceTopic={dummyDownstreamTopic}
           targetTopic={dummyUpstreamTopic}
+          currentUserId={dummyCurrentUser.id}
           onSubmit={dummyOnSubmit}
           onCancel={dummyOnCancel}
         />
@@ -153,6 +190,7 @@ describe(`PullRequestModal`, (): void => {
           isOpen={true}
           sourceTopic={dummyDownstreamTopic}
           targetTopic={dummyUpstreamTopic}
+          currentUserId={dummyCurrentUser.id}
           onSubmit={dummyOnSubmit}
           onCancel={dummyOnCancel}
           {...dummyProviderProps.translatorProps}

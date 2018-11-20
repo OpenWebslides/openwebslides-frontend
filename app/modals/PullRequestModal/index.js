@@ -10,6 +10,7 @@ import { type ModulesAction, type AppState } from 'types/redux';
 import InlineMarkdown from 'components/InlineMarkdown';
 import PullRequestForm, { type PullRequestFormValues } from 'forms/PullRequestForm';
 import topics from 'modules/topics';
+import platform from 'modules/platform';
 
 type PassedProps = {|
   sourceTopicId: string,
@@ -27,6 +28,7 @@ type PassedProps = {|
 type StateProps = {|
   sourceTopic: ?topics.model.Topic,
   targetTopic: ?topics.model.Topic,
+  currentUserId: ?string,
 |};
 
 type DispatchProps = {|
@@ -37,10 +39,12 @@ type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchPr
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { sourceTopicId, targetTopicId } = props;
+  const userAuth = platform.selectors.getUserAuth(state);
 
   return {
     sourceTopic: topics.selectors.getById(state, { id: sourceTopicId }),
     targetTopic: topics.selectors.getById(state, { id: targetTopicId }),
+    currentUserId: (userAuth != null) ? userAuth.userId : null,
   };
 };
 
@@ -63,17 +67,15 @@ class PurePullRequestModal extends React.Component<Props> {
   };
 
   handlePullRequestFormSubmit = (values: PullRequestFormValues): void => {
-    const { onSubmit, sourceTopicId, targetTopicId } = this.props;
-
-    const currentUserId = '1'; // TODO
+    const { onSubmit, sourceTopicId, targetTopicId, currentUserId } = this.props;
 
     onSubmit(values.message, sourceTopicId, targetTopicId, currentUserId);
   };
 
   render(): React.Node {
-    const { t, isOpen, onCancel, sourceTopic, targetTopic } = this.props;
+    const { t, isOpen, onCancel, sourceTopic, targetTopic, currentUserId } = this.props;
 
-    if (sourceTopic == null || targetTopic == null) {
+    if (sourceTopic == null || targetTopic == null || currentUserId == null) {
       return null;
     }
 

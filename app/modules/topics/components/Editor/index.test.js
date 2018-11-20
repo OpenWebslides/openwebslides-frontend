@@ -5,7 +5,6 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
-
 import pullRequests from 'modules/pullRequests';
 
 import actions from '../../actions';
