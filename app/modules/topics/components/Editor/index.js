@@ -3,17 +3,20 @@
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
-import { Prompt, Link } from 'react-router-dom';
+import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
 import { Button, Header, Icon } from 'semantic-ui-react';
+import { push } from 'connected-react-router';
 
 import { type AppState, type ModulesAction } from 'types/redux';
-import { TOPIC_PR_NEW_ROUTE } from 'config/routes';
+import { TOPIC_EDITOR_ROUTE } from 'config/routes';
+import makeRoute from 'lib/makeRoute';
 import FetchWrapper from 'components/FetchWrapper';
 import { type CommitFormValues } from 'forms/CommitForm';
 import CommitModal from 'modals/CommitModal';
+import PullRequestModal from 'modals/PullRequestModal';
 import contentItems from 'modules/contentItems';
-import makeRoute from 'lib/makeRoute';
+import pullRequests from 'modules/pullRequests';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -31,12 +34,19 @@ type DispatchProps = {|
   onCommit: (values: CommitFormValues) => void,
   onSetDirty: (dirty: boolean) => void,
   onDiscard: () => void,
+  onCreatePullRequest: (
+    message: string,
+    sourceTopicId: string,
+    targetTopicId: string,
+    currentUserId: string,
+  ) => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
 
 type ComponentState = {|
   isCommitModalOpen: boolean,
+  isPRModalOpen: boolean,
 |};
 
 const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
@@ -65,16 +75,30 @@ const mapDispatchToProps = (
     onDiscard: (): void => {
       dispatch(actions.discard(topicId));
     },
+    onCreatePullRequest: (
+      message: string,
+      sourceTopicId: string,
+      targetTopicId: string,
+      currentUserId: string,
+    ): void => {
+      dispatch(pullRequests.actions.create(message, sourceTopicId, targetTopicId, currentUserId));
+      dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: sourceTopicId })));
+    },
   };
 };
 
 class PureEditor extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     isCommitModalOpen: false,
+    isPRModalOpen: false,
   };
 
   showCommitModal = (): void => {
     this.setState({ isCommitModalOpen: true });
+  };
+
+  showPRModal = (): void => {
+    this.setState({ isPRModalOpen: true });
   };
 
   handleCommitModalSubmit = (values: CommitFormValues): void => {
@@ -85,6 +109,21 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   handleCommitModalCancel = (): void => {
     this.setState({ isCommitModalOpen: false });
+  };
+
+  handlePRModalSubmit = (
+    message: string,
+    sourceTopicId: string,
+    targetTopicId: string,
+    currentUserId: string,
+  ): void => {
+    const { onCreatePullRequest } = this.props;
+    onCreatePullRequest(message, sourceTopicId, targetTopicId, currentUserId);
+    this.setState({ isPRModalOpen: false });
+  };
+
+  handlePRModalCancel = (): void => {
+    this.setState({ isPRModalOpen: false });
   };
 
   beforeUnloadHandler = (event: Event): boolean => {
@@ -125,7 +164,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   renderEditor = (topic: m.Topic): React.Node => {
     const { t, onSetDirty } = this.props;
-    const { isCommitModalOpen } = this.state;
+    const { isCommitModalOpen, isPRModalOpen } = this.state;
 
     return (
       <div data-test-id="topic-editor">
@@ -148,18 +187,17 @@ class PureEditor extends React.Component<Props, ComponentState> {
             <Icon name="save" />
             {t('common:button.save')}
           </Button>
-          {topic.upstreamTopicId !== null ? (
+          {topic.upstreamTopicId != null ? (
             <Button
               icon={true}
               labelPosition="left"
+              onClick={this.showPRModal}
               data-test-id="topic-editor-pull-request-button"
-              as={Link}
-              to={makeRoute(TOPIC_PR_NEW_ROUTE, { topicId: topic.id })}
             >
               <Icon name="tasks" />
               {t('common:button.pr')}
             </Button>
-          ) : ''}
+          ) : null}
           <Header floated="left" as="h1" data-test-id="topic-editor-title">
             {topic.title}
             {(topic.isDirty ? '*' : '')}
@@ -176,6 +214,16 @@ class PureEditor extends React.Component<Props, ComponentState> {
           onSubmit={this.handleCommitModalSubmit}
           onCancel={this.handleCommitModalCancel}
         />
+
+        {topic.upstreamTopicId != null ? (
+          <PullRequestModal
+            sourceTopicId={topic.id}
+            targetTopicId={topic.upstreamTopicId}
+            isOpen={isPRModalOpen}
+            onSubmit={this.handlePRModalSubmit}
+            onCancel={this.handlePRModalCancel}
+          />
+        ) : null}
       </div>
     );
   };

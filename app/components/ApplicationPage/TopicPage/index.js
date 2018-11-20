@@ -10,7 +10,6 @@ import NotFoundPage from '../NotFoundPage';
 import ViewerPage from './ViewerPage';
 import EditorPage from './EditorPage';
 import NewTopicPage from './NewTopicPage';
-import PullRequestPage from './PullRequestPage';
 
 type Props = {| |};
 
@@ -20,7 +19,6 @@ const PureTopicPage = (props: Props): React.Node => {
       <Route path={paths.TOPIC_VIEWER_ROUTE} component={ViewerPage} />
       <Route path={paths.TOPIC_EDITOR_ROUTE} component={EditorPage} />
       <Route path={paths.TOPIC_NEW_ROUTE} component={NewTopicPage} />
-      <Route path={paths.TOPIC_PR_ROUTE} component={PullRequestPage} />
       <Route component={NotFoundPage} />
     </Switch>
   );

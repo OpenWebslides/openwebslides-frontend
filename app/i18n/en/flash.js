@@ -10,8 +10,8 @@ const flash = {
     error: 'An error occurred during signout.',
   },
   'pullRequests/CREATE': {
-    success: 'Successfully shared the changes.',
-    error: 'An error occurred while sharing the changes.',
+    success: 'Successfully shared the updates.',
+    error: 'An error occurred while sharing the updates.',
   },
   // #TODO add more messages as necessary
 };
