@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
-import { Header, Menu, Button } from 'semantic-ui-react';
+import { Header, Menu, Icon } from 'semantic-ui-react';
 
 import { type AppState } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
@@ -47,20 +47,18 @@ class PureViewer extends React.Component<Props> {
 
     return (
       <div data-test-id="topic-viewer">
-        <Menu attached={true} borderless={true} className="viewer-menu">
+
+        <Menu secondary={true}>
           <Menu.Menu position="right">
             {topic.upstreamTopicId == null ? (
-              <Menu.Item>
-                <Button
-                  basic={true}
-                  onClick={this.handleForkButtonClick}
-                  data-test-id="topic-viewer-fork-button"
-                >
-                  {t('common:button.fork')}
-                </Button>
+              <Menu.Item
+                onClick={this.handleForkButtonClick}
+                data-test-id="topic-viewer-fork-button"
+              >
+                <Icon name="fork" />
+                {t('common:button.fork')}
               </Menu.Item>
-            ) : ''}
-
+            ) : null}
           </Menu.Menu>
         </Menu>
 
