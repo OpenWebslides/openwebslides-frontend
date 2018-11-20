@@ -19,7 +19,7 @@ describe(`Editor`, (): void => {
   let dummyMessage: string;
   let dummyState: any;
   let dummyDispatch: any;
-  let dummyOnCommitFormSubmit: any;
+  let dummyonCommit: any;
   let dummyOnSetDirty: any;
   let dummyPreventDefault: any;
   let dummyUnloadEvent: any;
@@ -47,7 +47,7 @@ describe(`Editor`, (): void => {
     };
     dummyMessage = 'dummyMessage';
     dummyDispatch = jest.fn();
-    dummyOnCommitFormSubmit = jest.fn();
+    dummyonCommit = jest.fn();
     dummyOnSetDirty = jest.fn();
 
     dummyAddEventListener = jest.fn();
@@ -67,7 +67,7 @@ describe(`Editor`, (): void => {
       <PureEditor
         {...dummyProviderProps.translatorProps}
         topicId={dummyTopic.id}
-        onCommitFormSubmit={dummyOnCommitFormSubmit}
+        onCommit={dummyonCommit}
         onSetDirty={dummyOnSetDirty}
       />,
     );
@@ -98,38 +98,51 @@ describe(`Editor`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-editor"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`renders the save modal and submit/cancel buttons when the save button is clicked and the topic is dirty`, (): void => {
+  it(`shows the commit modal when the commit button is clicked and the topic is dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyDirtyTopic.id} />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-button"][disabled]').hostNodes()).toHaveLength(0);
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal"]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('PureCommitModal').props().isOpen).toBe(false);
     enzymeWrapper.find('[data-test-id="topic-editor-commit-button"]').hostNodes().simulate('click');
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal"]').hostNodes()).toHaveLength(1);
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal-submit-button"]').hostNodes()).toHaveLength(1);
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal-cancel-button"]').hostNodes()).toHaveLength(1);
-
-    // Enzyme does not support event propagation yet, so we cannot test out the onSubmit callback by triggering the submit button
-    // https://github.com/airbnb/enzyme/issues/308
+    expect(enzymeWrapper.find('PureCommitModal').props().isOpen).toBe(true);
   });
 
-  it(`hides the save modal when the cancel button is clicked`, (): void => {
+  it(`closes the save modal when the onCancel handler passed to the CommitModal is called`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyDirtyTopic.id} />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-button"][disabled]').hostNodes()).toHaveLength(0);
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal"]').hostNodes()).toHaveLength(0);
+    const onCancel = enzymeWrapper.find('PureCommitModal').props().onCancel;
+
+    expect(enzymeWrapper.find('PureCommitModal').props().isOpen).toBe(false);
     enzymeWrapper.find('[data-test-id="topic-editor-commit-button"]').hostNodes().simulate('click');
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal"]').hostNodes()).toHaveLength(1);
-    enzymeWrapper.find('[data-test-id="topic-editor-commit-modal-cancel-button"]').hostNodes().simulate('click');
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-modal"]').hostNodes()).toHaveLength(0);
-    expect(dummyDispatch).toHaveBeenCalledTimes(0);
+    expect(enzymeWrapper.find('PureCommitModal').props().isOpen).toBe(true);
+    onCancel();
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('PureCommitModal').props().isOpen).toBe(false);
+  });
+
+  it(`dispatches a topic UPDATE_CONTENT action, and closes the modal when the topic is dirty and the onSubmit handler passed to the CommitModal is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDirtyTopic.id} />
+      </DummyProviders>,
+    );
+
+    const onSubmit = enzymeWrapper.find('PureCommitModal').props().onSubmit;
+
+    expect(enzymeWrapper.find('PureCommitModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="topic-editor-commit-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureCommitModal').props().isOpen).toBe(true);
+    onSubmit({ message: dummyMessage });
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.patchWithContent(dummyDirtyTopic.id, dummyMessage));
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('PureCommitModal').props().isOpen).toBe(false);
   });
 
   it(`disables the save button when the topic is not dirty`, (): void => {
@@ -140,19 +153,6 @@ describe(`Editor`, (): void => {
     );
 
     expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-button"][disabled]').hostNodes()).toHaveLength(1);
-  });
-
-  it(`dispatches a topic UPDATE_CONTENT action, when the topic is dirty and the handleCommitFormSubmit handler is called`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Editor topicId={dummyDirtyTopic.id} />
-      </DummyProviders>,
-    );
-
-    const handleCommitFormSubmit = enzymeWrapper.find('PureEditor').instance().handleCommitFormSubmit;
-    handleCommitFormSubmit({ message: dummyMessage });
-
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.patchWithContent(dummyDirtyTopic.id, dummyMessage));
   });
 
   it(`shows only the title, and does not prevent window unloading when the topic is not dirty`, (): void => {

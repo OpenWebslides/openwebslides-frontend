@@ -9,6 +9,7 @@ import feedItems from './feedItems';
 import flash from './flash';
 import global from './global';
 import library from './library';
+import modals from './modals';
 import platform from './platform';
 import topics from './topics';
 import users from './users';
@@ -23,6 +24,7 @@ const index = {
   flash,
   global,
   library,
+  modals,
   platform,
   topics,
   users,
