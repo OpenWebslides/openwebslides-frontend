@@ -5,11 +5,12 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
-import { Button, Header, Icon, Modal } from 'semantic-ui-react';
+import { Button, Header, Icon } from 'semantic-ui-react';
 
 import { type AppState, type ModulesAction } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
-import CommitForm, { type CommitFormValues } from 'forms/CommitForm';
+import { type CommitFormValues } from 'forms/CommitForm';
+import CommitModal from 'modals/CommitModal';
 import contentItems from 'modules/contentItems';
 
 import actions from '../../actions';
@@ -25,7 +26,7 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  onCommitFormSubmit: (values: CommitFormValues) => void,
+  onCommit: (values: CommitFormValues) => void,
   onSetDirty: (dirty: boolean) => void,
   onDiscard: () => void,
 |};
@@ -53,7 +54,7 @@ const mapDispatchToProps = (
   const { topicId } = props;
 
   return {
-    onCommitFormSubmit: (values: CommitFormValues): void => {
+    onCommit: (values: CommitFormValues): void => {
       dispatch(actions.patchWithContent(topicId, values.message));
     },
     onSetDirty: (dirty: boolean): void => {
@@ -74,13 +75,13 @@ class PureEditor extends React.Component<Props, ComponentState> {
     this.setState({ isCommitModalOpen: true });
   };
 
-  handleCommitFormSubmit = (values: CommitFormValues): void => {
-    const { onCommitFormSubmit } = this.props;
-    onCommitFormSubmit(values);
+  handleCommitModalSubmit = (values: CommitFormValues): void => {
+    const { onCommit } = this.props;
+    onCommit(values);
     this.setState({ isCommitModalOpen: false });
   };
 
-  handleCommitFormCancel = (): void => {
+  handleCommitModalCancel = (): void => {
     this.setState({ isCommitModalOpen: false });
   };
 
@@ -120,50 +121,9 @@ class PureEditor extends React.Component<Props, ComponentState> {
     return (topic == null || !topic.isContentFetched);
   };
 
-  renderCommitModal = (): React.Node => {
-    const { isCommitModalOpen } = this.state;
-    const { t } = this.props;
-
-    return (
-      <Modal
-        size="mini"
-        basic={true}
-        open={isCommitModalOpen}
-        onClose={this.handleCommitFormCancel}
-        data-test-id="topic-editor-commit-modal"
-      >
-        <Modal.Header>{t('topics:modals.commit.title')}</Modal.Header>
-        <Modal.Content>
-          <p>{t('topics:modals.commit.message')}</p>
-          <CommitForm
-            onSubmit={this.handleCommitFormSubmit}
-            data-test-id="topic-editor-commit-form"
-          />
-        </Modal.Content>
-        <Modal.Actions>
-          <Button
-            inverted={true}
-            onClick={this.handleCommitFormCancel}
-            data-test-id="topic-editor-commit-modal-cancel-button"
-          >
-            {t('common:button.cancel')}
-          </Button>
-          <Button
-            type="submit"
-            form="topic-editor-commit-modal-form"
-            color="red"
-            inverted={true}
-            data-test-id="topic-editor-commit-modal-submit-button"
-          >
-            {t('common:button.save')}
-          </Button>
-        </Modal.Actions>
-      </Modal>
-    );
-  };
-
   renderEditor = (topic: m.Topic): React.Node => {
     const { t, onSetDirty } = this.props;
+    const { isCommitModalOpen } = this.state;
 
     return (
       <div data-test-id="topic-editor">
@@ -197,7 +157,11 @@ class PureEditor extends React.Component<Props, ComponentState> {
           setTopicDirty={onSetDirty}
         />
 
-        {this.renderCommitModal()}
+        <CommitModal
+          isOpen={isCommitModalOpen}
+          onSubmit={this.handleCommitModalSubmit}
+          onCancel={this.handleCommitModalCancel}
+        />
       </div>
     );
   };

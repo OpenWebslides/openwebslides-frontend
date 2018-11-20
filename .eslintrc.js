@@ -286,6 +286,7 @@ module.exports = {
           'forms/*',
           'i18n/*',
           'lib/*',
+          'modals/*',
           'modules/*',
           'store/*',
           'types/*',
