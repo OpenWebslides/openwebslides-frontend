@@ -22,7 +22,7 @@ const post = (
       type: 'topics',
       attributes: {
         title,
-        state: 'public_access', // TODO: change when private topics can be created
+        access: 'public', // TODO: change when private topics can be created
         description,
         rootContentItemId,
       },
