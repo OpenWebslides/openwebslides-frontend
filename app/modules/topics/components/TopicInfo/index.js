@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Item } from 'semantic-ui-react';
+import { Item, Icon } from 'semantic-ui-react';
 
 import * as m from '../../model';
 
@@ -40,9 +40,11 @@ const PureTopicInfo = (props: Props): React.Node => {
       </Item>
       <Item>
         <Item.Content>
-          <Item.Header>{t('topics:props.accessLevel')}</Item.Header>
-          { /* TODO: change when it is available in Topic */ }
-          <Item.Description>Public</Item.Description>
+          <Item.Header>{t('topics:props.access.title')}</Item.Header>
+          <Item.Description>{t(`topics:props.access.accessForType.${topic.access}`)}</Item.Description>
+          <Item.Extra>
+            <Icon name="info" /> {t(`topics:props.access.accessDescriptionForType.${topic.access}`)}
+          </Item.Extra>
         </Item.Content>
       </Item>
     </Item.Group>

@@ -6,7 +6,19 @@ const topics = {
     title: 'Title',
     description: 'Description',
     noDescription: 'No description found',
-    accessLevel: 'Access level',
+    access: {
+      title: 'Access level',
+      accessForType: {
+        'topics/PUBLIC': 'Public',
+        'topics/PROTECTED': 'Protected',
+        'topics/PRIVATE': 'Private',
+      },
+      accessDescriptionForType: {
+        'topics/PUBLIC': 'Public topics are visible for everyone on the internet',
+        'topics/PROTECTED': 'Protected topics require users to be signed in on the platform to view it',
+        'topics/PRIVATE': 'Private topics are only visible for the topic owner and the collaborators',
+      },
+    },
   },
   forms: {
     title: 'Title',
