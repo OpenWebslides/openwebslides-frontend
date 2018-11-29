@@ -12,6 +12,12 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
+const apiAccessTypesToTopicAccessTypesMap = {
+  public: m.topicAccessTypes.PUBLIC,
+  protected: m.topicAccessTypes.PROTECTED,
+  private: m.topicAccessTypes.PRIVATE,
+};
+
 const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   const { id } = action.payload;
   const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
@@ -28,6 +34,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     id,
     title: attributes.title,
     description: attributes.description,
+    access: apiAccessTypesToTopicAccessTypesMap[attributes.access],
     userId: relationships.user.data.id,
     rootContentItemId: attributes.rootContentItemId,
     upstreamTopicId: relationships.upstream.data ? relationships.upstream.data.id : null,
@@ -39,4 +46,5 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   yield put(actions.setMultipleInState([topic]));
 };
 
+export { apiAccessTypesToTopicAccessTypesMap };
 export default apiGet;

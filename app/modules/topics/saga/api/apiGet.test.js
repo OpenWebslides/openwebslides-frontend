@@ -1,5 +1,6 @@
 // @flow
 
+import _ from 'lodash';
 import { expectSaga } from 'redux-saga-test-plan';
 import { call, select } from 'redux-saga/effects';
 
@@ -8,6 +9,9 @@ import { UnexpectedHttpResponseError } from 'errors';
 import platform from 'modules/platform';
 
 import actions from '../../actions';
+import * as m from '../../model';
+
+import { apiAccessTypesToTopicAccessTypesMap } from './apiGet';
 
 import { sagas } from '..';
 
@@ -16,6 +20,7 @@ describe(`apiGet`, (): void => {
   let dummyId: string;
   let dummyTitle: string;
   let dummyDescription: string;
+  let dummyAccess: m.TopicAccessType;
   let dummyUserId: string;
   let dummyRootContentId: string;
   let dummyUpstreamTopicId: string;
@@ -27,6 +32,7 @@ describe(`apiGet`, (): void => {
     dummyId = 'dummyId';
     dummyTitle = 'The Title';
     dummyDescription = 'The description.';
+    dummyAccess = m.topicAccessTypes.PUBLIC;
     dummyUserId = 'dummyUserId';
     dummyRootContentId = 'dummyRootContentItemId';
     dummyUpstreamTopicId = 'dummyUpstreamTopicId';
@@ -44,6 +50,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             title: dummyTitle,
             description: dummyDescription,
+            access: _.findKey(apiAccessTypesToTopicAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
           },
           relationships: {
@@ -69,7 +76,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -82,6 +89,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             title: dummyTitle,
             description: dummyDescription,
+            access: _.findKey(apiAccessTypesToTopicAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
           },
           relationships: {
@@ -107,7 +115,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, dummyToken), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, dummyToken)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -120,6 +128,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             title: dummyTitle,
             description: dummyDescription,
+            access: _.findKey(apiAccessTypesToTopicAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
           },
           relationships: {
@@ -147,7 +156,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: dummyUpstreamTopicId, forkedTopicIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: dummyUpstreamTopicId, forkedTopicIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -160,6 +169,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             title: dummyTitle,
             description: dummyDescription,
+            access: _.findKey(apiAccessTypesToTopicAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
           },
           relationships: {
@@ -188,7 +198,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [dummyForkedTopicId1, dummyForkedTopicId2], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [dummyForkedTopicId1, dummyForkedTopicId2], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
