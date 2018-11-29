@@ -27,6 +27,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     email: attributes.email,
     name: attributes.name,
     gravatarHash: attributes.gravatarHash,
+    alertEmails: attributes.alertEmails,
     topicIds: relationships.topics.data.map((item: { type: string, id: string }) => item.id),
   };
   yield put(actions.setMultipleInState([user]));
