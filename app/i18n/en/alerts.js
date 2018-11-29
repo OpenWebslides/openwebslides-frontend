@@ -8,6 +8,7 @@ const alerts = {
     earlier: 'Earlier',
     updated: 'There is {{count}} update available for **{{topicTitle}}**',
     updated_plural: 'There are {{count}} updates available for **{{topicTitle}}**',
+    forked: '**{{userName}}** made a personal copy of your topic **{{topicTitle}}**',
   },
   actionForType: {
     'alertTypes/PR_SUBMITTED': '**{{userName}}** submitted changes on your topic **{{topicTitle}}**',

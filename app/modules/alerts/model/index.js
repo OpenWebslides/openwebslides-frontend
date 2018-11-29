@@ -7,12 +7,14 @@ const TOPIC_UPDATED: 'alertTypes/TOPIC_UPDATED' = 'alertTypes/TOPIC_UPDATED';
 const PR_SUBMITTED: 'alertTypes/PR_SUBMITTED' = 'alertTypes/PR_SUBMITTED';
 const PR_ACCEPTED: 'alertTypes/PR_ACCEPTED' = 'alertTypes/PR_ACCEPTED';
 const PR_REJECTED: 'alertTypes/PR_REJECTED' = 'alertTypes/PR_REJECTED';
+const TOPIC_FORKED: 'alertTypes/TOPIC_FORKED' = 'alertTypes/TOPIC_FORKED';
 
 export const alertTypes = {
   TOPIC_UPDATED,
   PR_SUBMITTED,
   PR_ACCEPTED,
   PR_REJECTED,
+  TOPIC_FORKED,
 };
 
 export type AlertType = $Values<typeof alertTypes>;
@@ -52,9 +54,16 @@ export type PullRequestAlert = {|
   +state: PullRequestStateType,
 |};
 
+export type ForkedAlert = {|
+  ...BaseAlert,
+  // Subject of the alert (the user that forked the topic)
+  +subjectUserId: string,
+|};
+
 export type Alert =
   | UpdateAlert
-  | PullRequestAlert;
+  | PullRequestAlert
+  | ForkedAlert;
 
 // eslint-disable-next-line flowtype/require-exact-type
 export type AlertsById = {

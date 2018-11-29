@@ -17,6 +17,7 @@ const apiAlertTypesMap = {
   pr_submitted: m.alertTypes.PR_SUBMITTED,
   pr_accepted: m.alertTypes.PR_ACCEPTED,
   pr_rejected: m.alertTypes.PR_REJECTED,
+  topic_forked: m.alertTypes.TOPIC_FORKED,
 };
 
 const apiAlertPullRequestStateTypesMap = {
@@ -62,6 +63,11 @@ const apiGetAllByUserId = function* (action: a.ApiGetAllByUserIdAction): Saga<vo
           pullRequestId: item.relationships.pullRequest.data.id,
           subjectUserId: item.relationships.subject.data.id,
           state: apiAlertPullRequestStateTypesMap[item.attributes.state],
+        };
+      case m.alertTypes.TOPIC_FORKED:
+        return {
+          ...commonProps,
+          subjectUserId: item.relationships.subject.data.id,
         };
       default:
         throw new UnsupportedOperationError(`Unsupported alert type: ${alertType}`);
