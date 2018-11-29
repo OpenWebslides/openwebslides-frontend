@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
-import { Header, Menu, Icon } from 'semantic-ui-react';
+import { Header, Menu, Icon, Button } from 'semantic-ui-react';
 
 import { type AppState } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
@@ -50,15 +50,17 @@ class PureViewer extends React.Component<Props> {
 
         <Menu secondary={true}>
           <Menu.Menu position="right">
-            {topic.upstreamTopicId == null ? (
-              <Menu.Item
+            <Menu.Item>
+              <Button
+                disabled={topic.upstreamTopicId != null}
+                basic={true}
                 onClick={this.handleForkButtonClick}
                 data-test-id="topic-viewer-fork-button"
               >
                 <Icon name="fork" />
                 {t('common:button.fork')}
-              </Menu.Item>
-            ) : null}
+              </Button>
+            </Menu.Item>
           </Menu.Menu>
         </Menu>
 

@@ -176,19 +176,21 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
         <Menu secondary={true}>
           <Menu.Menu position="right">
-            {topic.upstreamTopicId != null ? (
-              <Menu.Item
+            <Menu.Item>
+              <Button
+                disabled={topic.upstreamTopicId == null}
+                basic={true}
                 onClick={this.showPRModal}
                 data-test-id="topic-editor-pull-request-button"
               >
                 <Icon name="tasks" />
                 {t('common:button.pr')}
-              </Menu.Item>
-            ) : null}
+              </Button>
+            </Menu.Item>
             <Menu.Item>
               <Button
                 disabled={!topic.isDirty}
-                color="green"
+                primary={true}
                 onClick={this.showCommitModal}
                 data-test-id="topic-editor-commit-button"
               >

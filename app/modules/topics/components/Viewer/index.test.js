@@ -91,7 +91,7 @@ describe(`Viewer`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-viewer-fork-button"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`does not render the topic fork button, when the topic has an upstream`, (): void => {
+  it(`renders the disabled topic fork button, when the topic has an upstream`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Viewer topicId={downstreamTopic.id} onForkTopic={dummyOnForkTopic} />
@@ -99,7 +99,7 @@ describe(`Viewer`, (): void => {
     );
 
     expect(dummyDispatch).toHaveBeenCalledTimes(0);
-    expect(enzymeWrapper.find('[data-test-id="topic-viewer-fork-button"]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="topic-viewer-fork-button"][disabled]').hostNodes()).toHaveLength(1);
   });
 
   it(`calls the passed onForkTopic function, when the fork button is clicked`, (): void => {

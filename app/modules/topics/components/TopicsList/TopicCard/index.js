@@ -50,18 +50,20 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
 
     return (
       <Card.Content extra={true}>
-        <div className={`ui ${isCurrentUser === true ? 'three' : 'two'} buttons`}>
+        <Button.Group className={`ui ${isCurrentUser === true ? 'three' : 'two'} buttons`} inverted={true}>
           {(isCurrentUser !== false) ? (
             <>
               <Button
                 onClick={this.showRemoveModal}
                 icon={true}
+                basic={true}
                 data-test-id="topic-card-remove-button"
               >
                 <Icon name="trash" />
               </Button>
               <Button
                 icon={true}
+                basic={true}
                 as={Link}
                 to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}
                 data-test-id="topic-card-edit-button"
@@ -80,7 +82,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
           >
             <Icon name="eye" />
           </Button>
-        </div>
+        </Button.Group>
       </Card.Content>
     );
   };

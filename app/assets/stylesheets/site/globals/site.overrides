@@ -13,9 +13,6 @@
 & { @import "../../custom/sidebar"; }
 & { @import "../../custom/platform"; }
 
-// User profile
-& { @import "../../custom/topics-list"; }
-
 // Editor
 & { @import "../../custom/editable-text-content"; }
 & { @import "../../custom/content-item-editable-display"; }
