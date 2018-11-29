@@ -57,3 +57,13 @@ export const PRRejectedAlert: alerts.model.PullRequestAlert = {
   subjectUserId: 'dummySubjectUserId',
   state: alerts.model.pullRequestStateTypes.REJECTED,
 };
+
+export const forkedAlert: alerts.model.ForkedAlert = {
+  id: 'dummyForkedAlert',
+  userId: 'dummyUser2Id',
+  topicId: 'dummyTopicId',
+  timestamp: 1540833892,
+  read: false,
+  type: alerts.model.alertTypes.TOPIC_FORKED,
+  subjectUserId: 'dummySubjectUserId',
+};

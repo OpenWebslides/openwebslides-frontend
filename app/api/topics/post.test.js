@@ -33,7 +33,7 @@ describe(`api.topics.post`, (): void => {
         attributes: {
           title: dummyTitle,
           description: dummyDescription,
-          state: 'public_access',
+          access: 'public',
           rootContentItemId: dummyRootContentItemId,
         },
         relationships: {

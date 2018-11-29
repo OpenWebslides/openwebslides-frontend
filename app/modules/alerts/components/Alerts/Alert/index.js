@@ -6,6 +6,7 @@ import * as m from '../../../model';
 
 import UpdateAlert from './UpdateAlert';
 import PullRequestAlert from './PullRequestAlert';
+import ForkedAlert from './ForkedAlert';
 
 type PassedProps = {|
   alert: m.Alert,
@@ -23,6 +24,8 @@ const Alert = (props: Props): React.Node => {
     case m.alertTypes.PR_ACCEPTED:
     case m.alertTypes.PR_REJECTED:
       return <PullRequestAlert alert={(alert: PullRequestAlert)} />;
+    case m.alertTypes.TOPIC_FORKED:
+      return <ForkedAlert alert={(alert: ForkedAlert)} />;
     default:
       return null;
   }

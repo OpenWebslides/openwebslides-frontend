@@ -17,6 +17,7 @@ describe(`Alert`, (): void => {
   let dummyUser: users.model.User;
   let dummyUpdateAlert: m.UpdateAlert;
   let dummyPullRequestAlert: m.PullRequestAlert;
+  let dummyForkedAlert: m.ForkedAlert;
   let dummyState: any;
   let dummyDispatch: any;
 
@@ -25,6 +26,7 @@ describe(`Alert`, (): void => {
     dummyUser = { ...dummyUserData.user };
     dummyUpdateAlert = { ...dummyAlertData.updateAlert1, topicId: dummyTopic.id, userId: dummyUser.id };
     dummyPullRequestAlert = { ...dummyAlertData.PRSubmittedAlert, topicId: dummyTopic.id, userId: dummyUser.id };
+    dummyForkedAlert = { ...dummyAlertData.forkedAlert, topicId: dummyTopic.id, userId: dummyUser.id };
     dummyState = {
       ...dummyInitialState,
       modules: {
@@ -33,6 +35,8 @@ describe(`Alert`, (): void => {
           ...dummyInitialState.modules.alerts,
           byId: {
             [dummyUpdateAlert.id]: dummyUpdateAlert,
+            [dummyPullRequestAlert.id]: dummyPullRequestAlert,
+            [dummyForkedAlert.id]: dummyForkedAlert,
           },
         },
         topics: {
@@ -138,6 +142,34 @@ describe(`Alert`, (): void => {
       );
 
       expect(enzymeWrapper.find('PurePullRequestAlert')).toHaveLength(1);
+    });
+
+  });
+
+  describe(`forked alerts`, (): void => {
+
+    it(`renders without errors`, (): void => {
+      const enzymeWrapper = shallow(
+        <Alert
+          {...dummyProviderProps.translatorProps}
+          alert={dummyForkedAlert}
+          user={dummyUser}
+          topic={dummyTopic}
+          fetchTopic={jest.fn()}
+          fetchUser={jest.fn()}
+        />,
+      );
+      expect(enzymeWrapper.isEmptyRender()).toBe(false);
+    });
+
+    it(`renders an ForkedAlert when the passed alert prop is an alert of type TOPIC_FORKED`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+          <Alert alert={dummyForkedAlert} />
+        </DummyProviders>,
+      );
+
+      expect(enzymeWrapper.find('PureForkedAlert')).toHaveLength(1);
     });
 
   });

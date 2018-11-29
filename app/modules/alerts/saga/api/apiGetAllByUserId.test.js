@@ -22,12 +22,14 @@ describe(`apiGetAllByUserId`, (): void => {
   let dummyToken: string;
   let dummyUpdateAlert: m.UpdateAlert;
   let dummyPRSubmittedAlert: m.PullRequestAlert;
+  let dummyForkedAlert: m.ForkedAlert;
 
   beforeEach((): void => {
     dummyUserId = 'dummyUserId';
     dummyToken = 'dummyToken';
     dummyUpdateAlert = { ...dummyAlertData.updateAlert1 };
     dummyPRSubmittedAlert = { ...dummyAlertData.PRSubmittedAlert };
+    dummyForkedAlert = { ...dummyAlertData.forkedAlert };
   });
 
   it(`sends a GET request to the alerts endpoint, processes the response and puts the alerts in the state`, (): void => {
@@ -64,6 +66,19 @@ describe(`apiGetAllByUserId`, (): void => {
             },
             meta: { createdAt: dummyPRSubmittedAlert.timestamp / 1000 },
           },
+          {
+            id: dummyForkedAlert.id,
+            attributes: {
+              alertType: _.findKey(apiAlertTypesMap, (alertType: string): boolean => alertType === dummyForkedAlert.type),
+              read: false,
+            },
+            relationships: {
+              user: { data: { id: dummyForkedAlert.userId } },
+              topic: { data: { id: dummyForkedAlert.topicId } },
+              subject: { data: { id: dummyForkedAlert.subjectUserId } },
+            },
+            meta: { createdAt: dummyForkedAlert.timestamp / 1000 },
+          },
         ],
       },
     };
@@ -73,7 +88,7 @@ describe(`apiGetAllByUserId`, (): void => {
         [select(platform.selectors.getUserAuth), { userId: dummyUserId, apiToken: dummyToken }],
         [call(api.alerts.getAllByUserId, dummyUserId, dummyToken), dummyApiResponse],
       ])
-      .put(actions.setMultipleInState([dummyUpdateAlert, dummyPRSubmittedAlert]))
+      .put(actions.setMultipleInState([dummyUpdateAlert, dummyPRSubmittedAlert, dummyForkedAlert]))
       .run();
   });
 

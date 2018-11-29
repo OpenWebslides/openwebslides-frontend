@@ -41,4 +41,4 @@ export const API_URL = window.API_URL || 'http://owsdev.ugent.be/api';
  *  In most cases, specifying the ~> operator, and a major and minor versions should be adequate.
  *
  */
-export const API_VERSION = '~>7';
+export const API_VERSION = '~>8';
