@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Header, Grid, Button, Card } from 'semantic-ui-react';
+import { Header, Grid, Button, Card, Icon } from 'semantic-ui-react';
 
 import { TOPIC_NEW_ROUTE } from 'config/routes';
 
@@ -32,6 +32,7 @@ const PureTopicsList = (props: Props): React.Node => {
               className="topics-list__add-button"
               data-test-id="topics-list-add-button"
             >
+              <Icon name="plus" />
               {t('library:buttons.create')}
             </Button>
           ) : null)}

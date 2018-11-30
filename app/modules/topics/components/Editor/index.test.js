@@ -5,6 +5,7 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
+import pullRequests from 'modules/pullRequests';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -15,8 +16,11 @@ describe(`Editor`, (): void => {
 
   let dummyTopic: m.Topic;
   let dummyDirtyTopic: m.Topic;
+  let dummyUpstreamTopic: m.Topic;
+  let dummyDownstreamTopic: m.Topic;
   let dummyTopicsById: m.TopicsById;
   let dummyMessage: string;
+  let dummyCurrentUserId: string;
   let dummyState: any;
   let dummyDispatch: any;
   let dummyonCommit: any;
@@ -31,9 +35,14 @@ describe(`Editor`, (): void => {
     dummyTopic = { ...dummyTopicData.topic, isContentFetched: true };
     dummyDirtyTopic = { ...dummyTopicData.topic, id: 'dummyDirtyTopic', isContentFetched: true, isDirty: true };
     dummyMessage = 'dummyMessage';
+    dummyCurrentUserId = 'dummyCurrentUserId';
+    dummyUpstreamTopic = { ...dummyTopicData.upstream, isContentFetched: true };
+    dummyDownstreamTopic = { ...dummyTopicData.downstream, isContentFetched: true };
     dummyTopicsById = {
       [dummyTopic.id]: dummyTopic,
       [dummyDirtyTopic.id]: dummyDirtyTopic,
+      [dummyUpstreamTopic.id]: dummyUpstreamTopic,
+      [dummyDownstreamTopic.id]: dummyDownstreamTopic,
     };
     dummyState = {
       ...dummyInitialState,
@@ -110,7 +119,7 @@ describe(`Editor`, (): void => {
     expect(enzymeWrapper.find('PureCommitModal').props().isOpen).toBe(true);
   });
 
-  it(`closes the save modal when the onCancel handler passed to the CommitModal is called`, (): void => {
+  it(`closes the commit modal when the onCancel handler passed to the commit modal is called`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyDirtyTopic.id} />
@@ -127,7 +136,7 @@ describe(`Editor`, (): void => {
     expect(enzymeWrapper.find('PureCommitModal').props().isOpen).toBe(false);
   });
 
-  it(`dispatches a topic UPDATE_CONTENT action, and closes the modal when the topic is dirty and the onSubmit handler passed to the CommitModal is called`, (): void => {
+  it(`dispatches a topic UPDATE_CONTENT action, and closes the commit modal when the topic is dirty and the onSubmit handler passed to the commit modal is called`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyDirtyTopic.id} />
@@ -145,7 +154,7 @@ describe(`Editor`, (): void => {
     expect(enzymeWrapper.find('PureCommitModal').props().isOpen).toBe(false);
   });
 
-  it(`disables the save button when the topic is not dirty`, (): void => {
+  it(`disables the commit button when the topic is not dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyTopic.id} />
@@ -153,6 +162,75 @@ describe(`Editor`, (): void => {
     );
 
     expect(enzymeWrapper.find('[data-test-id="topic-editor-commit-button"][disabled]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`shows the pull request modal when the pull request button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDownstreamTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="topic-editor-pull-request-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(true);
+  });
+
+  it(`closes the pull request modal when the onCancel handler passed to the pull request modal is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDownstreamTopic.id} />
+      </DummyProviders>,
+    );
+
+    const onCancel = enzymeWrapper.find('PurePullRequestModal').props().onCancel;
+
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="topic-editor-pull-request-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(true);
+    onCancel();
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
+  });
+
+  it(`dispatches a pull requests CREATE action, and a PUSH action and closes the pull request modal when the onSubmit handler passed to the commit modal is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDownstreamTopic.id} />
+      </DummyProviders>,
+    );
+
+    const onSubmit = enzymeWrapper.find('PurePullRequestModal').props().onSubmit;
+
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="topic-editor-pull-request-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(true);
+    onSubmit(dummyMessage, dummyDownstreamTopic.id, dummyDownstreamTopic.upstreamTopicId, dummyCurrentUserId);
+    expect(dummyDispatch).toHaveBeenCalledWith(pullRequests.actions.create(dummyMessage, dummyDownstreamTopic.id, (dummyDownstreamTopic.upstreamTopicId || ''), dummyCurrentUserId));
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
+  });
+
+  it(`renders the enabled pull request button and modal when the topic has an upstream`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDownstreamTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-pull-request-button"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('PurePullRequestModal')).not.toHaveLength(0);
+  });
+
+  it(`renders the disabled pull request button and modal when the topic has no upstream`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyUpstreamTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-pull-request-button"][disabled]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-pull-request-modal"]').hostNodes()).toHaveLength(0);
   });
 
   it(`shows only the title, and does not prevent window unloading when the topic is not dirty`, (): void => {
@@ -240,6 +318,16 @@ describe(`Editor`, (): void => {
     enzymeWrapper.unmount();
 
     expect(dummyDispatch).toHaveBeenCalledTimes(0);
+  });
+
+  it(`renders the pull request button, when the topic has an upstream`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDownstreamTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-pull-request-button"]').hostNodes()).toHaveLength(1);
   });
 
 });

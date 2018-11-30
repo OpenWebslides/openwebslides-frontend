@@ -11,6 +11,7 @@ import global from './global';
 import library from './library';
 import modals from './modals';
 import platform from './platform';
+import pullRequests from './pullRequests';
 import topics from './topics';
 import users from './users';
 
@@ -26,6 +27,7 @@ const index = {
   library,
   modals,
   platform,
+  pullRequests,
   topics,
   users,
 };
