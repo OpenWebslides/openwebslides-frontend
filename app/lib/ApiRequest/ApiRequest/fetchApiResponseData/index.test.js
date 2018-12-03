@@ -5,6 +5,7 @@ import {
   Http403ForbiddenError,
   Http422ValidationError,
   Http5xxServerError,
+  NetworkError,
   UnexpectedHttpStatusError,
 } from 'errors';
 
@@ -57,7 +58,7 @@ describe(`fetchApiResponseData`, (): void => {
       });
   });
 
-  it(`throws an Http401UnauthorizedError, when the response contains a 401 status code`, async (): Promise<void> => {
+  it(`throws an Http401UnauthorizedError, when the response contains a 401 status code`, async (): Promise<mixed> => {
     fetch.mockResponseOnce('', { status: 401 });
 
     await expect(fetchApiResponseData('', {}))

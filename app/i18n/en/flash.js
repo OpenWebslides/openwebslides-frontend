@@ -1,6 +1,7 @@
 // @flow
 
 const flash = {
+  NetworkError: 'A network error occurred',
   'platform/SIGNIN': {
     success: 'You have been successfully signed in.',
     error: 'Username and/or password were incorrect.',

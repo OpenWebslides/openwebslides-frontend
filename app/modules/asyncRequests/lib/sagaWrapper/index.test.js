@@ -7,6 +7,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { type SagaAction } from 'types/actions';
 import i18next from 'config/i18next';
 import errors from 'modules/errors';
+import { NetworkError } from 'errors';
 
 import actions from '../../actions';
 
@@ -165,6 +166,21 @@ describe(`sagaWrapper`, (): void => {
 
     return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
       .not.put(flashErrorMessage(`flash:${dummyAction.type}.error`, { timeout: false }))
+      .run();
+  });
+
+  it(`displays an error flash message when the passed saga throws a network error`, (): void => {
+    i18next.exists = jest.fn((): boolean => true);
+
+    const dummyError = new NetworkError('dummyError');
+    // eslint-disable-next-line require-yield
+    const dummySaga = function* (action: SagaAction): Saga<void> {
+      throw dummyError;
+    };
+    const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyId', log: true } };
+
+    return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
+      .put(flashErrorMessage(`flash:NetworkError`, { timeout: false }))
       .run();
   });
 
