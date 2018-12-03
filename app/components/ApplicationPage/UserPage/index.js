@@ -9,6 +9,7 @@ import platform from 'modules/platform';
 import NotFoundPage from '../NotFoundPage';
 
 import ProfilePage from './ProfilePage';
+import SettingsPage from './SettingsPage';
 import SignoutPage from './SignoutPage';
 
 type Props = {| |};
@@ -20,6 +21,7 @@ const PureUserPage = (props: Props): React.Node => {
     <AuthWrapper>
       <Switch>
         <Route path={paths.USER_PROFILE_ROUTE} component={ProfilePage} />
+        <Route path={paths.USER_SETTINGS_ROUTE} component={SettingsPage} />
         <Route path={paths.USER_SIGNOUT_ROUTE} component={SignoutPage} />
         <Route component={NotFoundPage} />
       </Switch>

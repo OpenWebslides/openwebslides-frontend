@@ -1,9 +1,11 @@
 // @flow
 
+import Settings from './Settings';
 import UserAccountMenu from './UserAccountMenu';
 import UserProfile from './UserProfile';
 
 const index = {
+  Settings,
   UserAccountMenu,
   UserProfile,
 };

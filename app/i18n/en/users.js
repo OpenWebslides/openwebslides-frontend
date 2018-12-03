@@ -7,8 +7,8 @@ const users = {
   },
   actions: {
     signOut: 'Sign out',
-    viewProfile: 'View profile',
-    editProfile: 'Edit profile',
+    profile: 'My profile',
+    settings: 'Settings',
   },
   forms: {
     email: 'Email',
