@@ -12,6 +12,7 @@ import library from './library';
 import modals from './modals';
 import platform from './platform';
 import pullRequests from './pullRequests';
+import settings from './settings';
 import topics from './topics';
 import users from './users';
 
@@ -28,6 +29,7 @@ const index = {
   modals,
   platform,
   pullRequests,
+  settings,
   topics,
   users,
 };

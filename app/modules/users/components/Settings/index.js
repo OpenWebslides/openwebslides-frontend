@@ -2,11 +2,8 @@
 
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { connect } from 'react-redux';
-import { type Dispatch } from 'redux';
-import { Item, Header } from 'semantic-ui-react';
+import { Item, Header, Tab } from 'semantic-ui-react';
 
-import { type ModulesAction } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
 
 import actions from '../../actions';
@@ -14,21 +11,13 @@ import lib from '../../lib';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
+import ProfilePane from './ProfilePane';
+
 type PassedProps = {|
   userId: string,
 |};
 
-type DispatchProps = {|
-|};
-
-type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
-
-const mapDispatchToProps = (
-  dispatch: Dispatch<ModulesAction>,
-  props: Props,
-): DispatchProps => {
-  return {};
-};
+type Props = {| ...TranslatorProps, ...PassedProps |};
 
 class PureSettings extends React.Component<Props> {
   renderSettings = (user: m.User): React.Node => {
@@ -52,6 +41,21 @@ class PureSettings extends React.Component<Props> {
           </Item>
         </Item.Group>
         <Header as="h3" floated="left">{t('global:title.settings')}</Header>
+        <Tab
+          panes={[
+            { menuItem: t('settings:panes.profile'),
+              render: (): React.Node => {
+                return <ProfilePane user={user} />;
+              },
+            },
+            { menuItem: t('settings:panes.account'),
+              render: (): React.Node => {
+                return <AccountPane user={user} />;
+              },
+            },
+          ]}
+          className="settings"
+        />
       </>
     );
   };
@@ -71,7 +75,7 @@ class PureSettings extends React.Component<Props> {
   }
 }
 
-const Settings = withNamespaces()(connect(null, mapDispatchToProps)(PureSettings));
+const Settings = withNamespaces()(PureSettings);
 
 export { PureSettings };
 export default Settings;
