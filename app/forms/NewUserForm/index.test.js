@@ -5,11 +5,11 @@ import { shallow, mount } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 
-import UserForm, { PureUserForm, type UserFormValues } from '.';
+import NewUserForm, { PureNewUserForm, type NewUserFormValues } from '.';
 
-describe(`UserForm`, (): void => {
+describe(`NewUserForm`, (): void => {
 
-  let dummyFormProps: UserFormValues;
+  let dummyFormProps: NewUserFormValues;
 
   beforeEach((): void => {
     dummyFormProps = {
@@ -23,7 +23,7 @@ describe(`UserForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureUserForm {...dummyProviderProps.translatorProps} />,
+      <PureNewUserForm {...dummyProviderProps.translatorProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -31,7 +31,7 @@ describe(`UserForm`, (): void => {
   it(`renders default buttons if no children are specified`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <UserForm />
+        <NewUserForm />
       </DummyProviders>,
     );
 
@@ -41,16 +41,16 @@ describe(`UserForm`, (): void => {
   it(`allows rendering children instead of default form buttons`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <UserForm>
+        <NewUserForm>
           <p data-test-id="test-form-children">replacement submit buttons would go here</p>
-        </UserForm>
+        </NewUserForm>
       </DummyProviders>,
     );
     expect(enzymeWrapper.find('[data-test-id="test-form-children"]')).toHaveLength(1);
   });
 
   it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PureUserForm {...dummyProviderProps.translatorProps} />);
+    const enzymeWrapper = shallow(<PureNewUserForm {...dummyProviderProps.translatorProps} />);
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});
