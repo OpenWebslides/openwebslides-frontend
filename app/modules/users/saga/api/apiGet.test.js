@@ -17,6 +17,7 @@ describe(`apiGet`, (): void => {
   let dummyEmail: string;
   let dummyName: string;
   let dummyGravatarHash: string;
+  let dummyLocale: string;
   let dummyAlertEmails: boolean;
   let dummyToken: string;
   let dummyTopicId1: string;
@@ -27,6 +28,7 @@ describe(`apiGet`, (): void => {
     dummyEmail = 'test@test.be';
     dummyName = 'Test Tester';
     dummyGravatarHash = 'test';
+    dummyLocale = 'en';
     dummyAlertEmails = true;
     dummyToken = 'foobarToken';
     dummyTopicId1 = 'dummyTopicId1';
@@ -44,6 +46,7 @@ describe(`apiGet`, (): void => {
             email: dummyEmail,
             name: dummyName,
             gravatarHash: dummyGravatarHash,
+            locale: dummyLocale,
             alertEmails: dummyAlertEmails,
           },
           relationships: {
@@ -64,7 +67,7 @@ describe(`apiGet`, (): void => {
         [call(api.users.get, dummyId, dummyToken), dummyApiResponse],
       ])
       .call(api.users.get, dummyId, dummyToken)
-      .put(actions.setMultipleInState([{ id: dummyId, email: dummyEmail, name: dummyName, gravatarHash: dummyGravatarHash, alertEmails: dummyAlertEmails, topicIds: [dummyTopicId1, dummyTopicId2] }]))
+      .put(actions.setMultipleInState([{ id: dummyId, email: dummyEmail, name: dummyName, gravatarHash: dummyGravatarHash, locale: dummyLocale, alertEmails: dummyAlertEmails, topicIds: [dummyTopicId1, dummyTopicId2] }]))
       .run();
   });
 
