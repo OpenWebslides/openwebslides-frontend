@@ -1,12 +1,10 @@
 // @flow
 
 import * as React from 'react';
-import { Trans, withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Form, Message } from 'semantic-ui-react';
+import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { Form, Message, Divider } from 'semantic-ui-react';
 import { Formik, Field, ErrorMessage } from 'formik';
 
-import { AUTH_TOS_ROUTE } from 'config/routes';
-import SubmitButtonGroup from 'components/SubmitButtonGroup';
 import users from 'modules/users';
 
 type ProfileFormValues = {|
@@ -16,9 +14,6 @@ type ProfileFormValues = {|
 type PassedProps = {|
   user: users.model.User,
   onSubmit: (values: ProfileFormValues) => void,
-  // Use the component's children to add custom buttons to the form;
-  // if not set, default of [Submit] | [Back] is used.
-  children: React.Node,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
@@ -63,7 +58,9 @@ class PureProfileForm extends React.Component<Props> {
               data-test-id="profile-form-field-name"
             />
 
-            { (children != null) ? children : (<SubmitButtonGroup />)}
+            <Divider hidden={true} />
+
+            {children}
           </Form>
         )}
       </Formik>
