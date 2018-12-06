@@ -23,8 +23,8 @@ const users = {
     alertEmails: 'Send me important email notifications',
     errors: {
       email: 'Email cannot be empty',
-      oldPassword: 'Old password must be longer than 6 characters',
       password: 'Password must be longer than 6 characters',
+      equalNewPassword: 'New password must be different from old password',
       repeatPassword: 'Passwords must match',
       resetPasswordToken: 'Reset password token is invalid',
       name: 'Name cannot be empty',
