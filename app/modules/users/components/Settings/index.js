@@ -12,6 +12,7 @@ import * as m from '../../model';
 import selectors from '../../selectors';
 
 import ProfilePane from './ProfilePane';
+import AccountPane from './AccountPane';
 
 type PassedProps = {|
   userId: string,
@@ -25,18 +26,16 @@ class PureSettings extends React.Component<Props> {
 
     return (
       <>
-        <Item.Group data-test-id="user-profile-info">
+        <Item.Group data-test-id="user-settings-info">
           <Item>
             <Item.Image src={lib.getGravatarSrc(user, 500)} size="tiny" />
             <Item.Content verticalAlign="middle">
               <Item.Header as="h1">
                 {user.name}
               </Item.Header>
-              { user.email != null && (
-                <Item.Extra data-test-id="user-profile-email">
-                  {user.email}
-                </Item.Extra>
-              )}
+              <Item.Extra data-test-id="user-settings-email">
+                {user.email}
+              </Item.Extra>
             </Item.Content>
           </Item>
         </Item.Group>

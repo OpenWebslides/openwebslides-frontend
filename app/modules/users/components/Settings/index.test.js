@@ -66,7 +66,7 @@ describe(`Settings`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="user-profile-info"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="user-settings-info"]').hostNodes()).toHaveLength(1);
   });
 
   it(`renders the email, when the users's email is present in the user`, (): void => {
@@ -76,19 +76,24 @@ describe(`Settings`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="user-profile-email"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="user-settings-email"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`does not render the email, when user's email is not present in the user`, (): void => {
-    _.unset(dummyUser, 'email');
-
+  it(`renders the active tab contents`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Settings userId={dummyUser.id} />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="user-profile-edit-button"]').hostNodes()).toHaveLength(0);
+    // Tab contents are only rendered when the tab is active
+    enzymeWrapper.find('Tab MenuItem[index=0]').simulate('click');
+    expect(enzymeWrapper.find('PureProfilePane')).toHaveLength(1);
+    expect(enzymeWrapper.find('PureAccountPane')).toHaveLength(0);
+
+    enzymeWrapper.find('Tab MenuItem[index=1]').simulate('click');
+    expect(enzymeWrapper.find('PureProfilePane')).toHaveLength(0);
+    expect(enzymeWrapper.find('PureAccountPane')).toHaveLength(1);
   });
 
 });

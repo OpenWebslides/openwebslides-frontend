@@ -83,6 +83,7 @@ class PureAccountForm extends React.Component<Props> {
               placeholder={t('users:forms.locale')}
               label={t('users:forms.locale')}
               required={true}
+              selection={true}
               value={values.locale}
               options={availableLocales}
             />

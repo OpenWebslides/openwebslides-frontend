@@ -5,10 +5,17 @@ const settings = {
     profile: 'Profile',
     account: 'Account',
   },
-  profile: {
-    button: {
-      update: 'Update profile',
-    },
+  headers: {
+    password: 'Change password',
+    account: 'Change account',
+  },
+  buttons: {
+    profile: 'Update profile',
+    password: 'Update password',
+    account: 'Update account',
+  },
+  locales: {
+    en: 'English',
   },
 };
 
