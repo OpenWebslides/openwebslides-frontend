@@ -12,7 +12,12 @@ const { putAndReturn } = asyncRequests.lib;
 
 const update = function* (action: a.UpdateAction): Saga<void> {
   const { id, name, locale, alertEmails } = action.payload;
-  yield call(putAndReturn, actions.apiPatch(id, name, locale, alertEmails));
+
+  // Update the user in the backend
+  yield call(putAndReturn, actions.apiPatch(id, name, locale, alertEmails, null, null));
+
+  // Fetch the user from the backend so the state is up-to-date
+  yield call(putAndReturn, actions.fetch(id));
 };
 
 export default update;
