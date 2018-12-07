@@ -13,7 +13,7 @@ describe(`PasswordForm`, (): void => {
 
   beforeEach((): void => {
     dummyFormProps = {
-      oldPassword: 'abcd1233',
+      currentPassword: 'abcd1233',
       password: 'abcd1234',
       repeatPassword: 'abcd1234',
     };
@@ -43,16 +43,16 @@ describe(`PasswordForm`, (): void => {
 
     expect(validate(dummyFormProps)).toStrictEqual({});
 
-    expect(validate({ ...dummyFormProps, oldPassword: '' })).toHaveProperty('oldPassword');
-    expect(validate({ ...dummyFormProps, oldPassword: 'abcde' })).toHaveProperty('oldPassword');
-    expect(validate({ ...dummyFormProps, oldPassword: 'abcdef' })).not.toHaveProperty('oldPassword');
+    expect(validate({ ...dummyFormProps, currentPassword: '' })).toHaveProperty('currentPassword');
+    expect(validate({ ...dummyFormProps, currentPassword: 'abcde' })).toHaveProperty('currentPassword');
+    expect(validate({ ...dummyFormProps, currentPassword: 'abcdef' })).not.toHaveProperty('currentPassword');
 
     expect(validate({ ...dummyFormProps, password: '' })).toHaveProperty('password');
     expect(validate({ ...dummyFormProps, password: 'abcde' })).toHaveProperty('password');
     expect(validate({ ...dummyFormProps, password: 'abcdef' })).not.toHaveProperty('password');
 
-    expect(validate({ ...dummyFormProps, oldPassword: 'abcdef', password: 'abcdef' })).toHaveProperty('password');
-    expect(validate({ ...dummyFormProps, oldPassword: 'abcdef', password: 'abcdeg' })).not.toHaveProperty('password');
+    expect(validate({ ...dummyFormProps, currentPassword: 'abcdef', password: 'abcdef' })).toHaveProperty('password');
+    expect(validate({ ...dummyFormProps, currentPassword: 'abcdef', password: 'abcdeg' })).not.toHaveProperty('password');
 
     expect(validate({ ...dummyFormProps, password: 'abcdef', repeatPassword: 'abcdeg' })).toHaveProperty('repeatPassword');
     expect(validate({ ...dummyFormProps, password: 'abcdef', repeatPassword: 'abcdef' })).not.toHaveProperty('repeatPassword');

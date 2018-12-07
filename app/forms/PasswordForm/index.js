@@ -6,7 +6,7 @@ import { Form, Message, Divider } from 'semantic-ui-react';
 import { Formik, Field, ErrorMessage } from 'formik';
 
 type PasswordFormValues = {|
-  oldPassword: string,
+  currentPassword: string,
   password: string,
   repeatPassword: string,
 |};
@@ -23,15 +23,15 @@ class PurePasswordForm extends React.Component<Props> {
 
     const errors = {};
 
-    if (values.oldPassword.length < 6) {
-      errors.oldPassword = t('users:forms.errors.password');
+    if (values.currentPassword.length < 6) {
+      errors.currentPassword = t('users:forms.errors.password');
     }
 
     if (values.password.length < 6) {
       errors.password = t('users:forms.errors.password');
     }
 
-    if (values.password === values.oldPassword) {
+    if (values.password === values.currentPassword) {
       errors.password = t('users:forms.errors.equalNewPassword');
     }
 
@@ -47,25 +47,25 @@ class PurePasswordForm extends React.Component<Props> {
 
     return (
       <Formik
-        initialValues={{ oldPassword: '', password: '', repeatPassword: '' }}
+        initialValues={{ currentPassword: '', password: '', repeatPassword: '' }}
         validate={this.validateForm}
         onSubmit={onSubmit}
       >
         {({ values, handleChange, handleBlur, handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
-            <ErrorMessage name="oldPassword" component={Message} negative={true} />
+            <ErrorMessage name="currentPassword" component={Message} negative={true} />
             <Field
               component={Form.Input}
               type="password"
-              name="oldPassword"
-              id="oldPassword"
-              placeholder={t('users:forms.oldPassword')}
+              name="currentPassword"
+              id="currentPassword"
+              placeholder={t('users:forms.currentPassword')}
               icon="lock"
               iconPosition="left"
               required={true}
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.oldPassword}
+              value={values.currentPassword}
             />
 
             <ErrorMessage name="password" component={Message} negative={true} />
