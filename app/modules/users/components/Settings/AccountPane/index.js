@@ -2,9 +2,8 @@
 
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Tab, Button, Grid, Header } from 'semantic-ui-react';
+import { Tab, Button, Grid, Header, Message } from 'semantic-ui-react';
 
-import AccountForm from 'forms/AccountForm';
 import PasswordForm from 'forms/PasswordForm';
 import users from 'modules/users';
 
@@ -15,35 +14,32 @@ type PassedProps = {|
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
 const PureAccountPane = (props: Props): React.Node => {
-  const { t, i18n, user } = props;
+  const { t } = props;
 
   return (
     <Tab.Pane className="settings">
-      <Grid columns={3} padded="vertically">
+      <Grid columns={1} padded="vertically">
         <Grid.Row>
           <Grid.Column width={5}>
-            <Header as="h4">{t('settings:headers.password')}</Header>
+            <Header as="h4">{t('settings:account.password.title')}</Header>
             <PasswordForm>
               <Button type="submit" primary={true}>
-                {t('settings:buttons.password')}
+                {t('settings:account.password.button')}
               </Button>
             </PasswordForm>
           </Grid.Column>
-          <Grid.Column width={1} />
+        </Grid.Row>
+        <Grid.Row>
           <Grid.Column width={5}>
-            <Header as="h4">{t('settings:headers.account')}</Header>
-            {/* TODO: retrieve available locales from somewhere */}
-            <AccountForm
-              user={user}
-              // eslint-disable-next-line flowtype/no-weak-types
-              availableLocales={i18n.languages.map((language: string): any => {
-                return { key: language, value: language, text: t(`settings:locales.${language}`) };
-              })}
-            >
-              <Button type="submit" primary={true}>
-                {t('settings:buttons.account')}
-              </Button>
-            </AccountForm>
+            <Header as="h4">{t('settings:account.close.title')}</Header>
+            <Message
+              error={true}
+              header={t('settings:account.close.title')}
+              content={t('settings:account.close.info')}
+            />
+            <Button type="submit" primary={true}>
+              {t('settings:account.close.button')}
+            </Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>

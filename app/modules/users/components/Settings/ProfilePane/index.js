@@ -14,17 +14,26 @@ type PassedProps = {|
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
 const PureProfilePane = (props: Props): React.Node => {
-  const { t, user } = props;
+  const { t, i18n, user } = props;
 
   return (
     <Tab.Pane className="settings">
-      <Grid padded="vertically">
-        <Grid.Row width={4}>
-          <ProfileForm user={user}>
-            <Button type="submit" primary={true}>
-              {t('settings:buttons.profile')}
-            </Button>
-          </ProfileForm>
+      <Grid columns={1} padded="vertically">
+        <Grid.Row>
+          <Grid.Column width={5}>
+            {/* TODO: retrieve available locales from somewhere */}
+            <ProfileForm
+              user={user}
+              // eslint-disable-next-line flowtype/no-weak-types
+              availableLocales={i18n.languages.map((language: string): any => {
+                return { key: language, value: language, text: t(`settings:locales.${language}`) };
+              })}
+            >
+              <Button type="submit" primary={true}>
+                {t('settings:profile.updateProfile')}
+              </Button>
+            </ProfileForm>
+          </Grid.Column>
         </Grid.Row>
       </Grid>
     </Tab.Pane>
