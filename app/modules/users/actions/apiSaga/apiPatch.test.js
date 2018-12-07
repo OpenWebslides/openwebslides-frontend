@@ -12,7 +12,6 @@ describe(`apiPatch`, (): void => {
   let dummyAlertEmails: boolean;
   let dummyCurrentPassword: string;
   let dummyPassword: string;
-  let dummyToken: string;
 
   beforeEach((): void => {
     dummyId = 'dummyUserId';
@@ -21,7 +20,6 @@ describe(`apiPatch`, (): void => {
     dummyAlertEmails = false;
     dummyCurrentPassword = 'dummyCurrentPassword';
     dummyPassword = 'dummyPassword';
-    dummyToken = 'dummyToken';
   });
 
   it(`returns an API_PATCH action containing the passed arguments`, (): void => {
@@ -34,10 +32,9 @@ describe(`apiPatch`, (): void => {
         alertEmails: dummyAlertEmails,
         currentPassword: dummyCurrentPassword,
         password: dummyPassword,
-        token: dummyToken,
       },
     };
-    const actualAction = actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken);
+    const actualAction = actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword);
 
     expect(actualAction).toStrictEqual(expectedAction);
   });

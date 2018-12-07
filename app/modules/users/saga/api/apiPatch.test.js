@@ -32,7 +32,7 @@ describe(`apiPatch`, (): void => {
   });
 
   it(`sends a PATCH request for the passed props to the users endpoint, and returns the resulting user ID`, (): void => {
-    const dummyAction = actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken);
+    const dummyAction = actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword);
     const dummyApiResponse = {
       status: 200,
       body: {
@@ -53,7 +53,7 @@ describe(`apiPatch`, (): void => {
   });
 
   it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<mixed> => {
-    const dummyAction = actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken);
+    const dummyAction = actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword);
     const dummyApiResponse = {
       status: 200,
       body: {
@@ -76,7 +76,7 @@ describe(`apiPatch`, (): void => {
   });
 
   it(`throws an UnexpectedHttpResponseError, when the request response doesn't contain a body`, async (): Promise<mixed> => {
-    const dummyAction = actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken);
+    const dummyAction = actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword);
     const dummyApiResponse = { status: 200 };
 
     // Suppress console.error from redux-saga $FlowFixMe

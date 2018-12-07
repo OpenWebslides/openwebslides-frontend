@@ -9,7 +9,6 @@ const apiPatch = (
   alertEmails: ?boolean,
   currentPassword: ?string,
   password: ?string,
-  token: string,
 ): a.ApiPatchAction => {
   return {
     type: a.API_PATCH,
@@ -20,7 +19,6 @@ const apiPatch = (
       alertEmails,
       currentPassword,
       password,
-      token,
     },
   };
 };

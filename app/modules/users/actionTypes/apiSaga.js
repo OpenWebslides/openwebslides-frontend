@@ -34,7 +34,6 @@ export type ApiPatchAction = {|
     alertEmails: ?boolean,
     currentPassword: ?string,
     password: ?string,
-    token: string,
   |},
 |};
 
