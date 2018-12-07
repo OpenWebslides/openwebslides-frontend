@@ -29,14 +29,10 @@ describe(`updatePassword`, (): void => {
     return expectSaga(sagas.updatePassword, dummyAction)
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          if (action.type === a.API_PATCH
-            && action.payload.currentPassword === dummyCurrentPassword
-            && action.payload.password === dummyPassword) {
-            return null;
-          }
-          else return next();
+          return (action.type === a.API_PATCH) ? null : next();
         })],
       ])
+      .call(asyncRequests.lib.putAndReturn, actions.apiPatch(dummyId, undefined, undefined, undefined, dummyCurrentPassword, dummyPassword))
       .run();
   });
 

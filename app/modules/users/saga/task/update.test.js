@@ -31,15 +31,10 @@ describe(`update`, (): void => {
     return expectSaga(sagas.update, dummyAction)
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          if (action.type === a.API_PATCH
-            && action.payload.name === dummyName
-            && action.payload.locale === dummyLocale
-            && action.payload.alertEmails === dummyAlertEmails) {
-            return null;
-          }
-          else return next();
+          return (action.type === a.API_PATCH) ? null : next();
         })],
       ])
+      .call(asyncRequests.lib.putAndReturn, actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, undefined, undefined))
       .call(asyncRequests.lib.putAndReturn, actions.fetch(dummyId))
       .run();
   });
