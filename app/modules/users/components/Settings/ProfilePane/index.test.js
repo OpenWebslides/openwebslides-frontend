@@ -1,13 +1,12 @@
 // @flow
 
-import _ from 'lodash';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps, dummyUserData } from 'lib/testResources';
 
-import actions from '../../actions';
-import * as m from '../../model';
+import actions from '../../../actions';
+import * as m from '../../../model';
 
 import ProfilePane, { PureProfilePane } from '.';
 
@@ -15,10 +14,16 @@ describe(`ProfilePane`, (): void => {
 
   let dummyUser: m.User;
   let dummyDispatch: any;
+  let dummyName: string;
+  let dummyLocale: string;
+  let dummyAlertEmails: boolean;
 
   beforeEach((): void => {
     dummyUser = { ...dummyUserData.user };
     dummyDispatch = jest.fn();
+    dummyName = 'dummyName';
+    dummyLocale = 'dummyLocale';
+    dummyAlertEmails = false;
   });
 
   it(`renders without errors`, (): void => {
@@ -38,20 +43,19 @@ describe(`ProfilePane`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('ProfileForm')).toHaveLength(1);
+    expect(enzymeWrapper.find('PureProfileForm')).toHaveLength(1);
   });
 
-  it(`dispatches a users UPDATE action, when the onRemoveTopic function passed to TopicsList is called`, (): void => {
-    const dummyTopicId = 'dummyTopicId';
+  it(`dispatches a users UPDATE action, when the onUpdateUser function passed to ProfileForm is called`, (): void => {
     const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <ProfilePane userId={dummyUser.id} />
+      <DummyProviders dummyDispatch={dummyDispatch}>
+        <ProfilePane user={dummyUser} />
       </DummyProviders>,
     );
-    const onRemoveTopic = enzymeWrapper.find('PureTopicsList').props().onRemoveTopic;
-    onRemoveTopic(dummyTopicId);
+    const onSubmit = enzymeWrapper.find('PureProfileForm').props().onSubmit;
+    onSubmit({ name: dummyName, locale: dummyLocale, alertEmails: dummyAlertEmails });
 
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.removeTopic(dummyUser.id, dummyTopicId));
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.update(dummyUser.id, dummyName, dummyLocale, dummyAlertEmails));
   });
 
 });
