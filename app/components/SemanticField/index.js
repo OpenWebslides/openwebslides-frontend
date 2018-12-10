@@ -9,7 +9,7 @@ import { Field } from 'formik';
  * See https://github.com/Semantic-Org/Semantic-UI-React/issues/638
  * See https://github.com/turner-industries/formik-semantic-ui
  *
- * Copied from https://github.com/jaredpalmer/formik/issues/148#issuecomment-437159043
+ * Copied and adjusted from https://github.com/jaredpalmer/formik/issues/148#issuecomment-437159043
  *
  */
 // eslint-disable-next-line flowtype/no-weak-types
@@ -18,7 +18,7 @@ const SemanticField = ({ component, ...fieldProps }: any) => (
     {...fieldProps}
     // eslint-disable-next-line react/jsx-no-bind
     render={({
-      field: { value, onBlur, ...field },
+      field: { value, ...field },
       form: { setFieldValue, setFieldTouched },
       ...props
     }) => React.createElement(component, {
@@ -38,7 +38,7 @@ const SemanticField = ({ component, ...fieldProps }: any) => (
       },
       // eslint-disable-next-line flowtype/no-weak-types
       onBlur: (e: Event, blurProps: any): void => {
-        return (blurProps ? setFieldTouched(fieldProps.name, blurProps.value) : onBlur(e));
+        if (blurProps) setFieldTouched(fieldProps.name, (blurProps.value || blurProps.checked));
       },
     })
     }
