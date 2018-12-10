@@ -56,15 +56,16 @@ describe(`AccountPane`, (): void => {
     expect(dummyDispatch).toHaveBeenCalledWith(actions.updatePassword(dummyUser.id, dummyCurrentPassword, dummyPassword));
   });
 
-  it(`dispatches a users DELETE action, when the close account button is clicked`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyDispatch={dummyDispatch}>
-        <AccountPane user={dummyUser} />
-      </DummyProviders>,
-    );
-    enzymeWrapper.find('[data-test-id="account-pane-close-account-button"]').hostNodes().simulate('click');
-
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.delete(dummyUser.id));
-  });
+  // TODO: account removal
+  // it(`dispatches a users DELETE action, when the close account button is clicked`, (): void => {
+  //   const enzymeWrapper = mount(
+  //     <DummyProviders dummyDispatch={dummyDispatch}>
+  //       <AccountPane user={dummyUser} />
+  //     </DummyProviders>,
+  //   );
+  //   enzymeWrapper.find('[data-test-id="account-pane-close-account-button"]').hostNodes().simulate('click');
+  //
+  //   expect(dummyDispatch).toHaveBeenCalledWith(actions.delete(dummyUser.id));
+  // });
 
 });

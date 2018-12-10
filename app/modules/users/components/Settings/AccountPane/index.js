@@ -63,7 +63,12 @@ class PureAccountPane extends React.Component<Props> {
                 header={t('settings:account.close.title')}
                 content={t('settings:account.close.info')}
               />
-              <Button type="submit" primary={true} data-test-id="account-pane-close-account-button">
+              <Button
+                type="submit"
+                primary={true}
+                data-test-id="account-pane-close-account-button"
+                disabled={true}
+              >
                 {t('settings:account.close.button')}
               </Button>
             </Grid.Column>
