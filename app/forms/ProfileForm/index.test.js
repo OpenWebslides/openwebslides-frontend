@@ -64,7 +64,6 @@ describe(`ProfileForm`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="profile-form-field-name"] > input').props().value).toStrictEqual(dummyUser.name);
   });
 
-
   it(`renders a dropdown box with the passed available locales`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>

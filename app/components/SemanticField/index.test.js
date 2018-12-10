@@ -11,7 +11,6 @@ describe(`SemanticField`, (): void => {
 
   let dummyOptions: $ReadOnlyArray<any>;
   let dummyValue: string;
-  let dummyProps: any;
 
   beforeEach((): void => {
     dummyOptions = [
@@ -20,9 +19,6 @@ describe(`SemanticField`, (): void => {
       { key: 'test3', value: 'test3', text: 'Test 3' },
     ];
     dummyValue = 'test1';
-    dummyProps = {
-      setFieldValue: jest.fn(),
-    };
   });
 
   it(`renders without errors`, (): void => {
