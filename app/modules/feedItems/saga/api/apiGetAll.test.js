@@ -11,7 +11,7 @@ import { dummyFeedItemData } from 'lib/testResources';
 import actions from '../../actions';
 import * as m from '../../model';
 
-import { apiEventTypesToFeedItemTypesMap } from './apiGetAll';
+import { apiFeedItemTypesToFeedItemTypesMap } from './apiGetAll';
 
 import { sagas } from '..';
 
@@ -33,7 +33,7 @@ describe(`apiGetAll`, (): void => {
         data: [
           {
             id: dummyFeedItem1.id,
-            attributes: { eventType: _.findKey(apiEventTypesToFeedItemTypesMap, (feedItemType: string): boolean => feedItemType === dummyFeedItem1.type) },
+            attributes: { feedItemType: _.findKey(apiFeedItemTypesToFeedItemTypesMap, (feedItemType: string): boolean => feedItemType === dummyFeedItem1.type) },
             relationships: {
               user: { data: { id: dummyFeedItem1.userId } },
               topic: { data: { id: dummyFeedItem1.topicId } },
@@ -42,7 +42,7 @@ describe(`apiGetAll`, (): void => {
           },
           {
             id: dummyFeedItem2.id,
-            attributes: { eventType: _.findKey(apiEventTypesToFeedItemTypesMap, (feedItemType: string): boolean => feedItemType === dummyFeedItem2.type) },
+            attributes: { feedItemType: _.findKey(apiFeedItemTypesToFeedItemTypesMap, (feedItemType: string): boolean => feedItemType === dummyFeedItem2.type) },
             relationships: {
               user: { data: { id: dummyFeedItem2.userId } },
               topic: { data: { id: dummyFeedItem2.topicId } },
