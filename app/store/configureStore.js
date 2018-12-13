@@ -20,14 +20,14 @@ import { createWhitelistFilter } from 'redux-persist-transform-filter';
 import createSagaMiddleware from 'redux-saga';
 // Connected-react-router
 import createBrowserHistory, { type BrowserHistory } from 'history/createBrowserHistory';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { routerMiddleware } from 'connected-react-router';
 // DevTools
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { type ModulesAction, type AppState } from 'types/redux';
 
-import rootReducer from './rootReducer';
+import createRootReducer from './createRootReducer';
 import rootSaga from './rootSaga';
 
 const configureStore = (): {
@@ -57,7 +57,7 @@ const configureStore = (): {
   };
 
   const store = createStore(
-    connectRouter(history)(persistReducer(persistConfig, rootReducer)),
+    persistReducer(persistConfig, createRootReducer(history)),
     composeWithDevTools(
       applyMiddleware(sagaMiddleware),
       applyMiddleware(flashMiddleware(flashOptions)),

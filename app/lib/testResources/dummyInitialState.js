@@ -1,7 +1,11 @@
 // @flow
 
-import rootReducer from 'store/rootReducer';
+import createBrowserHistory from 'history/createBrowserHistory';
 
-const initialState = rootReducer(undefined, { type: 'dummy' });
+import createRootReducer from 'store/createRootReducer';
+
+const history = createBrowserHistory();
+
+const initialState = createRootReducer(history)(undefined, { type: 'dummy' });
 
 export default initialState;
