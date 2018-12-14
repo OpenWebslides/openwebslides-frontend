@@ -10,6 +10,8 @@
 
 [lints]
 all=error
+# These are caused by flow-typed libdefs and must be fixed on their end.
+deprecated-utility=warn
 # Unsafe types are already prohibited by eslint flowtype/no-weak-types, which also allows for exceptions in test files.
 unclear-type=off
 
