@@ -14,7 +14,7 @@ import { type BrowserHistory } from 'history/createBrowserHistory';
 import modulesReducer from './modulesReducer';
 
 // Don't forget to edit types/redux.js when a new state part is added here.
-const createRootReducer = (history: BrowserHistory) => combineReducers({
+const createRootReducer = (history: BrowserHistory) => combineReducers<_, { type: string }>({
   flash: flashReducer,
   modules: modulesReducer,
   router: connectRouter(history),

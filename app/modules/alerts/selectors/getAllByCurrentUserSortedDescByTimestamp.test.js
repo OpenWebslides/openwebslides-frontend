@@ -31,7 +31,7 @@ describe(`getAllByCurrentUserSortedDescByTimestamp`, (): void => {
   });
 
   it(`returns an array containing all alerts sorted by timestamp in descending order, when there are one or more alerts in the state`, (): void => {
-    const dummyState = {
+    const dummyState: any = {
       modules: {
         alerts: dummyAlertsState,
         platform: dummyPlatformState,
@@ -43,7 +43,7 @@ describe(`getAllByCurrentUserSortedDescByTimestamp`, (): void => {
   });
 
   it(`returns an empty array, when there are no alerts in the state`, (): void => {
-    const dummyState = {
+    const dummyState: any = {
       modules: {
         alerts: { byId: {} },
         platform: dummyPlatformState,
