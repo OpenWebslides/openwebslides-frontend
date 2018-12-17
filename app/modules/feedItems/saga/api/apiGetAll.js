@@ -11,7 +11,7 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-const apiEventTypesToFeedItemTypesMap = {
+const apiFeedItemTypesToFeedItemTypesMap = {
   topic_created: m.feedItemTypes.CREATE,
   topic_updated: m.feedItemTypes.UPDATE,
   topic_forked: m.feedItemTypes.FORK,
@@ -27,12 +27,12 @@ const apiGetAll = function* (action: a.ApiGetAllAction): Saga<void> {
       id: item.id,
       userId: item.relationships.user.data.id,
       topicId: item.relationships.topic.data.id,
-      type: apiEventTypesToFeedItemTypesMap[item.attributes.eventType],
+      type: apiFeedItemTypesToFeedItemTypesMap[item.attributes.feedItemType],
       timestamp: Number(item.meta.createdAt) * 1000,
     };
   });
   yield put(actions.setMultipleInState(data));
 };
 
-export { apiEventTypesToFeedItemTypesMap };
+export { apiFeedItemTypesToFeedItemTypesMap };
 export default apiGetAll;
