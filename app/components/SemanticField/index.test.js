@@ -53,6 +53,7 @@ describe(`SemanticField`, (): void => {
     // the onChange callback by changing the dropdown value
     // https://github.com/airbnb/enzyme/issues/308
     enzymeWrapper.find('Dropdown').props().onChange(null, { value: 'test2' });
+    enzymeWrapper.find('Dropdown').props().onBlur(jest.fn());
     enzymeWrapper.find('Dropdown').props().onBlur(jest.fn(), { value: true });
 
     expect(enzymeWrapper.find('Formik').instance().state.values.test).toStrictEqual('test2');
@@ -83,6 +84,7 @@ describe(`SemanticField`, (): void => {
     // the onChange callback by changing the dropdown value
     // https://github.com/airbnb/enzyme/issues/308
     enzymeWrapper.find('Checkbox').props().onChange(null, { checked: false });
+    enzymeWrapper.find('Checkbox').props().onBlur(jest.fn());
     enzymeWrapper.find('Checkbox').props().onBlur(jest.fn(), { checked: true });
 
     expect(enzymeWrapper.find('Formik').instance().state.values.test).toBe(false);
