@@ -56,4 +56,5 @@ export type ModulesState = {|
 export type AppState = {|
   +flash: {},
   +modules: ModulesState,
+  +router: {},
 |};

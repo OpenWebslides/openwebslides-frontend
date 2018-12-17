@@ -8,13 +8,16 @@
 
 import { combineReducers } from 'redux';
 import { reducer as flashReducer } from 'redux-flash';
+import { connectRouter } from 'connected-react-router';
+import { type BrowserHistory } from 'history/createBrowserHistory';
 
 import modulesReducer from './modulesReducer';
 
 // Don't forget to edit types/redux.js when a new state part is added here.
-const rootReducer = combineReducers({
+const createRootReducer = (history: BrowserHistory) => combineReducers<_, { type: string }>({
   flash: flashReducer,
   modules: modulesReducer,
+  router: connectRouter(history),
 });
 
-export default rootReducer;
+export default createRootReducer;

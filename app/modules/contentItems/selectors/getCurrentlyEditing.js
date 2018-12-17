@@ -3,11 +3,13 @@
 import _ from 'lodash';
 import { createSelector } from 'reselect';
 
+import { type AppState } from 'types/redux';
+
 import * as m from '../model';
 
 import getAllById from './getAllById';
 
-const getCurrentlyEditing = createSelector(
+const getCurrentlyEditing = createSelector<AppState, ?{}, ?m.ContentItem, m.ContentItemsById>(
   [getAllById],
   (contentItemsById: m.ContentItemsById): ?m.ContentItem => {
     const currentlyEditingItem = _.find(

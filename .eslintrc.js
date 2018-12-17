@@ -180,13 +180,7 @@ module.exports = {
     ],
 
     // Prevent lazy typing.
-    'flowtype/no-weak-types': [
-      'error',
-      {
-        // Disable this for 'mixed' since it is not a true weak type (in that invalid uses will still cause errors).
-        'mixed': false,
-      },
-    ],
+    'flowtype/no-weak-types': 'error',
 
     // Enforce delimiter consistency.
     'flowtype/object-type-delimiter': 'error',

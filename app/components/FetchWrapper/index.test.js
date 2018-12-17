@@ -26,6 +26,7 @@ describe(`FetchWrapper`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
+      // $FlowFixMe probably https://github.com/facebook/flow/issues/4743 ?
       <PureFetchWrapper
         render={dummyRender}
         renderPropsAndState={{}}
