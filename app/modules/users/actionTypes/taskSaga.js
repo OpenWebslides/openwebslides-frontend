@@ -14,6 +14,8 @@ export const FORK_TOPIC: 'users/FORK_TOPIC' = 'users/FORK_TOPIC';
 export const REMOVE_TOPIC: 'users/REMOVE_TOPIC' = 'users/REMOVE_TOPIC';
 export const REMOVE_TOPIC_ID: 'users/REMOVE_TOPIC_ID' = 'users/REMOVE_TOPIC_ID';
 export const SIGNUP: 'users/SIGNUP' = 'users/SIGNUP';
+export const UPDATE: 'users/UPDATE' = 'users/UPDATE';
+export const UPDATE_PASSWORD: 'users/UPDATE_PASSWORD' = 'users/UPDATE_PASSWORD';
 
 
 // Action types ------------------------------------------------------------------------------------
@@ -90,14 +92,39 @@ export type SignupAction = {|
   |},
 |};
 
+export type UpdateAction = {|
+  ...TaskSagaAction,
+  type: typeof UPDATE,
+  payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
+    id: string,
+    name: string,
+    locale: string,
+    alertEmails: boolean,
+  |},
+|};
+
+export type UpdatePasswordAction = {|
+  ...TaskSagaAction,
+  type: typeof UPDATE_PASSWORD,
+  payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
+    id: string,
+    currentPassword: string,
+    password: string,
+  |},
+|};
+
 
 // TaskSaga action ---------------------------------------------------------------------------------
 
 export type UsersTaskSagaAction =
   | AddTopicAction
   | AddTopicIdAction
-  | SignupAction
   | FetchAction
   | ForkTopicAction
   | RemoveTopicAction
-  | RemoveTopicIdAction;
+  | RemoveTopicIdAction
+  | SignupAction
+  | UpdateAction
+  | UpdatePasswordAction;

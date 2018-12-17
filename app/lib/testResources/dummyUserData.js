@@ -7,6 +7,7 @@ export const user: users.model.User = {
   name: 'Test Tester',
   email: 'test@test.be',
   gravatarHash: 'abcdefghij',
+  locale: 'en',
   alertEmails: true,
   topicIds: [],
 };
@@ -16,6 +17,7 @@ export const user2: users.model.User = {
   name: 'Lorem ipsum',
   email: null,
   gravatarHash: 'klmnopqrst',
+  locale: 'en',
   alertEmails: true,
   topicIds: [],
 };
@@ -25,6 +27,7 @@ export const user3: users.model.User = {
   name: 'Dummyuser',
   email: 'dummy.user@test.com',
   gravatarHash: 'uvwxyzabcd',
+  locale: 'en',
   alertEmails: true,
   topicIds: [],
 };

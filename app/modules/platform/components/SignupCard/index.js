@@ -5,7 +5,7 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Card, Button } from 'semantic-ui-react';
 
 import BackButton from 'components/BackButton';
-import UserForm, { type UserFormValues } from 'forms/UserForm';
+import NewUserForm, { type NewUserFormValues } from 'forms/NewUserForm';
 
 type PassedProps = {|
   onSignup: (email: string, name: string, password: string, tosAccepted: boolean) => void,
@@ -14,7 +14,7 @@ type PassedProps = {|
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
 class PureSignupCard extends React.Component<Props> {
-  handleUserFormSubmit = (values: UserFormValues): void => {
+  handleNewUserFormSubmit = (values: NewUserFormValues): void => {
     const { onSignup } = this.props;
     onSignup(values.email, values.name, values.password, values.tosAccepted);
   };
@@ -33,7 +33,7 @@ class PureSignupCard extends React.Component<Props> {
           </Card.Description>
         </Card.Content>
         <Card.Content>
-          <UserForm onSubmit={this.handleUserFormSubmit}>
+          <NewUserForm onSubmit={this.handleNewUserFormSubmit}>
             <Button.Group fluid={true} inverted={true}>
 
               <BackButton />
@@ -41,7 +41,7 @@ class PureSignupCard extends React.Component<Props> {
                 {t('platform:signupCard.button.submit')}
               </Button>
             </Button.Group>
-          </UserForm>
+          </NewUserForm>
         </Card.Content>
       </Card>
     );

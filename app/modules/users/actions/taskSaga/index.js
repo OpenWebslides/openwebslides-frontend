@@ -7,6 +7,8 @@ import forkTopic from './forkTopic';
 import removeTopic from './removeTopic';
 import removeTopicId from './removeTopicId';
 import signup from './signup';
+import update from './update';
+import updatePassword from './updatePassword';
 
 const taskSagaActions = {
   addTopic,
@@ -16,6 +18,8 @@ const taskSagaActions = {
   removeTopic,
   removeTopicId,
   signup,
+  update,
+  updatePassword,
 };
 
 export default taskSagaActions;

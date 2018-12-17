@@ -5,7 +5,7 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 
-import { USER_PROFILE_ROUTE, USER_SIGNOUT_ROUTE } from 'config/routes';
+import { USER_PROFILE_ROUTE, USER_SETTINGS_ROUTE, USER_SIGNOUT_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 
 import actions from '../../actions';
@@ -26,7 +26,10 @@ class PureUserAccountMenu extends React.Component<Props> {
       <Dropdown text={user.name} pointing={true} item={true} data-test-id="user-account-menu">
         <Dropdown.Menu>
           <Dropdown.Item as={Link} to={USER_PROFILE_ROUTE}>
-            {t('users:actions.viewProfile')}
+            {t('users:actions.profile')}
+          </Dropdown.Item>
+          <Dropdown.Item as={Link} to={USER_SETTINGS_ROUTE}>
+            {t('users:actions.settings')}
           </Dropdown.Item>
           <Dropdown.Item as={Link} to={USER_SIGNOUT_ROUTE}>
             {t('users:actions.signOut')}

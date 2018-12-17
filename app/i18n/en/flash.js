@@ -13,6 +13,14 @@ const flash = {
     success: 'Successfully shared the updates.',
     error: 'An error occurred while sharing the updates.',
   },
+  'users/UPDATE': {
+    success: 'Your profile was successfully updated',
+    error: 'An error occurred while updating your profile',
+  },
+  'users/UPDATE_PASSWORD': {
+    success: 'Your password was successfully updated',
+    error: 'An error occurred while updating your password',
+  },
   // #TODO add more messages as necessary
 };
 

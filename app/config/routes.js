@@ -9,6 +9,7 @@ export const TOPIC_NEW_ROUTE = '/topic/new';
 // USER
 export const USER_ROUTE = '/user';
 export const USER_SIGNOUT_ROUTE = '/user/signout';
+export const USER_SETTINGS_ROUTE = '/user/settings';
 export const USER_PROFILE_ROUTE = '/user/profile';
 export const USER_PROFILE_BY_ID_ROUTE = '/user/profile/:userId';
 // AUTH

@@ -8,7 +8,7 @@ import { Formik, Field, ErrorMessage } from 'formik';
 import { AUTH_TOS_ROUTE } from 'config/routes';
 import SubmitButtonGroup from 'components/SubmitButtonGroup';
 
-type UserFormValues = {|
+type NewUserFormValues = {|
   email: string,
   password: string,
   repeatPassword: string,
@@ -17,7 +17,7 @@ type UserFormValues = {|
 |};
 
 type PassedProps = {|
-  onSubmit: (values: UserFormValues) => void,
+  onSubmit: (values: NewUserFormValues) => void,
   // Use the component's children to add custom buttons to the form;
   // if not set, default of [Submit] | [Back] is used.
   children: React.Node,
@@ -25,8 +25,8 @@ type PassedProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
-class PureUserForm extends React.Component<Props> {
-  validateForm = (values: UserFormValues): UserFormValues => {
+class PureNewUserForm extends React.Component<Props> {
+  validateForm = (values: NewUserFormValues): NewUserFormValues => {
     const { t } = this.props;
 
     const errors = {};
@@ -150,8 +150,8 @@ class PureUserForm extends React.Component<Props> {
   }
 }
 
-const UserForm = withNamespaces()(PureUserForm);
+const NewUserForm = withNamespaces()(PureNewUserForm);
 
-export type { UserFormValues };
-export { PureUserForm };
-export default UserForm;
+export type { NewUserFormValues };
+export { PureNewUserForm };
+export default NewUserForm;

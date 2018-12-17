@@ -13,6 +13,7 @@ const global = {
   title: {
     library: 'Library',
     profile: 'Profile',
+    settings: 'Settings',
     topics: 'Topics',
   },
 };

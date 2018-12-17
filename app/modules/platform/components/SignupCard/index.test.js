@@ -27,7 +27,7 @@ describe(`SignupCard`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureSignupCard {...dummyProviderProps.translatorProps} onUserFormSubmit={jest.fn()} />,
+      <PureSignupCard {...dummyProviderProps.translatorProps} onNewUserFormSubmit={jest.fn()} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -38,9 +38,9 @@ describe(`SignupCard`, (): void => {
         <SignupCard onSignup={dummyOnSignup} />
       </DummyProviders>,
     );
-    const handleUserFormSubmit = enzymeWrapper.find('PureSignupCard').instance().handleUserFormSubmit;
+    const handleNewUserFormSubmit = enzymeWrapper.find('PureSignupCard').instance().handleNewUserFormSubmit;
 
-    handleUserFormSubmit({ email: dummyEmail, name: dummyName, password: dummyPassword, tosAccepted: dummyTosAccepted });
+    handleNewUserFormSubmit({ email: dummyEmail, name: dummyName, password: dummyPassword, tosAccepted: dummyTosAccepted });
     expect(dummyOnSignup).toHaveBeenCalledWith(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
   });
 

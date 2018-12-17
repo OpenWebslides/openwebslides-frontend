@@ -5,6 +5,7 @@ export type User = {|
   +email: ?string,
   +name: string,
   +gravatarHash: string,
+  +locale: ?string,
   +alertEmails: ?boolean,
   +topicIds: $ReadOnlyArray<string>,
 |};
