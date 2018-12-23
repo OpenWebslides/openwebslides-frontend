@@ -27,7 +27,7 @@ const paths = {
 };
 
 // Webpack base configuration
-const baseConfig = {
+const createBaseConfig = (/* env */) => ({
 
   entry: ['@babel/polyfill', path.join(paths.APP, 'index.js')],
 
@@ -107,10 +107,10 @@ const baseConfig = {
     },
   },
 
-};
+});
 
 // Webpack developemnt mode additional configuration
-const devConfig = {
+const createDevConfig = (env) => ({
 
   devServer: {
     // Enable hot reloading
@@ -122,7 +122,7 @@ const devConfig = {
     new webpack.HotModuleReplacementPlugin(),
     // Allow specifying an API_URL override on the command line
     new webpack.DefinePlugin({
-      'window.API_URL': process.env.API_URL ? `"${process.env.API_URL}"` : false,
+      'window.API_URL': (env != null && env.API_URL != null) ? `"${env.API_URL}"` : false,
     }),
     new HtmlWebpackPlugin({
       template: path.join(paths.PUBLIC, 'index.dev.html'),
@@ -143,10 +143,10 @@ const devConfig = {
     ],
   },
 
-};
+});
 
 // Webpack production mode additional configuration
-const prodConfig = {
+const createProdConfig = (/* env */) => ({
 
   optimization: {
     minimizer: [
@@ -193,13 +193,13 @@ const prodConfig = {
     ],
   },
 
-};
+});
 
 module.exports = (env, argv) => {
   if (argv.mode === 'development') {
-    return merge(baseConfig, devConfig);
+    return merge(createBaseConfig(env), createDevConfig(env));
   }
   else {
-    return merge(baseConfig, prodConfig);
+    return merge(createBaseConfig(env), createProdConfig(env));
   }
 };
