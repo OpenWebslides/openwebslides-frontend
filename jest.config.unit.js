@@ -20,8 +20,8 @@ module.exports = {
   ],
   // Mock these file types so their imports do not cause errors.
   moduleNameMapper: {
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|flow)$': '<rootDir>/mocks/fileMock.js',
-    '\\.(css|less)$': '<rootDir>/mocks/styleMock.js',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|flow)$': '<rootDir>/jest/unit/mocks/fileMock.js',
+    '\\.(css|less)$': '<rootDir>/jest/unit/mocks/styleMock.js',
   },
   // Setup files for mock modules.
   setupFiles: [
@@ -29,5 +29,9 @@ module.exports = {
     'jest-localstorage-mock',
   ],
   // Path to the jest setup script.
-  setupTestFrameworkScriptFile: '<rootDir>/jest/setupTests.js',
+  setupTestFrameworkScriptFile: '<rootDir>/jest/unit/setupTests.js',
+  // Only run tests in the /app/ folder.
+  testMatch: [
+    '<rootDir>/app/**/*.test.js',
+  ],
 };
