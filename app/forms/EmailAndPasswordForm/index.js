@@ -62,6 +62,7 @@ class PureEmailAndPasswordForm extends React.Component<Props> {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.email}
+              data-test-id="email-field"
             />
 
             <ErrorMessage name="password" component={Message} negative={true} />
@@ -77,6 +78,7 @@ class PureEmailAndPasswordForm extends React.Component<Props> {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
+              data-test-id="password-field"
             />
 
             { (children != null) ? children : (<SubmitButtonGroup />)}

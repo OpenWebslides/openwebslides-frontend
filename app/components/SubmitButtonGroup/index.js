@@ -14,7 +14,7 @@ const PureSubmitButtonGroup = (props: Props): React.Node => {
   return (
     <Button.Group fluid={true} inverted={true}>
       <BackButton />
-      <Button type="submit" primary={true}>
+      <Button type="submit" primary={true} data-test-id="submit-button">
         {t('common:button.submit')}
       </Button>
     </Button.Group>

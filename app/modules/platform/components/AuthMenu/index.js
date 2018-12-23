@@ -13,7 +13,7 @@ const PureAuthMenu = (props: Props): React.Node => {
   const { t } = props;
 
   return (
-    <Menu.Menu position="right">
+    <Menu.Menu position="right" data-test-id="auth-menu">
       <Menu.Item as={Link} to={AUTH_SIGNUP_ROUTE}>
         <Icon name="user" />
         {t('global:navbar.signup')}

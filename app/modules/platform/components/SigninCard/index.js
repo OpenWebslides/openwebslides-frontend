@@ -38,7 +38,7 @@ const PureSigninCard = (props: Props): React.Node => {
   const { t, onEmailAndPasswordFormSubmit } = props;
 
   return (
-    <Card centered={true}>
+    <Card centered={true} data-test-id="signin-card">
       <Card.Content>
         <Card.Header>
           {t('platform:signinCard.title')}
@@ -50,10 +50,10 @@ const PureSigninCard = (props: Props): React.Node => {
       <Card.Content>
         <EmailAndPasswordForm onSubmit={onEmailAndPasswordFormSubmit}>
           <Button.Group fluid={true} inverted={true}>
-            <Button as={Link} to={AUTH_SIGNUP_ROUTE} basic={true}>
+            <Button as={Link} to={AUTH_SIGNUP_ROUTE} basic={true} data-test-id="signup-button">
               {t('platform:signinCard.link.signup')}
             </Button>
-            <Button type="submit" primary={true}>
+            <Button type="submit" primary={true} data-test-id="submit-button">
               {t('platform:signinCard.button.submit')}
             </Button>
           </Button.Group>
