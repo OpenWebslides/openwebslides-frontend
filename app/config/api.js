@@ -8,7 +8,7 @@
  * production runtime with the correct base URL configured for that server.
  * In development, it is also possible to use the API_URL environment variable.
  *
- * $ API_URL=http://localhost:3000/api yarn run dev-server
+ * $ yarn run dev-server --env.API_URL=http://localhost:3000/api
  *
  */
 export const API_URL = window.API_URL || 'http://owsdev.ugent.be/api';
