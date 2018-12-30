@@ -27,7 +27,7 @@ const paths = {
 };
 
 // Webpack base configuration
-const createBaseConfig = (/* env */) => ({
+const createBaseConfig = (env) => ({
 
   entry: ['@babel/polyfill', path.join(paths.APP, 'index.js')],
 
@@ -91,6 +91,10 @@ const createBaseConfig = (/* env */) => ({
   plugins: [
     // Generate favicons in different sizes and formats
     new FaviconsWebpackPlugin(path.join(__dirname, 'app/assets/images/logo/logo-color.svg')),
+    // Allow specifying an API_URL override on the command line
+    new webpack.DefinePlugin({
+      'window.API_URL': (env != null && env.API_URL != null) ? `"${env.API_URL}"` : false,
+    }),
   ],
 
   resolve: {
@@ -110,7 +114,7 @@ const createBaseConfig = (/* env */) => ({
 });
 
 // Webpack developemnt mode additional configuration
-const createDevConfig = (env) => ({
+const createDevConfig = (/* env */) => ({
 
   devServer: {
     // Enable hot reloading
@@ -120,10 +124,6 @@ const createDevConfig = (env) => ({
   plugins: [
     // Include hot reloading functionality
     new webpack.HotModuleReplacementPlugin(),
-    // Allow specifying an API_URL override on the command line
-    new webpack.DefinePlugin({
-      'window.API_URL': (env != null && env.API_URL != null) ? `"${env.API_URL}"` : false,
-    }),
     new HtmlWebpackPlugin({
       template: path.join(paths.PUBLIC, 'index.dev.html'),
     }),
