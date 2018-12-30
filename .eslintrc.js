@@ -321,7 +321,7 @@ module.exports = {
     'jest/expect-expect': [
       'error',
       {
-        'assertFunctionNames': ['expect', 'expectSaga'],
+        'assertFunctionNames': ['expect', 'expectSaga', 'nightmare.wait'],
       },
     ],
 
@@ -475,6 +475,17 @@ module.exports = {
         'flowtype/no-weak-types': 'off',
         'import/max-dependencies': 'off',
         'react/jsx-no-bind': 'off',
+      },
+    },
+    {
+      'files': [
+        '*.e2e.test.js',
+      ],
+      'rules': {
+        // Don't complain when importing nightmare.
+        'import/no-extraneous-dependencies': 'off',
+        // Allow e2e test descriptions to start with an uppercase letter.
+        'jest/lowercase-name': 'off',
       },
     },
   ],

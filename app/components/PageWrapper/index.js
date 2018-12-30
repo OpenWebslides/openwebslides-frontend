@@ -40,7 +40,7 @@ class PurePageWrapper extends React.Component<Props> {
     const { t, children, className } = this.props;
 
     return (
-      <div className={`page ${className || ''}`}>
+      <div className={`page ${className || ''}`} data-test-id="page">
         <div className="page__header">
           <NavigationBar />
         </div>

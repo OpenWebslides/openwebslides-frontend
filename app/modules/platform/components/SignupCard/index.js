@@ -23,7 +23,7 @@ class PureSignupCard extends React.Component<Props> {
     const { t } = this.props;
 
     return (
-      <Card centered={true}>
+      <Card centered={true} data-test-id="signup-card">
         <Card.Content>
           <Card.Header>
             {t('platform:signupCard.title')}
@@ -35,9 +35,8 @@ class PureSignupCard extends React.Component<Props> {
         <Card.Content>
           <NewUserForm onSubmit={this.handleNewUserFormSubmit}>
             <Button.Group fluid={true} inverted={true}>
-
               <BackButton />
-              <Button type="submit" primary={true}>
+              <Button type="submit" primary={true} data-test-id="submit-button">
                 {t('platform:signupCard.button.submit')}
               </Button>
             </Button.Group>

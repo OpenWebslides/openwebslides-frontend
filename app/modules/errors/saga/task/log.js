@@ -18,7 +18,7 @@ const log = function* (action: a.LogAction): Saga<void> {
   yield put(actions.addToState(loggedError));
 
   // Output the error to the console.
-  yield call(console.error, errorObject);
+  yield call(console.error, `${errorObject.constructor.name}: ${errorObject.message}`);
 };
 
 export default log;

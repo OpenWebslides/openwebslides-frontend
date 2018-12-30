@@ -1,6 +1,9 @@
 // @flow
 
+import ErrorBoundary from './ErrorBoundary';
+
 const index = {
+  ErrorBoundary,
 };
 
 /* istanbul ignore next */
