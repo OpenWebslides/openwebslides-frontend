@@ -35,12 +35,15 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     onKeyDown: undefined,
   };
 
+  // bug: see https://github.com/yannickcr/eslint-plugin-react/issues/2061
+  /* eslint-disable react/no-unused-state */
   state: ComponentState = {
     initialIsActive: false,
     isActive: false,
     initialText: '',
     text: '',
   };
+  /* eslint-enable */
 
   componentDidUpdate(): void {
     const { isActive } = this.state;

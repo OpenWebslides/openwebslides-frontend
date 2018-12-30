@@ -36,7 +36,7 @@ const PureApplication = (props: Props): React.Node => {
   );
 };
 
-const Application = hot(module)(PureApplication);
+const Application = hot(module)<Props, typeof PureApplication>(PureApplication);
 
 export { PureApplication };
 export default Application;
