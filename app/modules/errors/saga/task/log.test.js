@@ -29,7 +29,7 @@ describe(`log`, (): void => {
         errorObject: dummyError,
         timestamp: dummyTimestamp,
       }))
-      .call(console.error, dummyError)
+      .call(console.error, `${dummyError.constructor.name}: ${dummyError.message}`)
       .run();
   });
 

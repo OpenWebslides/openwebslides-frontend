@@ -12,6 +12,7 @@ import { type BrowserHistory } from 'history/createBrowserHistory';
 
 import i18nextConfig from 'config/i18next';
 import ApplicationPage from 'components/ApplicationPage';
+import errors from 'modules/errors';
 
 type PassedProps = {|
   history: BrowserHistory,
@@ -19,15 +20,19 @@ type PassedProps = {|
 
 type Props = {| ...PassedProps |};
 
+const { ErrorBoundary } = errors.components;
+
 const PureApplication = (props: Props): React.Node => {
   const { history } = props;
 
   return (
-    <I18nextProvider i18n={i18nextConfig}>
-      <ConnectedRouter history={history}>
-        <ApplicationPage />
-      </ConnectedRouter>
-    </I18nextProvider>
+    <ErrorBoundary>
+      <I18nextProvider i18n={i18nextConfig}>
+        <ConnectedRouter history={history}>
+          <ApplicationPage />
+        </ConnectedRouter>
+      </I18nextProvider>
+    </ErrorBoundary>
   );
 };
 
