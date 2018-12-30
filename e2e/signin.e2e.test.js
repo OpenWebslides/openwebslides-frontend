@@ -8,7 +8,9 @@ let nightmare: typeof Nightmare;
 
 beforeEach(async (): Promise<mixed> => {
   nightmare = new Nightmare(config.nightmareOptions);
-  await nightmare.goto(config.baseUrl);
+  await nightmare.on('console', config.nightmareConsoleHandler);
+  await nightmare.on('page', config.nightmarePageHandler);
+  await nightmare.goto(config.baseUrl, config.headers);
 });
 
 afterEach(async (): Promise<mixed> => {
