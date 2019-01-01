@@ -10,7 +10,7 @@ import * as m from '../../model';
 import find from '../find';
 
 const convertContextToVerticalContext = (
-  context: ?m.Context,
+  context: ?m.ContentItemContext,
   contentItemsById: m.ContentItemsById,
 ): ?m.VerticalContext => {
   if (context == null) return null;

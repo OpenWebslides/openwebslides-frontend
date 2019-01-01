@@ -98,9 +98,9 @@ type HorizontalContext = {|
 |};
 
 
-// Context -----------------------------------------------------------------------------------------
+// ContentItemContext ------------------------------------------------------------------------------
 
-type Context =
+type ContentItemContext =
   | VerticalContext
   | ExtendedVerticalContext
   | HorizontalContext;
@@ -122,5 +122,5 @@ export type {
   VerticalContext,
   HorizontalContextType,
   HorizontalContext,
-  Context,
+  ContentItemContext,
 };
