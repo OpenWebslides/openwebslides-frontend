@@ -81,21 +81,41 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     if (onInput) onInput(event.currentTarget.value);
   };
 
-  handleActivate = (): void => {
-    const { onActivate } = this.props;
-    this.setState({ isActive: true });
-    if (onActivate) onActivate();
+  handleMouseDown = (event: SyntheticMouseEvent<HTMLElement>): void => {
+    // Prevent focus event from being fired as a result of the mouse click
+    event.preventDefault();
   };
 
-  handleDeactivate = (event: SyntheticEvent<HTMLInputElement>): void => {
-    const { onDeactivate } = this.props;
-    this.setState({ isActive: false });
-    if (onDeactivate) onDeactivate(event.currentTarget.value);
+  handleClick = (event: SyntheticMouseEvent<HTMLElement>): void => {
+    // Only activate if left mouse button was clicked
+    if (event.button === 0) {
+      this.activate();
+    }
+  };
+
+  handleFocus = (): void => {
+    this.activate();
+  };
+
+  handleBlur = (event: SyntheticEvent<HTMLInputElement>): void => {
+    this.deactivate(event.currentTarget.value);
   };
 
   handleKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
     const { onKeyDown } = this.props;
     if (onKeyDown) onKeyDown(event);
+  };
+
+  activate = (): void => {
+    const { onActivate } = this.props;
+    this.setState({ isActive: true });
+    if (onActivate) onActivate();
+  };
+
+  deactivate = (text: string): void => {
+    const { onDeactivate } = this.props;
+    this.setState({ isActive: false });
+    if (onDeactivate) onDeactivate(text);
   };
 
   fieldRef: ?HTMLInputElement;
@@ -115,7 +135,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
               value={text}
               autoFocus={isActive}
               onInput={this.handleInput}
-              onBlur={this.handleDeactivate}
+              onBlur={this.handleBlur}
               onKeyDown={this.handleKeyDown}
               ref={this.handleRef}
             />
@@ -128,7 +148,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
               value={text}
               autoFocus={isActive}
               onInput={this.handleInput}
-              onBlur={this.handleDeactivate}
+              onBlur={this.handleBlur}
               onKeyDown={this.handleKeyDown}
               ref={this.handleRef}
             />
@@ -147,8 +167,9 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
         data-test-id="editable-text-content__text"
         role="link"
         tabIndex={0}
-        onClick={this.handleActivate}
-        onFocus={this.handleActivate}
+        onMouseDown={this.handleMouseDown}
+        onClick={this.handleClick}
+        onFocus={this.handleFocus}
       >
         <InlineMarkdown text={text} />
       </div>
