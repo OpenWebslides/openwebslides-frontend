@@ -5,7 +5,7 @@ import * as m from '../../model';
 
 const add = (
   type: m.ContentItemType,
-  context: ?m.Context,
+  context: ?m.ContentItemContext,
   propsForType: $Shape<m.AllPropsForAllTypes>,
 ): a.AddAction => {
   return {

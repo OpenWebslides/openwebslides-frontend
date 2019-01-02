@@ -59,7 +59,7 @@ describe(`EditableTextContent`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent initialText={dummyText} />,
     );
-    enzymeWrapper.find(textSelector).hostNodes().simulate('click');
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
     expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(0);
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(1);
   });
@@ -104,12 +104,20 @@ describe(`EditableTextContent`, (): void => {
     expect(renderSpy).toHaveBeenCalledTimes(1);
   });
 
-  it(`calls the passed onActivate function, when it is in text mode and receives a click event`, (): void => {
+  it(`calls the passed onActivate function, when it is in text mode and receives a left button click event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent initialText={dummyText} onActivate={dummyActivate} />,
     );
-    enzymeWrapper.find(textSelector).hostNodes().simulate('click');
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
     expect(dummyActivate).toHaveBeenCalled();
+  });
+
+  it(`does not call onActivate, when it is in text mode and receives a right button click event`, (): void => {
+    const enzymeWrapper = mount(
+      <EditableTextContent initialText={dummyText} onActivate={dummyActivate} />,
+    );
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 2 });
+    expect(dummyActivate).not.toHaveBeenCalled();
   });
 
   it(`calls the passed onActivate function, when it is in text mode and receives a focus event`, (): void => {
@@ -151,6 +159,15 @@ describe(`EditableTextContent`, (): void => {
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('keyDown', dummyKeyDownEvent);
     expect(dummyKeyDown).toHaveBeenCalled();
+  });
+
+  it(`calls event.preventDefault(), when it is in text mode and receives a mouseDown event`, (): void => {
+    const dummyPreventDefault = jest.fn();
+    const enzymeWrapper = mount(
+      <EditableTextContent initialText={dummyText} />,
+    );
+    enzymeWrapper.find(textSelector).hostNodes().simulate('mouseDown', { preventDefault: dummyPreventDefault });
+    expect(dummyPreventDefault).toHaveBeenCalled();
   });
 
   // eslint-disable-next-line jest/expect-expect

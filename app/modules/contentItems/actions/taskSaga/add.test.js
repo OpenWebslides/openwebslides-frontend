@@ -8,7 +8,7 @@ import actions from '.';
 describe(`add`, (): void => {
 
   let dummyType: m.ContentItemType;
-  let dummyContext: m.Context;
+  let dummyContext: m.ContentItemContext;
   let dummyProps: $Shape<m.AllPropsForAllTypes>;
 
   beforeEach((): void => {

@@ -36,7 +36,7 @@ export type AddAction = {|
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
     type: m.ContentItemType,
-    context: ?m.Context,
+    context: ?m.ContentItemContext,
     propsForType: $Shape<m.AllPropsForAllTypes>,
   |},
 |};

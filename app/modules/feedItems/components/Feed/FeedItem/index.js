@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { Feed, Image } from 'semantic-ui-react';
 import moment from 'moment';
 
-import { USER_PROFILE_BY_ID_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
+import { USER_PROFILE_BY_ID_ROUTE, TOPIC_VIEWER_ROUTE } from 'config/routes';
 import { type ModulesAction, type AppState } from 'types/redux';
 import makeRoute from 'lib/makeRoute';
 import topics from 'modules/topics';
@@ -84,7 +84,7 @@ class PureFeedItem extends React.Component<Props> {
                 {user.name}
               </Link>
               {` ${t(`feedItems:actionForType.${feedItem.type}`)} `}
-              <Link className="secondaryLink" to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}>
+              <Link className="secondaryLink" to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: topic.id })}>
                 {topic.title}
               </Link>
               <Feed.Date>{moment(feedItem.timestamp).fromNow()}</Feed.Date>
