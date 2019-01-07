@@ -22,6 +22,7 @@ import pullRequests from 'modules/pullRequests';
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
+import ForkInfo from '../ForkInfo';
 
 type PassedProps = {|
   topicId: string,
@@ -204,7 +205,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
                 onClick={this.showPRModal}
                 data-test-id="topic-editor-pull-request-button"
               >
-                <Icon name="tasks" />
+                <Icon name="share alternate" />
                 {t('common:button.pr')}
               </Button>
             </Menu.Item>
@@ -226,6 +227,9 @@ class PureEditor extends React.Component<Props, ComponentState> {
           {topic.title}
           {(topic.isDirty ? '*' : '')}
         </Header>
+        {(topic.upstreamTopicId !== null
+          ? <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
+          : null)}
 
         <ContentItemEditableDisplay
           contentItemId={topic.rootContentItemId}

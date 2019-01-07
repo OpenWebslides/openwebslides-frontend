@@ -13,6 +13,7 @@ import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
 import Course from '../Course';
+import ForkInfo from '../ForkInfo';
 
 type PassedProps = {|
   topicId: string,
@@ -93,6 +94,9 @@ class PureViewer extends React.Component<Props, ComponentState> {
         </Menu>
 
         <Header as="h1">{topic.title}</Header>
+        {(topic.upstreamTopicId !== null
+          ? <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
+          : null)}
 
         <Course topic={topic} />
 
