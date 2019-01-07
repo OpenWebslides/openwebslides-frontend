@@ -211,7 +211,7 @@ describe(`Editor`, (): void => {
     expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
   });
 
-  it(`renders the enabled pull request button and modal when the topic has an upstream`, (): void => {
+  it(`renders the enabled pull request button, modal and fork info when the topic has an upstream`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyDownstreamTopic.id} />
@@ -220,9 +220,10 @@ describe(`Editor`, (): void => {
 
     expect(enzymeWrapper.find('[data-test-id="topic-editor-pull-request-button"]').hostNodes()).toHaveLength(1);
     expect(enzymeWrapper.find('PurePullRequestModal')).not.toHaveLength(0);
+    expect(enzymeWrapper.find('PureForkInfo')).not.toHaveLength(0);
   });
 
-  it(`renders the disabled pull request button and modal when the topic has no upstream`, (): void => {
+  it(`renders the disabled pull request button and no modal when the topic has no upstream`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Editor topicId={dummyUpstreamTopic.id} />
@@ -231,6 +232,7 @@ describe(`Editor`, (): void => {
 
     expect(enzymeWrapper.find('[data-test-id="topic-editor-pull-request-button"][disabled]').hostNodes()).toHaveLength(1);
     expect(enzymeWrapper.find('[data-test-id="topic-editor-pull-request-modal"]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('PureForkInfo')).toHaveLength(0);
   });
 
   it(`shows only the title, and does not prevent window unloading when the topic is not dirty`, (): void => {
