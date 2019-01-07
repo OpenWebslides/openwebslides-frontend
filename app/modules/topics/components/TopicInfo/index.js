@@ -6,7 +6,7 @@ import { Item, Icon } from 'semantic-ui-react';
 
 import * as m from '../../model';
 
-import ForkInfo from './ForkInfo';
+import ForkInfo from '../ForkInfo';
 
 type PassedProps = {|
   topic: m.Topic,
