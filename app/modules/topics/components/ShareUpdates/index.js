@@ -13,7 +13,7 @@ type PassedProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
-const PureTopicInfo = (props: Props): React.Node => {
+const PureShareUpdates = (props: Props): React.Node => {
   const { t, topic } = props;
 
   return (
@@ -50,7 +50,7 @@ const PureTopicInfo = (props: Props): React.Node => {
   );
 };
 
-const TopicInfo = withNamespaces()(PureTopicInfo);
+const ShareUpdates = withNamespaces()(PureShareUpdates);
 
-export { PureTopicInfo };
-export default TopicInfo;
+export { PureShareUpdates };
+export default ShareUpdates;
