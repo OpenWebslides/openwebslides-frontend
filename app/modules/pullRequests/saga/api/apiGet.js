@@ -13,7 +13,10 @@ import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 const apiPullRequestStatesMap = {
+  pending: m.pullRequestStates.PENDING,
   open: m.pullRequestStates.OPEN,
+  incompatible: m.pullRequestStates.INCOMPATIBLE,
+  working: m.pullRequestStates.WORKING,
   accepted: m.pullRequestStates.ACCEPTED,
   rejected: m.pullRequestStates.REJECTED,
 };
