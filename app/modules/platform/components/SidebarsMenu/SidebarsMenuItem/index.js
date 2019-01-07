@@ -30,6 +30,7 @@ type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchPr
 const sidebarIdsToIconsMap = {
   [m.sidebarIds.TOPIC_INFO]: 'info',
   [m.sidebarIds.SLIDE_PREVIEWS]: 'image',
+  [m.sidebarIds.SHARE_UPDATES]: 'tasks',
 };
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {

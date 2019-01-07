@@ -45,6 +45,9 @@ const topics = {
     slidePreviews: {
       header: 'Slide Previews',
     },
+    shareUpdates: {
+      header: 'Share updates',
+    },
   },
   newTopicCard: {
     title: 'Create a new topic',

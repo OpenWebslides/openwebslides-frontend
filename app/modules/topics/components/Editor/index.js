@@ -205,7 +205,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
                 onClick={this.showPRModal}
                 data-test-id="topic-editor-pull-request-button"
               >
-                <Icon name="share alternate" />
+                <Icon name="tasks" />
                 {t('common:button.pr')}
               </Button>
             </Menu.Item>
