@@ -6,8 +6,8 @@ import { mount, shallow } from 'enzyme';
 
 import { DummyProviders, dummyInitialState, dummyProviderProps, dummyTopicData } from 'lib/testResources';
 
-import actions from '../../../actions';
-import * as m from '../../../model';
+import actions from '../../actions';
+import * as m from '../../model';
 
 import ForkInfo, { PureForkInfo } from '.';
 
