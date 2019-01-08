@@ -1,25 +1,53 @@
 // @flow
 
+import _ from 'lodash';
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
-import { dummyProviderProps, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
 
+import actions from '../../actions';
 import * as m from '../../model';
 
-import { PureTopicInfo } from '.';
+import ShareUpdates, { PureShareUpdates } from '.';
 
-describe(`TopicInfo`, (): void => {
+describe(`ShareUpdates`, (): void => {
 
   let dummyTopic: m.Topic;
+  let dummyDirtyTopic: m.Topic;
+  let dummyUpstreamTopic: m.Topic;
+  let dummyDownstreamTopic: m.Topic;
+  let dummyTopicsById: m.TopicsById;
+  let dummyState: any;
+  let dummyDispatch: any;
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic };
+    dummyDirtyTopic = { ...dummyTopicData.topic, id: 'dummyDirtyTopic', isContentFetched: true, isDirty: true };
+    dummyUpstreamTopic = { ...dummyTopicData.upstream, isContentFetched: true };
+    dummyDownstreamTopic = { ...dummyTopicData.downstream, isContentFetched: true };
+    dummyTopicsById = {
+      [dummyTopic.id]: dummyTopic,
+      [dummyDirtyTopic.id]: dummyDirtyTopic,
+      [dummyUpstreamTopic.id]: dummyUpstreamTopic,
+      [dummyDownstreamTopic.id]: dummyDownstreamTopic,
+    };
+    dummyState = {
+      ...dummyInitialState,
+      modules: {
+        ...dummyInitialState.modules,
+        topics: {
+          ...dummyInitialState.modules.topics,
+          byId: dummyTopicsById,
+        },
+      },
+    };
+    dummyDispatch = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureTopicInfo
+      <PureShareUpdates
         {...dummyProviderProps.translatorProps}
         topic={dummyTopic}
       />,
@@ -27,48 +55,52 @@ describe(`TopicInfo`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`renders the topic's ForkInfo, when the topic's upstreamTopicId is not NULL`, (): void => {
-    dummyTopic = { ...dummyTopic, upstreamTopicId: 'dummyUpstreamTopicId' };
+  it(`loads the topic, when the topic or its content was not previously present in the state`, (): void => {
+    _.unset(dummyTopicsById, dummyTopic.id);
 
-    const enzymeWrapper = shallow(
-      <PureTopicInfo
-        {...dummyProviderProps.translatorProps}
-        topic={dummyTopic}
-      />,
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <ShareUpdates topic={dummyTopic} />
+      </DummyProviders>,
     );
-    expect(enzymeWrapper.find('[data-test-id="topic-info-fork-info"]')).toHaveLength(1);
+
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.fetchWithContent(dummyTopic.id));
+    expect(enzymeWrapper.find('[data-test-id="share-updates"]').hostNodes()).toHaveLength(0);
   });
 
-  it(`does not render the topic's ForkInfo, when the topic's upstreamTopicId is NULL`, (): void => {
-    const enzymeWrapper = shallow(
-      <PureTopicInfo
-        {...dummyProviderProps.translatorProps}
-        topic={dummyTopic}
-      />,
+  it(`renders the share updates component, when the topic and its content were previously present in the state`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <ShareUpdates topic={dummyTopic} />
+      </DummyProviders>,
     );
-    expect(enzymeWrapper.find('[data-test-id="topic-info-fork-info"]')).toHaveLength(0);
+
+    expect(dummyDispatch).toHaveBeenCalledTimes(0);
+    expect(enzymeWrapper.find('[data-test-id="share-updates"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`renders an empty description message, when the passed topic doesn't have a description`, (): void => {
-    const dummyNoDescString = 'test.no.description.found';
-    const fixedDummyTranslatorProps = {
-      ...dummyProviderProps.translatorProps,
-      t: (key: ?string): string => {
-        if (key === 'topics:props.noDescription') return dummyNoDescString;
-        else return (key != null) ? key : 'string';
-      },
-    };
-    const fixedDummyTopic = { ...dummyTopic, description: null };
-
-    const enzymeWrapper = shallow(
-      <PureTopicInfo
-        {...fixedDummyTranslatorProps}
-        topic={fixedDummyTopic}
-      />,
+  it(`disables the pull request button and shows a message when the topic is dirty`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <ShareUpdates topic={dummyTopic} />
+      </DummyProviders>,
     );
-    const descriptionNode = enzymeWrapper.find('[data-test-id="topic-info-description"]');
 
-    expect(descriptionNode.props().children).toContain(dummyNoDescString);
+    expect(enzymeWrapper.find('[data-test-id="share-updates-dirty-message"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"][disabled]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`enables the pull request button and shows no message when the topic is not dirty`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <ShareUpdates topic={dummyTopic} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="share-updates-dirty-message"]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"][disabled]').hostNodes()).toHaveLength(0);
   });
 
 });
