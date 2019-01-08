@@ -59,9 +59,13 @@ class PureAccountPane extends React.Component<Props> {
             <Grid.Column width={5}>
               <Header as="h4">{t('settings:account.close.title')}</Header>
               <Message
-                error={true}
+                warning={true}
                 header={t('settings:account.close.title')}
                 content={t('settings:account.close.info')}
+              />
+              <Message
+                error={true}
+                content={t('settings:account.close.disabled')}
               />
               <Button
                 type="submit"
