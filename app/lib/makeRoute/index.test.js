@@ -1,6 +1,7 @@
 // @flow
 
 import { InvalidArgumentError } from 'errors';
+import { APP_URL } from 'config/url';
 
 import makeRoute from '.';
 
@@ -15,6 +16,11 @@ describe(`makeRoute`, (): void => {
   it(`returns the route unchanged, when no parameters are passed`, (): void => {
     const dummyRoute = '/dummy/:firstparam/route/:secondparam';
     expect(makeRoute(dummyRoute, {})).toBe(dummyRoute);
+  });
+
+  it(`prepends the fully qualified app URL when qualified is passed as TRUE`, (): void => {
+    const dummyRoute = '/dummy/route';
+    expect(makeRoute(dummyRoute, {})).toBe(`${APP_URL}/dummy/route`);
   });
 
   it(`throws an InvalidArgumentError, when one of the passed params are not present in the passed route`, (): void => {
