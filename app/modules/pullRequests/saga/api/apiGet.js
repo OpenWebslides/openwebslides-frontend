@@ -38,6 +38,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   const pullRequest: m.PullRequest = {
     id,
     message: attributes.message,
+    feedback: attributes.feedback,
     sourceTopicId: relationships.source.data.id,
     targetTopicId: relationships.target.data.id,
     userId: relationships.user.data.id,
