@@ -18,7 +18,7 @@ const PureSidebar = (props: Props): React.Node => {
   return (
     <div className={`sidebar ${className || ''}`}>
       <div className="sidebar__wrapper">
-        <Header as="h3" dividing={true}>
+        <Header as="h3">
           <Icon name={icon} />
           {header}
         </Header>
