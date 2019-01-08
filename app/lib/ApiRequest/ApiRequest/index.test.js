@@ -2,7 +2,7 @@
 
 /* eslint-disable quote-props */
 
-import { API_URL } from 'config/api';
+import { API_URL } from 'config/url';
 import { InvalidArgumentError, UnsupportedOperationError } from 'errors';
 
 import { httpMethods } from '../types';
