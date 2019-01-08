@@ -12,6 +12,7 @@ const common = {
     save: 'Save',
     reset: 'Reset',
     cancel: 'Cancel',
+    close: 'Close',
     back: 'Back',
     previous: 'Previous',
     next: 'Next',
