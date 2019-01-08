@@ -47,13 +47,24 @@ describe(`ShareModal`, (): void => {
   it(`calls the passed onCancel callback when the close button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <ShareModal isOpen={true} onSubmit={dummyOnSubmit} onCancel={dummyOnCancel} />
+        <ShareModal isOpen={true} onCancel={dummyOnCancel} />
       </DummyProviders>,
     );
 
     enzymeWrapper.find('[data-test-id="share-modal-close-button"]').hostNodes().simulate('click');
     expect(dummyOnSubmit).not.toHaveBeenCalled();
     expect(dummyOnCancel).toHaveBeenCalledTimes(1);
+  });
+
+  it(`renders the url input when the url tab is active`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <ShareModal isOpen={true} />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('Tab MenuItem[index=0]').simulate('click');
+    expect(enzymeWrapper.find('[data-test-id="share-modal-url-input"]')).toHaveLength(1);
   });
 
 });
