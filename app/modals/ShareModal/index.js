@@ -2,7 +2,8 @@
 
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
-import { Modal, Tab, Icon, Divider, Button, Input } from 'semantic-ui-react';
+import { Modal, Tab, Icon, Divider, Button, Input, Popup } from 'semantic-ui-react';
+import copy from 'copy-to-clipboard';
 
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import makeRoute from 'lib/makeRoute';
@@ -17,11 +18,38 @@ type PassedProps = {|
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
 class PureShareModal extends React.Component<Props> {
-  handleOnFocusSelect = (e: SyntheticInputEvent<HTMLInputElement>) => e.target.select();
-
-  renderUrlTab = (): React.Node => {
+  route = (): string => {
     const { topic } = this.props;
 
+    return makeRoute(TOPIC_VIEWER_ROUTE, { topicId: topic.id }, true);
+  };
+
+  handleOnFocusSelect = (e: SyntheticInputEvent<HTMLInputElement>) => e.target.select();
+
+  handleOnCopy = () => copy(this.route());
+
+  renderCopyButton = (): React.Node => {
+    const { t } = this.props;
+
+    return (
+      <Popup
+        trigger={(
+          <Button
+            primary={true}
+            icon="copy"
+            onClick={this.handleOnCopy}
+            data-test-id="share-modal-url-input"
+          />
+        )}
+        content={t('common:copied')}
+        inverted={true}
+        on="click"
+        size="mini"
+      />
+    );
+  };
+
+  renderUrlTab = (): React.Node => {
     return (
       <Input
         icon="eye"
@@ -29,9 +57,8 @@ class PureShareModal extends React.Component<Props> {
         fluid={true}
         readOnly={true}
         onFocus={this.handleOnFocusSelect}
-        value={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: topic.id }, true)}
-        action={{ primary: true, icon: 'copy' }}
-        data-test-id="share-modal-url-input"
+        value={this.route()}
+        action={this.renderCopyButton}
       />
     );
   };

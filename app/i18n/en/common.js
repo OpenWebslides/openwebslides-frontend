@@ -23,6 +23,7 @@ const common = {
     pr: 'Share updates',
     share: 'Share',
   },
+  copied: 'Copied!',
   loading: 'Loading...',
   undoWarning: 'This action cannot be undone.',
 };
