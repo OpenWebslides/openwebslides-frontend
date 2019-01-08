@@ -20,6 +20,7 @@ const common = {
     delete: 'Delete',
     fork: 'Create personal copy',
     pr: 'Share updates',
+    share: 'Share',
   },
   loading: 'Loading...',
   undoWarning: 'This action cannot be undone.',
