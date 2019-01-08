@@ -1,13 +1,18 @@
 // @flow
 
 import * as React from 'react';
+import { type Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import { withNamespaces, type TranslatorProps, Interpolate } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Item, Icon, Button, Message, Divider, Header } from 'semantic-ui-react';
+import { Item, Icon, Button, Message, Header } from 'semantic-ui-react';
 
+import { type ModulesAction } from 'types/redux';
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 import makeRoute from 'lib/makeRoute';
+import PullRequestModal from 'modals/PullRequestModal';
+import pullRequests from 'modules/pullRequests';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -17,11 +22,64 @@ type PassedProps = {|
   topic: m.Topic,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type DispatchProps = {|
+  onCreatePullRequest: (
+    message: string,
+    sourceTopicId: string,
+    targetTopicId: string,
+    currentUserId: string,
+  ) => void,
+|};
 
-class PureShareUpdates extends React.Component<Props> {
+type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
+
+type ComponentState = {|
+  isPRModalOpen: boolean,
+|};
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<ModulesAction>,
+  props: PassedProps,
+): DispatchProps => {
+  return {
+    onCreatePullRequest: (
+      message: string,
+      sourceTopicId: string,
+      targetTopicId: string,
+      currentUserId: string,
+    ): void => {
+      dispatch(pullRequests.actions.create(message, sourceTopicId, targetTopicId, currentUserId));
+    },
+  };
+};
+
+class PureShareUpdates extends React.Component<Props, ComponentState> {
+  state: ComponentState = {
+    isPRModalOpen: false,
+  };
+
+  showPRModal = (): void => {
+    this.setState({ isPRModalOpen: true });
+  };
+
+  handlePRModalSubmit = (
+    message: string,
+    sourceTopicId: string,
+    targetTopicId: string,
+    currentUserId: string,
+  ): void => {
+    const { onCreatePullRequest } = this.props;
+    onCreatePullRequest(message, sourceTopicId, targetTopicId, currentUserId);
+    this.setState({ isPRModalOpen: false });
+  };
+
+  handlePRModalCancel = (): void => {
+    this.setState({ isPRModalOpen: false });
+  };
+
   renderShareUpdates = (upstreamTopic: m.Topic): React.Node => {
     const { t, topic } = this.props;
+    const { isPRModalOpen } = this.state;
 
     return (
       <div data-test-id="share-updates">
@@ -56,6 +114,7 @@ class PureShareUpdates extends React.Component<Props> {
                 disabled={topic.isDirty}
                 secondary={true}
                 fluid={true}
+                onClick={this.showPRModal}
                 data-test-id="share-updates-pull-request-button"
               >
                 <Icon name="tasks" />
@@ -69,7 +128,8 @@ class PureShareUpdates extends React.Component<Props> {
             </Item.Content>
           </Item>
         </Item.Group>
-        <Header as="h3" fluid={true}>
+
+        <Header as="h3">
           <Icon name="refresh" />
           {t('topics:sidebars.shareUpdates.pendingRequests.title')}
         </Header>
@@ -80,6 +140,14 @@ class PureShareUpdates extends React.Component<Props> {
             </Item.Content>
           </Item>
         </Item.Group>
+
+        <PullRequestModal
+          sourceTopicId={topic.id}
+          targetTopicId={topic.upstreamTopicId}
+          isOpen={isPRModalOpen}
+          onSubmit={this.handlePRModalSubmit}
+          onCancel={this.handlePRModalCancel}
+        />
       </div>
     );
   };
@@ -99,7 +167,7 @@ class PureShareUpdates extends React.Component<Props> {
   }
 }
 
-const ShareUpdates = withNamespaces()(PureShareUpdates);
+const ShareUpdates = connect(null, mapDispatchToProps)(withNamespaces()(PureShareUpdates));
 
 export { PureShareUpdates };
 export default ShareUpdates;
