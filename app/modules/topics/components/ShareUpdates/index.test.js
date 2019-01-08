@@ -5,6 +5,7 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
+import pullRequests from 'modules/pullRequests';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -20,6 +21,8 @@ describe(`ShareUpdates`, (): void => {
   let dummyTopicsById: m.TopicsById;
   let dummyState: any;
   let dummyDispatch: any;
+  let dummyCurrentUserId: string;
+  let dummyMessage: string;
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic };
@@ -43,6 +46,8 @@ describe(`ShareUpdates`, (): void => {
       },
     };
     dummyDispatch = jest.fn();
+    dummyCurrentUserId = 'dummyCurrentUserId';
+    dummyMessage = 'dummyMessage';
   });
 
   it(`renders without errors`, (): void => {
@@ -101,6 +106,53 @@ describe(`ShareUpdates`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="share-updates-dirty-message"]').hostNodes()).toHaveLength(0);
     expect(enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"]').hostNodes()).toHaveLength(1);
     expect(enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"][disabled]').hostNodes()).toHaveLength(0);
+  });
+
+  it(`shows the pull request modal when the pull request button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <ShareUpdates topic={dummyDownstreamTopic} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(true);
+  });
+
+  it(`closes the pull request modal when the onCancel handler passed to the pull request modal is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <ShareUpdates topic={dummyDownstreamTopic} />
+      </DummyProviders>,
+    );
+
+    const onCancel = enzymeWrapper.find('PurePullRequestModal').props().onCancel;
+
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(true);
+    onCancel();
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
+  });
+
+  it(`dispatches a pull requests CREATE action and closes the pull request modal when the onSubmit handler passed to the pull request modal is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <ShareUpdates topic={dummyDownstreamTopic} />
+      </DummyProviders>,
+    );
+
+    const onSubmit = enzymeWrapper.find('PurePullRequestModal').props().onSubmit;
+
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="topic-editor-pull-request-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(true);
+    onSubmit(dummyMessage, dummyDownstreamTopic.id, dummyDownstreamTopic.upstreamTopicId, dummyCurrentUserId);
+    expect(dummyDispatch).toHaveBeenCalledWith(pullRequests.actions.create(dummyMessage, dummyDownstreamTopic.id, (dummyDownstreamTopic.upstreamTopicId || ''), dummyCurrentUserId));
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
   });
 
 });
