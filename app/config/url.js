@@ -14,6 +14,19 @@
 export const API_URL = window.API_URL || 'http://owsdev.ugent.be/api';
 
 /**
+ * Base Platform URL
+ * @type {string}
+ *
+ * The base platform URL used for composing URLs. Defaults to localhost, is overridden on
+ * production runtime with the correct base platform URL configured for that server.
+ * In development, it is also possible to use the APP_URL environment variable.
+ *
+ * $ yarn run dev-server --env.APP_URL=http://owsdev.ugent.be
+ *
+ */
+export const APP_URL = window.APP_URL || 'http://localhost:8080';
+
+/**
  * Required API version
  * @type {string}
  *
