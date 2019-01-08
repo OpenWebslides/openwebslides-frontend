@@ -14,9 +14,7 @@ import makeRoute from 'lib/makeRoute';
 import FetchWrapper from 'components/FetchWrapper';
 import { type CommitFormValues } from 'forms/CommitForm';
 import CommitModal from 'modals/CommitModal';
-import PullRequestModal from 'modals/PullRequestModal';
 import contentItems from 'modules/contentItems';
-import pullRequests from 'modules/pullRequests';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -35,19 +33,12 @@ type DispatchProps = {|
   onCommit: (values: CommitFormValues) => void,
   onSetDirty: (dirty: boolean) => void,
   onDiscard: () => void,
-  onCreatePullRequest: (
-    message: string,
-    sourceTopicId: string,
-    targetTopicId: string,
-    currentUserId: string,
-  ) => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
 
 type ComponentState = {|
   isCommitModalOpen: boolean,
-  isPRModalOpen: boolean,
 |};
 
 const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
@@ -76,30 +67,16 @@ const mapDispatchToProps = (
     onDiscard: (): void => {
       dispatch(actions.discard(topicId));
     },
-    onCreatePullRequest: (
-      message: string,
-      sourceTopicId: string,
-      targetTopicId: string,
-      currentUserId: string,
-    ): void => {
-      dispatch(pullRequests.actions.create(message, sourceTopicId, targetTopicId, currentUserId));
-      dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: sourceTopicId })));
-    },
   };
 };
 
 class PureEditor extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     isCommitModalOpen: false,
-    isPRModalOpen: false,
   };
 
   showCommitModal = (): void => {
     this.setState({ isCommitModalOpen: true });
-  };
-
-  showPRModal = (): void => {
-    this.setState({ isPRModalOpen: true });
   };
 
   handleCommitModalSubmit = (values: CommitFormValues): void => {
@@ -110,21 +87,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   handleCommitModalCancel = (): void => {
     this.setState({ isCommitModalOpen: false });
-  };
-
-  handlePRModalSubmit = (
-    message: string,
-    sourceTopicId: string,
-    targetTopicId: string,
-    currentUserId: string,
-  ): void => {
-    const { onCreatePullRequest } = this.props;
-    onCreatePullRequest(message, sourceTopicId, targetTopicId, currentUserId);
-    this.setState({ isPRModalOpen: false });
-  };
-
-  handlePRModalCancel = (): void => {
-    this.setState({ isPRModalOpen: false });
   };
 
   beforeUnloadHandler = (event: Event): boolean => {
@@ -165,7 +127,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   renderEditor = (topic: m.Topic): React.Node => {
     const { t, onSetDirty } = this.props;
-    const { isCommitModalOpen, isPRModalOpen } = this.state;
+    const { isCommitModalOpen } = this.state;
 
     return (
       <div data-test-id="topic-editor">
@@ -177,17 +139,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
         <Menu secondary={true}>
           <Menu.Menu position="right">
-            <Menu.Item>
-              <Button
-                disabled={topic.upstreamTopicId == null}
-                basic={true}
-                onClick={this.showPRModal}
-                data-test-id="topic-editor-pull-request-button"
-              >
-                <Icon name="tasks" />
-                {t('common:button.pr')}
-              </Button>
-            </Menu.Item>
             <Menu.Item>
               <Button
                 disabled={!topic.isDirty}
@@ -220,16 +171,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
           onSubmit={this.handleCommitModalSubmit}
           onCancel={this.handleCommitModalCancel}
         />
-
-        {topic.upstreamTopicId != null ? (
-          <PullRequestModal
-            sourceTopicId={topic.id}
-            targetTopicId={topic.upstreamTopicId}
-            isOpen={isPRModalOpen}
-            onSubmit={this.handlePRModalSubmit}
-            onCancel={this.handlePRModalCancel}
-          />
-        ) : null}
       </div>
     );
   };
