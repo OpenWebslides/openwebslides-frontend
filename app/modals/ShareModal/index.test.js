@@ -86,4 +86,27 @@ describe(`ShareModal`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="share-modal-url-input"] > input').props().value).toStrictEqual(qualifiedUrl);
   });
 
+  it(`renders the embed input when the embed tab is active`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <ShareModal isOpen={true} topic={dummyTopic} />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('Tab MenuItem[index=1]').simulate('click');
+    expect(enzymeWrapper.find('[data-test-id="share-modal-embed-input"]')).toHaveLength(1);
+  });
+
+  it(`renders an iframe code in the url input`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <ShareModal isOpen={true} topic={dummyTopic} />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('Tab MenuItem[index=1]').simulate('click');
+    expect(enzymeWrapper.find('[data-test-id="share-modal-embed-input"]')).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="share-modal-embed-input"] > input').props().value).toMatch('<iframe');
+  });
+
 });

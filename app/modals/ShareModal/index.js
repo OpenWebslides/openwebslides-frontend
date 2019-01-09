@@ -17,18 +17,20 @@ type PassedProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
-class PureShareModal extends React.Component<Props> {
-  route = (): string => {
-    const { topic } = this.props;
+type PassedTabProps = {|
+  value: string,
+|};
 
-    return makeRoute(TOPIC_VIEWER_ROUTE, { topicId: topic.id }, true);
+type TabProps = {| ...TranslatorProps, ...PassedTabProps |};
+
+class PureCopyButton extends React.Component<TabProps> {
+  handleOnCopy = (): void => {
+    const { value } = this.props;
+
+    copy(value);
   };
 
-  handleOnFocusSelect = (e: SyntheticInputEvent<HTMLInputElement>) => e.target.select();
-
-  handleOnCopy = () => copy(this.route());
-
-  renderCopyButton = (): React.Node => {
+  render(): React.Node {
     const { t } = this.props;
 
     return (
@@ -38,7 +40,7 @@ class PureShareModal extends React.Component<Props> {
             primary={true}
             icon="copy"
             onClick={this.handleOnCopy}
-            data-test-id="share-modal-url-input"
+            data-test-id="share-modal-copy-button"
           />
         )}
         content={t('common:copied')}
@@ -47,69 +49,91 @@ class PureShareModal extends React.Component<Props> {
         size="mini"
       />
     );
-  };
-
-  renderUrlTab = (): React.Node => {
-    return (
-      <Input
-        icon="eye"
-        iconPosition="left"
-        fluid={true}
-        readOnly={true}
-        onFocus={this.handleOnFocusSelect}
-        value={this.route()}
-        action={this.renderCopyButton}
-      />
-    );
-  };
-
-  render(): React.Node {
-    const { t, isOpen, onCancel, topic } = this.props;
-
-    return (
-      <Modal
-        size="mini"
-        basic={true}
-        open={isOpen}
-        onClose={onCancel}
-      >
-        <Modal.Header>{t('modals:share.title')}</Modal.Header>
-        <Modal.Content>
-          <Icon name="lock" />
-          <Trans i18nKey={`modals:share.accessMessageForType.${topic.access}`}>
-            <strong>access</strong>
-          </Trans>
-
-          <Divider hidden={true} />
-
-          <Tab
-            menu={{ secondary: true, inverted: true }}
-            panes={[
-              { menuItem: { key: 'url', content: t('modals:share.panes.url'), icon: 'linkify' },
-                render: this.renderUrlTab,
-              },
-              { menuItem: { key: 'embed', content: t('modals:share.panes.embed'), icon: 'code' },
-                render: (): React.Node => {
-                  return <p>embed</p>;
-                },
-              },
-            ]}
-            data-test-id="share-modal-tabs"
-          />
-        </Modal.Content>
-        <Modal.Actions>
-          <Button
-            inverted={true}
-            onClick={onCancel}
-            data-test-id="share-modal-close-button"
-          >
-            {t('common:button.close')}
-          </Button>
-        </Modal.Actions>
-      </Modal>
-    );
   }
 }
+
+const CopyButton = withNamespaces()(PureCopyButton);
+
+const URLTab = (props: TabProps): React.Node => {
+  const { value } = props;
+
+  return (
+    <Input
+      icon="eye"
+      iconPosition="left"
+      fluid={true}
+      readOnly={true}
+      // onFocus={super.handleOnFocusSelect}
+      value={value}
+      action={<CopyButton value={value} />}
+      data-test-id="share-modal-url-input"
+    />
+  );
+};
+
+const EmbedTab = (props: TabProps): React.Node => {
+  const { value } = props;
+
+  return (
+    <Input
+      icon="eye"
+      iconPosition="left"
+      fluid={true}
+      readOnly={true}
+      value={value}
+      action={<CopyButton value={value} />}
+      data-test-id="share-modal-embed-input"
+    />
+  );
+};
+
+const PureShareModal = (props: Props): React.Node => {
+  const { t, isOpen, onCancel, topic } = props;
+
+  const route = makeRoute(TOPIC_VIEWER_ROUTE, { topicId: topic.id }, true);
+  const embed = `<iframe src="${route}"></iframe>`;
+
+  return (
+    <Modal
+      size="mini"
+      basic={true}
+      open={isOpen}
+      onClose={onCancel}
+    >
+      <Modal.Header>{t('modals:share.title')}</Modal.Header>
+      <Modal.Content>
+        <Icon name="lock" />
+        <Trans i18nKey={`modals:share.accessMessageForType.${topic.access}`}>
+          <strong>access</strong>
+        </Trans>
+
+        <Divider hidden={true} />
+
+        <Tab
+          menu={{ secondary: true, inverted: true }}
+          panes={[
+            { menuItem: { key: 'url', content: t('modals:share.panes.url'), icon: 'linkify' },
+              render: () => <URLTab value={route} />,
+            },
+            { menuItem: { key: 'embed', content: t('modals:share.panes.embed'), icon: 'code' },
+              render: () => <EmbedTab value={embed} />,
+            },
+          ]}
+          data-test-id="share-modal-tabs"
+        />
+      </Modal.Content>
+      <Modal.Actions>
+        <Button
+          inverted={true}
+          onClick={onCancel}
+          data-test-id="share-modal-close-button"
+        >
+          {t('common:button.close')}
+        </Button>
+      </Modal.Actions>
+    </Modal>
+  );
+};
 
 const ShareModal = withNamespaces()(PureShareModal);
 
