@@ -2,12 +2,13 @@
 
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
-import { Modal, Tab, Icon, Divider, Button, Input, Popup } from 'semantic-ui-react';
-import copy from 'copy-to-clipboard';
+import { Modal, Tab, Icon, Divider, Button, Input } from 'semantic-ui-react';
 
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import makeRoute from 'lib/makeRoute';
 import topics from 'modules/topics';
+
+import CopyButton from './CopyButton';
 
 type PassedProps = {|
   topic: topics.model.Topic,
@@ -22,37 +23,6 @@ type PassedTabProps = {|
 |};
 
 type TabProps = {| ...TranslatorProps, ...PassedTabProps |};
-
-class PureCopyButton extends React.Component<TabProps> {
-  handleOnCopy = (): void => {
-    const { value } = this.props;
-
-    copy(value);
-  };
-
-  render(): React.Node {
-    const { t } = this.props;
-
-    return (
-      <Popup
-        trigger={(
-          <Button
-            primary={true}
-            icon="copy"
-            onClick={this.handleOnCopy}
-            data-test-id="share-modal-copy-button"
-          />
-        )}
-        content={t('common:copied')}
-        inverted={true}
-        on="click"
-        size="mini"
-      />
-    );
-  }
-}
-
-const CopyButton = withNamespaces()(PureCopyButton);
 
 const URLTab = (props: TabProps): React.Node => {
   const { value } = props;
