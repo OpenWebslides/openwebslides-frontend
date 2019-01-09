@@ -24,7 +24,7 @@ describe(`ShareModal`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureShareModal {...dummyProviderProps.translatorProps} />,
+      <PureShareModal topic={dummyTopic} {...dummyProviderProps.translatorProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -36,7 +36,7 @@ describe(`ShareModal`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="share-modal-tabs"]')).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="share-modal-tabs"]')).not.toHaveLength(0);
   });
 
   it(`does not render the tabs, when the passed isOpen prop is FALSE`, (): void => {

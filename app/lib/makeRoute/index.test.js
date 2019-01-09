@@ -20,7 +20,7 @@ describe(`makeRoute`, (): void => {
 
   it(`prepends the fully qualified app URL when qualified is passed as TRUE`, (): void => {
     const dummyRoute = '/dummy/route';
-    expect(makeRoute(dummyRoute, {})).toBe(`${APP_URL}/dummy/route`);
+    expect(makeRoute(dummyRoute, {}, true)).toBe(`${APP_URL}/dummy/route`);
   });
 
   it(`throws an InvalidArgumentError, when one of the passed params are not present in the passed route`, (): void => {

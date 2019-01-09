@@ -3,6 +3,8 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
+import { dummyProviderProps, DummyProviders } from 'lib/testResources';
+
 import ShareTab from '.';
 
 describe(`ShareTab`, (): void => {
@@ -17,26 +19,32 @@ describe(`ShareTab`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <ShareTab value={dummyValue} />,
+      <ShareTab value={dummyValue} {...dummyProviderProps.translatorProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders the copy button with the passed value`, (): void => {
     const enzymeWrapper = mount(
-      <ShareTab value={dummyValue} />,
+      <DummyProviders>
+        <ShareTab value={dummyValue} />
+      </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('CopyButton')).toHaveLength(1);
+    expect(enzymeWrapper.find('PureCopyButton')).toHaveLength(1);
     expect(enzymeWrapper.find('PureCopyButton').props().value).toStrictEqual(dummyValue);
   });
 
   it(`selects the input field when it is focused`, (): void => {
     const enzymeWrapper = mount(
-      <ShareTab value={dummyValue} />,
+      <DummyProviders>
+        <ShareTab value={dummyValue} />
+      </DummyProviders>,
     );
 
-    enzymeWrapper.find('[data-test-id="share-tab-input"]').simulate('focus', { target: { select: dummySelect } });
+    // Enzyme does not support event propagation yet, so we cannot test out
+    // the onFocus callback by simulating the focus event
+    enzymeWrapper.find('[data-test-id="share-tab-input"] input').props().onFocus({ target: { select: dummySelect } });
     expect(dummySelect).toHaveBeenCalledTimes(1);
   });
 

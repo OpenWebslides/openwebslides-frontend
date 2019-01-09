@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
-import copy from 'copy-to-clipboard';
+import * as copy from 'copy-to-clipboard';
 
 import { dummyProviderProps, DummyProviders } from 'lib/testResources';
 
@@ -11,13 +11,12 @@ import CopyButton, { PureCopyButton } from '.';
 describe(`CopyButton`, (): void => {
 
   let dummyValue: string;
-  let dummyCopy: any;
+  // let dummyCopy: any;
 
   beforeEach((): void => {
     dummyValue = 'dummyValue';
-    dummyCopy = jest.fn();
 
-    jest.mock('copy-to-clipboard', () => dummyCopy);
+    jest.spyOn(copy, 'default').mockImplementation(() => jest.fn());
   });
 
   it(`renders without errors`, (): void => {
@@ -34,7 +33,7 @@ describe(`CopyButton`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="copy-button"]')).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="copy-button"]')).not.toHaveLength(0);
   });
 
   it(`calls the copy function with the passed value when the copy button is clicked`, (): void => {
@@ -45,7 +44,7 @@ describe(`CopyButton`, (): void => {
     );
 
     enzymeWrapper.find('[data-test-id="copy-button"]').hostNodes().simulate('click');
-    expect(dummyCopy).toHaveBeenCalledWith(dummyValue);
+    expect(copy.default).toHaveBeenCalledWith(dummyValue);
   });
 
 });

@@ -78,7 +78,6 @@ class PureViewer extends React.Component<Props, ComponentState> {
                 {t('common:button.share')}
               </Button>
             </Menu.Item>
-
             <Menu.Item>
               <Button
                 disabled={topic.upstreamTopicId != null}
@@ -112,7 +111,7 @@ class PureViewer extends React.Component<Props, ComponentState> {
     return (
       <FetchWrapper
         render={this.renderViewer}
-        renderPropsAndState={this.props}
+        renderPropsAndState={{ ...this.props, ...this.state }}
         fetchId={topicId}
         fetchAction={actions.fetchWithContent}
         fetchedPropSelector={selectors.getById}
