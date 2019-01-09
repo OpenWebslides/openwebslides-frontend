@@ -5,7 +5,7 @@ import { type Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Item, Icon, Button, Message, Header } from 'semantic-ui-react';
+import { Item, Icon, Button, Message, Header, Divider } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
@@ -122,12 +122,9 @@ class PureShareUpdates extends React.Component<Props, ComponentState> {
               </Button>
             </Item.Content>
           </Item>
-          <Item>
-            <Item.Content>
-
-            </Item.Content>
-          </Item>
         </Item.Group>
+
+        <Divider hidden={true} />
 
         <Header as="h3">
           <Icon name="refresh" />

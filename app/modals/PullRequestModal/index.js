@@ -3,8 +3,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Modal, Button } from 'semantic-ui-react';
+import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
+import { Modal, Button, Icon } from 'semantic-ui-react';
 
 import { type ModulesAction, type AppState } from 'types/redux';
 import InlineMarkdown from 'components/InlineMarkdown';
@@ -89,6 +89,12 @@ class PurePullRequestModal extends React.Component<Props> {
       >
         <Modal.Header>{t('modals:pullRequest.title')}</Modal.Header>
         <Modal.Content>
+          <p>
+            <Icon name="lock" />
+            <Trans i18nKey="modals:pullRequest.access" values={{ upstreamTopicTitle: targetTopic.title }}>
+              <strong>access</strong>
+            </Trans>
+          </p>
           <p>
             <InlineMarkdown text={t('modals:pullRequest.description', { topicTitle: sourceTopic.title })} />
           </p>
