@@ -61,7 +61,7 @@ describe(`ShareModal`, (): void => {
     expect(dummyOnCancel).toHaveBeenCalledTimes(1);
   });
 
-  it(`renders the url input when the url tab is active`, (): void => {
+  it(`renders a share tab when the corresponding url menu item is active`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <ShareModal isOpen={true} topic={dummyTopic} />
@@ -69,7 +69,7 @@ describe(`ShareModal`, (): void => {
     );
 
     enzymeWrapper.find('Tab MenuItem[index=0]').simulate('click');
-    expect(enzymeWrapper.find('[data-test-id="share-modal-url-input"]')).toHaveLength(1);
+    expect(enzymeWrapper.find('ShareTab')).toHaveLength(1);
   });
 
   it(`renders a fully qualified viewer URL in the url input`, (): void => {
@@ -82,11 +82,10 @@ describe(`ShareModal`, (): void => {
     const qualifiedUrl = makeRoute(TOPIC_VIEWER_ROUTE, { topicId: dummyTopic.id }, true);
 
     enzymeWrapper.find('Tab MenuItem[index=0]').simulate('click');
-    expect(enzymeWrapper.find('[data-test-id="share-modal-url-input"]')).toHaveLength(1);
-    expect(enzymeWrapper.find('[data-test-id="share-modal-url-input"] > input').props().value).toStrictEqual(qualifiedUrl);
+    expect(enzymeWrapper.find('ShareTab').props().value).toStrictEqual(qualifiedUrl);
   });
 
-  it(`renders the embed input when the embed tab is active`, (): void => {
+  it(`renders a share tab when the corresponding embed menu item is active`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <ShareModal isOpen={true} topic={dummyTopic} />
@@ -94,10 +93,10 @@ describe(`ShareModal`, (): void => {
     );
 
     enzymeWrapper.find('Tab MenuItem[index=1]').simulate('click');
-    expect(enzymeWrapper.find('[data-test-id="share-modal-embed-input"]')).toHaveLength(1);
+    expect(enzymeWrapper.find('ShareTab')).toHaveLength(1);
   });
 
-  it(`renders an iframe code in the url input`, (): void => {
+  it(`renders an iframe code in the embed input`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <ShareModal isOpen={true} topic={dummyTopic} />
@@ -105,8 +104,7 @@ describe(`ShareModal`, (): void => {
     );
 
     enzymeWrapper.find('Tab MenuItem[index=1]').simulate('click');
-    expect(enzymeWrapper.find('[data-test-id="share-modal-embed-input"]')).toHaveLength(1);
-    expect(enzymeWrapper.find('[data-test-id="share-modal-embed-input"] > input').props().value).toMatch('<iframe');
+    expect(enzymeWrapper.find('ShareTab').props().value).toMatch('<iframe');
   });
 
 });
