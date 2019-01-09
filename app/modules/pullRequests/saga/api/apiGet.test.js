@@ -17,6 +17,7 @@ describe(`apiGet`, (): void => {
   let dummyId: string;
   let dummyToken: string;
   let dummyMessage: string;
+  let dummyFeedback: string;
   let dummySourceTopicId: string;
   let dummyTargetTopicId: string;
   let dummyUserId: string;
@@ -27,6 +28,7 @@ describe(`apiGet`, (): void => {
     dummyId = 'dummyId';
     dummyToken = 'dummyToken';
     dummyMessage = 'dummyMessage';
+    dummyFeedback = 'dummyFeedback';
     dummySourceTopicId = 'dummySourceTopicId';
     dummyTargetTopicId = 'dummyTargetTopicId';
     dummyUserId = 'dummyUserId';
@@ -42,6 +44,7 @@ describe(`apiGet`, (): void => {
         data: {
           attributes: {
             message: dummyMessage,
+            feedback: dummyFeedback,
             state: dummyState,
           },
           relationships: {
@@ -60,8 +63,43 @@ describe(`apiGet`, (): void => {
         [call(api.pullRequests.get, dummyId, dummyToken), dummyApiResponse],
       ])
       .call(api.pullRequests.get, dummyId, dummyToken)
-      .put(actions.setMultipleInState([{ id: dummyId, message: dummyMessage, sourceTopicId: dummySourceTopicId, targetTopicId: dummyTargetTopicId, userId: dummyUserId, state: pullRequestStates.OPEN, timestamp: (dummyCreatedAt * 1000) }]))
+      .put(actions.setMultipleInState([{ id: dummyId, message: dummyMessage, feedback: dummyFeedback, sourceTopicId: dummySourceTopicId, targetTopicId: dummyTargetTopicId, userId: dummyUserId, state: pullRequestStates.OPEN, timestamp: (dummyCreatedAt * 1000) }]))
       .run();
+  });
+
+  const states = {
+    open: pullRequestStates.OPEN,
+    pending: pullRequestStates.PENDING,
+    incompatible: pullRequestStates.INCOMPATIBLE,
+    working: pullRequestStates.WORKING,
+    accepted: pullRequestStates.ACCEPTED,
+    rejected: pullRequestStates.REJECTED,
+  };
+
+  Object.keys(states).forEach((state: any): void => {
+    it(`sends a GET request for the passed id to the pullRequests endpoint, processes the response and puts the pull request in the state when the pull request state is ${state.toUpperCase()}`, (): void => {
+      const dummyAction = actions.apiGet(dummyId);
+      const dummyApiResponse = {
+        status: 200,
+        body: { data: {
+          attributes: { message: dummyMessage, feedback: dummyFeedback, state },
+          relationships: {
+            source: { data: { id: dummySourceTopicId } },
+            target: { data: { id: dummyTargetTopicId } },
+            user: { data: { id: dummyUserId } } },
+          meta: { createdAt: dummyCreatedAt } },
+        },
+      };
+
+      return expectSaga(sagas.apiGet, dummyAction)
+        .provide([
+          [select(platform.selectors.getUserAuth), { userId: dummyUserId, apiToken: dummyToken }],
+          [call(api.pullRequests.get, dummyId, dummyToken), dummyApiResponse],
+        ])
+        .call(api.pullRequests.get, dummyId, dummyToken)
+        .put(actions.setMultipleInState([{ id: dummyId, message: dummyMessage, feedback: dummyFeedback, sourceTopicId: dummySourceTopicId, targetTopicId: dummyTargetTopicId, userId: dummyUserId, state: states[state], timestamp: (dummyCreatedAt * 1000) }]))
+        .run();
+    });
   });
 
   it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<mixed> => {
@@ -71,6 +109,7 @@ describe(`apiGet`, (): void => {
       data: {
         attributes: {
           message: dummyMessage,
+          feedback: dummyFeedback,
           state: dummyState,
         },
         relationships: {

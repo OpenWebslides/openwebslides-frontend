@@ -13,7 +13,10 @@ import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 const apiPullRequestStatesMap = {
+  pending: m.pullRequestStates.PENDING,
   open: m.pullRequestStates.OPEN,
+  incompatible: m.pullRequestStates.INCOMPATIBLE,
+  working: m.pullRequestStates.WORKING,
   accepted: m.pullRequestStates.ACCEPTED,
   rejected: m.pullRequestStates.REJECTED,
 };
@@ -35,6 +38,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   const pullRequest: m.PullRequest = {
     id,
     message: attributes.message,
+    feedback: attributes.feedback,
     sourceTopicId: relationships.source.data.id,
     targetTopicId: relationships.target.data.id,
     userId: relationships.user.data.id,
