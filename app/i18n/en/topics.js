@@ -51,7 +51,7 @@ const topics = {
       count: 'This update request will include {{count}} updates.',
       saveChanges: 'Please save your changes first',
       pendingRequests: {
-        title: 'Update requests sent',
+        title: 'Pending update requests',
         empty: 'You have not sent any update requests',
       },
     },
