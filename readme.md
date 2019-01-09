@@ -5,7 +5,7 @@ React app for the OpenWebslides open-source co-creation platform.
 ## How to...
 
 - Run the webpack dev server: `yarn run dev-server`
-- Run the webpack dev server using a non-default API server: `API_URL=http://my-server.com/api yarn run dev-server`
+- Run the webpack dev server using a non-default API server: `yarn run dev-server --env.API_URL=http://my-server.com/api`
 - Run tests:
   - Minimal output: `yarn run test`
   - Verbose test output + coverage report: `yarn run test-report`
