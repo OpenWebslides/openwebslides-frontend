@@ -47,7 +47,7 @@ const topics = {
     },
     shareUpdates: {
       header: 'Share updates',
-      info: 'You are about to send updates back to {{upstreamTopicTitle}}. The topic owner and collaborators will be able to see the updates you\'ve sent, and after reviewing, these changes will be integrated in {{upstreamTopicTitle}}. You can check back here on the status of your update request.',
+      info: 'You are about to send updates back to <0>{{upstreamTopicTitle}}</0>. The topic owner and collaborators will be able to see the updates you\'ve sent, and after reviewing, these changes will be integrated in <0>{{upstreamTopicTitle}}</0>. You can check back here on the status of your update request.',
       count: 'This update request will include {{count}} updates.',
       saveChanges: 'Please save your changes first',
       pendingRequests: {

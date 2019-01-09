@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { type Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { withNamespaces, type TranslatorProps, Interpolate } from 'react-i18next';
+import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Item, Icon, Button, Message, Header } from 'semantic-ui-react';
 
@@ -87,14 +87,14 @@ class PureShareUpdates extends React.Component<Props, ComponentState> {
           <Item>
             <Item.Content>
               <p>
-                <Interpolate
+                <Trans
                   i18nKey="topics:sidebars.shareUpdates.info"
-                  upstreamTopicTitle={(
-                    <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: upstreamTopic.id })}>
-                      {upstreamTopic.title}
-                    </Link>
-                  )}
-                />
+                  values={{ upstreamTopicTitle: upstreamTopic.title }}
+                >
+                  <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: upstreamTopic.id })}>
+                    title
+                  </Link>
+                </Trans>
               </p>
               {/* TODO: commit count */}
               <p><strong>{t('topics:sidebars.shareUpdates.count', { count: 0 })}</strong></p>
