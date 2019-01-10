@@ -26,7 +26,7 @@ describe(`ShareUpdates`, (): void => {
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic };
-    dummyDirtyTopic = { ...dummyTopicData.topic, id: 'dummyDirtyTopic', isContentFetched: true, isDirty: true };
+    dummyDirtyTopic = { ...dummyTopicData.downstream, id: 'dummyDirtyTopic', isContentFetched: true, isDirty: true };
     dummyUpstreamTopic = { ...dummyTopicData.upstream, isContentFetched: true };
     dummyDownstreamTopic = { ...dummyTopicData.downstream, isContentFetched: true };
     dummyTopicsById = {
@@ -61,22 +61,22 @@ describe(`ShareUpdates`, (): void => {
   });
 
   it(`loads the topic, when the topic or its content was not previously present in the state`, (): void => {
-    _.unset(dummyTopicsById, dummyTopic.id);
+    _.unset(dummyTopicsById, dummyUpstreamTopic.id);
 
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <ShareUpdates topic={dummyTopic} />
+        <ShareUpdates topic={dummyDownstreamTopic} />
       </DummyProviders>,
     );
 
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.fetchWithContent(dummyTopic.id));
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.fetch(dummyUpstreamTopic.id));
     expect(enzymeWrapper.find('[data-test-id="share-updates"]').hostNodes()).toHaveLength(0);
   });
 
   it(`renders the share updates component, when the topic and its content were previously present in the state`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <ShareUpdates topic={dummyTopic} />
+        <ShareUpdates topic={dummyDownstreamTopic} />
       </DummyProviders>,
     );
 
@@ -87,12 +87,11 @@ describe(`ShareUpdates`, (): void => {
   it(`disables the pull request button and shows a message when the topic is dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <ShareUpdates topic={dummyTopic} />
+        <ShareUpdates topic={dummyDirtyTopic} />
       </DummyProviders>,
     );
 
     expect(enzymeWrapper.find('[data-test-id="share-updates-dirty-message"]').hostNodes()).toHaveLength(1);
-    expect(enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"]').hostNodes()).toHaveLength(1);
     expect(enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"][disabled]').hostNodes()).toHaveLength(1);
   });
 
@@ -104,7 +103,6 @@ describe(`ShareUpdates`, (): void => {
     );
 
     expect(enzymeWrapper.find('[data-test-id="share-updates-dirty-message"]').hostNodes()).toHaveLength(0);
-    expect(enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"]').hostNodes()).toHaveLength(1);
     expect(enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"][disabled]').hostNodes()).toHaveLength(0);
   });
 
@@ -147,7 +145,7 @@ describe(`ShareUpdates`, (): void => {
     const onSubmit = enzymeWrapper.find('PurePullRequestModal').props().onSubmit;
 
     expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
-    enzymeWrapper.find('[data-test-id="topic-editor-pull-request-button"]').hostNodes().simulate('click');
+    enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"]').hostNodes().simulate('click');
     expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(true);
     onSubmit(dummyMessage, dummyDownstreamTopic.id, dummyDownstreamTopic.upstreamTopicId, dummyCurrentUserId);
     expect(dummyDispatch).toHaveBeenCalledWith(pullRequests.actions.create(dummyMessage, dummyDownstreamTopic.id, (dummyDownstreamTopic.upstreamTopicId || ''), dummyCurrentUserId));
