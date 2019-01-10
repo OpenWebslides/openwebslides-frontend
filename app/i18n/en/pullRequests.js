@@ -8,7 +8,7 @@ const pullRequests = {
     },
   },
   button: {
-    submit: 'Share updates',
+    submit: 'Send updates',
   },
 };
 

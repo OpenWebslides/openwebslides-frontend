@@ -45,14 +45,14 @@ const topics = {
     slidePreviews: {
       header: 'Slide Previews',
     },
-    shareUpdates: {
-      header: 'Share updates',
-      info: 'You are about to send updates back to <0>{{upstreamTopicTitle}}</0>. The topic owner and collaborators will be able to see the updates you\'ve sent, and after reviewing, these changes will be integrated in <0>{{upstreamTopicTitle}}</0>. You can check back here on the status of your update request.',
-      count: 'This update request will include {{count}} updates.',
+    contribute: {
+      header: 'Contribute',
+      info: 'You can send updates back to <0>{{upstreamTopicTitle}}</0>. The topic owner and collaborators will be able to see the updates you\'ve sent, and after reviewing, these changes can be integrated in <0>{{upstreamTopicTitle}}</0>. You can check back here on the status of your contribution.',
+      count: 'This contribution will include {{count}} updates.',
       saveChanges: 'Please save your changes first',
-      pendingRequests: {
-        title: 'Pending update requests',
-        empty: 'You have not sent any update requests',
+      pending: {
+        title: 'Pending contributions',
+        empty: 'You have not sent any contributions',
       },
     },
   },

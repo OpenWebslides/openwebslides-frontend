@@ -1,21 +1,21 @@
 // @flow
 
+import Contribute from './Contribute';
 import Course from './Course';
 import Editor from './Editor';
 import ForkInfo from './ForkInfo';
 import NewTopicCard from './NewTopicCard';
-import ShareUpdates from './ShareUpdates';
 import SlidesList from './SlidesList';
 import TopicInfo from './TopicInfo';
 import TopicsList from './TopicsList';
 import Viewer from './Viewer';
 
 const index = {
+  Contribute,
   Course,
   Editor,
   ForkInfo,
   NewTopicCard,
-  ShareUpdates,
   SlidesList,
   TopicInfo,
   TopicsList,

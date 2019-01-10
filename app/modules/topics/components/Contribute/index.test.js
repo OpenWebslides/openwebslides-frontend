@@ -10,9 +10,9 @@ import pullRequests from 'modules/pullRequests';
 import actions from '../../actions';
 import * as m from '../../model';
 
-import ShareUpdates, { PureShareUpdates } from '.';
+import Contribute, { PureContribute } from '.';
 
-describe(`ShareUpdates`, (): void => {
+describe(`Contribute`, (): void => {
 
   let dummyTopic: m.Topic;
   let dummyDirtyTopic: m.Topic;
@@ -52,7 +52,7 @@ describe(`ShareUpdates`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureShareUpdates
+      <PureContribute
         {...dummyProviderProps.translatorProps}
         topic={dummyTopic}
       />,
@@ -65,70 +65,70 @@ describe(`ShareUpdates`, (): void => {
 
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <ShareUpdates topic={dummyDownstreamTopic} />
+        <Contribute topic={dummyDownstreamTopic} />
       </DummyProviders>,
     );
 
     expect(dummyDispatch).toHaveBeenCalledWith(actions.fetch(dummyUpstreamTopic.id));
-    expect(enzymeWrapper.find('[data-test-id="share-updates"]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="contribute"]').hostNodes()).toHaveLength(0);
   });
 
-  it(`renders the share updates component, when the topic and its content were previously present in the state`, (): void => {
+  it(`renders the contribute component, when the topic and its content were previously present in the state`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <ShareUpdates topic={dummyDownstreamTopic} />
+        <Contribute topic={dummyDownstreamTopic} />
       </DummyProviders>,
     );
 
     expect(dummyDispatch).toHaveBeenCalledTimes(0);
-    expect(enzymeWrapper.find('[data-test-id="share-updates"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="contribute"]').hostNodes()).toHaveLength(1);
   });
 
   it(`disables the pull request button and shows a message when the topic is dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <ShareUpdates topic={dummyDirtyTopic} />
+        <Contribute topic={dummyDirtyTopic} />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="share-updates-dirty-message"]').hostNodes()).toHaveLength(1);
-    expect(enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"][disabled]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="contribute-dirty-message"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="contribute-pull-request-button"][disabled]').hostNodes()).toHaveLength(1);
   });
 
   it(`enables the pull request button and shows no message when the topic is not dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <ShareUpdates topic={dummyTopic} />
+        <Contribute topic={dummyTopic} />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="share-updates-dirty-message"]').hostNodes()).toHaveLength(0);
-    expect(enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"][disabled]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="contribute-dirty-message"]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="contribute-pull-request-button"][disabled]').hostNodes()).toHaveLength(0);
   });
 
   it(`shows the pull request modal when the pull request button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <ShareUpdates topic={dummyDownstreamTopic} />
+        <Contribute topic={dummyDownstreamTopic} />
       </DummyProviders>,
     );
 
     expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
-    enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"]').hostNodes().simulate('click');
+    enzymeWrapper.find('[data-test-id="contribute-pull-request-button"]').hostNodes().simulate('click');
     expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(true);
   });
 
   it(`closes the pull request modal when the onCancel handler passed to the pull request modal is called`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <ShareUpdates topic={dummyDownstreamTopic} />
+        <Contribute topic={dummyDownstreamTopic} />
       </DummyProviders>,
     );
 
     const onCancel = enzymeWrapper.find('PurePullRequestModal').props().onCancel;
 
     expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
-    enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"]').hostNodes().simulate('click');
+    enzymeWrapper.find('[data-test-id="contribute-pull-request-button"]').hostNodes().simulate('click');
     expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(true);
     onCancel();
     enzymeWrapper.update();
@@ -138,14 +138,14 @@ describe(`ShareUpdates`, (): void => {
   it(`dispatches a pull requests CREATE action and closes the pull request modal when the onSubmit handler passed to the pull request modal is called`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <ShareUpdates topic={dummyDownstreamTopic} />
+        <Contribute topic={dummyDownstreamTopic} />
       </DummyProviders>,
     );
 
     const onSubmit = enzymeWrapper.find('PurePullRequestModal').props().onSubmit;
 
     expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
-    enzymeWrapper.find('[data-test-id="share-updates-pull-request-button"]').hostNodes().simulate('click');
+    enzymeWrapper.find('[data-test-id="contribute-pull-request-button"]').hostNodes().simulate('click');
     expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(true);
     onSubmit(dummyMessage, dummyDownstreamTopic.id, dummyDownstreamTopic.upstreamTopicId, dummyCurrentUserId);
     expect(dummyDispatch).toHaveBeenCalledWith(pullRequests.actions.create(dummyMessage, dummyDownstreamTopic.id, (dummyDownstreamTopic.upstreamTopicId || ''), dummyCurrentUserId));

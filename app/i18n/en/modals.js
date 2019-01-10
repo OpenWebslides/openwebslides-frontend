@@ -9,9 +9,9 @@ const modals = {
     message: 'Are you sure you want to delete this topic?',
   },
   pullRequest: {
-    title: 'Share updates',
-    access: 'The owner and collaborators of <0>{{upstreamTopicTitle}}</0> will be able to see and respond to your update request',
-    description: 'You are about to send the changes you\'ve made in **{{topicTitle}}** to the original topic. Please enter a small message that briefly describes the changes you\'ve made. Only the original topic author and collaborators will see this message.',
+    title: 'Send updates',
+    access: 'The owner and collaborators of <0>{{upstreamTopicTitle}}</0> will be able to see and respond to your contribution',
+    description: 'You are about to send the updates you\'ve made in **{{topicTitle}}** to the original topic. Please enter a small message that briefly describes your contribution. Only the topic owner and collaborators will see this message.',
   },
 };
 
