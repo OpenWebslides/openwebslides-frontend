@@ -4,13 +4,13 @@
 
 const TOPIC_INFO: 'sideBarIds/TOPIC_INFO' = 'sideBarIds/TOPIC_INFO';
 const SLIDE_PREVIEWS: 'sideBarIds/SLIDE_PREVIEWS' = 'sideBarIds/SLIDE_PREVIEWS';
-const SHARE_UPDATES: 'sideBarIds/SHARE_UPDATES' = 'sideBarIds/SHARE_UPDATES';
+const CONTRIBUTE: 'sideBarIds/CONTRIBUTE' = 'sideBarIds/CONTRIBUTE';
 
 // Note: order of ids here determines order of buttons in sidebarmenu
 export const sidebarIds = {
   TOPIC_INFO,
   SLIDE_PREVIEWS,
-  SHARE_UPDATES,
+  CONTRIBUTE,
 };
 
 export type SidebarId = $Values<typeof sidebarIds>;

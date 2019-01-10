@@ -53,7 +53,7 @@ const mapDispatchToProps = (
   };
 };
 
-class PureShareUpdates extends React.Component<Props, ComponentState> {
+class PureContribute extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     isPRModalOpen: false,
   };
@@ -77,18 +77,18 @@ class PureShareUpdates extends React.Component<Props, ComponentState> {
     this.setState({ isPRModalOpen: false });
   };
 
-  renderShareUpdates = (upstreamTopic: m.Topic): React.Node => {
+  renderContribute = (upstreamTopic: m.Topic): React.Node => {
     const { t, topic } = this.props;
     const { isPRModalOpen } = this.state;
 
     return (
-      <div data-test-id="share-updates">
+      <div data-test-id="contribute">
         <Item.Group>
           <Item>
             <Item.Content>
               <p>
                 <Trans
-                  i18nKey="topics:sidebars.shareUpdates.info"
+                  i18nKey="topics:sidebars.contribute.info"
                   values={{ upstreamTopicTitle: upstreamTopic.title }}
                 >
                   <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: upstreamTopic.id })}>
@@ -97,7 +97,7 @@ class PureShareUpdates extends React.Component<Props, ComponentState> {
                 </Trans>
               </p>
               {/* TODO: commit count */}
-              <p><strong>{t('topics:sidebars.shareUpdates.count', { count: 0 })}</strong></p>
+              <p><strong>{t('topics:sidebars.contribute.count', { count: 0 })}</strong></p>
             </Item.Content>
           </Item>
           <Item>
@@ -106,8 +106,8 @@ class PureShareUpdates extends React.Component<Props, ComponentState> {
                 <Message
                   warning={true}
                   icon="exclamation"
-                  content={t('topics:sidebars.shareUpdates.saveChanges')}
-                  data-test-id="share-updates-dirty-message"
+                  content={t('topics:sidebars.contribute.saveChanges')}
+                  data-test-id="contribute-dirty-message"
                 />
               ) : null)}
               <Button
@@ -115,9 +115,9 @@ class PureShareUpdates extends React.Component<Props, ComponentState> {
                 secondary={true}
                 fluid={true}
                 onClick={this.showPRModal}
-                data-test-id="share-updates-pull-request-button"
+                data-test-id="contribute-pull-request-button"
               >
-                <Icon name="tasks" />
+                <Icon name="send" />
                 {t('common:button.pr')}
               </Button>
             </Item.Content>
@@ -128,12 +128,12 @@ class PureShareUpdates extends React.Component<Props, ComponentState> {
 
         <Header as="h3">
           <Icon name="refresh" />
-          {t('topics:sidebars.shareUpdates.pendingRequests.title')}
+          {t('topics:sidebars.contribute.pending.title')}
         </Header>
         <Item.Group>
           <Item>
             <Item.Content>
-              <em>{t('topics:sidebars.shareUpdates.pendingRequests.empty')}</em>
+              <em>{t('topics:sidebars.contribute.pending.empty')}</em>
             </Item.Content>
           </Item>
         </Item.Group>
@@ -154,7 +154,7 @@ class PureShareUpdates extends React.Component<Props, ComponentState> {
 
     return (
       <FetchWrapper
-        render={this.renderShareUpdates}
+        render={this.renderContribute}
         renderPropsAndState={{ ...this.props, ...this.state }}
         fetchId={topic.upstreamTopicId}
         fetchAction={actions.fetch}
@@ -164,7 +164,7 @@ class PureShareUpdates extends React.Component<Props, ComponentState> {
   }
 }
 
-const ShareUpdates = connect(null, mapDispatchToProps)(withNamespaces()(PureShareUpdates));
+const Contribute = connect(null, mapDispatchToProps)(withNamespaces()(PureContribute));
 
-export { PureShareUpdates };
-export default ShareUpdates;
+export { PureContribute };
+export default Contribute;

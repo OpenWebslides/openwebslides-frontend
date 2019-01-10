@@ -6,9 +6,9 @@ import { shallow } from 'enzyme';
 import { dummyTopicData as dummyData, dummyProviderProps } from 'lib/testResources';
 import topics from 'modules/topics';
 
-import { PureShareUpdatesSidebar } from './ShareUpdatesSidebar';
+import { PureContributeSidebar } from './ContributeSidebar';
 
-describe(`ShareUpdatesSidebar`, (): void => {
+describe(`ContributeSidebar`, (): void => {
 
   let dummyTopic: topics.model.Topic;
 
@@ -18,7 +18,7 @@ describe(`ShareUpdatesSidebar`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureShareUpdatesSidebar {...dummyProviderProps.translatorProps} topic={dummyTopic} />,
+      <PureContributeSidebar {...dummyProviderProps.translatorProps} topic={dummyTopic} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
