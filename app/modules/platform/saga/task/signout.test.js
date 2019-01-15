@@ -37,7 +37,7 @@ describe(`signout`, (): void => {
       .run();
   });
 
-  it(`throws an UnsupportedOperationError, when there is no user currently signed in`, async (): Promise<mixed> => {
+  it(`throws an UnsupportedOperationError, when there is no user currently signed in`, async (): Promise<void> => {
     const dummyAction = actions.signout();
 
     // Suppress console.error from redux-saga $FlowFixMe

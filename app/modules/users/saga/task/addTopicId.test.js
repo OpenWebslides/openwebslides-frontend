@@ -36,7 +36,7 @@ describe(`addTopicId`, (): void => {
       .run();
   });
 
-  it(`throws an UnsupportedOperationError, when attempting to add an already existing topicId`, async (): Promise<mixed> => {
+  it(`throws an UnsupportedOperationError, when attempting to add an already existing topicId`, async (): Promise<void> => {
     const dummyAction = actions.addTopicId(dummyUser.id, dummyTopicIds[1]);
 
     // Suppress console.error from redux-saga $FlowFixMe

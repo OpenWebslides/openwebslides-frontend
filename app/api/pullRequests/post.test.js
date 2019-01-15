@@ -11,7 +11,7 @@ describe(`api.pullRequests.post`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<mixed> => {
+  it(`executes the correct fetch call`, async (): Promise<void> => {
     const dummyMessage = 'dummyMessage';
     const dummySourceTopicId = 'dummySourceTopicId';
     const dummyTargetTopicId = 'dummyTargetTopicId';

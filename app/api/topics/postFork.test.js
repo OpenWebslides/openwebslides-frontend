@@ -11,7 +11,7 @@ describe(`api.topics.postFork`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<mixed> => {
+  it(`executes the correct fetch call`, async (): Promise<void> => {
     const dummyTopicId = 'ThisIsAnId';
     const dummyToken = 'foobarToken';
     fetch.mockResponseOnce('', { status: 201 });

@@ -102,7 +102,7 @@ describe(`apiGet`, (): void => {
     });
   });
 
-  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<mixed> => {
+  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<void> => {
     const dummyAction = actions.apiGet(dummyId);
     const dummyApiResponse = {
       status: 200,
@@ -133,7 +133,7 @@ describe(`apiGet`, (): void => {
     ).rejects.toBeInstanceOf(UnsupportedOperationError);
   });
 
-  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<mixed> => {
+  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<void> => {
     const dummyAction = actions.apiGet(dummyId);
     const dummyApiResponse = { status: 200, body: null };
 

@@ -11,7 +11,7 @@ describe(`api.password.patch`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<mixed> => {
+  it(`executes the correct fetch call`, async (): Promise<void> => {
     const dummyPassword = 'P@ssword1';
     const dummyResetPasswordToken = 'foobarToken';
     fetch.mockResponseOnce('', { status: 200 });

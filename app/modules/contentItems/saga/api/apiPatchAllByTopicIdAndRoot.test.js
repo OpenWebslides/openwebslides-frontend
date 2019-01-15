@@ -59,7 +59,7 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
       .run();
   });
 
-  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<mixed> => {
+  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<void> => {
     const dummyAction = actions.apiPatchAllByTopicIdAndRoot(dummyTopicId, dummyRoot.id, dummyMessage);
     const dummyApiResponse = { status: 204 };
 

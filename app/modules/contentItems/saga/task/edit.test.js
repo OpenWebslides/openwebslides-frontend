@@ -60,7 +60,7 @@ describe(`edit`, (): void => {
       .run();
   });
 
-  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<mixed> => {
+  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<void> => {
     const dummyAction = actions.edit('dummyInvalidId', { text: dummyEditedText });
 
     // Suppress console.error from redux-saga $FlowFixMe

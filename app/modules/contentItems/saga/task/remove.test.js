@@ -165,7 +165,7 @@ describe(`remove`, (): void => {
       .run();
   });
 
-  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<mixed> => {
+  it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<void> => {
     const dummyAction = actions.remove('invalidId');
 
     // Suppress console.error from redux-saga $FlowFixMe
@@ -182,7 +182,7 @@ describe(`remove`, (): void => {
     ).rejects.toBeInstanceOf(ObjectNotFoundError);
   });
 
-  it(`throws a CorruptedInternalStateError, when the passed contentItemsById structure is corrupted`, async (): Promise<mixed> => {
+  it(`throws a CorruptedInternalStateError, when the passed contentItemsById structure is corrupted`, async (): Promise<void> => {
     dummyHeading1.subItemIds = [dummyHeading12.id];
     const dummyAction = actions.remove(dummyHeading11.id);
 

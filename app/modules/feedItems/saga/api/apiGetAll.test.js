@@ -61,7 +61,7 @@ describe(`apiGetAll`, (): void => {
       .run();
   });
 
-  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<mixed> => {
+  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<void> => {
     const dummyAction = actions.apiGetAll();
     const dummyApiResponse = {
       status: 200,

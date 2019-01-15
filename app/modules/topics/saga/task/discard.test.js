@@ -43,7 +43,7 @@ describe(`discard`, (): void => {
       .run();
   });
 
-  it(`throws an ObjectNotFoundError, when the topic for the passed id could not be found`, async (): Promise<mixed> => {
+  it(`throws an ObjectNotFoundError, when the topic for the passed id could not be found`, async (): Promise<void> => {
     const dummyAction = actions.discard(dummyTopic.id);
 
     // Suppress console.error from redux-saga $FlowFixMe

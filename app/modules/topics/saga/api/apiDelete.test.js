@@ -34,7 +34,7 @@ describe(`apiDelete`, (): void => {
       .run();
   });
 
-  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<mixed> => {
+  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<void> => {
     const dummyAction = actions.apiDelete(dummyId);
     const dummyApiResponse = { status: 204 };
 

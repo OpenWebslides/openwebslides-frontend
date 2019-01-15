@@ -17,7 +17,7 @@ describe(`api.alerts.getAllByUserId`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<mixed> => {
+  it(`executes the correct fetch call`, async (): Promise<void> => {
     fetch.mockResponseOnce('', { status: 200 });
     await api.alerts.getAllByUserId(dummyUserId, dummyToken);
 

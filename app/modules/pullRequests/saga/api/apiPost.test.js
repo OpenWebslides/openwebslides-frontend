@@ -50,7 +50,7 @@ describe(`apiPost`, (): void => {
       .run();
   });
 
-  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<mixed> => {
+  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<void> => {
     const dummyAction = actions.apiPost(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId);
     const dummyApiResponse = {
       status: 204,
@@ -73,7 +73,7 @@ describe(`apiPost`, (): void => {
     ).rejects.toBeInstanceOf(UnsupportedOperationError);
   });
 
-  it(`throws an UnexpectedHttpResponseError, when the request response doesn't contain a body`, async (): Promise<mixed> => {
+  it(`throws an UnexpectedHttpResponseError, when the request response doesn't contain a body`, async (): Promise<void> => {
     const dummyAction = actions.apiPost(dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId);
     const dummyApiResponse = { status: 204 };
 
