@@ -23,6 +23,8 @@ export type Topic = {|
   +rootContentItemId: string,
   +upstreamTopicId: ?string,
   +forkedTopicIds: $ReadOnlyArray<string>,
+  +incomingPullRequestIds: $ReadOnlyArray<string>,
+  +outgoingPullRequestIds: $ReadOnlyArray<string>,
   +isContentFetched: boolean,
   +isDirty: boolean,
 |};

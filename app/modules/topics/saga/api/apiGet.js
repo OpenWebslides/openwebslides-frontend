@@ -39,6 +39,12 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     rootContentItemId: attributes.rootContentItemId,
     upstreamTopicId: relationships.upstream.data ? relationships.upstream.data.id : null,
     forkedTopicIds: relationships.forks.data.map((item: { type: string, id: string }) => item.id),
+    incomingPullRequestIds: relationships.incomingPullRequests.data.map(
+      (item: { type: string, id: string }) => item.id,
+    ),
+    outgoingPullRequestIds: relationships.outgoingPullRequests.data.map(
+      (item: { type: string, id: string }) => item.id,
+    ),
     isContentFetched: false,
     isDirty: false,
   };

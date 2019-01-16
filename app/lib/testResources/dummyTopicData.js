@@ -11,6 +11,8 @@ export const topic: topics.model.Topic = {
   rootContentItemId: 'dummyRootContentItemId',
   upstreamTopicId: null,
   forkedTopicIds: [],
+  incomingPullRequestIds: [],
+  outgoingPullRequestIds: [],
   isContentFetched: false,
   isDirty: false,
 };
@@ -24,6 +26,8 @@ export const topic2: topics.model.Topic = {
   rootContentItemId: 'dummyRootContentItemId',
   upstreamTopicId: null,
   forkedTopicIds: [],
+  incomingPullRequestIds: [],
+  outgoingPullRequestIds: [],
   isContentFetched: false,
   isDirty: false,
 };
@@ -37,6 +41,8 @@ export const topic3: topics.model.Topic = {
   rootContentItemId: 'dummyRootContentItemId',
   upstreamTopicId: null,
   forkedTopicIds: [],
+  incomingPullRequestIds: [],
+  outgoingPullRequestIds: [],
   isContentFetched: false,
   isDirty: false,
 };
@@ -50,6 +56,8 @@ export const topic4: topics.model.Topic = {
   rootContentItemId: 'dummyRootContentItemId',
   upstreamTopicId: null,
   forkedTopicIds: [],
+  incomingPullRequestIds: [],
+  outgoingPullRequestIds: [],
   isContentFetched: false,
   isDirty: false,
 };
@@ -63,6 +71,8 @@ export const upstream: topics.model.Topic = {
   rootContentItemId: 'dummyRootContentItemId',
   upstreamTopicId: null,
   forkedTopicIds: ['downstreamTopic', 'downstreamTopic2'],
+  incomingPullRequestIds: [],
+  outgoingPullRequestIds: [],
   isContentFetched: false,
   isDirty: false,
 };
@@ -76,6 +86,8 @@ export const downstream: topics.model.Topic = {
   rootContentItemId: 'dummyRootContentItemId',
   upstreamTopicId: 'upstreamTopic',
   forkedTopicIds: [],
+  incomingPullRequestIds: [],
+  outgoingPullRequestIds: [],
   isContentFetched: false,
   isDirty: false,
 };
@@ -89,6 +101,8 @@ export const downstream2: topics.model.Topic = {
   rootContentItemId: 'dummyRootContentItemId',
   upstreamTopicId: 'upstreamTopic',
   forkedTopicIds: [],
+  incomingPullRequestIds: [],
+  outgoingPullRequestIds: [],
   isContentFetched: false,
   isDirty: false,
 };
