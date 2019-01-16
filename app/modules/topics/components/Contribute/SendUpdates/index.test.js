@@ -60,7 +60,7 @@ describe(`SendUpdates`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`loads the topic, when the topic or its content was not previously present in the state`, (): void => {
+  it(`loads the upstream topic, when the upstream topic was not previously present in the state`, (): void => {
     _.unset(dummyTopicsById, dummyUpstreamTopic.id);
 
     const enzymeWrapper = mount(
@@ -73,7 +73,7 @@ describe(`SendUpdates`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="send-updates"]').hostNodes()).toHaveLength(0);
   });
 
-  it(`renders the send updates component, when the topic and its content were previously present in the state`, (): void => {
+  it(`renders the send updates component, when the upstream topic was previously present in the state`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <SendUpdates topic={dummyDownstreamTopic} />

@@ -54,7 +54,7 @@ const topics = {
       },
       pending: {
         title: 'Pending contributions',
-        empty: 'You have not sent any updates',
+        empty: 'You have not sent any updates back to <0>{{upstreamTopicTitle}}</0>',
       },
     },
   },
