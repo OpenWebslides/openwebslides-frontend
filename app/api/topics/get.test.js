@@ -17,7 +17,7 @@ describe(`api.topics.get`, (): void => {
     dummyToken = 'dummyToken';
   });
 
-  it(`executes the correct fetch call`, async (): Promise<mixed> => {
+  it(`executes the correct fetch call`, async (): Promise<void> => {
     fetch.mockResponseOnce('', { status: 200 });
     await api.topics.get(dummyTopicId, dummyToken);
 
@@ -32,7 +32,7 @@ describe(`api.topics.get`, (): void => {
     expect(mockOptions.headers.Authorization).toBe(`Bearer ${dummyToken}`);
   });
 
-  it(`omits token when the corresponding parameter is passed as NULL`, async (): Promise<mixed> => {
+  it(`omits token when the corresponding parameter is passed as NULL`, async (): Promise<void> => {
     fetch.mockResponseOnce('', { status: 200 });
     await api.topics.get(dummyTopicId, null);
 

@@ -127,7 +127,7 @@ describe(`indent`, (): void => {
       .run();
   });
 
-  it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, async (): Promise<mixed> => {
+  it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, async (): Promise<void> => {
     const dummyAction = actions.indent('invalidId');
 
     // Suppress console.error from redux-saga $FlowFixMe

@@ -92,7 +92,7 @@ describe(`apiGetAllByUserId`, (): void => {
       .run();
   });
 
-  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<mixed> => {
+  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<void> => {
     const dummyAction = actions.apiGetAllByUserId(dummyUserId);
     const dummyApiResponse = {
       status: 200,
@@ -111,7 +111,7 @@ describe(`apiGetAllByUserId`, (): void => {
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);
   });
 
-  it(`throws an UnsupportedOperationError, when the api response contains an unsupported alert type`, async (): Promise<mixed> => {
+  it(`throws an UnsupportedOperationError, when the api response contains an unsupported alert type`, async (): Promise<void> => {
     const dummyAction = actions.apiGetAllByUserId(dummyUserId);
     const dummyApiResponse = {
       status: 200,
@@ -147,7 +147,7 @@ describe(`apiGetAllByUserId`, (): void => {
     ).rejects.toBeInstanceOf(UnsupportedOperationError);
   });
 
-  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<mixed> => {
+  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<void> => {
     const dummyAction = actions.apiGetAllByUserId(dummyUserId);
     const dummyApiResponse = { status: 204 };
 

@@ -17,7 +17,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const RobotsTxtPlugin = require('robotstxt-webpack-plugin').default;
+const RobotsTxtPlugin = require('robotstxt-webpack-plugin');
 
 // Path name constants
 const paths = {

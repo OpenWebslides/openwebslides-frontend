@@ -11,7 +11,7 @@ describe(`api.feedItems.getAll`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<mixed> => {
+  it(`executes the correct fetch call`, async (): Promise<void> => {
     fetch.mockResponseOnce('', { status: 200 });
     await api.feedItems.getAll();
 

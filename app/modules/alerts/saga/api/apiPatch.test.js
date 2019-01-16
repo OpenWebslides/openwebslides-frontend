@@ -36,7 +36,7 @@ describe(`apiPatch`, (): void => {
       .run();
   });
 
-  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<mixed> => {
+  it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<void> => {
     const dummyAction = actions.apiPatch(dummyId, dummyRead);
     const dummyApiResponse = { status: 204 };
 

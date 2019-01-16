@@ -39,7 +39,7 @@ describe(`apiPost`, (): void => {
       .run();
   });
 
-  it(`throws an UnexpectedHttpResponseError, when the request response doesn't contain a body`, async (): Promise<mixed> => {
+  it(`throws an UnexpectedHttpResponseError, when the request response doesn't contain a body`, async (): Promise<void> => {
     const dummyAction = actions.apiPost(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
     const dummyApiResponse = { status: 204 };
 

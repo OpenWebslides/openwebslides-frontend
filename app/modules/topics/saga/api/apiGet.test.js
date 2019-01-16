@@ -202,7 +202,7 @@ describe(`apiGet`, (): void => {
       .run();
   });
 
-  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<mixed> => {
+  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<void> => {
     const dummyAction = actions.apiGet(dummyId);
     const dummyApiResponse = { status: 200, body: null };
 

@@ -37,7 +37,7 @@ describe(`putAndReturn`, (): void => {
       .run();
   });
 
-  it(`puts the passed action, waits until a matching setFailure action dispatched, and re-throws the error`, async (): Promise<mixed> => {
+  it(`puts the passed action, waits until a matching setFailure action dispatched, and re-throws the error`, async (): Promise<void> => {
     const dummyAction = { type: 'dummy' };
     const dummyNotMatchingTypeAction = actions.setAndClearOldInState({ id: dummyId, status: m.statusTypes.FAILURE, timestamp: 123456789, error: dummyError });
     const dummyNotMatchingStatusAction = actions.setPending(dummyId);

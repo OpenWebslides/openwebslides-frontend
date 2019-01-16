@@ -55,7 +55,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
       .run();
   });
 
-  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a token`, async (): Promise<mixed> => {
+  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a token`, async (): Promise<void> => {
     const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
     const dummyApiResponse = {
       body: null,
@@ -74,7 +74,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);
   });
 
-  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<mixed> => {
+  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<void> => {
     const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
     const dummyApiResponse = {
       body: {

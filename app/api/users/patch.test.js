@@ -26,7 +26,7 @@ describe(`api.users.patch`, (): void => {
     dummyToken = 'dummyToken';
   });
 
-  it(`executes the correct fetch call`, async (): Promise<mixed> => {
+  it(`executes the correct fetch call`, async (): Promise<void> => {
     fetch.mockResponseOnce('', { status: 200 });
     await api.users.patch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken);
 

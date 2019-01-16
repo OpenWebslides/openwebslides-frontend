@@ -36,7 +36,7 @@ describe(`removeTopicId`, (): void => {
       .run();
   });
 
-  it(`throws an UnsupportedOperationError, when attempting to remove a non-existing topicId`, async (): Promise<mixed> => {
+  it(`throws an UnsupportedOperationError, when attempting to remove a non-existing topicId`, async (): Promise<void> => {
     const dummyAction = actions.removeTopicId(dummyUser.id, 'InvalidTopicId');
 
     // Suppress console.error from redux-saga $FlowFixMe

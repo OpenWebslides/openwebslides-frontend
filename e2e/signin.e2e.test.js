@@ -6,18 +6,18 @@ import config from './config';
 
 let nightmare: typeof Nightmare;
 
-beforeEach(async (): Promise<mixed> => {
+beforeEach(async (): Promise<void> => {
   nightmare = new Nightmare(config.nightmareOptions);
   await nightmare.on('console', config.nightmareConsoleHandler);
   await nightmare.on('page', config.nightmarePageHandler);
   await nightmare.goto(config.baseUrl, config.headers);
 });
 
-afterEach(async (): Promise<mixed> => {
+afterEach(async (): Promise<void> => {
   await nightmare.end();
 });
 
-test(`A pre-existing user can sign in and is redirected to their profile.`, async (): Promise<mixed> => {
+test(`A pre-existing user can sign in and is redirected to their profile.`, async (): Promise<void> => {
   // Verify that there is no currently signed in user (i.e. the auth menu is displayed).
   await nightmare.wait('[data-test-id="auth-menu"]');
 
