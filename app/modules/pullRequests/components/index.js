@@ -1,6 +1,9 @@
 // @flow
 
+import OutgoingPullRequest from './OutgoingPullRequest';
+
 const index = {
+  OutgoingPullRequest,
 };
 
 /* istanbul ignore next */
