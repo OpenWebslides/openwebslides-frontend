@@ -14,14 +14,14 @@ type PassedProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
-const { IncomingPullRequest } = pullRequests.components;
+const { PullRequest } = pullRequests.components;
 
 class PureIncomingPullRequests extends React.Component<Props> {
   renderPullRequest = (pullRequestId: string): React.Node => {
     return (
       <Item key={pullRequestId}>
         <Item.Content>
-          <IncomingPullRequest pullRequestId={pullRequestId} />
+          <PullRequest pullRequestId={pullRequestId} />
         </Item.Content>
       </Item>
     );

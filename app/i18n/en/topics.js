@@ -57,7 +57,7 @@ const topics = {
         empty: 'You have not sent any updates back to <0>{{upstreamTopicTitle}}</0>',
       },
       incoming: {
-        description: 'Updates sent back to this topic are visible here. You will be able to see the updates and the message accompanying the updates. After reviewing, these changes will be integrated in the topic.',
+        description: 'Updates sent back to this topic are shown here. You will be able to see the updates and the message accompanying the updates. After reviewing, these changes will be integrated in the topic.',
         title: 'Pending contributions',
         empty: 'No updates were sent back yet',
       },

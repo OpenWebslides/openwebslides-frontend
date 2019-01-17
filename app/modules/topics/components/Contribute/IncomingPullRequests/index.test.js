@@ -37,7 +37,7 @@ describe(`IncomingPullRequests`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="incoming-pull-requests-empty-message"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`renders an IncomingPullRequest component and no empty message for every incoming pull request in the topic`, (): void => {
+  it(`renders a PullRequest component and no empty message for every incoming pull request in the topic`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <IncomingPullRequests topic={{ ...dummyTopic, incomingPullRequestIds: ['foo', 'bar'] }} />
@@ -45,7 +45,7 @@ describe(`IncomingPullRequests`, (): void => {
     );
 
     expect(enzymeWrapper.find('[data-test-id="incoming-pull-requests-empty-message"]').hostNodes()).toHaveLength(0);
-    expect(enzymeWrapper.find('PureIncomingPullRequest')).toHaveLength(2);
+    expect(enzymeWrapper.find('PurePullRequest')).toHaveLength(2);
   });
 
 });
