@@ -5,7 +5,7 @@ import { type ContextRouter as RouterProps } from 'react-router-dom';
 
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import platform from 'modules/platform';
-import pullRequests from 'modules/topics';
+import pullRequests from 'modules/pullRequests';
 
 type Props = {| ...RouterProps |};
 
@@ -18,7 +18,7 @@ const PureViewPage = (props: Props): React.Node => {
   return (pullRequestId == null) ? null : (
     <AuthWrapper>
       <ContainerPageWrapper>
-        <PullRequest pullRequestId={pullRequestId} />
+        <View pullRequestId={pullRequestId} />
       </ContainerPageWrapper>
     </AuthWrapper>
   );

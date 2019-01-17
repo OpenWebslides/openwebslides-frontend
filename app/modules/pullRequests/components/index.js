@@ -1,9 +1,11 @@
 // @flow
 
 import PullRequestEntry from './PullRequestEntry';
+import View from './View';
 
 const index = {
   PullRequestEntry,
+  View,
 };
 
 /* istanbul ignore next */
