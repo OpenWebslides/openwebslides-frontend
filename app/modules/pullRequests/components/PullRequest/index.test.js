@@ -9,9 +9,9 @@ import { DummyProviders, dummyProviderProps, dummyPullRequestData, dummyInitialS
 import actions from '../../actions';
 import * as m from '../../model';
 
-import OutgoingPullRequests, { PureOutgoingPullRequest } from '.';
+import PullRequests, { PurePullRequest } from '.';
 
-describe(`OutgoingPullRequests`, (): void => {
+describe(`PullRequests`, (): void => {
 
   let dummyPullRequest: m.PullRequest;
   let dummyPullRequestsById: m.PullRequestsById;
@@ -38,7 +38,7 @@ describe(`OutgoingPullRequests`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureOutgoingPullRequest
+      <PurePullRequest
         {...dummyProviderProps.translatorProps}
         pullRequestId={dummyPullRequest.id}
       />,
@@ -51,33 +51,33 @@ describe(`OutgoingPullRequests`, (): void => {
 
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <OutgoingPullRequests pullRequestId={dummyPullRequest.id} />
+        <PullRequests pullRequestId={dummyPullRequest.id} />
       </DummyProviders>,
     );
 
     expect(dummyDispatch).toHaveBeenCalledWith(actions.fetch(dummyPullRequest.id));
-    expect(enzymeWrapper.find('[data-test-id="outgoing-pull-request"]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="pull-request"]').hostNodes()).toHaveLength(0);
   });
 
   it(`renders the outgoing pull request component, when the pull request was previously present in the state`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <OutgoingPullRequests pullRequestId={dummyPullRequest.id} />
+        <PullRequests pullRequestId={dummyPullRequest.id} />
       </DummyProviders>,
     );
 
     expect(dummyDispatch).toHaveBeenCalledTimes(0);
-    expect(enzymeWrapper.find('[data-test-id="outgoing-pull-request"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="pull-request"]').hostNodes()).toHaveLength(1);
   });
 
   it(`renders the pull request message`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <OutgoingPullRequests pullRequestId={dummyPullRequest.id} />
+        <PullRequests pullRequestId={dummyPullRequest.id} />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="outgoing-pull-request-message"]').hostNodes().html()).toContain(dummyPullRequest.message);
+    expect(enzymeWrapper.find('[data-test-id="pull-request-message"]').hostNodes().html()).toContain(dummyPullRequest.message);
   });
 
   describe(`renders the correct icon`, (): void => {
@@ -87,7 +87,7 @@ describe(`OutgoingPullRequests`, (): void => {
 
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <OutgoingPullRequests pullRequestId={dummyPullRequest.id} />
+          <PullRequests pullRequestId={dummyPullRequest.id} />
         </DummyProviders>,
       );
 
@@ -99,7 +99,7 @@ describe(`OutgoingPullRequests`, (): void => {
 
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <OutgoingPullRequests pullRequestId={dummyPullRequest.id} />
+          <PullRequests pullRequestId={dummyPullRequest.id} />
         </DummyProviders>,
       );
 
@@ -111,7 +111,7 @@ describe(`OutgoingPullRequests`, (): void => {
 
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <OutgoingPullRequests pullRequestId={dummyPullRequest.id} />
+          <PullRequests pullRequestId={dummyPullRequest.id} />
         </DummyProviders>,
       );
 
@@ -123,7 +123,7 @@ describe(`OutgoingPullRequests`, (): void => {
 
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <OutgoingPullRequests pullRequestId={dummyPullRequest.id} />
+          <PullRequests pullRequestId={dummyPullRequest.id} />
         </DummyProviders>,
       );
 
@@ -135,7 +135,7 @@ describe(`OutgoingPullRequests`, (): void => {
 
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <OutgoingPullRequests pullRequestId={dummyPullRequest.id} />
+          <PullRequests pullRequestId={dummyPullRequest.id} />
         </DummyProviders>,
       );
 
@@ -147,7 +147,7 @@ describe(`OutgoingPullRequests`, (): void => {
 
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <OutgoingPullRequests pullRequestId={dummyPullRequest.id} />
+          <PullRequests pullRequestId={dummyPullRequest.id} />
         </DummyProviders>,
       );
 

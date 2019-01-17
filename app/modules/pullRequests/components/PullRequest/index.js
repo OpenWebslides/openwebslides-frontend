@@ -17,7 +17,7 @@ type PassedProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
-class PureIncomingPullRequest extends React.Component<Props> {
+class PurePullRequest extends React.Component<Props> {
   iconForState = (state: m.PullRequestState): React.Node => {
     switch (state) {
       case m.pullRequestStates.PENDING:
@@ -35,13 +35,13 @@ class PureIncomingPullRequest extends React.Component<Props> {
     }
   };
 
-  renderIncomingPullRequest = (pullRequest: m.PullRequest): React.Node => {
+  renderPullRequest = (pullRequest: m.PullRequest): React.Node => {
     const { t } = this.props;
 
     return (
-      <Item data-test-id="incoming-pull-request">
+      <Item data-test-id="pull-request">
         <Item.Content>
-          <Item.Header as="strong" data-test-id="incoming-pull-request-message">
+          <Item.Header as="strong" data-test-id="pull-request-message">
             {/* TODO: link to PR */}
             {pullRequest.message}
           </Item.Header>
@@ -61,7 +61,7 @@ class PureIncomingPullRequest extends React.Component<Props> {
 
     return (
       <FetchWrapper
-        render={this.renderIncomingPullRequest}
+        render={this.renderPullRequest}
         renderPropsAndState={{ ...this.props, ...this.state }}
         fetchId={pullRequestId}
         fetchAction={actions.fetch}
@@ -71,7 +71,7 @@ class PureIncomingPullRequest extends React.Component<Props> {
   }
 }
 
-const IncomingPullRequest = withNamespaces()(PureIncomingPullRequest);
+const PullRequest = withNamespaces()(PurePullRequest);
 
-export { PureIncomingPullRequest };
-export default IncomingPullRequest;
+export { PurePullRequest };
+export default PullRequest;

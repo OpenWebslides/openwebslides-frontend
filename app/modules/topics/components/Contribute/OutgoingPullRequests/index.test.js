@@ -89,7 +89,7 @@ describe(`OutgoingPullRequests`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="outgoing-pull-requests-empty-message"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`renders an OutgoingPullRequest component and no empty message for every outgoing pull request in the topic`, (): void => {
+  it(`renders a PullRequest component and no empty message for every outgoing pull request in the topic`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <OutgoingPullRequests topic={{ ...dummyDownstreamTopic, outgoingPullRequestIds: ['foo', 'bar'] }} />
@@ -97,7 +97,7 @@ describe(`OutgoingPullRequests`, (): void => {
     );
 
     expect(enzymeWrapper.find('[data-test-id="outgoing-pull-requests-empty-message"]').hostNodes()).toHaveLength(0);
-    expect(enzymeWrapper.find('PureOutgoingPullRequest')).toHaveLength(2);
+    expect(enzymeWrapper.find('PurePullRequest')).toHaveLength(2);
   });
 
 });
