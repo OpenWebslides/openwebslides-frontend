@@ -6,11 +6,8 @@ import { connect } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
 import { Button, Header, Icon, Menu } from 'semantic-ui-react';
-import { push } from 'connected-react-router';
 
 import { type AppState, type ModulesAction } from 'types/redux';
-import { TOPIC_EDITOR_ROUTE } from 'config/routes';
-import makeRoute from 'lib/makeRoute';
 import FetchWrapper from 'components/FetchWrapper';
 import { type CommitFormValues } from 'forms/CommitForm';
 import CommitModal from 'modals/CommitModal';
