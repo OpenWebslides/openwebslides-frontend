@@ -39,4 +39,14 @@ describe(`Contribute`, (): void => {
     expect(enzymeWrapper.find('PureOutgoingPullRequests')).toHaveLength(1);
   });
 
+  it(`renders an incoming pull requests section when the topic has no upstream`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <Contribute topic={dummyUpstreamTopic} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureIncomingPullRequests')).toHaveLength(1);
+  });
+
 });
