@@ -9,7 +9,7 @@ export const pullRequest: pullRequests.model.PullRequest = {
   sourceTopicId: 'dummySourceTopicId',
   targetTopicId: 'dummyTargetTopicId',
   userId: 'dummyUserId',
-  state: pullRequests.model.pullRequestStates.OPEN,
+  state: pullRequests.model.pullRequestStates.READY,
   timestamp: 1524490428,
 };
 
@@ -20,7 +20,7 @@ export const pullRequest2: pullRequests.model.PullRequest = {
   sourceTopicId: 'dummySourceTopicId',
   targetTopicId: 'dummyTargetTopicId',
   userId: 'dummyUserId',
-  state: pullRequests.model.pullRequestStates.OPEN,
+  state: pullRequests.model.pullRequestStates.READY,
   timestamp: 1524490408,
 };
 
@@ -31,7 +31,7 @@ export const pullRequest3: pullRequests.model.PullRequest = {
   sourceTopicId: 'dummySourceTopicId',
   targetTopicId: 'dummyTargetTopicId',
   userId: 'dummyUserId',
-  state: pullRequests.model.pullRequestStates.OPEN,
+  state: pullRequests.model.pullRequestStates.READY,
   timestamp: 1524490328,
 };
 

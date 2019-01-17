@@ -32,7 +32,7 @@ describe(`apiGet`, (): void => {
     dummySourceTopicId = 'dummySourceTopicId';
     dummyTargetTopicId = 'dummyTargetTopicId';
     dummyUserId = 'dummyUserId';
-    dummyState = 'open';
+    dummyState = 'ready';
     dummyCreatedAt = 1540308640;
   });
 
@@ -63,12 +63,12 @@ describe(`apiGet`, (): void => {
         [call(api.pullRequests.get, dummyId, dummyToken), dummyApiResponse],
       ])
       .call(api.pullRequests.get, dummyId, dummyToken)
-      .put(actions.setMultipleInState([{ id: dummyId, message: dummyMessage, feedback: dummyFeedback, sourceTopicId: dummySourceTopicId, targetTopicId: dummyTargetTopicId, userId: dummyUserId, state: pullRequestStates.OPEN, timestamp: (dummyCreatedAt * 1000) }]))
+      .put(actions.setMultipleInState([{ id: dummyId, message: dummyMessage, feedback: dummyFeedback, sourceTopicId: dummySourceTopicId, targetTopicId: dummyTargetTopicId, userId: dummyUserId, state: pullRequestStates.READY, timestamp: (dummyCreatedAt * 1000) }]))
       .run();
   });
 
   const states = {
-    open: pullRequestStates.OPEN,
+    ready: pullRequestStates.READY,
     pending: pullRequestStates.PENDING,
     incompatible: pullRequestStates.INCOMPATIBLE,
     working: pullRequestStates.WORKING,
