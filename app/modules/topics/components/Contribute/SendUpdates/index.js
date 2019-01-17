@@ -5,7 +5,7 @@ import { type Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Item, Icon, Button, Message, Header, Divider } from 'semantic-ui-react';
+import { Item, Icon, Button, Message } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
