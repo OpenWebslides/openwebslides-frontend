@@ -9,7 +9,7 @@ import { DummyProviders, dummyProviderProps, dummyPullRequestData, dummyInitialS
 import actions from '../../actions';
 import * as m from '../../model';
 
-import PullRequests, { PurePullRequest } from '.';
+import PullRequestEntry, { PurePullRequestEntry } from '.';
 
 describe(`PullRequests`, (): void => {
 
@@ -38,7 +38,7 @@ describe(`PullRequests`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PurePullRequest
+      <PurePullRequestEntry
         {...dummyProviderProps.translatorProps}
         pullRequestId={dummyPullRequest.id}
       />,
@@ -51,7 +51,7 @@ describe(`PullRequests`, (): void => {
 
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <PullRequests pullRequestId={dummyPullRequest.id} />
+        <PullRequestEntry pullRequestId={dummyPullRequest.id} />
       </DummyProviders>,
     );
 
@@ -62,7 +62,7 @@ describe(`PullRequests`, (): void => {
   it(`renders the outgoing pull request component, when the pull request was previously present in the state`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <PullRequests pullRequestId={dummyPullRequest.id} />
+        <PullRequestEntry pullRequestId={dummyPullRequest.id} />
       </DummyProviders>,
     );
 
@@ -73,7 +73,7 @@ describe(`PullRequests`, (): void => {
   it(`renders the pull request message`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <PullRequests pullRequestId={dummyPullRequest.id} />
+        <PullRequestEntry pullRequestId={dummyPullRequest.id} />
       </DummyProviders>,
     );
 
@@ -87,7 +87,7 @@ describe(`PullRequests`, (): void => {
 
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <PullRequests pullRequestId={dummyPullRequest.id} />
+          <PullRequestEntry pullRequestId={dummyPullRequest.id} />
         </DummyProviders>,
       );
 
@@ -99,7 +99,7 @@ describe(`PullRequests`, (): void => {
 
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <PullRequests pullRequestId={dummyPullRequest.id} />
+          <PullRequestEntry pullRequestId={dummyPullRequest.id} />
         </DummyProviders>,
       );
 
@@ -111,7 +111,7 @@ describe(`PullRequests`, (): void => {
 
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <PullRequests pullRequestId={dummyPullRequest.id} />
+          <PullRequestEntry pullRequestId={dummyPullRequest.id} />
         </DummyProviders>,
       );
 
@@ -123,7 +123,7 @@ describe(`PullRequests`, (): void => {
 
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <PullRequests pullRequestId={dummyPullRequest.id} />
+          <PullRequestEntry pullRequestId={dummyPullRequest.id} />
         </DummyProviders>,
       );
 
@@ -135,7 +135,7 @@ describe(`PullRequests`, (): void => {
 
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <PullRequests pullRequestId={dummyPullRequest.id} />
+          <PullRequestEntry pullRequestId={dummyPullRequest.id} />
         </DummyProviders>,
       );
 
@@ -147,7 +147,7 @@ describe(`PullRequests`, (): void => {
 
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <PullRequests pullRequestId={dummyPullRequest.id} />
+          <PullRequestEntry pullRequestId={dummyPullRequest.id} />
         </DummyProviders>,
       );
 
@@ -159,7 +159,7 @@ describe(`PullRequests`, (): void => {
 
       const enzymeWrapper = mount(
         <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <PullRequests pullRequestId={dummyPullRequest.id} />
+          <PullRequestEntry pullRequestId={dummyPullRequest.id} />
         </DummyProviders>,
       );
 

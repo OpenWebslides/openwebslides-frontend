@@ -1,9 +1,9 @@
 // @flow
 
-import PullRequest from './PullRequest';
+import PullRequestEntry from './PullRequestEntry';
 
 const index = {
-  PullRequest,
+  PullRequestEntry,
 };
 
 /* istanbul ignore next */

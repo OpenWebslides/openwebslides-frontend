@@ -20,14 +20,14 @@ type PassedProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
-const { PullRequest } = pullRequests.components;
+const { PullRequestEntry } = pullRequests.components;
 
 class PureOutgoingPullRequests extends React.Component<Props> {
   renderPullRequest = (pullRequestId: string): React.Node => {
     return (
       <Item key={pullRequestId}>
         <Item.Content>
-          <PullRequest pullRequestId={pullRequestId} />
+          <PullRequestEntry pullRequestId={pullRequestId} />
         </Item.Content>
       </Item>
     );
