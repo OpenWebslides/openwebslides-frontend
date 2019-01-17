@@ -154,6 +154,18 @@ describe(`PullRequests`, (): void => {
       expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('close');
     });
 
+    it(`renders no icon on unknown state`, (): void => {
+      _.set(dummyPullRequest, 'state', null);
+
+      const enzymeWrapper = mount(
+        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+          <PullRequests pullRequestId={dummyPullRequest.id} />
+        </DummyProviders>,
+      );
+
+      expect(enzymeWrapper.find('Icon')).toHaveLength(0);
+    });
+
   });
 
 });
