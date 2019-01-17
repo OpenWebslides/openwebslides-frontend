@@ -1,8 +1,10 @@
 // @flow
 
+import IncomingPullRequest from './IncomingPullRequest';
 import OutgoingPullRequest from './OutgoingPullRequest';
 
 const index = {
+  IncomingPullRequest,
   OutgoingPullRequest,
 };
 
