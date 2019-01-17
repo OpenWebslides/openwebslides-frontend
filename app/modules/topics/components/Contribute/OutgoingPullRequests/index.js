@@ -40,7 +40,7 @@ class PureOutgoingPullRequests extends React.Component<Props> {
       <div data-test-id="outgoing-pull-requests">
         <Header as="h3">
           <Icon name="refresh" />
-          {t('topics:sidebars.contribute.pending.title')}
+          {t('topics:sidebars.contribute.outgoing.title')}
         </Header>
         <Item.Group>
           <Item>
@@ -53,7 +53,7 @@ class PureOutgoingPullRequests extends React.Component<Props> {
               <Item.Content>
                 <em data-test-id="outgoing-pull-requests-empty-message">
                   <Trans
-                    i18nKey="topics:sidebars.contribute.pending.empty"
+                    i18nKey="topics:sidebars.contribute.outgoing.empty"
                     values={{ upstreamTopicTitle: upstreamTopic.title }}
                   >
                     <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: upstreamTopic.id })}>
