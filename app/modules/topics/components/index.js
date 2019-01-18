@@ -1,6 +1,5 @@
 // @flow
 
-import Contribute from './Contribute';
 import Course from './Course';
 import Editor from './Editor';
 import ForkInfo from './ForkInfo';
@@ -11,7 +10,6 @@ import TopicsList from './TopicsList';
 import Viewer from './Viewer';
 
 const index = {
-  Contribute,
   Course,
   Editor,
   ForkInfo,

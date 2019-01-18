@@ -5,20 +5,19 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
-import pullRequests from 'modules/pullRequests';
+import topics from 'modules/topics';
 
 import actions from '../../../actions';
-import * as m from '../../../model';
 
 import SendUpdates, { PureSendUpdates } from '.';
 
 describe(`SendUpdates`, (): void => {
 
-  let dummyTopic: m.Topic;
-  let dummyDirtyTopic: m.Topic;
-  let dummyUpstreamTopic: m.Topic;
-  let dummyDownstreamTopic: m.Topic;
-  let dummyTopicsById: m.TopicsById;
+  let dummyTopic: topics.model.Topic;
+  let dummyDirtyTopic: topics.model.Topic;
+  let dummyUpstreamTopic: topics.model.Topic;
+  let dummyDownstreamTopic: topics.model.Topic;
+  let dummyTopicsById: topics.model.TopicsById;
   let dummyState: any;
   let dummyDispatch: any;
   let dummyCurrentUserId: string;
@@ -69,7 +68,7 @@ describe(`SendUpdates`, (): void => {
       </DummyProviders>,
     );
 
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.fetch(dummyUpstreamTopic.id));
+    expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyUpstreamTopic.id));
     expect(enzymeWrapper.find('[data-test-id="send-updates"]').hostNodes()).toHaveLength(0);
   });
 
@@ -148,7 +147,7 @@ describe(`SendUpdates`, (): void => {
     enzymeWrapper.find('[data-test-id="send-updates-pull-request-button"]').hostNodes().simulate('click');
     expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(true);
     onSubmit(dummyMessage, dummyDownstreamTopic.id, dummyDownstreamTopic.upstreamTopicId, dummyCurrentUserId);
-    expect(dummyDispatch).toHaveBeenCalledWith(pullRequests.actions.create(dummyMessage, dummyDownstreamTopic.id, (dummyDownstreamTopic.upstreamTopicId || ''), dummyCurrentUserId));
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.create(dummyMessage, dummyDownstreamTopic.id, (dummyDownstreamTopic.upstreamTopicId || ''), dummyCurrentUserId));
     enzymeWrapper.update();
     expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
   });

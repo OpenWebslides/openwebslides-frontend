@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 
+import pullRequests from 'modules/pullRequests';
 import topics from 'modules/topics';
 
 import Sidebar from './Sidebar';
@@ -13,7 +14,7 @@ type PassedProps = {|
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
-const { Contribute } = topics.components;
+const { Contribute } = pullRequests.components;
 
 const PureContributeSidebar = (props: Props): React.Node => {
   const { t, topic } = props;

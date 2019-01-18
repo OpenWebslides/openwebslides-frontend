@@ -8,19 +8,15 @@ import { Item, Icon, Header } from 'semantic-ui-react';
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 import makeRoute from 'lib/makeRoute';
-import pullRequests from 'modules/pullRequests';
+import topics from 'modules/topics';
 
-import actions from '../../../actions';
-import * as m from '../../../model';
-import selectors from '../../../selectors';
+import PullRequestEntry from '../../PullRequestEntry';
 
 type PassedProps = {|
-  topic: m.Topic,
+  topic: topics.model.Topic,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
-
-const { PullRequestEntry } = pullRequests.components;
 
 class PureOutgoingPullRequests extends React.Component<Props> {
   renderPullRequest = (pullRequestId: string): React.Node => {
@@ -33,7 +29,7 @@ class PureOutgoingPullRequests extends React.Component<Props> {
     );
   };
 
-  renderOutgoingPullRequests = (upstreamTopic: m.Topic): React.Node => {
+  renderOutgoingPullRequests = (upstreamTopic: topics.model.Topic): React.Node => {
     const { t, topic } = this.props;
 
     return (
@@ -78,8 +74,8 @@ class PureOutgoingPullRequests extends React.Component<Props> {
         render={this.renderOutgoingPullRequests}
         renderPropsAndState={{ ...this.props, ...this.state }}
         fetchId={topic.upstreamTopicId}
-        fetchAction={actions.fetch}
-        fetchedPropSelector={selectors.getById}
+        fetchAction={topics.actions.fetch}
+        fetchedPropSelector={topics.selectors.getById}
       />
     );
   }

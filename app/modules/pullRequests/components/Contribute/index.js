@@ -3,14 +3,14 @@
 import * as React from 'react';
 import { Divider } from 'semantic-ui-react';
 
-import * as m from '../../model';
+import topics from 'modules/topics';
 
 import SendUpdates from './SendUpdates';
 import OutgoingPullRequests from './OutgoingPullRequests';
 import IncomingPullRequests from './IncomingPullRequests';
 
 type PassedProps = {|
-  topic: m.Topic,
+  topic: topics.model.Topic,
 |};
 
 type Props = {| ...PassedProps |};

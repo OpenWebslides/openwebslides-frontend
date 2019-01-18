@@ -4,17 +4,15 @@ import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Item, Icon, Header, Divider } from 'semantic-ui-react';
 
-import pullRequests from 'modules/pullRequests';
+import topics from 'modules/topics';
 
-import * as m from '../../../model';
+import PullRequestEntry from '../../PullRequestEntry';
 
 type PassedProps = {|
-  topic: m.Topic,
+  topic: topics.model.Topic,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
-
-const { PullRequestEntry } = pullRequests.components;
 
 class PureIncomingPullRequests extends React.Component<Props> {
   renderPullRequest = (pullRequestId: string): React.Node => {

@@ -1,9 +1,11 @@
 // @flow
 
+import Contribute from './Contribute';
 import PullRequestEntry from './PullRequestEntry';
 import View from './View';
 
 const index = {
+  Contribute,
   PullRequestEntry,
   View,
 };

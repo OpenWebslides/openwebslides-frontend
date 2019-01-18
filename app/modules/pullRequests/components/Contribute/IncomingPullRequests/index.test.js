@@ -4,14 +4,13 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps, dummyTopicData } from 'lib/testResources';
-
-import * as m from '../../../model';
+import topics from 'modules/topics';
 
 import IncomingPullRequests, { PureIncomingPullRequests } from '.';
 
 describe(`IncomingPullRequests`, (): void => {
 
-  let dummyTopic: m.Topic;
+  let dummyTopic: topics.model.Topic;
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic };
@@ -45,7 +44,7 @@ describe(`IncomingPullRequests`, (): void => {
     );
 
     expect(enzymeWrapper.find('[data-test-id="incoming-pull-requests-empty-message"]').hostNodes()).toHaveLength(0);
-    expect(enzymeWrapper.find('PurePullRequest')).toHaveLength(2);
+    expect(enzymeWrapper.find('PurePullRequestEntry')).toHaveLength(2);
   });
 
 });

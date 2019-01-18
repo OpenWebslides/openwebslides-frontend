@@ -5,19 +5,19 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
+import topics from 'modules/topics';
 
 import actions from '../../../actions';
-import * as m from '../../../model';
 
 import OutgoingPullRequests, { PureOutgoingPullRequests } from '.';
 
 describe(`OutgoingPullRequests`, (): void => {
 
-  let dummyTopic: m.Topic;
-  let dummyDirtyTopic: m.Topic;
-  let dummyUpstreamTopic: m.Topic;
-  let dummyDownstreamTopic: m.Topic;
-  let dummyTopicsById: m.TopicsById;
+  let dummyTopic: topics.model.Topic;
+  let dummyDirtyTopic: topics.model.Topic;
+  let dummyUpstreamTopic: topics.model.Topic;
+  let dummyDownstreamTopic: topics.model.Topic;
+  let dummyTopicsById: topics.model.TopicsById;
   let dummyState: any;
   let dummyDispatch: any;
 
@@ -64,7 +64,7 @@ describe(`OutgoingPullRequests`, (): void => {
       </DummyProviders>,
     );
 
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.fetch(dummyUpstreamTopic.id));
+    expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyUpstreamTopic.id));
     expect(enzymeWrapper.find('[data-test-id="send-updates"]').hostNodes()).toHaveLength(0);
   });
 
@@ -97,7 +97,7 @@ describe(`OutgoingPullRequests`, (): void => {
     );
 
     expect(enzymeWrapper.find('[data-test-id="outgoing-pull-requests-empty-message"]').hostNodes()).toHaveLength(0);
-    expect(enzymeWrapper.find('PurePullRequest')).toHaveLength(2);
+    expect(enzymeWrapper.find('PurePullRequestEntry')).toHaveLength(2);
   });
 
 });

@@ -12,14 +12,12 @@ import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 import makeRoute from 'lib/makeRoute';
 import PullRequestModal from 'modals/PullRequestModal';
-import pullRequests from 'modules/pullRequests';
+import topics from 'modules/topics';
 
 import actions from '../../../actions';
-import * as m from '../../../model';
-import selectors from '../../../selectors';
 
 type PassedProps = {|
-  topic: m.Topic,
+  topic: topics.model.Topic,
 |};
 
 type DispatchProps = {|
@@ -48,7 +46,7 @@ const mapDispatchToProps = (
       targetTopicId: string,
       currentUserId: string,
     ): void => {
-      dispatch(pullRequests.actions.create(message, sourceTopicId, targetTopicId, currentUserId));
+      dispatch(actions.create(message, sourceTopicId, targetTopicId, currentUserId));
     },
   };
 };
@@ -77,7 +75,7 @@ class PureSendUpdates extends React.Component<Props, ComponentState> {
     this.setState({ isPRModalOpen: false });
   };
 
-  renderSendUpdates = (upstreamTopic: m.Topic): React.Node => {
+  renderSendUpdates = (upstreamTopic: topics.model.Topic): React.Node => {
     const { t, topic } = this.props;
     const { isPRModalOpen } = this.state;
 
@@ -143,8 +141,8 @@ class PureSendUpdates extends React.Component<Props, ComponentState> {
         render={this.renderSendUpdates}
         renderPropsAndState={{ ...this.props, ...this.state }}
         fetchId={topic.upstreamTopicId}
-        fetchAction={actions.fetch}
-        fetchedPropSelector={selectors.getById}
+        fetchAction={topics.actions.fetch}
+        fetchedPropSelector={topics.selectors.getById}
       />
     );
   }

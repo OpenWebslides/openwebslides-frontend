@@ -4,15 +4,14 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 
 import { DummyProviders, dummyTopicData } from 'lib/testResources';
-
-import * as m from '../../model';
+import topics from 'modules/topics';
 
 import Contribute from '.';
 
 describe(`Contribute`, (): void => {
 
-  let dummyUpstreamTopic: m.Topic;
-  let dummyDownstreamTopic: m.Topic;
+  let dummyUpstreamTopic: topics.model.Topic;
+  let dummyDownstreamTopic: topics.model.Topic;
 
   beforeEach((): void => {
     dummyUpstreamTopic = { ...dummyTopicData.upstream, isContentFetched: true };
