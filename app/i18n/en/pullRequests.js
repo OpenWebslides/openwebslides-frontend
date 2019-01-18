@@ -19,9 +19,9 @@ const pullRequests = {
     'pullRequestStates/REJECTED': 'Rejected',
   },
   comments: {
+    timestamp: 'sent updates {{timestamp}}',
     submit: {
-      timestamp: 'sent updates {{timestamp}}',
-      text: '{{userName}} wants to integrate {{count}} updates into <0>{{targetTopicTitle}}</0> from <1>{{sourceTopicTitle}}</1>',
+      text: 'Wants to integrate {{count}} updates into <0>{{targetTopicTitle}}</0> from <1>{{sourceTopicTitle}}</1>',
     },
   },
 };
