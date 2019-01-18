@@ -11,6 +11,7 @@ import * as m from '../../model';
 import selectors from '../../selectors';
 
 import SubmitComment from './SubmitComment';
+import StateComment from './StateComment';
 
 type PassedProps = {|
   pullRequestId: string,
@@ -70,6 +71,8 @@ class PureView extends React.Component<Props> {
 
           <Comment.Group>
             <SubmitComment pullRequest={pullRequest} />
+
+            <StateComment pullRequest={pullRequest} />
           </Comment.Group>
         </Segment>
 

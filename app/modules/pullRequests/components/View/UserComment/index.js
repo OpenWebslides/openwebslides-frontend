@@ -31,7 +31,7 @@ class PureUserComment extends React.Component<Props> {
             {user.name}
           </Comment.Author>
           <Comment.Metadata>
-            {t('pullRequests:comments.timestamp', { timestamp: moment(timestamp).fromNow() })}
+            {moment(timestamp).fromNow()}
           </Comment.Metadata>
           <Comment.Text>
             {children}

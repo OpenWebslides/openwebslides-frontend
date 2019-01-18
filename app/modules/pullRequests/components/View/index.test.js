@@ -187,7 +187,7 @@ describe(`PullRequests`, (): void => {
 
   });
 
-  it(`renders a submit comment`, (): void => {
+  it(`renders a submit comment and a state comment`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <View pullRequestId={dummyPullRequest.id} />
@@ -195,6 +195,7 @@ describe(`PullRequests`, (): void => {
     );
 
     expect(enzymeWrapper.find('PureSubmitComment')).toHaveLength(1);
+    expect(enzymeWrapper.find('PureStateComment')).toHaveLength(1);
   });
 
 });

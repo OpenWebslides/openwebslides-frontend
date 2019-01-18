@@ -22,6 +22,7 @@ const common = {
     fork: 'Create personal copy',
     pr: 'Send updates',
     share: 'Share',
+    contribution: 'Contribution',
   },
   copied: 'Copied!',
   loading: 'Loading...',
