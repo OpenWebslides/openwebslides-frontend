@@ -2,14 +2,15 @@
 
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Header, Icon, Segment, Label, Divider } from 'semantic-ui-react';
-import moment from 'moment';
+import { Header, Icon, Segment, Label, Divider, Comment } from 'semantic-ui-react';
 
 import FetchWrapper from 'components/FetchWrapper';
 
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
+
+import SubmitComment from './SubmitComment';
 
 type PassedProps = {|
   pullRequestId: string,
@@ -49,7 +50,7 @@ class PureView extends React.Component<Props> {
 
     return (
       <Label ribbon={true} color={color}>
-        <Icon name={icon} color="white" /> {t(`pullRequests:titleForState.${state}`)}
+        <Icon name={icon} /> {t(`pullRequests:titleForState.${state}`)}
       </Label>
     );
   };
@@ -67,12 +68,10 @@ class PureView extends React.Component<Props> {
           </Header>
 
           <Divider hidden={true} />
-          <p>
-            {moment(pullRequest.timestamp).fromNow()}
-          </p>
-          <p>
-            <strong>Florian</strong> wants to integrate <strong>0 updates</strong> into <strong>My First Topic</strong> from <strong>Personal Copy of My First Topic</strong>
-          </p>
+
+          <Comment.Group>
+            <SubmitComment pullRequest={pullRequest} />
+          </Comment.Group>
         </Segment>
 
       </div>
