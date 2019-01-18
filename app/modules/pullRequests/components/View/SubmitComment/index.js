@@ -72,10 +72,10 @@ class PureSubmitComment extends React.Component<Props> {
               targetTopicTitle: target.title,
             }}
           >
-            <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: source.id })}>
-              source
-            </Link>
             <Link to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: target.id })}>
+              target
+            </Link>
+            <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: source.id })}>
               source
             </Link>
           </Trans>
