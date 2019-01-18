@@ -7,8 +7,6 @@ import { mount, shallow } from 'enzyme';
 import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
 import topics from 'modules/topics';
 
-import actions from '../../../actions';
-
 import OutgoingPullRequests, { PureOutgoingPullRequests } from '.';
 
 describe(`OutgoingPullRequests`, (): void => {

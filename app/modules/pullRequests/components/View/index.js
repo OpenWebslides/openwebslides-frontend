@@ -56,14 +56,12 @@ class PureView extends React.Component<Props> {
   };
 
   renderView = (pullRequest: m.PullRequest): React.Node => {
-    const { t } = this.props;
-
     return (
       <div data-test-id="pull-request-view">
         <Segment raised={true}>
           {this.ribbonForState(pullRequest.state)}
 
-          <Header as="span" data-test-id="pull-request-view-title">
+          <Header as="span" data-test-id="pull-request-view-message">
             {pullRequest.message}
           </Header>
 

@@ -57,7 +57,7 @@ class PureSubmitComment extends React.Component<Props> {
   }
 
   render(): React.Node {
-    const { t, pullRequest, source, target } = this.props;
+    const { pullRequest, source, target } = this.props;
 
     if (source == null || target == null) return null;
 

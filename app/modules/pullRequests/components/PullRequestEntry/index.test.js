@@ -11,7 +11,7 @@ import * as m from '../../model';
 
 import PullRequestEntry, { PurePullRequestEntry } from '.';
 
-describe(`PullRequests`, (): void => {
+describe(`PullRequestEntry`, (): void => {
 
   let dummyPullRequest: m.PullRequest;
   let dummyPullRequestsById: m.PullRequestsById;

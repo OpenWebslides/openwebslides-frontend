@@ -3,40 +3,43 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyFeedItemData, dummyTopicData, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyProviderProps, dummyPullRequestData, dummyTopicData, dummyUserData } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
 import * as m from '../../../model';
 
-import FeedItem, { PureFeedItem } from '.';
+import SubmitComment, { PureSubmitComment } from '.';
 
-describe(`FeedItem`, (): void => {
+describe(`SubmitComment`, (): void => {
 
-  let dummyTopic: topics.model.Topic;
+  let dummyTarget: topics.model.Topic;
+  let dummySource: topics.model.Topic;
   let dummyUser: users.model.User;
-  let dummyFeedItem: m.FeedItem;
+  let dummyPullRequest: m.PullRequest;
   let dummyState: any;
   let dummyDispatch: any;
 
   beforeEach((): void => {
-    dummyTopic = { ...dummyTopicData.topic };
+    dummyTarget = { ...dummyTopicData.upstream };
+    dummySource = { ...dummyTopicData.downstream, upstreamTopicId: dummyTarget.id };
     dummyUser = { ...dummyUserData.user };
-    dummyFeedItem = { ...dummyFeedItemData.feedItem, topicId: dummyTopic.id, userId: dummyUser.id };
+    dummyPullRequest = { ...dummyPullRequestData.pullRequest, sourceTopicId: dummySource.id, targetTopicId: dummyTarget.id, userId: dummyUser.id };
     dummyState = {
       ...dummyInitialState,
       modules: {
         ...dummyInitialState.modules,
-        feedItems: {
-          ...dummyInitialState.modules.feedItems,
-          byId: {
-            [dummyFeedItem.id]: dummyFeedItem,
-          },
-        },
         topics: {
           ...dummyInitialState.modules.topics,
           byId: {
-            [dummyTopic.id]: dummyTopic,
+            [dummyTarget.id]: dummyTarget,
+            [dummySource.id]: dummySource,
+          },
+        },
+        pullRequests: {
+          ...dummyInitialState.modules.pullRequests,
+          byId: {
+            [dummyPullRequest.id]: dummyPullRequest,
           },
         },
         users: {
@@ -52,50 +55,38 @@ describe(`FeedItem`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureFeedItem
+      <PureSubmitComment
         {...dummyProviderProps.translatorProps}
-        feedItem={dummyFeedItem}
-        user={dummyUser}
-        topic={dummyTopic}
+        pullRequest={dummyPullRequest}
+        source={dummySource}
+        target={dummyTarget}
         fetchTopic={jest.fn()}
-        fetchUser={jest.fn()}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`fetches the feedItem's associated topic, when the topic was not previously present in the state`, (): void => {
+  it(`fetches the source and target topics, when the topics were not previously present in the state`, (): void => {
     dummyState.modules.topics.byId = {};
 
     mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <FeedItem feedItem={dummyFeedItem} />
+        <SubmitComment pullRequest={dummyPullRequest} />
       </DummyProviders>,
     );
 
-    expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyFeedItem.topicId));
+    expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyPullRequest.sourceTopicId));
+    expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyPullRequest.targetTopicId));
   });
 
-  it(`fetches the feedItem's associated user, when the user was not previously present in the state`, (): void => {
-    dummyState.modules.users.byId = {};
-
-    mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <FeedItem feedItem={dummyFeedItem} />
-      </DummyProviders>,
-    );
-
-    expect(dummyDispatch).toHaveBeenCalledWith(users.actions.fetch(dummyFeedItem.userId));
-  });
-
-  it(`renders the feedItem, when both the associated user and topic were previously present in the state`, (): void => {
+  it(`renders a UserComment, when the topics were previously present in the state`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <FeedItem feedItem={dummyFeedItem} />
+        <SubmitComment pullRequest={dummyPullRequest} />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="feed-item"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('PureUserComment')).toHaveLength(1);
   });
 
 });

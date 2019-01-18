@@ -1,15 +1,13 @@
 // @flow
 
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { type Dispatch } from 'redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Comment } from 'semantic-ui-react';
 import moment from 'moment';
 
+import FetchWrapper from 'components/FetchWrapper';
 import { USER_PROFILE_BY_ID_ROUTE } from 'config/routes';
-import { type ModulesAction, type AppState } from 'types/redux';
 import makeRoute from 'lib/makeRoute';
 import users from 'modules/users';
 
@@ -19,50 +17,14 @@ type PassedProps = {|
   children: React.Node,
 |};
 
-type StateProps = {|
-  user: ?users.model.User,
-|};
-
-type DispatchProps = {|
-  fetchUser: () => void,
-|};
-
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
-
-const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
-  const { userId } = props;
-
-  return {
-    user: users.selectors.getById(state, { id: userId }),
-  };
-};
-
-const mapDispatchToProps = (
-  dispatch: Dispatch<ModulesAction>,
-  props: PassedProps,
-): DispatchProps => {
-  const { userId } = props;
-
-  return {
-    fetchUser: (): void => {
-      dispatch(users.actions.fetch(userId));
-    },
-  };
-};
+type Props = {| ...TranslatorProps, ...PassedProps |};
 
 class PureUserComment extends React.Component<Props> {
-  componentDidMount(): void {
-    const { user, fetchUser } = this.props;
-    if (user == null) fetchUser();
-  }
-
-  render(): React.Node {
-    const { t, user, timestamp, children } = this.props;
-
-    if (user == null) return null;
+  renderUserComment = (user: users.model.User): React.Node => {
+    const { t, timestamp, children } = this.props;
 
     return (
-      <Comment>
+      <Comment data-test-id="user-comment">
         <Comment.Avatar src={users.lib.getGravatarSrc(user, 200)} />
         <Comment.Content>
           <Comment.Author as={Link} to={makeRoute(USER_PROFILE_BY_ID_ROUTE, { userId: user.id })}>
@@ -77,12 +39,24 @@ class PureUserComment extends React.Component<Props> {
         </Comment.Content>
       </Comment>
     );
+  };
+
+  render(): React.Node {
+    const { userId } = this.props;
+
+    return (
+      <FetchWrapper
+        render={this.renderUserComment}
+        renderPropsAndState={this.props}
+        fetchId={userId}
+        fetchAction={users.actions.fetch}
+        fetchedPropSelector={users.selectors.getById}
+      />
+    );
   }
 }
 
-const UserComment = connect(mapStateToProps, mapDispatchToProps)(
-  withNamespaces()(PureUserComment),
-);
+const UserComment = withNamespaces()(PureUserComment);
 
 export { PureUserComment };
 export default UserComment;
