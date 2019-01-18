@@ -48,8 +48,9 @@ class PureView extends React.Component<Props> {
         break;
     }
 
+    // TODO: find out why the ribbon does not attach to the segment
     return (
-      <Label ribbon={true} color={color}>
+      <Label ribbon={true} color={color} style={{ left: '-2.1rem' }}>
         <Icon name={icon} /> {t(`pullRequests:titleForState.${state}`)}
       </Label>
     );
