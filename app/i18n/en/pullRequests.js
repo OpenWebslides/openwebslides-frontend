@@ -12,7 +12,7 @@ const pullRequests = {
     accept: 'Accept and integrate',
     reject: 'Reject',
   },
-  titleForState: {
+  ribbonForState: {
     'pullRequestStates/PENDING': 'Pending review',
     'pullRequestStates/READY': 'Pending review',
     'pullRequestStates/WORKING': 'Pending review',

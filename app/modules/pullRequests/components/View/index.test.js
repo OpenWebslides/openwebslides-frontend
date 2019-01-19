@@ -13,7 +13,7 @@ import * as m from '../../model';
 
 import View, { PureView } from '.';
 
-describe(`PullRequests`, (): void => {
+describe(`View`, (): void => {
 
   let dummyPullRequest: m.PullRequest;
   let dummyPullRequestsById: m.PullRequestsById;
@@ -97,94 +97,6 @@ describe(`PullRequests`, (): void => {
     );
 
     expect(enzymeWrapper.find('[data-test-id="pull-request-view-message"]').hostNodes().html()).toContain(dummyPullRequest.message);
-  });
-
-  describe(`renders the correct ribbon`, (): void => {
-
-    it(`renders a question on pending pull request`, (): void => {
-      _.set(dummyPullRequest, 'state', m.pullRequestStates.PENDING);
-
-      const enzymeWrapper = mount(
-        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <View pullRequestId={dummyPullRequest.id} />
-        </DummyProviders>,
-      );
-
-      expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('question circle');
-    });
-
-    it(`renders a question on ready pull request`, (): void => {
-      _.set(dummyPullRequest, 'state', m.pullRequestStates.READY);
-
-      const enzymeWrapper = mount(
-        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <View pullRequestId={dummyPullRequest.id} />
-        </DummyProviders>,
-      );
-
-      expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('question circle');
-    });
-
-    it(`renders a question on working pull request`, (): void => {
-      _.set(dummyPullRequest, 'state', m.pullRequestStates.WORKING);
-
-      const enzymeWrapper = mount(
-        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <View pullRequestId={dummyPullRequest.id} />
-        </DummyProviders>,
-      );
-
-      expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('question circle');
-    });
-
-    it(`renders an exclamation on incompatible pull request`, (): void => {
-      _.set(dummyPullRequest, 'state', m.pullRequestStates.INCOMPATIBLE);
-
-      const enzymeWrapper = mount(
-        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <View pullRequestId={dummyPullRequest.id} />
-        </DummyProviders>,
-      );
-
-      expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('exclamation circle');
-    });
-
-    it(`renders a check on accepted pull request`, (): void => {
-      _.set(dummyPullRequest, 'state', m.pullRequestStates.ACCEPTED);
-
-      const enzymeWrapper = mount(
-        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <View pullRequestId={dummyPullRequest.id} />
-        </DummyProviders>,
-      );
-
-      expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('check');
-    });
-
-    it(`renders a times on rejected pull request`, (): void => {
-      _.set(dummyPullRequest, 'state', m.pullRequestStates.REJECTED);
-
-      const enzymeWrapper = mount(
-        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <View pullRequestId={dummyPullRequest.id} />
-        </DummyProviders>,
-      );
-
-      expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('times');
-    });
-
-    it(`renders a send on unknown state`, (): void => {
-      _.set(dummyPullRequest, 'state', null);
-
-      const enzymeWrapper = mount(
-        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-          <View pullRequestId={dummyPullRequest.id} />
-        </DummyProviders>,
-      );
-
-      expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('send');
-    });
-
   });
 
   it(`renders a submit comment and a state comment`, (): void => {
