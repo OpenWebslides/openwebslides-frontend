@@ -2,11 +2,13 @@
 
 import Settings from './Settings';
 import UserAccountMenu from './UserAccountMenu';
+import UserComment from './UserComment';
 import UserProfile from './UserProfile';
 
 const index = {
   Settings,
   UserAccountMenu,
+  UserComment,
   UserProfile,
 };
 

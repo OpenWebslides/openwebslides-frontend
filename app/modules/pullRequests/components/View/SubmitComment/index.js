@@ -10,9 +10,9 @@ import { TOPIC_VIEWER_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
 import { type ModulesAction, type AppState } from 'types/redux';
 import makeRoute from 'lib/makeRoute';
 import topics from 'modules/topics';
+import users from 'modules/users';
 
 import * as m from '../../../model';
-import UserComment from '../UserComment';
 
 type PassedProps = {|
   pullRequest: m.PullRequest,
@@ -28,6 +28,8 @@ type DispatchProps = {|
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+
+const { UserComment } = users.components;
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { pullRequest } = props;

@@ -5,15 +5,17 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps, dummyUserData, dummyInitialState } from 'lib/testResources';
-import users from 'modules/users';
+
+import actions from '../../actions';
+import * as m from '../../model';
 
 import UserComment, { PureUserComment } from '.';
 
 describe(`UserComment`, (): void => {
 
-  let dummyUser: users.model.User;
+  let dummyUser: m.User;
   let dummyTimestamp: number;
-  let dummyUsersById: users.model.UsersById;
+  let dummyUsersById: m.UsersById;
   let dummyState: any;
   let dummyDispatch: any;
   let DummyChildComponent: () => React.Node;
@@ -60,7 +62,7 @@ describe(`UserComment`, (): void => {
       </DummyProviders>,
     );
 
-    expect(dummyDispatch).toHaveBeenCalledWith(users.actions.fetch(dummyUser.id));
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.fetch(dummyUser.id));
     expect(enzymeWrapper.find('[data-test-id="user-comment"]').hostNodes()).toHaveLength(0);
   });
 

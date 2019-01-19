@@ -9,7 +9,11 @@ import moment from 'moment';
 import FetchWrapper from 'components/FetchWrapper';
 import { USER_PROFILE_BY_ID_ROUTE } from 'config/routes';
 import makeRoute from 'lib/makeRoute';
-import users from 'modules/users';
+
+import actions from '../../actions';
+import lib from '../../lib';
+import * as m from '../../model';
+import selectors from '../../selectors';
 
 type PassedProps = {|
   userId: string,
@@ -20,12 +24,12 @@ type PassedProps = {|
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
 class PureUserComment extends React.Component<Props> {
-  renderUserComment = (user: users.model.User): React.Node => {
-    const { t, timestamp, children } = this.props;
+  renderUserComment = (user: m.User): React.Node => {
+    const { timestamp, children } = this.props;
 
     return (
       <Comment data-test-id="user-comment">
-        <Comment.Avatar src={users.lib.getGravatarSrc(user, 200)} />
+        <Comment.Avatar src={lib.getGravatarSrc(user, 200)} />
         <Comment.Content>
           <Comment.Author as={Link} to={makeRoute(USER_PROFILE_BY_ID_ROUTE, { userId: user.id })}>
             {user.name}
@@ -49,8 +53,8 @@ class PureUserComment extends React.Component<Props> {
         render={this.renderUserComment}
         renderPropsAndState={this.props}
         fetchId={userId}
-        fetchAction={users.actions.fetch}
-        fetchedPropSelector={users.selectors.getById}
+        fetchAction={actions.fetch}
+        fetchedPropSelector={selectors.getById}
       />
     );
   }
