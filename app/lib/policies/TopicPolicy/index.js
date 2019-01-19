@@ -1,14 +1,16 @@
 // @flow
 
-import pundit from 'pundit';
-
 import topics from 'modules/topics';
-import users from 'modules/users';
 
-const TopicPolicy = pundit({
-  update: (user: users.model.User, record: topics.model.Topic): boolean => {
-    return (record.userId === user.id || record.collaboratorUserIds.includes(user.id));
-  },
-});
+import Policy from '../Policy';
+
+class TopicPolicy extends Policy<topics.model.Topic> {
+  update(): boolean {
+    return (
+      this.record.userId === this.user.id
+      || this.record.collaboratorUserIds.includes(this.user.id)
+    );
+  }
+}
 
 export default TopicPolicy;
