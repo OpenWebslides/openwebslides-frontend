@@ -9,6 +9,8 @@ const pullRequests = {
   },
   button: {
     submit: 'Send updates',
+    accept: 'Accept and integrate',
+    reject: 'Reject',
   },
   titleForState: {
     'pullRequestStates/PENDING': 'Pending review',
@@ -39,6 +41,8 @@ const pullRequests = {
         'pullRequestStates/ACCEPTED': 'The contribution was accepted, and the updates are integrated into the original topic',
         'pullRequestStates/REJECTED': 'The contribution was rejected',
       },
+    },
+    action: {
     },
   },
 };
