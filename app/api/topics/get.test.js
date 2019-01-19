@@ -26,7 +26,7 @@ describe(`api.topics.get`, (): void => {
     const mockUrl = fetch.mock.calls[0][0];
     const mockOptions = fetch.mock.calls[0][1];
 
-    const includes = ['user', 'upstream', 'forks', 'incomingPullRequests', 'outgoingPullRequests'].join(encodeURIComponent(','));
+    const includes = ['user', 'upstream', 'forks', 'incomingPullRequests', 'outgoingPullRequests', 'collaborators'].join(encodeURIComponent(','));
 
     expect(mockUrl).toBe(`${API_URL}/topics/${dummyTopicId}?include=${includes}`);
     expect(mockOptions.method).toBe(httpMethods.GET);
@@ -43,7 +43,7 @@ describe(`api.topics.get`, (): void => {
     const mockUrl = fetch.mock.calls[0][0];
     const mockOptions = fetch.mock.calls[0][1];
 
-    const includes = ['user', 'upstream', 'forks', 'incomingPullRequests', 'outgoingPullRequests'].join(encodeURIComponent(','));
+    const includes = ['user', 'upstream', 'forks', 'incomingPullRequests', 'outgoingPullRequests', 'collaborators'].join(encodeURIComponent(','));
 
     expect(mockUrl).toBe(`${API_URL}/topics/${dummyTopicId}?include=${includes}`);
     expect(mockOptions.method).toBe(httpMethods.GET);

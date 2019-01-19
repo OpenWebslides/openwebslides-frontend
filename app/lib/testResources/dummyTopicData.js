@@ -13,6 +13,7 @@ export const topic: topics.model.Topic = {
   forkedTopicIds: [],
   incomingPullRequestIds: [],
   outgoingPullRequestIds: [],
+  collaboratorUserIds: [],
   isContentFetched: false,
   isDirty: false,
 };
@@ -28,6 +29,7 @@ export const topic2: topics.model.Topic = {
   forkedTopicIds: [],
   incomingPullRequestIds: [],
   outgoingPullRequestIds: [],
+  collaboratorUserIds: [],
   isContentFetched: false,
   isDirty: false,
 };
@@ -43,6 +45,7 @@ export const topic3: topics.model.Topic = {
   forkedTopicIds: [],
   incomingPullRequestIds: [],
   outgoingPullRequestIds: [],
+  collaboratorUserIds: [],
   isContentFetched: false,
   isDirty: false,
 };
@@ -58,6 +61,7 @@ export const topic4: topics.model.Topic = {
   forkedTopicIds: [],
   incomingPullRequestIds: [],
   outgoingPullRequestIds: [],
+  collaboratorUserIds: [],
   isContentFetched: false,
   isDirty: false,
 };
@@ -73,6 +77,7 @@ export const upstream: topics.model.Topic = {
   forkedTopicIds: ['downstreamTopic', 'downstreamTopic2'],
   incomingPullRequestIds: [],
   outgoingPullRequestIds: [],
+  collaboratorUserIds: [],
   isContentFetched: false,
   isDirty: false,
 };
@@ -88,6 +93,7 @@ export const downstream: topics.model.Topic = {
   forkedTopicIds: [],
   incomingPullRequestIds: [],
   outgoingPullRequestIds: [],
+  collaboratorUserIds: [],
   isContentFetched: false,
   isDirty: false,
 };
@@ -103,6 +109,7 @@ export const downstream2: topics.model.Topic = {
   forkedTopicIds: [],
   incomingPullRequestIds: [],
   outgoingPullRequestIds: [],
+  collaboratorUserIds: [],
   isContentFetched: false,
   isDirty: false,
 };

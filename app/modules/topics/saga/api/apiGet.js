@@ -45,6 +45,9 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     outgoingPullRequestIds: relationships.outgoingPullRequests.data.map(
       (item: { type: string, id: string }) => item.id,
     ),
+    collaboratorUserIds: relationships.collaborators.data.map(
+      (item: { type: string, id: string }) => item.id,
+    ),
     isContentFetched: false,
     isDirty: false,
   };
