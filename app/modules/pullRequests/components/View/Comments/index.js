@@ -3,15 +3,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Comment } from 'semantic-ui-react';
 
 import { type ModulesAction, type AppState } from 'types/redux';
+import { TOPIC_VIEWER_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
+import makeRoute from 'lib/makeRoute';
 import topics from 'modules/topics';
+import users from 'modules/users';
 
 import * as m from '../../../model';
 
-import SubmitComment from './SubmitComment';
 import StateComment from './StateComment';
 
 type PassedProps = {|
@@ -28,6 +31,8 @@ type DispatchProps = {|
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+
+const { UserComment } = users.components;
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { pullRequest } = props;
@@ -65,7 +70,26 @@ class PureComments extends React.Component<Props> {
     return (
       <div data-test-id="comments">
         <Comment.Group>
-          <SubmitComment pullRequest={pullRequest} source={source} target={target} />
+          <UserComment userId={pullRequest.userId} timestamp={pullRequest.timestamp}>
+            <Trans
+              i18nKey="pullRequests:comments.submit.text"
+              values={{
+                count: 0, // TODO
+                sourceTopicTitle: source.title,
+                targetTopicTitle: target.title,
+              }}
+            >
+              <Link to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: target.id })}>
+                target
+              </Link>
+              <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: source.id })}>
+                source
+              </Link>
+            </Trans>
+            <blockquote data-test-id="comments-message">
+              <em>{pullRequest.message}</em>
+            </blockquote>
+          </UserComment>
 
           <StateComment pullRequest={pullRequest} source={source} target={target} />
         </Comment.Group>

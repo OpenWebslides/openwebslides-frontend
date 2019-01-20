@@ -89,4 +89,14 @@ describe(`Comments`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="comments"]')).toHaveLength(1);
   });
 
+  it(`renders the pull request message`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Comments pullRequest={dummyPullRequest} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="comments-message"]').text()).toContain(dummyPullRequest.message);
+  });
+
 });
