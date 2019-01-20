@@ -3,8 +3,10 @@
 const pullRequests = {
   forms: {
     message: 'Message',
+    feedback: 'Feedback',
     errors: {
-      title: 'Message cannot be empty',
+      message: 'Message cannot be empty',
+      feedback: 'Feedback cannot be empty',
     },
   },
   button: {
