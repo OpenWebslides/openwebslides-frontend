@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Icon, Comment, Header } from 'semantic-ui-react';
+import { Icon, Comment } from 'semantic-ui-react';
 
 import { TOPIC_VIEWER_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
 import makeRoute from 'lib/makeRoute';

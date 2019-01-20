@@ -12,10 +12,12 @@ import { TOPIC_VIEWER_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
 import PolicyWrapper from 'components/PolicyWrapper';
 import makeRoute from 'lib/makeRoute';
 import { TopicPolicy } from 'lib/policies';
+import AcceptPullRequestModal from 'modals/AcceptPullRequestModal';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
 import * as m from '../../../model';
+import actions from '../../../actions';
 
 import ReviewButtons from './ReviewButtons';
 import State from './State';
@@ -31,9 +33,14 @@ type StateProps = {|
 
 type DispatchProps = {|
   fetchTopic: (id: string) => void,
+  onAccept: (pullRequestId: string, message: ?string) => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+
+type ComponentState = {|
+  isAcceptModalOpen: boolean,
+|};
 
 const { UserComment } = users.components;
 
@@ -54,10 +61,17 @@ const mapDispatchToProps = (
     fetchTopic: (id: string): void => {
       dispatch(topics.actions.fetch(id));
     },
+    onAccept: (pullRequestId: string, message: ?string): void => {
+      dispatch(actions.accept(pullRequestId, message));
+    },
   };
 };
 
-class PureComments extends React.Component<Props> {
+class PureComments extends React.Component<Props, ComponentState> {
+  state: ComponentState = {
+    isAcceptModalOpen: false,
+  };
+
   componentDidMount(): void {
     const { pullRequest, source, target, fetchTopic } = this.props;
 
@@ -65,8 +79,24 @@ class PureComments extends React.Component<Props> {
     if (target == null) fetchTopic(pullRequest.targetTopicId);
   }
 
+  showAcceptModal = (): void => {
+    this.setState({ isAcceptModalOpen: true });
+  };
+
+  handleAcceptModalSubmit = (message: ?string): void => {
+    const { pullRequest, onAccept } = this.props;
+
+    onAccept(pullRequest.id, message);
+    this.handleFeedbackModalCancel();
+  };
+
+  handleFeedbackModalCancel = (): void => {
+    this.setState({ isAcceptModalOpen: false });
+  };
+
   render(): React.Node {
     const { t, pullRequest, source, target } = this.props;
+    const { isAcceptModalOpen } = this.state;
 
     if (source == null || target == null) return null;
 
@@ -109,13 +139,23 @@ class PureComments extends React.Component<Props> {
                   <Comment.Text>
                     <p>{t('pullRequests:comments.action')}</p>
                     <Divider hidden={true} />
-                    <ReviewButtons />
+                    <ReviewButtons
+                      onAccept={this.showAcceptModal}
+                    />
                   </Comment.Text>
                 </Comment.Content>
               </Comment>
             </PolicyWrapper>
           ) : null)}
         </Comment.Group>
+
+        <AcceptPullRequestModal
+          source={source}
+          target={target}
+          isOpen={isAcceptModalOpen}
+          onSubmit={this.handleAcceptModalSubmit}
+          onCancel={this.handleFeedbackModalCancel}
+        />
       </div>
     );
   }

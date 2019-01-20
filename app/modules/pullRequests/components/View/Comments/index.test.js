@@ -8,6 +8,7 @@ import topics from 'modules/topics';
 import users from 'modules/users';
 
 import * as m from '../../../model';
+import actions from '../../../actions';
 
 import Comments, { PureComments } from '.';
 
@@ -18,6 +19,7 @@ describe(`Comments`, (): void => {
   let dummySource: topics.model.Topic;
   let dummyUser: users.model.User;
   let dummyPullRequest: m.PullRequest;
+  let dummyFeedback: any;
   let dummyState: any;
   let dummyDispatch: any;
 
@@ -26,7 +28,8 @@ describe(`Comments`, (): void => {
     dummyTarget2 = { ...dummyTopicData.upstream, userId: 'someUserId', collaboratorUserIds: [] };
     dummySource = { ...dummyTopicData.downstream, upstreamTopicId: dummyTarget.id };
     dummyUser = { ...dummyUserData.user };
-    dummyPullRequest = { ...dummyPullRequestData.pullRequest, sourceTopicId: dummySource.id, targetTopicId: dummyTarget.id, userId: dummyUser.id };
+    dummyPullRequest = { ...dummyPullRequestData.pullRequest, state: m.pullRequestStates.READY, sourceTopicId: dummySource.id, targetTopicId: dummyTarget.id, userId: dummyUser.id };
+    dummyFeedback = 'dummyFeedback';
     dummyState = {
       ...dummyInitialState,
       modules: {
@@ -128,7 +131,7 @@ describe(`Comments`, (): void => {
   it(`renders the review buttons when the current user can review the pull request`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Comments pullRequest={{ ...dummyPullRequest, state: m.pullRequestStates.READY }} />
+        <Comments pullRequest={dummyPullRequest} />
       </DummyProviders>,
     );
 
@@ -153,6 +156,54 @@ describe(`Comments`, (): void => {
     );
 
     expect(enzymeWrapper.find('[data-test-id="comments-feedback"]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`shows the accept modal when the accept button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Comments pullRequest={dummyPullRequest} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureAcceptPullRequestModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="review-buttons-accept-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureAcceptPullRequestModal').props().isOpen).toBe(true);
+  });
+
+
+  it(`closes the accept modal when the onCancel handler passed to the accept modal is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Comments pullRequest={dummyPullRequest} />
+      </DummyProviders>,
+    );
+
+    const onCancel = enzymeWrapper.find('PureAcceptPullRequestModal').props().onCancel;
+
+    expect(enzymeWrapper.find('PureAcceptPullRequestModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="review-buttons-accept-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureAcceptPullRequestModal').props().isOpen).toBe(true);
+    onCancel();
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('PureAcceptPullRequestModal').props().isOpen).toBe(false);
+  });
+
+  it(`dispatches a pull requests ACCEPT action and closes the accept modal when the onSubmit handler passed to the accept modal is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Comments pullRequest={dummyPullRequest} />
+      </DummyProviders>,
+    );
+
+    const onSubmit = enzymeWrapper.find('PureAcceptPullRequestModal').props().onSubmit;
+
+    expect(enzymeWrapper.find('PureAcceptPullRequestModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="review-buttons-accept-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureAcceptPullRequestModal').props().isOpen).toBe(true);
+    onSubmit(dummyFeedback);
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.accept(dummyPullRequest.id, dummyFeedback));
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('PureAcceptPullRequestModal').props().isOpen).toBe(false);
   });
 
 });
