@@ -18,7 +18,6 @@ import users from 'modules/users';
 import * as m from '../../../model';
 
 import ReviewButtons from './ReviewButtons';
-import StateComment from './StateComment';
 
 type PassedProps = {|
   pullRequest: m.PullRequest,
@@ -57,6 +56,35 @@ const mapDispatchToProps = (
   };
 };
 
+const renderStateText = (
+  pullRequest: m.PullRequest,
+  source: topics.model.Topic,
+  target: topics.model.Topic,
+): React.Node => (
+  <>
+    <Trans
+      i18nKey={`pullRequests:comments.state.textForState.${pullRequest.state}`}
+      values={{
+        count: 0, // TODO
+        sourceTopicTitle: source.title,
+        targetTopicTitle: target.title,
+      }}
+    >
+      <Link to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: source.id })}>
+        source
+      </Link>
+      <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: target.id })}>
+        target
+      </Link>
+    </Trans>
+    {(pullRequest.feedback == null ? null : (
+      <blockquote data-test-id="state-comment-feedback">
+        <em>{pullRequest.feedback}</em>
+      </blockquote>
+    ))}
+  </>
+);
+
 class PureComments extends React.Component<Props> {
   componentDidMount(): void {
     const { pullRequest, source, target, fetchTopic } = this.props;
@@ -66,7 +94,7 @@ class PureComments extends React.Component<Props> {
   }
 
   render(): React.Node {
-    const { pullRequest, source, target } = this.props;
+    const { t, pullRequest, source, target } = this.props;
 
     if (source == null || target == null) return null;
 
@@ -94,7 +122,20 @@ class PureComments extends React.Component<Props> {
             </blockquote>
           </UserComment>
 
-          <StateComment pullRequest={pullRequest} source={source} target={target} />
+          <Comment>
+            <Comment.Avatar />
+            <Comment.Content>
+              <Comment.Author as="span">
+                {t(`pullRequests:comments.state.titleForState.${pullRequest.state}`)}
+              </Comment.Author>
+              <Comment.Metadata>
+                {/* TODO: timestamp of accept/reject */}
+              </Comment.Metadata>
+              <Comment.Text>
+                {renderStateText(pullRequest, source, target)}
+              </Comment.Text>
+            </Comment.Content>
+          </Comment>
 
           <PolicyWrapper policy={TopicPolicy} record={target} action="update">
             <Comment data-test-id="comments-review-buttons">
