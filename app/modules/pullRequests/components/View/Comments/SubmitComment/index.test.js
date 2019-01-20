@@ -7,7 +7,7 @@ import { DummyProviders, dummyInitialState, dummyProviderProps, dummyPullRequest
 import topics from 'modules/topics';
 import users from 'modules/users';
 
-import * as m from '../../../model';
+import * as m from '../../../../model';
 
 import SubmitComment, { PureSubmitComment } from '.';
 
@@ -60,29 +60,19 @@ describe(`SubmitComment`, (): void => {
         pullRequest={dummyPullRequest}
         source={dummySource}
         target={dummyTarget}
-        fetchTopic={jest.fn()}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`fetches the source and target topics, when the topics were not previously present in the state`, (): void => {
-    dummyState.modules.topics.byId = {};
-
-    mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <SubmitComment pullRequest={dummyPullRequest} />
-      </DummyProviders>,
-    );
-
-    expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyPullRequest.sourceTopicId));
-    expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyPullRequest.targetTopicId));
-  });
-
-  it(`renders a UserComment, when the topics were previously present in the state`, (): void => {
+  it(`renders a UserComment`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <SubmitComment pullRequest={dummyPullRequest} />
+        <SubmitComment
+          pullRequest={dummyPullRequest}
+          source={dummySource}
+          target={dummyTarget}
+        />
       </DummyProviders>,
     );
 
