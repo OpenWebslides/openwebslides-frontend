@@ -9,8 +9,8 @@ import FeedbackForm, { type FeedbackFormValues } from 'forms/FeedbackForm';
 import topics from 'modules/topics';
 
 type PassedProps = {|
-  sourceTopic: topics.model.Topic,
-  targetTopic: topics.model.Topic,
+  source: topics.model.Topic,
+  target: topics.model.Topic,
   isOpen: boolean,
   onSubmit: (
     feedback: string,
