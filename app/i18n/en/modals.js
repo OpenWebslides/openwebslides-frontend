@@ -12,6 +12,11 @@ const modals = {
     title: 'Send updates',
     access: 'The owner and collaborators of <0>{{upstreamTopicTitle}}</0> will be able to see and respond to your contribution',
     description: 'You are about to send the updates you\'ve made in **{{topicTitle}}** to the original topic. Please enter a small message that briefly describes your contribution. Only the topic owner and collaborators will see this message.',
+    accept: {
+      title: 'Accept contribution',
+      access: 'Only the owner and collaborators of both topics will be able to see the feedback',
+      description: 'You are about to accept the contribution and integrate the updates into **{{targetTopicTitle}}** from **{{sourceTopicTitle}}**. You can provide an optional feedback message for the contributor.',
+    },
   },
   share: {
     title: 'Share topic',
