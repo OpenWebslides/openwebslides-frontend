@@ -26,7 +26,7 @@ class PurePullRequestForm extends React.Component<Props> {
     const errors = {};
 
     if (values.message === '') {
-      errors.message = t('pullRequests:forms.errors.title');
+      errors.message = t('pullRequests:forms.errors.message');
     }
 
     return { ...errors };

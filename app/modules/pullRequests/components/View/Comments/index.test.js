@@ -170,7 +170,6 @@ describe(`Comments`, (): void => {
     expect(enzymeWrapper.find('PureAcceptPullRequestModal').props().isOpen).toBe(true);
   });
 
-
   it(`closes the accept modal when the onCancel handler passed to the accept modal is called`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
@@ -204,6 +203,53 @@ describe(`Comments`, (): void => {
     expect(dummyDispatch).toHaveBeenCalledWith(actions.accept(dummyPullRequest.id, dummyFeedback));
     enzymeWrapper.update();
     expect(enzymeWrapper.find('PureAcceptPullRequestModal').props().isOpen).toBe(false);
+  });
+
+  it(`shows the reject modal when the reject button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Comments pullRequest={dummyPullRequest} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureRejectPullRequestModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="review-buttons-reject-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureRejectPullRequestModal').props().isOpen).toBe(true);
+  });
+
+  it(`closes the reject modal when the onCancel handler passed to the reject modal is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Comments pullRequest={dummyPullRequest} />
+      </DummyProviders>,
+    );
+
+    const onCancel = enzymeWrapper.find('PureRejectPullRequestModal').props().onCancel;
+
+    expect(enzymeWrapper.find('PureRejectPullRequestModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="review-buttons-reject-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureRejectPullRequestModal').props().isOpen).toBe(true);
+    onCancel();
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('PureRejectPullRequestModal').props().isOpen).toBe(false);
+  });
+
+  it(`dispatches a pull requests REJECT action and closes the reject modal when the onSubmit handler passed to the reject modal is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Comments pullRequest={dummyPullRequest} />
+      </DummyProviders>,
+    );
+
+    const onSubmit = enzymeWrapper.find('PureRejectPullRequestModal').props().onSubmit;
+
+    expect(enzymeWrapper.find('PureRejectPullRequestModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="review-buttons-reject-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureRejectPullRequestModal').props().isOpen).toBe(true);
+    onSubmit(dummyFeedback);
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.reject(dummyPullRequest.id, dummyFeedback));
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('PureRejectPullRequestModal').props().isOpen).toBe(false);
   });
 
 });

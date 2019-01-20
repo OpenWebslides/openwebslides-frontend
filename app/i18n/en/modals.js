@@ -17,6 +17,11 @@ const modals = {
       access: 'Only the owner and collaborators of both topics will be able to see the feedback',
       description: 'You are about to accept the contribution and integrate the updates into **{{targetTopicTitle}}** from **{{sourceTopicTitle}}**. You can provide an optional feedback message for the contributor.',
     },
+    reject: {
+      title: 'Reject contribution',
+      access: 'Only the owner and collaborators of both topics will be able to see the feedback',
+      description: 'You are about to reject the contribution. This will **NOT** integrate the updates into **{{targetTopicTitle}}** from **{{sourceTopicTitle}}**. You have to provide a mandatory feedback message for the contributor.',
+    },
   },
   share: {
     title: 'Share topic',

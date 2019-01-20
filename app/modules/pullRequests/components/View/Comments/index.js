@@ -13,6 +13,7 @@ import PolicyWrapper from 'components/PolicyWrapper';
 import makeRoute from 'lib/makeRoute';
 import { TopicPolicy } from 'lib/policies';
 import AcceptPullRequestModal from 'modals/AcceptPullRequestModal';
+import RejectPullRequestModal from 'modals/RejectPullRequestModal';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -34,12 +35,14 @@ type StateProps = {|
 type DispatchProps = {|
   fetchTopic: (id: string) => void,
   onAccept: (pullRequestId: string, message: ?string) => void,
+  onReject: (pullRequestId: string, message: string) => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
 
 type ComponentState = {|
   isAcceptModalOpen: boolean,
+  isRejectModalOpen: boolean,
 |};
 
 const { UserComment } = users.components;
@@ -64,12 +67,16 @@ const mapDispatchToProps = (
     onAccept: (pullRequestId: string, message: ?string): void => {
       dispatch(actions.accept(pullRequestId, message));
     },
+    onReject: (pullRequestId: string, message: string): void => {
+      dispatch(actions.reject(pullRequestId, message));
+    },
   };
 };
 
 class PureComments extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     isAcceptModalOpen: false,
+    isRejectModalOpen: false,
   };
 
   componentDidMount(): void {
@@ -83,6 +90,10 @@ class PureComments extends React.Component<Props, ComponentState> {
     this.setState({ isAcceptModalOpen: true });
   };
 
+  showRejectModal = (): void => {
+    this.setState({ isRejectModalOpen: true });
+  };
+
   handleAcceptModalSubmit = (message: ?string): void => {
     const { pullRequest, onAccept } = this.props;
 
@@ -90,13 +101,20 @@ class PureComments extends React.Component<Props, ComponentState> {
     this.handleFeedbackModalCancel();
   };
 
+  handleRejectModalSubmit = (message: ?string): void => {
+    const { pullRequest, onReject } = this.props;
+
+    onReject(pullRequest.id, message);
+    this.handleFeedbackModalCancel();
+  };
+
   handleFeedbackModalCancel = (): void => {
-    this.setState({ isAcceptModalOpen: false });
+    this.setState({ isAcceptModalOpen: false, isRejectModalOpen: false });
   };
 
   render(): React.Node {
     const { t, pullRequest, source, target } = this.props;
-    const { isAcceptModalOpen } = this.state;
+    const { isAcceptModalOpen, isRejectModalOpen } = this.state;
 
     if (source == null || target == null) return null;
 
@@ -141,6 +159,7 @@ class PureComments extends React.Component<Props, ComponentState> {
                     <Divider hidden={true} />
                     <ReviewButtons
                       onAccept={this.showAcceptModal}
+                      onReject={this.showRejectModal}
                     />
                   </Comment.Text>
                 </Comment.Content>
@@ -154,6 +173,14 @@ class PureComments extends React.Component<Props, ComponentState> {
           target={target}
           isOpen={isAcceptModalOpen}
           onSubmit={this.handleAcceptModalSubmit}
+          onCancel={this.handleFeedbackModalCancel}
+        />
+
+        <RejectPullRequestModal
+          source={source}
+          target={target}
+          isOpen={isRejectModalOpen}
+          onSubmit={this.handleRejectModalSubmit}
           onCancel={this.handleFeedbackModalCancel}
         />
       </div>
