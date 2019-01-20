@@ -9,12 +9,15 @@ import { Comment } from 'semantic-ui-react';
 
 import { type ModulesAction, type AppState } from 'types/redux';
 import { TOPIC_VIEWER_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
+import PolicyWrapper from 'components/PolicyWrapper';
 import makeRoute from 'lib/makeRoute';
+import { TopicPolicy } from 'lib/policies';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
 import * as m from '../../../model';
 
+import ReviewButtons from './ReviewButtons';
 import StateComment from './StateComment';
 
 type PassedProps = {|
@@ -92,6 +95,17 @@ class PureComments extends React.Component<Props> {
           </UserComment>
 
           <StateComment pullRequest={pullRequest} source={source} target={target} />
+
+          <PolicyWrapper policy={TopicPolicy} record={target} action="update">
+            <Comment data-test-id="comments-review-buttons">
+              <Comment.Avatar />
+              <Comment.Content>
+                <Comment.Text>
+                  <ReviewButtons />
+                </Comment.Text>
+              </Comment.Content>
+            </Comment>
+          </PolicyWrapper>
         </Comment.Group>
       </div>
     );
