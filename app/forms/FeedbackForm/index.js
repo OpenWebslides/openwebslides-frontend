@@ -15,17 +15,18 @@ type FeedbackFormErrors = {|
 
 type PassedProps = {|
   onSubmit: (values: FeedbackFormValues) => void,
+  required: boolean,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
 class PureFeedbackForm extends React.Component<Props> {
   validateForm = (values: FeedbackFormValues): FeedbackFormErrors => {
-    const { t } = this.props;
+    const { t, required } = this.props;
 
     const errors = {};
 
-    if (values.feedback === '') {
+    if (required && values.feedback === '') {
       errors.feedback = t('pullRequests:forms.errors.feedback');
     }
 

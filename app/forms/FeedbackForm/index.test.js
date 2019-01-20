@@ -24,13 +24,22 @@ describe(`FeedbackForm`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PureFeedbackForm {...dummyProviderProps.translatorProps} />);
+  it(`validates form props when required is TRUE`, (): void => {
+    const enzymeWrapper = shallow(<PureFeedbackForm {...dummyProviderProps.translatorProps} required={true} />);
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});
 
     expect(validate({ ...dummyFormProps, feedback: '' })).toHaveProperty('feedback');
+  });
+
+  it(`validates form props when required is FALSE`, (): void => {
+    const enzymeWrapper = shallow(<PureFeedbackForm {...dummyProviderProps.translatorProps} required={false} />);
+    const validate = enzymeWrapper.instance().validateForm;
+
+    expect(validate(dummyFormProps)).toStrictEqual({});
+
+    expect(validate({ ...dummyFormProps, feedback: '' })).not.toHaveProperty('feedback');
   });
 
 });

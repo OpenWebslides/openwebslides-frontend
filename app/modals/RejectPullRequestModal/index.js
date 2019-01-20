@@ -53,6 +53,7 @@ class PureRejectPullRequestModal extends React.Component<Props> {
           </p>
           <FeedbackForm
             onSubmit={this.handleFeedbackFormSubmit}
+            required={true}
             data-test-id="reject-pull-request-modal-feedback-form"
           />
         </Modal.Content>
