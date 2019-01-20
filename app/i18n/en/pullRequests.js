@@ -14,7 +14,7 @@ const pullRequests = {
     accept: 'Accept and integrate',
     reject: 'Reject',
   },
-  ribbonForState: {
+  titleForState: {
     'pullRequestStates/PENDING': 'Pending review',
     'pullRequestStates/READY': 'Pending review',
     'pullRequestStates/WORKING': 'Pending review',
@@ -37,9 +37,9 @@ const pullRequests = {
         'pullRequestStates/PENDING': 'The contribution is in the process of being reviewed. Once the topic owner or one of its collaborators have reviewed the updates, the contribution will be accepted and integrated into the original topic. Alternatively, the contribution can also be rejected if it is not sufficient.',
         'pullRequestStates/READY': 'The contribution is in the process of being reviewed. Once the topic owner or one of its collaborators have reviewed the updates, the contribution will be accepted and integrated into the original topic. Alternatively, the contribution can also be rejected if it is not sufficient.',
         'pullRequestStates/WORKING': 'The contribution is in the process of being reviewed. Once the topic owner or one of its collaborators have reviewed the updates, the contribution will be accepted and integrated into the original topic. Alternatively, the contribution can also be rejected if it is not sufficient.',
-        'pullRequestStates/INCOMPATIBLE': '<0>{{sourceTopicTitle}}</0> is not compatible with <1>{{targetTopicTitle}}</1>. Please update the topic',
-        'pullRequestStates/ACCEPTED': 'The contribution was accepted, and the updates have been integrated into the original topic',
-        'pullRequestStates/REJECTED': 'The contribution was rejected',
+        'pullRequestStates/INCOMPATIBLE': '<0>{{sourceTopicTitle}}</0> is not compatible with <1>{{targetTopicTitle}}</1>.',
+        'pullRequestStates/ACCEPTED': 'The contribution was accepted, and the updates have been integrated into the original topic.',
+        'pullRequestStates/REJECTED': 'The contribution was rejected.',
       },
     },
     action: 'You can now review the updates in this contribution, and decide if you\'d like to see them integrated into the topic. Providing feedback is mandatory when rejecting a contribution.',

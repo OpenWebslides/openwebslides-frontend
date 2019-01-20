@@ -3,9 +3,12 @@
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Item, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
+import { PULL_REQUEST_VIEW_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
+import makeRoute from 'lib/makeRoute';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -41,9 +44,12 @@ class PurePullRequestEntry extends React.Component<Props> {
     return (
       <Item data-test-id="pull-request">
         <Item.Content>
-          <Item.Header as="strong" data-test-id="pull-request-message">
-            {/* TODO: link to PR */}
-            {pullRequest.message}
+          <Item.Header
+            as={Link}
+            to={makeRoute(PULL_REQUEST_VIEW_ROUTE, { pullRequestId: pullRequest.id })}
+            data-test-id="pull-request-message"
+          >
+            <strong>{pullRequest.message}</strong>
           </Item.Header>
           <Item.Meta>
             {this.iconForState(pullRequest.state)} {t(`pullRequests:titleForState.${pullRequest.state}`)}

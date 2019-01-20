@@ -29,11 +29,11 @@ const PureState = (props: Props): React.Node => {
     case m.pullRequestStates.PENDING:
     case m.pullRequestStates.READY:
     case m.pullRequestStates.WORKING:
-      icon = 'question circle';
+      icon = 'question';
       color = 'yellow';
       break;
     case m.pullRequestStates.INCOMPATIBLE:
-      icon = 'exclamation circle';
+      icon = 'exclamation';
       color = 'red';
       break;
     case m.pullRequestStates.ACCEPTED:

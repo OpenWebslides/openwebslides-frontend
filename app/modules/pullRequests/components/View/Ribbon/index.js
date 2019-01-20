@@ -44,7 +44,7 @@ const PureRibbon = (props: Props): React.Node => {
   // TODO: find out why the ribbon does not attach to the segment
   return (
     <Label ribbon={true} color={color} style={{ left: '-2.1rem' }}>
-      <Icon name={icon} /> {t(`pullRequests:ribbonForState.${pullRequest.state}`)}
+      <Icon name={icon} /> {t(`pullRequests:titleForState.${pullRequest.state}`)}
     </Label>
   );
 };

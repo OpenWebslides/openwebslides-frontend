@@ -42,7 +42,7 @@ describe(`State`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('question circle');
+    expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('question');
   });
 
   it(`renders a question icon on ready pull request`, (): void => {
@@ -54,7 +54,7 @@ describe(`State`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('question circle');
+    expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('question');
   });
 
   it(`renders a question icon on working pull request`, (): void => {
@@ -66,7 +66,7 @@ describe(`State`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('question circle');
+    expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('question');
   });
 
   it(`renders an exclamation icon on incompatible pull request`, (): void => {
@@ -78,7 +78,7 @@ describe(`State`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('exclamation circle');
+    expect(enzymeWrapper.find('Icon').props().name).toStrictEqual('exclamation');
   });
 
   it(`renders a check icon on accepted pull request`, (): void => {

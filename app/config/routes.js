@@ -9,7 +9,6 @@ export const TOPIC_NEW_ROUTE = '/topic/new';
 // PULL REQUEST
 export const PULL_REQUEST_ROUTE = '/pullRequest';
 export const PULL_REQUEST_VIEW_ROUTE = '/pullRequest/:pullRequestId/view';
-export const PULL_REQUEST_REVIEW_ROUTE = '/pullRequest/:pullRequestId/review';
 // USER
 export const USER_ROUTE = '/user';
 export const USER_SIGNOUT_ROUTE = '/user/signout';
