@@ -25,7 +25,9 @@ describe(`State`, (): void => {
     const enzymeWrapper = shallow(
       <PureState
         {...dummyProviderProps.translatorProps}
-        pullRequest={dummyPullRequest} source={dummyTopic} target={dummyTopic}
+        pullRequest={dummyPullRequest}
+        source={dummyTopic}
+        target={dummyTopic}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);

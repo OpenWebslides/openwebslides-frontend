@@ -2,10 +2,9 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { type Dispatch } from 'redux';
 
 import FetchWrapper from 'components/FetchWrapper';
-import { type ModulesAction, type AppState } from 'types/redux';
+import { type AppState } from 'types/redux';
 import { Policy } from 'lib/policies';
 import platform from 'modules/platform';
 import users from 'modules/users';
