@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Header, Segment, Divider, Comment } from 'semantic-ui-react';
+import { Header, Segment, Divider } from 'semantic-ui-react';
 
 import FetchWrapper from 'components/FetchWrapper';
 
@@ -11,8 +11,7 @@ import * as m from '../../model';
 import selectors from '../../selectors';
 
 import Ribbon from './Ribbon';
-import SubmitComment from './SubmitComment';
-import StateComment from './StateComment';
+import Comments from './Comments';
 
 type PassedProps = {|
   pullRequestId: string,
@@ -33,11 +32,7 @@ class PureView extends React.Component<Props> {
 
           <Divider hidden={true} />
 
-          <Comment.Group>
-            <SubmitComment pullRequest={pullRequest} />
-
-            <StateComment pullRequest={pullRequest} />
-          </Comment.Group>
+          <Comments pullRequest={pullRequest} />
         </Segment>
 
       </div>

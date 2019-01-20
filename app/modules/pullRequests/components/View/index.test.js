@@ -99,15 +99,14 @@ describe(`View`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="pull-request-view-message"]').hostNodes().html()).toContain(dummyPullRequest.message);
   });
 
-  it(`renders a submit comment and a state comment`, (): void => {
+  it(`renders comments`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <View pullRequestId={dummyPullRequest.id} />
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('PureSubmitComment')).toHaveLength(1);
-    expect(enzymeWrapper.find('PureStateComment')).toHaveLength(1);
+    expect(enzymeWrapper.find('PureComments')).toHaveLength(1);
   });
 
 });
