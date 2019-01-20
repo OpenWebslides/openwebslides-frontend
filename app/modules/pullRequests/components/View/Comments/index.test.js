@@ -14,6 +14,7 @@ import Comments, { PureComments } from '.';
 describe(`Comments`, (): void => {
 
   let dummyTarget: topics.model.Topic;
+  let dummyTarget2: topics.model.Topic;
   let dummySource: topics.model.Topic;
   let dummyUser: users.model.User;
   let dummyPullRequest: m.PullRequest;
@@ -22,6 +23,7 @@ describe(`Comments`, (): void => {
 
   beforeEach((): void => {
     dummyTarget = { ...dummyTopicData.upstream };
+    dummyTarget2 = { ...dummyTopicData.upstream, userId: 'someUserId', collaboratorUserIds: [] };
     dummySource = { ...dummyTopicData.downstream, upstreamTopicId: dummyTarget.id };
     dummyUser = { ...dummyUserData.user };
     dummyPullRequest = { ...dummyPullRequestData.pullRequest, sourceTopicId: dummySource.id, targetTopicId: dummyTarget.id, userId: dummyUser.id };
@@ -47,6 +49,10 @@ describe(`Comments`, (): void => {
           byId: {
             [dummyUser.id]: dummyUser,
           },
+        },
+        platform: {
+          ...dummyInitialState.modules.platform,
+          userAuth: { userId: dummyUser.id, apiToken: 'foobarToken' },
         },
       },
     };
@@ -97,6 +103,46 @@ describe(`Comments`, (): void => {
     );
 
     expect(enzymeWrapper.find('[data-test-id="comments-message"]').text()).toContain(dummyPullRequest.message);
+  });
+
+  it(`renders the review buttons when the topic is ready`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Comments pullRequest={{ ...dummyPullRequest, state: m.pullRequestStates.READY }} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="comments-review-buttons"]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`does not render the review buttons when the topic is not ready`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Comments pullRequest={{ ...dummyPullRequest, state: m.pullRequestStates.ACCEPTED }} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="comments-review-buttons"]').hostNodes()).toHaveLength(0);
+  });
+
+  it(`renders the review buttons when the current user can review the pull request`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Comments pullRequest={{ ...dummyPullRequest, state: m.pullRequestStates.READY }} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="comments-review-buttons"]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`does not render the review buttons when the current user cannot review the pull request`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Comments pullRequest={{ ...dummyPullRequest, state: m.pullRequestStates.READY, targetTopicId: dummyTarget2 }} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="comments-review-buttons"]').hostNodes()).toHaveLength(0);
   });
 
 });

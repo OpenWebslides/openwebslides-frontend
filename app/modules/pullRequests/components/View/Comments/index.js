@@ -137,16 +137,18 @@ class PureComments extends React.Component<Props> {
             </Comment.Content>
           </Comment>
 
-          <PolicyWrapper policy={TopicPolicy} record={target} action="update">
-            <Comment data-test-id="comments-review-buttons">
-              <Comment.Avatar />
-              <Comment.Content>
-                <Comment.Text>
-                  <ReviewButtons />
-                </Comment.Text>
-              </Comment.Content>
-            </Comment>
-          </PolicyWrapper>
+          {(pullRequest.state === m.pullRequestStates.READY ? (
+            <PolicyWrapper policy={TopicPolicy} record={target} action="update">
+              <Comment data-test-id="comments-review-buttons">
+                <Comment.Avatar />
+                <Comment.Content>
+                  <Comment.Text>
+                    <ReviewButtons />
+                  </Comment.Text>
+                </Comment.Content>
+              </Comment>
+            </PolicyWrapper>
+          ) : null)}
         </Comment.Group>
       </div>
     );
