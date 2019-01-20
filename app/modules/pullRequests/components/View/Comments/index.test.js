@@ -145,4 +145,14 @@ describe(`Comments`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="comments-review-buttons"]').hostNodes()).toHaveLength(0);
   });
 
+  it(`renders feedback if there is feedback present`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Comments pullRequest={{ ...dummyPullRequest, feedback: 'feedbackMessage' }} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="comments-feedback"]').hostNodes()).toHaveLength(1);
+  });
+
 });

@@ -23,6 +23,7 @@ const common = {
     pr: 'Send updates',
     share: 'Share',
     contribution: 'Contribution',
+    review: 'Review contribution',
   },
   copied: 'Copied!',
   loading: 'Loading...',

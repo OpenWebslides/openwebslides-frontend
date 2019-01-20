@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Comment } from 'semantic-ui-react';
+import { Comment, Divider } from 'semantic-ui-react';
 
 import { type ModulesAction, type AppState } from 'types/redux';
 import { TOPIC_VIEWER_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
@@ -18,6 +18,7 @@ import users from 'modules/users';
 import * as m from '../../../model';
 
 import ReviewButtons from './ReviewButtons';
+import State from './State';
 
 type PassedProps = {|
   pullRequest: m.PullRequest,
@@ -56,35 +57,6 @@ const mapDispatchToProps = (
   };
 };
 
-const renderStateText = (
-  pullRequest: m.PullRequest,
-  source: topics.model.Topic,
-  target: topics.model.Topic,
-): React.Node => (
-  <>
-    <Trans
-      i18nKey={`pullRequests:comments.state.textForState.${pullRequest.state}`}
-      values={{
-        count: 0, // TODO
-        sourceTopicTitle: source.title,
-        targetTopicTitle: target.title,
-      }}
-    >
-      <Link to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: source.id })}>
-        source
-      </Link>
-      <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: target.id })}>
-        target
-      </Link>
-    </Trans>
-    {(pullRequest.feedback == null ? null : (
-      <blockquote data-test-id="state-comment-feedback">
-        <em>{pullRequest.feedback}</em>
-      </blockquote>
-    ))}
-  </>
-);
-
 class PureComments extends React.Component<Props> {
   componentDidMount(): void {
     const { pullRequest, source, target, fetchTopic } = this.props;
@@ -103,13 +75,14 @@ class PureComments extends React.Component<Props> {
         <Comment.Group>
           <UserComment userId={pullRequest.userId} timestamp={pullRequest.timestamp}>
             <Trans
-              i18nKey="pullRequests:comments.submit.text"
+              i18nKey="pullRequests:comments.submitted"
               values={{
-                count: 0, // TODO
+                updateCount: 5, // TODO
                 sourceTopicTitle: source.title,
                 targetTopicTitle: target.title,
               }}
             >
+              <strong>0 updates</strong>
               <Link to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: target.id })}>
                 target
               </Link>
@@ -122,27 +95,20 @@ class PureComments extends React.Component<Props> {
             </blockquote>
           </UserComment>
 
-          <Comment>
-            <Comment.Avatar />
-            <Comment.Content>
-              <Comment.Author as="span">
-                {t(`pullRequests:comments.state.titleForState.${pullRequest.state}`)}
-              </Comment.Author>
-              <Comment.Metadata>
-                {/* TODO: timestamp of accept/reject */}
-              </Comment.Metadata>
-              <Comment.Text>
-                {renderStateText(pullRequest, source, target)}
-              </Comment.Text>
-            </Comment.Content>
-          </Comment>
+          <State pullRequest={pullRequest} source={source} target={target} />
 
           {(pullRequest.state === m.pullRequestStates.READY ? (
             <PolicyWrapper policy={TopicPolicy} record={target} action="update">
+              <Divider hidden={true} />
               <Comment data-test-id="comments-review-buttons">
                 <Comment.Avatar />
                 <Comment.Content>
+                  <Comment.Author>
+                    {t('common:button.review')}
+                  </Comment.Author>
                   <Comment.Text>
+                    <p>{t('pullRequests:comments.action')}</p>
+                    <Divider hidden={true} />
                     <ReviewButtons />
                   </Comment.Text>
                 </Comment.Content>
