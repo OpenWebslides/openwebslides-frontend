@@ -4,6 +4,7 @@ import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import { DummyProviders, dummyProviderProps, dummyUserData } from 'lib/testResources';
+import { type DropdownValue } from 'types/forms';
 import users from 'modules/users';
 
 import ProfileForm, { PureProfileForm, type ProfileFormValues } from '.';
@@ -12,7 +13,7 @@ describe(`ProfileForm`, (): void => {
 
   let dummyFormProps: ProfileFormValues;
   let dummyUser: users.model.User;
-  let dummyAvailableLocales: $ReadOnlyArray<any>;
+  let dummyAvailableLocales: $ReadOnlyArray<DropdownValue>;
 
   beforeEach((): void => {
     dummyFormProps = {
