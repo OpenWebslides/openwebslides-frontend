@@ -8,6 +8,7 @@ import { UnexpectedHttpResponseError, UnsupportedOperationError } from 'errors';
 import platform from 'modules/platform';
 
 import actions from '../../actions';
+import * as m from '../../model';
 
 import { sagas } from '..';
 
@@ -20,6 +21,10 @@ describe(`apiPatch`, (): void => {
   let dummyCurrentPassword: string;
   let dummyPassword: string;
   let dummyToken: string;
+  let dummyAge: number;
+  let dummyGender: m.GenderType;
+  let dummyRole: m.RoleType;
+  let dummyCountry: m.CountryType;
 
   beforeEach((): void => {
     dummyId = 'dummyUserId';
@@ -29,10 +34,14 @@ describe(`apiPatch`, (): void => {
     dummyCurrentPassword = 'dummyCurrentPassword';
     dummyPassword = 'dummyPassword';
     dummyToken = 'dummyToken';
+    dummyAge = 18;
+    dummyGender = m.genderTypes.MALE;
+    dummyRole = m.roleTypes.LEARNER;
+    dummyCountry = m.countryTypes.BELGIUM;
   });
 
   it(`sends a PATCH request for the passed props to the users endpoint, and returns the resulting user ID`, (): void => {
-    const dummyAction = actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword);
+    const dummyAction = actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyAge, dummyGender, dummyRole, dummyCountry);
     const dummyApiResponse = {
       status: 200,
       body: {
@@ -45,9 +54,9 @@ describe(`apiPatch`, (): void => {
     return expectSaga(sagas.apiPatch, dummyAction)
       .provide([
         [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-        [call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken), dummyApiResponse],
+        [call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken, dummyAge, dummyGender, dummyRole, dummyCountry), dummyApiResponse],
       ])
-      .call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken)
+      .call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken, dummyAge, dummyGender, dummyRole, dummyCountry)
       .returns({ id: dummyId })
       .run();
   });
