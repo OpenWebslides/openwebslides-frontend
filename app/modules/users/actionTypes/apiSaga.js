@@ -4,6 +4,8 @@
 
 import { type ApiSagaAction } from 'types/actions';
 
+import * as m from '../model';
+
 
 // Action constants --------------------------------------------------------------------------------
 
@@ -34,6 +36,10 @@ export type ApiPatchAction = {|
     alertEmails: ?boolean,
     currentPassword: ?string,
     password: ?string,
+    age: ?number,
+    gender: ?m.GenderType,
+    role: ?m.RoleType,
+    country: ?m.CountryType,
   |},
 |};
 
@@ -46,6 +52,10 @@ export type ApiPostAction = {|
     name: string,
     password: string,
     tosAccepted: boolean,
+    age: ?number,
+    gender: ?m.GenderType,
+    role: ?m.RoleType,
+    country: ?m.CountryType,
   |},
 |};
 

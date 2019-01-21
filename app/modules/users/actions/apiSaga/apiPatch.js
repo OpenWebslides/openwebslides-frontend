@@ -1,6 +1,7 @@
 // @flow
 
 import * as a from '../../actionTypes';
+import * as m from '../../model';
 
 const apiPatch = (
   id: string,
@@ -9,6 +10,10 @@ const apiPatch = (
   alertEmails: ?boolean,
   currentPassword: ?string,
   password: ?string,
+  age: ?number,
+  gender: ?m.GenderType,
+  role: ?m.RoleType,
+  country: ?m.CountryType,
 ): a.ApiPatchAction => {
   return {
     type: a.API_PATCH,
@@ -19,6 +24,10 @@ const apiPatch = (
       alertEmails,
       currentPassword,
       password,
+      age,
+      gender,
+      role,
+      country,
     },
   };
 };
