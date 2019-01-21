@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Tab, Button, Grid } from 'semantic-ui-react';
+import { Tab, Button, Grid, Icon } from 'semantic-ui-react';
 
 import { type DropdownValue } from 'types/forms';
 import { type ModulesAction } from 'types/redux';
@@ -48,6 +48,9 @@ class PureProfilePane extends React.Component<Props> {
         <Grid columns={1} padded="vertically">
           <Grid.Row>
             <Grid.Column width={5}>
+              <p>
+                <Icon name="lock" /> {t('settings:profile.privacy')}
+              </p>
               <ProfileForm
                 onSubmit={this.handleProfileFormSubmit}
                 user={user}

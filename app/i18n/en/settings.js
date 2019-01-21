@@ -7,7 +7,7 @@ const settings = {
   },
   profile: {
     updateProfile: 'Update profile',
-    description: 'Your profile is visible to other users inside and outside the platform.',
+    privacy: 'Only your name and email are visible for others',
   },
   account: {
     password: {
