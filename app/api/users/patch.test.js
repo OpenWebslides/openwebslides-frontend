@@ -13,6 +13,10 @@ describe(`api.users.patch`, (): void => {
   let dummyAlertEmails: boolean;
   let dummyCurrentPassword: string;
   let dummyPassword: string;
+  let dummyAge: number;
+  let dummyGender: string;
+  let dummyRole: string;
+  let dummyCountry: string;
   let dummyToken: string;
 
   beforeEach((): void => {
@@ -23,12 +27,16 @@ describe(`api.users.patch`, (): void => {
     dummyAlertEmails = false;
     dummyCurrentPassword = 'dummyCurrentPassword';
     dummyPassword = 'dummyPassword';
+    dummyAge = 18;
+    dummyGender = 'dummyGender';
+    dummyRole = 'dummyRole';
+    dummyCountry = 'dummyCountry';
     dummyToken = 'dummyToken';
   });
 
   it(`executes the correct fetch call`, async (): Promise<void> => {
     fetch.mockResponseOnce('', { status: 200 });
-    await api.users.patch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken);
+    await api.users.patch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyAge, dummyGender, dummyRole, dummyCountry, dummyToken);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
@@ -47,6 +55,10 @@ describe(`api.users.patch`, (): void => {
           alertEmails: dummyAlertEmails,
           currentPassword: dummyCurrentPassword,
           password: dummyPassword,
+          age: dummyAge,
+          gender: dummyGender,
+          role: dummyRole,
+          country: dummyCountry,
         },
       },
     });

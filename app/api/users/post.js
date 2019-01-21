@@ -15,6 +15,10 @@ const post = (
   name: string,
   password: string,
   tosAccepted: boolean,
+  age: ?number,
+  gender: ?string,
+  role: ?string,
+  country: ?string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
@@ -24,6 +28,10 @@ const post = (
         name,
         password,
         tosAccepted,
+        age,
+        gender,
+        role,
+        country,
       },
     },
   });

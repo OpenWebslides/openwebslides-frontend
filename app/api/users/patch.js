@@ -17,6 +17,10 @@ const patch = (
   alertEmails: ?boolean,
   currentPassword: ?string,
   password: ?string,
+  age: ?number,
+  gender: ?string,
+  role: ?string,
+  country: ?string,
   token: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
@@ -29,6 +33,10 @@ const patch = (
         alertEmails,
         currentPassword,
         password,
+        age,
+        gender,
+        role,
+        country,
       },
     },
   });

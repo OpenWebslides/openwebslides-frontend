@@ -7,18 +7,18 @@ import api from '..';
 
 describe(`api.users.post`, (): void => {
 
-  beforeEach((): void => {
-    fetch.resetMocks();
-  });
-
   it(`executes the correct fetch call`, async (): Promise<void> => {
     const dummyEmail = 'test@test.be';
     const dummyPassword = 'mahpasswordy0';
     const dummyName = 'Test Tester';
+    const dummyAge = 'dummyAge';
+    const dummyGender = 'dummyGender';
+    const dummyRole = 'dummyRole';
+    const dummyCountry = 'dummyCountry';
     const dummyTosAccepted = true;
 
     fetch.mockResponseOnce('', { status: 200 });
-    await api.users.post(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
+    await api.users.post(dummyEmail, dummyName, dummyPassword, dummyTosAccepted, dummyAge, dummyGender, dummyRole, dummyCountry);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
@@ -35,6 +35,10 @@ describe(`api.users.post`, (): void => {
           name: dummyName,
           password: dummyPassword,
           tosAccepted: dummyTosAccepted,
+          age: dummyAge,
+          gender: dummyGender,
+          role: dummyRole,
+          country: dummyCountry,
         },
       },
     });
