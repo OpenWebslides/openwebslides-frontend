@@ -12,6 +12,22 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
+const apiGenderTypesMap = {
+  male: m.genderTypes.MALE,
+  female: m.genderTypes.FEMALE,
+  other: m.genderTypes.OTHER,
+};
+
+const apiRoleTypesMap = {
+  learner: m.roleTypes.LEARNER,
+  teacher: m.roleTypes.TEACHER,
+  coteacher: m.roleTypes.COTEACHER,
+};
+
+const apiCountryTypesMap = {
+  BE: m.countryTypes.BELGIUM,
+};
+
 const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   const { id } = action.payload;
   const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
@@ -30,6 +46,10 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     locale: attributes.locale,
     alertEmails: attributes.alertEmails,
     topicIds: relationships.topics.data.map((item: { type: string, id: string }) => item.id),
+    age: attributes.age,
+    gender: apiGenderTypesMap[attributes.gender],
+    role: apiRoleTypesMap[attributes.role],
+    country: apiCountryTypesMap[attributes.country],
   };
   yield put(actions.setMultipleInState([user]));
 };

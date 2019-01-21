@@ -8,6 +8,7 @@ import { UnexpectedHttpResponseError } from 'errors';
 import platform from 'modules/platform';
 
 import actions from '../../actions';
+import * as m from '../../model';
 
 import { sagas } from '..';
 
@@ -22,6 +23,10 @@ describe(`apiGet`, (): void => {
   let dummyToken: string;
   let dummyTopicId1: string;
   let dummyTopicId2: string;
+  let dummyAge: number;
+  let dummyGender: m.GenderType;
+  let dummyRole: m.RoleType;
+  let dummyCountry: m.CountryType;
 
   beforeEach((): void => {
     dummyId = 'dummyUserId';
@@ -33,6 +38,10 @@ describe(`apiGet`, (): void => {
     dummyToken = 'foobarToken';
     dummyTopicId1 = 'dummyTopicId1';
     dummyTopicId2 = 'dummyTopicId2';
+    dummyAge = 18;
+    dummyGender = m.genderTypes.FEMALE;
+    dummyRole = m.roleTypes.LEARNER;
+    dummyCountry = m.countryTypes.BELGIUM;
   });
 
   it(`sends a GET request for the passed id to the uses API endpoint, processes the response and sets the user in the state`, (): void => {
@@ -48,6 +57,10 @@ describe(`apiGet`, (): void => {
             gravatarHash: dummyGravatarHash,
             locale: dummyLocale,
             alertEmails: dummyAlertEmails,
+            age: dummyAge,
+            gender: 'female',
+            role: 'learner',
+            country: 'BE',
           },
           relationships: {
             topics: {
@@ -67,7 +80,7 @@ describe(`apiGet`, (): void => {
         [call(api.users.get, dummyId, dummyToken), dummyApiResponse],
       ])
       .call(api.users.get, dummyId, dummyToken)
-      .put(actions.setMultipleInState([{ id: dummyId, email: dummyEmail, name: dummyName, gravatarHash: dummyGravatarHash, locale: dummyLocale, alertEmails: dummyAlertEmails, topicIds: [dummyTopicId1, dummyTopicId2] }]))
+      .put(actions.setMultipleInState([{ id: dummyId, email: dummyEmail, name: dummyName, gravatarHash: dummyGravatarHash, locale: dummyLocale, alertEmails: dummyAlertEmails, topicIds: [dummyTopicId1, dummyTopicId2], age: dummyAge, gender: dummyGender, role: dummyRole, country: dummyCountry }]))
       .run();
   });
 
