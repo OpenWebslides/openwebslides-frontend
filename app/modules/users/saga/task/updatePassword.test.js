@@ -32,7 +32,7 @@ describe(`updatePassword`, (): void => {
           return (action.type === a.API_PATCH) ? null : next();
         })],
       ])
-      .call(asyncRequests.lib.putAndReturn, actions.apiPatch(dummyId, undefined, undefined, undefined, dummyCurrentPassword, dummyPassword))
+      .call(asyncRequests.lib.putAndReturn, actions.apiPatch(dummyId, undefined, undefined, undefined, dummyCurrentPassword, dummyPassword, undefined, undefined, undefined, undefined))
       .run();
   });
 
