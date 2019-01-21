@@ -10,6 +10,10 @@ export const user: users.model.User = {
   locale: 'en',
   alertEmails: true,
   topicIds: [],
+  age: 18,
+  gender: users.model.genderTypes.MALE,
+  role: users.model.roleTypes.LEARNER,
+  country: users.model.countryTypes.BELGIUM,
 };
 
 export const user2: users.model.User = {
@@ -20,6 +24,10 @@ export const user2: users.model.User = {
   locale: 'en',
   alertEmails: true,
   topicIds: [],
+  age: 18,
+  gender: users.model.genderTypes.FEMALE,
+  role: users.model.roleTypes.TEACHER,
+  country: users.model.countryTypes.BELGIUM,
 };
 
 export const user3: users.model.User = {
@@ -30,4 +38,8 @@ export const user3: users.model.User = {
   locale: 'en',
   alertEmails: true,
   topicIds: [],
+  age: 18,
+  gender: users.model.genderTypes.OTHER,
+  role: users.model.roleTypes.COTEACHER,
+  country: users.model.countryTypes.BELGIUM,
 };
