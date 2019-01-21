@@ -24,6 +24,7 @@ const apiRoleTypesMap = {
   coteacher: m.roleTypes.COTEACHER,
 };
 
+// TODO: country enumeration
 const apiCountryTypesMap = {
   BE: m.countryTypes.BELGIUM,
 };

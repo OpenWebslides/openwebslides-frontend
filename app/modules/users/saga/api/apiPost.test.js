@@ -41,15 +41,15 @@ describe(`apiPost`, (): void => {
 
     return expectSaga(sagas.apiPost, dummyAction)
       .provide([
-        [call(api.users.post, dummyEmail, dummyName, dummyPassword, dummyTosAccepted, dummyAge, dummyGender, dummyRole, dummyCountry), dummyApiResponse],
+        [call(api.users.post, dummyEmail, dummyName, dummyPassword, dummyTosAccepted, dummyAge, 'male', 'learner', 'BE'), dummyApiResponse],
       ])
-      .call(api.users.post, dummyEmail, dummyName, dummyPassword, dummyTosAccepted, dummyAge, dummyGender, dummyRole, dummyCountry)
+      .call(api.users.post, dummyEmail, dummyName, dummyPassword, dummyTosAccepted, dummyAge, 'male', 'learner', 'BE')
       .returns({ id: dummyId })
       .run();
   });
 
   it(`throws an UnexpectedHttpResponseError, when the request response doesn't contain a body`, async (): Promise<void> => {
-    const dummyAction = actions.apiPost(dummyEmail, dummyName, dummyPassword, dummyTosAccepted, dummyAge, dummyGender, dummyRole, dummyCountry);
+    const dummyAction = actions.apiPost(dummyEmail, dummyName, dummyPassword, dummyTosAccepted, dummyAge, 'male', 'learner', 'BE');
     const dummyApiResponse = { status: 204 };
 
     // Suppress console.error from redux-saga $FlowFixMe
@@ -57,7 +57,7 @@ describe(`apiPost`, (): void => {
     await expect(
       expectSaga(sagas.apiPost, dummyAction)
         .provide([
-          [call(api.users.post, dummyEmail, dummyName, dummyPassword, dummyTosAccepted, dummyAge, dummyGender, dummyRole, dummyCountry), dummyApiResponse],
+          [call(api.users.post, dummyEmail, dummyName, dummyPassword, dummyTosAccepted, dummyAge, 'male', 'learner', 'BE'), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);

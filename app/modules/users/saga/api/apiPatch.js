@@ -9,6 +9,24 @@ import { type ApiResponseData } from 'lib/ApiRequest';
 import platform from 'modules/platform';
 
 import * as a from '../../actionTypes';
+import * as m from '../../model';
+
+const apiGenderTypesMap = {
+  [m.genderTypes.MALE]: 'male',
+  [m.genderTypes.FEMALE]: 'female',
+  [m.genderTypes.OTHER]: 'other',
+};
+
+const apiRoleTypesMap = {
+  [m.roleTypes.LEARNER]: 'learner',
+  [m.roleTypes.TEACHER]: 'teacher',
+  [m.roleTypes.COTEACHER]: 'coteacher',
+};
+
+// TODO: country enumeration
+const apiCountryTypesMap = {
+  [m.countryTypes.BELGIUM]: 'BE',
+};
 
 const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
   const {
@@ -35,9 +53,9 @@ const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
     currentPassword,
     password,
     age,
-    gender,
-    role,
-    country,
+    apiGenderTypesMap[gender],
+    apiRoleTypesMap[role],
+    apiCountryTypesMap[country],
     userAuth.apiToken,
   );
   if (responseData.body == null) throw new UnexpectedHttpResponseError();
