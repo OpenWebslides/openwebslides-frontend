@@ -4,6 +4,8 @@
 
 import { type TaskSagaAction } from 'types/actions';
 
+import * as m from '../model';
+
 
 // Action constants --------------------------------------------------------------------------------
 
@@ -89,6 +91,10 @@ export type SignupAction = {|
     name: string,
     password: string,
     tosAccepted: boolean,
+    age: number,
+    gender: m.GenderType,
+    role: m.RoleType,
+    country: m.CountryType,
   |},
 |};
 
@@ -101,6 +107,10 @@ export type UpdateAction = {|
     name: string,
     locale: string,
     alertEmails: boolean,
+    age: number,
+    gender: m.GenderType,
+    role: m.RoleType,
+    country: m.CountryType,
   |},
 |};
 

@@ -1,12 +1,17 @@
 // @flow
 
 import * as a from '../../actionTypes';
+import * as m from '../../model';
 
 const update = (
   id: string,
   name: string,
   locale: string,
   alertEmails: boolean,
+  age: number,
+  gender: m.GenderType,
+  role: m.RoleType,
+  country: m.CountryType,
 ): a.UpdateAction => {
   return {
     type: a.UPDATE,
@@ -15,6 +20,10 @@ const update = (
       name,
       locale,
       alertEmails,
+      age,
+      gender,
+      role,
+      country,
     },
   };
 };
