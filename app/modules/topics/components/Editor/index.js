@@ -15,6 +15,8 @@ import ShareModal from 'modals/ShareModal';
 import { type MetadataFormValues } from 'forms/MetadataForm';
 import contentItems from 'modules/contentItems';
 
+import Metadata from './Metadata';
+
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
@@ -96,6 +98,10 @@ class PureEditor extends React.Component<Props, ComponentState> {
     this.setState({ isMetadataOpen: true });
   };
 
+  showMetadata = (): void => {
+    this.setState({ isMetadataOpen: true });
+  };
+
   handleCommitModalSubmit = (values: CommitFormValues): void => {
     const { onCommit } = this.props;
     onCommit(values);
@@ -113,6 +119,14 @@ class PureEditor extends React.Component<Props, ComponentState> {
   handleMetadataSubmit = (values: MetadataFormValues): void => {
     const { onUpdate } = this.props;
     onUpdate(values);
+    this.setState({ isMetadataOpen: false });
+  };
+
+  handleMetadataCancel = (): void => {
+    this.setState({ isMetadataOpen: false });
+  };
+
+  handleMetadataSubmit = (): void => {
     this.setState({ isMetadataOpen: false });
   };
 
@@ -232,16 +246,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
               </p>
             </>
           ))}
-
-        <Divider hidden={true} />
-
-        <p>
-          {topic.description == null ? (
-            <em data-test-id="topic-editor-no-description">{t('topics:props.noDescription')}</em>
-          )
-            : <span data-test-id="topic-editor-description">{topic.description}</span>
-          }
-        </p>
 
         <Divider hidden={true} />
 
