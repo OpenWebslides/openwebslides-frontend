@@ -5,7 +5,7 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
-import { Button, Header, Icon, Menu } from 'semantic-ui-react';
+import { Button, Header, Icon, Menu, Divider } from 'semantic-ui-react';
 
 import { type AppState, type ModulesAction } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
@@ -178,6 +178,16 @@ class PureEditor extends React.Component<Props, ComponentState> {
         {(topic.upstreamTopicId !== null
           ? <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
           : null)}
+
+        <p>
+          {topic.description == null ? (
+            <em data-test-id="topic-editor-no-description">{t('topics:props.noDescription')}</em>
+          )
+            : <span data-test-id="topic-editor-description">{topic.description}</span>
+          }
+        </p>
+
+        <Divider hidden={true} />
 
         <ContentItemEditableDisplay
           contentItemId={topic.rootContentItemId}

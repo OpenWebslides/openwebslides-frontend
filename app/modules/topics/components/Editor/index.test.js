@@ -14,6 +14,7 @@ import Editor, { PureEditor } from '.';
 describe(`Editor`, (): void => {
 
   let dummyTopic: m.Topic;
+  let dummyTopicNoDesc: m.Topic;
   let dummyDirtyTopic: m.Topic;
   let dummyUpstreamTopic: m.Topic;
   let dummyDownstreamTopic: m.Topic;
@@ -31,12 +32,14 @@ describe(`Editor`, (): void => {
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic, isContentFetched: true };
+    dummyTopicNoDesc = { ...dummyTopicData.topic, id: 'dummyTopicNoDesc', description: null, isContentFetched: true };
     dummyDirtyTopic = { ...dummyTopicData.topic, id: 'dummyDirtyTopic', isContentFetched: true, isDirty: true };
     dummyMessage = 'dummyMessage';
     dummyUpstreamTopic = { ...dummyTopicData.upstream, isContentFetched: true };
     dummyDownstreamTopic = { ...dummyTopicData.downstream, isContentFetched: true };
     dummyTopicsById = {
       [dummyTopic.id]: dummyTopic,
+      [dummyTopicNoDesc.id]: dummyTopicNoDesc,
       [dummyDirtyTopic.id]: dummyDirtyTopic,
       [dummyUpstreamTopic.id]: dummyUpstreamTopic,
       [dummyDownstreamTopic.id]: dummyDownstreamTopic,
@@ -243,6 +246,26 @@ describe(`Editor`, (): void => {
     expect(dummyUnloadEvent.returnValue).not.toBeUndefined();
 
     expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toStrictEqual(`${dummyDirtyTopic.title}*`);
+  });
+
+  it(`shows the description when the topic has a description`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-description"]').text()).toStrictEqual(dummyTopic.description);
+  });
+
+  it(`shows a placeholder when the topic has no description`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopicNoDesc.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-no-description"]').hostNodes()).toHaveLength(1);
   });
 
   it(`dispatches a topic DISCARD action, when the component is unmounted and the topic is dirty`, (): void => {

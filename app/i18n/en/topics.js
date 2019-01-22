@@ -5,7 +5,7 @@ const topics = {
   props: {
     title: 'Title',
     description: 'Description',
-    noDescription: 'No description found',
+    noDescription: 'No description',
     access: {
       title: 'Access level',
       accessForType: {
