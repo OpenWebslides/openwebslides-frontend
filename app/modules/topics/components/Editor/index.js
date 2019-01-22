@@ -235,6 +235,16 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
         <Divider hidden={true} />
 
+        <p>
+          {topic.description == null ? (
+            <em data-test-id="topic-editor-no-description">{t('topics:props.noDescription')}</em>
+          )
+            : <span data-test-id="topic-editor-description">{topic.description}</span>
+          }
+        </p>
+
+        <Divider hidden={true} />
+
         <ContentItemEditableDisplay
           contentItemId={topic.rootContentItemId}
           setTopicDirty={onSetDirty}

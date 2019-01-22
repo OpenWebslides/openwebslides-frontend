@@ -268,6 +268,26 @@ describe(`Editor`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-editor-no-description"]').hostNodes()).toHaveLength(1);
   });
 
+  it(`shows the description when the topic has a description`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-description"]').text()).toStrictEqual(dummyTopic.description);
+  });
+
+  it(`shows a placeholder when the topic has no description`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopicNoDesc.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-no-description"]').hostNodes()).toHaveLength(1);
+  });
+
   it(`dispatches a topic DISCARD action, when the component is unmounted and the topic is dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
