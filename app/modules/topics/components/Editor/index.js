@@ -15,8 +15,6 @@ import ShareModal from 'modals/ShareModal';
 import { type MetadataFormValues } from 'forms/MetadataForm';
 import contentItems from 'modules/contentItems';
 
-import Metadata from './Metadata';
-
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
@@ -126,7 +124,9 @@ class PureEditor extends React.Component<Props, ComponentState> {
     this.setState({ isMetadataOpen: false });
   };
 
-  handleMetadataSubmit = (): void => {
+  handleMetadataSubmit = (values: MetadataFormValues): void => {
+    const { onUpdate } = this.props;
+    onUpdate(values);
     this.setState({ isMetadataOpen: false });
   };
 
