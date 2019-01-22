@@ -12,14 +12,15 @@ import FetchWrapper from 'components/FetchWrapper';
 import { type CommitFormValues } from 'forms/CommitForm';
 import CommitModal from 'modals/CommitModal';
 import ShareModal from 'modals/ShareModal';
+import { type MetadataFormValues } from 'forms/MetadataForm';
 import contentItems from 'modules/contentItems';
-
-import Metadata from './Metadata';
 
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
 import ForkInfo from '../ForkInfo';
+
+import Metadata from './Metadata';
 
 type PassedProps = {|
   topicId: string,
@@ -31,6 +32,7 @@ type StateProps = {|
 
 type DispatchProps = {|
   onCommit: (values: CommitFormValues) => void,
+  onUpdate: (values: MetadataFormValues) => void,
   onSetDirty: (dirty: boolean) => void,
   onDiscard: () => void,
 |};
@@ -62,6 +64,9 @@ const mapDispatchToProps = (
   return {
     onCommit: (values: CommitFormValues): void => {
       dispatch(actions.patchWithContent(topicId, values.message));
+    },
+    onUpdate: (values: MetadataFormValues): void => {
+      dispatch(actions.update(topicId, values.title, values.description));
     },
     onSetDirty: (dirty: boolean): void => {
       dispatch(actions.setDirtyInState(topicId, dirty));
@@ -105,7 +110,9 @@ class PureEditor extends React.Component<Props, ComponentState> {
     this.setState({ isShareModalOpen: false });
   };
 
-  handleMetadataSubmit = (): void => {
+  handleMetadataSubmit = (values: MetadataFormValues): void => {
+    const { onUpdate } = this.props;
+    onUpdate(values);
     this.setState({ isMetadataOpen: false });
   };
 
@@ -191,6 +198,8 @@ class PureEditor extends React.Component<Props, ComponentState> {
           <Metadata
             onSubmit={this.handleMetadataSubmit}
             onCancel={this.handleMetadataCancel}
+            title={topic.title}
+            description={topic.description}
             data-test-id="topic-editor-metadata"
           />
         )
