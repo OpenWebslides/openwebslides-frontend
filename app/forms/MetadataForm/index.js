@@ -26,9 +26,13 @@ class PureMetadataForm extends React.Component<Props> {
       errors.title = t('topics:forms.errors.title.empty');
     }
 
+    if (values.title.length > 50) {
+      errors.title = t('topics:forms.errors.title.length');
+    }
+
     // This will never happen, but it's need to make Flow happy
-    if (values.description == null) {
-      errors.description = null;
+    if (values.description != null && values.description.length > 100) {
+      errors.description = t('topics:forms.errors.description.length');
     }
 
     return { ...errors };

@@ -33,8 +33,10 @@ describe(`MetadataForm`, (): void => {
 
     expect(validate({ ...dummyFormProps, title: '' })).toHaveProperty('title');
     expect(validate({ ...dummyFormProps, title: 'abcd' })).not.toHaveProperty('title');
+    expect(validate({ ...dummyFormProps, title: 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxy' })).toHaveProperty('title');
 
-    expect(validate({ ...dummyFormProps, description: '' })).not.toHaveProperty('message');
+    expect(validate({ ...dummyFormProps, description: '' })).not.toHaveProperty('description');
+    expect(validate({ ...dummyFormProps, description: 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvw' })).toHaveProperty('description');
   });
 
 });
