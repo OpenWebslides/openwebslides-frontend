@@ -19,6 +19,7 @@ const patch = (
   const body = JSON.stringify({
     data: {
       type: 'topics',
+      id,
       attributes: {
         title,
         description,

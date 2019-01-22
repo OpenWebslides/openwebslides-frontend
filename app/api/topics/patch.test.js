@@ -29,6 +29,7 @@ describe(`api.topics.patch`, (): void => {
     expect(JSON.parse(mockOptions.body)).toStrictEqual({
       data: {
         type: 'topics',
+        id: dummyId,
         attributes: {
           title: dummyTitle,
           description: dummyDescription,
