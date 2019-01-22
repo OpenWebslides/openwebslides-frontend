@@ -16,6 +16,10 @@ const users = {
     tos: 'I agree to the Terms of Service',
     locale: 'Language',
     alertEmails: 'Send me important email notifications',
+    age: 'Age',
+    gender: 'Gender',
+    role: 'Role',
+    country: 'Country',
     errors: {
       email: 'Email must be valid',
       password: 'Password must be longer than 6 characters',
@@ -26,6 +30,10 @@ const users = {
       tosAccepted: 'You must accept the Terms of Service',
       locale: 'Language must be one of the following: {{locales}}',
       alertEmails: 'Email notifications must be true or false',
+      age: 'Age cannot be empty',
+      gender: 'You must select a valid gender',
+      role: 'You must select a valid role',
+      country: 'You must select a valid country',
     },
   },
 };
