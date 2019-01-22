@@ -4,13 +4,13 @@ import { countryTypes, type CountryType } from './countries';
 
 /* eslint-disable flowtype/require-types-at-top */
 
-const MALE: 'users/MALE' = 'users/MALE';
-const FEMALE: 'users/FEMALE' = 'users/FEMALE';
-const OTHER: 'users/OTHER' = 'users/OTHER';
+const MALE: 'genders/MALE' = 'genders/MALE';
+const FEMALE: 'genders/FEMALE' = 'genders/FEMALE';
+const OTHER: 'genders/OTHER' = 'genders/OTHER';
 
-const LEARNER: 'users/LEARNER' = 'users/LEARNER';
-const TEACHER: 'users/TEACHER' = 'users/TEACHER';
-const COTEACHER: 'users/COTEACHER' = 'users/COTEACHER';
+const LEARNER: 'roles/LEARNER' = 'roles/LEARNER';
+const TEACHER: 'roles/TEACHER' = 'roles/TEACHER';
+const COTEACHER: 'roles/COTEACHER' = 'roles/COTEACHER';
 
 export const genderTypes = {
   MALE,

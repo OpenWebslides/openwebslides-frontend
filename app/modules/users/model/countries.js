@@ -3,7 +3,7 @@
 /* eslint-disable flowtype/require-types-at-top */
 
 // TODO: country enumeration
-const BELGIUM: 'users/BELGIUM' = 'users/BELGIUM';
+const BELGIUM: 'countries/BELGIUM' = 'countries/BELGIUM';
 
 export const countryTypes = {
   BELGIUM,
