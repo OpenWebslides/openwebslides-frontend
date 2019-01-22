@@ -18,7 +18,15 @@ type PassedProps = {|
 |};
 
 type DispatchProps = {|
-  onUpdateUser: (name: string, locale: string, alertEmails: boolean) => void,
+  onUpdateUser: (
+    name: string,
+    locale: string,
+    alertEmails: boolean,
+    age: number,
+    gender: users.model.GenderType,
+    role: users.model.RoleType,
+    country: users.model.CountryType,
+  ) => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
@@ -30,8 +38,25 @@ const mapDispatchToProps = (
   const { user } = props;
 
   return {
-    onUpdateUser: (name: string, locale: string, alertEmails: boolean): void => {
-      dispatch(actions.update(user.id, name, locale, alertEmails));
+    onUpdateUser: (
+      name: string,
+      locale: string,
+      alertEmails: boolean,
+      age: number,
+      gender: users.model.GenderType,
+      role: users.model.RoleType,
+      country: users.model.CountryType,
+    ): void => {
+      dispatch(users.actions.update(
+        user.id,
+        name,
+        locale,
+        alertEmails,
+        age,
+        gender,
+        role,
+        country,
+      ));
     },
   };
 };
@@ -39,7 +64,17 @@ const mapDispatchToProps = (
 class PureProfilePane extends React.Component<Props> {
   handleProfileFormSubmit = (values: ProfileFormValues): void => {
     const { onUpdateUser } = this.props;
-    onUpdateUser(values.name, values.locale, values.alertEmails);
+    const { name, locale, alertEmails, age, gender, role, country } = values;
+
+    onUpdateUser(
+      name,
+      locale,
+      alertEmails,
+      age,
+      gender,
+      role,
+      country,
+    );
   };
 
   render(): React.Node {
@@ -49,7 +84,7 @@ class PureProfilePane extends React.Component<Props> {
       <Tab.Pane className="settings">
         <Grid columns={1} padded="vertically">
           <Grid.Row>
-            <Grid.Column width={5}>
+            <Grid.Column width={10}>
               <p>
                 <Icon name="lock" /> {t('settings:profile.privacy')}
               </p>
@@ -59,6 +94,27 @@ class PureProfilePane extends React.Component<Props> {
                 availableLocales={i18n.languages.map((language: string): DropdownValue => {
                   return { key: language, value: language, text: t(`settings:locales.${language}`) };
                 })}
+                availableGenders={Object.keys(users.model.genderTypes).map(
+                  (g: string): DropdownValue => {
+                    const genderType = users.model.genderTypes[g];
+
+                    return { key: genderType, value: genderType, text: t(`settings:genders.${genderType}`) };
+                  },
+                )}
+                availableRoles={Object.keys(users.model.roleTypes).map(
+                  (g: string): DropdownValue => {
+                    const roleType = users.model.roleTypes[g];
+
+                    return { key: roleType, value: roleType, text: t(`settings:roles.${roleType}`) };
+                  },
+                )}
+                availableCountries={Object.keys(users.model.countryTypes).map(
+                  (g: string): DropdownValue => {
+                    const countryType = users.model.countryTypes[g];
+
+                    return { key: countryType, value: countryType, text: t(`settings:countries.${countryType}`) };
+                  },
+                )}
                 data-test-id="profile-pane-profile-form"
               >
                 <Button type="submit" primary={true}>

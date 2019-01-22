@@ -25,6 +25,19 @@ const settings = {
   locales: {
     en: 'English',
   },
+  genders: {
+    'genders/MALE': 'Male',
+    'genders/FEMALE': 'Female',
+    'genders/OTHER': 'Other',
+  },
+  roles: {
+    'roles/LEARNER': 'Learner',
+    'roles/TEACHER': 'Teacher',
+    'roles/COTEACHER': 'Coteacher',
+  },
+  countries: {
+    'countries/BELGIUM': 'Belgium',
+  },
 };
 
 export default settings;
