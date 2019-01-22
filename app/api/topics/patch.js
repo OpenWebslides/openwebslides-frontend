@@ -12,7 +12,7 @@ import { TOPICS_ENDPOINT } from '../endpoints';
 
 const patch = (
   id: string,
-  title: string,
+  title: ?string,
   description: ?string,
   token: string,
 ): Promise<ApiResponseData> => {

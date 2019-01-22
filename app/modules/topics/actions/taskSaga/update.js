@@ -4,8 +4,8 @@ import * as a from '../../actionTypes';
 
 const update = (
   id: string,
-  title?: string,
-  description?: ?string,
+  title: ?string,
+  description: ?string,
 ): a.UpdateAction => {
   return {
     type: a.UPDATE,

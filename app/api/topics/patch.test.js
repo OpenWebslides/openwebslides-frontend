@@ -11,7 +11,7 @@ describe(`api.topics.patch`, (): void => {
     fetch.resetMocks();
   });
 
-  it(`executes the correct fetch call`, async (): Promise<mixed> => {
+  it(`executes the correct fetch call`, async (): Promise<void> => {
     const dummyId = 'dummyId';
     const dummyTitle = 'dummyTitle';
     const dummyDescription = 'dummyDescription';
