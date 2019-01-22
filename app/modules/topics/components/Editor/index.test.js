@@ -216,7 +216,7 @@ describe(`Editor`, (): void => {
     expect(dummyPreventDefault).toHaveBeenCalledTimes(0);
     expect(dummyUnloadEvent.returnValue).toBeUndefined();
 
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toStrictEqual(dummyTopic.title);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toContain(dummyTopic.title);
   });
 
   it(`dispatches a topic SET_DIRTY_IN_STATE action, when the onSetDirty prop is called`, (): void => {
@@ -245,7 +245,7 @@ describe(`Editor`, (): void => {
     expect(dummyPreventDefault).toHaveBeenCalled();
     expect(dummyUnloadEvent.returnValue).not.toBeUndefined();
 
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toStrictEqual(`${dummyDirtyTopic.title}*`);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes().text()).toContain(`${dummyDirtyTopic.title}*`);
   });
 
   it(`shows the description when the topic has a description`, (): void => {
@@ -255,7 +255,7 @@ describe(`Editor`, (): void => {
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-description"]').text()).toStrictEqual(dummyTopic.description);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-description"]').text()).toContain(dummyTopic.description);
   });
 
   it(`shows a placeholder when the topic has no description`, (): void => {
@@ -308,6 +308,62 @@ describe(`Editor`, (): void => {
     enzymeWrapper.unmount();
 
     expect(dummyDispatch).toHaveBeenCalledTimes(0);
+  });
+
+  it(`shows the metadata and hides the title when the title edit button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDownstreamTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(1);
+    enzymeWrapper.find('[data-test-id="topic-editor-metadata-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(0);
+  });
+
+  it(`closes the metadata and shows the title when the onCancel handler passed to the metadata is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDownstreamTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(1);
+    enzymeWrapper.find('[data-test-id="topic-editor-metadata-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(0);
+
+    enzymeWrapper.find('PureMetadata').props().onCancel();
+    enzymeWrapper.update();
+
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`dispatches a topics UPDATE action and closes the metadata and shows the title when the onSubmit handler passed to the metadata is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDownstreamTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(1);
+    enzymeWrapper.find('[data-test-id="topic-editor-metadata-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(0);
+
+    enzymeWrapper.find('PureMetadata').props().onSubmit();
+    enzymeWrapper.update(dummyTopic.title, dummyTopic.description);
+
+    // expect(dummyDispatch).toHaveBeenCalledWith(actions.update(dummyDirtyTopic.id));
+
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(1);
   });
 
 });

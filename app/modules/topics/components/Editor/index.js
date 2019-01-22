@@ -14,6 +14,8 @@ import CommitModal from 'modals/CommitModal';
 import ShareModal from 'modals/ShareModal';
 import contentItems from 'modules/contentItems';
 
+import Metadata from './Metadata';
+
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
@@ -38,6 +40,7 @@ type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchPr
 type ComponentState = {|
   isCommitModalOpen: boolean,
   isShareModalOpen: boolean,
+  isMetadataOpen: boolean,
 |};
 
 const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
@@ -73,6 +76,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     isCommitModalOpen: false,
     isShareModalOpen: false,
+    isMetadataOpen: false,
   };
 
   showCommitModal = (): void => {
@@ -81,6 +85,10 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   showShareModal = (): void => {
     this.setState({ isShareModalOpen: true });
+  };
+
+  showMetadata = (): void => {
+    this.setState({ isMetadataOpen: true });
   };
 
   handleCommitModalSubmit = (values: CommitFormValues): void => {
@@ -95,6 +103,14 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   hideShareModal = (): void => {
     this.setState({ isShareModalOpen: false });
+  };
+
+  handleMetadataSubmit = (): void => {
+    this.setState({ isMetadataOpen: false });
+  };
+
+  handleMetadataCancel = (): void => {
+    this.setState({ isMetadataOpen: false });
   };
 
   beforeUnloadHandler = (event: Event): boolean => {
@@ -135,7 +151,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   renderEditor = (topic: m.Topic): React.Node => {
     const { t, onSetDirty } = this.props;
-    const { isCommitModalOpen, isShareModalOpen } = this.state;
+    const { isCommitModalOpen, isShareModalOpen, isMetadataOpen } = this.state;
 
     return (
       <div data-test-id="topic-editor">
@@ -171,21 +187,42 @@ class PureEditor extends React.Component<Props, ComponentState> {
           </Menu.Menu>
         </Menu>
 
-        <Header as="h1" data-test-id="topic-editor-title">
-          {topic.title}
-          {(topic.isDirty ? '*' : '')}
-        </Header>
-        {(topic.upstreamTopicId !== null
-          ? <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
-          : null)}
+        {(isMetadataOpen ? (
+          <Metadata
+            onSubmit={this.handleMetadataSubmit}
+            onCancel={this.handleMetadataCancel}
+            data-test-id="topic-editor-metadata"
+          />
+        )
+          : (
+            <>
+              <Header as="h1" style={{ display: 'inline-block' }} data-test-id="topic-editor-title">
+                {topic.title}
+                {(topic.isDirty ? '*' : '')}
+                <Button
+                  basic={true}
+                  size="tiny"
+                  compact={true}
+                  style={{ marginLeft: '1em' }}
+                  onClick={this.showMetadata}
+                  data-test-id="topic-editor-metadata-button"
+                >
+                  {t('common:button.edit')}
+                </Button>
+              </Header>
+              {(topic.upstreamTopicId !== null
+                ? <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
+                : null)}
 
-        <p>
-          {topic.description == null ? (
-            <em data-test-id="topic-editor-no-description">{t('topics:props.noDescription')}</em>
-          )
-            : <span data-test-id="topic-editor-description">{topic.description}</span>
-          }
-        </p>
+              <p>
+                {topic.description == null ? (
+                  <em data-test-id="topic-editor-no-description">{t('topics:props.noDescription')}</em>
+                )
+                  : <span data-test-id="topic-editor-description">{topic.description}</span>
+                }
+              </p>
+            </>
+          ))}
 
         <Divider hidden={true} />
 
