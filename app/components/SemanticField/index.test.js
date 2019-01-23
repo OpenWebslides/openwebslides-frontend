@@ -11,6 +11,7 @@ describe(`SemanticField`, (): void => {
 
   let dummyOptions: $ReadOnlyArray<any>;
   let dummyValue: string;
+  let dummyOnChange: any;
 
   beforeEach((): void => {
     dummyOptions = [
@@ -19,6 +20,7 @@ describe(`SemanticField`, (): void => {
       { key: 'test3', value: 'test3', text: 'Test 3' },
     ];
     dummyValue = 'test1';
+    dummyOnChange = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
@@ -89,6 +91,32 @@ describe(`SemanticField`, (): void => {
 
     expect(enzymeWrapper.find('Formik').instance().state.values.test).toBe(false);
     expect(enzymeWrapper.find('Formik').instance().state.touched.test).toBe(true);
+  });
+
+  it(`calls the passed onChange handler with the new value when a field changes`, (): void => {
+    const enzymeWrapper = mount(
+      <Formik
+        initialValues={{ test: dummyValue }}
+        render={(): React.Node => {
+          return (
+            <SemanticField
+              component={Dropdown}
+              name="test"
+              options={dummyOptions}
+              value={dummyValue}
+              onChange={dummyOnChange}
+            />
+          );
+        }}
+      />,
+    );
+
+    // Simulate events
+    // Enzyme does not support event propagation yet, so we cannot test out
+    // the onChange callback by changing the dropdown value
+    // https://github.com/airbnb/enzyme/issues/308
+    enzymeWrapper.find('Dropdown').props().onChange(null, { value: 'test2' });
+    expect(dummyOnChange).toHaveBeenCalledWith('test2');
   });
 
 });
