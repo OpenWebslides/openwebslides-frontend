@@ -240,16 +240,20 @@ class PureEditor extends React.Component<Props, ComponentState> {
                   >
                     {t('common:button.edit')}
                   </Button>
+                  <Header.Subheader>
+                    {topic.description == null ? (
+                      <p data-test-id="topic-editor-no-description"><em>{t('topics:props.noDescription')}</em></p>
+                    )
+                      : <p data-test-id="topic-editor-description">{topic.description}</p>
+                    }
+                    {(topic.upstreamTopicId !== null
+                      ? (
+                        <small>
+                          <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
+                        </small>
+                      ) : null)}
+                  </Header.Subheader>
                 </Header>
-                {(topic.upstreamTopicId !== null
-                  ? <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
-                  : null)}
-
-                {topic.description == null ? (
-                  <p data-test-id="topic-editor-no-description"><em>{t('topics:props.noDescription')}</em></p>
-                )
-                  : <p data-test-id="topic-editor-description">{topic.description}</p>
-                }
               </Grid.Column>
               <Grid.Column width={5} textAlign="right">
                 <AccessControl
