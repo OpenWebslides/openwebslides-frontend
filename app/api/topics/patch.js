@@ -14,6 +14,7 @@ const patch = (
   id: string,
   title: ?string,
   description: ?string,
+  access: ?string,
   token: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
@@ -23,6 +24,7 @@ const patch = (
       attributes: {
         title,
         description,
+        access,
       },
     },
   });
