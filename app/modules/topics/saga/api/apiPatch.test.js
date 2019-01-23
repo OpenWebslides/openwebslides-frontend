@@ -8,6 +8,7 @@ import { UnexpectedHttpResponseError, UnsupportedOperationError } from 'errors';
 import platform from 'modules/platform';
 
 import actions from '../../actions';
+import * as m from '../../model';
 
 import { sagas } from '..';
 
@@ -17,16 +18,18 @@ describe(`apiPatch`, (): void => {
   let dummyToken: string;
   let dummyTitle: string;
   let dummyDescription: string;
+  let dummyAccess: m.AccessType;
 
   beforeEach((): void => {
     dummyId = 'dummyReturnedId';
     dummyToken = 'foobarToken';
     dummyTitle = 'The Title';
     dummyDescription = 'The description.';
+    dummyAccess = m.accessTypes.PUBLIC;
   });
 
   it(`dispatches a PATCH action to the topics endpoint, and returns the resulting topic ID`, (): void => {
-    const dummyAction = actions.apiPatch(dummyId, dummyTitle, dummyDescription);
+    const dummyAction = actions.apiPatch(dummyId, dummyTitle, dummyDescription, dummyAccess);
     const dummyApiResponse = {
       status: 204,
       body: {
@@ -39,15 +42,15 @@ describe(`apiPatch`, (): void => {
     return expectSaga(sagas.apiPatch, dummyAction)
       .provide([
         [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-        [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, dummyToken), dummyApiResponse],
+        [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, 'public', dummyToken), dummyApiResponse],
       ])
-      .call(api.topics.patch, dummyId, dummyTitle, dummyDescription, dummyToken)
+      .call(api.topics.patch, dummyId, dummyTitle, dummyDescription, 'public', dummyToken)
       .returns({ id: dummyId })
       .run();
   });
 
   it(`throws an UnsupportedOperationError, when there is no currently signed in user`, async (): Promise<void> => {
-    const dummyAction = actions.apiPatch(dummyId, dummyTitle, dummyDescription);
+    const dummyAction = actions.apiPatch(dummyId, dummyTitle, dummyDescription, dummyAccess);
     const dummyApiResponse = {
       status: 204,
       body: {
@@ -63,14 +66,14 @@ describe(`apiPatch`, (): void => {
       expectSaga(sagas.apiPatch, dummyAction)
         .provide([
           [select(platform.selectors.getUserAuth), null],
-          [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, dummyToken), dummyApiResponse],
+          [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, 'public', dummyToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);
   });
 
   it(`throws an UnexpectedHttpResponseError, when the request response doesn't contain a body`, async (): Promise<void> => {
-    const dummyAction = actions.apiPatch(dummyId, dummyTitle, dummyDescription);
+    const dummyAction = actions.apiPatch(dummyId, dummyTitle, dummyDescription, dummyAccess);
     const dummyApiResponse = { status: 200 };
 
     // Suppress console.error from redux-saga $FlowFixMe
@@ -79,7 +82,7 @@ describe(`apiPatch`, (): void => {
       expectSaga(sagas.apiPatch, dummyAction)
         .provide([
           [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-          [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, dummyToken), dummyApiResponse],
+          [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, 'public', dummyToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);
