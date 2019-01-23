@@ -226,7 +226,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
         )
           : (
             <Grid>
-              <Grid.Column width={11}>
+              <Grid.Column width={13}>
                 <Header as="h1" style={{ display: 'inline-block' }} data-test-id="topic-editor-title">
                   {topic.title}
                   {(topic.isDirty ? '*' : '')}
@@ -255,7 +255,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
                   </Header.Subheader>
                 </Header>
               </Grid.Column>
-              <Grid.Column width={5} textAlign="right">
+              <Grid.Column width={3} textAlign="right" verticalAlign="middle">
                 <AccessControl
                   onSubmit={this.handleAccessLevelSubmit}
                   access={topic.access}

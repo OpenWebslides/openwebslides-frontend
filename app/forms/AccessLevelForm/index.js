@@ -2,10 +2,11 @@
 
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Form, Dropdown, Header } from 'semantic-ui-react';
+import { Form, Header, Icon } from 'semantic-ui-react';
 import { Formik } from 'formik';
 
 import { type DropdownValue } from 'types/forms';
+import SemanticField from 'components/SemanticField';
 import topics from 'modules/topics';
 
 type AccessLevelFormValues = {|
@@ -13,6 +14,7 @@ type AccessLevelFormValues = {|
 |};
 
 type PassedProps = {|
+  access: topics.model.AccessType,
   availableAccess: $ReadOnlyArray<DropdownValue>,
   onSubmit: (values: AccessLevelFormValues) => void,
 |};
@@ -20,12 +22,10 @@ type PassedProps = {|
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
 class PureAccessLevelForm extends React.Component<Props> {
-  handleSubmit = (event: SyntheticInputEvent<HTMLInputElement>, data: any): void => {
-    const { onSubmit } = this.props;
+  handleChange = (newAccess: topics.model.AccessType): void => {
+    const { access, onSubmit } = this.props;
 
-    console.log(data.value);
-
-    onSubmit({ access: data.value });
+    if (newAccess !== access) onSubmit({ access: newAccess });
   };
 
   render(): React.Node {
@@ -36,19 +36,25 @@ class PureAccessLevelForm extends React.Component<Props> {
         initialValues={{ access }}
         onSubmit={onSubmit}
       >
-        {({ values, handleChange, handleBlur, handleSubmit }) => (
-          <Form onSubmit={handleSubmit} id="access-level-form">
-            <Form.Dropdown
+        {({ values, handleSubmit }) => (
+          <Form onSubmit={handleSubmit}>
+            <SemanticField
+              component={Form.Dropdown}
               name="access"
               id="access"
-              selection={true}
+              onChange={this.handleChange}
               value={values.access}
+              trigger={<><Icon name="lock" /> {t(`topics:props.access.accessForType.${access}`)}</>}
+              item={true}
               options={availableAccess.map((item: DropdownValue): DropdownValue => {
-                return { ...item,
+                return {
+                  ...item,
                   content: (
                     <>
                       <Header sub={true}>{item.text}</Header>
-                      <Header.Subheader>{t(`topics:props.access.accessDescriptionForType.${item.value}`)}</Header.Subheader>
+                      <Header.Subheader style={{ color: 'rgba(0, 0, 0, 0.40)' }}>
+                        {t(`topics:props.access.accessDescriptionForType.${item.value}`)}
+                      </Header.Subheader>
                     </>
                   ) };
               })}
