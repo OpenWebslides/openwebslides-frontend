@@ -7,4 +7,6 @@ export type DropdownValue = {|
   value: string,
   // Text to be displayed
   text: string,
+  // Item content
+  content?: React.Node,
 |};
