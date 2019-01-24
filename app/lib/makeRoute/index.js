@@ -8,8 +8,13 @@
 import _ from 'lodash';
 
 import { InvalidArgumentError } from 'errors';
+import { APP_URL } from 'config/url';
 
-const makeRoute = (route: string, params: { [name: string]: string }): string => {
+const makeRoute = (
+  route: string,
+  params: { [name: string]: string },
+  qualified: boolean = false,
+): string => {
   let mergedRoute: string = route;
   let paramKey: string;
 
@@ -18,6 +23,10 @@ const makeRoute = (route: string, params: { [name: string]: string }): string =>
     if (!route.includes(paramKey)) throw new InvalidArgumentError(`No param of that name found in the route`);
     mergedRoute = mergedRoute.replace(paramKey, params[key]);
   });
+
+  if (qualified === true) {
+    mergedRoute = `${APP_URL}${mergedRoute}`;
+  }
 
   return mergedRoute;
 };

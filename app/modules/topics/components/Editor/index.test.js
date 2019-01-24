@@ -211,6 +211,35 @@ describe(`Editor`, (): void => {
     expect(enzymeWrapper.find('PurePullRequestModal').props().isOpen).toBe(false);
   });
 
+  it(`shows the share modal when the share button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureShareModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="topic-editor-share-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureShareModal').props().isOpen).toBe(true);
+  });
+
+  it(`closes the share modal when the onCancel handler passed to the share modal is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    const onCancel = enzymeWrapper.find('PureShareModal').props().onCancel;
+
+    expect(enzymeWrapper.find('PureShareModal').props().isOpen).toBe(false);
+    enzymeWrapper.find('[data-test-id="topic-editor-share-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureShareModal').props().isOpen).toBe(true);
+    onCancel();
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('PureShareModal').props().isOpen).toBe(false);
+  });
+
   it(`renders the enabled pull request button and modal when the topic has an upstream`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>

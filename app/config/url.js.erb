@@ -1,8 +1,8 @@
 /**
- * api.js.erb - Runtime API configuration
+ * url.js.erb - Runtime URL configuration
  *
- * The compiled JavaScript bundle uses a hardcoded default API base URL. However, in production environments
- * this variable has to be overridden with the correct API base URL on runtime. This is achieved in the Docker
+ * The compiled JavaScript bundle uses hardcoded default base URLs. However, in production environments
+ * these variables have to be overridden with the correct URLs on runtime. This is achieved in the Docker
  * environment by rendering this file into a publicly served location, and including it in the `index.html`.
  *
  * This file has no use in development environments. Changing the location of this file necessitates changing
@@ -11,3 +11,4 @@
  */
 
 window.API_URL = '<%= ENV['API_URL'] %>';
+window.APP_URL = '<%= ENV['APP_URL'] %>';

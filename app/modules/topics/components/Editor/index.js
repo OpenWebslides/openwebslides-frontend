@@ -15,6 +15,7 @@ import FetchWrapper from 'components/FetchWrapper';
 import { type CommitFormValues } from 'forms/CommitForm';
 import CommitModal from 'modals/CommitModal';
 import PullRequestModal from 'modals/PullRequestModal';
+import ShareModal from 'modals/ShareModal';
 import contentItems from 'modules/contentItems';
 import pullRequests from 'modules/pullRequests';
 
@@ -47,6 +48,7 @@ type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchPr
 type ComponentState = {|
   isCommitModalOpen: boolean,
   isPRModalOpen: boolean,
+  isShareModalOpen: boolean,
 |};
 
 const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
@@ -91,6 +93,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     isCommitModalOpen: false,
     isPRModalOpen: false,
+    isShareModalOpen: false,
   };
 
   showCommitModal = (): void => {
@@ -99,6 +102,10 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   showPRModal = (): void => {
     this.setState({ isPRModalOpen: true });
+  };
+
+  showShareModal = (): void => {
+    this.setState({ isShareModalOpen: true });
   };
 
   handleCommitModalSubmit = (values: CommitFormValues): void => {
@@ -124,6 +131,10 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   handlePRModalCancel = (): void => {
     this.setState({ isPRModalOpen: false });
+  };
+
+  hideShareModal = (): void => {
+    this.setState({ isShareModalOpen: false });
   };
 
   beforeUnloadHandler = (event: Event): boolean => {
@@ -164,7 +175,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   renderEditor = (topic: m.Topic): React.Node => {
     const { t, onSetDirty } = this.props;
-    const { isCommitModalOpen, isPRModalOpen } = this.state;
+    const { isCommitModalOpen, isPRModalOpen, isShareModalOpen } = this.state;
 
     return (
       <div data-test-id="topic-editor">
@@ -176,6 +187,16 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
         <Menu secondary={true}>
           <Menu.Menu position="right">
+            <Menu.Item>
+              <Button
+                basic={true}
+                onClick={this.showShareModal}
+                data-test-id="topic-editor-share-button"
+              >
+                <Icon name="share alternate" />
+                {t('common:button.share')}
+              </Button>
+            </Menu.Item>
             <Menu.Item>
               <Button
                 disabled={topic.upstreamTopicId == null}
@@ -226,6 +247,12 @@ class PureEditor extends React.Component<Props, ComponentState> {
             onCancel={this.handlePRModalCancel}
           />
         ) : null}
+
+        <ShareModal
+          topic={topic}
+          isOpen={isShareModalOpen}
+          onCancel={this.hideShareModal}
+        />
       </div>
     );
   };

@@ -4,7 +4,7 @@
 
 import _ from 'lodash';
 
-import { API_URL, API_VERSION } from 'config/api';
+import { API_URL, API_VERSION } from 'config/url';
 import { InvalidArgumentError, UnsupportedOperationError } from 'errors';
 
 import {

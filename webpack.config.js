@@ -91,9 +91,10 @@ const createBaseConfig = (env) => ({
   plugins: [
     // Generate favicons in different sizes and formats
     new FaviconsWebpackPlugin(path.join(__dirname, 'app/assets/images/logo/logo-color.svg')),
-    // Allow specifying an API_URL override on the command line
+    // Allow specifying API_URL and APP_URL overrides on the command line
     new webpack.DefinePlugin({
       'window.API_URL': (env != null && env.API_URL != null) ? `"${env.API_URL}"` : false,
+      'window.APP_URL': (env != null && env.APP_URL != null) ? `"${env.APP_URL}"` : false,
     }),
   ],
 

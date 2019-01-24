@@ -12,6 +12,7 @@ const common = {
     save: 'Save',
     reset: 'Reset',
     cancel: 'Cancel',
+    close: 'Close',
     back: 'Back',
     previous: 'Previous',
     next: 'Next',
@@ -20,7 +21,9 @@ const common = {
     delete: 'Delete',
     fork: 'Create personal copy',
     pr: 'Share updates',
+    share: 'Share',
   },
+  copied: 'Copied!',
   loading: 'Loading...',
   undoWarning: 'This action cannot be undone.',
 };
