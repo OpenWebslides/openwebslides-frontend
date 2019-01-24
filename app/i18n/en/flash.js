@@ -10,8 +10,14 @@ const flash = {
     error: 'An error occurred during signout.',
   },
   'pullRequests/CREATE': {
-    success: 'Successfully shared the updates.',
-    error: 'An error occurred while sharing the updates.',
+    success: 'Successfully shared your contribution',
+    error: 'An error occurred while sharing your contribution',
+  },
+  'pullRequests/ACCEPT': {
+    error: 'An error occurred while accepting the contribution',
+  },
+  'pullRequests/REJECT': {
+    error: 'An error occurred while rejecting the contribution',
   },
   'users/UPDATE': {
     success: 'Your profile was successfully updated',

@@ -6,22 +6,18 @@ import { connect } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
 import { Button, Header, Icon, Menu } from 'semantic-ui-react';
-import { push } from 'connected-react-router';
 
 import { type AppState, type ModulesAction } from 'types/redux';
-import { TOPIC_EDITOR_ROUTE } from 'config/routes';
-import makeRoute from 'lib/makeRoute';
 import FetchWrapper from 'components/FetchWrapper';
 import { type CommitFormValues } from 'forms/CommitForm';
 import CommitModal from 'modals/CommitModal';
-import PullRequestModal from 'modals/PullRequestModal';
 import ShareModal from 'modals/ShareModal';
 import contentItems from 'modules/contentItems';
-import pullRequests from 'modules/pullRequests';
 
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
+import ForkInfo from '../ForkInfo';
 
 type PassedProps = {|
   topicId: string,
@@ -35,19 +31,12 @@ type DispatchProps = {|
   onCommit: (values: CommitFormValues) => void,
   onSetDirty: (dirty: boolean) => void,
   onDiscard: () => void,
-  onCreatePullRequest: (
-    message: string,
-    sourceTopicId: string,
-    targetTopicId: string,
-    currentUserId: string,
-  ) => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
 
 type ComponentState = {|
   isCommitModalOpen: boolean,
-  isPRModalOpen: boolean,
   isShareModalOpen: boolean,
 |};
 
@@ -77,31 +66,17 @@ const mapDispatchToProps = (
     onDiscard: (): void => {
       dispatch(actions.discard(topicId));
     },
-    onCreatePullRequest: (
-      message: string,
-      sourceTopicId: string,
-      targetTopicId: string,
-      currentUserId: string,
-    ): void => {
-      dispatch(pullRequests.actions.create(message, sourceTopicId, targetTopicId, currentUserId));
-      dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: sourceTopicId })));
-    },
   };
 };
 
 class PureEditor extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     isCommitModalOpen: false,
-    isPRModalOpen: false,
     isShareModalOpen: false,
   };
 
   showCommitModal = (): void => {
     this.setState({ isCommitModalOpen: true });
-  };
-
-  showPRModal = (): void => {
-    this.setState({ isPRModalOpen: true });
   };
 
   showShareModal = (): void => {
@@ -116,21 +91,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   handleCommitModalCancel = (): void => {
     this.setState({ isCommitModalOpen: false });
-  };
-
-  handlePRModalSubmit = (
-    message: string,
-    sourceTopicId: string,
-    targetTopicId: string,
-    currentUserId: string,
-  ): void => {
-    const { onCreatePullRequest } = this.props;
-    onCreatePullRequest(message, sourceTopicId, targetTopicId, currentUserId);
-    this.setState({ isPRModalOpen: false });
-  };
-
-  handlePRModalCancel = (): void => {
-    this.setState({ isPRModalOpen: false });
   };
 
   hideShareModal = (): void => {
@@ -175,7 +135,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   renderEditor = (topic: m.Topic): React.Node => {
     const { t, onSetDirty } = this.props;
-    const { isCommitModalOpen, isPRModalOpen, isShareModalOpen } = this.state;
+    const { isCommitModalOpen, isShareModalOpen } = this.state;
 
     return (
       <div data-test-id="topic-editor">
@@ -199,17 +159,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
             </Menu.Item>
             <Menu.Item>
               <Button
-                disabled={topic.upstreamTopicId == null}
-                basic={true}
-                onClick={this.showPRModal}
-                data-test-id="topic-editor-pull-request-button"
-              >
-                <Icon name="tasks" />
-                {t('common:button.pr')}
-              </Button>
-            </Menu.Item>
-            <Menu.Item>
-              <Button
                 disabled={!topic.isDirty}
                 primary={true}
                 onClick={this.showCommitModal}
@@ -226,6 +175,9 @@ class PureEditor extends React.Component<Props, ComponentState> {
           {topic.title}
           {(topic.isDirty ? '*' : '')}
         </Header>
+        {(topic.upstreamTopicId !== null
+          ? <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
+          : null)}
 
         <ContentItemEditableDisplay
           contentItemId={topic.rootContentItemId}
@@ -237,16 +189,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
           onSubmit={this.handleCommitModalSubmit}
           onCancel={this.handleCommitModalCancel}
         />
-
-        {topic.upstreamTopicId != null ? (
-          <PullRequestModal
-            sourceTopicId={topic.id}
-            targetTopicId={topic.upstreamTopicId}
-            isOpen={isPRModalOpen}
-            onSubmit={this.handlePRModalSubmit}
-            onCancel={this.handlePRModalCancel}
-          />
-        ) : null}
 
         <ShareModal
           topic={topic}

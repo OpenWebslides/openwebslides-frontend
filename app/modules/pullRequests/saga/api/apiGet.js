@@ -14,7 +14,7 @@ import * as m from '../../model';
 
 const apiPullRequestStatesMap = {
   pending: m.pullRequestStates.PENDING,
-  open: m.pullRequestStates.OPEN,
+  ready: m.pullRequestStates.READY,
   incompatible: m.pullRequestStates.INCOMPATIBLE,
   working: m.pullRequestStates.WORKING,
   accepted: m.pullRequestStates.ACCEPTED,

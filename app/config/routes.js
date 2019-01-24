@@ -6,6 +6,9 @@ export const TOPIC_ROUTE = '/topic';
 export const TOPIC_VIEWER_ROUTE = '/topic/:topicId/viewer';
 export const TOPIC_EDITOR_ROUTE = '/topic/:topicId/editor';
 export const TOPIC_NEW_ROUTE = '/topic/new';
+// PULL REQUEST
+export const PULL_REQUEST_ROUTE = '/pullRequest';
+export const PULL_REQUEST_VIEW_ROUTE = '/pullRequest/:pullRequestId/view';
 // USER
 export const USER_ROUTE = '/user';
 export const USER_SIGNOUT_ROUTE = '/user/signout';
