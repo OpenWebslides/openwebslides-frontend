@@ -47,33 +47,11 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
   };
 
   renderTopicCardButtons = (topic: m.Topic): React.Node => {
-    const { isCurrentUser } = this.props;
+    const { t, isCurrentUser } = this.props;
 
     return (
       <Card.Content extra={true}>
         <Button.Group className={`ui ${isCurrentUser === true ? 'three' : 'two'} buttons`} inverted={true}>
-          {(isCurrentUser !== false) ? (
-            <>
-              <Button
-                onClick={this.showRemoveModal}
-                icon={true}
-                basic={true}
-                data-test-id="topic-card-remove-button"
-              >
-                <Icon name="trash" />
-              </Button>
-              <Button
-                icon={true}
-                basic={true}
-                as={Link}
-                to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}
-                data-test-id="topic-card-edit-button"
-              >
-                <Icon name="pencil" />
-              </Button>
-            </>
-          ) : null }
-
           <Button
             primary={true}
             icon={true}
@@ -83,6 +61,27 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
           >
             <Icon name="eye" />
           </Button>
+          {(isCurrentUser !== false) ? (
+            <>
+              <Button
+                icon={true}
+                basic={true}
+                as={Link}
+                to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}
+                data-test-id="topic-card-edit-button"
+              >
+                <Icon name="pencil" />
+              </Button>
+              <Button
+                onClick={this.showRemoveModal}
+                className="link"
+                data-test-id="topic-card-remove-button"
+              >
+                {t('common:button.delete')}
+              </Button>
+
+            </>
+          ) : null }
         </Button.Group>
       </Card.Content>
     );
