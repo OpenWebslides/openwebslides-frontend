@@ -9,10 +9,12 @@ import { Tab, Button, Grid, Icon } from 'semantic-ui-react';
 import { type DropdownValue } from 'types/forms';
 import { type ModulesAction } from 'types/redux';
 import ProfileForm, { type ProfileFormValues } from 'forms/ProfileForm';
-import users from 'modules/users';
+
+import actions from '../../../actions';
+import * as m from '../../../model';
 
 type PassedProps = {|
-  user: users.model.User,
+  user: m.User,
 |};
 
 type DispatchProps = {|
@@ -29,7 +31,7 @@ const mapDispatchToProps = (
 
   return {
     onUpdateUser: (name: string, locale: string, alertEmails: boolean): void => {
-      dispatch(users.actions.update(user.id, name, locale, alertEmails));
+      dispatch(actions.update(user.id, name, locale, alertEmails));
     },
   };
 };
