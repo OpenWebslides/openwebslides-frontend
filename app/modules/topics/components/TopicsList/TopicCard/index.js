@@ -106,7 +106,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
               {
                 (topic.description != null)
                   ? <span data-test-id="topic-card-description">{topic.description}</span>
-                  : <span data-test-id="topic-card-no-description">({t('topics:props.noDescription')})</span>
+                  : <em data-test-id="topic-card-no-description">{t('topics:props.noDescription')}</em>
               }
             </Card.Description>
           </Card.Content>
