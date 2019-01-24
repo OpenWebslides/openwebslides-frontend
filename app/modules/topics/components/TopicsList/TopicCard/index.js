@@ -4,6 +4,7 @@ import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, Card, Icon } from 'semantic-ui-react';
+import moment from 'moment';
 
 import { TOPIC_EDITOR_ROUTE, TOPIC_VIEWER_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
@@ -100,7 +101,7 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
                 {topic.title}
               </Link>
             </Card.Header>
-            <Card.Meta>TODO: creation date</Card.Meta>
+            <Card.Meta>{t('topics:props.timestamp', { timestamp: moment(topic.timestamp).fromNow() })}</Card.Meta>
             <Card.Description>
               {
                 (topic.description != null)
