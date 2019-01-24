@@ -28,8 +28,8 @@ describe(`apiPatch`, (): void => {
     dummyAccess = m.accessTypes.PUBLIC;
   });
 
-  it(`dispatches a PATCH action to the topics endpoint, and returns the resulting topic ID`, (): void => {
-    const dummyAction = actions.apiPatch(dummyId, dummyTitle, dummyDescription, dummyAccess);
+  it(`dispatches a PATCH action to the topics endpoint, and returns the resulting topic ID for title and description`, (): void => {
+    const dummyAction = actions.apiPatch(dummyId, dummyTitle, dummyDescription, undefined);
     const dummyApiResponse = {
       status: 204,
       body: {
@@ -42,9 +42,30 @@ describe(`apiPatch`, (): void => {
     return expectSaga(sagas.apiPatch, dummyAction)
       .provide([
         [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-        [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, 'public', dummyToken), dummyApiResponse],
+        [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, undefined, dummyToken), dummyApiResponse],
       ])
-      .call(api.topics.patch, dummyId, dummyTitle, dummyDescription, 'public', dummyToken)
+      .call(api.topics.patch, dummyId, dummyTitle, dummyDescription, undefined, dummyToken)
+      .returns({ id: dummyId })
+      .run();
+  });
+
+  it(`dispatches a PATCH action to the topics endpoint, and returns the resulting topic ID for access`, (): void => {
+    const dummyAction = actions.apiPatch(dummyId, undefined, undefined, dummyAccess);
+    const dummyApiResponse = {
+      status: 204,
+      body: {
+        data: {
+          id: dummyId,
+        },
+      },
+    };
+
+    return expectSaga(sagas.apiPatch, dummyAction)
+      .provide([
+        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
+        [call(api.topics.patch, dummyId, undefined, undefined, 'public', dummyToken), dummyApiResponse],
+      ])
+      .call(api.topics.patch, dummyId, undefined, undefined, 'public', dummyToken)
       .returns({ id: dummyId })
       .run();
   });

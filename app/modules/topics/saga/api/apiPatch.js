@@ -27,7 +27,7 @@ const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
     id,
     title,
     description,
-    apiAccessTypesMap[access],
+    access ? apiAccessTypesMap[access] : undefined,
     userAuth.apiToken,
   );
   if (responseData.body == null) throw new UnexpectedHttpResponseError();
