@@ -98,10 +98,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
     this.setState({ isMetadataOpen: true });
   };
 
-  showMetadata = (): void => {
-    this.setState({ isMetadataOpen: true });
-  };
-
   handleCommitModalSubmit = (values: CommitFormValues): void => {
     const { onCommit } = this.props;
     onCommit(values);
@@ -114,16 +110,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   hideShareModal = (): void => {
     this.setState({ isShareModalOpen: false });
-  };
-
-  handleMetadataSubmit = (values: MetadataFormValues): void => {
-    const { onUpdate } = this.props;
-    onUpdate(values);
-    this.setState({ isMetadataOpen: false });
-  };
-
-  handleMetadataCancel = (): void => {
-    this.setState({ isMetadataOpen: false });
   };
 
   handleMetadataSubmit = (values: MetadataFormValues): void => {
