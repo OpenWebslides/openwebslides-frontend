@@ -12,10 +12,10 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-const apiAccessTypesToTopicAccessTypesMap = {
-  public: m.topicAccessTypes.PUBLIC,
-  protected: m.topicAccessTypes.PROTECTED,
-  private: m.topicAccessTypes.PRIVATE,
+const apiAccessTypesToAccessTypesMap = {
+  public: m.accessTypes.PUBLIC,
+  protected: m.accessTypes.PROTECTED,
+  private: m.accessTypes.PRIVATE,
 };
 
 const apiGet = function* (action: a.ApiGetAction): Saga<void> {
@@ -34,7 +34,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     id,
     title: attributes.title,
     description: attributes.description,
-    access: apiAccessTypesToTopicAccessTypesMap[attributes.access],
+    access: apiAccessTypesToAccessTypesMap[attributes.access],
     userId: relationships.user.data.id,
     rootContentItemId: attributes.rootContentItemId,
     upstreamTopicId: relationships.upstream.data ? relationships.upstream.data.id : null,
@@ -55,5 +55,5 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   yield put(actions.setMultipleInState([topic]));
 };
 
-export { apiAccessTypesToTopicAccessTypesMap };
+export { apiAccessTypesToAccessTypesMap };
 export default apiGet;

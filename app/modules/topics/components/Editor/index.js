@@ -5,7 +5,7 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
-import { Button, Header, Icon, Menu, Divider } from 'semantic-ui-react';
+import { Button, Header, Icon, Menu, Divider, Grid } from 'semantic-ui-react';
 
 import { type AppState, type ModulesAction } from 'types/redux';
 import FetchWrapper from 'components/FetchWrapper';
@@ -13,6 +13,7 @@ import { type CommitFormValues } from 'forms/CommitForm';
 import CommitModal from 'modals/CommitModal';
 import ShareModal from 'modals/ShareModal';
 import { type MetadataFormValues } from 'forms/MetadataForm';
+import { type AccessLevelFormValues } from 'forms/AccessLevelForm';
 import contentItems from 'modules/contentItems';
 
 import actions from '../../actions';
@@ -21,6 +22,7 @@ import selectors from '../../selectors';
 import ForkInfo from '../ForkInfo';
 
 import Metadata from './Metadata';
+import AccessControl from './AccessControl';
 
 type PassedProps = {|
   topicId: string,
@@ -32,7 +34,7 @@ type StateProps = {|
 
 type DispatchProps = {|
   onCommit: (values: CommitFormValues) => void,
-  onUpdate: (values: MetadataFormValues) => void,
+  onUpdate: (title: ?string, description: ?string, access: ?m.AccessType) => void,
   onSetDirty: (dirty: boolean) => void,
   onDiscard: () => void,
 |};
@@ -65,8 +67,8 @@ const mapDispatchToProps = (
     onCommit: (values: CommitFormValues): void => {
       dispatch(actions.patchWithContent(topicId, values.message));
     },
-    onUpdate: (values: MetadataFormValues): void => {
-      dispatch(actions.update(topicId, values.title, values.description));
+    onUpdate: (title: ?string, description: ?string, access: ?m.AccessType): void => {
+      dispatch(actions.update(topicId, title, description, access));
     },
     onSetDirty: (dirty: boolean): void => {
       dispatch(actions.setDirtyInState(topicId, dirty));
@@ -112,12 +114,17 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   handleMetadataSubmit = (values: MetadataFormValues): void => {
     const { onUpdate } = this.props;
-    onUpdate(values);
+    onUpdate(values.title, values.description, undefined);
     this.setState({ isMetadataOpen: false });
   };
 
   handleMetadataCancel = (): void => {
     this.setState({ isMetadataOpen: false });
+  };
+
+  handleAccessLevelSubmit = (values: AccessLevelFormValues): void => {
+    const { onUpdate } = this.props;
+    onUpdate(undefined, undefined, values.access);
   };
 
   beforeUnloadHandler = (event: Event): boolean => {
@@ -204,33 +211,43 @@ class PureEditor extends React.Component<Props, ComponentState> {
           />
         )
           : (
-            <>
-              <Header as="h1" style={{ display: 'inline-block' }} data-test-id="topic-editor-title">
-                {topic.title}
-                {(topic.isDirty ? '*' : '')}
-                <Button
-                  basic={true}
-                  size="tiny"
-                  compact={true}
-                  style={{ marginLeft: '1em' }}
-                  onClick={this.showMetadata}
-                  data-test-id="topic-editor-metadata-button"
-                >
-                  {t('common:button.edit')}
-                </Button>
-              </Header>
-              {(topic.upstreamTopicId !== null
-                ? <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
-                : null)}
-
-              <p>
-                {topic.description == null ? (
-                  <em data-test-id="topic-editor-no-description">{t('topics:props.noDescription')}</em>
-                )
-                  : <span data-test-id="topic-editor-description">{topic.description}</span>
-                }
-              </p>
-            </>
+            <Grid>
+              <Grid.Column width={13}>
+                <Header as="h1" style={{ display: 'inline-block' }} data-test-id="topic-editor-title">
+                  {topic.title}
+                  {(topic.isDirty ? '*' : '')}
+                  <Button
+                    basic={true}
+                    size="tiny"
+                    compact={true}
+                    style={{ marginLeft: '1em' }}
+                    onClick={this.showMetadata}
+                    data-test-id="topic-editor-metadata-button"
+                  >
+                    {t('common:button.edit')}
+                  </Button>
+                  <Header.Subheader>
+                    {topic.description == null ? (
+                      <p data-test-id="topic-editor-no-description"><em>{t('topics:props.noDescription')}</em></p>
+                    )
+                      : <p data-test-id="topic-editor-description">{topic.description}</p>
+                    }
+                    {(topic.upstreamTopicId !== null
+                      ? (
+                        <small>
+                          <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
+                        </small>
+                      ) : null)}
+                  </Header.Subheader>
+                </Header>
+              </Grid.Column>
+              <Grid.Column width={3} textAlign="right" verticalAlign="middle">
+                <AccessControl
+                  onSubmit={this.handleAccessLevelSubmit}
+                  access={topic.access}
+                />
+              </Grid.Column>
+            </Grid>
           ))}
 
         <Divider hidden={true} />

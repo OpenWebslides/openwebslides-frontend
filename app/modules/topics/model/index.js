@@ -6,19 +6,19 @@ const PUBLIC: 'topics/PUBLIC' = 'topics/PUBLIC';
 const PROTECTED: 'topics/PROTECTED' = 'topics/PROTECTED';
 const PRIVATE: 'topics/PRIVATE' = 'topics/PRIVATE';
 
-export const topicAccessTypes = {
+export const accessTypes = {
   PUBLIC,
   PROTECTED,
   PRIVATE,
 };
 
-export type TopicAccessType = $Values<typeof topicAccessTypes>;
+export type AccessType = $Values<typeof accessTypes>;
 
 export type Topic = {|
   +id: string,
   +title: string,
   +description: ?string,
-  +access: TopicAccessType,
+  +access: AccessType,
   +userId: string,
   +rootContentItemId: string,
   +upstreamTopicId: ?string,

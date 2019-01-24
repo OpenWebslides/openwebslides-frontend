@@ -6,6 +6,7 @@ import { type Dispatch } from 'redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Tab, Button, Grid } from 'semantic-ui-react';
 
+import { type DropdownValue } from 'types/forms';
 import { type ModulesAction } from 'types/redux';
 import ProfileForm, { type ProfileFormValues } from 'forms/ProfileForm';
 import users from 'modules/users';
@@ -50,8 +51,7 @@ class PureProfilePane extends React.Component<Props> {
               <ProfileForm
                 onSubmit={this.handleProfileFormSubmit}
                 user={user}
-                // eslint-disable-next-line flowtype/no-weak-types
-                availableLocales={i18n.languages.map((language: string): any => {
+                availableLocales={i18n.languages.map((language: string): DropdownValue => {
                   return { key: language, value: language, text: t(`settings:locales.${language}`) };
                 })}
                 data-test-id="profile-pane-profile-form"

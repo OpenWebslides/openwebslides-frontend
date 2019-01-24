@@ -11,7 +11,7 @@ import platform from 'modules/platform';
 import actions from '../../actions';
 import * as m from '../../model';
 
-import { apiAccessTypesToTopicAccessTypesMap } from './apiGet';
+import { apiAccessTypesToAccessTypesMap } from './apiGet';
 
 import { sagas } from '..';
 
@@ -20,7 +20,7 @@ describe(`apiGet`, (): void => {
   let dummyId: string;
   let dummyTitle: string;
   let dummyDescription: string;
-  let dummyAccess: m.TopicAccessType;
+  let dummyAccess: m.AccessType;
   let dummyUserId: string;
   let dummyRootContentId: string;
   let dummyUpstreamTopicId: string;
@@ -36,7 +36,7 @@ describe(`apiGet`, (): void => {
     dummyId = 'dummyId';
     dummyTitle = 'The Title';
     dummyDescription = 'The description.';
-    dummyAccess = m.topicAccessTypes.PUBLIC;
+    dummyAccess = m.accessTypes.PUBLIC;
     dummyUserId = 'dummyUserId';
     dummyRootContentId = 'dummyRootContentItemId';
     dummyUpstreamTopicId = 'dummyUpstreamTopicId';
@@ -58,7 +58,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             title: dummyTitle,
             description: dummyDescription,
-            access: _.findKey(apiAccessTypesToTopicAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
+            access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
           },
           relationships: {
@@ -92,7 +92,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             title: dummyTitle,
             description: dummyDescription,
-            access: _.findKey(apiAccessTypesToTopicAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
+            access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
           },
           relationships: {
@@ -126,7 +126,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             title: dummyTitle,
             description: dummyDescription,
-            access: _.findKey(apiAccessTypesToTopicAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
+            access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
           },
           relationships: {
@@ -160,7 +160,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             title: dummyTitle,
             description: dummyDescription,
-            access: _.findKey(apiAccessTypesToTopicAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
+            access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
           },
           relationships: {
@@ -197,7 +197,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             title: dummyTitle,
             description: dummyDescription,
-            access: _.findKey(apiAccessTypesToTopicAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
+            access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
           },
           relationships: {
@@ -234,7 +234,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             title: dummyTitle,
             description: dummyDescription,
-            access: _.findKey(apiAccessTypesToTopicAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
+            access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
           },
           relationships: {
@@ -271,7 +271,7 @@ describe(`apiGet`, (): void => {
           attributes: {
             title: dummyTitle,
             description: dummyDescription,
-            access: _.findKey(apiAccessTypesToTopicAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
+            access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
           },
           relationships: {

@@ -268,6 +268,26 @@ describe(`Editor`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-editor-no-description"]').hostNodes()).toHaveLength(1);
   });
 
+  it(`shows the description when the topic has a description`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-description"]').text()).toContain(dummyTopic.description);
+  });
+
+  it(`shows a placeholder when the topic has no description`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopicNoDesc.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-no-description"]').hostNodes()).toHaveLength(1);
+  });
+
   it(`dispatches a topic DISCARD action, when the component is unmounted and the topic is dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
@@ -363,6 +383,72 @@ describe(`Editor`, (): void => {
 
     expect(enzymeWrapper.find('PureMetadata')).toHaveLength(0);
     expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`shows the metadata and hides the title when the title edit button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDownstreamTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(1);
+    enzymeWrapper.find('[data-test-id="topic-editor-metadata-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(0);
+  });
+
+  it(`closes the metadata and shows the title when the onCancel handler passed to the metadata is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyDownstreamTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(1);
+    enzymeWrapper.find('[data-test-id="topic-editor-metadata-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(0);
+
+    enzymeWrapper.find('PureMetadata').props().onCancel();
+    enzymeWrapper.update();
+
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`dispatches a topics UPDATE action and closes the metadata and shows the title when the onSubmit handler passed to the metadata is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(1);
+    enzymeWrapper.find('[data-test-id="topic-editor-metadata-button"]').hostNodes().simulate('click');
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(0);
+
+    enzymeWrapper.find('PureMetadata').props().onSubmit({ title: dummyTopic.title, description: dummyTopic.description, access: undefined });
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.update(dummyTopic.id, dummyTopic.title, dummyTopic.description, undefined));
+    enzymeWrapper.update();
+
+    expect(enzymeWrapper.find('PureMetadata')).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="topic-editor-title"]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`dispatches a topics UPDATE action when the onSubmit handler passed to the access control is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('PureAccessControl').props().onSubmit({ title: undefined, description: undefined, access: m.accessTypes.PUBLIC });
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.update(dummyTopic.id, undefined, undefined, m.accessTypes.PUBLIC));
   });
 
 });

@@ -4,6 +4,8 @@
 
 import { type ApiSagaAction } from 'types/actions';
 
+import * as m from '../model';
+
 
 // Action constants --------------------------------------------------------------------------------
 
@@ -33,6 +35,7 @@ export type ApiPatchAction = {|
     id: string,
     title: ?string,
     description: ?string,
+    access: ?m.AccessType,
   |},
 |};
 

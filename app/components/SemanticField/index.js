@@ -34,6 +34,10 @@ const SemanticField = ({ component, ...fieldProps }: any) => (
         }),
       // eslint-disable-next-line flowtype/no-weak-types
       onChange: (e: Event, { value: newValue, checked }: any): void => {
+        if (fieldProps.onChange) {
+          // Call onChange if it is defined on <SemanticField>
+          fieldProps.onChange(newValue || checked);
+        }
         return setFieldValue(fieldProps.name, newValue || checked);
       },
       // eslint-disable-next-line flowtype/no-weak-types

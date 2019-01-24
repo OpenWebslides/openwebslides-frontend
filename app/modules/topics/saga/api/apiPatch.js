@@ -9,14 +9,26 @@ import { type ApiResponseData } from 'lib/ApiRequest';
 import platform from 'modules/platform';
 
 import * as a from '../../actionTypes';
+import * as m from '../../model';
+
+const apiAccessTypesMap = {
+  [m.accessTypes.PUBLIC]: 'public',
+  [m.accessTypes.PROTECTED]: 'protected',
+  [m.accessTypes.PRIVATE]: 'private',
+};
 
 const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
-  const { id, title, description } = action.payload;
+  const { id, title, description, access } = action.payload;
   const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
   const responseData: ApiResponseData = yield call(
-    api.topics.patch, id, title, description, userAuth.apiToken,
+    api.topics.patch,
+    id,
+    title,
+    description,
+    access ? apiAccessTypesMap[access] : undefined,
+    userAuth.apiToken,
   );
   if (responseData.body == null) throw new UnexpectedHttpResponseError();
 

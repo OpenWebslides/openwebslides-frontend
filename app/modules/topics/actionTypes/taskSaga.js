@@ -4,6 +4,8 @@
 
 import { type TaskSagaAction } from 'types/actions';
 
+import * as m from '../model';
+
 
 // Action constants --------------------------------------------------------------------------------
 
@@ -47,6 +49,7 @@ export type UpdateAction = {|
     id: string,
     title: ?string,
     description: ?string,
+    access: ?m.AccessType,
   |},
 |};
 

@@ -5,6 +5,7 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Form, Message, Divider } from 'semantic-ui-react';
 import { Formik, Field, ErrorMessage } from 'formik';
 
+import { type DropdownValue } from 'types/forms';
 import SemanticField from 'components/SemanticField';
 import users from 'modules/users';
 
@@ -16,8 +17,7 @@ type ProfileFormValues = {|
 |};
 
 type PassedProps = {|
-  // eslint-disable-next-line flowtype/no-weak-types
-  availableLocales: $ReadOnlyArray<any>,
+  availableLocales: $ReadOnlyArray<DropdownValue>,
   user: users.model.User,
   onSubmit: (values: ProfileFormValues) => void,
 |};

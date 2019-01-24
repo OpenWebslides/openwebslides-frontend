@@ -15,9 +15,10 @@ describe(`api.topics.patch`, (): void => {
     const dummyId = 'dummyId';
     const dummyTitle = 'dummyTitle';
     const dummyDescription = 'dummyDescription';
+    const dummyAccess = 'public';
     const dummyToken = 'foobarToken';
     fetch.mockResponseOnce('', { status: 200 });
-    await api.topics.patch(dummyId, dummyTitle, dummyDescription, dummyToken);
+    await api.topics.patch(dummyId, dummyTitle, dummyDescription, dummyAccess, dummyToken);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
@@ -33,6 +34,7 @@ describe(`api.topics.patch`, (): void => {
         attributes: {
           title: dummyTitle,
           description: dummyDescription,
+          access: dummyAccess,
         },
       },
     });

@@ -8,6 +8,7 @@ import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
+import * as m from '../../model';
 
 import { sagas } from '..';
 
@@ -16,15 +17,17 @@ describe(`update`, (): void => {
   let dummyId: string;
   let dummyTitle: string;
   let dummyDescription: string;
+  let dummyAccess: m.AccessType;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
     dummyTitle = 'dummyTitle';
     dummyDescription = 'dummyDescription';
+    dummyAccess = m.accessTypes.PUBLIC;
   });
 
   it(`puts a topics apiPatch action, and a fetch action`, (): void => {
-    const dummyAction = actions.update(dummyId, dummyTitle, dummyDescription);
+    const dummyAction = actions.update(dummyId, dummyTitle, dummyDescription, dummyAccess);
 
     return expectSaga(sagas.update, dummyAction)
       .provide([
@@ -35,7 +38,7 @@ describe(`update`, (): void => {
           return (action.type === a.FETCH) ? null : next();
         })],
       ])
-      .call(asyncRequests.lib.putAndReturn, actions.apiPatch(dummyId, dummyTitle, dummyDescription))
+      .call(asyncRequests.lib.putAndReturn, actions.apiPatch(dummyId, dummyTitle, dummyDescription, dummyAccess))
       .call(asyncRequests.lib.putAndReturn, actions.fetch(dummyId))
       .run();
   });
