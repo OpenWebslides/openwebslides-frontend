@@ -14,6 +14,7 @@ import Viewer, { PureViewer } from '.';
 describe(`Viewer`, (): void => {
 
   let dummyTopic: m.Topic;
+  let dummyTopicNoDesc: m.Topic;
   let upstreamTopic: m.Topic;
   let downstreamTopic: m.Topic;
   let dummyTopicsById: m.TopicsById;
@@ -23,10 +24,12 @@ describe(`Viewer`, (): void => {
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic, isContentFetched: true };
+    dummyTopicNoDesc = { ...dummyTopicData.topic, id: 'dummyTopicNoDesc', description: null, isContentFetched: true };
     upstreamTopic = { ...dummyTopicData.upstream, isContentFetched: true };
     downstreamTopic = { ...dummyTopicData.downstream, isContentFetched: true };
     dummyTopicsById = {
       [dummyTopic.id]: dummyTopic,
+      [dummyTopicNoDesc.id]: dummyTopicNoDesc,
       [upstreamTopic.id]: upstreamTopic,
       [downstreamTopic.id]: downstreamTopic,
     };
@@ -78,6 +81,26 @@ describe(`Viewer`, (): void => {
 
     expect(dummyDispatch).toHaveBeenCalledTimes(0);
     expect(enzymeWrapper.find('[data-test-id="topic-viewer"]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`shows the description when the topic has a description`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Viewer topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-viewer-description"]').text()).toContain(dummyTopic.description);
+  });
+
+  it(`shows a placeholder when the topic has no description`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Viewer topicId={dummyTopicNoDesc.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-viewer-no-description"]').hostNodes()).toHaveLength(1);
   });
 
   it(`shows the share modal when the share button is clicked`, (): void => {

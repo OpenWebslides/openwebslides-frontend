@@ -93,10 +93,21 @@ class PureViewer extends React.Component<Props, ComponentState> {
           </Menu.Menu>
         </Menu>
 
-        <Header as="h1">{topic.title}</Header>
-        {(topic.upstreamTopicId !== null
-          ? <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
-          : null)}
+        <Header as="h1">
+          {topic.title}
+          <Header.Subheader>
+            {topic.description == null ? (
+              <p data-test-id="topic-viewer-no-description"><em>{t('topics:props.noDescription')}</em></p>
+            )
+              : <p data-test-id="topic-viewer-description">{topic.description}</p>
+            }
+            {(topic.upstreamTopicId !== null ? (
+              <small>
+                <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
+              </small>
+            ) : null)}
+          </Header.Subheader>
+        </Header>
 
         <Course topic={topic} />
 
