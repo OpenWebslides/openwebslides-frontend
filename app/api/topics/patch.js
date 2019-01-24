@@ -6,23 +6,23 @@
  * API docs: https://openwebslides.github.io/documentation/#update-topic-content
  */
 
-import contentItems from 'modules/contentItems';
 import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 
-import { TOPICS_ENDPOINT, TOPICS_CONTENT_ENDPOINT } from '../endpoints';
+import { TOPICS_ENDPOINT } from '../endpoints';
 
-const patchContent = (
+const patch = (
   id: string,
-  content: $ReadOnlyArray<contentItems.model.ContentItem>,
-  message: string,
+  title: ?string,
+  description: ?string,
   token: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
-      type: 'contents',
+      type: 'topics',
+      id,
       attributes: {
-        content,
-        message,
+        title,
+        description,
       },
     },
   });
@@ -30,10 +30,9 @@ const patchContent = (
   return new ApiRequest(httpMethods.PATCH)
     .addPathSegment(TOPICS_ENDPOINT)
     .addPathSegment(id)
-    .addPathSegment(TOPICS_CONTENT_ENDPOINT)
     .setBody(body)
     .setToken(token)
     .execute();
 };
 
-export default patchContent;
+export default patch;

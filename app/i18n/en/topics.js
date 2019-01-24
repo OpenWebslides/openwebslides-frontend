@@ -5,7 +5,7 @@ const topics = {
   props: {
     title: 'Title',
     description: 'Description',
-    noDescription: 'No description found',
+    noDescription: 'No description',
     access: {
       title: 'Access level',
       accessForType: {
@@ -25,7 +25,10 @@ const topics = {
     description: 'Description',
     message: 'Message',
     errors: {
-      title: 'Title cannot be empty',
+      title: {
+        empty: 'Title cannot be empty',
+        length: 'Title cannot be longer than 50 characters',
+      },
       message: {
         empty: 'Message cannot be empty',
         length: 'Message must be between 5 and 60 characters',
