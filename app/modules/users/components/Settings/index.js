@@ -1,9 +1,10 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
 import { Item, Header, Tab } from 'semantic-ui-react';
 
+import { AUTH_TOS_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 
 import actions from '../../actions';
@@ -55,6 +56,12 @@ class PureSettings extends React.Component<Props> {
           ]}
           className="settings"
         />
+
+        <small>
+          <Trans i18nKey="settings:tos">
+            <a href={AUTH_TOS_ROUTE} target="_blank" rel="noopener noreferrer">TOS</a>
+          </Trans>
+        </small>
       </>
     );
   };
