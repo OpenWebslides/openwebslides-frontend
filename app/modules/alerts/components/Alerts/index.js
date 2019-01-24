@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Dropdown } from 'semantic-ui-react';
+import { Dropdown, Icon, Label } from 'semantic-ui-react';
 import moment from 'moment';
 
 import { type ModulesAction, type AppState } from 'types/redux';
@@ -57,8 +57,23 @@ class PureAlerts extends React.Component<Props> {
       return moment(alert.timestamp).isBefore(timeLimit);
     });
 
+    const isUnread = sortedAlerts.some((alert: m.Alert): boolean => !alert.read);
+
     return (
-      <Dropdown icon="bell" pointing={true} item={true} className="alerts-menu">
+      <Dropdown
+        pointing={true}
+        item={true}
+        className="alerts-menu"
+        trigger={(
+          <Icon name="bell">
+            {isUnread ? (
+              <div className="alerts-menu__dot" data-test-id="alerts-menu-unread-dot">
+                <Label color="red" empty={true} circular={true} />
+              </div>
+            ) : null}
+          </Icon>
+        )}
+      >
         <Dropdown.Menu>
           {(sortedAlerts.length === 0 ? (
             <Dropdown.Item disabled={true} data-test-id="alerts-menu-empty">
