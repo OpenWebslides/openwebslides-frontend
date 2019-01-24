@@ -93,7 +93,7 @@ describe(`SemanticField`, (): void => {
     expect(enzymeWrapper.find('Formik').instance().state.touched.test).toBe(true);
   });
 
-  it(`calls the passed onChange handler with the new value when a field changes`, (): void => {
+  it(`calls the passed onChange handler for the rendered Dropdown with the new value when a field changes`, (): void => {
     const enzymeWrapper = mount(
       <Formik
         initialValues={{ test: dummyValue }}
@@ -117,6 +117,31 @@ describe(`SemanticField`, (): void => {
     // https://github.com/airbnb/enzyme/issues/308
     enzymeWrapper.find('Dropdown').props().onChange(null, { value: 'test2' });
     expect(dummyOnChange).toHaveBeenCalledWith('test2');
+  });
+
+  it(`calls the passed onChange handler for the rendered Checkbox with the new value when a field changes`, (): void => {
+    const enzymeWrapper = mount(
+      <Formik
+        initialValues={{ test: true }}
+        render={(): React.Node => {
+          return (
+            <SemanticField
+              component={Checkbox}
+              name="test"
+              checked={true}
+              onChange={dummyOnChange}
+            />
+          );
+        }}
+      />,
+    );
+
+    // Simulate events
+    // Enzyme does not support event propagation yet, so we cannot test out
+    // the onChange callback by changing the dropdown value
+    // https://github.com/airbnb/enzyme/issues/308
+    enzymeWrapper.find('Checkbox').props().onChange(null, { checked: false });
+    expect(dummyOnChange).toHaveBeenCalledWith(false);
   });
 
 });
