@@ -3,7 +3,9 @@
 import Policy from './Policy';
 import TopicPolicy from './TopicPolicy';
 
-export {
+const policies = {
   Policy,
   TopicPolicy,
 };
+
+export default policies;

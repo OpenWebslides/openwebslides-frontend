@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 
 import FetchWrapper from 'components/FetchWrapper';
 import { type AppState } from 'types/redux';
-import { Policy } from 'lib/policies';
 import platform from 'modules/platform';
 import users from 'modules/users';
 
+import policies from '../../policies';
+
 type PassedProps<T> = {|
   record: T,
-  policy: Policy<T>,
+  policy: policies.Policy<T>,
   action: string,
   children: React.Node,
 |};

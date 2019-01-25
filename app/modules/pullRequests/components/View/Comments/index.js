@@ -9,13 +9,12 @@ import { Comment, Divider } from 'semantic-ui-react';
 
 import { type ModulesAction, type AppState } from 'types/redux';
 import { TOPIC_VIEWER_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
-import PolicyWrapper from 'components/PolicyWrapper';
 import makeRoute from 'lib/makeRoute';
-import { TopicPolicy } from 'lib/policies';
 import AcceptPullRequestModal from 'modals/AcceptPullRequestModal';
 import RejectPullRequestModal from 'modals/RejectPullRequestModal';
 import topics from 'modules/topics';
 import users from 'modules/users';
+import policies from 'modules/policies';
 
 import * as m from '../../../model';
 import actions from '../../../actions';
@@ -72,6 +71,8 @@ const mapDispatchToProps = (
     },
   };
 };
+
+const { PolicyWrapper } = policies.components;
 
 class PureComments extends React.Component<Props, ComponentState> {
   state: ComponentState = {
@@ -146,7 +147,7 @@ class PureComments extends React.Component<Props, ComponentState> {
           <State pullRequest={pullRequest} source={source} target={target} />
 
           {(pullRequest.state === m.pullRequestStates.READY ? (
-            <PolicyWrapper policy={TopicPolicy} record={target} action="update">
+            <PolicyWrapper policy={policies.policies.TopicPolicy} record={target} action="update">
               <Divider hidden={true} />
               <Comment data-test-id="comments-review-buttons">
                 <Comment.Avatar />

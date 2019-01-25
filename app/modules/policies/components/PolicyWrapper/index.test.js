@@ -4,8 +4,9 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 
 import { DummyProviders, dummyInitialState, dummyUserData } from 'lib/testResources';
-import { Policy } from 'lib/policies';
 import users from 'modules/users';
+
+import policies from '../../policies';
 
 import PolicyWrapper from '.';
 
@@ -16,7 +17,7 @@ describe(`PolicyWrapper`, (): void => {
   let dummyState: any;
   let dummyDispatch: any;
 
-  class DummyPolicy extends Policy<string> {
+  class DummyPolicy extends policies.Policy<string> {
     can(): boolean {
       return this.record === 'valid';
     }
