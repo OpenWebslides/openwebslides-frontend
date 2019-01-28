@@ -27,7 +27,7 @@ const paths = {
 };
 
 // Webpack base configuration
-const createBaseConfig = (env) => ({
+const createBaseConfig = (/* env */) => ({
 
   entry: ['@babel/polyfill', path.join(paths.APP, 'index.js')],
 
@@ -91,11 +91,6 @@ const createBaseConfig = (env) => ({
   plugins: [
     // Generate favicons in different sizes and formats
     new FaviconsWebpackPlugin(path.join(__dirname, 'app/assets/images/logo/logo-color.svg')),
-    // Allow specifying API_URL and APP_URL overrides on the command line
-    new webpack.DefinePlugin({
-      'window.API_URL': (env != null && env.API_URL != null) ? `"${env.API_URL}"` : false,
-      'window.APP_URL': (env != null && env.APP_URL != null) ? `"${env.APP_URL}"` : false,
-    }),
   ],
 
   resolve: {
@@ -115,7 +110,7 @@ const createBaseConfig = (env) => ({
 });
 
 // Webpack developemnt mode additional configuration
-const createDevConfig = (/* env */) => ({
+const createDevConfig = (env) => ({
 
   devServer: {
     // Enable hot reloading
@@ -127,6 +122,11 @@ const createDevConfig = (/* env */) => ({
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(paths.PUBLIC, 'index.dev.html'),
+    }),
+    // Allow specifying API_URL and APP_URL overrides on the command line, defaults to owsdev API and localhost APP
+    new webpack.DefinePlugin({
+      'window.WEBPACK_API_URL': (env != null && env.API_URL != null) ? `"${env.API_URL}"` : 'https://owsdev.ugent.be/api',
+      'window.WEBPACK_APP_URL': (env != null && env.APP_URL != null) ? `"${env.APP_URL}"` : 'http://localhost:8080',
     }),
   ],
 
@@ -147,7 +147,7 @@ const createDevConfig = (/* env */) => ({
 });
 
 // Webpack production mode additional configuration
-const createProdConfig = (/* env */) => ({
+const createProdConfig = (env) => ({
 
   optimization: {
     minimizer: [
@@ -177,6 +177,11 @@ const createProdConfig = (/* env */) => ({
           disallow: ['/api', '/oauth'],
         },
       ],
+    }),
+    // Allow specifying API_URL and APP_URL overrides on the command line, defaults to false
+    new webpack.DefinePlugin({
+      'window.WEBPACK_API_URL': (env != null && env.API_URL != null) ? `"${env.API_URL}"` : false,
+      'window.WEBPACK_APP_URL': (env != null && env.APP_URL != null) ? `"${env.APP_URL}"` : false,
     }),
   ],
 

@@ -11,7 +11,7 @@
  * $ yarn run dev-server --env.API_URL=http://localhost:3000/api
  *
  */
-export const API_URL = window.API_URL || 'http://owsdev.ugent.be/api';
+export const API_URL = window.WEBPACK_API_URL || window.API_URL;
 
 /**
  * Base Platform URL
@@ -24,7 +24,7 @@ export const API_URL = window.API_URL || 'http://owsdev.ugent.be/api';
  * $ yarn run dev-server --env.APP_URL=http://owsdev.ugent.be
  *
  */
-export const APP_URL = window.APP_URL || 'http://localhost:8080';
+export const APP_URL = window.WEBPACK_APP_URL || window.APP_URL;
 
 /**
  * Required API version
