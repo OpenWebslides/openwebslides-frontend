@@ -243,6 +243,7 @@ class PureProfileForm extends React.Component<Props> {
                   label={t('users:forms.country')}
                   required={true}
                   selection={true}
+                  search={true}
                   value={values.country}
                   options={availableCountries}
                   data-test-id="profile-form-field-country"
