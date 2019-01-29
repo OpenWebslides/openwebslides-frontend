@@ -25,6 +25,7 @@ const updatePassword = function* (action: a.UpdatePasswordAction): Saga<void> {
     undefined,
     undefined,
     undefined,
+    undefined,
   ));
 };
 

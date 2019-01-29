@@ -14,6 +14,7 @@ const apiPatch = (
   gender: ?m.GenderType,
   role: ?m.RoleType,
   country: ?string,
+  deviceType: ?m.DeviceType,
 ): a.ApiPatchAction => {
   return {
     type: a.API_PATCH,
@@ -28,6 +29,7 @@ const apiPatch = (
       gender,
       role,
       country,
+      deviceType,
     },
   };
 };

@@ -25,6 +25,7 @@ describe(`apiPatch`, (): void => {
   let dummyGender: m.GenderType;
   let dummyRole: m.RoleType;
   let dummyCountry: string;
+  let dummyDeviceType: m.DeviceType;
 
   beforeEach((): void => {
     dummyId = 'dummyUserId';
@@ -38,10 +39,11 @@ describe(`apiPatch`, (): void => {
     dummyGender = m.genderTypes.MALE;
     dummyRole = m.roleTypes.LEARNER;
     dummyCountry = 'BE';
+    dummyDeviceType = m.deviceTypes.DESKTOP;
   });
 
   it(`sends a PATCH request for the passed props to the users endpoint, and returns the resulting user ID`, (): void => {
-    const dummyAction = actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyAge, dummyGender, dummyRole, dummyCountry);
+    const dummyAction = actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyAge, dummyGender, dummyRole, dummyCountry, dummyDeviceType);
     const dummyApiResponse = {
       status: 200,
       body: {
@@ -54,9 +56,9 @@ describe(`apiPatch`, (): void => {
     return expectSaga(sagas.apiPatch, dummyAction)
       .provide([
         [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-        [call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyAge, 'male', 'learner', 'BE', dummyToken), dummyApiResponse],
+        [call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyAge, 'male', 'learner', 'BE', 'desktop', dummyToken), dummyApiResponse],
       ])
-      .call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyAge, 'male', 'learner', 'BE', dummyToken)
+      .call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyAge, 'male', 'learner', 'BE', 'desktop', dummyToken)
       .returns({ id: dummyId })
       .run();
   });

@@ -8,6 +8,7 @@ import removeTopic from './removeTopic';
 import removeTopicId from './removeTopicId';
 import signup from './signup';
 import update from './update';
+import updateDeviceType from './updateDeviceType';
 import updatePassword from './updatePassword';
 
 const taskSagaActions = {
@@ -19,6 +20,7 @@ const taskSagaActions = {
   removeTopicId,
   signup,
   update,
+  updateDeviceType,
   updatePassword,
 };
 

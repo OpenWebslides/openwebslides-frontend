@@ -17,6 +17,7 @@ export const REMOVE_TOPIC: 'users/REMOVE_TOPIC' = 'users/REMOVE_TOPIC';
 export const REMOVE_TOPIC_ID: 'users/REMOVE_TOPIC_ID' = 'users/REMOVE_TOPIC_ID';
 export const SIGNUP: 'users/SIGNUP' = 'users/SIGNUP';
 export const UPDATE: 'users/UPDATE' = 'users/UPDATE';
+export const UPDATE_DEVICE_TYPE: 'users/UPDATE_DEVICE_TYPE' = 'UPDATE_DEVICE_TYPE';
 export const UPDATE_PASSWORD: 'users/UPDATE_PASSWORD' = 'users/UPDATE_PASSWORD';
 
 
@@ -110,6 +111,16 @@ export type UpdateAction = {|
   |},
 |};
 
+export type UpdateDeviceTypeAction = {|
+  ...TaskSagaAction,
+  type: typeof UPDATE_DEVICE_TYPE,
+  payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
+    id: string,
+    deviceType: m.DeviceType,
+  |},
+|};
+
 export type UpdatePasswordAction = {|
   ...TaskSagaAction,
   type: typeof UPDATE_PASSWORD,
@@ -133,4 +144,5 @@ export type UsersTaskSagaAction =
   | RemoveTopicIdAction
   | SignupAction
   | UpdateAction
+  | UpdateDeviceTypeAction
   | UpdatePasswordAction;

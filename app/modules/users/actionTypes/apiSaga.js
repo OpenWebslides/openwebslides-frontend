@@ -40,6 +40,7 @@ export type ApiPatchAction = {|
     gender: ?m.GenderType,
     role: ?m.RoleType,
     country: ?string,
+    deviceType: ?m.DeviceType,
   |},
 |};
 

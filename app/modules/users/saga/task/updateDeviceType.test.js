@@ -8,31 +8,30 @@ import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
+import * as m from '../../model';
 
 import { sagas } from '..';
 
-describe(`updatePassword`, (): void => {
+describe(`updateDeviceType`, (): void => {
 
   let dummyId: string;
-  let dummyCurrentPassword: string;
-  let dummyPassword: string;
+  let dummyDeviceType: m.DeviceType;
 
   beforeEach((): void => {
     dummyId = 'dummyUserId';
-    dummyCurrentPassword = 'dummyName';
-    dummyPassword = 'dummyLocale';
+    dummyDeviceType = m.deviceTypes.DESKTOP;
   });
 
   it(`puts a users API_PATCH action containing the passed props`, (): void => {
-    const dummyAction = actions.updatePassword(dummyId, dummyCurrentPassword, dummyPassword);
+    const dummyAction = actions.updateDeviceType(dummyId, dummyDeviceType);
 
-    return expectSaga(sagas.updatePassword, dummyAction)
+    return expectSaga(sagas.updateDeviceType, dummyAction)
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.API_PATCH) ? null : next();
         })],
       ])
-      .call(asyncRequests.lib.putAndReturn, actions.apiPatch(dummyId, undefined, undefined, undefined, dummyCurrentPassword, dummyPassword, undefined, undefined, undefined, undefined, undefined))
+      .call(asyncRequests.lib.putAndReturn, actions.apiPatch(dummyId, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, dummyDeviceType))
       .run();
   });
 

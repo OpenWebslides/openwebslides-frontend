@@ -23,6 +23,12 @@ const apiRoleTypesMap = {
   [m.roleTypes.COTEACHER]: 'coteacher',
 };
 
+const apiDeviceTypesMap = {
+  [m.deviceTypes.DESKTOP]: 'desktop',
+  [m.deviceTypes.PHONE]: 'phone',
+  [m.deviceTypes.TABLET]: 'tablet',
+};
+
 const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
   const {
     id,
@@ -35,6 +41,7 @@ const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
     gender,
     role,
     country,
+    deviceType,
   } = action.payload;
   const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
@@ -44,6 +51,9 @@ const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
 
   let roleType: ?string = null;
   if (role != null) roleType = apiRoleTypesMap[role];
+
+  let deviceTypeType: ?string = null;
+  if (deviceType != null) deviceTypeType = apiDeviceTypesMap[deviceType];
 
   const responseData: ApiResponseData = yield call(
     api.users.patch,
@@ -57,6 +67,7 @@ const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
     genderType,
     roleType,
     country,
+    deviceTypeType,
     userAuth.apiToken,
   );
   if (responseData.body == null) throw new UnexpectedHttpResponseError();

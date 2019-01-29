@@ -17,6 +17,7 @@ import removeTopic from './removeTopic';
 import removeTopicId from './removeTopicId';
 import signup from './signup';
 import update from './update';
+import updateDeviceType from './updateDeviceType';
 import updatePassword from './updatePassword';
 
 const { sagaWrapper } = asyncRequests.lib;
@@ -31,6 +32,7 @@ const taskSaga = function* (): Saga<void> {
     takeEvery(a.REMOVE_TOPIC_ID, sagaWrapper, removeTopicId),
     takeEvery(a.SIGNUP, sagaWrapper, signup),
     takeEvery(a.UPDATE, sagaWrapper, update),
+    takeEvery(a.UPDATE_DEVICE_TYPE, sagaWrapper, updateDeviceType),
     takeEvery(a.UPDATE_PASSWORD, sagaWrapper, updatePassword),
   ]);
 };
@@ -44,6 +46,7 @@ const taskSagas = {
   removeTopicId,
   signup,
   update,
+  updateDeviceType,
   updatePassword,
 };
 

@@ -10,6 +10,10 @@ const LEARNER: 'roles/LEARNER' = 'roles/LEARNER';
 const TEACHER: 'roles/TEACHER' = 'roles/TEACHER';
 const COTEACHER: 'roles/COTEACHER' = 'roles/COTEACHER';
 
+const DESKTOP: 'deviceTypes/DESKTOP' = 'roles/DESKTOP';
+const PHONE: 'deviceTypes/PHONE' = 'roles/PHONE';
+const TABLET: 'deviceTypes/TABLET' = 'roles/TABLET';
+
 export const genderTypes = {
   MALE,
   FEMALE,
@@ -22,9 +26,17 @@ export const roleTypes = {
   COTEACHER,
 };
 
+export const deviceTypes = {
+  DESKTOP,
+  PHONE,
+  TABLET,
+};
+
 export type GenderType = $Values<typeof genderTypes>;
 
 export type RoleType = $Values<typeof roleTypes>;
+
+export type DeviceType = $Values<typeof deviceTypes>;
 
 export type User = {|
   +id: string,

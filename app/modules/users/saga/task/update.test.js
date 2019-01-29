@@ -46,7 +46,7 @@ describe(`update`, (): void => {
           return (action.type === a.FETCH) ? null : next();
         })],
       ])
-      .call(asyncRequests.lib.putAndReturn, actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, undefined, undefined, dummyAge, dummyGender, dummyRole, dummyCountry))
+      .call(asyncRequests.lib.putAndReturn, actions.apiPatch(dummyId, dummyName, dummyLocale, dummyAlertEmails, undefined, undefined, dummyAge, dummyGender, dummyRole, dummyCountry, undefined))
       .call(asyncRequests.lib.putAndReturn, actions.fetch(dummyId))
       .run();
   });

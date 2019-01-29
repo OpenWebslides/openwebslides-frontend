@@ -21,6 +21,7 @@ const patch = (
   gender: ?string,
   role: ?string,
   country: ?string,
+  deviceType: ?string,
   token: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
@@ -37,6 +38,7 @@ const patch = (
         gender,
         role,
         country,
+        deviceType,
       },
     },
   });
