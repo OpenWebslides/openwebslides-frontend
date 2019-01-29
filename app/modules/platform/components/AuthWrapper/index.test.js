@@ -57,38 +57,4 @@ describe(`AuthWrapper`, (): void => {
     expect(conditionalWrapper.prop('componentIfNotChildren')).toBeNull();
   });
 
-  it(`passes on the correct props to ConditionalWrapper, when redirectIfNotAuthenticated passed`, (): void => {
-    selectors.isAuthenticated = (jest.fn((): boolean => false): any);
-
-    const enzymeWrapper = mount(
-      <DummyProviders>
-        <AuthWrapper redirectIfNotAuthenticated="/dummyRoute">
-          <p>Secure text</p>
-          <p>More secure text</p>
-        </AuthWrapper>
-      </DummyProviders>,
-    );
-    const conditionalWrapper = enzymeWrapper.find('PureConditionalWrapper');
-
-    expect(conditionalWrapper.prop('redirectIfNotChildren')).toBe('/dummyRoute');
-  });
-
-  it(`passes on the correct props to ConditionalWrapper, when componentIfNotAuthenticated is passed`, (): void => {
-    selectors.isAuthenticated = (jest.fn((): boolean => false): any);
-
-    const DummyComponent = (): React.Node => <p>dummy</p>;
-
-    const enzymeWrapper = mount(
-      <DummyProviders>
-        <AuthWrapper componentIfNotAuthenticated={DummyComponent}>
-          <p>Secure text</p>
-          <p>More secure text</p>
-        </AuthWrapper>
-      </DummyProviders>,
-    );
-    const conditionalWrapper = enzymeWrapper.find('PureConditionalWrapper');
-
-    expect(conditionalWrapper.prop('componentIfNotChildren')).toBe(DummyComponent);
-  });
-
 });
