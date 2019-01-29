@@ -23,11 +23,6 @@ const apiRoleTypesMap = {
   [m.roleTypes.COTEACHER]: 'coteacher',
 };
 
-// TODO: country enumeration
-const apiCountryTypesMap = {
-  [m.countryTypes.BELGIUM]: 'BE',
-};
-
 const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
   const {
     id,
@@ -50,9 +45,6 @@ const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
   let roleType: ?string = null;
   if (role != null) roleType = apiRoleTypesMap[role];
 
-  let countryType: ?string = null;
-  if (country != null) countryType = apiCountryTypesMap[country];
-
   const responseData: ApiResponseData = yield call(
     api.users.patch,
     id,
@@ -64,7 +56,7 @@ const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
     age,
     genderType,
     roleType,
-    countryType,
+    country,
     userAuth.apiToken,
   );
   if (responseData.body == null) throw new UnexpectedHttpResponseError();

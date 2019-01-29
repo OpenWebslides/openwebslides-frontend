@@ -13,7 +13,7 @@ export const user: users.model.User = {
   age: 18,
   gender: users.model.genderTypes.MALE,
   role: users.model.roleTypes.LEARNER,
-  country: users.model.countryTypes.BELGIUM,
+  country: 'BE',
 };
 
 export const user2: users.model.User = {
@@ -27,7 +27,7 @@ export const user2: users.model.User = {
   age: 18,
   gender: users.model.genderTypes.FEMALE,
   role: users.model.roleTypes.TEACHER,
-  country: users.model.countryTypes.BELGIUM,
+  country: 'BE',
 };
 
 export const user3: users.model.User = {
@@ -41,5 +41,5 @@ export const user3: users.model.User = {
   age: 18,
   gender: users.model.genderTypes.OTHER,
   role: users.model.roleTypes.COTEACHER,
-  country: users.model.countryTypes.BELGIUM,
+  country: 'BE',
 };

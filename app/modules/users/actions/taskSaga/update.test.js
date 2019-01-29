@@ -14,7 +14,7 @@ describe(`update`, (): void => {
   const dummyAge = 18;
   const dummyGender = m.genderTypes.MALE;
   const dummyRole = m.roleTypes.LEARNER;
-  const dummyCountry = m.countryTypes.BELGIUM;
+  const dummyCountry = 'BE';
 
   beforeEach((): void => {
     dummyId = 'dummyId';

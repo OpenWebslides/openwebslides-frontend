@@ -106,7 +106,7 @@ export type UpdateAction = {|
     age: number,
     gender: m.GenderType,
     role: m.RoleType,
-    country: m.CountryType,
+    country: string,
   |},
 |};
 

@@ -26,7 +26,7 @@ describe(`apiGet`, (): void => {
   let dummyAge: number;
   let dummyGender: m.GenderType;
   let dummyRole: m.RoleType;
-  let dummyCountry: m.CountryType;
+  let dummyCountry: string;
 
   beforeEach((): void => {
     dummyId = 'dummyUserId';
@@ -41,7 +41,7 @@ describe(`apiGet`, (): void => {
     dummyAge = 18;
     dummyGender = m.genderTypes.FEMALE;
     dummyRole = m.roleTypes.LEARNER;
-    dummyCountry = m.countryTypes.BELGIUM;
+    dummyCountry = 'BE';
   });
 
   it(`sends a GET request for the passed id to the uses API endpoint, processes the response and sets the user in the state`, (): void => {

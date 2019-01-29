@@ -20,7 +20,7 @@ describe(`ProfilePane`, (): void => {
   let dummyAge: number;
   let dummyGender: m.GenderType;
   let dummyRole: m.RoleType;
-  let dummyCountry: m.CountryType;
+  let dummyCountry: string;
 
   beforeEach((): void => {
     dummyUser = { ...dummyUserData.user };
@@ -31,7 +31,7 @@ describe(`ProfilePane`, (): void => {
     dummyAge = 18;
     dummyGender = m.genderTypes.MALE;
     dummyRole = m.roleTypes.LEARNER;
-    dummyCountry = m.countryTypes.BELGIUM;
+    dummyCountry = 'BE';
   });
 
   it(`renders without errors`, (): void => {

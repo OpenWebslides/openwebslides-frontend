@@ -24,11 +24,6 @@ const apiRoleTypesMap = {
   coteacher: m.roleTypes.COTEACHER,
 };
 
-// TODO: country enumeration
-const apiCountryTypesMap = {
-  BE: m.countryTypes.BELGIUM,
-};
-
 const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   const { id } = action.payload;
   const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
@@ -50,7 +45,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     age: attributes.age,
     gender: apiGenderTypesMap[attributes.gender],
     role: apiRoleTypesMap[attributes.role],
-    country: apiCountryTypesMap[attributes.country],
+    country: attributes.country,
   };
   yield put(actions.setMultipleInState([user]));
 };

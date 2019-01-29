@@ -27,7 +27,7 @@ describe(`ProfileForm`, (): void => {
       age: 18,
       gender: users.model.genderTypes.MALE,
       role: users.model.roleTypes.LEARNER,
-      country: users.model.countryTypes.BELGIUM,
+      country: 'BE',
     };
     dummyUser = dummyUserData.user;
     dummyAvailableLocales = [
@@ -46,7 +46,7 @@ describe(`ProfileForm`, (): void => {
       { key: users.model.roleTypes.COTEACHER, value: users.model.roleTypes.COTEACHER, text: 'Coteacher' },
     ];
     dummyAvailableCountries = [
-      { key: 'be', value: 'BE', text: 'Belgium' },
+      { key: 'BE', value: 'BE', text: 'Belgium' },
     ];
   });
 
@@ -171,7 +171,7 @@ describe(`ProfileForm`, (): void => {
       </DummyProviders>,
     );
     expect(enzymeWrapper.find('Dropdown[name="country"]')).toHaveLength(1);
-    expect(enzymeWrapper.find(`Dropdown[name="country"] DropdownItem[value="${users.model.countryTypes.BELGIUM}"]`)).toHaveLength(1);
+    expect(enzymeWrapper.find(`Dropdown[name="country"] DropdownItem[value="${'BE'}"]`)).toHaveLength(1);
   });
 
   it(`validates form props`, (): void => {
@@ -211,7 +211,7 @@ describe(`ProfileForm`, (): void => {
     expect(validate({ ...dummyFormProps, role: users.model.roleTypes.LEARNER })).not.toHaveProperty('role');
 
     expect(validate({ ...dummyFormProps, country: 'foo' })).toHaveProperty('country');
-    expect(validate({ ...dummyFormProps, country: users.model.countryTypes.BELGIUM })).not.toHaveProperty('country');
+    expect(validate({ ...dummyFormProps, country: 'BE' })).not.toHaveProperty('country');
   });
 
 });

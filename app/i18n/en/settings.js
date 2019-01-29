@@ -35,9 +35,6 @@ const settings = {
     'roles/TEACHER': 'Teacher',
     'roles/COTEACHER': 'Coteacher',
   },
-  countries: {
-    'countries/BELGIUM': 'Belgium',
-  },
 };
 
 export default settings;

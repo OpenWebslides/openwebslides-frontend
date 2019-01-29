@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Tab, Button, Grid, Icon } from 'semantic-ui-react';
+import { getCodes, getName, getCodeList } from 'country-list';
 
 import { type DropdownValue } from 'types/forms';
 import { type ModulesAction } from 'types/redux';
@@ -25,7 +26,7 @@ type DispatchProps = {|
     age: number,
     gender: users.model.GenderType,
     role: users.model.RoleType,
-    country: users.model.CountryType,
+    country: string,
   ) => void,
 |};
 
@@ -45,7 +46,7 @@ const mapDispatchToProps = (
       age: number,
       gender: users.model.GenderType,
       role: users.model.RoleType,
-      country: users.model.CountryType,
+      country: string,
     ): void => {
       dispatch(users.actions.update(
         user.id,
@@ -102,17 +103,15 @@ class PureProfilePane extends React.Component<Props> {
                   },
                 )}
                 availableRoles={Object.keys(users.model.roleTypes).map(
-                  (g: string): DropdownValue => {
-                    const roleType = users.model.roleTypes[g];
+                  (r: string): DropdownValue => {
+                    const roleType = users.model.roleTypes[r];
 
                     return { key: roleType, value: roleType, text: t(`settings:roles.${roleType}`) };
                   },
                 )}
-                availableCountries={Object.keys(users.model.countryTypes).map(
-                  (g: string): DropdownValue => {
-                    const countryType = users.model.countryTypes[g];
-
-                    return { key: countryType, value: countryType, text: t(`settings:countries.${countryType}`) };
+                availableCountries={Object.entries(getCodeList()).map(
+                  (c: [string, string]): DropdownValue => {
+                    return { key: c[0], value: c[0].toUpperCase(), text: c[1] };
                   },
                 )}
                 data-test-id="profile-pane-profile-form"

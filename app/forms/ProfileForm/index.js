@@ -17,7 +17,7 @@ type ProfileFormValues = {|
   age: number,
   gender: users.model.GenderType,
   role: users.model.RoleType,
-  country: users.model.CountryType,
+  country: string,
 |};
 
 type PassedProps = {|

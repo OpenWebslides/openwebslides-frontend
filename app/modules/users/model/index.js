@@ -1,7 +1,5 @@
 // @flow
 
-import { countryTypes, type CountryType } from './countries';
-
 /* eslint-disable flowtype/require-types-at-top */
 
 const MALE: 'genders/MALE' = 'genders/MALE';
@@ -24,13 +22,9 @@ export const roleTypes = {
   COTEACHER,
 };
 
-export { countryTypes };
-
 export type GenderType = $Values<typeof genderTypes>;
 
 export type RoleType = $Values<typeof roleTypes>;
-
-export type { CountryType };
 
 export type User = {|
   +id: string,
@@ -43,7 +37,7 @@ export type User = {|
   +age: ?number,
   +gender: ?GenderType,
   +role: ?RoleType,
-  +country: ?CountryType,
+  +country: ?string,
 |};
 
 // eslint-disable-next-line flowtype/require-exact-type

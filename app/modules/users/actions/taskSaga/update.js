@@ -11,7 +11,7 @@ const update = (
   age: number,
   gender: m.GenderType,
   role: m.RoleType,
-  country: m.CountryType,
+  country: string,
 ): a.UpdateAction => {
   return {
     type: a.UPDATE,

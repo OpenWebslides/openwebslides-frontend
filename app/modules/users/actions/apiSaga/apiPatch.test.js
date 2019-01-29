@@ -16,7 +16,7 @@ describe(`apiPatch`, (): void => {
   let dummyAge: number;
   let dummyGender: m.GenderType;
   let dummyRole: m.RoleType;
-  let dummyCountry: m.CountryType;
+  let dummyCountry: string;
 
   beforeEach((): void => {
     dummyId = 'dummyUserId';
@@ -28,7 +28,7 @@ describe(`apiPatch`, (): void => {
     dummyAge = 18;
     dummyGender = m.genderTypes.MALE;
     dummyRole = m.roleTypes.LEARNER;
-    dummyCountry = m.countryTypes.BELGIUM;
+    dummyCountry = 'BE';
   });
 
   it(`returns an API_PATCH action containing the passed arguments`, (): void => {
