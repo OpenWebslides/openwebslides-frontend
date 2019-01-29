@@ -116,7 +116,6 @@ export type UpdateDeviceTypeAction = {|
   type: typeof UPDATE_DEVICE_TYPE,
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
-    id: string,
     deviceType: m.DeviceType,
   |},
 |};

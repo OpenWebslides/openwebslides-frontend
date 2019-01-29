@@ -7,11 +7,9 @@ import actions from '.';
 
 describe(`updatePassword`, (): void => {
 
-  let dummyId: string;
   let dummyDeviceType: m.DeviceType;
 
   beforeEach((): void => {
-    dummyId = 'dummyId';
     dummyDeviceType = m.deviceTypes.DESKTOP;
   });
 
@@ -19,11 +17,10 @@ describe(`updatePassword`, (): void => {
     const expectedAction: a.UpdateDeviceTypeAction = {
       type: a.UPDATE_DEVICE_TYPE,
       payload: {
-        id: dummyId,
         deviceType: dummyDeviceType,
       },
     };
-    const actualAction = actions.updateDeviceType(dummyId, dummyDeviceType);
+    const actualAction = actions.updateDeviceType(dummyDeviceType);
 
     expect(actualAction).toStrictEqual(expectedAction);
   });
