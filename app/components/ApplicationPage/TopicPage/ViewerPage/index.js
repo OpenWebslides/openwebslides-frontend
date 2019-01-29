@@ -26,6 +26,7 @@ type Props = {| ...StateProps, ...DispatchProps, ...RouterProps |};
 
 const { AuthWrapper } = platform.components;
 const { Viewer } = topics.components;
+const { DeviceTypeSpy } = users.components;
 
 const mapStateToProps = (state: AppState): StateProps => {
   const userAuth = platform.selectors.getUserAuth(state);
@@ -59,7 +60,12 @@ class PureViewerPage extends React.Component<Props> {
         <ContainerPageWrapper>
           {(currentUserId == null)
             ? null
-            : <Viewer topicId={topicId} onForkTopic={this.handleForkTopic} />
+            : (
+              <>
+                <Viewer topicId={topicId} onForkTopic={this.handleForkTopic} />
+                <DeviceTypeSpy />
+              </>
+            )
           }
         </ContainerPageWrapper>
       </AuthWrapper>
