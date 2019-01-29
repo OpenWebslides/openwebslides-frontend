@@ -52,10 +52,6 @@ export type ApiPostAction = {|
     name: string,
     password: string,
     tosAccepted: boolean,
-    age: ?number,
-    gender: ?m.GenderType,
-    role: ?m.RoleType,
-    country: ?m.CountryType,
   |},
 |};
 

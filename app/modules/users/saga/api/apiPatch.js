@@ -44,6 +44,15 @@ const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
   const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
+  let genderType: ?string = null;
+  if (gender != null) genderType = apiGenderTypesMap[gender];
+
+  let roleType: ?string = null;
+  if (role != null) roleType = apiRoleTypesMap[role];
+
+  let countryType: ?string = null;
+  if (country != null) countryType = apiCountryTypesMap[country];
+
   const responseData: ApiResponseData = yield call(
     api.users.patch,
     id,
@@ -53,9 +62,9 @@ const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
     currentPassword,
     password,
     age,
-    apiGenderTypesMap[gender],
-    apiRoleTypesMap[role],
-    apiCountryTypesMap[country],
+    genderType,
+    roleType,
+    countryType,
     userAuth.apiToken,
   );
   if (responseData.body == null) throw new UnexpectedHttpResponseError();

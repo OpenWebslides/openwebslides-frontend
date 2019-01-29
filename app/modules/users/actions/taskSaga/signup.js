@@ -8,10 +8,6 @@ const signup = (
   name: string,
   password: string,
   tosAccepted: boolean,
-  age: number,
-  gender: m.GenderType,
-  role: m.RoleType,
-  country: m.CountryType,
 ): a.SignupAction => {
   return {
     type: a.SIGNUP,
@@ -20,10 +16,6 @@ const signup = (
       name,
       password,
       tosAccepted,
-      age,
-      gender,
-      role,
-      country,
     },
   };
 };
