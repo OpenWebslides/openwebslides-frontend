@@ -16,7 +16,7 @@ import selectors from '../../selectors';
 type PassedProps = {|
   children: React.Node,
   // Optional route to which the user will be redirected, if the user is not authenticated.
-  // Defaults to SIGNIN_ROUTE. Redirecting can be desabled by setting this to NULL.
+  // Defaults to SIGNIN_ROUTE. Redirecting can be disabled by setting this to NULL.
   redirectIfNotAuthenticated: ?string,
   // Optional component that will be rendered instead of the children,
   // if the user is not authenticated.
