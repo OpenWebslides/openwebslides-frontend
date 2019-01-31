@@ -13,6 +13,7 @@
 & { @import "../../custom/sidebar"; }
 & { @import "../../custom/platform"; }
 & { @import "../../custom/settings"; }
+& { @import "../../custom/typography"; }
 
 // Editor
 & { @import "../../custom/editable-text-content"; }
