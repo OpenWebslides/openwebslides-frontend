@@ -100,7 +100,9 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
                 {topic.title}
               </Link>
             </Card.Header>
-            <Card.Meta>{t('topics:props.timestamp', { timestamp: moment(topic.timestamp).fromNow() })}</Card.Meta>
+            <Card.Meta title={moment(alert.timestamp).format('LLLL')}>
+              {t('topics:props.timestamp', { timestamp: moment(topic.timestamp).fromNow() })}
+            </Card.Meta>
             <Card.Description>
               {
                 (topic.description != null)

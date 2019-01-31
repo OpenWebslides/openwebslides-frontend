@@ -39,7 +39,7 @@ const PureTopicsList = (props: Props): React.Node => {
       </div>
       <Divider />
       {(topicIds.length === 0 ? (
-        <em data-test-id="topics-list-empty">{t('library:noTopics')}</em>
+        <em data-test-id="topics-list-empty">{t('library:empty')}</em>
       ) : null)}
       <Card.Group itemsPerRow={3} doubling={true} stackable={true}>
         {[...topicIds].reverse().map((topicId) => (

@@ -78,7 +78,9 @@ class PureUpdateAlert extends React.Component<Props> {
           <InlineMarkdown
             text={t('alerts:menu.updated', { count: alert.count, topicTitle: topic.title })}
           />
-          <p className="date">{moment(alert.timestamp).fromNow()}</p>
+          <p className="date" title={moment(alert.timestamp).format('LLLL')}>
+            {moment(alert.timestamp).fromNow()}
+          </p>
         </Grid.Column>
       </Grid>
     );
