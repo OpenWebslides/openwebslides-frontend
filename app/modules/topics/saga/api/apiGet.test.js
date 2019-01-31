@@ -318,7 +318,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [dummyCollaboratorId1, dummyCollaboratorId2], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [dummyCollaboratorId1, dummyCollaboratorId2], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
