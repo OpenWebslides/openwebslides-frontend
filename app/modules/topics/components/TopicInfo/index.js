@@ -33,7 +33,10 @@ const PureTopicInfo = (props: Props): React.Node => {
         <Item.Content>
           <Item.Header>{t('topics:props.description')}</Item.Header>
           <Item.Description data-test-id="topic-info-description">
-            {(topic.description != null) ? topic.description : `(${t('topics:props.noDescription')})`}
+            {(topic.description != null)
+              ? topic.description
+              : <em className="ui grey text">{t('topics:props.noDescription')}</em>
+            }
           </Item.Description>
         </Item.Content>
       </Item>
