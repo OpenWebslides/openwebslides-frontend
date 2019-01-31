@@ -17,6 +17,17 @@ describe(`fetchApiResponseData`, (): void => {
     fetch.resetMocks();
   });
 
+  it(`throws a NetworkError when the url refuses connection`, async (): Promise<void> => {
+    fetch.mockRejectOnce(new NetworkError('connection refused'));
+
+    try {
+      await fetchApiResponseData('thishostdoesnotexist', {});
+    }
+    catch (error) {
+      expect(error.message).toBe('connection refused');
+    }
+  });
+
   it(`returns a ResponseData object with the correct body data`, async (): Promise<void> => {
     const dummyBody = { foo: 'bar' };
     fetch.mockResponseOnce(JSON.stringify(dummyBody), { status: 200 });
@@ -58,7 +69,7 @@ describe(`fetchApiResponseData`, (): void => {
       });
   });
 
-  it(`throws an Http401UnauthorizedError, when the response contains a 401 status code`, async (): Promise<mixed> => {
+  it(`throws an Http401UnauthorizedError, when the response contains a 401 status code`, async (): Promise<void> => {
     fetch.mockResponseOnce('', { status: 401 });
 
     await expect(fetchApiResponseData('', {}))
