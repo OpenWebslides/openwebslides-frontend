@@ -7,7 +7,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { type SagaAction } from 'types/actions';
 import i18next from 'config/i18next';
 import errors from 'modules/errors';
-import { NetworkError } from 'errors';
+import { NetworkError, Http401UnauthorizedError } from 'errors';
 
 import actions from '../../actions';
 
@@ -181,6 +181,22 @@ describe(`sagaWrapper`, (): void => {
 
     return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
       .put(flashErrorMessage(`flash:NetworkError`, { timeout: false }))
+      .run();
+  });
+
+  it(`displays an error flash message and dispatches a platform SIGNOUT action when the passed saga throws a 401 error`, (): void => {
+    i18next.exists = jest.fn((): boolean => true);
+
+    const dummyError = new Http401UnauthorizedError();
+    // eslint-disable-next-line require-yield
+    const dummySaga = function* (action: SagaAction): Saga<void> {
+      throw dummyError;
+    };
+    const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyId', log: true } };
+
+    return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
+      .put(flashErrorMessage(`flash:UnauthorizedError`, { timeout: false }))
+      .put({ type: 'platform/SIGNOUT', payload: {} })
       .run();
   });
 
