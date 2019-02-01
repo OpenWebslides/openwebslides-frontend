@@ -22,5 +22,8 @@
 // Slides
 & { @import "../../custom/ows_slide"; }
 
+// Course
+& { @import "../../custom/ows_course"; }
+
 // Alerts
 & { @import "../../custom/alerts"; }
