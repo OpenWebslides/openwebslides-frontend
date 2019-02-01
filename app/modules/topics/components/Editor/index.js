@@ -242,7 +242,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
                     basic={true}
                     size="tiny"
                     compact={true}
-                    style={{ marginLeft: '1em' }}
+                    style={{ margin: '.5em 1em', float: 'right' }}
                     onClick={this.showMetadata}
                     data-test-id="topic-editor-metadata-button"
                   >
