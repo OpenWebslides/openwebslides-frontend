@@ -6,6 +6,7 @@ const topics = {
     title: 'Title',
     description: 'Description',
     noDescription: 'No description',
+    timestamp: 'Last updated {{timestamp}}',
     access: {
       title: 'Access level',
       accessForType: {

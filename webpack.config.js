@@ -109,7 +109,7 @@ const createBaseConfig = (/* env */) => ({
 
 });
 
-// Webpack developemnt mode additional configuration
+// Webpack development mode additional configuration
 const createDevConfig = (env) => ({
 
   devServer: {
@@ -123,10 +123,11 @@ const createDevConfig = (env) => ({
     new HtmlWebpackPlugin({
       template: path.join(paths.PUBLIC, 'index.dev.html'),
     }),
-    // Allow specifying API_URL and APP_URL overrides on the command line, defaults to owsdev API and localhost APP
+    // Allow specifying API_URL and APP_URL overrides on the command line
+    // Defaults to owsdev API and localhost APP
     new webpack.DefinePlugin({
-      'window.WEBPACK_API_URL': (env != null && env.API_URL != null) ? `"${env.API_URL}"` : 'https://owsdev.ugent.be/api',
-      'window.WEBPACK_APP_URL': (env != null && env.APP_URL != null) ? `"${env.APP_URL}"` : 'http://localhost:8080',
+      'window.WEBPACK_API_URL': (env != null && env.API_URL != null) ? `"${env.API_URL}"` : '"https://owsdev.ugent.be/api"',
+      'window.WEBPACK_APP_URL': (env != null && env.APP_URL != null) ? `"${env.APP_URL}"` : '"http://localhost:8080"',
     }),
   ],
 
@@ -178,7 +179,8 @@ const createProdConfig = (env) => ({
         },
       ],
     }),
-    // Allow specifying API_URL and APP_URL overrides on the command line, defaults to false
+    // Allow specifying API_URL and APP_URL overrides on the command line,
+    // Defaults to false
     new webpack.DefinePlugin({
       'window.WEBPACK_API_URL': (env != null && env.API_URL != null) ? `"${env.API_URL}"` : false,
       'window.WEBPACK_APP_URL': (env != null && env.APP_URL != null) ? `"${env.APP_URL}"` : false,

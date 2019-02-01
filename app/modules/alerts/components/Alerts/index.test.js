@@ -233,4 +233,52 @@ describe(`Alerts`, (): void => {
     });
   });
 
+  it(`renders the unread dot when there are unread alerts`, (): void => {
+    const dummyEarlierState = {
+      ...dummyState,
+      modules: {
+        ...dummyState.modules,
+        alerts: {
+          ...dummyState.modules.alerts,
+          byId: {
+            [dummyAlert1.id]: { ...dummyAlert1, read: false },
+            [dummyAlert2.id]: { ...dummyAlert2, read: true },
+          },
+        },
+      },
+    };
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyEarlierState} dummyDispatch={dummyDispatch}>
+        <Alerts />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="alerts-menu-unread-dot"]')).toHaveLength(1);
+  });
+
+  it(`does not render the unread dot when there are no unread alerts`, (): void => {
+    const dummyEarlierState = {
+      ...dummyState,
+      modules: {
+        ...dummyState.modules,
+        alerts: {
+          ...dummyState.modules.alerts,
+          byId: {
+            [dummyAlert1.id]: { ...dummyAlert1, read: true },
+            [dummyAlert2.id]: { ...dummyAlert2, read: true },
+          },
+        },
+      },
+    };
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyEarlierState} dummyDispatch={dummyDispatch}>
+        <Alerts />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="alerts-menu-unread-dot"]')).toHaveLength(0);
+  });
+
 });

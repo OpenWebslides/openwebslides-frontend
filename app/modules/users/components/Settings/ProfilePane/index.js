@@ -4,15 +4,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Tab, Button, Grid } from 'semantic-ui-react';
+import { Tab, Button, Grid, Icon } from 'semantic-ui-react';
 
 import { type DropdownValue } from 'types/forms';
 import { type ModulesAction } from 'types/redux';
 import ProfileForm, { type ProfileFormValues } from 'forms/ProfileForm';
-import users from 'modules/users';
+
+import actions from '../../../actions';
+import * as m from '../../../model';
 
 type PassedProps = {|
-  user: users.model.User,
+  user: m.User,
 |};
 
 type DispatchProps = {|
@@ -29,7 +31,7 @@ const mapDispatchToProps = (
 
   return {
     onUpdateUser: (name: string, locale: string, alertEmails: boolean): void => {
-      dispatch(users.actions.update(user.id, name, locale, alertEmails));
+      dispatch(actions.update(user.id, name, locale, alertEmails));
     },
   };
 };
@@ -48,6 +50,9 @@ class PureProfilePane extends React.Component<Props> {
         <Grid columns={1} padded="vertically">
           <Grid.Row>
             <Grid.Column width={5}>
+              <p>
+                <Icon name="lock" /> {t('settings:profile.privacy')}
+              </p>
               <ProfileForm
                 onSubmit={this.handleProfileFormSubmit}
                 user={user}

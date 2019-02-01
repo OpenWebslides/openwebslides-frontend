@@ -28,7 +28,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     throw new UnexpectedHttpResponseError();
   }
 
-  const { attributes, relationships } = topicsResponseData.body.data;
+  const { attributes, relationships, meta } = topicsResponseData.body.data;
 
   const topic: m.Topic = {
     id,
@@ -37,6 +37,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     access: apiAccessTypesToAccessTypesMap[attributes.access],
     userId: relationships.user.data.id,
     rootContentItemId: attributes.rootContentItemId,
+    timestamp: Number(meta.updatedAt) * 1000,
     upstreamTopicId: relationships.upstream.data ? relationships.upstream.data.id : null,
     forkedTopicIds: relationships.forks.data.map((item: { type: string, id: string }) => item.id),
     incomingPullRequestIds: relationships.incomingPullRequests.data.map(

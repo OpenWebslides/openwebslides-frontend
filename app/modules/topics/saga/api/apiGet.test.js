@@ -23,6 +23,7 @@ describe(`apiGet`, (): void => {
   let dummyAccess: m.AccessType;
   let dummyUserId: string;
   let dummyRootContentId: string;
+  let dummyTimestamp: string;
   let dummyUpstreamTopicId: string;
   let dummyForkedTopicId1: string;
   let dummyForkedTopicId2: string;
@@ -39,6 +40,7 @@ describe(`apiGet`, (): void => {
     dummyAccess = m.accessTypes.PUBLIC;
     dummyUserId = 'dummyUserId';
     dummyRootContentId = 'dummyRootContentItemId';
+    dummyTimestamp = '1546596490';
     dummyUpstreamTopicId = 'dummyUpstreamTopicId';
     dummyForkedTopicId1 = 'dummyForkedTopicId1';
     dummyForkedTopicId2 = 'dummyForkedTopicId2';
@@ -69,6 +71,9 @@ describe(`apiGet`, (): void => {
             outgoingPullRequests: { data: [] },
             collaborators: { data: [] },
           },
+          meta: {
+            updatedAt: dummyTimestamp,
+          },
         },
       },
     };
@@ -79,7 +84,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -103,6 +108,9 @@ describe(`apiGet`, (): void => {
             outgoingPullRequests: { data: [] },
             collaborators: { data: [] },
           },
+          meta: {
+            updatedAt: dummyTimestamp,
+          },
         },
       },
     };
@@ -113,7 +121,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, dummyToken), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, dummyToken)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -137,6 +145,9 @@ describe(`apiGet`, (): void => {
             outgoingPullRequests: { data: [] },
             collaborators: { data: [] },
           },
+          meta: {
+            updatedAt: dummyTimestamp,
+          },
         },
       },
     };
@@ -147,7 +158,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: dummyUpstreamTopicId, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: dummyUpstreamTopicId, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -174,6 +185,9 @@ describe(`apiGet`, (): void => {
             outgoingPullRequests: { data: [] },
             collaborators: { data: [] },
           },
+          meta: {
+            updatedAt: dummyTimestamp,
+          },
         },
       },
     };
@@ -184,7 +198,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [dummyForkedTopicId1, dummyForkedTopicId2], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [dummyForkedTopicId1, dummyForkedTopicId2], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -211,6 +225,9 @@ describe(`apiGet`, (): void => {
             outgoingPullRequests: { data: [] },
             collaborators: { data: [] },
           },
+          meta: {
+            updatedAt: dummyTimestamp,
+          },
         },
       },
     };
@@ -221,7 +238,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [dummyPullRequestId1, dummyPullRequestId2], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [dummyPullRequestId1, dummyPullRequestId2], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -248,6 +265,9 @@ describe(`apiGet`, (): void => {
             ] },
             collaborators: { data: [] },
           },
+          meta: {
+            updatedAt: dummyTimestamp,
+          },
         },
       },
     };
@@ -258,7 +278,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [dummyPullRequestId2, dummyPullRequestId1], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [dummyPullRequestId2, dummyPullRequestId1], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -285,6 +305,9 @@ describe(`apiGet`, (): void => {
               { type: 'users', id: dummyCollaboratorId2 },
             ] },
           },
+          meta: {
+            updatedAt: dummyTimestamp,
+          },
         },
       },
     };
@@ -295,7 +318,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [dummyCollaboratorId1, dummyCollaboratorId2], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [dummyCollaboratorId1, dummyCollaboratorId2], isContentFetched: false, isDirty: false }]))
       .run();
   });
 

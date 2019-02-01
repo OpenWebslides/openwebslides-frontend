@@ -54,7 +54,7 @@ class PurePullRequestEntry extends React.Component<Props> {
           <Item.Meta>
             {this.iconForState(pullRequest.state)} {t(`pullRequests:titleForState.${pullRequest.state}`)}
           </Item.Meta>
-          <Item.Extra>
+          <Item.Extra title={moment(pullRequest.timestamp).format('LLLL')}>
             {moment(pullRequest.timestamp).fromNow()}
           </Item.Extra>
         </Item.Content>

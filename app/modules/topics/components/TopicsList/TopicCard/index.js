@@ -4,6 +4,7 @@ import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, Card, Icon } from 'semantic-ui-react';
+import moment from 'moment';
 
 import { TOPIC_EDITOR_ROUTE, TOPIC_VIEWER_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
@@ -46,33 +47,11 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
   };
 
   renderTopicCardButtons = (topic: m.Topic): React.Node => {
-    const { isCurrentUser } = this.props;
+    const { t, isCurrentUser } = this.props;
 
     return (
       <Card.Content extra={true}>
         <Button.Group className={`ui ${isCurrentUser === true ? 'three' : 'two'} buttons`} inverted={true}>
-          {(isCurrentUser !== false) ? (
-            <>
-              <Button
-                onClick={this.showRemoveModal}
-                icon={true}
-                basic={true}
-                data-test-id="topic-card-remove-button"
-              >
-                <Icon name="trash" />
-              </Button>
-              <Button
-                icon={true}
-                basic={true}
-                as={Link}
-                to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}
-                data-test-id="topic-card-edit-button"
-              >
-                <Icon name="pencil" />
-              </Button>
-            </>
-          ) : null }
-
           <Button
             primary={true}
             icon={true}
@@ -82,6 +61,27 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
           >
             <Icon name="eye" />
           </Button>
+          {(isCurrentUser !== false) ? (
+            <>
+              <Button
+                icon={true}
+                basic={true}
+                as={Link}
+                to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}
+                data-test-id="topic-card-edit-button"
+              >
+                <Icon name="pencil" />
+              </Button>
+              <Button
+                onClick={this.showRemoveModal}
+                className="link"
+                data-test-id="topic-card-remove-button"
+              >
+                {t('common:button.delete')}
+              </Button>
+
+            </>
+          ) : null }
         </Button.Group>
       </Card.Content>
     );
@@ -100,12 +100,14 @@ class PureTopicCard extends React.Component<Props, ComponentState> {
                 {topic.title}
               </Link>
             </Card.Header>
-            <Card.Meta>TODO: creation date</Card.Meta>
+            <Card.Meta title={moment(alert.timestamp).format('LLLL')}>
+              {t('topics:props.timestamp', { timestamp: moment(topic.timestamp).fromNow() })}
+            </Card.Meta>
             <Card.Description>
               {
                 (topic.description != null)
                   ? <span data-test-id="topic-card-description">{topic.description}</span>
-                  : <span data-test-id="topic-card-no-description">({t('topics:props.noDescription')})</span>
+                  : <em data-test-id="topic-card-no-description">{t('topics:props.noDescription')}</em>
               }
             </Card.Description>
           </Card.Content>

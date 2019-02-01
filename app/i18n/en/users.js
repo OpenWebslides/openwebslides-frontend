@@ -22,7 +22,7 @@ const users = {
     locale: 'Language',
     alertEmails: 'Send me important email notifications',
     errors: {
-      email: 'Email cannot be empty',
+      email: 'Email must be valid',
       password: 'Password must be longer than 6 characters',
       equalNewPassword: 'New password must be different from current password',
       repeatPassword: 'Passwords must match',

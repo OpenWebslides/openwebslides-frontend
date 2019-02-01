@@ -9,6 +9,7 @@ import { call, put } from 'redux-saga/effects';
 import { type SagaAction, type AsyncRequestData } from 'types/actions';
 import i18next from 'config/i18next';
 import errors from 'modules/errors';
+import { NetworkError, Http401UnauthorizedError } from 'errors';
 
 import actions from '../../actions';
 
@@ -82,6 +83,16 @@ function* sagaWrapper<A: SagaAction>(
   catch (error) {
     // If an error occurred, set status to FAILURE and pass on the error.
     yield put(actions.setFailure(asyncRequestData.id, error));
+
+    if (error instanceof NetworkError) {
+      yield put(flashErrorMessage('flash:NetworkError', { timeout: false }));
+    }
+
+    if (error instanceof Http401UnauthorizedError) {
+      yield put(flashErrorMessage('flash:UnauthorizedError', { timeout: false }));
+      // TODO: importing platform renders a cyclic dependency
+      yield put({ type: 'platform/SIGNOUT', payload: {} });
+    }
 
     // If logging is enabled for this action.
     if (asyncRequestData.log === true) {

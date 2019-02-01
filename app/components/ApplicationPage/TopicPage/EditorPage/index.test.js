@@ -2,22 +2,52 @@
 
 import _ from 'lodash';
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
-import { dummyProviderProps } from 'lib/testResources';
+import { TOPIC_VIEWER_ROUTE } from 'config/routes';
+import makeRoute from 'lib/makeRoute';
+import { DummyProviders, dummyProviderProps, dummyTopicData, dummyUserData, dummyInitialState } from 'lib/testResources';
+import topics from 'modules/topics';
+import users from 'modules/users';
 
 import { PureEditorPage } from '.';
 
 describe(`EditorPage`, (): void => {
 
-  let dummyTopicId: string;
+  let dummyUser: users.model.User;
+  let dummyTopic: topics.model.Topic;
+  let dummyState: any;
+  let dummyDispatch: any;
 
   beforeEach((): void => {
-    dummyTopicId = 'dummyTopicId';
+    dummyUser = dummyUserData.user;
+    dummyTopic = { ...dummyTopicData.topic, userId: dummyUser.id };
+    dummyState = {
+      ...dummyInitialState,
+      modules: {
+        ...dummyInitialState.modules,
+        platform: {
+          ...dummyInitialState.modules.platform,
+          userAuth: { userId: dummyUser.id, apiToken: 'foobarToken' },
+        },
+        users: {
+          ...dummyInitialState.modules.users,
+          byId: {
+            [dummyUser.id]: dummyUser,
+          },
+        },
+        topics: {
+          ...dummyInitialState.modules.topics,
+          byId: {
+            [dummyTopic.id]: dummyTopic,
+          },
+        },
+      },
+    };
   });
 
   it(`renders without errors`, (): void => {
-    const fixedRouterProps = _.set(_.cloneDeep(dummyProviderProps.routerProps), 'match.params.topicId', dummyTopicId);
+    const fixedRouterProps = _.set(_.cloneDeep(dummyProviderProps.routerProps), 'match.params.topicId', dummyTopic.id);
 
     const enzymeWrapper = shallow(
       <PureEditorPage {...fixedRouterProps} />,
@@ -32,6 +62,21 @@ describe(`EditorPage`, (): void => {
     );
 
     expect(enzymeWrapper.isEmptyRender()).toBe(true);
+  });
+
+  it(`renders a TopicPolicyWrapper that redirects to the correct route when unauthorized`, (): void => {
+    const fixedRouterProps = _.set(_.cloneDeep(dummyProviderProps.routerProps), 'match.params.topicId', dummyTopic.id);
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <PureEditorPage
+          {...fixedRouterProps}
+        />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureTopicPolicyWrapper')).toHaveLength(1);
+    expect(enzymeWrapper.find('PureTopicPolicyWrapper').props().redirectIfNotAuthenticated).toStrictEqual(makeRoute(TOPIC_VIEWER_ROUTE, { topicId: dummyTopic.id }));
   });
 
 });

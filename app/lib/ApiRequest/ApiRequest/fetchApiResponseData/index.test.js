@@ -5,6 +5,7 @@ import {
   Http403ForbiddenError,
   Http422ValidationError,
   Http5xxServerError,
+  NetworkError,
   UnexpectedHttpStatusError,
 } from 'errors';
 
@@ -14,6 +15,17 @@ describe(`fetchApiResponseData`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
+  });
+
+  it(`throws a NetworkError when the url refuses connection`, async (): Promise<void> => {
+    fetch.mockRejectOnce(new NetworkError('connection refused'));
+
+    try {
+      await fetchApiResponseData('thishostdoesnotexist', {});
+    }
+    catch (error) {
+      expect(error.message).toBe('connection refused');
+    }
   });
 
   it(`returns a ResponseData object with the correct body data`, async (): Promise<void> => {

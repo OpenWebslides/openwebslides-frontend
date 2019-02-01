@@ -1,13 +1,14 @@
 // @flow
 
 const flash = {
+  NetworkError: 'A network error occurred',
+  UnauthorizedError: 'Please sign in again',
   'platform/SIGNIN': {
     success: 'You have been successfully signed in.',
     error: 'Username and/or password were incorrect.',
   },
   'platform/SIGNOUT': {
     success: 'You have been succesfully signed out.',
-    error: 'An error occurred during signout.',
   },
   'pullRequests/CREATE': {
     success: 'Successfully shared your contribution',

@@ -3,8 +3,11 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
+import { push } from 'connected-react-router';
 
+import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
+import makeRoute from 'lib/makeRoute';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -268,26 +271,6 @@ describe(`Editor`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-editor-no-description"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`shows the description when the topic has a description`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Editor topicId={dummyTopic.id} />
-      </DummyProviders>,
-    );
-
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-description"]').text()).toContain(dummyTopic.description);
-  });
-
-  it(`shows a placeholder when the topic has no description`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Editor topicId={dummyTopicNoDesc.id} />
-      </DummyProviders>,
-    );
-
-    expect(enzymeWrapper.find('[data-test-id="topic-editor-no-description"]').hostNodes()).toHaveLength(1);
-  });
-
   it(`dispatches a topic DISCARD action, when the component is unmounted and the topic is dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
@@ -449,6 +432,17 @@ describe(`Editor`, (): void => {
 
     enzymeWrapper.find('PureAccessControl').props().onSubmit({ title: undefined, description: undefined, access: m.accessTypes.PUBLIC });
     expect(dummyDispatch).toHaveBeenCalledWith(actions.update(dummyTopic.id, undefined, undefined, m.accessTypes.PUBLIC));
+  });
+
+  it(`dispatches a PUSH action when the view button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="topic-editor-view-button"]').hostNodes().simulate('click');
+    expect(dummyDispatch).toHaveBeenCalledWith(push(makeRoute(TOPIC_VIEWER_ROUTE, { topicId: dummyTopic.id })));
   });
 
 });

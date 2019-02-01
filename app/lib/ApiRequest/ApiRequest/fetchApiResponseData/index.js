@@ -5,6 +5,7 @@ import {
   Http403ForbiddenError,
   Http422ValidationError,
   Http5xxServerError,
+  NetworkError,
   UnexpectedHttpStatusError,
 } from 'errors';
 
@@ -31,10 +32,18 @@ const fetchApiResponseData = async (
   url: string,
   options: RequestOptions,
 ): Promise<ApiResponseData> => {
-  const response = await fetch(url, options);
+  let response: Response;
+
+  try {
+    response = await fetch(url, options);
+  }
+  catch (error) {
+    throw new NetworkError(error.message);
+  }
+
   const { status } = response;
 
-  if (status < 400) {
+  if (response.ok) {
     return getDataFromResponse(response);
   }
   else if (status === 401) {

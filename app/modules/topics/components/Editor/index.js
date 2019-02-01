@@ -5,9 +5,12 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
+import { push } from 'connected-react-router';
 import { Button, Header, Icon, Menu, Divider, Grid } from 'semantic-ui-react';
 
+import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import { type AppState, type ModulesAction } from 'types/redux';
+import makeRoute from 'lib/makeRoute';
 import FetchWrapper from 'components/FetchWrapper';
 import { type CommitFormValues } from 'forms/CommitForm';
 import CommitModal from 'modals/CommitModal';
@@ -37,6 +40,7 @@ type DispatchProps = {|
   onUpdate: (title: ?string, description: ?string, access: ?m.AccessType) => void,
   onSetDirty: (dirty: boolean) => void,
   onDiscard: () => void,
+  onView: () => void,
 |};
 
 type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
@@ -75,6 +79,9 @@ const mapDispatchToProps = (
     },
     onDiscard: (): void => {
       dispatch(actions.discard(topicId));
+    },
+    onView: (): void => {
+      dispatch(push(makeRoute(TOPIC_VIEWER_ROUTE, { topicId })));
     },
   };
 };
@@ -125,6 +132,11 @@ class PureEditor extends React.Component<Props, ComponentState> {
   handleAccessLevelSubmit = (values: AccessLevelFormValues): void => {
     const { onUpdate } = this.props;
     onUpdate(undefined, undefined, values.access);
+  };
+
+  showViewer = (): void => {
+    const { onView } = this.props;
+    onView();
   };
 
   beforeUnloadHandler = (event: Event): boolean => {
@@ -180,6 +192,16 @@ class PureEditor extends React.Component<Props, ComponentState> {
             <Menu.Item>
               <Button
                 basic={true}
+                onClick={this.showViewer}
+                data-test-id="topic-editor-view-button"
+              >
+                <Icon name="eye" />
+                {t('common:button.view')}
+              </Button>
+            </Menu.Item>
+            <Menu.Item>
+              <Button
+                basic={true}
                 onClick={this.showShareModal}
                 data-test-id="topic-editor-share-button"
               >
@@ -220,7 +242,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
                     basic={true}
                     size="tiny"
                     compact={true}
-                    style={{ marginLeft: '1em' }}
+                    style={{ margin: '.5em 1em', float: 'right' }}
                     onClick={this.showMetadata}
                     data-test-id="topic-editor-metadata-button"
                   >

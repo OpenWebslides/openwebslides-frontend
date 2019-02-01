@@ -21,6 +21,7 @@ export type Topic = {|
   +access: AccessType,
   +userId: string,
   +rootContentItemId: string,
+  +timestamp: number,
   +upstreamTopicId: ?string,
   +forkedTopicIds: $ReadOnlyArray<string>,
   +incomingPullRequestIds: $ReadOnlyArray<string>,

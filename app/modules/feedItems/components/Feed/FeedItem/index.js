@@ -87,7 +87,9 @@ class PureFeedItem extends React.Component<Props> {
               <Link className="secondaryLink" to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: topic.id })}>
                 {topic.title}
               </Link>
-              <Feed.Date>{moment(feedItem.timestamp).fromNow()}</Feed.Date>
+              <Feed.Date title={moment(feedItem.timestamp).format('LLLL')}>
+                {moment(feedItem.timestamp).fromNow()}
+              </Feed.Date>
             </Feed.Summary>
           </Feed.Content>
         </Feed.Event>

@@ -89,7 +89,9 @@ class PurePullRequestAlert extends React.Component<Props> {
           <InlineMarkdown
             text={t(`alerts:actionForType.${alert.type}`, { userName: user.name, topicTitle: topic.title })}
           />
-          <p className="date">{moment(alert.timestamp).fromNow()}</p>
+          <p className="date" title={moment(alert.timestamp).format('LLLL')}>
+            {moment(alert.timestamp).fromNow()}
+          </p>
         </Grid.Column>
       </Grid>
     );

@@ -34,7 +34,7 @@ class PureUserComment extends React.Component<Props> {
           <Comment.Author as={Link} to={makeRoute(USER_PROFILE_BY_ID_ROUTE, { userId: user.id })}>
             {user.name}
           </Comment.Author>
-          <Comment.Metadata>
+          <Comment.Metadata title={moment(timestamp).format('LLLL')}>
             {moment(timestamp).fromNow()}
           </Comment.Metadata>
           <Comment.Text>

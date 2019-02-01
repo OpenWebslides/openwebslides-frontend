@@ -8,10 +8,12 @@ import { Tab, Button, Grid, Header, Message } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
 import PasswordForm, { type PasswordFormValues } from 'forms/PasswordForm';
-import users from 'modules/users';
+
+import actions from '../../../actions';
+import * as m from '../../../model';
 
 type PassedProps = {|
-  user: users.model.User,
+  user: m.User,
 |};
 
 type DispatchProps = {|
@@ -28,7 +30,7 @@ const mapDispatchToProps = (
 
   return {
     onUpdatePassword: (currentPassword: string, password: string): void => {
-      dispatch(users.actions.updatePassword(user.id, currentPassword, password));
+      dispatch(actions.updatePassword(user.id, currentPassword, password));
     },
   };
 };
