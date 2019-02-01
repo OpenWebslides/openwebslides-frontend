@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import { dummyProviderProps, dummyTopicData } from 'lib/testResources';
 
@@ -49,26 +49,26 @@ describe(`TopicInfo`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-info-fork-info"]')).toHaveLength(0);
   });
 
-  it(`renders an empty description message, when the passed topic doesn't have a description`, (): void => {
-    const dummyNoDescString = 'test.no.description.found';
-    const fixedDummyTranslatorProps = {
-      ...dummyProviderProps.translatorProps,
-      t: (key: ?string): string => {
-        if (key === 'topics:props.noDescription') return dummyNoDescString;
-        else return (key != null) ? key : 'string';
-      },
-    };
-    const fixedDummyTopic = { ...dummyTopic, description: null };
-
-    const enzymeWrapper = shallow(
+  it(`shows the description when the topic has a description`, (): void => {
+    const enzymeWrapper = mount(
       <PureTopicInfo
-        {...fixedDummyTranslatorProps}
-        topic={fixedDummyTopic}
+        {...dummyProviderProps.translatorProps}
+        topic={dummyTopic}
       />,
     );
-    const descriptionNode = enzymeWrapper.find('[data-test-id="topic-info-description"]');
 
-    expect(descriptionNode.props().children).toContain(dummyNoDescString);
+    expect(enzymeWrapper.find('[data-test-id="topic-info-description"]').text()).toContain(dummyTopic.description);
+  });
+
+  it(`shows a placeholder when the topic has no description`, (): void => {
+    const enzymeWrapper = mount(
+      <PureTopicInfo
+        {...dummyProviderProps.translatorProps}
+        topic={{ ...dummyTopic, description: null }}
+      />,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-info-no-description"]').hostNodes()).toHaveLength(1);
   });
 
 });
