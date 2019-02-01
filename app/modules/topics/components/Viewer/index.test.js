@@ -3,8 +3,11 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
+import { push } from 'connected-react-router';
 
+import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import { DummyProviders, dummyInitialState, dummyProviderProps, dummyTopicData } from 'lib/testResources';
+import makeRoute from 'lib/makeRoute';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -13,7 +16,9 @@ import Viewer, { PureViewer } from '.';
 
 describe(`Viewer`, (): void => {
 
+  let dummyUserId: string;
   let dummyTopic: m.Topic;
+  let dummyTopic2: m.Topic;
   let dummyTopicNoDesc: m.Topic;
   let upstreamTopic: m.Topic;
   let downstreamTopic: m.Topic;
@@ -23,12 +28,15 @@ describe(`Viewer`, (): void => {
   let dummyOnForkTopic: any;
 
   beforeEach((): void => {
-    dummyTopic = { ...dummyTopicData.topic, isContentFetched: true };
+    dummyUserId = 'someDummyUserId';
+    dummyTopic = { ...dummyTopicData.topic, userId: dummyUserId, isContentFetched: true };
+    dummyTopic2 = { ...dummyTopicData.topic2, isContentFetched: true };
     dummyTopicNoDesc = { ...dummyTopicData.topic, id: 'dummyTopicNoDesc', description: null, isContentFetched: true };
     upstreamTopic = { ...dummyTopicData.upstream, isContentFetched: true };
     downstreamTopic = { ...dummyTopicData.downstream, isContentFetched: true };
     dummyTopicsById = {
       [dummyTopic.id]: dummyTopic,
+      [dummyTopic2.id]: dummyTopic2,
       [dummyTopicNoDesc.id]: dummyTopicNoDesc,
       [upstreamTopic.id]: upstreamTopic,
       [downstreamTopic.id]: downstreamTopic,
@@ -40,6 +48,10 @@ describe(`Viewer`, (): void => {
         topics: {
           ...dummyInitialState.modules.topics,
           byId: dummyTopicsById,
+        },
+        platform: {
+          ...dummyInitialState.modules.platform,
+          userAuth: { userId: dummyUserId, apiToken: '' },
         },
       },
     };
@@ -165,6 +177,39 @@ describe(`Viewer`, (): void => {
 
     enzymeWrapper.find('[data-test-id="topic-viewer-fork-button"]').hostNodes().simulate('click');
     expect(dummyOnForkTopic).toHaveBeenCalledWith(dummyTopic.id);
+  });
+
+  it(`enables the edit button when the user can edit`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Viewer topicId={dummyTopic.id} onForkTopic={dummyOnForkTopic} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-viewer-edit-button"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-viewer-edit-button"][disabled]').hostNodes()).toHaveLength(0);
+  });
+
+  it(`disables the edit button when the user cannot edit`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Viewer topicId={dummyTopic2.id} onForkTopic={dummyOnForkTopic} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-viewer-edit-button"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-viewer-edit-button"][disabled]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`dispatches a PUSH action when the edit button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Viewer topicId={dummyTopic.id} onForkTopic={dummyOnForkTopic} />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="topic-viewer-edit-button"]').hostNodes().simulate('click');
+    expect(dummyDispatch).toHaveBeenCalledWith(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: dummyTopic.id })));
   });
 
 });

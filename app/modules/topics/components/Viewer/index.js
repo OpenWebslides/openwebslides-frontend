@@ -3,11 +3,16 @@
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
+import { push } from 'connected-react-router';
 import { Header, Menu, Icon, Button } from 'semantic-ui-react';
 
-import { type AppState } from 'types/redux';
+import { TOPIC_EDITOR_ROUTE } from 'config/routes';
+import { type AppState, type ModulesAction } from 'types/redux';
+import makeRoute from 'lib/makeRoute';
 import FetchWrapper from 'components/FetchWrapper';
 import ShareModal from 'modals/ShareModal';
+import platform from 'modules/platform';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -22,19 +27,40 @@ type PassedProps = {|
 
 type StateProps = {|
   topic: ?m.Topic,
+  currentUserId: ?string,
+|};
+
+type DispatchProps = {|
+  onEdit: () => void,
 |};
 
 type ComponentState = {|
   isShareModalOpen: boolean,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
+type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { topicId } = props;
 
+  const userAuth = platform.selectors.getUserAuth(state);
+
   return {
     topic: selectors.getById(state, { id: topicId }),
+    currentUserId: (userAuth != null) ? userAuth.userId : null,
+  };
+};
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<ModulesAction>,
+  props: PassedProps,
+): DispatchProps => {
+  const { topicId } = props;
+
+  return {
+    onEdit: (): void => {
+      dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId })));
+    },
   };
 };
 
@@ -56,12 +82,17 @@ class PureViewer extends React.Component<Props, ComponentState> {
     onForkTopic(topicId);
   };
 
+  showEditor = (): void => {
+    const { onEdit } = this.props;
+    onEdit();
+  };
+
   fetchCondition = (topic: ?m.Topic): boolean => {
     return (topic == null || !topic.isContentFetched);
   };
 
   renderViewer = (topic: m.Topic): React.Node => {
-    const { t } = this.props;
+    const { t, currentUserId } = this.props;
     const { isShareModalOpen } = this.state;
 
     return (
@@ -69,6 +100,21 @@ class PureViewer extends React.Component<Props, ComponentState> {
 
         <Menu secondary={true}>
           <Menu.Menu position="right">
+            {/* TODO: importing policies renders a cyclic dependency */}
+            <Menu.Item>
+              <Button
+                basic={true}
+                onClick={this.showEditor}
+                disabled={(
+                  topic.userId !== currentUserId
+                  && !topic.collaboratorUserIds.includes(currentUserId)
+                )}
+                data-test-id="topic-viewer-edit-button"
+              >
+                <Icon name="pencil" />
+                {t('common:button.edit')}
+              </Button>
+            </Menu.Item>
             <Menu.Item>
               <Button
                 basic={true}
@@ -136,7 +182,7 @@ class PureViewer extends React.Component<Props, ComponentState> {
   }
 }
 
-const Viewer = connect(mapStateToProps)(withNamespaces()(PureViewer));
+const Viewer = connect(mapStateToProps, mapDispatchToProps)(withNamespaces()(PureViewer));
 
 export { PureViewer };
 export default Viewer;
