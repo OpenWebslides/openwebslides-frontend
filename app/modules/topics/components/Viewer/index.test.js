@@ -201,6 +201,19 @@ describe(`Viewer`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-viewer-edit-button"][disabled]').hostNodes()).toHaveLength(1);
   });
 
+  it(`disables the edit button when there is no user signed in`, (): void => {
+    _.unset(dummyState, 'modules.platform.userAuth');
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Viewer topicId={dummyTopic.id} onForkTopic={dummyOnForkTopic} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-viewer-edit-button"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-viewer-edit-button"][disabled]').hostNodes()).toHaveLength(1);
+  });
+
   it(`dispatches a PUSH action when the edit button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
