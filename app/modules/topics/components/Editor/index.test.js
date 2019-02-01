@@ -3,8 +3,11 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
+import { push } from 'connected-react-router';
 
+import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
+import makeRoute from 'lib/makeRoute';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -429,6 +432,17 @@ describe(`Editor`, (): void => {
 
     enzymeWrapper.find('PureAccessControl').props().onSubmit({ title: undefined, description: undefined, access: m.accessTypes.PUBLIC });
     expect(dummyDispatch).toHaveBeenCalledWith(actions.update(dummyTopic.id, undefined, undefined, m.accessTypes.PUBLIC));
+  });
+
+  it(`dispatches a PUSH action when the view button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Editor topicId={dummyTopic.id} />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="topic-editor-view-button"]').hostNodes().simulate('click');
+    expect(dummyDispatch).toHaveBeenCalledWith(push(makeRoute(TOPIC_VIEWER_ROUTE, { topicId: dummyTopic.id })));
   });
 
 });

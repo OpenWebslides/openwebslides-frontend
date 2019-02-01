@@ -17,6 +17,7 @@ const common = {
     back: 'Back',
     previous: 'Previous',
     next: 'Next',
+    view: 'View',
     add: 'Add',
     edit: 'Edit',
     delete: 'Delete',
