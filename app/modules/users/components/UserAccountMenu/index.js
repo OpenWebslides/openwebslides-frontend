@@ -26,13 +26,13 @@ class PureUserAccountMenu extends React.Component<Props> {
       <Dropdown text={user.name} pointing={true} item={true} data-test-id="user-account-menu">
         <Dropdown.Menu>
           <Dropdown.Item as={Link} to={USER_PROFILE_ROUTE}>
-            {t('users:actions.profile')}
+            {t('global:title.library')}
           </Dropdown.Item>
           <Dropdown.Item as={Link} to={USER_SETTINGS_ROUTE}>
-            {t('users:actions.settings')}
+            {t('global:title.settings')}
           </Dropdown.Item>
           <Dropdown.Item as={Link} to={USER_SIGNOUT_ROUTE}>
-            {t('users:actions.signOut')}
+            {t('global:navbar.signout')}
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
