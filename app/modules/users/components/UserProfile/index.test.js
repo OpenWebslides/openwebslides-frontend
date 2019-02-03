@@ -104,4 +104,24 @@ describe(`UserProfile`, (): void => {
     expect(dummyDispatch).toHaveBeenCalledWith(actions.removeTopic(dummyUser.id, dummyTopicId));
   });
 
+  it(`renders a statistics message when the profile belongs to the current user`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <UserProfile userId={dummyUser.id} isCurrentUser={true} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureStatisticsMessage')).toHaveLength(1);
+  });
+
+  it(`does not render a statistics message when the profile does not belong to the current user`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <UserProfile userId={dummyUser.id} isCurrentUser={false} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureStatisticsMessage')).toHaveLength(0);
+  });
+
 });
