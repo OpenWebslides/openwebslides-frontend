@@ -15,6 +15,8 @@ import lib from '../../lib';
 import * as m from '../../model';
 import selectors from '../../selectors';
 
+import StatisticsMessage from './StatisticsMessage';
+
 type PassedProps = {|
   userId: string,
   isCurrentUser: boolean,
@@ -51,6 +53,8 @@ class PureUserProfile extends React.Component<Props> {
 
     return (
       <div data-test-id={`${(isCurrentUser) ? 'current-' : ''}user-profile`}>
+        {isCurrentUser ? <StatisticsMessage user={user} /> : null}
+
         <Item.Group data-test-id="user-profile-info">
           <Item>
             <Item.Image src={lib.getGravatarSrc(user, 500)} size="tiny" />

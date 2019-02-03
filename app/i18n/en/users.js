@@ -36,6 +36,10 @@ const users = {
       country: 'You must select a valid country',
     },
   },
+  statistics: {
+    title: 'Heads up',
+    message: 'Hey there! We\'ve noticed that you haven\'t told us much about you. We\'d very much like to get to know you. Go to your <0>account settings</0> if you want to amend your profile.',
+  },
 };
 
 export default users;
