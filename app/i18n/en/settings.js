@@ -1,6 +1,7 @@
 // @flow
 
 const settings = {
+  tos: 'Open Webslides stores and processes your personal data according to the <0>Privacy Policy</0>',
   panes: {
     profile: 'Profile',
     account: 'Account',

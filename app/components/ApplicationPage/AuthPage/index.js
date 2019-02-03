@@ -17,7 +17,6 @@ import SendResetPasswordEmailPage from './SendResetPasswordEmailPage';
 import SigninPage from './SigninPage';
 import SignupPage from './SignupPage';
 import SSOCallbackPage from './SSOCallbackPage';
-import TosPage from './TosPage';
 
 type Props = {| |};
 
@@ -29,7 +28,6 @@ const PureAuthPage = (props: Props): React.Node => {
       <Switch>
         <Route path={paths.AUTH_SIGNIN_ROUTE} component={SigninPage} />
         <Route path={paths.AUTH_SIGNUP_ROUTE} component={SignupPage} />
-        <Route path={paths.AUTH_TOS_ROUTE} component={TosPage} />
         <Route path={paths.AUTH_CONFIRM_EMAIL_ROUTE} component={ConfirmEmailPage} />
         <Route path={paths.AUTH_RESET_PASSWORD_ROUTE} component={ResetPasswordPage} />
         <Route path={paths.AUTH_RESEND_CONFIRMATION_EMAIL_ROUTE} component={ResendConfirmationEmailPage} />

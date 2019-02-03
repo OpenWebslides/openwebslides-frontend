@@ -44,9 +44,8 @@ const platform = {
     },
   },
   tosCard: {
-    title: 'Terms of Service',
-    description: 'Open Webslides',
-    tos: 'Terms of Service placeholder',
+    title: 'Privacy Policy',
+    date: '24 January 2019',
   },
 };
 
