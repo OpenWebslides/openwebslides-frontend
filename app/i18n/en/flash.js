@@ -20,6 +20,9 @@ const flash = {
   'pullRequests/REJECT': {
     error: 'An error occurred while rejecting the contribution',
   },
+  'users/SIGNUP': {
+    success: 'Welcome! Check your mailbox for the confirmation email.',
+  },
   'users/UPDATE': {
     success: 'Your profile was successfully updated',
     error: 'An error occurred while updating your profile',

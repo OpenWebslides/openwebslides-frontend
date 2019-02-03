@@ -2,7 +2,9 @@
 
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
+import { push } from 'connected-react-router';
 
+import { HOME_ROUTE } from 'config/routes';
 import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 import users from 'modules/users';
 
@@ -35,7 +37,7 @@ describe(`SignupPage`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`dispatches a users SIGNUP action, when the onSignup passed to SignupCard is called`, (): void => {
+  it(`dispatches a users SIGNUP action and redirects to the home page, when the onSignup passed to SignupCard is called`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyDispatch={dummyDispatch}>
         <SignupPage />
@@ -46,6 +48,7 @@ describe(`SignupPage`, (): void => {
 
     onSignup(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);
     expect(dummyDispatch).toHaveBeenCalledWith(users.actions.signup(dummyEmail, dummyName, dummyPassword, dummyTosAccepted));
+    expect(dummyDispatch).toHaveBeenCalledWith(push(HOME_ROUTE));
   });
 
 });
