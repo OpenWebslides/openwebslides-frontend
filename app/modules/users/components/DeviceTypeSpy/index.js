@@ -25,15 +25,7 @@ const mapDispatchToProps = (
   };
 };
 
-const PureDeviceTypeSpy = (props: Props): React.Node => {
-  const { onUpdateDeviceType } = props;
-
-  const deviceType: m.DeviceType = m.deviceTypes.DESKTOP;
-
-  onUpdateDeviceType(deviceType);
-
-  return <p>{deviceType}</p>;
-};
+const PureDeviceTypeSpy = (props: Props): React.Node => null;
 
 const DeviceTypeSpy = connect(null, mapDispatchToProps)(PureDeviceTypeSpy);
 
