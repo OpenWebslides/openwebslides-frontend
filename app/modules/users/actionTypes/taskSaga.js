@@ -17,7 +17,7 @@ export const REMOVE_TOPIC: 'users/REMOVE_TOPIC' = 'users/REMOVE_TOPIC';
 export const REMOVE_TOPIC_ID: 'users/REMOVE_TOPIC_ID' = 'users/REMOVE_TOPIC_ID';
 export const SIGNUP: 'users/SIGNUP' = 'users/SIGNUP';
 export const UPDATE: 'users/UPDATE' = 'users/UPDATE';
-export const UPDATE_DEVICE_TYPE: 'users/UPDATE_DEVICE_TYPE' = 'UPDATE_DEVICE_TYPE';
+export const UPDATE_DEVICE_TYPE: 'users/UPDATE_DEVICE_TYPE' = 'users/UPDATE_DEVICE_TYPE';
 export const UPDATE_PASSWORD: 'users/UPDATE_PASSWORD' = 'users/UPDATE_PASSWORD';
 
 
