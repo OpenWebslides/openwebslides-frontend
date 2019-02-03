@@ -8,14 +8,13 @@ import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
 import { push } from 'connected-react-router';
 
+import { AUTH_SIGNIN_ROUTE, HOME_ROUTE } from 'config/routes';
 import { type ModulesAction } from 'types/redux';
-import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import { InvalidArgumentError } from 'errors';
 import platform from 'modules/platform';
-import * as paths from 'config/routes';
 
 type DispatchProps = {|
-  setUserAuth: (token: string, id: string) => void,
+  setUserAuthAndRedirect: (token: string, id: string) => void,
   flashErrorAndRedirect: (error: string) => void,
 |};
 
@@ -23,12 +22,13 @@ type Props = {| ...TranslatorProps, ...RouterProps, ...DispatchProps |};
 
 const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
-    setUserAuth: (token: string, id: string): void => {
+    setUserAuthAndRedirect: (token: string, id: string): void => {
       dispatch(platform.actions.setUserAuth(token, id));
+      dispatch(push(HOME_ROUTE));
     },
     flashErrorAndRedirect: (error: string): void => {
       dispatch(flashErrorMessage(error));
-      dispatch(push(paths.AUTH_SIGNIN_ROUTE));
+      dispatch(push(AUTH_SIGNIN_ROUTE));
     },
   };
 };
@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps =>
  */
 class PureSSOCallbackPage extends React.Component<Props> {
   componentDidMount(): void {
-    const { location, setUserAuth, flashErrorAndRedirect } = this.props;
+    const { location, setUserAuthAndRedirect, flashErrorAndRedirect } = this.props;
     const params = new URLSearchParams(location.search);
 
     const error = params.get('error');
@@ -55,16 +55,11 @@ class PureSSOCallbackPage extends React.Component<Props> {
     if (apiToken == null) throw new InvalidArgumentError(`Invalid token`);
     if (userId == null) throw new InvalidArgumentError(`Invalid id`);
 
-    setUserAuth(apiToken, userId);
+    setUserAuthAndRedirect(apiToken, userId);
   }
 
-  // #TODO should anything be displayed here at all or is ApiDimmer sufficient?
   render(): React.Node {
-    return (
-      <ContainerPageWrapper>
-        <p>You will be redirected soon.</p>
-      </ContainerPageWrapper>
-    );
+    return null;
   }
 }
 

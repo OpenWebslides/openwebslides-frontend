@@ -2,7 +2,9 @@
 
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
+import { push } from 'connected-react-router';
 
+import { HOME_ROUTE } from 'config/routes';
 import { DummyProviders, dummyProviderProps } from 'lib/testResources';
 import { InvalidArgumentError } from 'errors';
 import platform from 'modules/platform';
@@ -36,13 +38,13 @@ describe(`ConfirmEmailPage`, (): void => {
       <PureConfirmEmailPage
         {...dummyProviderProps.translatorProps}
         {...fixedDummyRouterProps}
-        confirmEmail={dummyConfirmEmail}
+        confirmEmailAndRedirect={dummyConfirmEmail}
       />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toBe(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(true);
   });
 
-  it(`dispatches a confirmEmail() action with the passed confirmationToken`, (): void => {
+  it(`dispatches a confirmEmail() action with the passed confirmationToken and redirects to the home page`, (): void => {
     const fixedDummyRouterProps = {
       ...dummyProviderProps.routerProps,
       location: {
@@ -58,6 +60,7 @@ describe(`ConfirmEmailPage`, (): void => {
     );
 
     expect(dummyDispatch).toHaveBeenCalledWith(platform.actions.confirmEmail(dummyConfirmationToken));
+    expect(dummyDispatch).toHaveBeenCalledWith(push(HOME_ROUTE));
   });
 
   it(`throws an InvalidArgumentError, when no confirmationToken is passed`, (): void => {
@@ -66,7 +69,7 @@ describe(`ConfirmEmailPage`, (): void => {
         <PureConfirmEmailPage
           {...dummyProviderProps.translatorProps}
           {...dummyProviderProps.routerProps}
-          confirmEmail={dummyConfirmEmail}
+          confirmEmailAndRedirect={dummyConfirmEmail}
         />,
       );
     }).toThrow(InvalidArgumentError);
