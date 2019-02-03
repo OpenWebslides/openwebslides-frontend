@@ -24,7 +24,6 @@ type DispatchProps = {|
 
 type Props = {| ...StateProps, ...DispatchProps, ...RouterProps |};
 
-const { AuthWrapper } = platform.components;
 const { Viewer } = topics.components;
 
 const mapStateToProps = (state: AppState): StateProps => {
@@ -52,17 +51,12 @@ class PureViewerPage extends React.Component<Props> {
   };
 
   render(): React.Node {
-    const { currentUserId, match: { params: { topicId } } } = this.props;
+    const { match: { params: { topicId } } } = this.props;
 
     return (topicId == null) ? null : (
-      <AuthWrapper>
-        <ContainerPageWrapper>
-          {(currentUserId == null)
-            ? null
-            : <Viewer topicId={topicId} onForkTopic={this.handleForkTopic} />
-          }
-        </ContainerPageWrapper>
-      </AuthWrapper>
+      <ContainerPageWrapper>
+        <Viewer topicId={topicId} onForkTopic={this.handleForkTopic} />
+      </ContainerPageWrapper>
     );
   }
 }

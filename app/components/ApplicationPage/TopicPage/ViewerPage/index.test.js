@@ -79,6 +79,7 @@ describe(`ViewerPage`, (): void => {
     );
 
     expect(enzymeWrapper.find(`PureViewerPage`).props().currentUserId).toBeNull();
+    expect(enzymeWrapper.find(`PureViewer`)).not.toHaveLength(0);
   });
 
   it(`renders NULL when match.params.id is NULL`, (): void => {
