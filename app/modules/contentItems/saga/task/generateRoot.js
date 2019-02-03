@@ -1,12 +1,16 @@
 // @flow
 
 import { type Saga } from 'redux-saga';
-import { put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
+
+import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
 import lib from '../../lib';
 import * as m from '../../model';
+
+const { putAndReturn } = asyncRequests.lib;
 
 const generateRoot = function* (action: a.GenerateRootAction): Saga<{ rootContentItemId: string }> {
   // Generate ROOT id and add a new ROOT item with this id to the state.
@@ -18,21 +22,8 @@ const generateRoot = function* (action: a.GenerateRootAction): Saga<{ rootConten
     {},
   ));
 
-  // Generate HEADING id and add a new HEADING to the previously added ROOT.
-  // Note that for now, this is necessary for the topic to be editable in the editor.
-  // #TODO include contentItem ADD button in the editor, then remove this?
-  const headingContentItemId = lib.generateId();
-  yield put(actions.addToState(
-    headingContentItemId,
-    m.contentItemTypes.HEADING,
-    {
-      contextType: m.contextTypes.PARENT,
-      contextItemId: rootContentItemId,
-    },
-    {
-      text: 'Placeholder',
-    },
-  ));
+  // Generate a placeholder contentItem so that the user can start editing.
+  yield call(putAndReturn, actions.generatePlaceholder(rootContentItemId));
 
   // Return the ROOT id so the caller can access the newly created contentItems.
   return { rootContentItemId };

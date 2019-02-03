@@ -1,16 +1,20 @@
 // @flow
 
+import { select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import * as matchers from 'redux-saga-test-plan/matchers';
 import { dynamic } from 'redux-saga-test-plan/providers';
 
-import { CorruptedInternalStateError, ObjectNotFoundError } from 'errors';
+import { CorruptedInternalStateError, ObjectNotFoundError, UnsupportedOperationError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 import asyncRequests from 'modules/asyncRequests';
 
 import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
+import selectors from '../../selectors';
+
+import { removeHeading } from './remove';
 
 import { sagas } from '..';
 
@@ -89,6 +93,23 @@ describe(`remove`, (): void => {
       .run();
   });
 
+  it(`throws an UnsupportedOperationError, when attempting to remove a ROOT`, async (): Promise<void> => {
+    const dummyAction = actions.remove(dummyRoot.id);
+
+    // Suppress console.error from redux-saga $FlowFixMe
+    console.error = jest.fn();
+    await expect(
+      expectSaga(sagas.remove, dummyAction)
+        .withState(dummyState)
+        .provide([
+          [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+            return (action.type === a.MOVE) ? null : next();
+          })],
+        ])
+        .run(),
+    ).rejects.toBeInstanceOf(UnsupportedOperationError);
+  });
+
   it(`moves the contentItem's subItems to the end of the previous HEADING, when the contentItem is a HEADING and its previousSibling is also a HEADING`, (): void => {
     const dummyAction = actions.remove(dummyHeading12.id);
 
@@ -165,6 +186,42 @@ describe(`remove`, (): void => {
       .run();
   });
 
+  it(`adds a placeholder contentItem, when the removal results in the ROOT being empty`, (): void => {
+    const dummyLastParagraph: m.ParagraphContentItem = {
+      ...dummyData.paragraphContentItem10,
+    };
+    const dummyAlmostEmptyRoot: m.RootContentItem = {
+      ...dummyData.rootContentItem3,
+      childItemIds: [dummyLastParagraph.id],
+    };
+    const dummyTestContentItemsById = {
+      [dummyAlmostEmptyRoot.id]: dummyAlmostEmptyRoot,
+      [dummyLastParagraph.id]: dummyLastParagraph,
+    };
+    const dummyTestState = {
+      modules: { contentItems: { byId: dummyTestContentItemsById } },
+    };
+
+    const dummyAction = actions.remove(dummyLastParagraph.id);
+
+    return expectSaga(sagas.remove, dummyAction)
+      .withState(dummyTestState)
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.MOVE) ? null : next();
+        })],
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === a.GENERATE_PLACEHOLDER) ? null : next();
+        })],
+        [select(selectors.getById, { id: dummyAlmostEmptyRoot.id }), {
+          ...dummyAlmostEmptyRoot,
+          childItemIds: [],
+        }],
+      ])
+      .call(asyncRequests.lib.putAndReturn, actions.generatePlaceholder(dummyAlmostEmptyRoot.id))
+      .run();
+  });
+
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, async (): Promise<void> => {
     const dummyAction = actions.remove('invalidId');
 
@@ -198,6 +255,28 @@ describe(`remove`, (): void => {
         ])
         .run(),
     ).rejects.toBeInstanceOf(CorruptedInternalStateError);
+  });
+
+  describe(`removeHeading`, (): void => {
+
+    it(`throws a CorruptedInternalStateError, when the passed contentItemsById structure is corrupted`, async (): Promise<void> => {
+      dummyHeading1.subItemIds = [dummyHeading12.id];
+
+      try {
+        expectSaga(removeHeading, dummyHeading11, dummyContentItemsById)
+          .withState(dummyState)
+          .provide([
+            [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+              return (action.type === a.MOVE) ? null : next();
+            })],
+          ])
+          .run();
+      }
+      catch (e) {
+        expect(e).toBeInstanceOf(CorruptedInternalStateError);
+      }
+    });
+
   });
 
 });
