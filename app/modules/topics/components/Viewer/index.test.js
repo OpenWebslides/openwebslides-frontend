@@ -168,6 +168,29 @@ describe(`Viewer`, (): void => {
     expect(enzymeWrapper.find('PureForkInfo')).not.toHaveLength(0);
   });
 
+  it(`renders the enabled topic fork button, when there is a user signed in`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Viewer topicId={upstreamTopic.id} onForkTopic={dummyOnForkTopic} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-viewer-fork-button"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-viewer-fork-button"][disabled]').hostNodes()).toHaveLength(0);
+  });
+
+  it(`renders the disabled topic fork button, when there is no user signed in`, (): void => {
+    _.unset(dummyState, 'modules.platform.userAuth');
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Viewer topicId={downstreamTopic.id} onForkTopic={dummyOnForkTopic} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-viewer-fork-button"][disabled]').hostNodes()).toHaveLength(1);
+  });
+
   it(`calls the passed onForkTopic function, when the fork button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
