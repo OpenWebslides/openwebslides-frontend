@@ -126,7 +126,7 @@ const createDevConfig = (env) => ({
     // Allow specifying API_URL and APP_URL overrides on the command line
     // Defaults to owsdev API and localhost APP
     new webpack.DefinePlugin({
-      'window.WEBPACK_API_URL': (env != null && env.API_URL != null) ? `"${env.API_URL}"` : '"https://owsdev.ugent.be/api"',
+      'window.WEBPACK_API_URL': (env != null && env.API_URL != null) ? `"${env.API_URL}"` : '"http://owsdev.ugent.be/api"',
       'window.WEBPACK_APP_URL': (env != null && env.APP_URL != null) ? `"${env.APP_URL}"` : '"http://localhost:8080"',
     }),
   ],
