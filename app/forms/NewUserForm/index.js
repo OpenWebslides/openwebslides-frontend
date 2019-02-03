@@ -5,7 +5,7 @@ import { Trans, withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Form, Message } from 'semantic-ui-react';
 import { Formik, Field, ErrorMessage } from 'formik';
 
-import { AUTH_TOS_ROUTE } from 'config/routes';
+import { TOS_ROUTE } from 'config/routes';
 import SubmitButtonGroup from 'components/SubmitButtonGroup';
 
 type NewUserFormValues = {|
@@ -126,7 +126,7 @@ class PureNewUserForm extends React.Component<Props> {
             <p>
               {/* TODO: using <Link> here seems to throw an error */}
               <Trans i18nKey="users:forms.tosDescription">
-                <a href={AUTH_TOS_ROUTE} target="_blank" rel="noopener noreferrer">TOS</a>
+                <a href={TOS_ROUTE} target="_blank" rel="noopener noreferrer">TOS</a>
               </Trans>
             </p>
 

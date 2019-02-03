@@ -32,4 +32,4 @@ export const AUTH_SSO_UGENT = '/oauth/cas';
 export const DEV_ROUTE = '/dev';
 export const DEV_GENERATE_RANDOM_STRING_ROUTE = '/dev/generaterandomstring';
 // TOS
-export const AUTH_TOS_ROUTE = '/tos';
+export const TOS_ROUTE = '/tos';
