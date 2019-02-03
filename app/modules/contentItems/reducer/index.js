@@ -4,6 +4,7 @@ import * as a from '../actionTypes';
 import * as m from '../model';
 
 import addToState from './addToState';
+import convertInState from './convertInState';
 import editPropsForTypeInState from './editPropsForTypeInState';
 import switchEditingInState from './switchEditingInState';
 import moveInState from './moveInState';
@@ -21,6 +22,8 @@ const reducer = (
   switch (action.type) {
     case a.ADD_TO_STATE:
       return addToState(state, action);
+    case a.CONVERT_IN_STATE:
+      return convertInState(state, action);
     case a.EDIT_PROPS_FOR_TYPE_IN_STATE:
       return editPropsForTypeInState(state, action);
     case a.SWITCH_EDITING_IN_STATE:

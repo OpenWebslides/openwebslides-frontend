@@ -13,6 +13,7 @@ export const ADD_TO_STATE: 'contentItems/ADD_TO_STATE' = 'contentItems/ADD_TO_ST
 export const EDIT_PROPS_FOR_TYPE_IN_STATE: 'contentItems/EDIT_PROPS_FOR_TYPE_IN_STATE' = 'contentItems/EDIT_PROPS_FOR_TYPE_IN_STATE';
 export const SWITCH_EDITING_IN_STATE: 'contentItems/SWITCH_EDITING_IN_STATE' = 'contentItems/SWITCH_EDITING_IN_STATE';
 export const MOVE_IN_STATE: 'contentItems/MOVE_IN_STATE' = 'contentItems/MOVE_IN_STATE';
+export const CONVERT_IN_STATE: 'contentItems/CONVERT_IN_STATE' = 'contentItems/CONVERT_IN_STATE';
 export const REMOVE_FROM_STATE: 'contentItems/REMOVE_FROM_STATE' = 'contentItems/REMOVE_FROM_STATE';
 export const SET_MULTIPLE_IN_STATE: 'contentItems/SET_MULTIPLE_IN_STATE' = 'contentItems/SET_MULTIPLE_IN_STATE';
 
@@ -61,6 +62,16 @@ export type MoveInStateAction = {|
   |},
 |};
 
+export type ConvertInStateAction = {|
+  ...ReducerAction,
+  type: typeof CONVERT_IN_STATE,
+  payload: {|
+    ...$PropertyType<ReducerAction, 'payload'>,
+    id: string,
+    newType: m.ContentItemType,
+  |},
+|};
+
 export type RemoveFromStateAction = {|
   ...ReducerAction,
   type: typeof REMOVE_FROM_STATE,
@@ -84,5 +95,6 @@ export type ContentItemsReducerAction =
   | EditPropsForTypeInStateAction
   | SwitchEditingInStateAction
   | MoveInStateAction
+  | ConvertInStateAction
   | RemoveFromStateAction
   | SetMultipleInStateAction;
