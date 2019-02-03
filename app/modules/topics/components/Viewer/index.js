@@ -127,7 +127,7 @@ class PureViewer extends React.Component<Props, ComponentState> {
             </Menu.Item>
             <Menu.Item>
               <Button
-                disabled={topic.upstreamTopicId != null}
+                disabled={currentUserId == null || topic.upstreamTopicId != null}
                 basic={true}
                 onClick={this.handleForkButtonClick}
                 data-test-id="topic-viewer-fork-button"
