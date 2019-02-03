@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Tab, Button, Grid, Icon } from 'semantic-ui-react';
-import { getCodes, getName, getCodeList } from 'country-list';
+import { getCodeList } from 'country-list';
 
 import { type DropdownValue } from 'types/forms';
 import { type ModulesAction } from 'types/redux';
@@ -24,8 +24,8 @@ type DispatchProps = {|
     locale: string,
     alertEmails: boolean,
     age: number,
-    gender: users.model.GenderType,
-    role: users.model.RoleType,
+    gender: m.GenderType,
+    role: m.RoleType,
     country: string,
   ) => void,
 |};
@@ -44,11 +44,11 @@ const mapDispatchToProps = (
       locale: string,
       alertEmails: boolean,
       age: number,
-      gender: users.model.GenderType,
-      role: users.model.RoleType,
+      gender: m.GenderType,
+      role: m.RoleType,
       country: string,
     ): void => {
-      dispatch(users.actions.update(
+      dispatch(actions.update(
         user.id,
         name,
         locale,
@@ -95,23 +95,25 @@ class PureProfilePane extends React.Component<Props> {
                 availableLocales={i18n.languages.map((language: string): DropdownValue => {
                   return { key: language, value: language, text: t(`settings:locales.${language}`) };
                 })}
-                availableGenders={Object.keys(users.model.genderTypes).map(
+                availableGenders={Object.keys(m.genderTypes).map(
                   (g: string): DropdownValue => {
-                    const genderType = users.model.genderTypes[g];
+                    const genderType = m.genderTypes[g];
 
                     return { key: genderType, value: genderType, text: t(`settings:genders.${genderType}`) };
                   },
                 )}
-                availableRoles={Object.keys(users.model.roleTypes).map(
+                availableRoles={Object.keys(m.roleTypes).map(
                   (r: string): DropdownValue => {
-                    const roleType = users.model.roleTypes[r];
+                    const roleType = m.roleTypes[r];
 
                     return { key: roleType, value: roleType, text: t(`settings:roles.${roleType}`) };
                   },
                 )}
                 availableCountries={Object.entries(getCodeList()).map(
-                  (c: [string, string]): DropdownValue => {
-                    return { key: c[0], value: c[0].toUpperCase(), text: c[1] };
+                  (c: [string, mixed]): DropdownValue => {
+                    // TODO: declare flowtype for Object.entries
+                    // eslint-disable-next-line flowtype/no-weak-types
+                    return { key: c[0], value: c[0].toUpperCase(), text: (c[1]: any) };
                   },
                 )}
                 data-test-id="profile-pane-profile-form"
