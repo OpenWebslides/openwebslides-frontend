@@ -95,7 +95,8 @@ class PureSendUpdates extends React.Component<Props, ComponentState> {
                 </Trans>
               </p>
               {/* TODO: commit count */}
-              <p><strong>{t('topics:sidebars.contribute.sendUpdates.count', { count: 0 })}</strong></p>
+              {/* <p><strong>{t('topics:sidebars.contribute.sendUpdates.count',
+              { count: 0 })}</strong></p> */}
             </Item.Content>
           </Item>
           <Item>

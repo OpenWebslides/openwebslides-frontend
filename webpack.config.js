@@ -18,6 +18,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const RobotsTxtPlugin = require('robotstxt-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Path name constants
 const paths = {
@@ -185,6 +186,10 @@ const createProdConfig = (env) => ({
       'window.WEBPACK_API_URL': (env != null && env.API_URL != null) ? `"${env.API_URL}"` : false,
       'window.WEBPACK_APP_URL': (env != null && env.APP_URL != null) ? `"${env.APP_URL}"` : false,
     }),
+    // Images for emails need to be hosted at a fixed location
+    new CopyWebpackPlugin([
+      { from: 'app/assets/images/logo/logo-email.png', to: 'logo-email.png' },
+    ]),
   ],
 
   module: {

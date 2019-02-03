@@ -5,11 +5,6 @@ const users = {
   headings: {
     profile: 'Profile',
   },
-  actions: {
-    signOut: 'Sign out',
-    profile: 'My profile',
-    settings: 'Settings',
-  },
   forms: {
     email: 'Email',
     emailDisabled: 'Email (you cannot change this)',

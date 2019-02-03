@@ -23,7 +23,9 @@ const pullRequests = {
     'pullRequestStates/REJECTED': 'Rejected',
   },
   comments: {
-    submitted: 'Wants to integrate <0>{{updateCount}} updates</0> into <1>{{targetTopicTitle}}</1> from <2>{{sourceTopicTitle}}</2>',
+    // submitted: 'Wants to integrate <0>{{updateCount}} updates</0> into
+    // <1>{{targetTopicTitle}}</1> from <2>{{sourceTopicTitle}}</2>',
+    submitted: 'Wants to integrate updates into <1>{{targetTopicTitle}}</1> from <2>{{sourceTopicTitle}}</2>',
     state: {
       titleForState: {
         'pullRequestStates/PENDING': 'Contribution pending review',
