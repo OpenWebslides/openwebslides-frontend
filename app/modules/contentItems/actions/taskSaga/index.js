@@ -2,6 +2,7 @@
 
 import add from './add';
 import edit from './edit';
+import generatePlaceholder from './generatePlaceholder';
 import generateRoot from './generateRoot';
 import indent from './indent';
 import move from './move';
@@ -13,6 +14,7 @@ import toggleEditing from './toggleEditing';
 const taskSagaActions = {
   add,
   edit,
+  generatePlaceholder,
   generateRoot,
   indent,
   move,

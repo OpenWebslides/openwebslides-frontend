@@ -11,6 +11,7 @@ import * as a from '../../actionTypes';
 
 import add from './add';
 import edit from './edit';
+import generatePlaceholder from './generatePlaceholder';
 import generateRoot from './generateRoot';
 import indent from './indent';
 import move from './move';
@@ -25,6 +26,7 @@ const taskSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.ADD, sagaWrapper, add),
     takeEvery(a.EDIT, sagaWrapper, edit),
+    takeEvery(a.GENERATE_PLACEHOLDER, sagaWrapper, generatePlaceholder),
     takeEvery(a.GENERATE_ROOT, sagaWrapper, generateRoot),
     takeEvery(a.INDENT, sagaWrapper, indent),
     takeEvery(a.MOVE, sagaWrapper, move),
@@ -38,6 +40,7 @@ const taskSaga = function* (): Saga<void> {
 const taskSagas = {
   add,
   edit,
+  generatePlaceholder,
   generateRoot,
   indent,
   move,
