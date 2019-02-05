@@ -54,7 +54,6 @@ class PureMetadataForm extends React.Component<Props> {
               component={Form.Input}
               name="title"
               id="title"
-              inverted={true}
               label={t('topics:forms.title')}
               placeholder={t('topics:forms.title')}
               required={true}
@@ -69,7 +68,6 @@ class PureMetadataForm extends React.Component<Props> {
               component={Form.TextArea}
               name="description"
               id="description"
-              inverted={true}
               label={t('topics:forms.description')}
               placeholder={t('topics:forms.description')}
               onChange={handleChange}
