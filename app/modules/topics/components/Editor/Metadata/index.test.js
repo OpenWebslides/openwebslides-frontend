@@ -70,6 +70,27 @@ describe(`Metadata`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-metadata-no-description"]').hostNodes()).toHaveLength(1);
   });
 
+  it(`disables the metadata edit button when the topic is dirty`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyDispatch={dummyDispatch}>
+        <Metadata topic={{ ...dummyTopic, isDirty: true }} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-metadata-edit-button"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-metadata-edit-button"][disabled]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`enables the metadata edit button when the topic is not dirty`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyDispatch={dummyDispatch}>
+        <Metadata topic={dummyTopic} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-metadata-edit-button"][disabled]').hostNodes()).toHaveLength(0);
+  });
+
   it(`shows the metadata form and hides the title when the metadata edit button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyDispatch={dummyDispatch}>

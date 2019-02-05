@@ -117,6 +117,9 @@ class PureMetadata extends React.Component<Props, ComponentState> {
                 size="tiny"
                 compact={true}
                 style={{ margin: '.5em 1em', float: 'right' }}
+                /* TODO: find a permanent fix for issue #218, where a topic gets marked as clean,
+                 though only the metadata gets updated */
+                disabled={topic.isDirty}
                 onClick={this.edit}
                 data-test-id="topic-metadata-edit-button"
               >
