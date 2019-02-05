@@ -73,7 +73,7 @@ class PureMetadata extends React.Component<Props, ComponentState> {
     if (isEditing) {
       return (
         <Grid verticalAlign="middle">
-          <Grid.Column width={13}>
+          <Grid.Column width={12}>
             <MetadataForm
               onSubmit={this.handleMetadataSubmit}
               title={topic.title}
@@ -81,7 +81,7 @@ class PureMetadata extends React.Component<Props, ComponentState> {
               data-test-id="topic-metadata-metadata-form"
             />
           </Grid.Column>
-          <Grid.Column width={3}>
+          <Grid.Column width={4}>
             <Button
               type="submit"
               form="metadata-form"
@@ -92,13 +92,13 @@ class PureMetadata extends React.Component<Props, ComponentState> {
               {t('common:button.save')}
             </Button>
             &nbsp; {t('common:or')} &nbsp;
-            <a
-              href="#"
+            <Button
+              className="link"
               onClick={this.handleMetadataCancel}
               data-test-id="topic-metadata-cancel-button"
             >
               {t('common:button.cancel').toLowerCase()}
-            </a>
+            </Button>
           </Grid.Column>
         </Grid>
       );
