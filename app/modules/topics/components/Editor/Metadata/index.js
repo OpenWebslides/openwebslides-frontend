@@ -81,7 +81,7 @@ class PureMetadata extends React.Component<Props, ComponentState> {
               data-test-id="topic-metadata-metadata-form"
             />
           </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column width={4} style={{ whiteSpace: 'nowrap' }}>
             <Button
               type="submit"
               form="metadata-form"

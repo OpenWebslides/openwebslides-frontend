@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
 import { push } from 'connected-react-router';
-import { Button, Icon, Menu, Divider } from 'semantic-ui-react';
+import { Button, Icon, Menu, Divider, Segment } from 'semantic-ui-react';
 
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import { type AppState, type ModulesAction } from 'types/redux';
@@ -194,7 +194,9 @@ class PureEditor extends React.Component<Props, ComponentState> {
           </Menu.Menu>
         </Menu>
 
-        <Metadata topic={topic} />
+        <Segment padded={true}>
+          <Metadata topic={topic} />
+        </Segment>
 
         <Divider hidden={true} />
 
