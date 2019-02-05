@@ -28,7 +28,11 @@ const topics = {
     errors: {
       title: {
         empty: 'Title cannot be empty',
-        length: 'Title cannot be longer than 50 characters',
+        length: 'Title cannot be longer than 100 characters',
+      },
+      description: {
+        empty: 'Description cannot be empty',
+        length: 'Description cannot be longer than 200 characters',
       },
       message: {
         empty: 'Message cannot be empty',
