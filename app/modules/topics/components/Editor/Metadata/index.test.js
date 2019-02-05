@@ -145,8 +145,8 @@ describe(`Metadata`, (): void => {
     expect(enzymeWrapper.find('PureMetadataForm')).toHaveLength(1);
     expect(enzymeWrapper.find('[data-test-id="topic-metadata-title"]').hostNodes()).toHaveLength(0);
 
-    enzymeWrapper.find('PureMetadataForm').props().onSubmit({ title: dummyTopic.title, description: dummyTopic.description });
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.update(dummyTopic.id, dummyTopic.title, dummyTopic.description));
+    enzymeWrapper.find('PureMetadataForm').props().onSubmit({ title: dummyTopic.title, description: dummyTopic.description, access: m.accessTypes.PUBLIC });
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.update(dummyTopic.id, dummyTopic.title, dummyTopic.description, m.accessTypes.PUBLIC));
     enzymeWrapper.update();
 
     expect(enzymeWrapper.find('PureMetadataForm')).toHaveLength(0);

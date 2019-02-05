@@ -24,7 +24,7 @@ const users = {
       resetPasswordToken: 'Reset password token is invalid',
       name: 'Name cannot be empty',
       tosAccepted: 'You must accept the Terms of Service',
-      locale: 'Language must be one of the following: {{locales}}',
+      locale: 'Language must be valid',
       alertEmails: 'Email notifications must be true or false',
     },
   },

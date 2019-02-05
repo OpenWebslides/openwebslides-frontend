@@ -38,6 +38,7 @@ const topics = {
         empty: 'Message cannot be empty',
         length: 'Message must be between 5 and 60 characters',
       },
+      access: 'Access must be valid',
     },
   },
   modals: {

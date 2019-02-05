@@ -7,6 +7,7 @@ import { type Dispatch } from 'redux';
 import { Button, Grid, Header, Popup, Icon } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
+import { type DropdownValue } from 'types/forms';
 import MetadataForm, { type MetadataFormValues } from 'forms/MetadataForm';
 
 import actions from '../../../actions';
@@ -51,7 +52,7 @@ class PureMetadata extends React.Component<Props, ComponentState> {
 
   handleMetadataSubmit = (values: MetadataFormValues): void => {
     const { onUpdate } = this.props;
-    onUpdate(values.title, values.description, undefined);
+    onUpdate(values.title, values.description, values.access);
     this.setState({ isEditing: false });
   };
 
@@ -65,35 +66,21 @@ class PureMetadata extends React.Component<Props, ComponentState> {
 
     if (isEditing) {
       return (
-        <Grid verticalAlign="middle">
-          <Grid.Column width={12}>
-            <MetadataForm
-              onSubmit={this.handleMetadataSubmit}
-              title={topic.title}
-              description={topic.description}
-              data-test-id="topic-metadata-metadata-form"
-            />
-          </Grid.Column>
-          <Grid.Column width={4} style={{ whiteSpace: 'nowrap' }}>
-            <Button
-              type="submit"
-              form="metadata-form"
-              basic={true}
-              compact={true}
-              data-test-id="topic-metadata-submit-button"
-            >
-              {t('common:button.save')}
-            </Button>
-            &nbsp; {t('common:or')} &nbsp;
-            <Button
-              className="link"
-              onClick={this.handleMetadataCancel}
-              data-test-id="topic-metadata-cancel-button"
-            >
-              {t('common:button.cancel').toLowerCase()}
-            </Button>
-          </Grid.Column>
-        </Grid>
+        <MetadataForm
+          onSubmit={this.handleMetadataSubmit}
+          onCancel={this.handleMetadataCancel}
+          title={topic.title}
+          description={topic.description}
+          access={topic.access}
+          availableAccess={Object.keys(m.accessTypes).map(
+            (g: string): DropdownValue => {
+              const accessType = m.accessTypes[g];
+
+              return { key: accessType, value: accessType, text: t(`topics:props.access.accessForType.${accessType}`) };
+            },
+          )}
+          data-test-id="topic-metadata-metadata-form"
+        />
       );
     }
     else {
