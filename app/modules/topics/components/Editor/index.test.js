@@ -25,7 +25,7 @@ describe(`Editor`, (): void => {
   let dummyMessage: string;
   let dummyState: any;
   let dummyDispatch: any;
-  let dummyonCommit: any;
+  let dummyOnCommit: any;
   let dummyOnSetDirty: any;
   let dummyPreventDefault: any;
   let dummyUnloadEvent: any;
@@ -59,7 +59,7 @@ describe(`Editor`, (): void => {
     };
     dummyMessage = 'dummyMessage';
     dummyDispatch = jest.fn();
-    dummyonCommit = jest.fn();
+    dummyOnCommit = jest.fn();
     dummyOnSetDirty = jest.fn();
 
     dummyAddEventListener = jest.fn();
@@ -79,7 +79,7 @@ describe(`Editor`, (): void => {
       <PureEditor
         {...dummyProviderProps.translatorProps}
         topicId={dummyTopic.id}
-        onCommit={dummyonCommit}
+        onCommit={dummyOnCommit}
         onSetDirty={dummyOnSetDirty}
       />,
     );
