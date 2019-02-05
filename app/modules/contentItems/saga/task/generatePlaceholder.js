@@ -23,7 +23,7 @@ const generatePlaceholder = function* (
       contextItemId: rootContentItemId,
     },
     {
-      text: 'Placeholder',
+      text: 'This is a header',
     },
   ));
 

@@ -24,7 +24,7 @@ describe(`generatePlaceholder`, (): void => {
     const dummyAction = actions.generatePlaceholder(dummyRootContentItemId);
 
     return expectSaga(sagas.generatePlaceholder, dummyAction)
-      .put(actions.addToState(dummyGeneratedId, m.contentItemTypes.HEADING, { contextType: m.contextTypes.PARENT, contextItemId: dummyRootContentItemId }, { text: 'Placeholder' }))
+      .put(actions.addToState(dummyGeneratedId, m.contentItemTypes.HEADING, { contextType: m.contextTypes.PARENT, contextItemId: dummyRootContentItemId }, { text: 'This is a header' }))
       .returns({ placeholderContentItemId: dummyGeneratedId })
       .run();
   });
