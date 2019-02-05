@@ -2,56 +2,154 @@
 
 import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Button, Grid } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
+import { Button, Grid, Header } from 'semantic-ui-react';
 
-import MetadataForm from 'forms/MetadataForm';
+import { type ModulesAction } from 'types/redux';
+import MetadataForm, { type MetadataFormValues } from 'forms/MetadataForm';
+import { type AccessLevelFormValues } from 'forms/AccessLevelForm';
+
+import actions from '../../../actions';
+import * as m from '../../../model';
+import ForkInfo from '../../ForkInfo';
+import AccessControl from '../AccessControl';
 
 type PassedProps = {|
-  onSubmit: () => void,
-  onCancel: () => void,
-  title: string,
-  description: ?string,
+  topic: m.Topic,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type DispatchProps = {|
+  onUpdate: (title: ?string, description: ?string, access: ?m.AccessType) => void,
+|};
 
-const PureMetadata = (props: Props): React.Node => {
-  const { t, onSubmit, onCancel, title, description } = props;
+type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
 
-  return (
-    <Grid verticalAlign="middle">
-      <Grid.Column width={13}>
-        <MetadataForm
-          onSubmit={onSubmit}
-          title={title}
-          description={description}
-        />
-      </Grid.Column>
-      <Grid.Column width={3}>
-        <Button
-          type="submit"
-          form="metadata-form"
-          basic={true}
-          compact={true}
-          data-test-id="metadata-submit-button"
-        >
-          {t('common:button.save')}
-        </Button>
-        &nbsp; {t('common:or')} &nbsp;
-        { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */ }
-        <a
-          href="#"
-          onClick={onCancel}
-          data-test-id="metadata-cancel-button"
-        >
-          {t('common:button.cancel').toLowerCase()}
-        </a>
-      </Grid.Column>
-    </Grid>
-  );
+type ComponentState = {|
+  isEditing: boolean,
+|};
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<ModulesAction>,
+  props: PassedProps,
+): DispatchProps => {
+  const { topic } = props;
+
+  return {
+    onUpdate: (title: ?string, description: ?string, access: ?m.AccessType): void => {
+      dispatch(actions.update(topic.id, title, description, access));
+    },
+  };
 };
 
-const Metadata = withNamespaces()(PureMetadata);
+class PureMetadata extends React.Component<Props, ComponentState> {
+  state: ComponentState = {
+    isEditing: false,
+  };
+
+  edit = (): void => {
+    this.setState({ isEditing: true });
+  };
+
+  handleMetadataSubmit = (values: MetadataFormValues): void => {
+    const { onUpdate } = this.props;
+    onUpdate(values.title, values.description, undefined);
+    this.setState({ isEditing: false });
+  };
+
+  handleMetadataCancel = (): void => {
+    this.setState({ isEditing: false });
+  };
+
+  handleAccessLevelSubmit = (values: AccessLevelFormValues): void => {
+    const { onUpdate } = this.props;
+    onUpdate(undefined, undefined, values.access);
+  };
+
+  render(): React.Node {
+    const { t, topic } = this.props;
+    const { isEditing } = this.state;
+
+    if (isEditing) {
+      return (
+        <Grid verticalAlign="middle">
+          <Grid.Column width={13}>
+            <MetadataForm
+              onSubmit={this.handleMetadataSubmit}
+              title={topic.title}
+              description={topic.description}
+              data-test-id="topic-metadata-metadata-form"
+            />
+          </Grid.Column>
+          <Grid.Column width={3}>
+            <Button
+              type="submit"
+              form="metadata-form"
+              basic={true}
+              compact={true}
+              data-test-id="topic-metadata-submit-button"
+            >
+              {t('common:button.save')}
+            </Button>
+            &nbsp; {t('common:or')} &nbsp;
+            <a
+              href="#"
+              onClick={this.handleMetadataCancel}
+              data-test-id="topic-metadata-cancel-button"
+            >
+              {t('common:button.cancel').toLowerCase()}
+            </a>
+          </Grid.Column>
+        </Grid>
+      );
+    }
+    else {
+      return (
+        <Grid>
+          <Grid.Column width={13}>
+            <Header as="h1" style={{ display: 'inline-block' }}>
+              <span data-test-id="topic-metadata-title">
+                {topic.title}
+                {(topic.isDirty ? '*' : '')}
+              </span>
+              <Button
+                basic={true}
+                size="tiny"
+                compact={true}
+                style={{ margin: '.5em 1em', float: 'right' }}
+                onClick={this.edit}
+                data-test-id="topic-metadata-edit-button"
+              >
+                {t('common:button.edit')}
+              </Button>
+              <Header.Subheader>
+                {topic.description == null ? (
+                  <p data-test-id="topic-metadata-no-description"><em>{t('topics:props.noDescription')}</em></p>
+                )
+                  : <p data-test-id="topic-metadata-description">{topic.description}</p>
+                }
+                {(topic.upstreamTopicId !== null
+                  ? (
+                    <small>
+                      <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
+                    </small>
+                  ) : null)}
+              </Header.Subheader>
+            </Header>
+          </Grid.Column>
+          <Grid.Column width={3} textAlign="right" verticalAlign="middle">
+            <AccessControl
+              onSubmit={this.handleAccessLevelSubmit}
+              access={topic.access}
+            />
+          </Grid.Column>
+        </Grid>
+      );
+    }
+  }
+}
+
+const Metadata = connect(null, mapDispatchToProps)(withNamespaces()(PureMetadata));
 
 export { PureMetadata };
 export default Metadata;
