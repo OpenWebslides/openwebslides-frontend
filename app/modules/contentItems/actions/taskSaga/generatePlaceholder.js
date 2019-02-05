@@ -2,7 +2,7 @@
 
 import * as a from '../../actionTypes';
 
-const generatePlacholder = (rootContentItemId: string): a.GeneratePlaceholderAction => {
+const generatePlaceholder = (rootContentItemId: string): a.GeneratePlaceholderAction => {
   return {
     type: a.GENERATE_PLACEHOLDER,
     payload: {
@@ -11,4 +11,4 @@ const generatePlacholder = (rootContentItemId: string): a.GeneratePlaceholderAct
   };
 };
 
-export default generatePlacholder;
+export default generatePlaceholder;
