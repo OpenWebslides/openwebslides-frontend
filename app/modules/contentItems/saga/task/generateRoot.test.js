@@ -23,17 +23,17 @@ describe(`generateRoot`, (): void => {
     lib.generateId.mockReturnValueOnce(dummyGeneratedId);
   });
 
-  it(`generates a new ROOT, adds it to the state, generates a placeholder editable contentItem, and returns the ROOT id`, (): void => {
+  it(`generates a new ROOT, adds it to the state, generates sample content, and returns the ROOT id`, (): void => {
     const dummyAction = actions.generateRoot();
 
     return expectSaga(sagas.generateRoot, dummyAction)
       .provide([
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
-          return (action.type === a.GENERATE_PLACEHOLDER) ? null : next();
+          return (action.type === a.GENERATE_CONTENT) ? null : next();
         })],
       ])
       .put(actions.addToState(dummyGeneratedId, m.contentItemTypes.ROOT, null, {}))
-      .call(asyncRequests.lib.putAndReturn, actions.generatePlaceholder(dummyGeneratedId))
+      .call(asyncRequests.lib.putAndReturn, actions.generateContent(dummyGeneratedId))
       .returns({ rootContentItemId: dummyGeneratedId })
       .run();
   });

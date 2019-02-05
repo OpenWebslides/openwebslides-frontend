@@ -22,8 +22,8 @@ const generateRoot = function* (action: a.GenerateRootAction): Saga<{ rootConten
     {},
   ));
 
-  // Generate a placeholder contentItem so that the user can start editing.
-  yield call(putAndReturn, actions.generatePlaceholder(rootContentItemId));
+  // Generate sample content so that the user can start editing.
+  yield call(putAndReturn, actions.generateContent(rootContentItemId));
 
   // Return the ROOT id so the caller can access the newly created contentItems.
   return { rootContentItemId };
