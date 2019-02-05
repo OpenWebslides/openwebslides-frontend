@@ -20,6 +20,7 @@ describe(`Viewer`, (): void => {
   let dummyTopic: m.Topic;
   let dummyTopic2: m.Topic;
   let dummyTopicNoDesc: m.Topic;
+  let dummyTopicEmptyDesc: m.Topic;
   let upstreamTopic: m.Topic;
   let downstreamTopic: m.Topic;
   let dummyTopicsById: m.TopicsById;
@@ -32,12 +33,14 @@ describe(`Viewer`, (): void => {
     dummyTopic = { ...dummyTopicData.topic, userId: dummyUserId, isContentFetched: true };
     dummyTopic2 = { ...dummyTopicData.topic2, isContentFetched: true };
     dummyTopicNoDesc = { ...dummyTopicData.topic, id: 'dummyTopicNoDesc', description: null, isContentFetched: true };
+    dummyTopicEmptyDesc = { ...dummyTopicData.topic, id: 'dummyTopicEmptyDesc', description: '', isContentFetched: true };
     upstreamTopic = { ...dummyTopicData.upstream, isContentFetched: true };
     downstreamTopic = { ...dummyTopicData.downstream, isContentFetched: true };
     dummyTopicsById = {
       [dummyTopic.id]: dummyTopic,
       [dummyTopic2.id]: dummyTopic2,
       [dummyTopicNoDesc.id]: dummyTopicNoDesc,
+      [dummyTopicEmptyDesc.id]: dummyTopicEmptyDesc,
       [upstreamTopic.id]: upstreamTopic,
       [downstreamTopic.id]: downstreamTopic,
     };
@@ -109,6 +112,16 @@ describe(`Viewer`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <Viewer topicId={dummyTopicNoDesc.id} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-viewer-no-description"]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`shows a placeholder when the topic has an empty description`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Viewer topicId={dummyTopicEmptyDesc.id} />
       </DummyProviders>,
     );
 
