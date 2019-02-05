@@ -119,7 +119,7 @@ class PureMetadata extends React.Component<Props, ComponentState> {
                 {t('common:button.edit')}
               </Button>
               <Header.Subheader>
-                {topic.description == null ? (
+                {topic.description == null || topic.description === '' ? (
                   <p data-test-id="topic-metadata-no-description"><em>{t('topics:props.noDescription')}</em></p>
                 )
                   : <p data-test-id="topic-metadata-description">{topic.description}</p>

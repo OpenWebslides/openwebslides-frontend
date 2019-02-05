@@ -70,6 +70,16 @@ describe(`Metadata`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-metadata-no-description"]').hostNodes()).toHaveLength(1);
   });
 
+  it(`shows a placeholder when the topic has an empty description`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyDispatch={dummyDispatch}>
+        <Metadata topic={{ ...dummyTopic, description: '' }} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-metadata-no-description"]').hostNodes()).toHaveLength(1);
+  });
+
   it(`disables the metadata edit button when the topic is dirty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyDispatch={dummyDispatch}>
