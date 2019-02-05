@@ -143,15 +143,4 @@ describe(`Metadata`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-metadata-title"]').hostNodes()).toHaveLength(1);
   });
 
-  it(`dispatches a topics UPDATE action when the onSubmit handler passed to the access control is called`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyDispatch={dummyDispatch}>
-        <Metadata topic={dummyTopic} />
-      </DummyProviders>,
-    );
-
-    enzymeWrapper.find('PureAccessControl').props().onSubmit({ title: undefined, description: undefined, access: m.accessTypes.PUBLIC });
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.update(dummyTopic.id, undefined, undefined, m.accessTypes.PUBLIC));
-  });
-
 });

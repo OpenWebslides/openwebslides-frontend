@@ -4,16 +4,14 @@ import * as React from 'react';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { Button, Grid, Header } from 'semantic-ui-react';
+import { Button, Grid, Header, Popup, Icon } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
 import MetadataForm, { type MetadataFormValues } from 'forms/MetadataForm';
-import { type AccessLevelFormValues } from 'forms/AccessLevelForm';
 
 import actions from '../../../actions';
 import * as m from '../../../model';
 import ForkInfo from '../../ForkInfo';
-import AccessControl from '../AccessControl';
 
 type PassedProps = {|
   topic: m.Topic,
@@ -59,11 +57,6 @@ class PureMetadata extends React.Component<Props, ComponentState> {
 
   handleMetadataCancel = (): void => {
     this.setState({ isEditing: false });
-  };
-
-  handleAccessLevelSubmit = (values: AccessLevelFormValues): void => {
-    const { onUpdate } = this.props;
-    onUpdate(undefined, undefined, values.access);
   };
 
   render(): React.Node {
@@ -141,9 +134,11 @@ class PureMetadata extends React.Component<Props, ComponentState> {
             </Header>
           </Grid.Column>
           <Grid.Column width={3} textAlign="right" verticalAlign="middle">
-            <AccessControl
-              onSubmit={this.handleAccessLevelSubmit}
-              access={topic.access}
+            <Popup
+              inverted={true}
+              position="bottom center"
+              trigger={<strong><Icon name="lock" /> {t(`topics:props.access.accessForType.${topic.access}`)}</strong>}
+              content={t(`topics:props.access.accessDescriptionForType.${topic.access}`)}
             />
           </Grid.Column>
         </Grid>
