@@ -7,12 +7,13 @@ import { PureInlineMarkdown } from '.';
 
 describe(`InlineMarkdown`, (): void => {
 
-  const dummyText = 'Lorem *ipsum* [dolor](https://google.be) `sit` **amet**, consectetur *adipiscing* [elit](https://wikipedia.org). Ut `interdum` est et nibh **venenatis**.';
+  const dummyText = 'Lorem *ipsum* [dolor](https://google.be) `sit` **amet**, ~~consectetur~~ *adipiscing* [elit](https://wikipedia.org). Ut `interdum` est ~~et~~ nibh **venenatis**.';
   const dummyTextPlain = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut interdum est et nibh venenatis.';
   const dummyTextEm = ['ipsum', 'adipiscing'];
   const dummyTextStrong = ['amet', 'venenatis'];
   const dummyTextCode = ['sit', 'interdum'];
   const dummyTextAnchor = ['dolor', 'elit'];
+  const dummyTextDelete = ['consectetur', 'et'];
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
@@ -38,7 +39,7 @@ describe(`InlineMarkdown`, (): void => {
         text={dummyText}
       />,
     );
-    const whitelist = 'span, em, strong, code, a';
+    const whitelist = 'span, em, strong, code, a, del';
     expect(enzymeWrapper.not(whitelist)).toHaveLength(0);
     expect(enzymeWrapper.children().not(whitelist)).toHaveLength(0);
   });
@@ -109,6 +110,21 @@ describe(`InlineMarkdown`, (): void => {
 
     for (let i: number = 0; i < anchorElements.length; i += 1) {
       expect(anchorElements.eq(i).text()).toBe(dummyTextAnchor[i]);
+    }
+  });
+
+  it(`converts text surrounded by double tildes to del tags`, (): void => {
+    const enzymeWrapper = render(
+      <PureInlineMarkdown
+        text={dummyText}
+      />,
+    );
+    const delElements = enzymeWrapper.children().filter('del');
+
+    expect(delElements).toHaveLength(dummyTextDelete.length);
+
+    for (let i: number = 0; i < delElements.length; i += 1) {
+      expect(delElements.eq(i).text()).toBe(dummyTextDelete[i]);
     }
   });
 

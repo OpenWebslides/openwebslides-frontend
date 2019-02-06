@@ -15,6 +15,7 @@ const allowedMarkdownTypes = [
   'strong',
   'inlineCode',
   'link',
+  'delete',
 ];
 
 const PureInlineMarkdown = (props: Props): React.Node => {
