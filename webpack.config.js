@@ -33,7 +33,7 @@ const createBaseConfig = (/* env */) => ({
   entry: ['@babel/polyfill', path.join(paths.APP, 'index.js')],
 
   output: {
-    filename: 'app.bundle.js',
+    filename: '[name].[hash].js',
     publicPath: '/',
   },
 
