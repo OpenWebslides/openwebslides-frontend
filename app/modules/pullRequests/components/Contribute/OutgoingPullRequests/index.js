@@ -35,18 +35,13 @@ class PureOutgoingPullRequests extends React.Component<Props> {
     return (
       <div data-test-id="outgoing-pull-requests">
         <Header as="h3">
-          <Icon name="refresh" />
+          <Icon name="sign-out alternate" />
           {t('topics:sidebars.contribute.outgoing.title')}
         </Header>
         <Item.Group>
           <Item>
             <Item.Content>
-
-            </Item.Content>
-          </Item>
-          {(topic.outgoingPullRequestIds.length === 0 ? (
-            <Item>
-              <Item.Content>
+              {topic.outgoingPullRequestIds.length === 0 ? (
                 <em data-test-id="outgoing-pull-requests-empty-message">
                   <Trans
                     i18nKey="topics:sidebars.contribute.outgoing.empty"
@@ -57,9 +52,12 @@ class PureOutgoingPullRequests extends React.Component<Props> {
                     </Link>
                   </Trans>
                 </em>
-              </Item.Content>
-            </Item>
-          ) : null)}
+              ) : (
+                <p data-test-id="outgoing-pull-requests-message">{t('topics:sidebars.contribute.outgoing.message')}</p>
+              )}
+            </Item.Content>
+          </Item>
+
           {(topic.outgoingPullRequestIds.map((id) => this.renderPullRequest(id)))}
         </Item.Group>
       </div>

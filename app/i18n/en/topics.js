@@ -63,12 +63,14 @@ const topics = {
         pullRequestOpen: 'You have already sent back updates. Please wait until they are accepted or rejected, before sending back more updates',
       },
       outgoing: {
-        title: 'Pending contributions',
+        title: 'Outgoing contributions',
+        message: 'You have sent the following updates',
         empty: 'You have not sent any updates back to <0>{{upstreamTopicTitle}}</0>',
       },
       incoming: {
         description: 'Updates sent back to this topic are shown here. You will be able to see the updates and the message accompanying the updates. After reviewing, these changes will be integrated in the topic.',
-        title: 'Pending contributions',
+        title: 'Incoming contributions',
+        message: 'The following updates were sent to this topic',
         empty: 'No updates were sent back yet',
       },
     },

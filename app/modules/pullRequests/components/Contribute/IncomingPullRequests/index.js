@@ -41,24 +41,22 @@ class PureIncomingPullRequests extends React.Component<Props> {
         <Divider hidden={true} />
 
         <Header as="h3">
-          <Icon name="refresh" />
+          <Icon name="sign-in alternate" />
           {t('topics:sidebars.contribute.incoming.title')}
         </Header>
         <Item.Group>
           <Item>
             <Item.Content>
-
-            </Item.Content>
-          </Item>
-          {(topic.incomingPullRequestIds.length === 0 ? (
-            <Item>
-              <Item.Content>
+              {topic.incomingPullRequestIds.length === 0 ? (
                 <em data-test-id="incoming-pull-requests-empty-message">
                   {t('topics:sidebars.contribute.incoming.empty')}
                 </em>
-              </Item.Content>
-            </Item>
-          ) : null)}
+              ) : (
+                <p data-test-id="incoming-pull-requests-message">{t('topics:sidebars.contribute.incoming.message')}</p>
+              )}
+            </Item.Content>
+          </Item>
+
           {(topic.incomingPullRequestIds.map((id) => this.renderPullRequest(id)))}
         </Item.Group>
       </div>

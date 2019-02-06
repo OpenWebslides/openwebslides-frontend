@@ -85,6 +85,7 @@ describe(`OutgoingPullRequests`, (): void => {
     );
 
     expect(enzymeWrapper.find('[data-test-id="outgoing-pull-requests-empty-message"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="outgoing-pull-requests-message"]').hostNodes()).toHaveLength(0);
   });
 
   it(`renders a PullRequest component and no empty message for every outgoing pull request in the topic`, (): void => {
@@ -95,6 +96,7 @@ describe(`OutgoingPullRequests`, (): void => {
     );
 
     expect(enzymeWrapper.find('[data-test-id="outgoing-pull-requests-empty-message"]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="outgoing-pull-requests-message"]').hostNodes()).toHaveLength(1);
     expect(enzymeWrapper.find('PurePullRequestEntry')).toHaveLength(2);
   });
 
