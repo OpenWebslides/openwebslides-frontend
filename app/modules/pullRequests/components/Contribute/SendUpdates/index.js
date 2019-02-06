@@ -109,8 +109,16 @@ class PureSendUpdates extends React.Component<Props, ComponentState> {
                   data-test-id="send-updates-dirty-message"
                 />
               ) : null)}
+              {(topic.hasOpenPullRequest ? (
+                <Message
+                  warning={true}
+                  icon="exclamation triangle"
+                  content={t('topics:sidebars.contribute.sendUpdates.pullRequestOpen')}
+                  data-test-id="send-updates-pull-request-open-message"
+                />
+              ) : null)}
               <Button
-                disabled={topic.isDirty}
+                disabled={topic.isDirty || topic.hasOpenPullRequest}
                 secondary={true}
                 fluid={true}
                 onClick={this.showPRModal}

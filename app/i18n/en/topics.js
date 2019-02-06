@@ -60,6 +60,7 @@ const topics = {
         info: 'You can send updates back to <0>{{upstreamTopicTitle}}</0>. The topic owner and collaborators will be able to see the updates you\'ve sent, and after reviewing, these changes can be integrated in <0>{{upstreamTopicTitle}}</0>. You can check back here on the status of your contribution.',
         count: 'This contribution will include {{count}} updates.',
         saveChanges: 'Please save your changes first',
+        pullRequestOpen: 'You have already sent back updates. Please wait until they are accepted or rejected, before sending back more updates',
       },
       outgoing: {
         title: 'Pending contributions',

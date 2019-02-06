@@ -105,6 +105,28 @@ describe(`SendUpdates`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="send-updates-pull-request-button"][disabled]').hostNodes()).toHaveLength(0);
   });
 
+  it(`disables the pull request button and shows a message when the topic has an open pull request`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <SendUpdates topic={{ ...dummyDirtyTopic, hasOpenPullRequest: true }} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="send-updates-pull-request-open-message"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="send-updates-pull-request-button"][disabled]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`enables the pull request button and shows no message when the topic has no open pull request`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <SendUpdates topic={dummyTopic} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="send-updates-pull-request-open-message"]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="send-updates-pull-request-button"][disabled]').hostNodes()).toHaveLength(0);
+  });
+
   it(`shows the pull request modal when the pull request button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
