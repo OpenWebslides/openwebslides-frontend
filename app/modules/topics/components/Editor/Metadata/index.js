@@ -64,7 +64,8 @@ class PureMetadata extends React.Component<Props, ComponentState> {
     const { t, topic } = this.props;
     const { isEditing } = this.state;
 
-    if (isEditing) {
+    // TODO: allow updating metadata and content independently
+    if (isEditing && !topic.isDirty) {
       return (
         <MetadataForm
           onSubmit={this.handleMetadataSubmit}

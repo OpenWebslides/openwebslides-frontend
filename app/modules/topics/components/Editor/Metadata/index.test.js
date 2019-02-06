@@ -101,6 +101,27 @@ describe(`Metadata`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="topic-metadata-edit-button"][disabled]').hostNodes()).toHaveLength(0);
   });
 
+  it(`hides the metadata form when the topic is dirty while editing`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyDispatch={dummyDispatch}>
+        <Metadata topic={{ ...dummyTopic, isDirty: true }} isEditing={true} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-metadata-edit-button"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="topic-metadata-edit-button"][disabled]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`shows the metadata form when the topic is not dirty while editing`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyDispatch={dummyDispatch}>
+        <Metadata topic={dummyTopic} isEditing={true} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('[data-test-id="topic-metadata-edit-button"][disabled]').hostNodes()).toHaveLength(0);
+  });
+
   it(`shows the metadata form and hides the title when the metadata edit button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyDispatch={dummyDispatch}>
