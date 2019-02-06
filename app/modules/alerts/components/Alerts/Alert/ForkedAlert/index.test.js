@@ -4,7 +4,7 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { push } from 'connected-react-router';
 
-import { TOPIC_EDITOR_ROUTE } from 'config/routes';
+import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import makeRoute from 'lib/makeRoute';
 import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, dummyTopicData, dummyUserData } from 'lib/testResources';
 import topics from 'modules/topics';
@@ -112,7 +112,7 @@ describe(`ForkedAlert`, (): void => {
     enzymeWrapper.find('[data-test-id="alert"]').hostNodes().simulate('click');
 
     expect(dummyDispatch).toHaveBeenCalledWith(actions.markAsRead(dummyAlert.id));
-    expect(dummyDispatch).toHaveBeenCalledWith(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: dummyAlert.topicId })));
+    expect(dummyDispatch).toHaveBeenCalledWith(push(makeRoute(TOPIC_VIEWER_ROUTE, { topicId: dummyAlert.topicId })));
   });
 
   it(`dispatches a PUSH action to the editor when a read alert is clicked`, (): void => {
@@ -124,7 +124,7 @@ describe(`ForkedAlert`, (): void => {
 
     enzymeWrapper.find('[data-test-id="alert"]').hostNodes().simulate('click');
 
-    expect(dummyDispatch).toHaveBeenCalledWith(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: dummyAlert.topicId })));
+    expect(dummyDispatch).toHaveBeenCalledWith(push(makeRoute(TOPIC_VIEWER_ROUTE, { topicId: dummyAlert.topicId })));
   });
 
 });
