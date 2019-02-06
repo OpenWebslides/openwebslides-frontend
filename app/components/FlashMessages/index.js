@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Message } from 'semantic-ui-react';
+import { Grid, Message } from 'semantic-ui-react';
 import { getFlashMessages } from 'redux-flash';
 
 import { type AppState } from 'types/redux';
@@ -32,30 +32,34 @@ const mapStateToProps = (state: AppState): StateProps => {
 const PureFlashMessages = (props: Props): React.Node => {
   const { t, flashMessages } = props;
 
-  if (flashMessages.length === 0) {
-    return null;
-  }
-  else {
-    return (
-      <>
-        {flashMessages.map((flashMessage: Flash): React.Node => {
-          return (
-            <Message
-              positive={!flashMessage.isError}
-              negative={flashMessage.isError}
-              key={flashMessage.id}
-              floating={true}
-            >
-              { flashMessage.props.title != null && (
-                <Message.Header>{flashMessage.props.title }</Message.Header>
-              )}
-              <p>{t(flashMessage.message)}</p>
-            </Message>
-          );
-        })}
-      </>
-    );
-  }
+  return (
+    <Grid padded={true}>
+      {/MSIE|Trident|Edge/.test(window.navigator.userAgent) ? (
+        <Message
+          negative={true}
+          icon="exclamation triangle"
+          header={t('flash:UnsupportedBrowser.title')}
+          content={t('flash:UnsupportedBrowser.message')}
+          data-test-id="unsupported-browser-message"
+        />
+      ) : null}
+      {flashMessages.map((flashMessage: Flash): React.Node => {
+        return (
+          <Message
+            positive={!flashMessage.isError}
+            negative={flashMessage.isError}
+            key={flashMessage.id}
+            floating={true}
+          >
+            { flashMessage.props.title != null && (
+              <Message.Header>{flashMessage.props.title }</Message.Header>
+            )}
+            <p>{t(flashMessage.message)}</p>
+          </Message>
+        );
+      })}
+    </Grid>
+  );
 };
 
 const FlashMessages = connect(mapStateToProps)(withNamespaces()(PureFlashMessages));
