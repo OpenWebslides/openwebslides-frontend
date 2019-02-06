@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Grid, Message } from 'semantic-ui-react';
+import { Message } from 'semantic-ui-react';
 import { getFlashMessages } from 'redux-flash';
 
 import { type AppState } from 'types/redux';
@@ -33,7 +33,7 @@ const PureFlashMessages = (props: Props): React.Node => {
   const { t, flashMessages } = props;
 
   return (
-    <Grid padded={true}>
+    <>
       {/MSIE|Trident|Edge/.test(window.navigator.userAgent) ? (
         <Message
           negative={true}
@@ -58,7 +58,7 @@ const PureFlashMessages = (props: Props): React.Node => {
           </Message>
         );
       })}
-    </Grid>
+    </>
   );
 };
 
