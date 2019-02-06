@@ -52,7 +52,18 @@ describe(`TopicForm`, (): void => {
 
     expect(validate(dummyFormProps)).toStrictEqual({});
 
+    // Title of length 101
+    const tooLongTitle = new Array(102).join('X');
+
+    // Description of length 201
+    const tooLongDescription = new Array(202).join('X');
+
     expect(validate({ ...dummyFormProps, title: '' })).toHaveProperty('title');
+    expect(validate({ ...dummyFormProps, title: 'abcd' })).not.toHaveProperty('title');
+    expect(validate({ ...dummyFormProps, title: tooLongTitle })).toHaveProperty('title');
+
+    expect(validate({ ...dummyFormProps, description: '' })).not.toHaveProperty('description');
+    expect(validate({ ...dummyFormProps, description: tooLongDescription })).toHaveProperty('description');
   });
 
 });
