@@ -12,10 +12,6 @@ type TopicFormValues = {|
   description: string,
 |};
 
-type TopicFormErrors = {|
-  title: string,
-|};
-
 type PassedProps = {|
   onSubmit: (values: TopicFormValues) => void,
   // Use the component's children to add custom buttons to the form;
@@ -26,13 +22,21 @@ type PassedProps = {|
 type Props = {| ...TranslatorProps, ...PassedProps |};
 
 class PureTopicForm extends React.Component<Props> {
-  validateForm = (values: TopicFormValues): TopicFormErrors => {
+  validateForm = (values: TopicFormValues): TopicFormValues => {
     const { t } = this.props;
 
     const errors = {};
 
     if (values.title === '') {
       errors.title = t('topics:forms.errors.title');
+    }
+
+    if (values.title.length > 100) {
+      errors.title = t('topics:forms.errors.title.length');
+    }
+
+    if (values.description != null && values.description.length > 200) {
+      errors.description = t('topics:forms.errors.description.length');
     }
 
     return { ...errors };
@@ -59,6 +63,7 @@ class PureTopicForm extends React.Component<Props> {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.title}
+              maxLength={100}
             />
 
             <ErrorMessage name="description" component={Message} negative={true} />
@@ -70,6 +75,7 @@ class PureTopicForm extends React.Component<Props> {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.description}
+              maxLength={200}
             />
 
             { (children != null) ? children : (<SubmitButtonGroup />)}

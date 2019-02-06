@@ -2,7 +2,10 @@
 
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
+import { push } from 'connected-react-router';
 
+import { PULL_REQUEST_VIEW_ROUTE } from 'config/routes';
+import makeRoute from 'lib/makeRoute';
 import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, dummyTopicData, dummyUserData } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
@@ -129,7 +132,7 @@ describe(`PullRequestAlert`, (): void => {
     expect(enzymeWrapper.find('i').hostNodes().hasClass('times')).toBe(true);
   });
 
-  it(`dispatches a MARK_AS_READ action when an unread alert is clicked`, (): void => {
+  it(`dispatches a MARK_AS_READ action, and a PUSH action to the pull request view page when an unread alert is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <PullRequestAlert alert={{ ...dummyAlert, read: false }} />
@@ -139,9 +142,10 @@ describe(`PullRequestAlert`, (): void => {
     enzymeWrapper.find('[data-test-id="alert"]').hostNodes().simulate('click');
 
     expect(dummyDispatch).toHaveBeenCalledWith(actions.markAsRead(dummyAlert.id));
+    expect(dummyDispatch).toHaveBeenCalledWith(push(makeRoute(PULL_REQUEST_VIEW_ROUTE, { pullRequestId: dummyAlert.pullRequestId })));
   });
 
-  it(`does not dispatch anything when a read alert is clicked`, (): void => {
+  it(`dispatches a PUSH action to the pull request view page when a read alert is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <PullRequestAlert alert={{ ...dummyAlert, read: true }} />
@@ -150,7 +154,7 @@ describe(`PullRequestAlert`, (): void => {
 
     enzymeWrapper.find('[data-test-id="alert"]').hostNodes().simulate('click');
 
-    expect(dummyDispatch).not.toHaveBeenCalled();
+    expect(dummyDispatch).toHaveBeenCalledWith(push(makeRoute(PULL_REQUEST_VIEW_ROUTE, { pullRequestId: dummyAlert.pullRequestId })));
   });
 
 });

@@ -4,10 +4,13 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { push } from 'connected-react-router';
 import { Grid, Icon } from 'semantic-ui-react';
 import moment from 'moment';
 
+import { PULL_REQUEST_VIEW_ROUTE } from 'config/routes';
 import { type ModulesAction, type AppState } from 'types/redux';
+import makeRoute from 'lib/makeRoute';
 import InlineMarkdown from 'components/InlineMarkdown';
 import topics from 'modules/topics';
 import users from 'modules/users';
@@ -57,7 +60,7 @@ const mapDispatchToProps = (
     onClickAlert: (): void => {
       if (!alert.read) dispatch(actions.markAsRead(alert.id));
 
-      // TODO: redirect to PR route
+      dispatch(push(makeRoute(PULL_REQUEST_VIEW_ROUTE, { pullRequestId: alert.pullRequestId })));
     },
   };
 };

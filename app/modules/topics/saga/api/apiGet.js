@@ -37,6 +37,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
     access: apiAccessTypesToAccessTypesMap[attributes.access],
     userId: relationships.user.data.id,
     rootContentItemId: attributes.rootContentItemId,
+    hasOpenPullRequest: attributes.hasOpenPullRequest,
     timestamp: Number(meta.updatedAt) * 1000,
     upstreamTopicId: relationships.upstream.data ? relationships.upstream.data.id : null,
     forkedTopicIds: relationships.forks.data.map((item: { type: string, id: string }) => item.id),

@@ -27,7 +27,7 @@ const common = {
     contribution: 'Contribution',
     review: 'Review contribution',
   },
-  copied: 'Copied!',
+  copied: 'Copied to the clipboard!',
   loading: 'Loading...',
   undoWarning: 'This action cannot be undone.',
 };

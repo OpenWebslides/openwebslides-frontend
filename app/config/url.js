@@ -54,4 +54,4 @@ export const APP_URL = window.WEBPACK_APP_URL || window.APP_URL;
  *  In most cases, specifying the ~> operator, and a major and minor versions should be adequate.
  *
  */
-export const API_VERSION = '~>11';
+export const API_VERSION = '~>11.2';

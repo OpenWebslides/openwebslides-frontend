@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
 import { push } from 'connected-react-router';
-import { Button, Header, Icon, Menu, Divider, Grid } from 'semantic-ui-react';
+import { Button, Icon, Menu, Divider, Segment } from 'semantic-ui-react';
 
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import { type AppState, type ModulesAction } from 'types/redux';
@@ -15,17 +15,13 @@ import FetchWrapper from 'components/FetchWrapper';
 import { type CommitFormValues } from 'forms/CommitForm';
 import CommitModal from 'modals/CommitModal';
 import ShareModal from 'modals/ShareModal';
-import { type MetadataFormValues } from 'forms/MetadataForm';
-import { type AccessLevelFormValues } from 'forms/AccessLevelForm';
 import contentItems from 'modules/contentItems';
 
 import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
-import ForkInfo from '../ForkInfo';
 
 import Metadata from './Metadata';
-import AccessControl from './AccessControl';
 
 type PassedProps = {|
   topicId: string,
@@ -37,7 +33,6 @@ type StateProps = {|
 
 type DispatchProps = {|
   onCommit: (values: CommitFormValues) => void,
-  onUpdate: (title: ?string, description: ?string, access: ?m.AccessType) => void,
   onSetDirty: (dirty: boolean) => void,
   onDiscard: () => void,
   onView: () => void,
@@ -48,7 +43,6 @@ type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchPr
 type ComponentState = {|
   isCommitModalOpen: boolean,
   isShareModalOpen: boolean,
-  isMetadataOpen: boolean,
 |};
 
 const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
@@ -71,9 +65,6 @@ const mapDispatchToProps = (
     onCommit: (values: CommitFormValues): void => {
       dispatch(actions.patchWithContent(topicId, values.message));
     },
-    onUpdate: (title: ?string, description: ?string, access: ?m.AccessType): void => {
-      dispatch(actions.update(topicId, title, description, access));
-    },
     onSetDirty: (dirty: boolean): void => {
       dispatch(actions.setDirtyInState(topicId, dirty));
     },
@@ -90,7 +81,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     isCommitModalOpen: false,
     isShareModalOpen: false,
-    isMetadataOpen: false,
   };
 
   showCommitModal = (): void => {
@@ -99,10 +89,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   showShareModal = (): void => {
     this.setState({ isShareModalOpen: true });
-  };
-
-  showMetadata = (): void => {
-    this.setState({ isMetadataOpen: true });
   };
 
   handleCommitModalSubmit = (values: CommitFormValues): void => {
@@ -117,21 +103,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   hideShareModal = (): void => {
     this.setState({ isShareModalOpen: false });
-  };
-
-  handleMetadataSubmit = (values: MetadataFormValues): void => {
-    const { onUpdate } = this.props;
-    onUpdate(values.title, values.description, undefined);
-    this.setState({ isMetadataOpen: false });
-  };
-
-  handleMetadataCancel = (): void => {
-    this.setState({ isMetadataOpen: false });
-  };
-
-  handleAccessLevelSubmit = (values: AccessLevelFormValues): void => {
-    const { onUpdate } = this.props;
-    onUpdate(undefined, undefined, values.access);
   };
 
   showViewer = (): void => {
@@ -177,7 +148,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   renderEditor = (topic: m.Topic): React.Node => {
     const { t, onSetDirty } = this.props;
-    const { isCommitModalOpen, isShareModalOpen, isMetadataOpen } = this.state;
+    const { isCommitModalOpen, isShareModalOpen } = this.state;
 
     return (
       <div data-test-id="topic-editor">
@@ -223,54 +194,9 @@ class PureEditor extends React.Component<Props, ComponentState> {
           </Menu.Menu>
         </Menu>
 
-        {(isMetadataOpen ? (
-          <Metadata
-            onSubmit={this.handleMetadataSubmit}
-            onCancel={this.handleMetadataCancel}
-            title={topic.title}
-            description={topic.description}
-            data-test-id="topic-editor-metadata"
-          />
-        )
-          : (
-            <Grid>
-              <Grid.Column width={13}>
-                <Header as="h1" style={{ display: 'inline-block' }} data-test-id="topic-editor-title">
-                  {topic.title}
-                  {(topic.isDirty ? '*' : '')}
-                  <Button
-                    basic={true}
-                    size="tiny"
-                    compact={true}
-                    style={{ margin: '.5em 1em', float: 'right' }}
-                    onClick={this.showMetadata}
-                    data-test-id="topic-editor-metadata-button"
-                  >
-                    {t('common:button.edit')}
-                  </Button>
-                  <Header.Subheader>
-                    {topic.description == null ? (
-                      <p data-test-id="topic-editor-no-description"><em>{t('topics:props.noDescription')}</em></p>
-                    )
-                      : <p data-test-id="topic-editor-description">{topic.description}</p>
-                    }
-                    {(topic.upstreamTopicId !== null
-                      ? (
-                        <small>
-                          <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
-                        </small>
-                      ) : null)}
-                  </Header.Subheader>
-                </Header>
-              </Grid.Column>
-              <Grid.Column width={3} textAlign="right" verticalAlign="middle">
-                <AccessControl
-                  onSubmit={this.handleAccessLevelSubmit}
-                  access={topic.access}
-                />
-              </Grid.Column>
-            </Grid>
-          ))}
+        <Segment padded={true}>
+          <Metadata topic={topic} />
+        </Segment>
 
         <Divider hidden={true} />
 

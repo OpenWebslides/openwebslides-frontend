@@ -1,6 +1,10 @@
 // @flow
 
 const flash = {
+  UnsupportedBrowser: {
+    title: 'Unsupported browser',
+    message: 'Heads up! It looks like you are using Internet Explorer or Edge as a browser. We don\'t support this browser, so you might run into something that doesn\'t work! We recommend a modern browser such as Firefox or Chrome.',
+  },
   NetworkError: 'A network error occurred',
   UnauthorizedError: 'Please sign in again',
   'platform/SIGNIN': {

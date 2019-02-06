@@ -62,6 +62,7 @@ describe(`apiGet`, (): void => {
             description: dummyDescription,
             access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
+            hasOpenPullRequest: false,
           },
           relationships: {
             user: { data: { id: dummyUserId } },
@@ -84,7 +85,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, hasOpenPullRequest: false, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -99,6 +100,7 @@ describe(`apiGet`, (): void => {
             description: dummyDescription,
             access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
+            hasOpenPullRequest: false,
           },
           relationships: {
             user: { data: { id: dummyUserId } },
@@ -121,7 +123,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, dummyToken), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, dummyToken)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, hasOpenPullRequest: false, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -136,6 +138,7 @@ describe(`apiGet`, (): void => {
             description: dummyDescription,
             access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
+            hasOpenPullRequest: false,
           },
           relationships: {
             user: { data: { id: dummyUserId } },
@@ -158,7 +161,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: dummyUpstreamTopicId, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, hasOpenPullRequest: false, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: dummyUpstreamTopicId, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -173,6 +176,7 @@ describe(`apiGet`, (): void => {
             description: dummyDescription,
             access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
+            hasOpenPullRequest: false,
           },
           relationships: {
             user: { data: { id: dummyUserId } },
@@ -198,7 +202,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [dummyForkedTopicId1, dummyForkedTopicId2], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, hasOpenPullRequest: false, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [dummyForkedTopicId1, dummyForkedTopicId2], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -213,6 +217,7 @@ describe(`apiGet`, (): void => {
             description: dummyDescription,
             access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
+            hasOpenPullRequest: false,
           },
           relationships: {
             user: { data: { id: dummyUserId } },
@@ -238,7 +243,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [dummyPullRequestId1, dummyPullRequestId2], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, hasOpenPullRequest: false, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [dummyPullRequestId1, dummyPullRequestId2], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -253,6 +258,7 @@ describe(`apiGet`, (): void => {
             description: dummyDescription,
             access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
+            hasOpenPullRequest: false,
           },
           relationships: {
             user: { data: { id: dummyUserId } },
@@ -278,7 +284,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [dummyPullRequestId2, dummyPullRequestId1], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, hasOpenPullRequest: false, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [dummyPullRequestId2, dummyPullRequestId1], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });
 
@@ -293,6 +299,7 @@ describe(`apiGet`, (): void => {
             description: dummyDescription,
             access: _.findKey(apiAccessTypesToAccessTypesMap, (topicType: string): boolean => topicType === dummyAccess),
             rootContentItemId: dummyRootContentId,
+            hasOpenPullRequest: false,
           },
           relationships: {
             user: { data: { id: dummyUserId } },
@@ -318,7 +325,7 @@ describe(`apiGet`, (): void => {
         [call(api.topics.get, dummyId, null), dummyApiResponse],
       ])
       .call(api.topics.get, dummyId, null)
-      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [dummyCollaboratorId1, dummyCollaboratorId2], isContentFetched: false, isDirty: false }]))
+      .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, hasOpenPullRequest: false, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [dummyCollaboratorId1, dummyCollaboratorId2], isContentFetched: false, isDirty: false }]))
       .run();
   });
 

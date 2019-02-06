@@ -8,7 +8,7 @@ import { push } from 'connected-react-router';
 import { Grid, Icon } from 'semantic-ui-react';
 import moment from 'moment';
 
-import { TOPIC_EDITOR_ROUTE } from 'config/routes';
+import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import { type ModulesAction, type AppState } from 'types/redux';
 import makeRoute from 'lib/makeRoute';
 import InlineMarkdown from 'components/InlineMarkdown';
@@ -60,7 +60,7 @@ const mapDispatchToProps = (
     onClickAlert: (): void => {
       if (!alert.read) dispatch(actions.markAsRead(alert.id));
 
-      dispatch(push(makeRoute(TOPIC_EDITOR_ROUTE, { topicId: alert.topicId })));
+      dispatch(push(makeRoute(TOPIC_VIEWER_ROUTE, { topicId: alert.topicId })));
     },
   };
 };

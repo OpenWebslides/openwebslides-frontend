@@ -104,6 +104,24 @@ describe(`EditableTextContent`, (): void => {
     expect(renderSpy).toHaveBeenCalledTimes(1);
   });
 
+  it(`renders itself with a maxLength, if one was defined`, (): void => {
+    const enzymeWrapper = mount(
+      <EditableTextContent initialText={dummyText} maxLength={20} />,
+    );
+
+    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
+    expect(enzymeWrapper.find(inputSelector).hostNodes().props().maxLength).toStrictEqual(20);
+  });
+
+  it(`renders itself without a maxLength, if one was not defined`, (): void => {
+    const enzymeWrapper = mount(
+      <EditableTextContent initialText={dummyText} />,
+    );
+
+    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
+    expect(enzymeWrapper.find(inputSelector).hostNodes().props().maxLength).toBeUndefined();
+  });
+
   it(`calls the passed onActivate function, when it is in text mode and receives a left button click event`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent initialText={dummyText} onActivate={dummyActivate} />,
@@ -192,6 +210,7 @@ describe(`EditableTextContent`, (): void => {
       };
       const dummyNextProps = {
         multiline: false,
+        maxLength: undefined,
         initialText: dummyNewText,
         initialIsActive: false,
         onInput: dummyInput,
@@ -214,6 +233,7 @@ describe(`EditableTextContent`, (): void => {
       };
       const dummyNextProps = {
         multiline: false,
+        maxLength: undefined,
         initialText: dummyText,
         initialIsActive: true,
         onInput: dummyInput,
@@ -236,6 +256,7 @@ describe(`EditableTextContent`, (): void => {
       };
       const dummyNextProps = {
         multiline: false,
+        maxLength: undefined,
         initialText: dummyText,
         initialIsActive: false,
         onInput: dummyInput,

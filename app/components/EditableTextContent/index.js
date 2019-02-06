@@ -7,6 +7,7 @@ import InlineMarkdown from 'components/InlineMarkdown';
 
 type PassedProps = {|
   multiline: boolean,
+  maxLength: ?number,
   initialText: string,
   initialIsActive: boolean,
   onInput?: (text: string) => void,
@@ -27,6 +28,7 @@ type ComponentState = {|
 class EditableTextContent extends React.Component<Props, ComponentState> {
   static defaultProps = {
     multiline: false,
+    maxLength: undefined,
     initialText: '',
     initialIsActive: false,
     onInput: undefined,
@@ -121,7 +123,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
   fieldRef: ?HTMLInputElement;
 
   renderAsInput(): React.Node {
-    const { multiline } = this.props;
+    const { multiline, maxLength } = this.props;
     const { text, isActive } = this.state;
 
     return (
@@ -134,6 +136,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
               autoHeight={true}
               value={text}
               autoFocus={isActive}
+              maxLength={maxLength}
               onInput={this.handleInput}
               onBlur={this.handleBlur}
               onKeyDown={this.handleKeyDown}
@@ -147,6 +150,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
               fluid={true}
               value={text}
               autoFocus={isActive}
+              maxLength={maxLength}
               onInput={this.handleInput}
               onBlur={this.handleBlur}
               onKeyDown={this.handleKeyDown}

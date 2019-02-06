@@ -142,7 +142,7 @@ class PureViewer extends React.Component<Props, ComponentState> {
         <Header as="h1">
           {topic.title}
           <Header.Subheader>
-            {topic.description == null ? (
+            {topic.description == null || topic.description === '' ? (
               <p data-test-id="topic-viewer-no-description"><em>{t('topics:props.noDescription')}</em></p>
             )
               : <p data-test-id="topic-viewer-description">{topic.description}</p>

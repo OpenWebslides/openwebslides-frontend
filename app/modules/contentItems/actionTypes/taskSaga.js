@@ -9,6 +9,7 @@ import * as m from '../model';
 
 // Action constants --------------------------------------------------------------------------------
 
+export const GENERATE_CONTENT: 'contentItems/GENERATE_CONTENT' = 'contentItems/GENERATE_CONTENT';
 export const GENERATE_ROOT: 'contentItems/GENERATE_ROOT' = 'contentItems/GENERATE_ROOT';
 export const GENERATE_PLACEHOLDER: 'contentItems/GENERATE_PLACEHOLDER' = 'contentItems/GENERATE_PLACEHOLDER';
 export const ADD: 'contentItems/ADD' = 'contentItems/ADD';
@@ -22,6 +23,15 @@ export const REMOVE_AND_TOGGLE_PREVIOUS_ITEM: 'contentItems/REMOVE_AND_TOGGLE_PR
 
 
 // Action types ------------------------------------------------------------------------------------
+
+export type GenerateContentAction = {|
+  ...TaskSagaAction,
+  type: typeof GENERATE_CONTENT,
+  payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
+    rootContentItemId: string,
+  |},
+|};
 
 export type GenerateRootAction = {|
   ...TaskSagaAction,
@@ -121,6 +131,7 @@ export type RemoveAndTogglePreviousItemAction = {|
 // TaskSaga action ---------------------------------------------------------------------------------
 
 export type ContentItemsTaskSagaAction =
+  | GenerateContentAction
   | GenerateRootAction
   | GeneratePlaceholderAction
   | AddAction
