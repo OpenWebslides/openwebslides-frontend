@@ -10,6 +10,7 @@ import { CorruptedInternalStateError } from 'errors';
 import { DummyProviders, dummyInitialState, dummyUserData, dummyTopicData, dummyProviderProps } from 'lib/testResources';
 import users from 'modules/users';
 import topics from 'modules/topics';
+import platform from 'modules/platform';
 
 import ViewerPage, { PureViewerPage } from '.';
 
@@ -124,6 +125,21 @@ describe(`ViewerPage`, (): void => {
     expect((): void => {
       enzymeWrapper.instance().handleForkTopic('dummyTopicId');
     }).toThrow(CorruptedInternalStateError);
+  });
+
+  it(`enables the correct sidebars`, (): void => {
+    const fixedRouterProps = _.set(_.cloneDeep(dummyProviderProps.routerProps), 'match.params.topicId', dummyTopic.id);
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <ViewerPage {...fixedRouterProps} />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureSidebarsPageWrapper').props().enabledSidebarIds).toStrictEqual([
+      platform.model.sidebarIds.TOPIC_INFO,
+      platform.model.sidebarIds.SLIDE_PREVIEWS,
+    ]);
   });
 
 });

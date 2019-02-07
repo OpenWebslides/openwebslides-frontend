@@ -9,8 +9,9 @@ import makeRoute from 'lib/makeRoute';
 import { DummyProviders, dummyProviderProps, dummyTopicData, dummyUserData, dummyInitialState } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
+import platform from 'modules/platform';
 
-import { PureEditorPage } from '.';
+import EditorPage, { PureEditorPage } from '.';
 
 describe(`EditorPage`, (): void => {
 
@@ -77,6 +78,24 @@ describe(`EditorPage`, (): void => {
 
     expect(enzymeWrapper.find('PureTopicPolicyWrapper')).toHaveLength(1);
     expect(enzymeWrapper.find('PureTopicPolicyWrapper').props().redirectIfNotAuthenticated).toStrictEqual(makeRoute(TOPIC_VIEWER_ROUTE, { topicId: dummyTopic.id }));
+  });
+
+  it(`enables the correct sidebars`, (): void => {
+    const fixedRouterProps = _.set(_.cloneDeep(dummyProviderProps.routerProps), 'match.params.topicId', dummyTopic.id);
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <EditorPage
+          {...fixedRouterProps}
+        />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureSidebarsPageWrapper').props().enabledSidebarIds).toStrictEqual([
+      platform.model.sidebarIds.TOPIC_INFO,
+      platform.model.sidebarIds.SLIDE_PREVIEWS,
+      platform.model.sidebarIds.CONTRIBUTE,
+    ]);
   });
 
 });

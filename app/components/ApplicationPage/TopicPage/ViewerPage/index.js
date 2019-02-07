@@ -54,7 +54,13 @@ class PureViewerPage extends React.Component<Props> {
     const { match: { params: { topicId } } } = this.props;
 
     return (topicId == null) ? null : (
-      <SidebarsPageWrapper topicId={topicId}>
+      <SidebarsPageWrapper
+        topicId={topicId}
+        enabledSidebarIds={[
+          platform.model.sidebarIds.TOPIC_INFO,
+          platform.model.sidebarIds.SLIDE_PREVIEWS,
+        ]}
+      >
         <Viewer topicId={topicId} onForkTopic={this.handleForkTopic} />
       </SidebarsPageWrapper>
     );

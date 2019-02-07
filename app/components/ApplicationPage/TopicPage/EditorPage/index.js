@@ -27,7 +27,14 @@ const PureEditorPage = (props: Props): React.Node => {
         redirectIfNotAuthenticated={makeRoute(TOPIC_VIEWER_ROUTE, { topicId })}
         componentIfNotAuthenticated={null}
       >
-        <SidebarsPageWrapper topicId={topicId}>
+        <SidebarsPageWrapper
+          topicId={topicId}
+          enabledSidebarIds={[
+            platform.model.sidebarIds.TOPIC_INFO,
+            platform.model.sidebarIds.SLIDE_PREVIEWS,
+            platform.model.sidebarIds.CONTRIBUTE,
+          ]}
+        >
           <TopicEditor topicId={topicId} />
         </SidebarsPageWrapper>
       </TopicPolicyWrapper>
