@@ -9,7 +9,7 @@ import { type ContextRouter as RouterProps } from 'react-router-dom';
 import { type ModulesAction, type AppState } from 'types/redux';
 import { USER_PROFILE_ROUTE } from 'config/routes';
 import { CorruptedInternalStateError } from 'errors';
-import ContainerPageWrapper from 'components/ContainerPageWrapper';
+import SidebarsPageWrapper from 'components/SidebarsPageWrapper';
 import platform from 'modules/platform';
 import topics from 'modules/topics';
 import users from 'modules/users';
@@ -54,9 +54,9 @@ class PureViewerPage extends React.Component<Props> {
     const { match: { params: { topicId } } } = this.props;
 
     return (topicId == null) ? null : (
-      <ContainerPageWrapper>
+      <SidebarsPageWrapper topicId={topicId}>
         <Viewer topicId={topicId} onForkTopic={this.handleForkTopic} />
-      </ContainerPageWrapper>
+      </SidebarsPageWrapper>
     );
   }
 }
