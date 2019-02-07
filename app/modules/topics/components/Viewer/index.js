@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { push } from 'connected-react-router';
 import { Header, Menu, Icon, Button } from 'semantic-ui-react';
+import moment from 'moment';
 
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import { type AppState, type ModulesAction } from 'types/redux';
@@ -148,10 +149,14 @@ class PureViewer extends React.Component<Props, ComponentState> {
               : <p data-test-id="topic-viewer-description">{topic.description}</p>
             }
             {(topic.upstreamTopicId !== null ? (
-              <small>
-                <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
-              </small>
+              <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
             ) : null)}
+            <div>
+              <Icon name="history" size="small" />
+              <small>
+                {t('topics:props.timestamp', { timestamp: moment(topic.timestamp).fromNow() })}
+              </small>
+            </div>
           </Header.Subheader>
         </Header>
 
