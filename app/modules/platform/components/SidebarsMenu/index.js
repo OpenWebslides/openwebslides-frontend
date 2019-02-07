@@ -8,12 +8,18 @@ import * as m from '../../model';
 
 import SidebarsMenuItem from './SidebarsMenuItem';
 
-type Props = {| |};
+type PassedProps = {|
+  enabledSidebarIds: $ReadOnlyArray<m.SidebarId>,
+|};
+
+type Props = {| ...PassedProps |};
 
 const PureSidebarsMenu = (props: Props): React.Node => {
+  const { enabledSidebarIds } = props;
+
   return (
     <Menu tabular="right" vertical={true} icon={true} className="sidebars-menu">
-      {_.values(m.sidebarIds).map((sidebarId: m.SidebarId): React.Node => (
+      {_.values(enabledSidebarIds).map((sidebarId: m.SidebarId): React.Node => (
         <SidebarsMenuItem
           key={sidebarId}
           sidebarId={sidebarId}
