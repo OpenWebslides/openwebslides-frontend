@@ -50,6 +50,11 @@ describe(`Sidebars`, (): void => {
       <PureSidebars
         activeSidebarIds={[]}
         topicId={dummyTopic.id}
+        enabledSidebarIds={[
+          platform.model.sidebarIds.TOPIC_INFO,
+          platform.model.sidebarIds.SLIDE_PREVIEWS,
+          platform.model.sidebarIds.CONTRIBUTE,
+        ]}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
@@ -58,7 +63,14 @@ describe(`Sidebars`, (): void => {
   it(`renders all active sidebars in reverse order`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Sidebars topicId={dummyTopic.id} />
+        <Sidebars
+          topicId={dummyTopic.id}
+          enabledSidebarIds={[
+            platform.model.sidebarIds.TOPIC_INFO,
+            platform.model.sidebarIds.SLIDE_PREVIEWS,
+            platform.model.sidebarIds.CONTRIBUTE,
+          ]}
+        />
       </DummyProviders>,
     );
 
@@ -73,11 +85,54 @@ describe(`Sidebars`, (): void => {
 
     mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Sidebars topicId={dummyTopic.id} />
+        <Sidebars
+          topicId={dummyTopic.id}
+          enabledSidebarIds={[
+            platform.model.sidebarIds.TOPIC_INFO,
+            platform.model.sidebarIds.SLIDE_PREVIEWS,
+            platform.model.sidebarIds.CONTRIBUTE,
+          ]}
+        />
       </DummyProviders>,
     );
 
     expect(dummyDispatch).toHaveBeenCalledWith(topics.actions.fetch(dummyTopic.id));
+  });
+
+  it(`renders sidebars for active and enabled sidebars, when there are more enabled than active sidebars`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Sidebars
+          topicId={dummyTopic.id}
+          enabledSidebarIds={[
+            platform.model.sidebarIds.TOPIC_INFO,
+            platform.model.sidebarIds.SLIDE_PREVIEWS,
+            platform.model.sidebarIds.CONTRIBUTE,
+          ]}
+        />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureTopicInfoSidebar')).toHaveLength(1);
+    expect(enzymeWrapper.find('PureSlidePreviewsSidebar')).toHaveLength(1);
+    expect(enzymeWrapper.find('PureContributeSidebar')).toHaveLength(0);
+  });
+
+  it(`renders sidebars for active and enabled sidebars, when there are more active than enabled sidebars`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <Sidebars
+          topicId={dummyTopic.id}
+          enabledSidebarIds={[
+            platform.model.sidebarIds.TOPIC_INFO,
+          ]}
+        />
+      </DummyProviders>,
+    );
+
+    expect(enzymeWrapper.find('PureTopicInfoSidebar')).toHaveLength(1);
+    expect(enzymeWrapper.find('PureSlidePreviewsSidebar')).toHaveLength(0);
+    expect(enzymeWrapper.find('PureContributeSidebar')).toHaveLength(0);
   });
 
 });

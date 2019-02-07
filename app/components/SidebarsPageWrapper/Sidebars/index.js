@@ -12,6 +12,7 @@ import sidebarIdsToComponentsMap from './sidebarIdsToComponentsMap';
 
 type PassedProps = {|
   topicId: string,
+  enabledSidebarIds: $ReadOnlyArray<platform.model.SidebarId>,
 |};
 
 type StateProps = {|
@@ -28,20 +29,26 @@ const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
 
 class PureSidebars extends React.Component<Props> {
   renderSidebars = (topic: topics.model.Topic): React.Node => {
-    const { activeSidebarIds } = this.props;
+    const { activeSidebarIds, enabledSidebarIds } = this.props;
     let SidebarComponent: React.ComponentType<{| topic: topics.model.Topic |}>;
+
+    // Intersect active and enabled sidebars
+    const activeAndEnabledSidebarIds = activeSidebarIds.filter(
+      (s) => enabledSidebarIds.includes(s),
+    );
 
     return (
       <div className="sidebars__grid">
         {/* Reverse order so that newly activated sidebars appear to the left of existing ones */}
-        {[...activeSidebarIds].reverse().map((sidebarId: platform.model.SidebarId): React.Node => {
-          SidebarComponent = sidebarIdsToComponentsMap[sidebarId];
-          return (
-            <div key={sidebarId} className="sidebars__grid-item" data-test-id="sidebars-grid-item">
-              <SidebarComponent topic={topic} />
-            </div>
-          );
-        })}
+        {[...activeAndEnabledSidebarIds].reverse().map(
+          (sidebarId: platform.model.SidebarId): React.Node => {
+            SidebarComponent = sidebarIdsToComponentsMap[sidebarId];
+            return (
+              <div key={sidebarId} className="sidebars__grid-item" data-test-id="sidebars-grid-item">
+                <SidebarComponent topic={topic} />
+              </div>
+            );
+          })}
       </div>
     );
   };
