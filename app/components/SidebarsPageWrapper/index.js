@@ -15,10 +15,11 @@ import Sidebars from './Sidebars';
 type PassedProps = {|
   children: React.Node,
   topicId: string,
+  enabledSidebarIds: $ReadOnlyArray<platform.model.SidebarId>,
 |};
 
 type StateProps = {|
-  activeSidebarsCount: number,
+  activeAndEnabledSidebarIds: $ReadOnlyArray<platform.model.SidebarId>,
 |};
 
 type Props = {| ...PassedProps, ...StateProps |};
@@ -26,18 +27,20 @@ type Props = {| ...PassedProps, ...StateProps |};
 const { ApiDimmer } = asyncRequests.components;
 const { SidebarsMenu } = platform.components;
 
-const mapStateToProps = (state: AppState): StateProps => {
+const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
+  const { enabledSidebarIds } = props;
+
   const activeSidebarIds = platform.selectors.getSettingByKey(state, { key: 'activeSidebarIds' });
 
   return {
-    activeSidebarsCount: activeSidebarIds.length,
+    activeAndEnabledSidebarIds: activeSidebarIds.filter((s) => enabledSidebarIds.includes(s)),
   };
 };
 
 const PureSidebarsPageWrapper = (props: Props): React.Node => {
-  const { children, topicId, activeSidebarsCount } = props;
+  const { children, topicId, enabledSidebarIds, activeAndEnabledSidebarIds } = props;
 
-  const sidebarsWidthPercentage = activeSidebarsCount * 20;
+  const sidebarsWidthPercentage = activeAndEnabledSidebarIds.length * 20;
 
   return (
     <PageWrapper className="page--sidebars">
@@ -52,16 +55,19 @@ const PureSidebarsPageWrapper = (props: Props): React.Node => {
             {children}
           </div>
         </div>
-        {(activeSidebarsCount > 0) && (
+        {(activeAndEnabledSidebarIds.length > 0) && (
           <div
             className="page__grid-item"
             style={{ width: `${sidebarsWidthPercentage}%` }}
           >
-            <Sidebars topicId={topicId} />
+            <Sidebars
+              topicId={topicId}
+              enabledSidebarIds={enabledSidebarIds}
+            />
           </div>
         )}
       </div>
-      <SidebarsMenu />
+      <SidebarsMenu enabledSidebarIds={enabledSidebarIds} />
     </PageWrapper>
   );
 };

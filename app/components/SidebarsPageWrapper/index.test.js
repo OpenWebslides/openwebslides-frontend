@@ -48,7 +48,7 @@ describe(`SidebarsPageWrapper`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureSidebarsPageWrapper activeSidebarsCount={1} topicId="dummyTopicId">
+      <PureSidebarsPageWrapper activeAndEnabledSidebarIds={[]} enabledSidebarIds={[]} topicId="dummyTopicId">
         <h1>Lorem ipsum</h1>
         <p>Lorem ipsum dolor sit amet.</p>
       </PureSidebarsPageWrapper>,
@@ -59,13 +59,25 @@ describe(`SidebarsPageWrapper`, (): void => {
   it(`gets the correct activeSidebarsCount`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <SidebarsPageWrapper topicId={dummyTopic.id}>
+        <SidebarsPageWrapper
+          topicId={dummyTopic.id}
+          activeSidebarIds={[
+            platform.model.sidebarIds.TOPIC_INFO,
+            platform.model.sidebarIds.SLIDE_PREVIEWS,
+          ]}
+          enabledSidebarIds={[
+            platform.model.sidebarIds.SLIDE_PREVIEWS,
+            platform.model.sidebarIds.CONTRIBUTE,
+          ]}
+        >
           <p>Page content</p>
         </SidebarsPageWrapper>
       </DummyProviders>,
     );
 
-    expect(enzymeWrapper.find('PureSidebarsPageWrapper').props().activeSidebarsCount).toBe(2);
+    expect(enzymeWrapper.find('PureSidebarsPageWrapper').props().activeAndEnabledSidebarIds).toStrictEqual([
+      platform.model.sidebarIds.SLIDE_PREVIEWS,
+    ]);
   });
 
 });
