@@ -7,7 +7,7 @@ import contentItems from './contentItems';
 import errors from './errors';
 import feedItems from './feedItems';
 import flash from './flash';
-import global from './global';
+import globalTranslations from './global'; // note: cannot be named 'global' bc of naming conflict
 import library from './library';
 import modals from './modals';
 import platform from './platform';
@@ -24,7 +24,7 @@ const index = {
   errors,
   feedItems,
   flash,
-  global,
+  global: globalTranslations,
   library,
   modals,
   platform,
