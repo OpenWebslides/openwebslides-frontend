@@ -51,8 +51,13 @@ class PureMetadataForm extends React.Component<Props> {
     return { ...errors };
   };
 
+  handleCancel = (): void => {
+    const { onCancel } = this.props;
+    onCancel();
+  };
+
   render(): React.Node {
-    const { t, onSubmit, onCancel, title, description, access, availableAccess } = this.props;
+    const { t, onSubmit, title, description, access, availableAccess } = this.props;
 
     return (
       <Formik
@@ -131,7 +136,7 @@ class PureMetadataForm extends React.Component<Props> {
                     type="button"
                     className="link"
                     compact={true}
-                    onClick={onCancel}
+                    onClick={this.handleCancel}
                     data-test-id="topic-metadata-cancel-button"
                   >
                     {t('common:button.cancel').toLowerCase()}

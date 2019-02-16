@@ -357,6 +357,9 @@ module.exports = {
     // Disallow the use of x and f prefixes to skip / focus tests; use .skip and .only instead.
     'jest/no-test-prefixes': 'error',
 
+    // Enforce using .toBeCalledWith() / .toHaveBeenCalledWith() over .toBeCalled() / .toHaveBeenCalled().
+    'jest/prefer-called-with': 'error',
+
     // Enforce using .toStrictEqual() over .toEqual().
     'jest/prefer-strict-equal': 'error',
 

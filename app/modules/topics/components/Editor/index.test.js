@@ -240,7 +240,7 @@ describe(`Editor`, (): void => {
     const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).instance().beforeUnloadHandler;
 
     expect(beforeUnloadHandler(dummyUnloadEvent)).toStrictEqual(true);
-    expect(dummyPreventDefault).toHaveBeenCalled();
+    expect(dummyPreventDefault).toHaveBeenCalledWith();
     expect(dummyUnloadEvent.returnValue).not.toBeUndefined();
   });
 

@@ -70,7 +70,7 @@ describe(`MetadataForm`, (): void => {
 
     enzymeWrapper.find('[data-test-id="topic-metadata-cancel-button"]').hostNodes().simulate('click');
     expect(dummyOnSubmit).not.toHaveBeenCalledTimes(1);
-    expect(dummyOnCancel).toHaveBeenCalled();
+    expect(dummyOnCancel).toHaveBeenCalledWith();
   });
 
   it(`validates form props`, (): void => {
