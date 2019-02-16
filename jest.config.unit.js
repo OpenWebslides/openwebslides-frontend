@@ -29,7 +29,9 @@ module.exports = {
     'jest-localstorage-mock',
   ],
   // Path to the jest setup script.
-  setupTestFrameworkScriptFile: '<rootDir>/jest/unit/setupTests.js',
+  setupFilesAfterEnv: [
+    '<rootDir>/jest/unit/setupTests.js',
+  ],
   // Only run tests in the /app/ folder.
   testMatch: [
     '<rootDir>/app/**/*.test.js',
