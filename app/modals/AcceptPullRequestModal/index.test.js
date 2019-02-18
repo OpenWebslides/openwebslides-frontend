@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyTopicData } from 'lib/testResources';
 import topics from 'modules/topics';
 
 import AcceptPullRequestModal, { PureAcceptPullRequestModal } from '.';
@@ -27,7 +27,6 @@ describe(`AcceptPullRequestModal`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureAcceptPullRequestModal
-        {...dummyProviderProps.translatorProps}
         source={dummySource}
         target={dummyTarget}
       />,

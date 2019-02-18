@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAsyncRequestData as dummyData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyAsyncRequestData as dummyData } from 'lib/testResources';
 
 import * as m from '../model';
 
@@ -41,7 +41,6 @@ describe(`ApiDimmer`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureApiDimmer
-        {...dummyProviderProps.translatorProps}
         isActive={true}
       />,
     );
@@ -51,7 +50,6 @@ describe(`ApiDimmer`, (): void => {
   it(`does not render, when it is inactive`, (): void => {
     const enzymeWrapper = shallow(
       <PureApiDimmer
-        {...dummyProviderProps.translatorProps}
         isActive={false}
       />,
     );

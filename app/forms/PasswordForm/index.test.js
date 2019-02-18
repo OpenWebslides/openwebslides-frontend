@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import PasswordForm, { PurePasswordForm, type PasswordFormValues } from '.';
 
@@ -21,7 +21,7 @@ describe(`PasswordForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PurePasswordForm {...dummyProviderProps.translatorProps} />,
+      <PurePasswordForm />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -38,7 +38,7 @@ describe(`PasswordForm`, (): void => {
   });
 
   it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PurePasswordForm {...dummyProviderProps.translatorProps} />);
+    const enzymeWrapper = shallow(<PurePasswordForm />);
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});

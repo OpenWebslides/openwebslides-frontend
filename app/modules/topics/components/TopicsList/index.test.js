@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyTopicData } from 'lib/testResources';
 
 import * as m from '../../model';
 
@@ -38,7 +38,6 @@ describe(`TopicsList`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureTopicsList
-        {...dummyProviderProps.translatorProps}
         topicIds={[]}
         isCurrentUser={false}
         onRemoveTopic={jest.fn()}
@@ -50,7 +49,6 @@ describe(`TopicsList`, (): void => {
   it(`renders a new topic button, when isCurrentUser is TRUE`, (): void => {
     const enzymeWrapper = shallow(
       <PureTopicsList
-        {...dummyProviderProps.translatorProps}
         topicIds={[]}
         isCurrentUser={true}
         onRemoveTopic={jest.fn()}

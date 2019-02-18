@@ -4,7 +4,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { flashErrorMessage } from 'redux-flash';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
 import { push } from 'connected-react-router';
 
@@ -18,7 +17,7 @@ type DispatchProps = {|
   flashErrorAndRedirect: (error: string) => void,
 |};
 
-type Props = {| ...TranslatorProps, ...RouterProps, ...DispatchProps |};
+type Props = {| ...RouterProps, ...DispatchProps |};
 
 const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
@@ -63,7 +62,7 @@ class PureSSOCallbackPage extends React.Component<Props> {
   }
 }
 
-const SSOCallbackPage = withNamespaces()(connect(null, mapDispatchToProps)(PureSSOCallbackPage));
+const SSOCallbackPage = connect(null, mapDispatchToProps)(PureSSOCallbackPage);
 
 export { PureSSOCallbackPage };
 export default SSOCallbackPage;

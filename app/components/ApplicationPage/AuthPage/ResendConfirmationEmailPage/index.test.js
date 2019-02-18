@@ -3,17 +3,13 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyProviderProps } from 'lib/testResources';
-
 import { PureResendConfirmationEmailPage } from '.';
 
 describe(`ResendConfirmationEmailPage`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureResendConfirmationEmailPage
-        {...dummyProviderProps.translatorProps}
-      />,
+      <PureResendConfirmationEmailPage />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

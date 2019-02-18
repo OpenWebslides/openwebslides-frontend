@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { dummyProviderProps, DummyProviders } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import ShareTab from '.';
 
@@ -19,7 +19,7 @@ describe(`ShareTab`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <ShareTab value={dummyValue} {...dummyProviderProps.translatorProps} />,
+      <ShareTab value={dummyValue} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

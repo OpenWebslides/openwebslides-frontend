@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { dummyProviderProps, DummyProviders, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyTopicData } from 'lib/testResources';
 
 import actions from '../../../actions';
 import * as m from '../../../model';
@@ -22,10 +22,7 @@ describe(`Metadata`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureMetadata
-        topic={dummyTopic}
-        {...dummyProviderProps.translatorProps}
-      />,
+      <PureMetadata topic={dummyTopic} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

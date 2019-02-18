@@ -6,7 +6,7 @@ import { push } from 'connected-react-router';
 
 import { PULL_REQUEST_VIEW_ROUTE } from 'config/routes';
 import makeRoute from 'lib/makeRoute';
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, dummyTopicData, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyAlertData, dummyTopicData, dummyUserData } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -57,7 +57,6 @@ describe(`PullRequestAlert`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PurePullRequestAlert
-        {...dummyProviderProps.translatorProps}
         alert={dummyAlert}
         user={dummyUser}
         topic={dummyTopic}

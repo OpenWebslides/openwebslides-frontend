@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Header, Segment, Divider } from 'semantic-ui-react';
 
 import FetchWrapper from 'components/FetchWrapper';
@@ -17,7 +16,7 @@ type PassedProps = {|
   pullRequestId: string,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 class PureView extends React.Component<Props> {
   renderView = (pullRequest: m.PullRequest): React.Node => {
@@ -54,7 +53,7 @@ class PureView extends React.Component<Props> {
   }
 }
 
-const View = withNamespaces()(PureView);
+const View = PureView;
 
 export { PureView };
 export default View;

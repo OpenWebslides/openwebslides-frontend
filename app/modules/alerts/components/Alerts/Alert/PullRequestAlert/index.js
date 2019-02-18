@@ -3,11 +3,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { Translation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import { Grid, Icon } from 'semantic-ui-react';
 import moment from 'moment';
 
+import { type TFunction } from 'types/i18next';
 import { PULL_REQUEST_VIEW_ROUTE } from 'config/routes';
 import { type ModulesAction, type AppState } from 'types/redux';
 import makeRoute from 'lib/makeRoute';
@@ -33,7 +34,7 @@ type DispatchProps = {|
   onClickAlert: () => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const mapStateToProps = (state: AppState, props: Props): StateProps => {
   const { alert } = props;
@@ -73,7 +74,7 @@ class PurePullRequestAlert extends React.Component<Props> {
   }
 
   render(): React.Node {
-    const { t, alert, user, topic, onClickAlert } = this.props;
+    const { alert, user, topic, onClickAlert } = this.props;
 
     if (user == null || topic == null) return null;
 
@@ -84,27 +85,28 @@ class PurePullRequestAlert extends React.Component<Props> {
     };
 
     return (
-      <Grid onClick={onClickAlert} data-test-id="alert">
-        <Grid.Column width={1} verticalAlign="middle">
-          <Icon name={`${iconName[alert.type]} circle outline`} />
-        </Grid.Column>
-        <Grid.Column width={13}>
-          <InlineMarkdown
-            text={t(`alerts:actionForType.${alert.type}`, { userName: user.name, topicTitle: topic.title })}
-          />
-          <p className="date" title={moment(alert.timestamp).format('LLLL')}>
-            {moment(alert.timestamp).fromNow()}
-          </p>
-        </Grid.Column>
-      </Grid>
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <Grid onClick={onClickAlert} data-test-id="alert">
+            <Grid.Column width={1} verticalAlign="middle">
+              <Icon name={`${iconName[alert.type]} circle outline`} />
+            </Grid.Column>
+            <Grid.Column width={13}>
+              <InlineMarkdown
+                text={t(`alerts:actionForType.${alert.type}`, { userName: user.name, topicTitle: topic.title })}
+              />
+              <p className="date" title={moment(alert.timestamp).format('LLLL')}>
+                {moment(alert.timestamp).fromNow()}
+              </p>
+            </Grid.Column>
+          </Grid>
+        )}
+      </Translation>
     );
   }
 }
 
-const PullRequestAlert = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withNamespaces()(PurePullRequestAlert));
+const PullRequestAlert = connect(mapStateToProps, mapDispatchToProps)(PurePullRequestAlert);
 
 export { PurePullRequestAlert };
 export default PullRequestAlert;

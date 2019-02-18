@@ -1,10 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { Translation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 
+import { type TFunction } from 'types/i18next';
 import { USER_PROFILE_ROUTE, USER_SETTINGS_ROUTE, USER_SIGNOUT_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 
@@ -16,26 +17,28 @@ type PassedProps = {|
   userId: string,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 class PureUserAccountMenu extends React.Component<Props> {
   renderUserAccountMenu = (user: m.User): React.Node => {
-    const { t } = this.props;
-
     return (
-      <Dropdown text={user.name} pointing={true} item={true} data-test-id="user-account-menu">
-        <Dropdown.Menu>
-          <Dropdown.Item as={Link} to={USER_PROFILE_ROUTE}>
-            {t('global:title.library')}
-          </Dropdown.Item>
-          <Dropdown.Item as={Link} to={USER_SETTINGS_ROUTE}>
-            {t('global:title.settings')}
-          </Dropdown.Item>
-          <Dropdown.Item as={Link} to={USER_SIGNOUT_ROUTE}>
-            {t('global:navbar.signout')}
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <Dropdown text={user.name} pointing={true} item={true} data-test-id="user-account-menu">
+            <Dropdown.Menu>
+              <Dropdown.Item as={Link} to={USER_PROFILE_ROUTE}>
+                {t('global:title.library')}
+              </Dropdown.Item>
+              <Dropdown.Item as={Link} to={USER_SETTINGS_ROUTE}>
+                {t('global:title.settings')}
+              </Dropdown.Item>
+              <Dropdown.Item as={Link} to={USER_SIGNOUT_ROUTE}>
+                {t('global:navbar.signout')}
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        )}
+      </Translation>
     );
   };
 
@@ -54,7 +57,7 @@ class PureUserAccountMenu extends React.Component<Props> {
   }
 }
 
-const UserAccountMenu = withNamespaces()(PureUserAccountMenu);
+const UserAccountMenu = PureUserAccountMenu;
 
 export { PureUserAccountMenu };
 export default UserAccountMenu;

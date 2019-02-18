@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyUserData } from 'lib/testResources';
 import { type DropdownValue } from 'types/forms';
 import users from 'modules/users';
 
@@ -35,7 +35,6 @@ describe(`ProfileForm`, (): void => {
       <PureProfileForm
         user={dummyUser}
         availableLocales={dummyAvailableLocales}
-        {...dummyProviderProps.translatorProps}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
@@ -85,7 +84,6 @@ describe(`ProfileForm`, (): void => {
       <PureProfileForm
         user={dummyUser}
         availableLocales={dummyAvailableLocales}
-        {...dummyProviderProps.translatorProps}
       />,
     );
     const validate = enzymeWrapper.instance().validateForm;

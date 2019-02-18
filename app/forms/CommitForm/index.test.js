@@ -3,8 +3,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyProviderProps } from 'lib/testResources';
-
 import { PureCommitForm, type CommitFormValues } from '.';
 
 describe(`CommitForm`, (): void => {
@@ -19,13 +17,13 @@ describe(`CommitForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureCommitForm {...dummyProviderProps.translatorProps} />,
+      <PureCommitForm />,
     );
     expect(enzymeWrapper.isEmptyRender()).toStrictEqual(false);
   });
 
   it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PureCommitForm {...dummyProviderProps.translatorProps} />);
+    const enzymeWrapper = shallow(<PureCommitForm />);
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});

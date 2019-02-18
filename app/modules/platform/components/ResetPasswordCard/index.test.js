@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import actions from '../../actions';
 
@@ -26,7 +26,6 @@ describe(`ResetPasswordCard`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureResetPasswordCard
-        {...dummyProviderProps.translatorProps}
         onResetPasswordFormSubmit={jest.fn()}
         resetPasswordToken={dummyResetPasswordToken}
       />,

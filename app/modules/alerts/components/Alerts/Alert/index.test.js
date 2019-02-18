@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, dummyTopicData, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyAlertData, dummyTopicData, dummyUserData } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -59,7 +59,6 @@ describe(`Alert`, (): void => {
   it(`renders empty when the topic has an invalid type`, (): void => {
     const enzymeWrapper = shallow(
       <Alert
-        {...dummyProviderProps.translatorProps}
         alert={{ ...dummyUpdateAlert, type: 'foo' }}
         user={dummyUser}
         topic={dummyTopic}
@@ -75,7 +74,6 @@ describe(`Alert`, (): void => {
     it(`renders without errors`, (): void => {
       const enzymeWrapper = shallow(
         <Alert
-          {...dummyProviderProps.translatorProps}
           alert={dummyUpdateAlert}
           user={dummyUser}
           topic={dummyTopic}
@@ -103,7 +101,6 @@ describe(`Alert`, (): void => {
     it(`renders without errors`, (): void => {
       const enzymeWrapper = shallow(
         <Alert
-          {...dummyProviderProps.translatorProps}
           alert={dummyPullRequestAlert}
           user={dummyUser}
           topic={dummyTopic}
@@ -151,7 +148,6 @@ describe(`Alert`, (): void => {
     it(`renders without errors`, (): void => {
       const enzymeWrapper = shallow(
         <Alert
-          {...dummyProviderProps.translatorProps}
           alert={dummyForkedAlert}
           user={dummyUser}
           topic={dummyTopic}

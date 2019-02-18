@@ -1,12 +1,13 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { Translation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { push } from 'connected-react-router';
 import { Header, Menu, Icon, Button } from 'semantic-ui-react';
 
+import { type TFunction } from 'types/i18next';
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import { type AppState, type ModulesAction } from 'types/redux';
 import makeRoute from 'lib/makeRoute';
@@ -38,7 +39,7 @@ type ComponentState = {|
   isShareModalOpen: boolean,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { topicId } = props;
@@ -92,77 +93,80 @@ class PureViewer extends React.Component<Props, ComponentState> {
   };
 
   renderViewer = (topic: m.Topic): React.Node => {
-    const { t, currentUserId } = this.props;
+    const { currentUserId } = this.props;
     const { isShareModalOpen } = this.state;
 
     return (
-      <div data-test-id="topic-viewer">
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <div data-test-id="topic-viewer">
 
-        <Menu secondary={true}>
-          <Menu.Menu position="right">
-            {/* TODO: importing policies renders a cyclic dependency */}
-            <Menu.Item>
-              <Button
-                basic={true}
-                onClick={this.showEditor}
-                disabled={(
-                  topic.userId !== currentUserId
-                  && !topic.collaboratorUserIds.includes(currentUserId)
-                )}
-                data-test-id="topic-viewer-edit-button"
-              >
-                <Icon name="pencil" />
-                {t('common:button.edit')}
-              </Button>
-            </Menu.Item>
-            <Menu.Item>
-              <Button
-                basic={true}
-                onClick={this.showShareModal}
-                data-test-id="topic-viewer-share-button"
-              >
-                <Icon name="share alternate" />
-                {t('common:button.share')}
-              </Button>
-            </Menu.Item>
-            <Menu.Item>
-              <Button
-                disabled={currentUserId == null || topic.upstreamTopicId != null}
-                basic={true}
-                onClick={this.handleForkButtonClick}
-                data-test-id="topic-viewer-fork-button"
-              >
-                <Icon name="fork" />
-                {t('common:button.fork')}
-              </Button>
-            </Menu.Item>
-          </Menu.Menu>
-        </Menu>
+            <Menu secondary={true}>
+              <Menu.Menu position="right">
+                {/* TODO: importing policies renders a cyclic dependency */}
+                <Menu.Item>
+                  <Button
+                    basic={true}
+                    onClick={this.showEditor}
+                    disabled={(
+                      topic.userId !== currentUserId
+                      && !topic.collaboratorUserIds.includes(currentUserId)
+                    )}
+                    data-test-id="topic-viewer-edit-button"
+                  >
+                    <Icon name="pencil" />
+                    {t('common:button.edit')}
+                  </Button>
+                </Menu.Item>
+                <Menu.Item>
+                  <Button
+                    basic={true}
+                    onClick={this.showShareModal}
+                    data-test-id="topic-viewer-share-button"
+                  >
+                    <Icon name="share alternate" />
+                    {t('common:button.share')}
+                  </Button>
+                </Menu.Item>
+                <Menu.Item>
+                  <Button
+                    disabled={currentUserId == null || topic.upstreamTopicId != null}
+                    basic={true}
+                    onClick={this.handleForkButtonClick}
+                    data-test-id="topic-viewer-fork-button"
+                  >
+                    <Icon name="fork" />
+                    {t('common:button.fork')}
+                  </Button>
+                </Menu.Item>
+              </Menu.Menu>
+            </Menu>
 
-        <Header as="h1">
-          {topic.title}
-          <Header.Subheader>
-            {topic.description == null || topic.description === '' ? (
-              <p data-test-id="topic-viewer-no-description"><em>{t('topics:props.noDescription')}</em></p>
-            )
-              : <p data-test-id="topic-viewer-description">{topic.description}</p>
-            }
-            {(topic.upstreamTopicId !== null ? (
-              <small>
-                <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
-              </small>
-            ) : null)}
-          </Header.Subheader>
-        </Header>
+            <Header as="h1">
+              {topic.title}
+              <Header.Subheader>
+                {topic.description == null || topic.description === ''
+                  ? <p data-test-id="topic-viewer-no-description"><em>{t('topics:props.noDescription')}</em></p>
+                  : <p data-test-id="topic-viewer-description">{topic.description}</p>
+                }
+                {(topic.upstreamTopicId !== null ? (
+                  <small>
+                    <ForkInfo upstreamTopicId={topic.upstreamTopicId} />
+                  </small>
+                ) : null)}
+              </Header.Subheader>
+            </Header>
 
-        <Course topic={topic} />
+            <Course topic={topic} />
 
-        <ShareModal
-          topic={topic}
-          isOpen={isShareModalOpen}
-          onCancel={this.hideShareModal}
-        />
-      </div>
+            <ShareModal
+              topic={topic}
+              isOpen={isShareModalOpen}
+              onCancel={this.hideShareModal}
+            />
+          </div>
+        )}
+      </Translation>
     );
   };
 
@@ -182,7 +186,7 @@ class PureViewer extends React.Component<Props, ComponentState> {
   }
 }
 
-const Viewer = connect(mapStateToProps, mapDispatchToProps)(withNamespaces()(PureViewer));
+const Viewer = connect(mapStateToProps, mapDispatchToProps)(PureViewer);
 
 export { PureViewer };
 export default Viewer;

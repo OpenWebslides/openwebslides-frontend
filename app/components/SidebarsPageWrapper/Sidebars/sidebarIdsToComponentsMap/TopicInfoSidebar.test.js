@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyTopicData as dummyData, dummyProviderProps } from 'lib/testResources';
+import { dummyTopicData as dummyData } from 'lib/testResources';
 import topics from 'modules/topics';
 
 import { PureTopicInfoSidebar } from './TopicInfoSidebar';
@@ -18,7 +18,7 @@ describe(`TopicInfoSidebar`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureTopicInfoSidebar {...dummyProviderProps.translatorProps} topic={dummyTopic} />,
+      <PureTopicInfoSidebar topic={dummyTopic} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

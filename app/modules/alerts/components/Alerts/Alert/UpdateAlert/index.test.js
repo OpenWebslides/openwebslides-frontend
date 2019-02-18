@@ -6,7 +6,7 @@ import { push } from 'connected-react-router';
 
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import makeRoute from 'lib/makeRoute';
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyAlertData, dummyTopicData } from 'lib/testResources';
 import topics from 'modules/topics';
 
 import actions from '../../../../actions';
@@ -48,7 +48,6 @@ describe(`UpdateAlert`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureUpdateAlert
-        {...dummyProviderProps.translatorProps}
         alert={dummyAlert}
         topic={dummyTopic}
         fetchTopic={jest.fn()}

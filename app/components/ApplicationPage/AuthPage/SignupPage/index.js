@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
@@ -16,7 +15,7 @@ type DispatchProps = {|
   onSignup: (email: string, name: string, password: string, tosAccepted: boolean) => void,
 |};
 
-type Props = {| ...TranslatorProps |};
+type Props = {| ...DispatchProps |};
 
 const { SignupCard } = platform.components;
 
@@ -39,7 +38,7 @@ const PureSignupPage = (props: Props): React.Node => {
   );
 };
 
-const SignupPage = connect(null, mapDispatchToProps)(withNamespaces()(PureSignupPage));
+const SignupPage = connect(null, mapDispatchToProps)(PureSignupPage);
 
 export { PureSignupPage };
 export default SignupPage;

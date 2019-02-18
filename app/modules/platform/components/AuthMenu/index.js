@@ -1,16 +1,16 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Menu, Icon } from 'semantic-ui-react';
 
 import { AUTH_SIGNUP_ROUTE, AUTH_SIGNIN_ROUTE } from 'config/routes';
 
-type Props = {| ...TranslatorProps |};
+type Props = {| |};
 
 const PureAuthMenu = (props: Props): React.Node => {
-  const { t } = props;
+  const [t] = useTranslation();
 
   return (
     <Menu.Menu position="right" data-test-id="auth-menu">
@@ -26,7 +26,7 @@ const PureAuthMenu = (props: Props): React.Node => {
   );
 };
 
-const AuthMenu = withNamespaces()(PureAuthMenu);
+const AuthMenu = PureAuthMenu;
 
 export { PureAuthMenu };
 export default AuthMenu;

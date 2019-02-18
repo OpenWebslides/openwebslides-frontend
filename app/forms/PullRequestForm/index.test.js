@@ -3,8 +3,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyProviderProps } from 'lib/testResources';
-
 import { PurePullRequestForm, type PullRequestFormValues } from '.';
 
 describe(`PullRequestForm`, (): void => {
@@ -19,13 +17,13 @@ describe(`PullRequestForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PurePullRequestForm {...dummyProviderProps.translatorProps} />,
+      <PurePullRequestForm />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PurePullRequestForm {...dummyProviderProps.translatorProps} />);
+    const enzymeWrapper = shallow(<PurePullRequestForm />);
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});

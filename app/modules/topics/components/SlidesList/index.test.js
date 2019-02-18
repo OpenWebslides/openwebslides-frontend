@@ -4,7 +4,7 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import contentItemSplit from 'lib/contentItemSplit';
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyTopicData, dummyContentItemData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyTopicData, dummyContentItemData } from 'lib/testResources';
 import contentItems from 'modules/contentItems';
 
 import * as m from '../../model';
@@ -51,7 +51,6 @@ describe(`SlidesList`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureSlidesList
-        {...dummyProviderProps.translatorProps}
         topicId="dummyTopicId"
         rootContentItems={[]}
       />,

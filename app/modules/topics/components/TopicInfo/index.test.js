@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { dummyProviderProps, dummyTopicData } from 'lib/testResources';
+import { dummyTopicData } from 'lib/testResources';
 
 import * as m from '../../model';
 
@@ -19,10 +19,7 @@ describe(`TopicInfo`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureTopicInfo
-        {...dummyProviderProps.translatorProps}
-        topic={dummyTopic}
-      />,
+      <PureTopicInfo topic={dummyTopic} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -31,30 +28,21 @@ describe(`TopicInfo`, (): void => {
     dummyTopic = { ...dummyTopic, upstreamTopicId: 'dummyUpstreamTopicId' };
 
     const enzymeWrapper = shallow(
-      <PureTopicInfo
-        {...dummyProviderProps.translatorProps}
-        topic={dummyTopic}
-      />,
+      <PureTopicInfo topic={dummyTopic} />,
     );
     expect(enzymeWrapper.find('[data-test-id="topic-info-fork-info"]')).toHaveLength(1);
   });
 
   it(`does not render the topic's ForkInfo, when the topic's upstreamTopicId is NULL`, (): void => {
     const enzymeWrapper = shallow(
-      <PureTopicInfo
-        {...dummyProviderProps.translatorProps}
-        topic={dummyTopic}
-      />,
+      <PureTopicInfo topic={dummyTopic} />,
     );
     expect(enzymeWrapper.find('[data-test-id="topic-info-fork-info"]')).toHaveLength(0);
   });
 
   it(`shows the description when the topic has a description`, (): void => {
     const enzymeWrapper = mount(
-      <PureTopicInfo
-        {...dummyProviderProps.translatorProps}
-        topic={dummyTopic}
-      />,
+      <PureTopicInfo topic={dummyTopic} />,
     );
 
     expect(enzymeWrapper.find('[data-test-id="topic-info-description"]').text()).toContain(dummyTopic.description);
@@ -62,10 +50,7 @@ describe(`TopicInfo`, (): void => {
 
   it(`shows a placeholder when the topic has no description`, (): void => {
     const enzymeWrapper = mount(
-      <PureTopicInfo
-        {...dummyProviderProps.translatorProps}
-        topic={{ ...dummyTopic, description: null }}
-      />,
+      <PureTopicInfo topic={{ ...dummyTopic, description: null }} />,
     );
 
     expect(enzymeWrapper.find('[data-test-id="topic-info-no-description"]').hostNodes()).toHaveLength(1);

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyPullRequestData } from 'lib/testResources';
+import { DummyProviders, dummyPullRequestData } from 'lib/testResources';
 
 import * as m from '../../../../model';
 
@@ -19,10 +19,7 @@ describe(`ReviewButtons`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureReviewButtons
-        {...dummyProviderProps.translatorProps}
-        pullRequest={dummyPullRequest}
-      />,
+      <PureReviewButtons pullRequest={dummyPullRequest} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

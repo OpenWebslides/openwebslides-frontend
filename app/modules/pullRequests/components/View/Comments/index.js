@@ -3,10 +3,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
+import { Translation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Comment, Divider } from 'semantic-ui-react';
 
+import { type TFunction } from 'types/i18next';
 import { type ModulesAction, type AppState } from 'types/redux';
 import { TOPIC_VIEWER_ROUTE, TOPIC_EDITOR_ROUTE } from 'config/routes';
 import makeRoute from 'lib/makeRoute';
@@ -37,7 +38,7 @@ type DispatchProps = {|
   onReject: (pullRequestId: string, message: string) => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 type ComponentState = {|
   isAcceptModalOpen: boolean,
@@ -114,84 +115,86 @@ class PureComments extends React.Component<Props, ComponentState> {
   };
 
   render(): React.Node {
-    const { t, pullRequest, source, target } = this.props;
+    const { pullRequest, source, target } = this.props;
     const { isAcceptModalOpen, isRejectModalOpen } = this.state;
 
     if (source == null || target == null) return null;
 
     return (
-      <div data-test-id="comments">
-        <Comment.Group>
-          <UserComment userId={pullRequest.userId} timestamp={pullRequest.timestamp}>
-            <Trans
-              i18nKey="pullRequests:comments.submitted"
-              values={{
-                updateCount: 5, // TODO
-                sourceTopicTitle: source.title,
-                targetTopicTitle: target.title,
-              }}
-            >
-              <strong>0 updates</strong>
-              <Link to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: target.id })}>
-                target
-              </Link>
-              <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: source.id })}>
-                source
-              </Link>
-            </Trans>
-            <blockquote data-test-id="comments-message">
-              <em>{pullRequest.message}</em>
-            </blockquote>
-          </UserComment>
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <div data-test-id="comments">
+            <Comment.Group>
+              <UserComment userId={pullRequest.userId} timestamp={pullRequest.timestamp}>
+                <Trans
+                  i18nKey="pullRequests:comments.submitted"
+                  values={{
+                    updateCount: 5, // TODO
+                    sourceTopicTitle: source.title,
+                    targetTopicTitle: target.title,
+                  }}
+                >
+                  <strong>0 updates</strong>
+                  <Link to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: target.id })}>
+                    target
+                  </Link>
+                  <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: source.id })}>
+                    source
+                  </Link>
+                </Trans>
+                <blockquote data-test-id="comments-message">
+                  <em>{pullRequest.message}</em>
+                </blockquote>
+              </UserComment>
 
-          <State pullRequest={pullRequest} source={source} target={target} />
+              <State pullRequest={pullRequest} source={source} target={target} />
 
-          {(pullRequest.state === m.pullRequestStates.READY ? (
-            <PolicyWrapper policy={policies.policies.TopicPolicy} record={target} action="update">
-              <Divider hidden={true} />
-              <Comment data-test-id="comments-review-buttons">
-                <Comment.Avatar />
-                <Comment.Content>
-                  <Comment.Author>
-                    {t('common:button.review')}
-                  </Comment.Author>
-                  <Comment.Text>
-                    <p>{t('pullRequests:comments.action')}</p>
-                    <Divider hidden={true} />
-                    <ReviewButtons
-                      onAccept={this.showAcceptModal}
-                      onReject={this.showRejectModal}
-                    />
-                  </Comment.Text>
-                </Comment.Content>
-              </Comment>
-            </PolicyWrapper>
-          ) : null)}
-        </Comment.Group>
+              {(pullRequest.state === m.pullRequestStates.READY ? (
+                <PolicyWrapper policy={policies.policies.TopicPolicy} record={target} action="update">
+                  <Divider hidden={true} />
+                  <Comment data-test-id="comments-review-buttons">
+                    <Comment.Avatar />
+                    <Comment.Content>
+                      <Comment.Author>
+                        {t('common:button.review')}
+                      </Comment.Author>
+                      <Comment.Text>
+                        <p>{t('pullRequests:comments.action')}</p>
+                        <Divider hidden={true} />
+                        <ReviewButtons
+                          onAccept={this.showAcceptModal}
+                          onReject={this.showRejectModal}
+                        />
+                      </Comment.Text>
+                    </Comment.Content>
+                  </Comment>
+                </PolicyWrapper>
+              ) : null)}
+            </Comment.Group>
 
-        <AcceptPullRequestModal
-          source={source}
-          target={target}
-          isOpen={isAcceptModalOpen}
-          onSubmit={this.handleAcceptModalSubmit}
-          onCancel={this.handleFeedbackModalCancel}
-        />
+            <AcceptPullRequestModal
+              source={source}
+              target={target}
+              isOpen={isAcceptModalOpen}
+              onSubmit={this.handleAcceptModalSubmit}
+              onCancel={this.handleFeedbackModalCancel}
+            />
 
-        <RejectPullRequestModal
-          source={source}
-          target={target}
-          isOpen={isRejectModalOpen}
-          onSubmit={this.handleRejectModalSubmit}
-          onCancel={this.handleFeedbackModalCancel}
-        />
-      </div>
+            <RejectPullRequestModal
+              source={source}
+              target={target}
+              isOpen={isRejectModalOpen}
+              onSubmit={this.handleRejectModalSubmit}
+              onCancel={this.handleFeedbackModalCancel}
+            />
+          </div>
+        )}
+      </Translation>
     );
   }
 }
 
-const Comments = connect(mapStateToProps, mapDispatchToProps)(
-  withNamespaces()(PureComments),
-);
+const Comments = connect(mapStateToProps, mapDispatchToProps)(PureComments);
 
 export { PureComments };
 export default Comments;

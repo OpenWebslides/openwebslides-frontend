@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { Modal, Tab, Icon, Divider, Button } from 'semantic-ui-react';
 
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
@@ -16,10 +16,11 @@ type PassedProps = {|
   onCancel: () => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 const PureShareModal = (props: Props): React.Node => {
-  const { t, isOpen, onCancel, topic } = props;
+  const { isOpen, onCancel, topic } = props;
+  const [t] = useTranslation();
 
   const route = makeRoute(TOPIC_VIEWER_ROUTE, { topicId: topic.id }, true);
   const embed = `<iframe src="${route}"></iframe>`;
@@ -66,7 +67,7 @@ const PureShareModal = (props: Props): React.Node => {
   );
 };
 
-const ShareModal = withNamespaces()(PureShareModal);
+const ShareModal = PureShareModal;
 
 export { PureShareModal };
 export default ShareModal;

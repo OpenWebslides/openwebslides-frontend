@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { dummyProviderProps, DummyProviders, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyTopicData } from 'lib/testResources';
 import topics from 'modules/topics';
 
 import RemoveTopicModal, { PureRemoveTopicModal } from '.';
@@ -22,7 +22,7 @@ describe(`RemoveTopicModal`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureRemoveTopicModal topic={dummyTopic} {...dummyProviderProps.translatorProps} />,
+      <PureRemoveTopicModal topic={dummyTopic} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

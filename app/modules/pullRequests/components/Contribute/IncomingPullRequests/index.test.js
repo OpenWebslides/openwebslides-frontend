@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyTopicData } from 'lib/testResources';
 import topics from 'modules/topics';
 
 import IncomingPullRequests, { PureIncomingPullRequests } from '.';
@@ -18,10 +18,7 @@ describe(`IncomingPullRequests`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureIncomingPullRequests
-        {...dummyProviderProps.translatorProps}
-        topic={dummyTopic}
-      />,
+      <PureIncomingPullRequests topic={dummyTopic} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

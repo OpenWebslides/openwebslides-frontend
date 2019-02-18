@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyTopicData, dummyUserData, dummyInitialState } from 'lib/testResources';
+import { DummyProviders, dummyTopicData, dummyUserData, dummyInitialState } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -56,7 +56,6 @@ describe(`PullRequestModal`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PurePullRequestModal
-        {...dummyProviderProps.translatorProps}
         sourceTopic={dummyDownstreamTopic}
         targetTopic={dummyUpstreamTopic}
         currentUserId={dummyCurrentUser.id}
@@ -127,7 +126,6 @@ describe(`PullRequestModal`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <PurePullRequestModal
-          {...dummyProviderProps.translatorProps}
           isOpen={true}
           sourceTopic={dummyDownstreamTopic}
           targetTopic={dummyUpstreamTopic}
@@ -145,7 +143,6 @@ describe(`PullRequestModal`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <PurePullRequestModal
-          {...dummyProviderProps.translatorProps}
           isOpen={false}
           sourceTopic={dummyDownstreamTopic}
           targetTopic={dummyUpstreamTopic}
@@ -162,7 +159,6 @@ describe(`PullRequestModal`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <PurePullRequestModal
-          {...dummyProviderProps.translatorProps}
           isOpen={true}
           sourceTopic={dummyDownstreamTopic}
           targetTopic={dummyUpstreamTopic}
@@ -186,14 +182,12 @@ describe(`PullRequestModal`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <PurePullRequestModal
-          {...dummyProviderProps.translatorProps}
           isOpen={true}
           sourceTopic={dummyDownstreamTopic}
           targetTopic={dummyUpstreamTopic}
           currentUserId={dummyCurrentUser.id}
           onSubmit={dummyOnSubmit}
           onCancel={dummyOnCancel}
-          {...dummyProviderProps.translatorProps}
         />
       </DummyProviders>,
     );

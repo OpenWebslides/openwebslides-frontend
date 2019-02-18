@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyPullRequestData, dummyTopicData, dummyUserData, dummyInitialState } from 'lib/testResources';
+import { DummyProviders, dummyPullRequestData, dummyTopicData, dummyUserData, dummyInitialState } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -57,10 +57,7 @@ describe(`View`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureView
-        {...dummyProviderProps.translatorProps}
-        pullRequestId={dummyPullRequest.id}
-      />,
+      <PureView pullRequestId={dummyPullRequest.id} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

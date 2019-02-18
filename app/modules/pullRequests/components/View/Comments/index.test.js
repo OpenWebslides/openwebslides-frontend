@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyPullRequestData, dummyTopicData, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyPullRequestData, dummyTopicData, dummyUserData } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -65,7 +65,6 @@ describe(`Comments`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureComments
-        {...dummyProviderProps.translatorProps}
         pullRequest={dummyPullRequest}
         source={dummySource}
         target={dummyTarget}

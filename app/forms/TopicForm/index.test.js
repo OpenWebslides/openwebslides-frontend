@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import TopicForm, { PureTopicForm, type TopicFormValues } from '.';
 
@@ -30,7 +30,7 @@ describe(`TopicForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureTopicForm {...dummyProviderProps.translatorProps} />,
+      <PureTopicForm />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -47,7 +47,7 @@ describe(`TopicForm`, (): void => {
   });
 
   it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PureTopicForm {...dummyProviderProps.translatorProps} />);
+    const enzymeWrapper = shallow(<PureTopicForm />);
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});

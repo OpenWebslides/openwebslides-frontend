@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyFeedItemData, dummyTopicData, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyFeedItemData, dummyTopicData, dummyUserData } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -57,7 +57,6 @@ describe(`Feed`, (): void => {
     const dummyHandleFetchAll = jest.fn();
     const enzymeWrapper = shallow(
       <PureFeed
-        {...dummyProviderProps.translatorProps}
         sortedFeedItems={[]}
         handleFetchAll={dummyHandleFetchAll}
       />,

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import EmailForm, { PureEmailForm, type EmailFormValues } from '.';
 
@@ -19,7 +19,7 @@ describe(`EmailForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureEmailForm {...dummyProviderProps.translatorProps} />,
+      <PureEmailForm />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -46,7 +46,7 @@ describe(`EmailForm`, (): void => {
   });
 
   it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PureEmailForm {...dummyProviderProps.translatorProps} />);
+    const enzymeWrapper = shallow(<PureEmailForm />);
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});

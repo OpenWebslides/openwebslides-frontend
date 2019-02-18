@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyUserData } from 'lib/testResources';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -36,10 +36,7 @@ describe(`UserAccountMenu`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureUserAccountMenu
-        {...dummyProviderProps.translatorProps}
-        userId={dummyUser.id}
-      />,
+      <PureUserAccountMenu userId={dummyUser.id} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

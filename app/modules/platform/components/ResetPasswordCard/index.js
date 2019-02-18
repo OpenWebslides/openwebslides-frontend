@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Card, Button } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
@@ -19,7 +19,7 @@ type DispatchProps = {|
   onResetPasswordFormSubmit: (values: ResetPasswordFormValues) => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
+type Props = {| ...PassedProps, ...DispatchProps |};
 
 const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
@@ -30,7 +30,8 @@ const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps =>
 };
 
 const PureResetPasswordCard = (props: Props): React.Node => {
-  const { t, onResetPasswordFormSubmit, resetPasswordToken } = props;
+  const { onResetPasswordFormSubmit, resetPasswordToken } = props;
+  const [t] = useTranslation();
 
   return (
     <Card centered={true}>
@@ -56,9 +57,7 @@ const PureResetPasswordCard = (props: Props): React.Node => {
   );
 };
 
-const ResetPasswordCard = connect(null, mapDispatchToProps)(
-  withNamespaces()(PureResetPasswordCard),
-);
+const ResetPasswordCard = connect(null, mapDispatchToProps)(PureResetPasswordCard);
 
 export { PureResetPasswordCard };
 export default ResetPasswordCard;

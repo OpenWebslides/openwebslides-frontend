@@ -1,16 +1,17 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { Translation } from 'react-i18next';
 import { Card } from 'semantic-ui-react';
 
+import { type TFunction } from 'types/i18next';
 import TopicForm, { type TopicFormValues } from 'forms/TopicForm';
 
 type PassedProps = {|
   onAddTopic: (title: string, description: ?string) => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 class PureNewTopicCard extends React.Component<Props> {
   handleTopicFormSubmit = (values: TopicFormValues): void => {
@@ -19,30 +20,32 @@ class PureNewTopicCard extends React.Component<Props> {
   };
 
   render(): React.Node {
-    const { t } = this.props;
-
     return (
-      <Card centered={true}>
-        <Card.Content>
-          <Card.Header>
-            {t('topics:newTopicCard.title')}
-          </Card.Header>
-          <Card.Description>
-            {t('topics:newTopicCard.description')}
-          </Card.Description>
-        </Card.Content>
-        <Card.Content>
-          <TopicForm
-            onSubmit={this.handleTopicFormSubmit}
-            data-test-id="new-topic-card-form"
-          />
-        </Card.Content>
-      </Card>
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <Card centered={true}>
+            <Card.Content>
+              <Card.Header>
+                {t('topics:newTopicCard.title')}
+              </Card.Header>
+              <Card.Description>
+                {t('topics:newTopicCard.description')}
+              </Card.Description>
+            </Card.Content>
+            <Card.Content>
+              <TopicForm
+                onSubmit={this.handleTopicFormSubmit}
+                data-test-id="new-topic-card-form"
+              />
+            </Card.Content>
+          </Card>
+        )}
+      </Translation>
     );
   }
 }
 
-const NewTopicCard = withNamespaces()(PureNewTopicCard);
+const NewTopicCard = PureNewTopicCard;
 
 export { PureNewTopicCard };
 export default NewTopicCard;

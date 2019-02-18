@@ -1,10 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { Translation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
+import { type TFunction } from 'types/i18next';
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 import makeRoute from 'lib/makeRoute';
@@ -17,22 +18,24 @@ type PassedProps = {|
   upstreamTopicId: string,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 class PureForkInfo extends React.Component<Props> {
   renderForkInfo = (topic: m.Topic): React.Node => {
-    const { t } = this.props;
-
     return (
-      <div data-test-id="topic-fork-info">
-        <Icon name="copy outline" size="small" />
-        {t('topics:sidebars.topicInfo.forkedFrom')}
-        <Link to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}>
-          <small>
-            { topic.title }
-          </small>
-        </Link>
-      </div>
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <div data-test-id="topic-fork-info">
+            <Icon name="copy outline" size="small" />
+            {t('topics:sidebars.topicInfo.forkedFrom')}
+            <Link to={makeRoute(TOPIC_EDITOR_ROUTE, { topicId: topic.id })}>
+              <small>
+                { topic.title }
+              </small>
+            </Link>
+          </div>
+        )}
+      </Translation>
     );
   };
 
@@ -51,7 +54,7 @@ class PureForkInfo extends React.Component<Props> {
   }
 }
 
-const ForkInfo = withNamespaces()(PureForkInfo);
+const ForkInfo = PureForkInfo;
 
 export { PureForkInfo };
 export default ForkInfo;

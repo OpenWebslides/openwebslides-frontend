@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 import { type DropdownValue } from 'types/forms';
 import topics from 'modules/topics';
 
@@ -33,7 +33,7 @@ describe(`MetadataForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureMetadataForm {...dummyProviderProps.translatorProps} />,
+      <PureMetadataForm />,
     );
     expect(enzymeWrapper.isEmptyRender()).toStrictEqual(false);
   });
@@ -75,10 +75,7 @@ describe(`MetadataForm`, (): void => {
 
   it(`validates form props`, (): void => {
     const enzymeWrapper = shallow(
-      <PureMetadataForm
-        {...dummyProviderProps.translatorProps}
-        availableAccess={dummyAvailableAccess}
-      />,
+      <PureMetadataForm availableAccess={dummyAvailableAccess} />,
     );
     const validate = enzymeWrapper.instance().validateForm;
 

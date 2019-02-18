@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyInitialState, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders, dummyInitialState } from 'lib/testResources';
 
 import FlashMessages, { PureFlashMessages, type Flash } from '.';
 
@@ -42,7 +42,6 @@ describe(`FlashMessages`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureFlashMessages
-        {...dummyProviderProps.translatorProps}
         flashMessages={dummyFlashMessages}
       />,
     );
@@ -52,7 +51,6 @@ describe(`FlashMessages`, (): void => {
   it(`renders no flash messages, when the flashMessages array is empty`, (): void => {
     const enzymeWrapper = shallow(
       <PureFlashMessages
-        {...dummyProviderProps.translatorProps}
         flashMessages={[]}
       />,
     );
@@ -99,10 +97,11 @@ describe(`FlashMessages`, (): void => {
 
     it(`renders an error message`, (): void => {
       const enzymeWrapper = mount(
-        <PureFlashMessages
-          {...dummyProviderProps.translatorProps}
-          flashMessages={[]}
-        />,
+        <DummyProviders dummyState={dummyState}>
+          <PureFlashMessages
+            flashMessages={[]}
+          />
+        </DummyProviders>,
       );
       expect(enzymeWrapper.find('[data-test-id="unsupported-browser-message"]').hostNodes()).toHaveLength(1);
     });
@@ -119,10 +118,11 @@ describe(`FlashMessages`, (): void => {
 
     it(`does not render an error message`, (): void => {
       const enzymeWrapper = mount(
-        <PureFlashMessages
-          {...dummyProviderProps.translatorProps}
-          flashMessages={[]}
-        />,
+        <DummyProviders dummyState={dummyState}>
+          <PureFlashMessages
+            flashMessages={[]}
+          />
+        </DummyProviders>,
       );
       expect(enzymeWrapper.find('[data-test-id="unsupported-browser-message"]')).toHaveLength(0);
     });

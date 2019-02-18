@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { dummyProviderProps, DummyProviders } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import CommitModal, { PureCommitModal } from '.';
 
@@ -19,7 +19,7 @@ describe(`CommitModal`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureCommitModal {...dummyProviderProps.translatorProps} />,
+      <PureCommitModal />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

@@ -4,8 +4,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { clearMessages } from 'redux-flash';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { Translation } from 'react-i18next';
 
+import { type TFunction } from 'types/i18next';
 import { VERSION } from 'config/version';
 
 import NavigationBar from './NavigationBar';
@@ -19,7 +20,7 @@ type DispatchProps = {|
   onClearFlashMessages: () => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
+type Props = {| ...PassedProps, ...DispatchProps |};
 
 const mapDispatchToProps = (dispatch: Dispatch<{ type: string }>): DispatchProps => {
   return {
@@ -36,8 +37,8 @@ class PurePageWrapper extends React.Component<Props> {
     onClearFlashMessages();
   }
 
-  render(): React.Node {
-    const { t, children, className } = this.props;
+  renderTranslated = (t: TFunction): React.Node => {
+    const { children, className } = this.props;
 
     return (
       <div className={`page ${className || ''}`} data-test-id="page">
@@ -54,10 +55,18 @@ class PurePageWrapper extends React.Component<Props> {
         </div>
       </div>
     );
+  };
+
+  render(): React.Node {
+    return (
+      <Translation>
+        {(t: TFunction): React.Node => this.renderTranslated(t)}
+      </Translation>
+    );
   }
 }
 
-const PageWrapper = connect(null, mapDispatchToProps)(withNamespaces()(PurePageWrapper));
+const PageWrapper = connect(null, mapDispatchToProps)(PurePageWrapper);
 
 export { PurePageWrapper };
 export default PageWrapper;

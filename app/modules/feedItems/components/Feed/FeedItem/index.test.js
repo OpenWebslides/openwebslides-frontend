@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyFeedItemData, dummyTopicData, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyFeedItemData, dummyTopicData, dummyUserData } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -53,7 +53,6 @@ describe(`FeedItem`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureFeedItem
-        {...dummyProviderProps.translatorProps}
         feedItem={dummyFeedItem}
         user={dummyUser}
         topic={dummyTopic}

@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Comment } from 'semantic-ui-react';
 import moment from 'moment';
@@ -21,7 +20,7 @@ type PassedProps = {|
   children: React.Node,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 class PureUserComment extends React.Component<Props> {
   renderUserComment = (user: m.User): React.Node => {
@@ -60,7 +59,7 @@ class PureUserComment extends React.Component<Props> {
   }
 }
 
-const UserComment = withNamespaces()(PureUserComment);
+const UserComment = PureUserComment;
 
 export { PureUserComment };
 export default UserComment;

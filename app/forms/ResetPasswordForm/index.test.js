@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import ResetPasswordForm, { PureResetPasswordForm, type ResetPasswordFormValues } from '.';
 
@@ -25,7 +25,6 @@ describe(`ResetPasswordForm`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureResetPasswordForm
-        {...dummyProviderProps.translatorProps}
         resetPasswordToken={dummyResetPasswordToken}
       />,
     );
@@ -54,7 +53,7 @@ describe(`ResetPasswordForm`, (): void => {
   });
 
   it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PureResetPasswordForm {...dummyProviderProps.translatorProps} />);
+    const enzymeWrapper = shallow(<PureResetPasswordForm />);
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});

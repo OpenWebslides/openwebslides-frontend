@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'semantic-ui-react';
 
 import topics from 'modules/topics';
@@ -13,10 +13,11 @@ type PassedProps = {|
   onCancel: () => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 const PureRemoveTopicModal = (props: Props): React.Node => {
-  const { t, topic, isOpen, onSubmit, onCancel } = props;
+  const { topic, isOpen, onSubmit, onCancel } = props;
+  const [t] = useTranslation();
 
   return (
     <Modal
@@ -52,7 +53,7 @@ const PureRemoveTopicModal = (props: Props): React.Node => {
   );
 };
 
-const RemoveTopicModal = withNamespaces()(PureRemoveTopicModal);
+const RemoveTopicModal = PureRemoveTopicModal;
 
 export { PureRemoveTopicModal };
 export default RemoveTopicModal;

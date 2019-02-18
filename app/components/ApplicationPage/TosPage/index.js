@@ -1,15 +1,15 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Card } from 'semantic-ui-react';
 
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
 
-type Props = {| ...TranslatorProps |};
+type Props = {| |};
 
 const PureTosPage = (props: Props): React.Node => {
-  const { t } = props;
+  const [t] = useTranslation();
 
   return (
     <ContainerPageWrapper>
@@ -122,7 +122,7 @@ const PureTosPage = (props: Props): React.Node => {
   );
 };
 
-const TosPage = withNamespaces()(PureTosPage);
+const TosPage = PureTosPage;
 
 export { PureTosPage };
 export default TosPage;

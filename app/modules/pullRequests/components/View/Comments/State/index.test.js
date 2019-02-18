@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyPullRequestData, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyPullRequestData, dummyTopicData } from 'lib/testResources';
 import topics from 'modules/topics';
 
 import * as m from '../../../../model';
@@ -24,7 +24,6 @@ describe(`State`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureState
-        {...dummyProviderProps.translatorProps}
         pullRequest={dummyPullRequest}
         source={dummyTopic}
         target={dummyTopic}

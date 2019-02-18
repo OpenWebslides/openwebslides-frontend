@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyUserData, dummyInitialState } from 'lib/testResources';
+import { DummyProviders, dummyUserData, dummyInitialState } from 'lib/testResources';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -45,7 +45,6 @@ describe(`UserComment`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureUserComment
-        {...dummyProviderProps.translatorProps}
         userId={dummyUser.id}
         timestamp={dummyTimestamp}
       />,

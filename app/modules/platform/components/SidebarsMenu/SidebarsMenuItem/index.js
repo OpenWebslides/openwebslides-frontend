@@ -4,7 +4,6 @@ import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Menu, Icon } from 'semantic-ui-react';
 
 import { type ModulesAction, type AppState } from 'types/redux';
@@ -25,7 +24,7 @@ type DispatchProps = {|
   handleMenuItemClick: () => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const sidebarIdsToIconsMap = {
   [m.sidebarIds.TOPIC_INFO]: 'info',
@@ -71,9 +70,7 @@ const PureSidebarsMenuItem = (props: Props): React.Node => {
   );
 };
 
-const SidebarsMenuItem = connect(mapStateToProps, mapDispatchToProps)(
-  withNamespaces()(PureSidebarsMenuItem),
-);
+const SidebarsMenuItem = connect(mapStateToProps, mapDispatchToProps)(PureSidebarsMenuItem);
 
 export { PureSidebarsMenuItem };
 export default SidebarsMenuItem;

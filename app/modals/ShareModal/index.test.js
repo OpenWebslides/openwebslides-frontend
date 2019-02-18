@@ -4,7 +4,7 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
-import { dummyProviderProps, DummyProviders, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyTopicData } from 'lib/testResources';
 import makeRoute from 'lib/makeRoute';
 import topics from 'modules/topics';
 
@@ -24,7 +24,7 @@ describe(`ShareModal`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureShareModal topic={dummyTopic} {...dummyProviderProps.translatorProps} />,
+      <PureShareModal topic={dummyTopic} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

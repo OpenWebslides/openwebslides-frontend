@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import topics from 'modules/topics';
 
@@ -11,12 +11,13 @@ type PassedProps = {|
   topic: topics.model.Topic,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 const { SlidesList } = topics.components;
 
 const PureSlidePreviewsSidebar = (props: Props): React.Node => {
-  const { t, topic } = props;
+  const { topic } = props;
+  const [t] = useTranslation();
 
   return (
     <Sidebar
@@ -29,7 +30,7 @@ const PureSlidePreviewsSidebar = (props: Props): React.Node => {
   );
 };
 
-const SlidePreviewsSidebar = withNamespaces()(PureSlidePreviewsSidebar);
+const SlidePreviewsSidebar = PureSlidePreviewsSidebar;
 
 export { PureSlidePreviewsSidebar };
 export default SlidePreviewsSidebar;

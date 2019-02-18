@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Header, Divider, Button, Card, Icon } from 'semantic-ui-react';
 
@@ -15,10 +15,12 @@ type PassedProps = {|
   onRemoveTopic: (topicId: string) => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 const PureTopicsList = (props: Props): React.Node => {
-  const { t, topicIds, isCurrentUser, onRemoveTopic } = props;
+  const { topicIds, isCurrentUser, onRemoveTopic } = props;
+  const [t] = useTranslation();
+
   return (
     <>
       <div style={{ width: '100%', overflow: 'hidden', padding: '1rem 0 0' }}>
@@ -55,7 +57,7 @@ const PureTopicsList = (props: Props): React.Node => {
   );
 };
 
-const TopicsList = withNamespaces()(PureTopicsList);
+const TopicsList = PureTopicsList;
 
 export { PureTopicsList };
 export default TopicsList;

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Card, Button, Icon, Divider } from 'semantic-ui-react';
 
@@ -24,7 +24,7 @@ type DispatchProps = {|
   onEmailAndPasswordFormSubmit: (values: EmailAndPasswordFormValues) => void,
 |};
 
-type Props = {| ...TranslatorProps, ...DispatchProps |};
+type Props = {| ...DispatchProps |};
 
 const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
@@ -35,7 +35,8 @@ const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps =>
 };
 
 const PureSigninCard = (props: Props): React.Node => {
-  const { t, onEmailAndPasswordFormSubmit } = props;
+  const { onEmailAndPasswordFormSubmit } = props;
+  const [t] = useTranslation();
 
   return (
     <Card centered={true} data-test-id="signin-card">
@@ -90,7 +91,7 @@ const PureSigninCard = (props: Props): React.Node => {
   );
 };
 
-const SigninCard = connect(null, mapDispatchToProps)(withNamespaces()(PureSigninCard));
+const SigninCard = connect(null, mapDispatchToProps)(PureSigninCard);
 
 export { PureSigninCard };
 export default SigninCard;

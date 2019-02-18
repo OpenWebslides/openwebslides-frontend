@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import pullRequests from 'modules/pullRequests';
 import topics from 'modules/topics';
@@ -12,12 +12,13 @@ type PassedProps = {|
   topic: topics.model.Topic,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 const { Contribute } = pullRequests.components;
 
 const PureContributeSidebar = (props: Props): React.Node => {
-  const { t, topic } = props;
+  const { topic } = props;
+  const [t] = useTranslation();
 
   return (
     <Sidebar
@@ -30,7 +31,7 @@ const PureContributeSidebar = (props: Props): React.Node => {
   );
 };
 
-const ContributeSidebar = withNamespaces()(PureContributeSidebar);
+const ContributeSidebar = PureContributeSidebar;
 
 export { PureContributeSidebar };
 export default ContributeSidebar;

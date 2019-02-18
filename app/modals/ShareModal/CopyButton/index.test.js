@@ -4,7 +4,7 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import copy from 'copy-to-clipboard';
 
-import { dummyProviderProps, DummyProviders } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import CopyButton, { PureCopyButton } from '.';
 
@@ -24,7 +24,7 @@ describe(`CopyButton`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureCopyButton {...dummyProviderProps.translatorProps} />,
+      <PureCopyButton />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

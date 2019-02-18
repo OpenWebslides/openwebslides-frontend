@@ -1,14 +1,15 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { withRouter, type ContextRouter as RouterProps } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 
-type Props = {| ...TranslatorProps, ...RouterProps |};
+type Props = {| ...RouterProps |};
 
 const PureBackButton = (props: Props): React.Node => {
-  const { t, history } = props;
+  const { history } = props;
+  const [t] = useTranslation();
 
   return (
     <Button type="button" onClick={history.goBack} basic={true}>
@@ -17,7 +18,7 @@ const PureBackButton = (props: Props): React.Node => {
   );
 };
 
-const BackButton = withNamespaces()(withRouter(PureBackButton));
+const BackButton = withRouter(PureBackButton);
 
 export { PureBackButton };
 export default BackButton;

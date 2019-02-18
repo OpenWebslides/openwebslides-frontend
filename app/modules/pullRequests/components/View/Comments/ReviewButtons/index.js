@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Button } from 'semantic-ui-react';
 
 type PassedProps = {|
@@ -9,10 +9,11 @@ type PassedProps = {|
   onReject: () => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 const PureReviewButtons = (props: Props): React.Node => {
-  const { t, onAccept, onReject } = props;
+  const { onAccept, onReject } = props;
+  const [t] = useTranslation();
 
   return (
     <Button.Group>
@@ -36,7 +37,7 @@ const PureReviewButtons = (props: Props): React.Node => {
   );
 };
 
-const ReviewButtons = withNamespaces()(PureReviewButtons);
+const ReviewButtons = PureReviewButtons;
 
 export { PureReviewButtons };
 export default ReviewButtons;

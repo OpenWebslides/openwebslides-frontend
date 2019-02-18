@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
 import { push } from 'connected-react-router';
 
@@ -16,7 +15,7 @@ type DispatchProps = {|
   confirmEmailAndRedirect: (confirmationToken: string) => void,
 |};
 
-type Props = {| ...TranslatorProps, ...RouterProps, ...DispatchProps |};
+type Props = {| ...RouterProps, ...DispatchProps |};
 
 const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
@@ -43,7 +42,7 @@ class PureConfirmEmailPage extends React.Component<Props> {
   }
 }
 
-const ConfirmEmailPage = withNamespaces()(connect(null, mapDispatchToProps)(PureConfirmEmailPage));
+const ConfirmEmailPage = connect(null, mapDispatchToProps)(PureConfirmEmailPage);
 
 export { PureConfirmEmailPage };
 export default ConfirmEmailPage;

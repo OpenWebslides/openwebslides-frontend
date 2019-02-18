@@ -6,7 +6,7 @@ import { mount, shallow } from 'enzyme';
 import { push } from 'connected-react-router';
 
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyTopicData } from 'lib/testResources';
 import makeRoute from 'lib/makeRoute';
 
 import actions from '../../actions';
@@ -65,7 +65,6 @@ describe(`Viewer`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureViewer
-        {...dummyProviderProps.translatorProps}
         topicId={dummyTopic.id}
         topic={dummyTopic}
         onForkTopic={dummyOnForkTopic}

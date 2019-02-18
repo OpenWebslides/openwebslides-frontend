@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyUserData } from 'lib/testResources';
 
 import actions from '../../../actions';
 import * as m from '../../../model';
@@ -28,10 +28,7 @@ describe(`ProfilePane`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureProfilePane
-        {...dummyProviderProps.translatorProps}
-        user={dummyUser}
-      />,
+      <PureProfilePane user={dummyUser} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

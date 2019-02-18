@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Message } from 'semantic-ui-react';
 import { getFlashMessages } from 'redux-flash';
 
@@ -21,7 +21,7 @@ type StateProps = {|
   flashMessages: $ReadOnlyArray<Flash>,
 |};
 
-type Props = {| ...TranslatorProps, ...StateProps |};
+type Props = {| ...StateProps |};
 
 const mapStateToProps = (state: AppState): StateProps => {
   return {
@@ -30,7 +30,8 @@ const mapStateToProps = (state: AppState): StateProps => {
 };
 
 const PureFlashMessages = (props: Props): React.Node => {
-  const { t, flashMessages } = props;
+  const { flashMessages } = props;
+  const [t] = useTranslation();
 
   return (
     <>
@@ -62,7 +63,7 @@ const PureFlashMessages = (props: Props): React.Node => {
   );
 };
 
-const FlashMessages = connect(mapStateToProps)(withNamespaces()(PureFlashMessages));
+const FlashMessages = connect(mapStateToProps)(PureFlashMessages);
 
 export { PureFlashMessages };
 export type { Flash };

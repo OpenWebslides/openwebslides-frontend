@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyPullRequestData } from 'lib/testResources';
+import { DummyProviders, dummyPullRequestData } from 'lib/testResources';
 
 import * as m from '../../../model';
 
@@ -20,10 +20,7 @@ describe(`Ribbon`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureRibbon
-        {...dummyProviderProps.translatorProps}
-        pullRequest={dummyPullRequest}
-      />,
+      <PureRibbon pullRequest={dummyPullRequest} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

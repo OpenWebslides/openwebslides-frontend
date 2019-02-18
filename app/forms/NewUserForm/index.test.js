@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import NewUserForm, { PureNewUserForm, type NewUserFormValues } from '.';
 
@@ -23,7 +23,7 @@ describe(`NewUserForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureNewUserForm {...dummyProviderProps.translatorProps} />,
+      <PureNewUserForm />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -50,7 +50,7 @@ describe(`NewUserForm`, (): void => {
   });
 
   it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PureNewUserForm {...dummyProviderProps.translatorProps} />);
+    const enzymeWrapper = shallow(<PureNewUserForm />);
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import moment from 'moment';
 
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, dummyTopicData, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyAlertData, dummyTopicData, dummyUserData } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -59,7 +59,6 @@ describe(`Alerts`, (): void => {
     const dummyHandleFetchAll = jest.fn();
     const enzymeWrapper = shallow(
       <PureAlerts
-        {...dummyProviderProps.translatorProps}
         sortedAlerts={[]}
         handleFetchAll={dummyHandleFetchAll}
       />,

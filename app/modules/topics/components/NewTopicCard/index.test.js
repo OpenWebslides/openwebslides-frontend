@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import NewTopicCard, { PureNewTopicCard } from '.';
 
@@ -21,10 +21,7 @@ describe(`NewTopicCard`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureNewTopicCard
-        {...dummyProviderProps.translatorProps}
-        onAddTopic={dummyOnAddTopic}
-      />,
+      <PureNewTopicCard onAddTopic={dummyOnAddTopic} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
