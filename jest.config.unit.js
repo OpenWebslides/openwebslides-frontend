@@ -27,6 +27,7 @@ module.exports = {
   setupFiles: [
     'jest-date-mock',
     'jest-localstorage-mock',
+    '<rootDir>/jest/unit/throwOnConsoleErrorOrWarn.js',
   ],
   // Path to the jest setup script.
   setupFilesAfterEnv: [
