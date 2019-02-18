@@ -25,7 +25,9 @@ module.exports = {
     'jest',
     // ESLint checking for correct use of Promise / async features.
     'promise',
-    // Eslint checking for correct use of redux-saga
+    // ESlint checking for correct use of React hooks.
+    'react-hooks',
+    // Eslint checking for correct use of redux-saga.
     'redux-saga',
   ],
   'settings': {
@@ -442,6 +444,9 @@ module.exports = {
         'forbidDefaultForRequired': false,
       },
     ],
+
+    // Enforce correct use of React hooks.
+    'react-hooks/rules-of-hooks': 'error',
 
     // Saga errors are handled by modules/asyncRequests/lib/sagaWrapper
     // in a way that can't be detected by this rule.
