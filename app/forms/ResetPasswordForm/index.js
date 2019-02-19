@@ -15,18 +15,20 @@ type ResetPasswordFormValues = {|
   resetPasswordToken: string,
 |};
 
+type ResetPasswordFormErrors = $ObjMap<ResetPasswordFormValues, () => string>;
+
 type PassedProps = {|
   onSubmit: (values: ResetPasswordFormValues) => void,
   // Use the component's children to add custom buttons to the form;
   // if not set, default of [Submit] | [Back] is used.
-  children: React.Node,
+  children?: React.Node,
   resetPasswordToken: string,
 |};
 
 type Props = {| ...PassedProps |};
 
 class PureResetPasswordForm extends React.Component<Props> {
-  validateForm = (values: ResetPasswordFormValues): ResetPasswordFormValues => {
+  validateForm = (values: ResetPasswordFormValues): ResetPasswordFormErrors => {
     const errors = {};
 
     if (values.password.length < 6) {
@@ -41,7 +43,7 @@ class PureResetPasswordForm extends React.Component<Props> {
       errors.resetPasswordToken = 'users:forms.errors.resetPasswordToken';
     }
 
-    return { ...errors };
+    return errors;
   };
 
   render(): React.Node {

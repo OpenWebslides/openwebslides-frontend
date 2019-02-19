@@ -82,6 +82,8 @@ class PurePullRequestAlert extends React.Component<Props> {
       [m.alertTypes.PR_SUBMITTED]: 'question',
       [m.alertTypes.PR_ACCEPTED]: 'check',
       [m.alertTypes.PR_REJECTED]: 'times',
+      [m.alertTypes.TOPIC_FORKED]: '', // #TODO
+      [m.alertTypes.TOPIC_UPDATED]: '', // #TODO
     };
 
     return (

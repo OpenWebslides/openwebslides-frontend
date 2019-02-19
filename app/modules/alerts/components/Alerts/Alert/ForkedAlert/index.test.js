@@ -23,6 +23,10 @@ describe(`ForkedAlert`, (): void => {
   let dummyState: any;
   let dummyDispatch: any;
 
+  let dummyFetchTopic: any;
+  let dummyFetchUser: any;
+  let dummyOnClickAlert: any;
+
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic };
     dummyUser = { ...dummyUserData.user };
@@ -52,6 +56,10 @@ describe(`ForkedAlert`, (): void => {
       },
     };
     dummyDispatch = jest.fn();
+
+    dummyFetchTopic = jest.fn();
+    dummyFetchUser = jest.fn();
+    dummyOnClickAlert = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
@@ -60,8 +68,9 @@ describe(`ForkedAlert`, (): void => {
         alert={dummyAlert}
         user={dummyUser}
         topic={dummyTopic}
-        fetchTopic={jest.fn()}
-        fetchUser={jest.fn()}
+        fetchTopic={dummyFetchTopic}
+        fetchUser={dummyFetchUser}
+        onClickAlert={dummyOnClickAlert}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);

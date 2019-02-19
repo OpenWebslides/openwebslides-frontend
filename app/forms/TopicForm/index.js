@@ -14,17 +14,19 @@ type TopicFormValues = {|
   description: string,
 |};
 
+type TopicFormErrors = $ObjMap<TopicFormValues, () => string>;
+
 type PassedProps = {|
   onSubmit: (values: TopicFormValues) => void,
   // Use the component's children to add custom buttons to the form;
   // if not set, default of [Submit] | [Back] is used.
-  children: React.Node,
+  children?: React.Node,
 |};
 
 type Props = {| ...PassedProps |};
 
 class PureTopicForm extends React.Component<Props> {
-  validateForm = (values: TopicFormValues): TopicFormValues => {
+  validateForm = (values: TopicFormValues): TopicFormErrors => {
     const errors = {};
 
     if (values.title === '') {
@@ -39,7 +41,7 @@ class PureTopicForm extends React.Component<Props> {
       errors.description = 'topics:forms.errors.description.length';
     }
 
-    return { ...errors };
+    return errors;
   };
 
   render(): React.Node {

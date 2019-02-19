@@ -15,14 +15,18 @@ describe(`Metadata`, (): void => {
   let dummyTopic: m.Topic;
   let dummyDispatch: any;
 
+  let dummyOnUpdate: any;
+
   beforeEach((): void => {
     dummyTopic = dummyTopicData.topic;
     dummyDispatch = jest.fn();
+
+    dummyOnUpdate = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureMetadata topic={dummyTopic} />,
+      <PureMetadata topic={dummyTopic} onUpdate={dummyOnUpdate} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

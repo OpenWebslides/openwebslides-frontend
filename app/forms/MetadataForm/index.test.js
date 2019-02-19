@@ -33,17 +33,24 @@ describe(`MetadataForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureMetadataForm />,
+      <PureMetadataForm
+        onSubmit={dummyOnSubmit}
+        onCancel={dummyOnCancel}
+        availableAccess={dummyAvailableAccess}
+        initialValues={dummyFormProps}
+      />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toStrictEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders a dropdown box with the passed available access`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <MetadataForm
-          access={dummyFormProps.access}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
           availableAccess={dummyAvailableAccess}
+          initialValues={dummyFormProps}
         />
       </DummyProviders>,
     );
@@ -58,12 +65,10 @@ describe(`MetadataForm`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <MetadataForm
-          title={dummyFormProps.title}
-          description={dummyFormProps.description}
-          access={dummyFormProps.access}
-          availableAccess={dummyAvailableAccess}
           onSubmit={dummyOnSubmit}
           onCancel={dummyOnCancel}
+          availableAccess={dummyAvailableAccess}
+          initialValues={dummyFormProps}
         />
       </DummyProviders>,
     );
@@ -75,7 +80,12 @@ describe(`MetadataForm`, (): void => {
 
   it(`validates form props`, (): void => {
     const enzymeWrapper = shallow(
-      <PureMetadataForm availableAccess={dummyAvailableAccess} />,
+      <PureMetadataForm
+        onSubmit={dummyOnSubmit}
+        onCancel={dummyOnCancel}
+        availableAccess={dummyAvailableAccess}
+        initialValues={dummyFormProps}
+      />,
     );
     const validate = enzymeWrapper.instance().validateForm;
 

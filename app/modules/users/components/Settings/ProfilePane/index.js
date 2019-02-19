@@ -62,7 +62,6 @@ class PureProfilePane extends React.Component<Props> {
                     availableLocales={i18n.languages.map((language: string): DropdownValue => {
                       return { key: language, value: language, text: t(`settings:locales.${language}`) };
                     })}
-                    data-test-id="profile-pane-profile-form"
                   >
                     <Button type="submit" primary={true}>
                       {t('settings:profile.updateProfile')}

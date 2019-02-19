@@ -24,7 +24,7 @@ describe(`CopyButton`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureCopyButton />,
+      <PureCopyButton value={dummyValue} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

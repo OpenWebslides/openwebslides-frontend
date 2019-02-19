@@ -18,16 +18,19 @@ type ProfileFormValues = {|
   alertEmails: boolean,
 |};
 
+type ProfileFormErrors = $ObjMap<ProfileFormValues, () => string>;
+
 type PassedProps = {|
   availableLocales: $ReadOnlyArray<DropdownValue>,
   user: users.model.User,
   onSubmit: (values: ProfileFormValues) => void,
+  children: React.Node,
 |};
 
 type Props = {| ...PassedProps |};
 
 class PureProfileForm extends React.Component<Props> {
-  validateForm = (values: ProfileFormValues): ProfileFormValues => {
+  validateForm = (values: ProfileFormValues): ProfileFormErrors => {
     const { availableLocales } = this.props;
 
     const errors = {};
@@ -52,7 +55,7 @@ class PureProfileForm extends React.Component<Props> {
       errors.alertEmails = 'users:forms.errors.alertEmails';
     }
 
-    return { ...errors };
+    return errors;
   };
 
   render(): React.Node {

@@ -17,16 +17,20 @@ describe(`AccountPane`, (): void => {
   let dummyCurrentPassword: string;
   let dummyPassword: string;
 
+  let dummyOnUpdatePassword: any;
+
   beforeEach((): void => {
     dummyUser = { ...dummyUserData.user };
     dummyDispatch = jest.fn();
     dummyCurrentPassword = 'dummyCurrentPassword';
     dummyPassword = 'dummyPassword';
+
+    dummyOnUpdatePassword = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureAccountPane user={dummyUser} />,
+      <PureAccountPane user={dummyUser} onUpdatePassword={dummyOnUpdatePassword} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

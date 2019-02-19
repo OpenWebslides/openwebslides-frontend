@@ -27,8 +27,11 @@ describe(`RejectPullRequestModal`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureRejectPullRequestModal
+        isOpen={true}
         source={dummySource}
         target={dummyTarget}
+        onSubmit={dummyOnSubmit}
+        onCancel={dummyOnCancel}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);

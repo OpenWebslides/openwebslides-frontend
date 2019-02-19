@@ -58,13 +58,8 @@ describe(`Alert`, (): void => {
 
   it(`renders empty when the topic has an invalid type`, (): void => {
     const enzymeWrapper = shallow(
-      <Alert
-        alert={{ ...dummyUpdateAlert, type: 'foo' }}
-        user={dummyUser}
-        topic={dummyTopic}
-        fetchTopic={jest.fn()}
-        fetchUser={jest.fn()}
-      />,
+      // $FlowFixMe intentional invalid type
+      <Alert alert={{ ...dummyUpdateAlert, type: 'foo' }} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(true);
   });
@@ -73,13 +68,7 @@ describe(`Alert`, (): void => {
 
     it(`renders without errors`, (): void => {
       const enzymeWrapper = shallow(
-        <Alert
-          alert={dummyUpdateAlert}
-          user={dummyUser}
-          topic={dummyTopic}
-          fetchTopic={jest.fn()}
-          fetchUser={jest.fn()}
-        />,
+        <Alert alert={dummyUpdateAlert} />,
       );
       expect(enzymeWrapper.isEmptyRender()).toBe(false);
     });
@@ -100,13 +89,7 @@ describe(`Alert`, (): void => {
 
     it(`renders without errors`, (): void => {
       const enzymeWrapper = shallow(
-        <Alert
-          alert={dummyPullRequestAlert}
-          user={dummyUser}
-          topic={dummyTopic}
-          fetchTopic={jest.fn()}
-          fetchUser={jest.fn()}
-        />,
+        <Alert alert={dummyPullRequestAlert} />,
       );
       expect(enzymeWrapper.isEmptyRender()).toBe(false);
     });
@@ -147,13 +130,7 @@ describe(`Alert`, (): void => {
 
     it(`renders without errors`, (): void => {
       const enzymeWrapper = shallow(
-        <Alert
-          alert={dummyForkedAlert}
-          user={dummyUser}
-          topic={dummyTopic}
-          fetchTopic={jest.fn()}
-          fetchUser={jest.fn()}
-        />,
+        <Alert alert={dummyForkedAlert} />,
       );
       expect(enzymeWrapper.isEmptyRender()).toBe(false);
     });

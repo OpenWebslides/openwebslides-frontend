@@ -17,16 +17,19 @@ type MetadataFormValues = {|
   access: topics.model.AccessType,
 |};
 
+type MetadataFormErrors = $ObjMap<MetadataFormValues, () => string>;
+
 type PassedProps = {|
   onSubmit: (values: MetadataFormValues) => void,
   onCancel: () => void,
   availableAccess: $ReadOnlyArray<DropdownValue>,
+  initialValues: MetadataFormValues,
 |};
 
 type Props = {| ...PassedProps |};
 
 class PureMetadataForm extends React.Component<Props> {
-  validateForm = (values: MetadataFormValues): MetadataFormValues => {
+  validateForm = (values: MetadataFormValues): MetadataFormErrors => {
     const { availableAccess } = this.props;
 
     const errors = {};
@@ -50,7 +53,7 @@ class PureMetadataForm extends React.Component<Props> {
       errors.access = 'topics:forms.errors.access';
     }
 
-    return { ...errors };
+    return errors;
   };
 
   handleCancel = (): void => {
@@ -59,13 +62,13 @@ class PureMetadataForm extends React.Component<Props> {
   };
 
   render(): React.Node {
-    const { onSubmit, title, description, access, availableAccess } = this.props;
+    const { onSubmit, availableAccess, initialValues } = this.props;
 
     return (
       <Translation>
         {(t: TFunction): React.Node => (
           <Formik
-            initialValues={{ title, description, access }}
+            initialValues={initialValues}
             validate={this.validateForm}
             onSubmit={onSubmit}
           >

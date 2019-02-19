@@ -9,6 +9,7 @@ import { Modal, Button, Icon } from 'semantic-ui-react';
 import { type TFunction } from 'types/i18next';
 import { type ModulesAction, type AppState } from 'types/redux';
 import InlineMarkdown from 'components/InlineMarkdown';
+import { UnsupportedOperationError } from 'errors';
 import PullRequestForm, { type PullRequestFormValues } from 'forms/PullRequestForm';
 import topics from 'modules/topics';
 import platform from 'modules/platform';
@@ -29,7 +30,7 @@ type PassedProps = {|
 type StateProps = {|
   sourceTopic: ?topics.model.Topic,
   targetTopic: ?topics.model.Topic,
-  currentUserId: ?string,
+  currentUserId: string,
 |};
 
 type DispatchProps = {|
@@ -42,10 +43,12 @@ const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { sourceTopicId, targetTopicId } = props;
   const userAuth = platform.selectors.getUserAuth(state);
 
+  if (userAuth == null) throw new UnsupportedOperationError(`This shouldn't happen.`);
+
   return {
     sourceTopic: topics.selectors.getById(state, { id: sourceTopicId }),
     targetTopic: topics.selectors.getById(state, { id: targetTopicId }),
-    currentUserId: (userAuth != null) ? userAuth.userId : null,
+    currentUserId: userAuth.userId,
   };
 };
 
@@ -107,10 +110,7 @@ class PurePullRequestModal extends React.Component<Props> {
               <p>
                 To: <strong>{targetTopic.title}</strong>
               </p>
-              <PullRequestForm
-                onSubmit={this.handlePullRequestFormSubmit}
-                data-test-id="pull-request-modal-pull-request-form"
-              />
+              <PullRequestForm onSubmit={this.handlePullRequestFormSubmit} />
             </Modal.Content>
             <Modal.Actions>
               <Button

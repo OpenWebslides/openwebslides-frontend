@@ -47,6 +47,7 @@ describe(`PolicyWrapper`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
+      // $FlowFixMe #TODO
       <PurePolicyWrapper record={dummyRecord} policy={DummyPolicy} action="can" currentUserId={dummyUser.id}>
         <p>children</p>
       </PurePolicyWrapper>,

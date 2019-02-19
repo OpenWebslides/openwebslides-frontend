@@ -103,7 +103,7 @@ class PureComments extends React.Component<Props, ComponentState> {
     this.handleFeedbackModalCancel();
   };
 
-  handleRejectModalSubmit = (message: ?string): void => {
+  handleRejectModalSubmit = (message: string): void => {
     const { pullRequest, onReject } = this.props;
 
     onReject(pullRequest.id, message);

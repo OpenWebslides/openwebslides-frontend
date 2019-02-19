@@ -28,6 +28,8 @@ describe(`Viewer`, (): void => {
   let dummyDispatch: any;
   let dummyOnForkTopic: any;
 
+  let dummyOnEdit: any;
+
   beforeEach((): void => {
     dummyUserId = 'someDummyUserId';
     dummyTopic = { ...dummyTopicData.topic, userId: dummyUserId, isContentFetched: true };
@@ -60,6 +62,8 @@ describe(`Viewer`, (): void => {
     };
     dummyDispatch = jest.fn();
     dummyOnForkTopic = jest.fn();
+
+    dummyOnEdit = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
@@ -67,7 +71,9 @@ describe(`Viewer`, (): void => {
       <PureViewer
         topicId={dummyTopic.id}
         topic={dummyTopic}
+        currentUserId={dummyUserId}
         onForkTopic={dummyOnForkTopic}
+        onEdit={dummyOnEdit}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);

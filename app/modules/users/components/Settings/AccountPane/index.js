@@ -6,6 +6,7 @@ import { type Dispatch } from 'redux';
 import { Translation } from 'react-i18next';
 import { Tab, Button, Grid, Header, Message } from 'semantic-ui-react';
 
+import { type TFunction } from 'types/i18next';
 import { type ModulesAction } from 'types/redux';
 import PasswordForm, { type PasswordFormValues } from 'forms/PasswordForm';
 

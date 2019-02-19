@@ -12,9 +12,7 @@ type FeedbackFormValues = {|
   feedback: string,
 |};
 
-type FeedbackFormErrors = {|
-  feedback: string,
-|};
+type FeedbackFormErrors = $ObjMap<FeedbackFormValues, () => string>;
 
 type PassedProps = {|
   onSubmit: (values: FeedbackFormValues) => void,
@@ -33,7 +31,7 @@ class PureFeedbackForm extends React.Component<Props> {
       errors.feedback = 'pullRequests:forms.errors.feedback';
     }
 
-    return { ...errors };
+    return errors;
   };
 
   render(): React.Node {

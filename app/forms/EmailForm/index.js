@@ -13,24 +13,26 @@ type EmailFormValues = {|
   email: string,
 |};
 
+type EmailFormErrors = $ObjMap<EmailFormValues, () => string>;
+
 type PassedProps = {|
   onSubmit: (values: EmailFormValues) => void,
   // Use the component's children to add custom buttons to the form;
   // if not set, default of [Submit] | [Back] is used.
-  children: React.Node,
+  children?: React.Node,
 |};
 
 type Props = {| ...PassedProps |};
 
 class PureEmailForm extends React.Component<Props> {
-  validateForm = (values: EmailFormValues): EmailFormValues => {
+  validateForm = (values: EmailFormValues): EmailFormErrors => {
     const errors = {};
 
     if (!values.email.includes('@')) {
       errors.email = 'users:forms.errors.email';
     }
 
-    return { ...errors };
+    return errors;
   };
 
   render(): React.Node {

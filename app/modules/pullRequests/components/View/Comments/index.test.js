@@ -23,6 +23,9 @@ describe(`Comments`, (): void => {
   let dummyState: any;
   let dummyDispatch: any;
 
+  let dummyOnAccept: any;
+  let dummyOnReject: any;
+
   beforeEach((): void => {
     dummyTarget = { ...dummyTopicData.upstream };
     dummyTarget2 = { ...dummyTopicData.upstream, userId: 'someUserId', collaboratorUserIds: [] };
@@ -60,6 +63,9 @@ describe(`Comments`, (): void => {
       },
     };
     dummyDispatch = jest.fn();
+
+    dummyOnAccept = jest.fn();
+    dummyOnReject = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
@@ -69,6 +75,8 @@ describe(`Comments`, (): void => {
         source={dummySource}
         target={dummyTarget}
         fetchTopic={jest.fn()}
+        onAccept={dummyOnAccept}
+        onReject={dummyOnReject}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);

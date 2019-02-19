@@ -14,17 +14,19 @@ type EmailAndPasswordFormValues = {|
   password: string,
 |};
 
+type EmailAndPasswordFormErrors = $ObjMap<EmailAndPasswordFormValues, () => string>;
+
 type PassedProps = {|
   onSubmit: (values: EmailAndPasswordFormValues) => void,
   // Use the component's children to add custom buttons to the form;
   // if not set, default of [Submit] | [Back] is used.
-  children: React.Node,
+  children?: React.Node,
 |};
 
 type Props = {| ...PassedProps |};
 
 class PureEmailAndPasswordForm extends React.Component<Props> {
-  validateForm = (values: EmailAndPasswordFormValues): EmailAndPasswordFormValues => {
+  validateForm = (values: EmailAndPasswordFormValues): EmailAndPasswordFormErrors => {
     const errors = {};
 
     if (!values.email.includes('@')) {
@@ -35,7 +37,7 @@ class PureEmailAndPasswordForm extends React.Component<Props> {
       errors.password = 'users:forms.errors.password';
     }
 
-    return { ...errors };
+    return errors;
   };
 
   render(): React.Node {

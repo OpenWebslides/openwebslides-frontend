@@ -14,6 +14,7 @@ describe(`ProfileForm`, (): void => {
   let dummyFormProps: ProfileFormValues;
   let dummyUser: users.model.User;
   let dummyAvailableLocales: $ReadOnlyArray<DropdownValue>;
+  let dummyOnSubmit: any;
 
   beforeEach((): void => {
     dummyFormProps = {
@@ -28,14 +29,18 @@ describe(`ProfileForm`, (): void => {
       { key: 'nl', value: 'nl', text: 'Nederlands' },
       { key: 'fr', value: 'fr', text: 'Français' },
     ];
+    dummyOnSubmit = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureProfileForm
+        onSubmit={dummyOnSubmit}
         user={dummyUser}
         availableLocales={dummyAvailableLocales}
-      />,
+      >
+        <p>children</p>
+      </PureProfileForm>,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -43,7 +48,11 @@ describe(`ProfileForm`, (): void => {
   it(`renders children`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <ProfileForm user={dummyUser} availableLocales={dummyAvailableLocales}>
+        <ProfileForm
+          onSubmit={dummyOnSubmit}
+          user={dummyUser}
+          availableLocales={dummyAvailableLocales}
+        >
           <p data-test-id="test-form-children">replacement submit buttons would go here</p>
         </ProfileForm>
       </DummyProviders>,
@@ -55,9 +64,12 @@ describe(`ProfileForm`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <ProfileForm
+          onSubmit={dummyOnSubmit}
           user={dummyUser}
           availableLocales={dummyAvailableLocales}
-        />
+        >
+          <p>children</p>
+        </ProfileForm>
       </DummyProviders>,
     );
 
@@ -68,9 +80,12 @@ describe(`ProfileForm`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <ProfileForm
+          onSubmit={dummyOnSubmit}
           user={dummyUser}
           availableLocales={dummyAvailableLocales}
-        />
+        >
+          <p>children</p>
+        </ProfileForm>
       </DummyProviders>,
     );
     expect(enzymeWrapper.find('DropdownItem')).toHaveLength(3);
@@ -82,9 +97,12 @@ describe(`ProfileForm`, (): void => {
   it(`validates form props`, (): void => {
     const enzymeWrapper = shallow(
       <PureProfileForm
+        onSubmit={dummyOnSubmit}
         user={dummyUser}
         availableLocales={dummyAvailableLocales}
-      />,
+      >
+        <p>children</p>
+      </PureProfileForm>,
     );
     const validate = enzymeWrapper.instance().validateForm;
 

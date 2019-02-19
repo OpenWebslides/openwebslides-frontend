@@ -47,7 +47,9 @@ describe(`UserComment`, (): void => {
       <PureUserComment
         userId={dummyUser.id}
         timestamp={dummyTimestamp}
-      />,
+      >
+        <p>children</p>
+      </PureUserComment>,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -57,7 +59,9 @@ describe(`UserComment`, (): void => {
 
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <UserComment userId={dummyUser.id} timestamp={dummyTimestamp} />
+        <UserComment userId={dummyUser.id} timestamp={dummyTimestamp}>
+          <p>children</p>
+        </UserComment>
       </DummyProviders>,
     );
 
@@ -68,7 +72,9 @@ describe(`UserComment`, (): void => {
   it(`renders the outgoing user component, when the user was previously present in the state`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <UserComment userId={dummyUser.id} timestamp={dummyTimestamp} />
+        <UserComment userId={dummyUser.id} timestamp={dummyTimestamp}>
+          <p>children</p>
+        </UserComment>
       </DummyProviders>,
     );
 

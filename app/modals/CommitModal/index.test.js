@@ -19,7 +19,11 @@ describe(`CommitModal`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureCommitModal />,
+      <PureCommitModal
+        isOpen={true}
+        onSubmit={dummyOnSubmit}
+        onCancel={dummyOnCancel}
+      />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -27,7 +31,11 @@ describe(`CommitModal`, (): void => {
   it(`renders the commit modal form and submit/cancel buttons, when the passed isOpen prop is TRUE`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <CommitModal isOpen={true} />
+        <CommitModal
+          isOpen={true}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
+        />
       </DummyProviders>,
     );
 
@@ -39,7 +47,11 @@ describe(`CommitModal`, (): void => {
   it(`does not render the commit modal form and submit/cancel buttons, when the passed isOpen prop is FALSE`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <CommitModal isOpen={false} />
+        <CommitModal
+          isOpen={false}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
+        />
       </DummyProviders>,
     );
 
@@ -51,7 +63,11 @@ describe(`CommitModal`, (): void => {
   it(`calls the passed onSubmit callback when the submit button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <CommitModal isOpen={true} onSubmit={dummyOnSubmit} onCancel={dummyOnCancel} />
+        <CommitModal
+          isOpen={true}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
+        />
       </DummyProviders>,
     );
 
@@ -68,7 +84,11 @@ describe(`CommitModal`, (): void => {
   it(`calls the passed onCancel callback when the cancel button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <CommitModal isOpen={true} onSubmit={dummyOnSubmit} onCancel={dummyOnCancel} />
+        <CommitModal
+          isOpen={true}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
+        />
       </DummyProviders>,
     );
 

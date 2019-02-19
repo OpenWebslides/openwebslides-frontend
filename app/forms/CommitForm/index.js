@@ -12,6 +12,8 @@ type CommitFormValues = {|
   message: string,
 |};
 
+type CommitFormErrors = $ObjMap<CommitFormValues, () => string>;
+
 type PassedProps = {|
   onSubmit: (values: CommitFormValues) => void,
 |};
@@ -19,7 +21,7 @@ type PassedProps = {|
 type Props = {| ...PassedProps |};
 
 class PureCommitForm extends React.Component<Props> {
-  validateForm = (values: CommitFormValues): CommitFormValues => {
+  validateForm = (values: CommitFormValues): CommitFormErrors => {
     const errors = {};
 
     if (values.message === '') {
@@ -30,7 +32,7 @@ class PureCommitForm extends React.Component<Props> {
       errors.message = 'topics:forms.errors.message.length';
     }
 
-    return { ...errors };
+    return errors;
   };
 
   render(): React.Node {

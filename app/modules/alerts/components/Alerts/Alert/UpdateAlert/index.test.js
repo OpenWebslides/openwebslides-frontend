@@ -21,6 +21,9 @@ describe(`UpdateAlert`, (): void => {
   let dummyState: any;
   let dummyDispatch: any;
 
+  let dummyFetchTopic: any;
+  let dummyOnClickAlert: any;
+
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic };
     dummyAlert = { ...dummyAlertData.updateAlert1, topicId: dummyTopic.id };
@@ -43,6 +46,9 @@ describe(`UpdateAlert`, (): void => {
       },
     };
     dummyDispatch = jest.fn();
+
+    dummyFetchTopic = jest.fn();
+    dummyOnClickAlert = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
@@ -50,7 +56,8 @@ describe(`UpdateAlert`, (): void => {
       <PureUpdateAlert
         alert={dummyAlert}
         topic={dummyTopic}
-        fetchTopic={jest.fn()}
+        fetchTopic={dummyFetchTopic}
+        onClickAlert={dummyOnClickAlert}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);

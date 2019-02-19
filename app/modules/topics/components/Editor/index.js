@@ -84,6 +84,21 @@ class PureEditor extends React.Component<Props, ComponentState> {
     isShareModalOpen: false,
   };
 
+  componentDidMount(): void {
+    // Add event listener to prevent unloading window when topic is dirty
+    window.addEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  componentWillUnmount(): void {
+    const { topic, onDiscard } = this.props;
+
+    // discard topic when exiting editor
+    if (topic != null && topic.isDirty) onDiscard();
+
+    // Remove event listener to prevent unloading window when topic is dirty
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
   showCommitModal = (): void => {
     this.setState({ isCommitModalOpen: true });
   };
@@ -111,10 +126,10 @@ class PureEditor extends React.Component<Props, ComponentState> {
     onView();
   };
 
-  beforeUnloadHandler = (event: Event): boolean => {
+  beforeUnloadHandler = (event: Event): void => {
     const { topic } = this.props;
 
-    if (topic.isDirty) {
+    if (topic != null && topic.isDirty) {
       // Cancel the event as stated by the standard
       event.preventDefault();
 
@@ -124,23 +139,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
       event.returnValue = '';
       /* eslint-enable */
     }
-
-    return topic.isDirty;
-  };
-
-  componentDidMount = (): void => {
-    // Add event listener to prevent unloading window when topic is dirty
-    window.addEventListener('beforeunload', this.beforeUnloadHandler);
-  };
-
-  componentWillUnmount = (): void => {
-    const { topic, onDiscard } = this.props;
-
-    // discard topic when exiting editor
-    if (topic.isDirty) onDiscard(topic.id);
-
-    // Remove event listener to prevent unloading window when topic is dirty
-    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
   };
 
   fetchCondition = (topic: ?m.Topic): boolean => {

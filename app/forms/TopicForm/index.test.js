@@ -10,18 +10,20 @@ import TopicForm, { PureTopicForm, type TopicFormValues } from '.';
 describe(`TopicForm`, (): void => {
 
   let dummyFormProps: TopicFormValues;
+  let dummyOnSubmit: any;
 
   beforeEach((): void => {
     dummyFormProps = {
       title: 'dummyTitle',
       description: 'dummyDescription',
     };
+    dummyOnSubmit = jest.fn();
   });
 
   it(`renders default buttons if no children are specified`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <TopicForm />
+        <TopicForm onSubmit={dummyOnSubmit} />
       </DummyProviders>,
     );
 
@@ -30,7 +32,7 @@ describe(`TopicForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureTopicForm />,
+      <PureTopicForm onSubmit={dummyOnSubmit} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -38,7 +40,7 @@ describe(`TopicForm`, (): void => {
   it(`allows rendering children instead of default form buttons`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <TopicForm>
+        <TopicForm onSubmit={dummyOnSubmit}>
           <p data-test-id="test-form-children">replacement submit buttons would go here</p>
         </TopicForm>
       </DummyProviders>,
@@ -47,7 +49,7 @@ describe(`TopicForm`, (): void => {
   });
 
   it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PureTopicForm />);
+    const enzymeWrapper = shallow(<PureTopicForm onSubmit={dummyOnSubmit} />);
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});

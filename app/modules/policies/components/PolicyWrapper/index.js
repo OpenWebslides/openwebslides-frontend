@@ -13,7 +13,7 @@ import policies from '../../policies';
 
 type PassedProps<T> = {|
   record: T,
-  policy: policies.Policy<T>,
+  policy: typeof policies.Policy,
   action: string,
   children: React.Node,
   // Optional route to which the user will be redirected, if the user is not authenticated.
@@ -39,6 +39,11 @@ const mapStateToProps = (state: AppState): StateProps => {
 };
 
 class PurePolicyWrapper<T> extends React.Component<Props<T>> {
+  static defaultProps = {
+    redirectIfNotAuthenticated: null,
+    componentIfNotAuthenticated: null,
+  };
+
   renderPolicyWrapper = (currentUser: users.model.User): React.Node => {
     const {
       record,
@@ -49,11 +54,11 @@ class PurePolicyWrapper<T> extends React.Component<Props<T>> {
       componentIfNotAuthenticated,
     } = this.props;
 
-    // $FlowFixMe I have no idea how to FlowFix this
     const policy = new PolicyClass(currentUser, record);
 
     return (
       <ConditionalWrapper
+        // $FlowFixMe #TODO
         renderChildren={policy[action]()}
         componentIfNotChildren={componentIfNotAuthenticated}
         redirectIfNotChildren={redirectIfNotAuthenticated}

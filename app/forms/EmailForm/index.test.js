@@ -10,16 +10,18 @@ import EmailForm, { PureEmailForm, type EmailFormValues } from '.';
 describe(`EmailForm`, (): void => {
 
   let dummyFormProps: EmailFormValues;
+  let dummyOnSubmit: any;
 
   beforeEach((): void => {
     dummyFormProps = {
       email: 'dummy@email',
     };
+    dummyOnSubmit = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureEmailForm />,
+      <PureEmailForm onSubmit={dummyOnSubmit} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -27,7 +29,7 @@ describe(`EmailForm`, (): void => {
   it(`renders default buttons if no children are specified`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EmailForm />
+        <EmailForm onSubmit={dummyOnSubmit} />
       </DummyProviders>,
     );
 
@@ -37,7 +39,7 @@ describe(`EmailForm`, (): void => {
   it(`allows rendering children instead of default form buttons`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EmailForm>
+        <EmailForm onSubmit={dummyOnSubmit}>
           <p data-test-id="test-form-children">replacement submit buttons would go here</p>
         </EmailForm>
       </DummyProviders>,
@@ -46,7 +48,7 @@ describe(`EmailForm`, (): void => {
   });
 
   it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PureEmailForm />);
+    const enzymeWrapper = shallow(<PureEmailForm onSubmit={dummyOnSubmit} />);
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});

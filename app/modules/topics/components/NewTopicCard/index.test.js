@@ -32,7 +32,7 @@ describe(`NewTopicCard`, (): void => {
         <NewTopicCard onAddTopic={dummyOnAddTopic} />
       </DummyProviders>,
     );
-    const onSubmit = enzymeWrapper.find('[data-test-id="new-topic-card-form"]').at(0).props().onSubmit;
+    const onSubmit = enzymeWrapper.find('PureTopicForm').at(0).props().onSubmit;
 
     onSubmit({ title: dummyTitle, description: dummyDescription });
     expect(dummyOnAddTopic).toHaveBeenCalledWith(dummyTitle, dummyDescription);

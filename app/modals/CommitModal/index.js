@@ -4,11 +4,11 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'semantic-ui-react';
 
-import CommitForm from 'forms/CommitForm';
+import CommitForm, { type CommitFormValues } from 'forms/CommitForm';
 
 type PassedProps = {|
   isOpen: boolean,
-  onSubmit: () => void,
+  onSubmit: (values: CommitFormValues) => void,
   onCancel: () => void,
 |};
 
@@ -28,10 +28,7 @@ const PureCommitModal = (props: Props): React.Node => {
       <Modal.Header>{t('modals:commit.title')}</Modal.Header>
       <Modal.Content>
         <p>{t('modals:commit.message')}</p>
-        <CommitForm
-          onSubmit={onSubmit}
-          data-test-id="commit-modal-commit-form"
-        />
+        <CommitForm onSubmit={onSubmit} />
       </Modal.Content>
       <Modal.Actions>
         <Button

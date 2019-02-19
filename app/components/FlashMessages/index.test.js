@@ -70,12 +70,7 @@ describe(`FlashMessages`, (): void => {
   it(`renders all flash messages, when the flashMessages array is not empty`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState}>
-        <PureFlashMessages
-          t={(val: string): string => {
-            return val;
-          }}
-          flashMessages={dummyFlashMessages}
-        />
+        <PureFlashMessages flashMessages={dummyFlashMessages} />
       </DummyProviders>,
     );
 

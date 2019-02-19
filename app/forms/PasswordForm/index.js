@@ -14,14 +14,17 @@ type PasswordFormValues = {|
   repeatPassword: string,
 |};
 
+type PasswordFormErrors = $ObjMap<PasswordFormValues, () => string>;
+
 type PassedProps = {|
   onSubmit: (values: PasswordFormValues) => void,
+  children: React.Node,
 |};
 
 type Props = {| ...PassedProps |};
 
 class PurePasswordForm extends React.Component<Props> {
-  validateForm = (values: PasswordFormValues): PasswordFormValues => {
+  validateForm = (values: PasswordFormValues): PasswordFormErrors => {
     const errors = {};
 
     if (values.currentPassword.length < 6) {
@@ -40,7 +43,7 @@ class PurePasswordForm extends React.Component<Props> {
       errors.repeatPassword = 'users:forms.errors.repeatPassword';
     }
 
-    return { ...errors };
+    return errors;
   };
 
   render(): React.Node {

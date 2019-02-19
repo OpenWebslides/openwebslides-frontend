@@ -30,7 +30,7 @@ describe(`SignupPage`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureSignupPage />,
+      <PureSignupPage onSignup={jest.fn()} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

@@ -38,10 +38,7 @@ describe(`Settings`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureSettings
-        userId={dummyUser.id}
-        removeTopicFromUser={jest.fn()}
-      />,
+      <PureSettings userId={dummyUser.id} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

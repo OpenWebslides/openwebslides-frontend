@@ -27,7 +27,7 @@ describe(`SignupCard`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureSignupCard onNewUserFormSubmit={jest.fn()} />,
+      <PureSignupCard onSignup={dummyOnSignup} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

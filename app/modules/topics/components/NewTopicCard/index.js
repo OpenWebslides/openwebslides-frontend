@@ -33,10 +33,7 @@ class PureNewTopicCard extends React.Component<Props> {
               </Card.Description>
             </Card.Content>
             <Card.Content>
-              <TopicForm
-                onSubmit={this.handleTopicFormSubmit}
-                data-test-id="new-topic-card-form"
-              />
+              <TopicForm onSubmit={this.handleTopicFormSubmit} />
             </Card.Content>
           </Card>
         )}

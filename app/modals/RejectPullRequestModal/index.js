@@ -13,10 +13,7 @@ type PassedProps = {|
   source: topics.model.Topic,
   target: topics.model.Topic,
   isOpen: boolean,
-  onSubmit: (
-    feedback: string,
-    pullRequestId: string,
-  ) => void,
+  onSubmit: (feedback: string) => void,
   onCancel: () => void,
 |};
 
@@ -25,7 +22,6 @@ type Props = {| ...PassedProps |};
 class PureRejectPullRequestModal extends React.Component<Props> {
   handleFeedbackFormSubmit = (values: FeedbackFormValues): void => {
     const { onSubmit } = this.props;
-
     onSubmit(values.feedback);
   };
 
@@ -57,7 +53,6 @@ class PureRejectPullRequestModal extends React.Component<Props> {
               <FeedbackForm
                 onSubmit={this.handleFeedbackFormSubmit}
                 required={true}
-                data-test-id="reject-pull-request-modal-feedback-form"
               />
             </Modal.Content>
             <Modal.Actions>

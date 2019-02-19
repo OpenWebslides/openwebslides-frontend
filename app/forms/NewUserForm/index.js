@@ -18,17 +18,19 @@ type NewUserFormValues = {|
   tosAccepted: boolean,
 |};
 
+type NewUserFormErrors = $ObjMap<NewUserFormValues, () => string>;
+
 type PassedProps = {|
   onSubmit: (values: NewUserFormValues) => void,
   // Use the component's children to add custom buttons to the form;
   // if not set, default of [Submit] | [Back] is used.
-  children: React.Node,
+  children?: React.Node,
 |};
 
 type Props = {| ...PassedProps |};
 
 class PureNewUserForm extends React.Component<Props> {
-  validateForm = (values: NewUserFormValues): NewUserFormValues => {
+  validateForm = (values: NewUserFormValues): NewUserFormErrors => {
     const errors = {};
 
     if (!values.email.includes('@')) {
@@ -51,7 +53,7 @@ class PureNewUserForm extends React.Component<Props> {
       errors.tosAccepted = 'users:forms.errors.tosAccepted';
     }
 
-    return { ...errors };
+    return errors;
   };
 
   render(): React.Node {

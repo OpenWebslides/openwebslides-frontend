@@ -10,6 +10,7 @@ import NewUserForm, { PureNewUserForm, type NewUserFormValues } from '.';
 describe(`NewUserForm`, (): void => {
 
   let dummyFormProps: NewUserFormValues;
+  let dummyOnSubmit: any;
 
   beforeEach((): void => {
     dummyFormProps = {
@@ -19,11 +20,12 @@ describe(`NewUserForm`, (): void => {
       repeatPassword: 'abcd1234',
       tosAccepted: true,
     };
+    dummyOnSubmit = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureNewUserForm />,
+      <PureNewUserForm onSubmit={dummyOnSubmit} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -31,7 +33,7 @@ describe(`NewUserForm`, (): void => {
   it(`renders default buttons if no children are specified`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <NewUserForm />
+        <NewUserForm onSubmit={dummyOnSubmit} />
       </DummyProviders>,
     );
 
@@ -41,7 +43,7 @@ describe(`NewUserForm`, (): void => {
   it(`allows rendering children instead of default form buttons`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <NewUserForm>
+        <NewUserForm onSubmit={dummyOnSubmit}>
           <p data-test-id="test-form-children">replacement submit buttons would go here</p>
         </NewUserForm>
       </DummyProviders>,
@@ -50,7 +52,9 @@ describe(`NewUserForm`, (): void => {
   });
 
   it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PureNewUserForm />);
+    const enzymeWrapper = shallow(
+      <PureNewUserForm onSubmit={dummyOnSubmit} />,
+    );
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});

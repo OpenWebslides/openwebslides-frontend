@@ -8,22 +8,26 @@ import { PureCommitForm, type CommitFormValues } from '.';
 describe(`CommitForm`, (): void => {
 
   let dummyFormProps: CommitFormValues;
+  let dummyOnSubmit: any;
 
   beforeEach((): void => {
     dummyFormProps = {
       message: 'dummyMessage',
     };
+    dummyOnSubmit = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureCommitForm />,
+      <PureCommitForm onSubmit={dummyOnSubmit} />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toStrictEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PureCommitForm />);
+    const enzymeWrapper = shallow(
+      <PureCommitForm onSubmit={dummyOnSubmit} />,
+    );
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});

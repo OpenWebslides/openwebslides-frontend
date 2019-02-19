@@ -71,11 +71,13 @@ class PureMetadata extends React.Component<Props, ComponentState> {
         <Translation>
           {(t: TFunction): React.Node => (
             <MetadataForm
+              initialValues={{
+                title: topic.title,
+                description: topic.description,
+                access: topic.access,
+              }}
               onSubmit={this.handleMetadataSubmit}
               onCancel={this.handleMetadataCancel}
-              title={topic.title}
-              description={topic.description}
-              access={topic.access}
               availableAccess={Object.keys(m.accessTypes).map(
                 (g: string): DropdownValue => {
                   const accessType = m.accessTypes[g];
@@ -83,7 +85,6 @@ class PureMetadata extends React.Component<Props, ComponentState> {
                   return { key: accessType, value: accessType, text: t(`topics:props.access.accessForType.${accessType}`) };
                 },
               )}
-              data-test-id="topic-metadata-metadata-form"
             />
           )}
         </Translation>
@@ -118,7 +119,7 @@ class PureMetadata extends React.Component<Props, ComponentState> {
                       ? <p data-test-id="topic-metadata-no-description"><em>{t('topics:props.noDescription')}</em></p>
                       : <p data-test-id="topic-metadata-description">{topic.description}</p>
                     }
-                    {(topic.upstreamTopicId !== null
+                    {(topic.upstreamTopicId != null
                       ? (
                         <small>
                           <ForkInfo upstreamTopicId={topic.upstreamTopicId} />

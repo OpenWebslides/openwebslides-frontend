@@ -3,23 +3,23 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyPullRequestData } from 'lib/testResources';
-
-import * as m from '../../../../model';
+import { DummyProviders } from 'lib/testResources';
 
 import ReviewButtons, { PureReviewButtons } from '.';
 
 describe(`ReviewButtons`, (): void => {
 
-  let dummyPullRequest: m.PullRequest;
+  let dummyOnAccept: any;
+  let dummyOnReject: any;
 
   beforeEach((): void => {
-    dummyPullRequest = dummyPullRequestData.pullRequest;
+    dummyOnAccept = jest.fn();
+    dummyOnReject = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureReviewButtons pullRequest={dummyPullRequest} />,
+      <PureReviewButtons onAccept={dummyOnAccept} onReject={dummyOnReject} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -27,9 +27,7 @@ describe(`ReviewButtons`, (): void => {
   it(`renders accept and reject buttons`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <ReviewButtons
-          pullRequest={dummyPullRequest}
-        />
+        <ReviewButtons onAccept={dummyOnAccept} onReject={dummyOnReject} />
       </DummyProviders>,
     );
 

@@ -12,9 +12,7 @@ type PullRequestFormValues = {|
   message: string,
 |};
 
-type PullRequestFormErrors = {|
-  message: string,
-|};
+type PullRequestFormErrors = $ObjMap<PullRequestFormValues, () => string>;
 
 type PassedProps = {|
   onSubmit: (values: PullRequestFormValues) => void,
@@ -30,7 +28,7 @@ class PurePullRequestForm extends React.Component<Props> {
       errors.message = 'pullRequests:forms.errors.message';
     }
 
-    return { ...errors };
+    return errors;
   };
 
   render(): React.Node {

@@ -5,6 +5,7 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { DummyProviders, dummyTopicData, dummyUserData, dummyInitialState } from 'lib/testResources';
+import { UnsupportedOperationError } from 'errors';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -21,6 +22,7 @@ describe(`PullRequestModal`, (): void => {
   let dummyDispatch: any;
   let dummyOnSubmit: any;
   let dummyOnCancel: any;
+  let dummyFetchTopic: any;
 
   beforeEach((): void => {
     dummyCurrentUser = { ...dummyUserData.user };
@@ -51,35 +53,44 @@ describe(`PullRequestModal`, (): void => {
     dummyDispatch = jest.fn();
     dummyOnSubmit = jest.fn();
     dummyOnCancel = jest.fn();
+    dummyFetchTopic = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PurePullRequestModal
+        sourceTopicId={dummyDownstreamTopic.id}
         sourceTopic={dummyDownstreamTopic}
+        targetTopicId={dummyUpstreamTopic.id}
         targetTopic={dummyUpstreamTopic}
         currentUserId={dummyCurrentUser.id}
+        isOpen={true}
+        onSubmit={dummyOnSubmit}
+        onCancel={dummyOnCancel}
+        fetchTopic={dummyFetchTopic}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`does not render with currentUserId NULL, when there is no current user`, (): void => {
+  it(`throws an UnsupportedOperationError, when there is no current user`, (): void => {
     dummyState.modules.platform.userAuth = null;
 
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState}>
-        <PullRequestModal
-          isOpen={true}
-          sourceTopicId={dummyDownstreamTopic.id}
-          targetTopicId={dummyUpstreamTopic.id}
-          onSubmit={dummyOnSubmit}
-          onCancel={dummyOnCancel}
-        />
-      </DummyProviders>,
-    );
-
-    expect(enzymeWrapper.find(`PurePullRequestModal`).props().currentUserId).toBeNull();
+    // Suppress console.error from mount $FlowFixMe
+    console.error = jest.fn();
+    expect((): void => {
+      mount(
+        <DummyProviders dummyState={dummyState}>
+          <PullRequestModal
+            isOpen={true}
+            sourceTopicId={dummyDownstreamTopic.id}
+            targetTopicId={dummyUpstreamTopic.id}
+            onSubmit={dummyOnSubmit}
+            onCancel={dummyOnCancel}
+          />
+        </DummyProviders>,
+      );
+    }).toThrow(UnsupportedOperationError);
   });
 
   it(`loads the topics, when the topics or its content were not previously present in the state`, (): void => {
@@ -92,7 +103,6 @@ describe(`PullRequestModal`, (): void => {
           isOpen={true}
           sourceTopicId={dummyDownstreamTopic.id}
           targetTopicId={dummyUpstreamTopic.id}
-          currentUserId={dummyCurrentUser.id}
           onSubmit={dummyOnSubmit}
           onCancel={dummyOnCancel}
         />
@@ -111,7 +121,6 @@ describe(`PullRequestModal`, (): void => {
           isOpen={true}
           sourceTopicId={dummyDownstreamTopic.id}
           targetTopicId={dummyUpstreamTopic.id}
-          currentUserId={dummyCurrentUser.id}
           onSubmit={dummyOnSubmit}
           onCancel={dummyOnCancel}
         />
@@ -124,12 +133,13 @@ describe(`PullRequestModal`, (): void => {
 
   it(`renders the modal form and submit/cancel buttons, when the passed isOpen prop is TRUE`, (): void => {
     const enzymeWrapper = mount(
-      <DummyProviders>
-        <PurePullRequestModal
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <PullRequestModal
           isOpen={true}
-          sourceTopic={dummyDownstreamTopic}
-          targetTopic={dummyUpstreamTopic}
-          currentUserId={dummyCurrentUser.id}
+          sourceTopicId={dummyDownstreamTopic.id}
+          targetTopicId={dummyUpstreamTopic.id}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
         />
       </DummyProviders>,
     );
@@ -141,11 +151,13 @@ describe(`PullRequestModal`, (): void => {
 
   it(`does not render the modal form and submit/cancel buttons, when the passed isOpen prop is FALSE`, (): void => {
     const enzymeWrapper = mount(
-      <DummyProviders>
-        <PurePullRequestModal
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <PullRequestModal
           isOpen={false}
-          sourceTopic={dummyDownstreamTopic}
-          targetTopic={dummyUpstreamTopic}
+          sourceTopicId={dummyDownstreamTopic.id}
+          targetTopicId={dummyUpstreamTopic.id}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
         />
       </DummyProviders>,
     );
@@ -157,12 +169,11 @@ describe(`PullRequestModal`, (): void => {
 
   it(`calls the passed onSubmit callback when the submit button is clicked`, (): void => {
     const enzymeWrapper = mount(
-      <DummyProviders>
-        <PurePullRequestModal
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <PullRequestModal
           isOpen={true}
-          sourceTopic={dummyDownstreamTopic}
-          targetTopic={dummyUpstreamTopic}
-          currentUserId={dummyCurrentUser.id}
+          sourceTopicId={dummyDownstreamTopic.id}
+          targetTopicId={dummyUpstreamTopic.id}
           onSubmit={dummyOnSubmit}
           onCancel={dummyOnCancel}
         />
@@ -180,12 +191,11 @@ describe(`PullRequestModal`, (): void => {
 
   it(`calls the passed onCancel callback when the cancel button is clicked`, (): void => {
     const enzymeWrapper = mount(
-      <DummyProviders>
-        <PurePullRequestModal
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <PullRequestModal
           isOpen={true}
-          sourceTopic={dummyDownstreamTopic}
-          targetTopic={dummyUpstreamTopic}
-          currentUserId={dummyCurrentUser.id}
+          sourceTopicId={dummyDownstreamTopic.id}
+          targetTopicId={dummyUpstreamTopic.id}
           onSubmit={dummyOnSubmit}
           onCancel={dummyOnCancel}
         />

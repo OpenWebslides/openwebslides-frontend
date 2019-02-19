@@ -29,6 +29,9 @@ describe(`AcceptPullRequestModal`, (): void => {
       <PureAcceptPullRequestModal
         source={dummySource}
         target={dummyTarget}
+        isOpen={true}
+        onSubmit={dummyOnSubmit}
+        onCancel={dummyOnCancel}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
