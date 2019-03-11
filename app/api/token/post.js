@@ -1,7 +1,7 @@
 // @flow
 
 /**
- * POST email and password on token on token endpoint, signs in a user (creates a token)
+ * POST email and password on token endpoint, requests a refresh token
  *
  * API docs: https://openwebslides.github.io/documentation/#token-api
  */
