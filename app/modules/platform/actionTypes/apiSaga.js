@@ -8,6 +8,7 @@ import { type ApiSagaAction } from 'types/actions';
 // Action constants --------------------------------------------------------------------------------
 
 export const API_POST_TOKEN: 'platform/API_POST_TOKEN' = 'platform/API_POST_TOKEN';
+export const API_PATCH_TOKEN: 'platform/API_PATCH_TOKEN' = 'platform/API_PATCH_TOKEN';
 export const API_DELETE_TOKEN: 'platform/API_DELETE_TOKEN' = 'platform/API_DELETE_TOKEN';
 export const API_POST_CONFIRMATION: 'platform/API_POST_CONFIRMATION' = 'platform/API_POST_CONFIRMATION';
 export const API_PATCH_CONFIRMATION: 'platform/API_PATCH_CONFIRMATION' = 'platform/API_PATCH_CONFIRMATION';
@@ -23,6 +24,16 @@ export type ApiPostToken = {|
     ...$PropertyType<ApiSagaAction, 'payload'>,
     email: string,
     password: string,
+  |},
+|};
+
+export type ApiPatchToken = {|
+  ...ApiSagaAction,
+  type: typeof API_PATCH_TOKEN,
+  payload: {|
+    ...$PropertyType<ApiSagaAction, 'payload'>,
+    email: string,
+    refreshToken: string,
   |},
 |};
 
@@ -76,6 +87,7 @@ export type ApiPatchPasswordAction = {|
 
 export type PlatformApiSagaAction =
   | ApiPostToken
+  | ApiPatchToken
   | ApiDeleteTokenAction
   | ApiPostConfirmationAction
   | ApiPatchConfirmationAction
