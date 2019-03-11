@@ -10,7 +10,7 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection
 
 import { USERS_ENDPOINT, ALERTS_ENDPOINT } from '../endpoints';
 
-const getAllByUserId = (userId: string, accessToken: string): Promise<ApiResponseData> => {
+const getAllByUserId = (userId: string, accessToken: ?string): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.GET)
     .addPathSegment(USERS_ENDPOINT)
     .addPathSegment(userId)

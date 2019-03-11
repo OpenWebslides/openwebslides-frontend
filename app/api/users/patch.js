@@ -17,7 +17,7 @@ const patch = (
   alertEmails: ?boolean,
   currentPassword: ?string,
   password: ?string,
-  accessToken: string,
+  accessToken: ?string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {

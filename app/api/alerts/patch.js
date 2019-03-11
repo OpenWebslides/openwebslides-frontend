@@ -10,7 +10,7 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection
 
 import { ALERTS_ENDPOINT } from '../endpoints';
 
-const patch = (id: string, read: boolean, accessToken: string): Promise<ApiResponseData> => {
+const patch = (id: string, read: boolean, accessToken: ?string): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
       type: 'alerts',

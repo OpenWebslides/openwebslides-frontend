@@ -15,7 +15,7 @@ const patch = (
   id: string,
   stateEvent: string,
   feedback: ?string,
-  accessToken: string,
+  accessToken: ?string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {

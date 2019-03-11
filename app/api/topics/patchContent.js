@@ -15,7 +15,7 @@ const patchContent = (
   id: string,
   content: $ReadOnlyArray<contentItems.model.ContentItem>,
   message: string,
-  accessToken: string,
+  accessToken: ?string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {

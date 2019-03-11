@@ -15,7 +15,7 @@ const patch = (
   title: ?string,
   description: ?string,
   access: ?string,
-  accessToken: string,
+  accessToken: ?string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {

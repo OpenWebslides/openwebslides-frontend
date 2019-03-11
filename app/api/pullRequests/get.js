@@ -10,7 +10,7 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection
 
 import { PULL_REQUESTS_ENDPOINT } from '../endpoints';
 
-const get = (id: string, accessToken: string): Promise<ApiResponseData> => {
+const get = (id: string, accessToken: ?string): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.GET)
     .addPathSegment(PULL_REQUESTS_ENDPOINT)
     .addPathSegment(id)

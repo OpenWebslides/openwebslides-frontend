@@ -15,7 +15,7 @@ const post = (
   sourceTopicId: string,
   targetTopicId: string,
   userId: string,
-  accessToken: string,
+  accessToken: ?string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {

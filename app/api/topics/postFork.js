@@ -12,7 +12,7 @@ import { TOPICS_ENDPOINT, TOPICS_FORK_ENDPOINT } from '../endpoints';
 
 const postFork = (
   id: string,
-  accessToken: string,
+  accessToken: ?string,
 ): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.POST)
     .addPathSegment(TOPICS_ENDPOINT)
