@@ -5,7 +5,7 @@ import apiPatchConfirmation from './apiPatchConfirmation';
 import apiPatchPassword from './apiPatchPassword';
 import apiPostConfirmation from './apiPostConfirmation';
 import apiPostPassword from './apiPostPassword';
-import apiPostSigninToTokenAndGetUserAuth from './apiPostSigninToTokenAndGetUserAuth';
+import apiPostToken from './apiPostToken';
 
 const apiSagaActions = {
   apiDeleteToken,
@@ -13,7 +13,7 @@ const apiSagaActions = {
   apiPatchPassword,
   apiPostConfirmation,
   apiPostPassword,
-  apiPostSigninToTokenAndGetUserAuth,
+  apiPostToken,
 };
 
 export default apiSagaActions;

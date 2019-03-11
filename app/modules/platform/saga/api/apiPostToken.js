@@ -11,8 +11,8 @@ import actions from '../../actions';
 import * as a from '../../actionTypes';
 import * as m from '../../model';
 
-const apiPostSigninToTokenAndGetUserAuth = function* (
-  action: a.ApiPostSigninToTokenAndGetUserAuthAction,
+const apiPostToken = function* (
+  action: a.ApiPostToken,
 ): Saga<void> {
   const { email, password } = action.payload;
   const responseData: ApiResponseData = yield call(api.token.post, email, password);
@@ -31,4 +31,4 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
   yield put(actions.setUserAuthInState(currentUserAuth));
 };
 
-export default apiPostSigninToTokenAndGetUserAuth;
+export default apiPostToken;

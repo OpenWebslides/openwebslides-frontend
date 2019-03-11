@@ -10,7 +10,7 @@ import actions from '../../actions';
 
 import { sagas } from '..';
 
-describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
+describe(`apiPostToken`, (): void => {
 
   let dummyId: string;
   let dummyName: string;
@@ -29,7 +29,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
   });
 
   it(`posts the passed email and password to the token API endpoint, processes the response and puts the userAuth object in the state`, (): void => {
-    const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
+    const dummyAction = actions.apiPostToken(dummyEmail, dummyPassword);
     const dummyApiResponse = {
       body: {
         data: {
@@ -44,7 +44,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
       token: dummyToken,
     };
 
-    return expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
+    return expectSaga(sagas.apiPostToken, dummyAction)
       .provide([
         [call(api.token.post, dummyEmail, dummyPassword), dummyApiResponse],
       ])
@@ -56,7 +56,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
   });
 
   it(`throws an UnexpectedHttpResponseError, when the api response does not contain a token`, async (): Promise<void> => {
-    const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
+    const dummyAction = actions.apiPostToken(dummyEmail, dummyPassword);
     const dummyApiResponse = {
       body: null,
       status: 201,
@@ -66,7 +66,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
+      expectSaga(sagas.apiPostToken, dummyAction)
         .provide([
           [call(api.token.post, dummyEmail, dummyPassword), dummyApiResponse],
         ])
@@ -75,7 +75,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
   });
 
   it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<void> => {
-    const dummyAction = actions.apiPostSigninToTokenAndGetUserAuth(dummyEmail, dummyPassword);
+    const dummyAction = actions.apiPostToken(dummyEmail, dummyPassword);
     const dummyApiResponse = {
       body: {
         data: {
@@ -92,7 +92,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();
     await expect(
-      expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
+      expectSaga(sagas.apiPostToken, dummyAction)
         .provide([
           [call(api.token.post, dummyEmail, dummyPassword), dummyApiResponse],
         ])

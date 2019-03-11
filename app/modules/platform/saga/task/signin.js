@@ -12,7 +12,7 @@ const { putAndReturn } = asyncRequests.lib;
 
 const signin = function* (action: a.SigninAction): Saga<void> {
   const { email, password } = action.payload;
-  yield call(putAndReturn, actions.apiPostSigninToTokenAndGetUserAuth(email, password));
+  yield call(putAndReturn, actions.apiPostToken(email, password));
 };
 
 export default signin;
