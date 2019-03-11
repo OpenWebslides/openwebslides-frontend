@@ -6,7 +6,7 @@
  * API documentation: https://openwebslides.github.io/documentation/#update-a-user
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { USERS_ENDPOINT } from '../endpoints';
 

@@ -1,7 +1,7 @@
 // @flow
 
 import { API_URL } from 'config/url';
-import { httpMethods } from 'lib/ApiRequest';
+import { httpMethods } from 'lib/ApiConnection';
 
 import api from '..';
 

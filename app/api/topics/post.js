@@ -6,7 +6,7 @@
  * API docs: https://openwebslides.github.io/documentation/#create-a-topic
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { TOPICS_ENDPOINT } from '../endpoints';
 

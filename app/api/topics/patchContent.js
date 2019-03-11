@@ -7,7 +7,7 @@
  */
 
 import contentItems from 'modules/contentItems';
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { TOPICS_ENDPOINT, TOPICS_CONTENT_ENDPOINT } from '../endpoints';
 

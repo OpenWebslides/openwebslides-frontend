@@ -6,7 +6,7 @@
  * API documentation: https://openwebslides.github.io/documentation/#get-all-user-alerts
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { USERS_ENDPOINT, ALERTS_ENDPOINT } from '../endpoints';
 

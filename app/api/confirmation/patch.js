@@ -6,7 +6,7 @@
  * API documentation: https://openwebslides.github.io/documentation/#confirm-account
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { CONFIRMATION_ENDPOINT } from '../endpoints';
 

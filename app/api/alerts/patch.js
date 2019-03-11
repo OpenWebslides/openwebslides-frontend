@@ -6,7 +6,7 @@
  * API documentation: https://openwebslides.github.io/documentation/#mark-alert-as-read
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { ALERTS_ENDPOINT } from '../endpoints';
 

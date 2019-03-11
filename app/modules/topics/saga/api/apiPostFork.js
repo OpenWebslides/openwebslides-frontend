@@ -5,7 +5,7 @@ import { select, call } from 'redux-saga/effects';
 
 import api from 'api';
 import { UnexpectedHttpResponseError, UnsupportedOperationError } from 'errors';
-import { type ApiResponseData } from 'lib/ApiRequest';
+import { type ApiResponseData } from 'lib/ApiConnection';
 import platform from 'modules/platform';
 
 import * as a from '../../actionTypes';

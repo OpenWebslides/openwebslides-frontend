@@ -6,7 +6,7 @@
  * API docs: https://openwebslides.github.io/documentation/#users-api
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { USERS_ENDPOINT } from '../endpoints';
 

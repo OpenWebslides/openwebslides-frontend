@@ -6,7 +6,7 @@
  * API docs: https://openwebslides.github.io/documentation/#token-api
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { TOKEN_ENDPOINT } from '../endpoints';
 

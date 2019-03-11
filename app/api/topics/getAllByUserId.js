@@ -6,7 +6,7 @@
  * API docs: #TODO
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { USERS_ENDPOINT, TOPICS_ENDPOINT } from '../endpoints';
 

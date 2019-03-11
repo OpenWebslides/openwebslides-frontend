@@ -6,7 +6,7 @@
  * API docs: https://openwebslides.github.io/documentation/#get-a-pull-request
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { PULL_REQUESTS_ENDPOINT } from '../endpoints';
 
