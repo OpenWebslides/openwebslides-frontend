@@ -8,12 +8,13 @@ import * as a from '../../actionTypes';
 import * as m from '../../model';
 
 const setUserAuth = function* (action: a.SetUserAuthAction): Saga<void> {
-  const { apiToken, userId } = action.payload;
+  const { userId, refreshToken, accessToken } = action.payload;
 
   // Dispatch action to set authenticated state
   const currentUserAuth: m.UserAuth = {
-    apiToken,
     userId,
+    refreshToken,
+    accessToken,
   };
   yield put(actions.setUserAuthInState(currentUserAuth));
 };

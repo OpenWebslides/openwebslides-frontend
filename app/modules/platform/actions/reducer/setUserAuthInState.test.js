@@ -10,7 +10,8 @@ describe(`setUserAuthInState`, (): void => {
   it(`returns a platform SET_USER_AUTH_IN_STATE action containing the passed props`, (): void => {
     const dummyUserAuth: m.UserAuth = {
       userId: 'dummyUserId',
-      apiToken: 'foobarToken',
+      refreshToken: 'dummyRefreshToken',
+      accessToken: 'dummyAccessToken',
     };
     const expectedAction: a.SetUserAuthInStateAction = {
       type: a.SET_USER_AUTH_IN_STATE,

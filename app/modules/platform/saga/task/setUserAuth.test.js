@@ -8,19 +8,21 @@ import { sagas } from '..';
 
 describe(`setUserAuth`, (): void => {
 
-  let dummyApiToken: string;
+  let dummyRefreshToken: string;
+  let dummyAccessToken: string;
   let dummyUserId: string;
 
   beforeEach((): void => {
-    dummyApiToken = 'foobarToken';
-    dummyUserId = 'foobarUserId';
+    dummyRefreshToken = 'dummyRefreshToken';
+    dummyAccessToken = 'dummyAccessToken';
+    dummyUserId = 'dummyUserId';
   });
 
   it(`puts a setUserAuthInState action`, (): void => {
-    const dummyAction = actions.setUserAuth(dummyApiToken, dummyUserId);
+    const dummyAction = actions.setUserAuth(dummyUserId, dummyRefreshToken, dummyAccessToken);
 
     return expectSaga(sagas.setUserAuth, dummyAction)
-      .put(actions.setUserAuthInState({ apiToken: dummyApiToken, userId: dummyUserId }))
+      .put(actions.setUserAuthInState({ userId: dummyUserId, refreshToken: dummyRefreshToken, accessToken: dummyAccessToken }))
       .run();
   });
 

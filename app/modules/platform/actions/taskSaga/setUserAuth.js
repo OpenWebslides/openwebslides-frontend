@@ -2,12 +2,17 @@
 
 import * as a from '../../actionTypes';
 
-const setUserAuth = (apiToken: string, userId: string): a.SetUserAuthAction => {
+const setUserAuth = (
+  userId: string,
+  refreshToken: string,
+  accessToken: ?string,
+): a.SetUserAuthAction => {
   return {
     type: a.SET_USER_AUTH,
     payload: {
-      apiToken,
       userId,
+      refreshToken,
+      accessToken,
     },
   };
 };
