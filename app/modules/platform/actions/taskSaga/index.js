@@ -1,6 +1,7 @@
 // @flow
 
 import confirmEmail from './confirmEmail';
+import refresh from './refresh';
 import resendConfirmationEmail from './resendConfirmationEmail';
 import resetPassword from './resetPassword';
 import sendResetPasswordEmail from './sendResetPasswordEmail';
@@ -11,6 +12,7 @@ import toggleSidebar from './toggleSidebar';
 
 const taskSagaActions = {
   confirmEmail,
+  refresh,
   resendConfirmationEmail,
   resetPassword,
   sendResetPasswordEmail,

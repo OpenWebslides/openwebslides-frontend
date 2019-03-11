@@ -10,6 +10,7 @@ import asyncRequests from 'modules/asyncRequests';
 import * as a from '../../actionTypes';
 
 import confirmEmail from './confirmEmail';
+import refresh from './refresh';
 import resendConfirmationEmail from './resendConfirmationEmail';
 import resetPassword from './resetPassword';
 import sendResetPasswordEmail from './sendResetPasswordEmail';
@@ -23,6 +24,7 @@ const { sagaWrapper } = asyncRequests.lib;
 const taskSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.CONFIRM_EMAIL, sagaWrapper, confirmEmail),
+    takeEvery(a.REFRESH, sagaWrapper, refresh),
     takeEvery(a.RESEND_CONFIRMATION_EMAIL, sagaWrapper, resendConfirmationEmail),
     takeEvery(a.RESET_PASSWORD, sagaWrapper, resetPassword),
     takeEvery(a.SEND_RESET_PASSWORD_EMAIL, sagaWrapper, sendResetPasswordEmail),
@@ -35,6 +37,7 @@ const taskSaga = function* (): Saga<void> {
 
 const taskSagas = {
   confirmEmail,
+  refresh,
   resendConfirmationEmail,
   resetPassword,
   sendResetPasswordEmail,
