@@ -32,7 +32,7 @@ const apiGetAllByUserId = function* (action: a.ApiGetAllByUserIdAction): Saga<vo
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
   const responseData: ApiResponseData = yield call(
-    api.alerts.getAllByUserId, userId, userAuth.apiToken,
+    api.alerts.getAllByUserId, userId, userAuth.accessToken,
   );
   if (responseData.body == null) throw new UnexpectedHttpResponseError();
 

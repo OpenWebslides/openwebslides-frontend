@@ -16,7 +16,7 @@ const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
   const responseData: ApiResponseData = yield call(
-    api.users.patch, id, name, locale, alertEmails, currentPassword, password, userAuth.apiToken,
+    api.users.patch, id, name, locale, alertEmails, currentPassword, password, userAuth.accessToken,
   );
   if (responseData.body == null) throw new UnexpectedHttpResponseError();
 

@@ -18,7 +18,7 @@ const apiPostFork = function* (
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
   const topicsResponseData: ApiResponseData = yield call(
-    api.topics.postFork, id, userAuth.apiToken,
+    api.topics.postFork, id, userAuth.accessToken,
   );
 
   if (topicsResponseData.body == null) {

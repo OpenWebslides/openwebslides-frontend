@@ -27,7 +27,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
   const pullRequestsResponseData: ApiResponseData = yield call(
-    api.pullRequests.get, id, userAuth.apiToken,
+    api.pullRequests.get, id, userAuth.accessToken,
   );
   if (pullRequestsResponseData.body == null) {
     throw new UnexpectedHttpResponseError();

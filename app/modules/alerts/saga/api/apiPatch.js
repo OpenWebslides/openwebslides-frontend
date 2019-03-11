@@ -14,7 +14,7 @@ const apiPatch = function* (action: a.ApiPatchAction): Saga<void> {
   const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
-  yield call(api.alerts.patch, id, read, userAuth.apiToken);
+  yield call(api.alerts.patch, id, read, userAuth.accessToken);
 };
 
 export default apiPatch;
