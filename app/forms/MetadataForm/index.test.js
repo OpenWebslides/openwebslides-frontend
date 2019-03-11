@@ -105,6 +105,7 @@ describe(`MetadataForm`, (): void => {
     expect(validate({ ...dummyFormProps, description: tooLongDescription })).toHaveProperty('description');
 
     expect(validate({ ...dummyFormProps, access: topics.model.accessTypes.PUBLIC })).not.toHaveProperty('access');
+    // $FlowFixMe value intended to be invalid
     expect(validate({ ...dummyFormProps, access: 'foo' })).toHaveProperty('access');
   });
 

@@ -10,7 +10,6 @@ import * as m from '../model';
 import getById from './getById';
 import getAllById from './getAllById';
 
-// $FlowFixMe pretty sure this is an issue with the re-reselect libdef rather than our code
 const getDenormalizedById = createCachedSelector(
   [getById, getAllById], (
     contentItem: ?m.ContentItem,

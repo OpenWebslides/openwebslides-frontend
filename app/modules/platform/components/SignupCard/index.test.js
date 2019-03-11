@@ -38,7 +38,7 @@ describe(`SignupCard`, (): void => {
         <SignupCard onSignup={dummyOnSignup} />
       </DummyProviders>,
     );
-    const handleNewUserFormSubmit = enzymeWrapper.find('PureSignupCard').instance().handleNewUserFormSubmit;
+    const handleNewUserFormSubmit = (enzymeWrapper.find('PureSignupCard').instance(): any).handleNewUserFormSubmit;
 
     handleNewUserFormSubmit({ email: dummyEmail, name: dummyName, password: dummyPassword, tosAccepted: dummyTosAccepted });
     expect(dummyOnSignup).toHaveBeenCalledWith(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);

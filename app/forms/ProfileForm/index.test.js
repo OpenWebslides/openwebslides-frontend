@@ -119,6 +119,7 @@ describe(`ProfileForm`, (): void => {
     expect(validate({ ...dummyFormProps, locale: 'foo' })).toHaveProperty('locale');
     expect(validate({ ...dummyFormProps, locale: 'en' })).not.toHaveProperty('locale');
 
+    // $FlowFixMe value intended to be invalid
     expect(validate({ ...dummyFormProps, alertEmails: null })).toHaveProperty('alertEmails');
   });
 

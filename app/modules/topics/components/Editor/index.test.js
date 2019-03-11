@@ -216,7 +216,7 @@ describe(`Editor`, (): void => {
       </DummyProviders>,
     );
 
-    const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).instance().beforeUnloadHandler;
+    const beforeUnloadHandler = (enzymeWrapper.find(`PureEditor`).instance(): any).beforeUnloadHandler;
     beforeUnloadHandler(dummyUnloadEvent);
 
     expect(dummyPreventDefault).toHaveBeenCalledTimes(0);
@@ -243,7 +243,7 @@ describe(`Editor`, (): void => {
       </DummyProviders>,
     );
 
-    const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).instance().beforeUnloadHandler;
+    const beforeUnloadHandler = (enzymeWrapper.find(`PureEditor`).instance(): any).beforeUnloadHandler;
     beforeUnloadHandler(dummyUnloadEvent);
 
     expect(dummyPreventDefault).toHaveBeenCalledWith();
@@ -269,7 +269,7 @@ describe(`Editor`, (): void => {
       </DummyProviders>,
     );
 
-    const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).instance().beforeUnloadHandler;
+    const beforeUnloadHandler = (enzymeWrapper.find(`PureEditor`).instance(): any).beforeUnloadHandler;
 
     expect(dummyAddEventListener).toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);
     expect(dummyRemoveEventListener).not.toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);

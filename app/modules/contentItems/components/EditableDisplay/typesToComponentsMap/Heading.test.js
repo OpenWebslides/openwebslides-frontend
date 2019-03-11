@@ -66,14 +66,13 @@ describe(`Heading`, (): void => {
   describe(`onEditableTextContentActivate`, (): void => {
 
     it(`calls the passed onStartEditing function`, (): void => {
-      const dummyText = 'Lorem ipsum';
       const enzymeWrapper = shallow(
         <PureHeading
           contentItem={dummyHeading}
           {...dummyFunctionProps}
         />,
       );
-      enzymeWrapper.instance().onEditableTextContentActivate(dummyText);
+      enzymeWrapper.instance().onEditableTextContentActivate();
       expect(dummyFunctionProps.onStartEditing).toHaveBeenCalledWith(dummyHeading.id);
     });
 
@@ -82,14 +81,13 @@ describe(`Heading`, (): void => {
   describe(`onEditableTextContentDeactivate`, (): void => {
 
     it(`calls the passed onEndEditing function`, (): void => {
-      const dummyText = 'Lorem ipsum';
       const enzymeWrapper = shallow(
         <PureHeading
           contentItem={dummyHeading}
           {...dummyFunctionProps}
         />,
       );
-      enzymeWrapper.instance().onEditableTextContentDeactivate(dummyText);
+      enzymeWrapper.instance().onEditableTextContentDeactivate();
       expect(dummyFunctionProps.onEndEditing).toHaveBeenCalledWith(dummyHeading.id);
     });
 
@@ -104,7 +102,7 @@ describe(`Heading`, (): void => {
           {...dummyFunctionProps}
         />,
       );
-      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Enter', preventDefault: jest.fn() });
+      enzymeWrapper.instance().onEditableTextContentKeyDown(({ key: 'Enter', preventDefault: jest.fn() }: any));
       expect(dummyFunctionProps.onAddEmptySubItem).toHaveBeenCalledWith(dummyHeading.id);
     });
 
@@ -115,7 +113,7 @@ describe(`Heading`, (): void => {
           {...dummyFunctionProps}
         />,
       );
-      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'Backspace', preventDefault: jest.fn() });
+      enzymeWrapper.instance().onEditableTextContentKeyDown(({ key: 'Backspace', preventDefault: jest.fn() }: any));
       expect(dummyFunctionProps.onRemove).toHaveBeenCalledWith(dummyHeading.id);
     });
 
@@ -126,7 +124,7 @@ describe(`Heading`, (): void => {
           {...dummyFunctionProps}
         />,
       );
-      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'ArrowRight', ctrlKey: true, preventDefault: jest.fn() });
+      enzymeWrapper.instance().onEditableTextContentKeyDown(({ key: 'ArrowRight', ctrlKey: true, preventDefault: jest.fn() }: any));
       expect(dummyFunctionProps.onIndent).toHaveBeenCalledWith(dummyHeading.id);
     });
 
@@ -137,7 +135,7 @@ describe(`Heading`, (): void => {
           {...dummyFunctionProps}
         />,
       );
-      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'ArrowLeft', ctrlKey: true, preventDefault: jest.fn() });
+      enzymeWrapper.instance().onEditableTextContentKeyDown(({ key: 'ArrowLeft', ctrlKey: true, preventDefault: jest.fn() }: any));
       expect(dummyFunctionProps.onReverseIndent).toHaveBeenCalledWith(dummyHeading.id);
     });
 
@@ -148,7 +146,7 @@ describe(`Heading`, (): void => {
           {...dummyFunctionProps}
         />,
       );
-      enzymeWrapper.instance().onEditableTextContentKeyDown({ key: 'A' });
+      enzymeWrapper.instance().onEditableTextContentKeyDown(({ key: 'A' }: any));
       Object.values(dummyFunctionProps).forEach((value: any): void => {
         expect(value).toHaveBeenCalledTimes(0);
       });
