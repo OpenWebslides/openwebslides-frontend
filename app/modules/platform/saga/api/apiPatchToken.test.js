@@ -15,11 +15,13 @@ describe(`apiPatchToken`, (): void => {
   let dummyId: string;
   let dummyName: string;
   let dummyRefreshToken: string;
+  let dummyAccessToken: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
     dummyName = 'Test Tester';
     dummyRefreshToken = 'dummyRefreshToken';
+    dummyAccessToken = 'dummyAccessToken';
   });
 
   it(`patches to the token API endpoint, processes the response and puts the userAuth object in the state`, (): void => {
@@ -34,7 +36,7 @@ describe(`apiPatchToken`, (): void => {
         },
       },
       status: 200,
-      token: dummyRefreshToken,
+      token: dummyAccessToken,
     };
 
     return expectSaga(sagas.apiPatchToken, dummyAction)
@@ -44,17 +46,17 @@ describe(`apiPatchToken`, (): void => {
       .put(actions.setUserAuthInState({
         userId: dummyId,
         refreshToken: dummyRefreshToken,
-        accessToken: null,
+        accessToken: dummyAccessToken,
       }))
       .run();
   });
 
-  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a token`, async (): Promise<void> => {
+  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<void> => {
     const dummyAction = actions.apiPatchToken(dummyRefreshToken);
     const dummyApiResponse = {
       body: null,
       status: 200,
-      token: dummyRefreshToken,
+      token: dummyAccessToken,
     };
 
     // Suppress console.error from redux-saga $FlowFixMe
@@ -68,7 +70,7 @@ describe(`apiPatchToken`, (): void => {
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);
   });
 
-  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a body`, async (): Promise<void> => {
+  it(`throws an UnexpectedHttpResponseError, when the api response does not contain a token`, async (): Promise<void> => {
     const dummyAction = actions.apiPatchToken(dummyRefreshToken);
     const dummyApiResponse = {
       body: {

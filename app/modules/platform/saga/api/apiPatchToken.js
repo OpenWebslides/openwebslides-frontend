@@ -24,8 +24,8 @@ const apiPatchToken = function* (
   const { id } = responseData.body.data;
   const currentUserAuth: m.UserAuth = {
     userId: id,
-    refreshToken: responseData.token,
-    accessToken: null,
+    refreshToken,
+    accessToken: responseData.token,
   };
 
   // Store UserAuth in state
