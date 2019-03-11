@@ -18,7 +18,7 @@ const signout = function* (action: a.SignoutAction): Saga<void> {
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
   yield put(actions.setUserAuthInState(null));
-  yield call(putAndReturn, actions.apiDeleteToken(userAuth.apiToken));
+  yield call(putAndReturn, actions.apiDeleteToken(userAuth.refreshToken));
 };
 
 export default signout;
