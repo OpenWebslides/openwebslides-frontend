@@ -46,7 +46,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
 
     return expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
       .provide([
-        [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
+        [call(api.token.post, dummyEmail, dummyPassword), dummyApiResponse],
       ])
       .put(actions.setUserAuthInState({
         userId: dummyId,
@@ -68,7 +68,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
     await expect(
       expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
         .provide([
-          [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
+          [call(api.token.post, dummyEmail, dummyPassword), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);
@@ -94,7 +94,7 @@ describe(`apiPostSigninToTokenAndGetUserAuth`, (): void => {
     await expect(
       expectSaga(sagas.apiPostSigninToTokenAndGetUserAuth, dummyAction)
         .provide([
-          [call(api.token.postSignin, dummyEmail, dummyPassword), dummyApiResponse],
+          [call(api.token.post, dummyEmail, dummyPassword), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);

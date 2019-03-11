@@ -10,7 +10,7 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
 
 import { TOKEN_ENDPOINT } from '../endpoints';
 
-const postSignin = (email: string, password: string): Promise<ApiResponseData> => {
+const post = (email: string, password: string): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
       type: 'tokens',
@@ -27,4 +27,4 @@ const postSignin = (email: string, password: string): Promise<ApiResponseData> =
     .execute();
 };
 
-export default postSignin;
+export default post;

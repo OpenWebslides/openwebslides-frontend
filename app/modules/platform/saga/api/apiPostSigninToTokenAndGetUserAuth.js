@@ -15,7 +15,7 @@ const apiPostSigninToTokenAndGetUserAuth = function* (
   action: a.ApiPostSigninToTokenAndGetUserAuthAction,
 ): Saga<void> {
   const { email, password } = action.payload;
-  const responseData: ApiResponseData = yield call(api.token.postSignin, email, password);
+  const responseData: ApiResponseData = yield call(api.token.post, email, password);
   if (responseData.token == null || responseData.body == null) {
     throw new UnexpectedHttpResponseError();
   }
