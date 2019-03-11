@@ -17,7 +17,7 @@ const patch = (
   alertEmails: ?boolean,
   currentPassword: ?string,
   password: ?string,
-  token: string,
+  accessToken: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
@@ -37,7 +37,7 @@ const patch = (
     .addPathSegment(USERS_ENDPOINT)
     .addPathSegment(id)
     .setBody(body)
-    .setToken(token)
+    .setToken(accessToken)
     .execute();
 };
 

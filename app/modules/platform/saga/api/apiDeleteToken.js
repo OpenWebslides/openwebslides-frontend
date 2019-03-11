@@ -10,8 +10,8 @@ import * as a from '../../actionTypes';
 const apiDeleteToken = function* (
   action: a.ApiDeleteTokenAction,
 ): Saga<void> {
-  const { token } = action.payload;
-  yield call(api.token.delete, token);
+  const { refreshToken } = action.payload;
+  yield call(api.token.delete, refreshToken);
 };
 
 export default apiDeleteToken;

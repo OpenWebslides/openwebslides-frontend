@@ -15,7 +15,7 @@ const patch = (
   id: string,
   stateEvent: string,
   feedback: ?string,
-  token: string,
+  accessToken: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
@@ -32,7 +32,7 @@ const patch = (
     .addPathSegment(PULL_REQUESTS_ENDPOINT)
     .addPathSegment(id)
     .setBody(body)
-    .setToken(token)
+    .setToken(accessToken)
     .execute();
 };
 

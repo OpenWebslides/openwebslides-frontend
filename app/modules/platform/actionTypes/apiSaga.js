@@ -42,7 +42,7 @@ export type ApiDeleteTokenAction = {|
   type: typeof API_DELETE_TOKEN,
   payload: {|
     ...$PropertyType<ApiSagaAction, 'payload'>,
-    token: string,
+    refreshToken: string,
   |},
 |};
 

@@ -15,7 +15,7 @@ const patchContent = (
   id: string,
   content: $ReadOnlyArray<contentItems.model.ContentItem>,
   message: string,
-  token: string,
+  accessToken: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
@@ -32,7 +32,7 @@ const patchContent = (
     .addPathSegment(id)
     .addPathSegment(TOPICS_CONTENT_ENDPOINT)
     .setBody(body)
-    .setToken(token)
+    .setToken(accessToken)
     .execute();
 };
 

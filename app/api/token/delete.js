@@ -10,10 +10,10 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection
 
 import { TOKEN_ENDPOINT } from '../endpoints';
 
-const deleteFunction = (token: string): Promise<ApiResponseData> => {
+const deleteFunction = (refreshToken: string): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.DELETE)
     .addPathSegment(TOKEN_ENDPOINT)
-    .setToken(token)
+    .setToken(refreshToken)
     .execute();
 };
 

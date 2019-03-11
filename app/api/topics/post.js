@@ -15,7 +15,7 @@ const post = (
   description: ?string,
   rootContentItemId: string,
   userId: string,
-  token: string,
+  accessToken: string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
@@ -40,7 +40,7 @@ const post = (
   return new ApiRequest(httpMethods.POST)
     .addPathSegment(TOPICS_ENDPOINT)
     .setBody(body)
-    .setToken(token)
+    .setToken(accessToken)
     .execute();
 };
 

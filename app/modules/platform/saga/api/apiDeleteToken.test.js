@@ -11,21 +11,21 @@ import { sagas } from '..';
 
 describe(`apiDeleteToken`, (): void => {
 
-  let dummyToken: string;
+  let dummyRefreshToken: string;
 
   beforeEach((): void => {
-    dummyToken = 'foobarToken';
+    dummyRefreshToken = 'dummyRefreshToken';
   });
 
-  it(`selects the current user's token from the state and executes a delete request for this token to the token API endpoint`, (): void => {
-    const dummyAction = actions.apiDeleteToken(dummyToken);
+  it(`selects the current user's refresh token from the state and executes a delete request to the token API endpoint`, (): void => {
+    const dummyAction = actions.apiDeleteToken(dummyRefreshToken);
     const dummyApiResponse = { status: 200 };
 
     return expectSaga(sagas.apiDeleteToken, dummyAction)
       .provide([
-        [call(api.token.delete, dummyToken), dummyApiResponse],
+        [call(api.token.delete, dummyRefreshToken), dummyApiResponse],
       ])
-      .call(api.token.delete, dummyToken)
+      .call(api.token.delete, dummyRefreshToken)
       .run();
   });
 

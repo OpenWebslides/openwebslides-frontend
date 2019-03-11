@@ -15,9 +15,9 @@ import * as m from '../../model';
 const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   const { id } = action.payload;
   const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
-  const token: ?string = (userAuth == null ? null : userAuth.accessToken);
+  const accessToken: ?string = (userAuth == null ? null : userAuth.accessToken);
 
-  const responseData: ApiResponseData = yield call(api.users.get, id, token);
+  const responseData: ApiResponseData = yield call(api.users.get, id, accessToken);
 
   if (responseData.body == null) throw new UnexpectedHttpResponseError();
 

@@ -26,7 +26,7 @@ describe(`refresh`, (): void => {
     dummyAccessToken = 'dummyAccessToken';
   });
 
-  it(`selects the current user's token from the state and puts an apiPatchToken action, then puts an setUserAuthInState(null) action`, (): void => {
+  it(`selects the current user's refresh token from the state and puts an apiPatchToken action, then puts an setUserAuthInState(null) action`, (): void => {
     const dummyAction = actions.refresh(dummyEmail);
 
     return expectSaga(sagas.refresh, dummyAction)

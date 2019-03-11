@@ -24,7 +24,7 @@ describe(`signout`, (): void => {
     dummyAccessToken = 'dummyAccessToken';
   });
 
-  it(`selects the current user's token from the state and puts an apiDeleteToken action, then puts an setUserAuthInState(null) action`, (): void => {
+  it(`selects the current user's refresh token from the state and puts an apiDeleteToken action, then puts an setUserAuthInState(null) action`, (): void => {
     const dummyAction = actions.signout();
 
     return expectSaga(sagas.signout, dummyAction)

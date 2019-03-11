@@ -10,11 +10,11 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection
 
 import { TOPICS_ENDPOINT } from '../endpoints';
 
-const deleteFunction = (id: string, token: string): Promise<ApiResponseData> => {
+const deleteFunction = (id: string, accessToken: string): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.DELETE)
     .addPathSegment(TOPICS_ENDPOINT)
     .addPathSegment(id)
-    .setToken(token)
+    .setToken(accessToken)
     .execute();
 };
 
