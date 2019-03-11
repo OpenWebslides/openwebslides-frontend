@@ -50,7 +50,6 @@ export type RefreshAction = {|
   type: typeof REFRESH,
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
-    email: string,
   |},
 |};
 

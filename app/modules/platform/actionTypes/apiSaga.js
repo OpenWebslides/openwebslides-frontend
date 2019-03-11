@@ -32,7 +32,6 @@ export type ApiPatchToken = {|
   type: typeof API_PATCH_TOKEN,
   payload: {|
     ...$PropertyType<ApiSagaAction, 'payload'>,
-    email: string,
     refreshToken: string,
   |},
 |};

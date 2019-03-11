@@ -16,18 +16,16 @@ import { sagas } from '..';
 
 describe(`refresh`, (): void => {
 
-  let dummyEmail: string;
   let dummyRefreshToken: string;
   let dummyAccessToken: string;
 
   beforeEach((): void => {
-    dummyEmail = 'dummyEmail';
     dummyRefreshToken = 'dummyRefreshToken';
     dummyAccessToken = 'dummyAccessToken';
   });
 
   it(`selects the current user's refresh token from the state and puts an apiPatchToken action, then puts an setUserAuthInState(null) action`, (): void => {
-    const dummyAction = actions.refresh(dummyEmail);
+    const dummyAction = actions.refresh();
 
     return expectSaga(sagas.refresh, dummyAction)
       .provide([
@@ -37,12 +35,12 @@ describe(`refresh`, (): void => {
         })],
       ])
       .put(actions.setUserAuthInState(null))
-      .call(asyncRequests.lib.putAndReturn, actions.apiPatchToken(dummyEmail, dummyRefreshToken))
+      .call(asyncRequests.lib.putAndReturn, actions.apiPatchToken(dummyRefreshToken))
       .run();
   });
 
   it(`throws an UnsupportedOperationError, when there is no user currently signed in`, async (): Promise<void> => {
-    const dummyAction = actions.refresh(dummyEmail);
+    const dummyAction = actions.refresh();
 
     // Suppress console.error from redux-saga $FlowFixMe
     console.error = jest.fn();

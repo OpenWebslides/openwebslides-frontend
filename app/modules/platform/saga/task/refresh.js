@@ -14,12 +14,11 @@ import selectors from '../../selectors';
 const { putAndReturn } = asyncRequests.lib;
 
 const refresh = function* (action: a.RefreshAction): Saga<void> {
-  const { email } = action.payload;
   const userAuth: ?m.UserAuth = yield select(selectors.getUserAuth);
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
   yield put(actions.setUserAuthInState(null));
-  yield call(putAndReturn, actions.apiPatchToken(email, userAuth.refreshToken));
+  yield call(putAndReturn, actions.apiPatchToken(userAuth.refreshToken));
 };
 
 export default refresh;

@@ -12,10 +12,9 @@ describe(`api.token.patch`, (): void => {
   });
 
   it(`executes the correct fetch call`, async (): Promise<void> => {
-    const dummyEmail = 'dummyEmail';
     const dummyRefreshToken = 'dummyRefreshToken';
     fetch.mockResponseOnce('', { status: 200 });
-    await api.token.patch(dummyEmail, dummyRefreshToken);
+    await api.token.patch(dummyRefreshToken);
 
     expect(fetch.mock.calls).toHaveLength(1);
 
@@ -24,14 +23,6 @@ describe(`api.token.patch`, (): void => {
 
     expect(mockUrl).toBe(`${API_URL}/token`);
     expect(mockOptions.method).toBe(httpMethods.PATCH);
-    expect(JSON.parse(mockOptions.body)).toStrictEqual({
-      data: {
-        type: 'tokens',
-        attributes: {
-          email: dummyEmail,
-        },
-      },
-    });
     expect(mockOptions.headers.Authorization).toBe(`Bearer ${dummyRefreshToken}`);
   });
 

@@ -10,20 +10,10 @@ import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection
 
 import { TOKEN_ENDPOINT } from '../endpoints';
 
-const patch = (email: string, refreshToken: string): Promise<ApiResponseData> => {
-  const body = JSON.stringify({
-    data: {
-      type: 'tokens',
-      attributes: {
-        email,
-      },
-    },
-  });
-
+const patch = (refreshToken: string): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.PATCH)
     .addPathSegment(TOKEN_ENDPOINT)
     .setToken(refreshToken)
-    .setBody(body)
     .execute();
 };
 

@@ -14,8 +14,8 @@ import * as m from '../../model';
 const apiPatchToken = function* (
   action: a.ApiPatchToken,
 ): Saga<void> {
-  const { email, refreshToken } = action.payload;
-  const responseData: ApiResponseData = yield call(api.token.patch, email, refreshToken);
+  const { refreshToken } = action.payload;
+  const responseData: ApiResponseData = yield call(api.token.patch, refreshToken);
   if (responseData.token == null || responseData.body == null) {
     throw new UnexpectedHttpResponseError();
   }
