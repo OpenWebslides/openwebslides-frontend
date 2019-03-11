@@ -17,7 +17,7 @@ describe(`apiPostToken`, (): void => {
   let dummyEmail: string;
   let dummyPassword: string;
   let dummyGravatarHash: string;
-  let dummyToken: string;
+  let dummyRefreshToken: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
@@ -25,7 +25,7 @@ describe(`apiPostToken`, (): void => {
     dummyEmail = 'test@test.be';
     dummyPassword = 'MahPasswordY0';
     dummyGravatarHash = 'abcdefghij';
-    dummyToken = 'foobarToken';
+    dummyRefreshToken = 'dummyRefreshToken';
   });
 
   it(`posts the passed email and password to the token API endpoint, processes the response and puts the userAuth object in the state`, (): void => {
@@ -41,7 +41,7 @@ describe(`apiPostToken`, (): void => {
         },
       },
       status: 201,
-      token: dummyToken,
+      token: dummyRefreshToken,
     };
 
     return expectSaga(sagas.apiPostToken, dummyAction)
@@ -50,7 +50,8 @@ describe(`apiPostToken`, (): void => {
       ])
       .put(actions.setUserAuthInState({
         userId: dummyId,
-        apiToken: dummyToken,
+        refreshToken: dummyRefreshToken,
+        accessToken: null,
       }))
       .run();
   });
@@ -60,7 +61,7 @@ describe(`apiPostToken`, (): void => {
     const dummyApiResponse = {
       body: null,
       status: 201,
-      token: dummyToken,
+      token: dummyRefreshToken,
     };
 
     // Suppress console.error from redux-saga $FlowFixMe

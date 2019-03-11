@@ -24,7 +24,8 @@ const apiPostToken = function* (
   const { id } = responseData.body.data;
   const currentUserAuth: m.UserAuth = {
     userId: id,
-    apiToken: responseData.token,
+    refreshToken: responseData.token,
+    accessToken: null,
   };
 
   // Store UserAuth in state
