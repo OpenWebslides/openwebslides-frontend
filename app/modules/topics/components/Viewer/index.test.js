@@ -56,7 +56,7 @@ describe(`Viewer`, (): void => {
         },
         platform: {
           ...dummyInitialState.modules.platform,
-          userAuth: { userId: dummyUserId, apiToken: '' },
+          userAuth: { userId: dummyUserId, accessToken: '' },
         },
       },
     };

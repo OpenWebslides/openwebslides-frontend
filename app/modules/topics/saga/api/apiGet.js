@@ -21,9 +21,9 @@ const apiAccessTypesToAccessTypesMap = {
 const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   const { id } = action.payload;
   const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
-  const apiToken = (userAuth != null) ? userAuth.accessToken : null;
+  const accessToken = (userAuth != null) ? userAuth.accessToken : null;
 
-  const topicsResponseData: ApiResponseData = yield call(api.topics.get, id, apiToken);
+  const topicsResponseData: ApiResponseData = yield call(api.topics.get, id, accessToken);
   if (topicsResponseData.body == null) {
     throw new UnexpectedHttpResponseError();
   }

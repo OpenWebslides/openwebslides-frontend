@@ -23,7 +23,7 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
   let dummyTopicId: string;
   let dummyTopicContentItems: $ReadOnlyArray<m.ContentItem>;
   let dummyMessage: string;
-  let dummyToken: string;
+  let dummyAccessToken: string;
 
   beforeEach((): void => {
     dummyParagraph = { ...dummyData.paragraphContentItem };
@@ -42,7 +42,7 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
     // $FlowFixMe couldn't decide which case to select; probable bug
     dummyTopicContentItems = [dummyRoot, dummyHeading, dummyParagraph];
     dummyMessage = 'This is a dummy message';
-    dummyToken = 'foobarToken';
+    dummyAccessToken = 'dummyAccessToken';
   });
 
   it(`creates an array of topic contentItems and sends a PATCH request containing these contentItems to the topics endpoint`, (): void => {
@@ -52,10 +52,10 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
     return expectSaga(sagas.apiPatchAllByTopicIdAndRoot, dummyAction)
       .withState(dummyState)
       .provide([
-        [select(platform.selectors.getUserAuth), { userId: 'dummyId', apiToken: dummyToken }],
-        [call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyMessage, dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { userId: 'dummyId', accessToken: dummyAccessToken }],
+        [call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyMessage, dummyAccessToken), dummyApiResponse],
       ])
-      .call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyMessage, dummyToken)
+      .call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyMessage, dummyAccessToken)
       .run();
   });
 
@@ -70,7 +70,7 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
         .withState(dummyState)
         .provide([
           [select(platform.selectors.getUserAuth), null],
-          [call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyMessage, dummyToken), dummyApiResponse],
+          [call(api.topics.patchContent, dummyTopicId, dummyTopicContentItems, dummyMessage, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);

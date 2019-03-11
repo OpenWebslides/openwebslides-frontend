@@ -14,11 +14,11 @@ import { sagas } from '..';
 describe(`apiDelete`, (): void => {
 
   let dummyId: string;
-  let dummyToken: string;
+  let dummyAccessToken: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
-    dummyToken = 'foobarToken';
+    dummyAccessToken = 'dummyAccessToken';
   });
 
   it(`sends a DELETE request for the passed id to the topics endpoint`, (): void => {
@@ -27,10 +27,10 @@ describe(`apiDelete`, (): void => {
 
     return expectSaga(sagas.apiDelete, dummyAction)
       .provide([
-        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-        [call(api.topics.delete, dummyId, dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', accessToken: dummyAccessToken }],
+        [call(api.topics.delete, dummyId, dummyAccessToken), dummyApiResponse],
       ])
-      .call(api.topics.delete, dummyId, dummyToken)
+      .call(api.topics.delete, dummyId, dummyAccessToken)
       .run();
   });
 
@@ -44,7 +44,7 @@ describe(`apiDelete`, (): void => {
       expectSaga(sagas.apiDelete, dummyAction)
         .provide([
           [select(platform.selectors.getUserAuth), null],
-          [call(api.topics.delete, dummyId, dummyToken), dummyApiResponse],
+          [call(api.topics.delete, dummyId, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);

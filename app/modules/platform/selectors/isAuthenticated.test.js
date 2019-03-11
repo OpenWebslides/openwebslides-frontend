@@ -8,7 +8,8 @@ describe(`isAuthenticated`, (): void => {
     const dummyState: any = { modules: { platform: {
       userAuth: {
         userId: 'dummyUserId',
-        apiToken: 'foobarToken',
+        refreshToken: 'refreshToken',
+        accessToken: 'accessToken',
       },
     } } };
     expect(selectors.isAuthenticated(dummyState)).toBe(true);

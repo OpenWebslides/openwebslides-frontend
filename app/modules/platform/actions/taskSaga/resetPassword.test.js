@@ -8,15 +8,15 @@ describe(`resetPassword`, (): void => {
 
   it(`returns a platform RESET_PASSWORD action containing the passed props`, (): void => {
     const dummyPassword = 'P@ssword1';
-    const dummyToken = 'foobarToken';
+    const dummyResetPasswordToken = 'dummyResetPasswordToken';
     const expectedAction: a.ResetPasswordAction = {
       type: a.RESET_PASSWORD,
       payload: {
         password: dummyPassword,
-        resetPasswordToken: dummyToken,
+        resetPasswordToken: dummyResetPasswordToken,
       },
     };
-    const actualAction = actions.resetPassword(dummyPassword, dummyToken);
+    const actualAction = actions.resetPassword(dummyPassword, dummyResetPasswordToken);
     expect(actualAction).toStrictEqual(expectedAction);
   });
 

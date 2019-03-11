@@ -19,7 +19,7 @@ describe(`apiPatch`, (): void => {
   let dummyAlertEmails: boolean;
   let dummyCurrentPassword: string;
   let dummyPassword: string;
-  let dummyToken: string;
+  let dummyAccessToken: string;
 
   beforeEach((): void => {
     dummyId = 'dummyUserId';
@@ -28,7 +28,7 @@ describe(`apiPatch`, (): void => {
     dummyAlertEmails = false;
     dummyCurrentPassword = 'dummyCurrentPassword';
     dummyPassword = 'dummyPassword';
-    dummyToken = 'dummyToken';
+    dummyAccessToken = 'dummyAccessToken';
   });
 
   it(`sends a PATCH request for the passed props to the users endpoint, and returns the resulting user ID`, (): void => {
@@ -44,10 +44,10 @@ describe(`apiPatch`, (): void => {
 
     return expectSaga(sagas.apiPatch, dummyAction)
       .provide([
-        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-        [call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', accessToken: dummyAccessToken }],
+        [call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyAccessToken), dummyApiResponse],
       ])
-      .call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken)
+      .call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyAccessToken)
       .returns({ id: dummyId })
       .run();
   });
@@ -69,7 +69,7 @@ describe(`apiPatch`, (): void => {
       expectSaga(sagas.apiPatch, dummyAction)
         .provide([
           [select(platform.selectors.getUserAuth), null],
-          [call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken), dummyApiResponse],
+          [call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);
@@ -84,8 +84,8 @@ describe(`apiPatch`, (): void => {
     await expect(
       expectSaga(sagas.apiPatch, dummyAction)
         .provide([
-          [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-          [call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyToken), dummyApiResponse],
+          [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', accessToken: dummyAccessToken }],
+          [call(api.users.patch, dummyId, dummyName, dummyLocale, dummyAlertEmails, dummyCurrentPassword, dummyPassword, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);

@@ -29,7 +29,7 @@ export type SetUserAuthAction = {|
   type: typeof SET_USER_AUTH,
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
-    apiToken: string,
+    accessToken: string,
     userId: string,
   |},
 |};
