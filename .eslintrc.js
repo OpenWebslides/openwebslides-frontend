@@ -271,6 +271,7 @@ module.exports = {
         'allow': [
           // npm packages that require multiple levels in their import paths
           'history/**',
+          'react-hot-loader/**',
           'redux-saga/**',
           'redux-saga-test-plan/**',
           'redux-persist/**',

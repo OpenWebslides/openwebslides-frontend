@@ -119,8 +119,6 @@ const createDevConfig = (env) => ({
   },
 
   plugins: [
-    // Include hot reloading functionality
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(paths.PUBLIC, 'index.dev.html'),
     }),
@@ -144,6 +142,14 @@ const createDevConfig = (env) => ({
         ],
       },
     ],
+  },
+
+  resolve: {
+    alias: {
+      // Use react-hot-loader's patched react-dom,
+      // see https://github.com/gaearon/react-hot-loader#-hot-labs-
+      'react-dom': '@hot-loader/react-dom',
+    },
   },
 
 });
