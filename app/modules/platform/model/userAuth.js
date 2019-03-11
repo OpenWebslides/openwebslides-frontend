@@ -7,5 +7,5 @@ export type UserAuth = {|
   +refreshToken: string,
   // Short-lived refresh token, used for API requests
   // See https://github.com/floriandejonckheere/jwt-auth for a summary of the refresh token mechanism
-  +accessToken: string,
+  +accessToken: ?string,
 |};
