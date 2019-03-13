@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
+import { DummyProviders, dummyTopicData, dummyInitialState } from 'lib/testResources';
 import topics from 'modules/topics';
 
 import actions from '../../../actions';
@@ -13,6 +13,7 @@ import SendUpdates, { PureSendUpdates } from '.';
 
 describe(`SendUpdates`, (): void => {
 
+  let dummyCurrentUserId: string;
   let dummyTopic: topics.model.Topic;
   let dummyDirtyTopic: topics.model.Topic;
   let dummyUpstreamTopic: topics.model.Topic;
@@ -20,10 +21,12 @@ describe(`SendUpdates`, (): void => {
   let dummyTopicsById: topics.model.TopicsById;
   let dummyState: any;
   let dummyDispatch: any;
-  let dummyCurrentUserId: string;
   let dummyMessage: string;
 
+  let dummyOnCreatePullRequest: any;
+
   beforeEach((): void => {
+    dummyCurrentUserId = 'dummyCurrentUserId';
     dummyTopic = { ...dummyTopicData.topic };
     dummyDirtyTopic = { ...dummyTopicData.downstream, id: 'dummyDirtyTopic', isContentFetched: true, isDirty: true };
     dummyUpstreamTopic = { ...dummyTopicData.upstream, isContentFetched: true };
@@ -42,19 +45,24 @@ describe(`SendUpdates`, (): void => {
           ...dummyInitialState.modules.topics,
           byId: dummyTopicsById,
         },
+        platform: {
+          ...dummyInitialState.modules.platform,
+          userAuth: {
+            userId: dummyCurrentUserId,
+            apiToken: 'foobarToken',
+          },
+        },
       },
     };
     dummyDispatch = jest.fn();
-    dummyCurrentUserId = 'dummyCurrentUserId';
     dummyMessage = 'dummyMessage';
+
+    dummyOnCreatePullRequest = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureSendUpdates
-        {...dummyProviderProps.translatorProps}
-        topic={dummyTopic}
-      />,
+      <PureSendUpdates topic={dummyTopic} onCreatePullRequest={dummyOnCreatePullRequest} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import actions from '../../actions';
 
@@ -25,7 +25,7 @@ describe(`SigninCard`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureSigninCard {...dummyProviderProps.translatorProps} onEmailAndPasswordFormSubmit={jest.fn()} />,
+      <PureSigninCard onEmailAndPasswordFormSubmit={jest.fn()} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

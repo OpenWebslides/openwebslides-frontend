@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Card } from 'semantic-ui-react';
 
 import { type ModulesAction } from 'types/redux';
@@ -15,7 +15,7 @@ type DispatchProps = {|
   onEmailFormSubmit: (values: EmailFormValues) => void,
 |};
 
-type Props = {| ...TranslatorProps, ...DispatchProps |};
+type Props = {| ...DispatchProps |};
 
 const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
@@ -26,7 +26,8 @@ const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps =>
 };
 
 const PureSendResetPasswordEmailCard = (props: Props): React.Node => {
-  const { t, onEmailFormSubmit } = props;
+  const { onEmailFormSubmit } = props;
+  const [t] = useTranslation();
 
   return (
     <Card centered={true}>
@@ -46,7 +47,7 @@ const PureSendResetPasswordEmailCard = (props: Props): React.Node => {
 };
 
 const SendResetPasswordEmailCard = connect(null, mapDispatchToProps)(
-  withNamespaces()(PureSendResetPasswordEmailCard),
+  PureSendResetPasswordEmailCard,
 );
 
 export { PureSendResetPasswordEmailCard };

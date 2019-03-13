@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import actions from '../../actions';
 
@@ -21,7 +21,7 @@ describe(`SendResetPasswordEmailCard`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureSendResetPasswordEmailCard {...dummyProviderProps.translatorProps} onEmailFormSubmit={jest.fn()} />,
+      <PureSendResetPasswordEmailCard onEmailFormSubmit={jest.fn()} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Dimmer, Loader } from 'semantic-ui-react';
 
 import { type AppState } from 'types/redux';
@@ -15,7 +15,7 @@ type StateProps = {|
   isActive: boolean,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
+type Props = {| ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const pendingRequests = selectors.getAllPending(state);
@@ -25,7 +25,8 @@ const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
 };
 
 const PureApiDimmer = (props: Props): React.Node => {
-  const { isActive, t } = props;
+  const { isActive } = props;
+  const [t] = useTranslation();
 
   if (isActive) {
     return (
@@ -41,7 +42,7 @@ const PureApiDimmer = (props: Props): React.Node => {
   }
 };
 
-const ApiDimmer = connect(mapStateToProps)(withNamespaces()(PureApiDimmer));
+const ApiDimmer = connect(mapStateToProps)(PureApiDimmer);
 
 export { PureApiDimmer };
 export default ApiDimmer;

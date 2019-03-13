@@ -1,11 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { Translation } from 'react-i18next';
 import { Item, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
+import { type TFunction } from 'types/i18next';
 import { PULL_REQUEST_VIEW_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 import makeRoute from 'lib/makeRoute';
@@ -18,7 +19,7 @@ type PassedProps = {|
   pullRequestId: string,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 class PurePullRequestEntry extends React.Component<Props> {
   iconForState = (state: m.PullRequestState): React.Node => {
@@ -39,26 +40,28 @@ class PurePullRequestEntry extends React.Component<Props> {
   };
 
   renderPullRequestEntry = (pullRequest: m.PullRequest): React.Node => {
-    const { t } = this.props;
-
     return (
-      <Item data-test-id="pull-request">
-        <Item.Content>
-          <Item.Header
-            as={Link}
-            to={makeRoute(PULL_REQUEST_VIEW_ROUTE, { pullRequestId: pullRequest.id })}
-            data-test-id="pull-request-message"
-          >
-            <strong>{pullRequest.message}</strong>
-          </Item.Header>
-          <Item.Meta>
-            {this.iconForState(pullRequest.state)} {t(`pullRequests:titleForState.${pullRequest.state}`)}
-          </Item.Meta>
-          <Item.Extra title={moment(pullRequest.timestamp).format('LLLL')}>
-            {moment(pullRequest.timestamp).fromNow()}
-          </Item.Extra>
-        </Item.Content>
-      </Item>
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <Item data-test-id="pull-request">
+            <Item.Content>
+              <Item.Header
+                as={Link}
+                to={makeRoute(PULL_REQUEST_VIEW_ROUTE, { pullRequestId: pullRequest.id })}
+                data-test-id="pull-request-message"
+              >
+                <strong>{pullRequest.message}</strong>
+              </Item.Header>
+              <Item.Meta>
+                {this.iconForState(pullRequest.state)} {t(`pullRequests:titleForState.${pullRequest.state}`)}
+              </Item.Meta>
+              <Item.Extra title={moment(pullRequest.timestamp).format('LLLL')}>
+                {moment(pullRequest.timestamp).fromNow()}
+              </Item.Extra>
+            </Item.Content>
+          </Item>
+        )}
+      </Translation>
     );
   };
 
@@ -77,7 +80,7 @@ class PurePullRequestEntry extends React.Component<Props> {
   }
 }
 
-const PullRequestEntry = withNamespaces()(PurePullRequestEntry);
+const PullRequestEntry = PurePullRequestEntry;
 
 export { PurePullRequestEntry };
 export default PullRequestEntry;

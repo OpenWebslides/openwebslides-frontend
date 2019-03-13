@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
@@ -10,7 +9,7 @@ import { HOME_ROUTE } from 'config/routes';
 import Logo from './Logo';
 import AccountMenu from './AccountMenu';
 
-type Props = {| ...TranslatorProps |};
+type Props = {| |};
 
 const PureNavigationBar = (props: Props): React.Node => {
   return (
@@ -23,7 +22,7 @@ const PureNavigationBar = (props: Props): React.Node => {
   );
 };
 
-const NavigationBar = withNamespaces()(PureNavigationBar);
+const NavigationBar = PureNavigationBar;
 
 export { PureNavigationBar };
 export default NavigationBar;

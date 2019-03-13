@@ -5,7 +5,7 @@ import { mount, shallow } from 'enzyme';
 import { push } from 'connected-react-router';
 
 import { HOME_ROUTE } from 'config/routes';
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 import users from 'modules/users';
 
 import SignupPage, { PureSignupPage } from '.';
@@ -30,9 +30,7 @@ describe(`SignupPage`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureSignupPage
-        {...dummyProviderProps.translatorProps}
-      />,
+      <PureSignupPage onSignup={jest.fn()} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

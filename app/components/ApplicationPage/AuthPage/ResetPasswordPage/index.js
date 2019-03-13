@@ -1,14 +1,13 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { type ContextRouter as RouterProps } from 'react-router-dom';
 
 import { InvalidArgumentError } from 'errors';
 import ContainerPageWrapper from 'components/ContainerPageWrapper';
 import platform from 'modules/platform';
 
-type Props = {| ...TranslatorProps, ...RouterProps |};
+type Props = {| ...RouterProps |};
 
 const { ResetPasswordCard } = platform.components;
 
@@ -26,7 +25,7 @@ const PureResetPasswordPage = (props: Props): React.Node => {
   );
 };
 
-const ResetPasswordPage = withNamespaces()(PureResetPasswordPage);
+const ResetPasswordPage = PureResetPasswordPage;
 
 export { PureResetPasswordPage };
 export default ResetPasswordPage;

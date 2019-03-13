@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 import { type DropdownValue } from 'types/forms';
 import topics from 'modules/topics';
 
@@ -33,17 +33,24 @@ describe(`MetadataForm`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureMetadataForm {...dummyProviderProps.translatorProps} />,
+      <PureMetadataForm
+        onSubmit={dummyOnSubmit}
+        onCancel={dummyOnCancel}
+        availableAccess={dummyAvailableAccess}
+        initialValues={dummyFormProps}
+      />,
     );
-    expect(enzymeWrapper.isEmptyRender()).toStrictEqual(false);
+    expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
   it(`renders a dropdown box with the passed available access`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <MetadataForm
-          access={dummyFormProps.access}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
           availableAccess={dummyAvailableAccess}
+          initialValues={dummyFormProps}
         />
       </DummyProviders>,
     );
@@ -58,26 +65,26 @@ describe(`MetadataForm`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <MetadataForm
-          title={dummyFormProps.title}
-          description={dummyFormProps.description}
-          access={dummyFormProps.access}
-          availableAccess={dummyAvailableAccess}
           onSubmit={dummyOnSubmit}
           onCancel={dummyOnCancel}
+          availableAccess={dummyAvailableAccess}
+          initialValues={dummyFormProps}
         />
       </DummyProviders>,
     );
 
     enzymeWrapper.find('[data-test-id="topic-metadata-cancel-button"]').hostNodes().simulate('click');
     expect(dummyOnSubmit).not.toHaveBeenCalledTimes(1);
-    expect(dummyOnCancel).toHaveBeenCalled();
+    expect(dummyOnCancel).toHaveBeenCalledWith();
   });
 
   it(`validates form props`, (): void => {
     const enzymeWrapper = shallow(
       <PureMetadataForm
-        {...dummyProviderProps.translatorProps}
+        onSubmit={dummyOnSubmit}
+        onCancel={dummyOnCancel}
         availableAccess={dummyAvailableAccess}
+        initialValues={dummyFormProps}
       />,
     );
     const validate = enzymeWrapper.instance().validateForm;
@@ -98,6 +105,7 @@ describe(`MetadataForm`, (): void => {
     expect(validate({ ...dummyFormProps, description: tooLongDescription })).toHaveProperty('description');
 
     expect(validate({ ...dummyFormProps, access: topics.model.accessTypes.PUBLIC })).not.toHaveProperty('access');
+    // $FlowFixMe value intended to be invalid
     expect(validate({ ...dummyFormProps, access: 'foo' })).toHaveProperty('access');
   });
 

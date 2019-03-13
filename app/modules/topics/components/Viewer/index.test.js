@@ -6,7 +6,7 @@ import { mount, shallow } from 'enzyme';
 import { push } from 'connected-react-router';
 
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyTopicData } from 'lib/testResources';
 import makeRoute from 'lib/makeRoute';
 
 import actions from '../../actions';
@@ -27,6 +27,8 @@ describe(`Viewer`, (): void => {
   let dummyState: any;
   let dummyDispatch: any;
   let dummyOnForkTopic: any;
+
+  let dummyOnEdit: any;
 
   beforeEach((): void => {
     dummyUserId = 'someDummyUserId';
@@ -60,15 +62,18 @@ describe(`Viewer`, (): void => {
     };
     dummyDispatch = jest.fn();
     dummyOnForkTopic = jest.fn();
+
+    dummyOnEdit = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureViewer
-        {...dummyProviderProps.translatorProps}
         topicId={dummyTopic.id}
         topic={dummyTopic}
+        currentUserId={dummyUserId}
         onForkTopic={dummyOnForkTopic}
+        onEdit={dummyOnEdit}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);

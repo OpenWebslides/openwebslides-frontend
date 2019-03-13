@@ -12,6 +12,8 @@
 all=error
 # These are caused by flow-typed libdefs and must be fixed on their end.
 deprecated-utility=warn
+# Creates a huge amount of errors in flow-typed libdefs, which can't be fixed on our end.
+dynamic-export=off
 # Unsafe types are already prohibited by eslint flowtype/no-weak-types, which also allows for exceptions in test files.
 unclear-type=off
 

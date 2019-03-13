@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { type AppState } from 'types/redux';
@@ -21,7 +20,7 @@ type StateProps = {|
   rootContentItems: ?$ReadOnlyArray<contentItems.model.DenormalizedRootContentItem>,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
+type Props = {| ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { topicId } = props;
@@ -54,7 +53,7 @@ const PureSlidesList = (props: Props): React.Node => {
   );
 };
 
-const SlidesList = connect(mapStateToProps)(withNamespaces()(PureSlidesList));
+const SlidesList = connect(mapStateToProps)(PureSlidesList);
 
 export { PureSlidesList };
 export default SlidesList;

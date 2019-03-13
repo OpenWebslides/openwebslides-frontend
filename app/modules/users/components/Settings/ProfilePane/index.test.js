@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyUserData } from 'lib/testResources';
 
 import actions from '../../../actions';
 import * as m from '../../../model';
@@ -18,20 +18,21 @@ describe(`ProfilePane`, (): void => {
   let dummyLocale: string;
   let dummyAlertEmails: boolean;
 
+  let dummyOnUpdateUser: any;
+
   beforeEach((): void => {
     dummyUser = { ...dummyUserData.user };
     dummyDispatch = jest.fn();
     dummyName = 'dummyName';
     dummyLocale = 'dummyLocale';
     dummyAlertEmails = false;
+
+    dummyOnUpdateUser = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureProfilePane
-        {...dummyProviderProps.translatorProps}
-        user={dummyUser}
-      />,
+      <PureProfilePane user={dummyUser} onUpdateUser={dummyOnUpdateUser} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

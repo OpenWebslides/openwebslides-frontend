@@ -1,13 +1,14 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { Translation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
 import { push } from 'connected-react-router';
 import { Button, Icon, Menu, Divider, Segment } from 'semantic-ui-react';
 
+import { type TFunction } from 'types/i18next';
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import { type AppState, type ModulesAction } from 'types/redux';
 import makeRoute from 'lib/makeRoute';
@@ -38,7 +39,7 @@ type DispatchProps = {|
   onView: () => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 type ComponentState = {|
   isCommitModalOpen: boolean,
@@ -83,6 +84,21 @@ class PureEditor extends React.Component<Props, ComponentState> {
     isShareModalOpen: false,
   };
 
+  componentDidMount(): void {
+    // Add event listener to prevent unloading window when topic is dirty
+    window.addEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  componentWillUnmount(): void {
+    const { topic, onDiscard } = this.props;
+
+    // discard topic when exiting editor
+    if (topic != null && topic.isDirty) onDiscard();
+
+    // Remove event listener to prevent unloading window when topic is dirty
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
   showCommitModal = (): void => {
     this.setState({ isCommitModalOpen: true });
   };
@@ -110,10 +126,10 @@ class PureEditor extends React.Component<Props, ComponentState> {
     onView();
   };
 
-  beforeUnloadHandler = (event: Event): boolean => {
+  beforeUnloadHandler = (event: Event): void => {
     const { topic } = this.props;
 
-    if (topic.isDirty) {
+    if (topic != null && topic.isDirty) {
       // Cancel the event as stated by the standard
       event.preventDefault();
 
@@ -123,23 +139,6 @@ class PureEditor extends React.Component<Props, ComponentState> {
       event.returnValue = '';
       /* eslint-enable */
     }
-
-    return topic.isDirty;
-  };
-
-  componentDidMount = (): void => {
-    // Add event listener to prevent unloading window when topic is dirty
-    window.addEventListener('beforeunload', this.beforeUnloadHandler);
-  };
-
-  componentWillUnmount = (): void => {
-    const { topic, onDiscard } = this.props;
-
-    // discard topic when exiting editor
-    if (topic.isDirty) onDiscard(topic.id);
-
-    // Remove event listener to prevent unloading window when topic is dirty
-    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
   };
 
   fetchCondition = (topic: ?m.Topic): boolean => {
@@ -147,76 +146,80 @@ class PureEditor extends React.Component<Props, ComponentState> {
   };
 
   renderEditor = (topic: m.Topic): React.Node => {
-    const { t, onSetDirty } = this.props;
+    const { onSetDirty } = this.props;
     const { isCommitModalOpen, isShareModalOpen } = this.state;
 
     return (
-      <div data-test-id="topic-editor">
-        {/* Prompt when user navigates away from the page with unsaved changes */}
-        <Prompt
-          when={topic.isDirty}
-          message={t('topics:modals.unsavedChanges.message')}
-        />
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <div data-test-id="topic-editor">
+            {/* Prompt when user navigates away from the page with unsaved changes */}
+            <Prompt
+              when={topic.isDirty}
+              message={t('topics:modals.unsavedChanges.message')}
+            />
 
-        <Menu secondary={true}>
-          <Menu.Menu position="right">
-            <Menu.Item>
-              <Button
-                basic={true}
-                onClick={this.showViewer}
-                data-test-id="topic-editor-view-button"
-              >
-                <Icon name="eye" />
-                {t('common:button.view')}
-              </Button>
-            </Menu.Item>
-            <Menu.Item>
-              <Button
-                basic={true}
-                onClick={this.showShareModal}
-                data-test-id="topic-editor-share-button"
-              >
-                <Icon name="share alternate" />
-                {t('common:button.share')}
-              </Button>
-            </Menu.Item>
-            <Menu.Item>
-              <Button
-                disabled={!topic.isDirty}
-                primary={true}
-                onClick={this.showCommitModal}
-                data-test-id="topic-editor-commit-button"
-              >
-                <Icon name="save" />
-                {t('common:button.save')}
-              </Button>
-            </Menu.Item>
-          </Menu.Menu>
-        </Menu>
+            <Menu secondary={true}>
+              <Menu.Menu position="right">
+                <Menu.Item>
+                  <Button
+                    basic={true}
+                    onClick={this.showViewer}
+                    data-test-id="topic-editor-view-button"
+                  >
+                    <Icon name="eye" />
+                    {t('common:button.view')}
+                  </Button>
+                </Menu.Item>
+                <Menu.Item>
+                  <Button
+                    basic={true}
+                    onClick={this.showShareModal}
+                    data-test-id="topic-editor-share-button"
+                  >
+                    <Icon name="share alternate" />
+                    {t('common:button.share')}
+                  </Button>
+                </Menu.Item>
+                <Menu.Item>
+                  <Button
+                    disabled={!topic.isDirty}
+                    primary={true}
+                    onClick={this.showCommitModal}
+                    data-test-id="topic-editor-commit-button"
+                  >
+                    <Icon name="save" />
+                    {t('common:button.save')}
+                  </Button>
+                </Menu.Item>
+              </Menu.Menu>
+            </Menu>
 
-        <Segment padded={true}>
-          <Metadata topic={topic} />
-        </Segment>
+            <Segment padded={true}>
+              <Metadata topic={topic} />
+            </Segment>
 
-        <Divider hidden={true} />
+            <Divider hidden={true} />
 
-        <ContentItemEditableDisplay
-          contentItemId={topic.rootContentItemId}
-          setTopicDirty={onSetDirty}
-        />
+            <ContentItemEditableDisplay
+              contentItemId={topic.rootContentItemId}
+              setTopicDirty={onSetDirty}
+            />
 
-        <CommitModal
-          isOpen={isCommitModalOpen}
-          onSubmit={this.handleCommitModalSubmit}
-          onCancel={this.handleCommitModalCancel}
-        />
+            <CommitModal
+              isOpen={isCommitModalOpen}
+              onSubmit={this.handleCommitModalSubmit}
+              onCancel={this.handleCommitModalCancel}
+            />
 
-        <ShareModal
-          topic={topic}
-          isOpen={isShareModalOpen}
-          onCancel={this.hideShareModal}
-        />
-      </div>
+            <ShareModal
+              topic={topic}
+              isOpen={isShareModalOpen}
+              onCancel={this.hideShareModal}
+            />
+          </div>
+        )}
+      </Translation>
     );
   };
 
@@ -236,7 +239,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
   }
 }
 
-const Editor = connect(mapStateToProps, mapDispatchToProps)(withNamespaces()(PureEditor));
+const Editor = connect(mapStateToProps, mapDispatchToProps)(PureEditor);
 
 export { PureEditor };
 export default Editor;

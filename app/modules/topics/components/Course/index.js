@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { type AppState } from 'types/redux';
@@ -18,7 +17,7 @@ type StateProps = {|
   rootContentItem: contentItems.model.DenormalizedRootContentItem,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps |};
+type Props = {| ...PassedProps, ...StateProps |};
 
 const { HtmlDisplay: ContentItemHtmlDisplay } = contentItems.components;
 
@@ -48,7 +47,7 @@ const PureCourse = (props: Props): React.Node => {
   );
 };
 
-const Course = connect(mapStateToProps)(withNamespaces()(PureCourse));
+const Course = connect(mapStateToProps)(PureCourse);
 
 export { PureCourse };
 export default Course;

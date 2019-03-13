@@ -1,8 +1,12 @@
+// @flow
+
 /* eslint-disable */
 
-const { teardown: teardownDevServer } = require('jest-dev-server');
+import { teardown as teardownDevServer } from 'jest-dev-server';
 
-module.exports = async function globalTeardown() {
+const globalTeardown = async (): Promise<void> => {
   await teardownDevServer();
   // Your global teardown
 };
+
+export default globalTeardown;

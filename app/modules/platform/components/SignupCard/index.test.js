@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import SignupCard, { PureSignupCard } from '.';
 
@@ -27,7 +27,7 @@ describe(`SignupCard`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureSignupCard {...dummyProviderProps.translatorProps} onNewUserFormSubmit={jest.fn()} />,
+      <PureSignupCard onSignup={dummyOnSignup} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -38,7 +38,7 @@ describe(`SignupCard`, (): void => {
         <SignupCard onSignup={dummyOnSignup} />
       </DummyProviders>,
     );
-    const handleNewUserFormSubmit = enzymeWrapper.find('PureSignupCard').instance().handleNewUserFormSubmit;
+    const handleNewUserFormSubmit = (enzymeWrapper.find('PureSignupCard').instance(): any).handleNewUserFormSubmit;
 
     handleNewUserFormSubmit({ email: dummyEmail, name: dummyName, password: dummyPassword, tosAccepted: dummyTosAccepted });
     expect(dummyOnSignup).toHaveBeenCalledWith(dummyEmail, dummyName, dummyPassword, dummyTosAccepted);

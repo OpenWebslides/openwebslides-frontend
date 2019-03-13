@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
+import { DummyProviders, dummyTopicData, dummyInitialState } from 'lib/testResources';
 import topics from 'modules/topics';
 
 import OutgoingPullRequests, { PureOutgoingPullRequests } from '.';
@@ -45,10 +45,7 @@ describe(`OutgoingPullRequests`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureOutgoingPullRequests
-        {...dummyProviderProps.translatorProps}
-        topic={dummyTopic}
-      />,
+      <PureOutgoingPullRequests topic={dummyTopic} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

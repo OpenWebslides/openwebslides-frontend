@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import { DummyProviders, dummyInitialState, dummyTopicData, dummyUserData } from 'lib/testResources';
 import users from 'modules/users';
@@ -9,7 +9,7 @@ import topics from 'modules/topics';
 
 import policies from '../../policies';
 
-import TopicPolicyWrapper from '.';
+import TopicPolicyWrapper, { PureTopicPolicyWrapper } from '.';
 
 describe(`TopicPolicyWrapper`, (): void => {
 
@@ -45,17 +45,15 @@ describe(`TopicPolicyWrapper`, (): void => {
   });
 
   it(`renders without errors`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <TopicPolicyWrapper
-          topicId={dummyTopic.id}
-          action="update"
-          redirectIfNotAuthenticated={null}
-          componentIfNotAuthenticated={null}
-        >
-          <p>children</p>
-        </TopicPolicyWrapper>
-      </DummyProviders>,
+    const enzymeWrapper = shallow(
+      <PureTopicPolicyWrapper
+        topicId={dummyTopic.id}
+        action="update"
+        redirectIfNotAuthenticated={null}
+        componentIfNotAuthenticated={null}
+      >
+        <p>children</p>
+      </PureTopicPolicyWrapper>,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

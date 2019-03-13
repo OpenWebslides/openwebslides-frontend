@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import actions from '../../actions';
 
@@ -21,7 +21,7 @@ describe(`ResendConfirmationEmailCard`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureResendConfirmationEmailCard {...dummyProviderProps.translatorProps} onEmailFormSubmit={jest.fn()} />,
+      <PureResendConfirmationEmailCard onEmailFormSubmit={jest.fn()} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

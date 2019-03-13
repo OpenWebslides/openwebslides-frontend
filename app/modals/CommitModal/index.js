@@ -1,21 +1,22 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'semantic-ui-react';
 
-import CommitForm from 'forms/CommitForm';
+import CommitForm, { type CommitFormValues } from 'forms/CommitForm';
 
 type PassedProps = {|
   isOpen: boolean,
-  onSubmit: () => void,
+  onSubmit: (values: CommitFormValues) => void,
   onCancel: () => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 const PureCommitModal = (props: Props): React.Node => {
-  const { t, isOpen, onSubmit, onCancel } = props;
+  const { isOpen, onSubmit, onCancel } = props;
+  const [t] = useTranslation();
 
   return (
     <Modal
@@ -27,10 +28,7 @@ const PureCommitModal = (props: Props): React.Node => {
       <Modal.Header>{t('modals:commit.title')}</Modal.Header>
       <Modal.Content>
         <p>{t('modals:commit.message')}</p>
-        <CommitForm
-          onSubmit={onSubmit}
-          data-test-id="commit-modal-commit-form"
-        />
+        <CommitForm onSubmit={onSubmit} />
       </Modal.Content>
       <Modal.Actions>
         <Button
@@ -54,7 +52,7 @@ const PureCommitModal = (props: Props): React.Node => {
   );
 };
 
-const CommitModal = withNamespaces()(PureCommitModal);
+const CommitModal = PureCommitModal;
 
 export { PureCommitModal };
 export default CommitModal;

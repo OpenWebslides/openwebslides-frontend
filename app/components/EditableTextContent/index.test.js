@@ -127,7 +127,7 @@ describe(`EditableTextContent`, (): void => {
       <EditableTextContent initialText={dummyText} onActivate={dummyActivate} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
-    expect(dummyActivate).toHaveBeenCalled();
+    expect(dummyActivate).toHaveBeenCalledWith();
   });
 
   it(`does not call onActivate, when it is in text mode and receives a right button click event`, (): void => {
@@ -135,7 +135,7 @@ describe(`EditableTextContent`, (): void => {
       <EditableTextContent initialText={dummyText} onActivate={dummyActivate} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 2 });
-    expect(dummyActivate).not.toHaveBeenCalled();
+    expect(dummyActivate).not.toHaveBeenCalledWith();
   });
 
   it(`calls the passed onActivate function, when it is in text mode and receives a focus event`, (): void => {
@@ -143,7 +143,7 @@ describe(`EditableTextContent`, (): void => {
       <EditableTextContent initialText={dummyText} onActivate={dummyActivate} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
-    expect(dummyActivate).toHaveBeenCalled();
+    expect(dummyActivate).toHaveBeenCalledWith();
   });
 
   it(`calls the passed onDeactivate function, when it is in input mode and receives a blur event`, (): void => {
@@ -176,7 +176,7 @@ describe(`EditableTextContent`, (): void => {
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('keyDown', dummyKeyDownEvent);
-    expect(dummyKeyDown).toHaveBeenCalled();
+    expect(dummyKeyDown).toHaveBeenCalledWith(expect.anything());
   });
 
   it(`calls event.preventDefault(), when it is in text mode and receives a mouseDown event`, (): void => {
@@ -185,7 +185,7 @@ describe(`EditableTextContent`, (): void => {
       <EditableTextContent initialText={dummyText} />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('mouseDown', { preventDefault: dummyPreventDefault });
-    expect(dummyPreventDefault).toHaveBeenCalled();
+    expect(dummyPreventDefault).toHaveBeenCalledWith();
   });
 
   // eslint-disable-next-line jest/expect-expect

@@ -1,6 +1,6 @@
 // @flow
 
-const global = {
+const globalTranslations = {
   openwebslides: 'Open Webslides',
   version: 'Open Webslides v{{version}}',
   navbar: {
@@ -18,4 +18,4 @@ const global = {
   },
 };
 
-export default global;
+export default globalTranslations;

@@ -3,9 +3,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { Translation } from 'react-i18next';
 import { Feed as SemanticUiFeed, Header } from 'semantic-ui-react';
 
+import { type TFunction } from 'types/i18next';
 import { type ModulesAction, type AppState } from 'types/redux';
 
 import actions from '../../actions';
@@ -22,7 +23,7 @@ type DispatchProps = {|
   handleFetchAll: () => void,
 |};
 
-type Props = {| ...TranslatorProps, ...StateProps, ...DispatchProps |};
+type Props = {| ...StateProps, ...DispatchProps |};
 
 const mapStateToProps = (state: AppState): StateProps => {
   return {
@@ -45,20 +46,24 @@ class PureFeed extends React.Component<Props> {
   }
 
   render(): React.Node {
-    const { t, sortedFeedItems } = this.props;
+    const { sortedFeedItems } = this.props;
 
     return (
-      <SemanticUiFeed>
-        <Header>{t('feedItems:feed.header')}</Header>
-        {sortedFeedItems.map((feedItem) => (
-          <FeedItem key={feedItem.id} feedItem={feedItem} />
-        ))}
-      </SemanticUiFeed>
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <SemanticUiFeed>
+            <Header>{t('feedItems:feed.header')}</Header>
+            {sortedFeedItems.map((feedItem) => (
+              <FeedItem key={feedItem.id} feedItem={feedItem} />
+            ))}
+          </SemanticUiFeed>
+        )}
+      </Translation>
     );
   }
 }
 
-const Feed = connect(mapStateToProps, mapDispatchToProps)(withNamespaces()(PureFeed));
+const Feed = connect(mapStateToProps, mapDispatchToProps)(PureFeed);
 
 export { PureFeed };
 export default Feed;

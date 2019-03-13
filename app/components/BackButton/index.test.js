@@ -11,7 +11,7 @@ describe(`BackButton`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureBackButton {...dummyProviderProps.translatorProps} {...dummyProviderProps.routerProps} />,
+      <PureBackButton {...dummyProviderProps.routerProps} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

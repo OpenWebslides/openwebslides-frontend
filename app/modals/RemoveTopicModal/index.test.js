@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { dummyProviderProps, DummyProviders, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyTopicData } from 'lib/testResources';
 import topics from 'modules/topics';
 
 import RemoveTopicModal, { PureRemoveTopicModal } from '.';
@@ -22,7 +22,12 @@ describe(`RemoveTopicModal`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureRemoveTopicModal topic={dummyTopic} {...dummyProviderProps.translatorProps} />,
+      <PureRemoveTopicModal
+        topic={dummyTopic}
+        isOpen={true}
+        onSubmit={dummyOnSubmit}
+        onCancel={dummyOnCancel}
+      />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -30,7 +35,12 @@ describe(`RemoveTopicModal`, (): void => {
   it(`renders the RemoveTopic modal form and submit/cancel buttons, when the passed isOpen prop is TRUE`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <RemoveTopicModal topic={dummyTopic} isOpen={true} />
+        <RemoveTopicModal
+          topic={dummyTopic}
+          isOpen={true}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
+        />
       </DummyProviders>,
     );
 
@@ -42,7 +52,12 @@ describe(`RemoveTopicModal`, (): void => {
   it(`does not render the RemoveTopic modal form and submit/cancel buttons, when the passed isOpen prop is FALSE`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <RemoveTopicModal topic={dummyTopic} isOpen={false} />
+        <RemoveTopicModal
+          topic={dummyTopic}
+          isOpen={false}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
+        />
       </DummyProviders>,
     );
 
@@ -54,7 +69,12 @@ describe(`RemoveTopicModal`, (): void => {
   it(`calls the passed onSubmit callback when the submit button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <RemoveTopicModal topic={dummyTopic} isOpen={true} onSubmit={dummyOnSubmit} onCancel={dummyOnCancel} />
+        <RemoveTopicModal
+          topic={dummyTopic}
+          isOpen={true}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
+        />
       </DummyProviders>,
     );
 
@@ -66,7 +86,12 @@ describe(`RemoveTopicModal`, (): void => {
   it(`calls the passed onCancel callback when the cancel button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <RemoveTopicModal topic={dummyTopic} isOpen={true} onSubmit={dummyOnSubmit} onCancel={dummyOnCancel} />
+        <RemoveTopicModal
+          topic={dummyTopic}
+          isOpen={true}
+          onSubmit={dummyOnSubmit}
+          onCancel={dummyOnCancel}
+        />
       </DummyProviders>,
     );
 

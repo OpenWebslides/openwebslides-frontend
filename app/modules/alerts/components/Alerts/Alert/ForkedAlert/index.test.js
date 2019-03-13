@@ -6,7 +6,7 @@ import { push } from 'connected-react-router';
 
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import makeRoute from 'lib/makeRoute';
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, dummyTopicData, dummyUserData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyAlertData, dummyTopicData, dummyUserData } from 'lib/testResources';
 import topics from 'modules/topics';
 import users from 'modules/users';
 
@@ -22,6 +22,10 @@ describe(`ForkedAlert`, (): void => {
   let dummyAlert: m.ForkedAlert;
   let dummyState: any;
   let dummyDispatch: any;
+
+  let dummyFetchTopic: any;
+  let dummyFetchUser: any;
+  let dummyOnClickAlert: any;
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic };
@@ -52,17 +56,21 @@ describe(`ForkedAlert`, (): void => {
       },
     };
     dummyDispatch = jest.fn();
+
+    dummyFetchTopic = jest.fn();
+    dummyFetchUser = jest.fn();
+    dummyOnClickAlert = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureForkedAlert
-        {...dummyProviderProps.translatorProps}
         alert={dummyAlert}
         user={dummyUser}
         topic={dummyTopic}
-        fetchTopic={jest.fn()}
-        fetchUser={jest.fn()}
+        fetchTopic={dummyFetchTopic}
+        fetchUser={dummyFetchUser}
+        onClickAlert={dummyOnClickAlert}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);

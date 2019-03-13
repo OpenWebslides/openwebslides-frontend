@@ -1,10 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
+import { Translation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Item, Icon, Header } from 'semantic-ui-react';
 
+import { type TFunction } from 'types/i18next';
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
 import makeRoute from 'lib/makeRoute';
@@ -16,7 +17,7 @@ type PassedProps = {|
   topic: topics.model.Topic,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 class PureOutgoingPullRequests extends React.Component<Props> {
   renderPullRequest = (pullRequestId: string): React.Node => {
@@ -30,37 +31,41 @@ class PureOutgoingPullRequests extends React.Component<Props> {
   };
 
   renderOutgoingPullRequests = (upstreamTopic: topics.model.Topic): React.Node => {
-    const { t, topic } = this.props;
+    const { topic } = this.props;
 
     return (
-      <div data-test-id="outgoing-pull-requests">
-        <Header as="h3">
-          <Icon name="sign-out alternate" />
-          {t('topics:sidebars.contribute.outgoing.title')}
-        </Header>
-        <Item.Group>
-          <Item>
-            <Item.Content>
-              {topic.outgoingPullRequestIds.length === 0 ? (
-                <em data-test-id="outgoing-pull-requests-empty-message">
-                  <Trans
-                    i18nKey="topics:sidebars.contribute.outgoing.empty"
-                    values={{ upstreamTopicTitle: upstreamTopic.title }}
-                  >
-                    <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: upstreamTopic.id })}>
-                      title
-                    </Link>
-                  </Trans>
-                </em>
-              ) : (
-                <p data-test-id="outgoing-pull-requests-message">{t('topics:sidebars.contribute.outgoing.message')}</p>
-              )}
-            </Item.Content>
-          </Item>
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <div data-test-id="outgoing-pull-requests">
+            <Header as="h3">
+              <Icon name="sign-out alternate" />
+              {t('topics:sidebars.contribute.outgoing.title')}
+            </Header>
+            <Item.Group>
+              <Item>
+                <Item.Content>
+                  {topic.outgoingPullRequestIds.length === 0 ? (
+                    <em data-test-id="outgoing-pull-requests-empty-message">
+                      <Trans
+                        i18nKey="topics:sidebars.contribute.outgoing.empty"
+                        values={{ upstreamTopicTitle: upstreamTopic.title }}
+                      >
+                        <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: upstreamTopic.id })}>
+                          title
+                        </Link>
+                      </Trans>
+                    </em>
+                  ) : (
+                    <p data-test-id="outgoing-pull-requests-message">{t('topics:sidebars.contribute.outgoing.message')}</p>
+                  )}
+                </Item.Content>
+              </Item>
 
-          {(topic.outgoingPullRequestIds.map((id) => this.renderPullRequest(id)))}
-        </Item.Group>
-      </div>
+              {(topic.outgoingPullRequestIds.map((id) => this.renderPullRequest(id)))}
+            </Item.Group>
+          </div>
+        )}
+      </Translation>
     );
   };
 
@@ -79,7 +84,7 @@ class PureOutgoingPullRequests extends React.Component<Props> {
   }
 }
 
-const OutgoingPullRequests = withNamespaces()(PureOutgoingPullRequests);
+const OutgoingPullRequests = PureOutgoingPullRequests;
 
 export { PureOutgoingPullRequests };
 export default OutgoingPullRequests;

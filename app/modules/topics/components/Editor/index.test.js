@@ -6,7 +6,7 @@ import { mount, shallow } from 'enzyme';
 import { push } from 'connected-react-router';
 
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
-import { DummyProviders, dummyProviderProps, dummyTopicData, dummyInitialState } from 'lib/testResources';
+import { DummyProviders, dummyTopicData, dummyInitialState } from 'lib/testResources';
 import makeRoute from 'lib/makeRoute';
 
 import actions from '../../actions';
@@ -26,6 +26,8 @@ describe(`Editor`, (): void => {
   let dummyDispatch: any;
   let dummyOnCommit: any;
   let dummyOnSetDirty: any;
+  let dummyOnDiscard: any;
+  let dummyOnView: any;
   let dummyPreventDefault: any;
   let dummyUnloadEvent: any;
 
@@ -58,6 +60,8 @@ describe(`Editor`, (): void => {
     dummyDispatch = jest.fn();
     dummyOnCommit = jest.fn();
     dummyOnSetDirty = jest.fn();
+    dummyOnDiscard = jest.fn();
+    dummyOnView = jest.fn();
 
     dummyAddEventListener = jest.fn();
     dummyRemoveEventListener = jest.fn();
@@ -74,10 +78,12 @@ describe(`Editor`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureEditor
-        {...dummyProviderProps.translatorProps}
         topicId={dummyTopic.id}
+        topic={dummyTopic}
         onCommit={dummyOnCommit}
         onSetDirty={dummyOnSetDirty}
+        onDiscard={dummyOnDiscard}
+        onView={dummyOnView}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
@@ -210,9 +216,9 @@ describe(`Editor`, (): void => {
       </DummyProviders>,
     );
 
-    const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).instance().beforeUnloadHandler;
+    const beforeUnloadHandler = (enzymeWrapper.find(`PureEditor`).instance(): any).beforeUnloadHandler;
+    beforeUnloadHandler(dummyUnloadEvent);
 
-    expect(beforeUnloadHandler(dummyUnloadEvent)).toStrictEqual(false);
     expect(dummyPreventDefault).toHaveBeenCalledTimes(0);
     expect(dummyUnloadEvent.returnValue).toBeUndefined();
   });
@@ -237,10 +243,10 @@ describe(`Editor`, (): void => {
       </DummyProviders>,
     );
 
-    const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).instance().beforeUnloadHandler;
+    const beforeUnloadHandler = (enzymeWrapper.find(`PureEditor`).instance(): any).beforeUnloadHandler;
+    beforeUnloadHandler(dummyUnloadEvent);
 
-    expect(beforeUnloadHandler(dummyUnloadEvent)).toStrictEqual(true);
-    expect(dummyPreventDefault).toHaveBeenCalled();
+    expect(dummyPreventDefault).toHaveBeenCalledWith();
     expect(dummyUnloadEvent.returnValue).not.toBeUndefined();
   });
 
@@ -263,7 +269,7 @@ describe(`Editor`, (): void => {
       </DummyProviders>,
     );
 
-    const beforeUnloadHandler = enzymeWrapper.find(`PureEditor`).instance().beforeUnloadHandler;
+    const beforeUnloadHandler = (enzymeWrapper.find(`PureEditor`).instance(): any).beforeUnloadHandler;
 
     expect(dummyAddEventListener).toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);
     expect(dummyRemoveEventListener).not.toHaveBeenCalledWith('beforeunload', beforeUnloadHandler);

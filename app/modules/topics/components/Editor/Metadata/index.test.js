@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { dummyProviderProps, DummyProviders, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyTopicData } from 'lib/testResources';
 
 import actions from '../../../actions';
 import * as m from '../../../model';
@@ -15,17 +15,18 @@ describe(`Metadata`, (): void => {
   let dummyTopic: m.Topic;
   let dummyDispatch: any;
 
+  let dummyOnUpdate: any;
+
   beforeEach((): void => {
     dummyTopic = dummyTopicData.topic;
     dummyDispatch = jest.fn();
+
+    dummyOnUpdate = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureMetadata
-        topic={dummyTopic}
-        {...dummyProviderProps.translatorProps}
-      />,
+      <PureMetadata topic={dummyTopic} onUpdate={dummyOnUpdate} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

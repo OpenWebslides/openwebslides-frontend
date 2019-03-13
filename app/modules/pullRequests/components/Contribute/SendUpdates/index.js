@@ -3,10 +3,11 @@
 import * as React from 'react';
 import { type Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
+import { Translation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Item, Icon, Button, Message } from 'semantic-ui-react';
 
+import { type TFunction } from 'types/i18next';
 import { type ModulesAction } from 'types/redux';
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
 import FetchWrapper from 'components/FetchWrapper';
@@ -29,7 +30,7 @@ type DispatchProps = {|
   ) => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
+type Props = {| ...PassedProps, ...DispatchProps |};
 
 type ComponentState = {|
   isPRModalOpen: boolean,
@@ -76,69 +77,73 @@ class PureSendUpdates extends React.Component<Props, ComponentState> {
   };
 
   renderSendUpdates = (upstreamTopic: topics.model.Topic): React.Node => {
-    const { t, topic } = this.props;
+    const { topic } = this.props;
     const { isPRModalOpen } = this.state;
 
     return (
-      <div data-test-id="send-updates">
-        <Item.Group>
-          <Item>
-            <Item.Content>
-              <p>
-                <Trans
-                  i18nKey="topics:sidebars.contribute.sendUpdates.info"
-                  values={{ upstreamTopicTitle: upstreamTopic.title }}
-                >
-                  <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: upstreamTopic.id })}>
-                    title
-                  </Link>
-                </Trans>
-              </p>
-              {/* TODO: commit count */}
-              {/* <p><strong>{t('topics:sidebars.contribute.sendUpdates.count',
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <div data-test-id="send-updates">
+            <Item.Group>
+              <Item>
+                <Item.Content>
+                  <p>
+                    <Trans
+                      i18nKey="topics:sidebars.contribute.sendUpdates.info"
+                      values={{ upstreamTopicTitle: upstreamTopic.title }}
+                    >
+                      <Link to={makeRoute(TOPIC_VIEWER_ROUTE, { topicId: upstreamTopic.id })}>
+                        title
+                      </Link>
+                    </Trans>
+                  </p>
+                  {/* TODO: commit count */}
+                  {/* <p><strong>{t('topics:sidebars.contribute.sendUpdates.count',
               { count: 0 })}</strong></p> */}
-            </Item.Content>
-          </Item>
-          <Item>
-            <Item.Content>
-              {(topic.isDirty ? (
-                <Message
-                  warning={true}
-                  icon="exclamation"
-                  content={t('topics:sidebars.contribute.sendUpdates.saveChanges')}
-                  data-test-id="send-updates-dirty-message"
-                />
-              ) : null)}
-              {(topic.hasOpenPullRequest ? (
-                <Message
-                  warning={true}
-                  icon="exclamation triangle"
-                  content={t('topics:sidebars.contribute.sendUpdates.pullRequestOpen')}
-                  data-test-id="send-updates-pull-request-open-message"
-                />
-              ) : null)}
-              <Button
-                disabled={topic.isDirty || topic.hasOpenPullRequest}
-                secondary={true}
-                fluid={true}
-                onClick={this.showPRModal}
-                data-test-id="send-updates-pull-request-button"
-              >
-                <Icon name="send" />
-                {t('common:button.pr')}
-              </Button>
-            </Item.Content>
-          </Item>
-        </Item.Group>
+                </Item.Content>
+              </Item>
+              <Item>
+                <Item.Content>
+                  {(topic.isDirty ? (
+                    <Message
+                      warning={true}
+                      icon="exclamation"
+                      content={t('topics:sidebars.contribute.sendUpdates.saveChanges')}
+                      data-test-id="send-updates-dirty-message"
+                    />
+                  ) : null)}
+                  {(topic.hasOpenPullRequest ? (
+                    <Message
+                      warning={true}
+                      icon="exclamation triangle"
+                      content={t('topics:sidebars.contribute.sendUpdates.pullRequestOpen')}
+                      data-test-id="send-updates-pull-request-open-message"
+                    />
+                  ) : null)}
+                  <Button
+                    disabled={topic.isDirty || topic.hasOpenPullRequest}
+                    secondary={true}
+                    fluid={true}
+                    onClick={this.showPRModal}
+                    data-test-id="send-updates-pull-request-button"
+                  >
+                    <Icon name="send" />
+                    {t('common:button.pr')}
+                  </Button>
+                </Item.Content>
+              </Item>
+            </Item.Group>
 
-        <PullRequestModal
-          sourceTopicId={topic.id}
-          targetTopicId={topic.upstreamTopicId}
-          isOpen={isPRModalOpen}
-          onSubmit={this.handlePRModalSubmit}
-          onCancel={this.handlePRModalCancel}
-        />
-      </div>
+            <PullRequestModal
+              sourceTopicId={topic.id}
+              targetTopicId={topic.upstreamTopicId}
+              isOpen={isPRModalOpen}
+              onSubmit={this.handlePRModalSubmit}
+              onCancel={this.handlePRModalCancel}
+            />
+          </div>
+        )}
+      </Translation>
     );
   };
 
@@ -157,7 +162,7 @@ class PureSendUpdates extends React.Component<Props, ComponentState> {
   }
 }
 
-const SendUpdates = connect(null, mapDispatchToProps)(withNamespaces()(PureSendUpdates));
+const SendUpdates = connect(null, mapDispatchToProps)(PureSendUpdates);
 
 export { PureSendUpdates };
 export default SendUpdates;

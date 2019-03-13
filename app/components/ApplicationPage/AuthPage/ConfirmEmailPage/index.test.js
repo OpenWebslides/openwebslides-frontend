@@ -36,7 +36,6 @@ describe(`ConfirmEmailPage`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureConfirmEmailPage
-        {...dummyProviderProps.translatorProps}
         {...fixedDummyRouterProps}
         confirmEmailAndRedirect={dummyConfirmEmail}
       />,
@@ -67,7 +66,6 @@ describe(`ConfirmEmailPage`, (): void => {
     expect((): void => {
       shallow(
         <PureConfirmEmailPage
-          {...dummyProviderProps.translatorProps}
           {...dummyProviderProps.routerProps}
           confirmEmailAndRedirect={dummyConfirmEmail}
         />,

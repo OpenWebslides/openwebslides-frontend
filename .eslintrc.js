@@ -25,7 +25,9 @@ module.exports = {
     'jest',
     // ESLint checking for correct use of Promise / async features.
     'promise',
-    // Eslint checking for correct use of redux-saga
+    // ESlint checking for correct use of React hooks.
+    'react-hooks',
+    // Eslint checking for correct use of redux-saga.
     'redux-saga',
   ],
   'settings': {
@@ -269,6 +271,7 @@ module.exports = {
         'allow': [
           // npm packages that require multiple levels in their import paths
           'history/**',
+          'react-hot-loader/**',
           'redux-saga/**',
           'redux-saga-test-plan/**',
           'redux-persist/**',
@@ -357,6 +360,9 @@ module.exports = {
     // Disallow the use of x and f prefixes to skip / focus tests; use .skip and .only instead.
     'jest/no-test-prefixes': 'error',
 
+    // Enforce using .toBeCalledWith() / .toHaveBeenCalledWith() over .toBeCalled() / .toHaveBeenCalled().
+    'jest/prefer-called-with': 'error',
+
     // Enforce using .toStrictEqual() over .toEqual().
     'jest/prefer-strict-equal': 'error',
 
@@ -439,6 +445,9 @@ module.exports = {
         'forbidDefaultForRequired': false,
       },
     ],
+
+    // Enforce correct use of React hooks.
+    'react-hooks/rules-of-hooks': 'error',
 
     // Saga errors are handled by modules/asyncRequests/lib/sagaWrapper
     // in a way that can't be detected by this rule.

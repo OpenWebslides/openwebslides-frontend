@@ -3,11 +3,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { Translation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import { Grid, Icon } from 'semantic-ui-react';
 import moment from 'moment';
 
+import { type TFunction } from 'types/i18next';
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import { type ModulesAction, type AppState } from 'types/redux';
 import makeRoute from 'lib/makeRoute';
@@ -30,7 +31,7 @@ type DispatchProps = {|
   onClickAlert: () => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { alert } = props;
@@ -65,29 +66,33 @@ class PureUpdateAlert extends React.Component<Props> {
   }
 
   render(): React.Node {
-    const { t, alert, topic, onClickAlert } = this.props;
+    const { alert, topic, onClickAlert } = this.props;
 
     if (topic == null) return null;
 
     return (
-      <Grid onClick={onClickAlert} data-test-id="alert">
-        <Grid.Column width={1} verticalAlign="middle">
-          <Icon name="arrow alternate circle up outline" />
-        </Grid.Column>
-        <Grid.Column width={13}>
-          <InlineMarkdown
-            text={t('alerts:menu.updated', { count: alert.count, topicTitle: topic.title })}
-          />
-          <p className="date" title={moment(alert.timestamp).format('LLLL')}>
-            {moment(alert.timestamp).fromNow()}
-          </p>
-        </Grid.Column>
-      </Grid>
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <Grid onClick={onClickAlert} data-test-id="alert">
+            <Grid.Column width={1} verticalAlign="middle">
+              <Icon name="arrow alternate circle up outline" />
+            </Grid.Column>
+            <Grid.Column width={13}>
+              <InlineMarkdown
+                text={t('alerts:menu.updated', { count: alert.count, topicTitle: topic.title })}
+              />
+              <p className="date" title={moment(alert.timestamp).format('LLLL')}>
+                {moment(alert.timestamp).fromNow()}
+              </p>
+            </Grid.Column>
+          </Grid>
+        )}
+      </Translation>
     );
   }
 }
 
-const UpdateAlert = connect(mapStateToProps, mapDispatchToProps)(withNamespaces()(PureUpdateAlert));
+const UpdateAlert = connect(mapStateToProps, mapDispatchToProps)(PureUpdateAlert);
 
 export { PureUpdateAlert };
 export default UpdateAlert;

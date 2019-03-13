@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
 import { Item } from 'semantic-ui-react';
@@ -24,7 +23,7 @@ type DispatchProps = {|
   removeTopicFromUser: (topicId: string) => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
+type Props = {| ...PassedProps, ...DispatchProps |};
 
 const { TopicsList } = topics.components;
 
@@ -90,7 +89,7 @@ class PureUserProfile extends React.Component<Props> {
   }
 }
 
-const UserProfile = withNamespaces()(connect(null, mapDispatchToProps)(PureUserProfile));
+const UserProfile = connect(null, mapDispatchToProps)(PureUserProfile);
 
 export { PureUserProfile };
 export default UserProfile;

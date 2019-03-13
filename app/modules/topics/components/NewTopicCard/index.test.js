@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import NewTopicCard, { PureNewTopicCard } from '.';
 
@@ -21,10 +21,7 @@ describe(`NewTopicCard`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PureNewTopicCard
-        {...dummyProviderProps.translatorProps}
-        onAddTopic={dummyOnAddTopic}
-      />,
+      <PureNewTopicCard onAddTopic={dummyOnAddTopic} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -35,7 +32,7 @@ describe(`NewTopicCard`, (): void => {
         <NewTopicCard onAddTopic={dummyOnAddTopic} />
       </DummyProviders>,
     );
-    const onSubmit = enzymeWrapper.find('[data-test-id="new-topic-card-form"]').at(0).props().onSubmit;
+    const onSubmit = enzymeWrapper.find('PureTopicForm').at(0).props().onSubmit;
 
     onSubmit({ title: dummyTitle, description: dummyDescription });
     expect(dummyOnAddTopic).toHaveBeenCalledWith(dummyTitle, dummyDescription);

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Icon, Comment } from 'semantic-ui-react';
 
@@ -17,10 +17,11 @@ type PassedProps = {|
   target: topics.model.Topic,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 const PureState = (props: Props): React.Node => {
-  const { t, pullRequest, source, target } = props;
+  const { pullRequest, source, target } = props;
+  const [t] = useTranslation();
 
   let icon: string = 'send';
   let color: string = 'yellow';
@@ -86,7 +87,7 @@ const PureState = (props: Props): React.Node => {
   );
 };
 
-const State = withNamespaces()(PureState);
+const State = PureState;
 
 export { PureState };
 export default State;

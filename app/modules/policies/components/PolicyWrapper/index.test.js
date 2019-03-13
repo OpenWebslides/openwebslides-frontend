@@ -1,14 +1,14 @@
 // @flow
 
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import { DummyProviders, dummyInitialState, dummyUserData } from 'lib/testResources';
 import users from 'modules/users';
 
 import policies from '../../policies';
 
-import PolicyWrapper from '.';
+import PolicyWrapper, { PurePolicyWrapper } from '.';
 
 describe(`PolicyWrapper`, (): void => {
 
@@ -46,12 +46,11 @@ describe(`PolicyWrapper`, (): void => {
   });
 
   it(`renders without errors`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <PolicyWrapper record={dummyRecord} policy={DummyPolicy} action="can">
-          <p>children</p>
-        </PolicyWrapper>
-      </DummyProviders>,
+    const enzymeWrapper = shallow(
+      // $FlowFixMe #TODO
+      <PurePolicyWrapper record={dummyRecord} policy={DummyPolicy} action="can" currentUserId={dummyUser.id}>
+        <p>children</p>
+      </PurePolicyWrapper>,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Icon, Label } from 'semantic-ui-react';
 
 import * as m from '../../../model';
@@ -10,10 +10,11 @@ type PassedProps = {|
   pullRequest: m.PullRequest,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 const PureRibbon = (props: Props): React.Node => {
-  const { t, pullRequest } = props;
+  const { pullRequest } = props;
+  const [t] = useTranslation();
 
   let icon: string = 'send';
   let color: string = 'yellow';
@@ -49,7 +50,7 @@ const PureRibbon = (props: Props): React.Node => {
   );
 };
 
-const Ribbon = withNamespaces()(PureRibbon);
+const Ribbon = PureRibbon;
 
 export { PureRibbon };
 export default Ribbon;

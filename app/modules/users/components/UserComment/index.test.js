@@ -4,7 +4,7 @@ import _ from 'lodash';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyUserData, dummyInitialState } from 'lib/testResources';
+import { DummyProviders, dummyUserData, dummyInitialState } from 'lib/testResources';
 
 import actions from '../../actions';
 import * as m from '../../model';
@@ -45,10 +45,11 @@ describe(`UserComment`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureUserComment
-        {...dummyProviderProps.translatorProps}
         userId={dummyUser.id}
         timestamp={dummyTimestamp}
-      />,
+      >
+        <p>children</p>
+      </PureUserComment>,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -58,7 +59,9 @@ describe(`UserComment`, (): void => {
 
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <UserComment userId={dummyUser.id} timestamp={dummyTimestamp} />
+        <UserComment userId={dummyUser.id} timestamp={dummyTimestamp}>
+          <p>children</p>
+        </UserComment>
       </DummyProviders>,
     );
 
@@ -69,7 +72,9 @@ describe(`UserComment`, (): void => {
   it(`renders the outgoing user component, when the user was previously present in the state`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <UserComment userId={dummyUser.id} timestamp={dummyTimestamp} />
+        <UserComment userId={dummyUser.id} timestamp={dummyTimestamp}>
+          <p>children</p>
+        </UserComment>
       </DummyProviders>,
     );
 

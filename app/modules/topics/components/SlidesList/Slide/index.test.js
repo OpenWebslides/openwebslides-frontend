@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { dummyProviderProps } from 'lib/testResources';
 import contentItems from 'modules/contentItems';
 
 import { PureSlide } from '.';
@@ -19,10 +18,7 @@ describe(`Slide`, (): void => {
     };
 
     const enzymeWrapper = shallow(
-      <PureSlide
-        {...dummyProviderProps.translatorProps}
-        contentItem={dummyContentItem}
-      />,
+      <PureSlide contentItem={dummyContentItem} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });

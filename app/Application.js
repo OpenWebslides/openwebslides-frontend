@@ -4,7 +4,7 @@
  * Sets up the application.
  */
 
-import { hot } from 'react-hot-loader';
+import { hot } from 'react-hot-loader/root';
 import * as React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { ConnectedRouter } from 'connected-react-router';
@@ -36,7 +36,7 @@ const PureApplication = (props: Props): React.Node => {
   );
 };
 
-const Application = hot(module)<Props, typeof PureApplication>(PureApplication);
+const Application = hot(PureApplication);
 
 export { PureApplication };
 export default Application;

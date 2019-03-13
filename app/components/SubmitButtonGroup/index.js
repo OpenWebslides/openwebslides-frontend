@@ -1,15 +1,15 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Button } from 'semantic-ui-react';
 
 import BackButton from 'components/BackButton';
 
-type Props = {| ...TranslatorProps |};
+type Props = {| |};
 
 const PureSubmitButtonGroup = (props: Props): React.Node => {
-  const { t } = props;
+  const [t] = useTranslation();
 
   return (
     <Button.Group fluid={true} inverted={true}>
@@ -21,7 +21,7 @@ const PureSubmitButtonGroup = (props: Props): React.Node => {
   );
 };
 
-const SubmitButtonGroup = withNamespaces()(PureSubmitButtonGroup);
+const SubmitButtonGroup = PureSubmitButtonGroup;
 
 export { PureSubmitButtonGroup };
 export default SubmitButtonGroup;

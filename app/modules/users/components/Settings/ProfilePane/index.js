@@ -3,10 +3,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { Translation } from 'react-i18next';
 import { Tab, Button, Grid, Icon } from 'semantic-ui-react';
 
 import { type DropdownValue } from 'types/forms';
+import { type TFunction, type I18nObject } from 'types/i18next';
 import { type ModulesAction } from 'types/redux';
 import ProfileForm, { type ProfileFormValues } from 'forms/ProfileForm';
 
@@ -21,7 +22,7 @@ type DispatchProps = {|
   onUpdateUser: (name: string, locale: string, alertEmails: boolean) => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...DispatchProps |};
+type Props = {| ...PassedProps, ...DispatchProps |};
 
 const mapDispatchToProps = (
   dispatch: Dispatch<ModulesAction>,
@@ -43,37 +44,40 @@ class PureProfilePane extends React.Component<Props> {
   };
 
   render(): React.Node {
-    const { t, i18n, user } = this.props;
+    const { user } = this.props;
 
     return (
-      <Tab.Pane className="settings">
-        <Grid columns={1} padded="vertically">
-          <Grid.Row>
-            <Grid.Column width={5}>
-              <p>
-                <Icon name="lock" /> {t('settings:profile.privacy')}
-              </p>
-              <ProfileForm
-                onSubmit={this.handleProfileFormSubmit}
-                user={user}
-                availableLocales={i18n.languages.map((language: string): DropdownValue => {
-                  return { key: language, value: language, text: t(`settings:locales.${language}`) };
-                })}
-                data-test-id="profile-pane-profile-form"
-              >
-                <Button type="submit" primary={true}>
-                  {t('settings:profile.updateProfile')}
-                </Button>
-              </ProfileForm>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Tab.Pane>
+      <Translation>
+        {(t: TFunction, { i18n }: { i18n: I18nObject }): React.Node => (
+          <Tab.Pane className="settings">
+            <Grid columns={1} padded="vertically">
+              <Grid.Row>
+                <Grid.Column width={5}>
+                  <p>
+                    <Icon name="lock" /> {t('settings:profile.privacy')}
+                  </p>
+                  <ProfileForm
+                    onSubmit={this.handleProfileFormSubmit}
+                    user={user}
+                    availableLocales={i18n.languages.map((language: string): DropdownValue => {
+                      return { key: language, value: language, text: t(`settings:locales.${language}`) };
+                    })}
+                  >
+                    <Button type="submit" primary={true}>
+                      {t('settings:profile.updateProfile')}
+                    </Button>
+                  </ProfileForm>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Tab.Pane>
+        )}
+      </Translation>
     );
   }
 }
 
-const ProfilePane = connect(null, mapDispatchToProps)(withNamespaces()(PureProfilePane));
+const ProfilePane = connect(null, mapDispatchToProps)(PureProfilePane);
 
 export { PureProfilePane };
 export default ProfilePane;

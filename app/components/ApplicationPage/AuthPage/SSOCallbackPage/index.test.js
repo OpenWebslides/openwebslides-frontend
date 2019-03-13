@@ -78,7 +78,6 @@ describe(`SSOCallbackPage`, (): void => {
     expect((): void => {
       shallow(
         <PureSSOCallbackPage
-          {...dummyProviderProps.translatorProps}
           {...noApiTokenDummyRouterProps}
           setUserAuth={dummySetUserAuth}
         />,
@@ -98,7 +97,6 @@ describe(`SSOCallbackPage`, (): void => {
     expect((): void => {
       shallow(
         <PureSSOCallbackPage
-          {...dummyProviderProps.translatorProps}
           {...noUserIdDummyRouterProps}
           setUserAuth={dummySetUserAuth}
         />,

@@ -3,13 +3,14 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import PasswordForm, { PurePasswordForm, type PasswordFormValues } from '.';
 
 describe(`PasswordForm`, (): void => {
 
   let dummyFormProps: PasswordFormValues;
+  let dummyOnSubmit: any;
 
   beforeEach((): void => {
     dummyFormProps = {
@@ -17,11 +18,14 @@ describe(`PasswordForm`, (): void => {
       password: 'abcd1234',
       repeatPassword: 'abcd1234',
     };
+    dummyOnSubmit = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <PurePasswordForm {...dummyProviderProps.translatorProps} />,
+      <PurePasswordForm onSubmit={dummyOnSubmit}>
+        <p>children</p>
+      </PurePasswordForm>,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -29,7 +33,7 @@ describe(`PasswordForm`, (): void => {
   it(`renders children`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <PasswordForm>
+        <PasswordForm onSubmit={dummyOnSubmit}>
           <p data-test-id="test-form-children">replacement submit buttons would go here</p>
         </PasswordForm>
       </DummyProviders>,
@@ -38,7 +42,11 @@ describe(`PasswordForm`, (): void => {
   });
 
   it(`validates form props`, (): void => {
-    const enzymeWrapper = shallow(<PurePasswordForm {...dummyProviderProps.translatorProps} />);
+    const enzymeWrapper = shallow(
+      <PurePasswordForm onSubmit={dummyOnSubmit}>
+        <p>children</p>
+      </PurePasswordForm>,
+    );
     const validate = enzymeWrapper.instance().validateForm;
 
     expect(validate(dummyFormProps)).toStrictEqual({});

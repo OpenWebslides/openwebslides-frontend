@@ -1,67 +1,70 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
-import { Form, Message } from 'semantic-ui-react';
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Translation } from 'react-i18next';
+import { Form } from 'semantic-ui-react';
+import { Formik, Field } from 'formik';
+
+import { type TFunction } from 'types/i18next';
+import FormErrorMessage from 'components/FormErrorMessage';
 
 type PullRequestFormValues = {|
   message: string,
 |};
 
-type PullRequestFormErrors = {|
-  message: string,
-|};
+type PullRequestFormErrors = $ObjMap<PullRequestFormValues, () => string>;
 
 type PassedProps = {|
   onSubmit: (values: PullRequestFormValues) => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 class PurePullRequestForm extends React.Component<Props> {
   validateForm = (values: PullRequestFormValues): PullRequestFormErrors => {
-    const { t } = this.props;
-
     const errors = {};
 
     if (values.message === '') {
-      errors.message = t('pullRequests:forms.errors.message');
+      errors.message = 'pullRequests:forms.errors.message';
     }
 
-    return { ...errors };
+    return errors;
   };
 
   render(): React.Node {
-    const { t, onSubmit } = this.props;
+    const { onSubmit } = this.props;
 
     return (
-      <Formik
-        initialValues={{ message: '' }}
-        validate={this.validateForm}
-        onSubmit={onSubmit}
-      >
-        {({ values, handleChange, handleBlur, handleSubmit }) => (
-          <Form onSubmit={handleSubmit} id="pull-request-form">
-            <ErrorMessage name="message" component={Message} negative={true} />
-            <Field
-              component={Form.Input}
-              name="message"
-              id="message"
-              placeholder={t('pullRequests:forms.message')}
-              required={true}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.message}
-            />
-          </Form>
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <Formik
+            initialValues={{ message: '' }}
+            validate={this.validateForm}
+            onSubmit={onSubmit}
+          >
+            {({ values, handleChange, handleBlur, handleSubmit }) => (
+              <Form onSubmit={handleSubmit} id="pull-request-form">
+                <FormErrorMessage name="message" />
+                <Field
+                  component={Form.Input}
+                  name="message"
+                  id="message"
+                  placeholder={t('pullRequests:forms.message')}
+                  required={true}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.message}
+                />
+              </Form>
+            )}
+          </Formik>
         )}
-      </Formik>
+      </Translation>
     );
   }
 }
 
-const PullRequestForm = withNamespaces()(PurePullRequestForm);
+const PullRequestForm = PurePullRequestForm;
 
 export type { PullRequestFormValues };
 export { PurePullRequestForm };

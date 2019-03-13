@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { withNamespaces, type TranslatorProps } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Item, Icon } from 'semantic-ui-react';
 
 import * as m from '../../model';
@@ -11,10 +11,11 @@ type PassedProps = {|
   topic: m.Topic,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps |};
+type Props = {| ...PassedProps |};
 
 const PureTopicInfo = (props: Props): React.Node => {
-  const { t, topic } = props;
+  const { topic } = props;
+  const [t] = useTranslation();
 
   return (
     <Item.Group>
@@ -56,7 +57,7 @@ const PureTopicInfo = (props: Props): React.Node => {
   );
 };
 
-const TopicInfo = withNamespaces()(PureTopicInfo);
+const TopicInfo = PureTopicInfo;
 
 export { PureTopicInfo };
 export default TopicInfo;

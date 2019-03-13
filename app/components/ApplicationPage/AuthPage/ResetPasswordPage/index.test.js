@@ -27,7 +27,6 @@ describe(`ResetPasswordPage`, (): void => {
 
     const enzymeWrapper = shallow(
       <PureResetPasswordPage
-        {...dummyProviderProps.translatorProps}
         {...fixedDummyRouterProps}
       />,
     );
@@ -38,7 +37,6 @@ describe(`ResetPasswordPage`, (): void => {
     expect((): void => {
       shallow(
         <PureResetPasswordPage
-          {...dummyProviderProps.translatorProps}
           {...dummyProviderProps.routerProps}
         />,
       );

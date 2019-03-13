@@ -3,11 +3,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { type Dispatch } from 'redux';
-import { withNamespaces, type TranslatorProps, Trans } from 'react-i18next';
+import { Translation, Trans } from 'react-i18next';
 import { Modal, Button, Icon } from 'semantic-ui-react';
 
+import { type TFunction } from 'types/i18next';
 import { type ModulesAction, type AppState } from 'types/redux';
 import InlineMarkdown from 'components/InlineMarkdown';
+import { UnsupportedOperationError } from 'errors';
 import PullRequestForm, { type PullRequestFormValues } from 'forms/PullRequestForm';
 import topics from 'modules/topics';
 import platform from 'modules/platform';
@@ -28,23 +30,25 @@ type PassedProps = {|
 type StateProps = {|
   sourceTopic: ?topics.model.Topic,
   targetTopic: ?topics.model.Topic,
-  currentUserId: ?string,
+  currentUserId: string,
 |};
 
 type DispatchProps = {|
   fetchTopic: (topicId: string) => void,
 |};
 
-type Props = {| ...TranslatorProps, ...PassedProps, ...StateProps, ...DispatchProps |};
+type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { sourceTopicId, targetTopicId } = props;
   const userAuth = platform.selectors.getUserAuth(state);
 
+  if (userAuth == null) throw new UnsupportedOperationError(`This shouldn't happen.`);
+
   return {
     sourceTopic: topics.selectors.getById(state, { id: sourceTopicId }),
     targetTopic: topics.selectors.getById(state, { id: targetTopicId }),
-    currentUserId: (userAuth != null) ? userAuth.userId : null,
+    currentUserId: userAuth.userId,
   };
 };
 
@@ -73,69 +77,67 @@ class PurePullRequestModal extends React.Component<Props> {
   };
 
   render(): React.Node {
-    const { t, isOpen, onCancel, sourceTopic, targetTopic, currentUserId } = this.props;
+    const { isOpen, onCancel, sourceTopic, targetTopic, currentUserId } = this.props;
 
     if (sourceTopic == null || targetTopic == null || currentUserId == null) {
       return null;
     }
 
     return (
-      <Modal
-        size="mini"
-        basic={true}
-        open={isOpen}
-        onClose={onCancel}
-        data-test-id="pull-request-modal"
-      >
-        <Modal.Header>{t('modals:pullRequest.title')}</Modal.Header>
-        <Modal.Content>
-          <p>
-            <Icon name="lock" />
-            <Trans i18nKey="modals:pullRequest.access" values={{ upstreamTopicTitle: targetTopic.title }}>
-              <strong>access</strong>
-            </Trans>
-          </p>
-          <p>
-            <InlineMarkdown text={t('modals:pullRequest.description', { topicTitle: sourceTopic.title })} />
-          </p>
-          <p>
-            From: <strong>{sourceTopic.title}</strong>
-          </p>
-          <p>
-            To: <strong>{targetTopic.title}</strong>
-          </p>
-          <PullRequestForm
-            onSubmit={this.handlePullRequestFormSubmit}
-            data-test-id="pull-request-modal-pull-request-form"
-          />
-        </Modal.Content>
-        <Modal.Actions>
-          <Button
-            inverted={true}
-            onClick={onCancel}
-            data-test-id="pull-request-modal-cancel-button"
+      <Translation>
+        {(t: TFunction): React.Node => (
+          <Modal
+            size="mini"
+            basic={true}
+            open={isOpen}
+            onClose={onCancel}
+            data-test-id="pull-request-modal"
           >
-            {t('common:button.cancel')}
-          </Button>
-          <Button
-            type="submit"
-            form="pull-request-form"
-            color="red"
-            inverted={true}
-            data-test-id="pull-request-modal-submit-button"
-          >
-            {t('pullRequests:button.submit')}
-          </Button>
-        </Modal.Actions>
-      </Modal>
+            <Modal.Header>{t('modals:pullRequest.title')}</Modal.Header>
+            <Modal.Content>
+              <p>
+                <Icon name="lock" />
+                <Trans i18nKey="modals:pullRequest.access" values={{ upstreamTopicTitle: targetTopic.title }}>
+                  <strong>access</strong>
+                </Trans>
+              </p>
+              <p>
+                <InlineMarkdown text={t('modals:pullRequest.description', { topicTitle: sourceTopic.title })} />
+              </p>
+              <p>
+                From: <strong>{sourceTopic.title}</strong>
+              </p>
+              <p>
+                To: <strong>{targetTopic.title}</strong>
+              </p>
+              <PullRequestForm onSubmit={this.handlePullRequestFormSubmit} />
+            </Modal.Content>
+            <Modal.Actions>
+              <Button
+                inverted={true}
+                onClick={onCancel}
+                data-test-id="pull-request-modal-cancel-button"
+              >
+                {t('common:button.cancel')}
+              </Button>
+              <Button
+                type="submit"
+                form="pull-request-form"
+                color="red"
+                inverted={true}
+                data-test-id="pull-request-modal-submit-button"
+              >
+                {t('pullRequests:button.submit')}
+              </Button>
+            </Modal.Actions>
+          </Modal>
+        )}
+      </Translation>
     );
   }
 }
 
-const PullRequestModal = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withNamespaces()(PurePullRequestModal));
+const PullRequestModal = connect(mapStateToProps, mapDispatchToProps)(PurePullRequestModal);
 
 export { PurePullRequestModal };
 export default PullRequestModal;

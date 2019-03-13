@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyTopicData } from 'lib/testResources';
 import topics from 'modules/topics';
 
 import RejectPullRequestModal, { PureRejectPullRequestModal } from '.';
@@ -27,9 +27,11 @@ describe(`RejectPullRequestModal`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureRejectPullRequestModal
-        {...dummyProviderProps.translatorProps}
+        isOpen={true}
         source={dummySource}
         target={dummyTarget}
+        onSubmit={dummyOnSubmit}
+        onCancel={dummyOnCancel}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);

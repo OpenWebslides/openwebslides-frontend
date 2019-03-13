@@ -31,7 +31,7 @@ const PureSettingsPage = (props: Props): React.Node => {
 
   return (
     <ContainerPageWrapper>
-      <Settings userId={currentUserId} isCurrentUser={true} />
+      <Settings userId={currentUserId} />
     </ContainerPageWrapper>
   );
 };

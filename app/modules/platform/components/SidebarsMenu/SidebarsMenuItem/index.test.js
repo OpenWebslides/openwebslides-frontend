@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { DummyProviders, dummyProviderProps } from 'lib/testResources';
+import { DummyProviders } from 'lib/testResources';
 
 import actions from '../../../actions';
 import * as m from '../../../model';
@@ -24,7 +24,6 @@ describe(`SidebarsMenuItem`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureSidebarsMenuItem
-        {...dummyProviderProps.translatorProps}
         sidebarId={dummySidebarId}
         isActive={false}
         handleMenuItemClick={jest.fn()}

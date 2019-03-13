@@ -98,12 +98,12 @@ describe(`findFurthest`, (): void => {
   it(`calls the passed precicate function with the correct arguments`, (): void => {
     const dummyPredicate = jest.fn(() => false);
     lib.find.furthest(dummyParagraph1121, dummyContentItemsById, lib.find.parentOrSuperItem, dummyPredicate);
-    expect(dummyPredicate.mock.calls).toStrictEqual([
+    expect(JSON.stringify(dummyPredicate.mock.calls)).toStrictEqual(JSON.stringify([
       [dummyParagraph112, [dummyParagraph1121.id], dummyContentItemsById],
       [dummyHeading11, [dummyParagraph1121.id, dummyParagraph112.id], dummyContentItemsById],
       [dummyHeading1, [dummyParagraph1121.id, dummyParagraph112.id, dummyHeading11.id], dummyContentItemsById],
       [dummyRoot, [dummyParagraph1121.id, dummyParagraph112.id, dummyHeading11.id, dummyHeading1.id], dummyContentItemsById],
-    ]);
+    ]));
   });
 
 });

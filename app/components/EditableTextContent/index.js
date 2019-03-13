@@ -133,7 +133,6 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
             <TextArea
               className="editable-text-content__input editable-text-content__input--multiline"
               data-test-id="editable-text-content__input"
-              autoHeight={true}
               value={text}
               autoFocus={isActive}
               maxLength={maxLength}

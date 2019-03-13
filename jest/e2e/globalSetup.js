@@ -1,8 +1,10 @@
+// @flow
+
 /* eslint-disable */
 
-const { setup: setupDevServer } = require('jest-dev-server');
+import { setup as setupDevServer } from 'jest-dev-server';
 
-module.exports = async function globalSetup() {
+const globalSetup = async (): Promise<void> => {
   await setupDevServer({
     // The command to start the dev server.
     // #TODO change this to owsqas as soon as it is working again.
@@ -18,3 +20,5 @@ module.exports = async function globalSetup() {
   });
   // Your global setup
 };
+
+export default globalSetup;

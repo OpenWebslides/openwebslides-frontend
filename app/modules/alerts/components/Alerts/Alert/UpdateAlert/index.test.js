@@ -6,7 +6,7 @@ import { push } from 'connected-react-router';
 
 import { TOPIC_EDITOR_ROUTE } from 'config/routes';
 import makeRoute from 'lib/makeRoute';
-import { DummyProviders, dummyInitialState, dummyProviderProps, dummyAlertData, dummyTopicData } from 'lib/testResources';
+import { DummyProviders, dummyInitialState, dummyAlertData, dummyTopicData } from 'lib/testResources';
 import topics from 'modules/topics';
 
 import actions from '../../../../actions';
@@ -20,6 +20,9 @@ describe(`UpdateAlert`, (): void => {
   let dummyAlert: m.UpdateAlert;
   let dummyState: any;
   let dummyDispatch: any;
+
+  let dummyFetchTopic: any;
+  let dummyOnClickAlert: any;
 
   beforeEach((): void => {
     dummyTopic = { ...dummyTopicData.topic };
@@ -43,15 +46,18 @@ describe(`UpdateAlert`, (): void => {
       },
     };
     dummyDispatch = jest.fn();
+
+    dummyFetchTopic = jest.fn();
+    dummyOnClickAlert = jest.fn();
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureUpdateAlert
-        {...dummyProviderProps.translatorProps}
         alert={dummyAlert}
         topic={dummyTopic}
-        fetchTopic={jest.fn()}
+        fetchTopic={dummyFetchTopic}
+        onClickAlert={dummyOnClickAlert}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
