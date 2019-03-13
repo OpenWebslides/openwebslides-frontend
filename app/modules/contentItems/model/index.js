@@ -654,6 +654,4 @@ export type ContentItemsState = {|
 
 export * from './contentItemTypes';
 export * from './metadata';
-export * from './tags';
-export * from './visibilities';
 export * from './context';
