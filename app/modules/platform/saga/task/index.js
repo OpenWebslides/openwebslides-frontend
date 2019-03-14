@@ -3,7 +3,7 @@
 /* eslint-disable max-len, sort-imports */
 
 import { type Saga } from 'redux-saga';
-import { all, takeEvery } from 'redux-saga/effects';
+import { all, takeEvery, takeLeading } from 'redux-saga/effects';
 
 import asyncRequests from 'modules/asyncRequests';
 
@@ -24,7 +24,8 @@ const { sagaWrapper } = asyncRequests.lib;
 const taskSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.CONFIRM_EMAIL, sagaWrapper, confirmEmail),
-    takeEvery(a.REFRESH, sagaWrapper, refresh),
+    // Use `takeLeading` to ignore additional calls while REFRESH saga is running
+    takeLeading(a.REFRESH, sagaWrapper, refresh),
     takeEvery(a.RESEND_CONFIRMATION_EMAIL, sagaWrapper, resendConfirmationEmail),
     takeEvery(a.RESET_PASSWORD, sagaWrapper, resetPassword),
     takeEvery(a.SEND_RESET_PASSWORD_EMAIL, sagaWrapper, sendResetPasswordEmail),
