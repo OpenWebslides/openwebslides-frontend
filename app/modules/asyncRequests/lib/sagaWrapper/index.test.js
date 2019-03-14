@@ -3,7 +3,10 @@
 import { flashSuccessMessage, flashErrorMessage } from 'redux-flash';
 import { type Saga } from 'redux-saga';
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import { dynamic } from 'redux-saga-test-plan/providers';
 
+import asyncRequests from 'modules/asyncRequests';
 import { type SagaAction } from 'types/actions';
 import i18next from 'config/i18next';
 import errors from 'modules/errors';
@@ -184,22 +187,6 @@ describe(`sagaWrapper`, (): void => {
       .run();
   });
 
-  it(`displays an error flash message and dispatches a platform SIGNOUT action when the passed saga throws a 401 error`, (): void => {
-    i18next.exists = jest.fn((): boolean => true);
-
-    const dummyError = new Http401UnauthorizedError();
-    // eslint-disable-next-line require-yield
-    const dummySaga = function* (action: SagaAction): Saga<void> {
-      throw dummyError;
-    };
-    const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyId', log: true } };
-
-    return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
-      .put(flashErrorMessage(`flash:UnauthorizedError`, { timeout: false }))
-      .put({ type: 'platform/SIGNOUT', payload: {} })
-      .run();
-  });
-
   it(`generates asyncRequestData with a random id, when no existing asyncRequestData is set on the action`, (): void => {
     // eslint-disable-next-line require-yield
     const dummySaga = function* (action: SagaAction): Saga<void> {
@@ -210,6 +197,42 @@ describe(`sagaWrapper`, (): void => {
     return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
       .call(dummySaga, { ...dummyAction, asyncRequestData: { id: dummyId, log: true } })
       .put(actions.setPending(dummyId))
+      .run();
+  });
+
+  it(`dispatches a platform REFRESH action, and replays the passed saga when the passed saga throws a 401 error and the saga is not a REFRESH action`, (): void => {
+    i18next.exists = jest.fn((): boolean => true);
+
+    const dummyError = new Http401UnauthorizedError();
+    // eslint-disable-next-line require-yield
+    const dummySaga = function* (action: SagaAction): Saga<void> {
+      throw dummyError;
+    };
+    const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyId', log: true } };
+
+    return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
+      .provide([
+        [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+          return (action.type === 'platform/REFRESH') ? null : next();
+        })],
+      ])
+      .call(asyncRequests.lib.putAndReturn, { type: 'platform/REFRESH', payload: {} })
+      .put(dummyAction)
+      .run();
+  });
+
+  it(`displays an error flash message and dispatches a platform SIGNOUT action when the passed saga throws a 401 error and the saga is a REFRESH action`, (): void => {
+    i18next.exists = jest.fn((): boolean => true);
+
+    const dummyError = new Http401UnauthorizedError();
+    // eslint-disable-next-line require-yield
+    const dummySaga = function* (action: SagaAction): Saga<void> {
+      throw dummyError;
+    };
+    const dummyAction = { type: 'platform/REFRESH', asyncRequestData: { id: 'dummyId', log: true } };
+
+    return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
+      .put({ type: 'platform/SIGNOUT', payload: {} })
       .run();
   });
 

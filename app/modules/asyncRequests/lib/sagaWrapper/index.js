@@ -66,6 +66,7 @@ function* sagaWrapper<A: SagaAction>(
   try {
     // Set status to PENDING and call the passed saga.
     yield put(actions.setPending(asyncRequestData.id));
+
     const returnValue = yield call(saga, actionWithAsyncRequestData);
 
     // If no error occurred, set status to SUCCESS and pass on the return value.
@@ -87,11 +88,18 @@ function* sagaWrapper<A: SagaAction>(
     if (error instanceof NetworkError) {
       yield put(flashErrorMessage('flash:NetworkError', { timeout: false }));
     }
-
-    if (error instanceof Http401UnauthorizedError) {
-      yield put(flashErrorMessage('flash:UnauthorizedError', { timeout: false }));
+    else if (error instanceof Http401UnauthorizedError) {
       // TODO: importing platform renders a cyclic dependency
-      yield put({ type: 'platform/SIGNOUT', payload: {} });
+      if (action.type === 'platform/REFRESH') {
+        // Refresh token has expired, sign the user out
+        yield put({ type: 'platform/SIGNOUT', payload: {} });
+        yield put(flashErrorMessage('flash:UnauthorizedError', { timeout: false }));
+      }
+      else {
+        // Access token has expired, request a new one and replay action
+        yield call(lib.putAndReturn, { type: 'platform/REFRESH', payload: {} });
+        yield put(action);
+      }
     }
 
     // If logging is enabled for this action.
