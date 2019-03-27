@@ -7,7 +7,6 @@ const ROOT: 'contentItemTypes/ROOT' = 'contentItemTypes/ROOT';
 const HEADING: 'contentItemTypes/HEADING' = 'contentItemTypes/HEADING';
 const PARAGRAPH: 'contentItemTypes/PARAGRAPH' = 'contentItemTypes/PARAGRAPH';
 const LIST: 'contentItemTypes/LIST' = 'contentItemTypes/LIST';
-const LIST_ITEM: 'contentItemTypes/LIST_ITEM' = 'contentItemTypes/LIST_ITEM';
 const BLOCKQUOTE: 'contentItemTypes/BLOCKQUOTE' = 'contentItemTypes/BLOCKQUOTE';
 const CODE: 'contentItemTypes/CODE' = 'contentItemTypes/CODE';
 const IMAGE: 'contentItemTypes/IMAGE' = 'contentItemTypes/IMAGE';
@@ -23,7 +22,6 @@ export const contentItemTypes = {
   HEADING,
   PARAGRAPH,
   LIST,
-  LIST_ITEM,
   BLOCKQUOTE,
   CODE,
   IMAGE,
@@ -47,7 +45,6 @@ export type SymbolContentItemType = $Values<typeof symbolContentItemTypes>;
 export const plainTextContentItemTypes = {
   HEADING,
   PARAGRAPH,
-  LIST_ITEM,
   BLOCKQUOTE,
   CODE,
 };
@@ -67,7 +64,6 @@ export const taggableContentItemTypes = {
   HEADING,
   PARAGRAPH,
   LIST,
-  LIST_ITEM,
   BLOCKQUOTE,
   CODE,
   IMAGE,

@@ -53,7 +53,6 @@ const createNewContentItemFromPropsForType = (
       // Extra root props should be processed here.
       break;
     case m.contentItemTypes.LIST:
-    case m.contentItemTypes.LIST_ITEM:
     case m.contentItemTypes.BLOCKQUOTE:
     case m.contentItemTypes.CODE:
     case m.contentItemTypes.IMAGE:

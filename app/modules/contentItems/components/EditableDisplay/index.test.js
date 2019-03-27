@@ -100,9 +100,6 @@ describe(`EditableDisplay`, (): void => {
     enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.listContentItem} setTopicDirty={dummySetTopicDirty} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.listItemContentItem} setTopicDirty={dummySetTopicDirty} />);
-    expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
-
     enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.blockquoteContentItem} setTopicDirty={dummySetTopicDirty} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 

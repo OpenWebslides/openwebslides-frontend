@@ -196,16 +196,12 @@ export const listContentItem: contentItems.model.ListContentItem = {
   isEditing: false,
   metadata: emptyMetadata,
   subItemIds: [],
-  childItemIds: [],
   ordered: false,
-};
-
-export const listItemContentItem: contentItems.model.ListItemContentItem = {
-  id: 'dummyListItemContentItem',
-  type: contentItems.model.contentItemTypes.LIST_ITEM,
-  isEditing: false,
-  text: 'This is a list item.',
-  metadata: emptyMetadata,
+  items: [
+    'List item 1',
+    'List item 2',
+    'List item 3',
+  ],
 };
 
 export const blockquoteContentItem: contentItems.model.BlockquoteContentItem = {

@@ -255,11 +255,14 @@ export type ListContentItemProps = {|
   +type: typeof types.contentItemTypes.LIST,
   // TRUE if the list contains ordered items, FALSE if not.
   +ordered: boolean,
+  // The list items. Note that list items can only contain text, not other contentItems.
+  // This is by design; using complex list is not encouraged.
+  // This type of content should be represented by headings and paragraphs instead.
+  +items: $ReadOnlyArray<string>,
 |};
 
 // Type for a LIST contentItem.
 export type ListContentItem = {|
-  ...ContainerContentItem,
   ...TaggableContentItem,
   ...SubableContentItem,
   ...ListContentItemProps,
@@ -267,7 +270,6 @@ export type ListContentItem = {|
 
 // Type for a denormalized LIST contentItem.
 export type DenormalizedListContentItem = {|
-  ...DenormalizedContainerContentItem,
   ...TaggableContentItem,
   ...DenormalizedSubableContentItem,
   ...ListContentItemProps,
@@ -275,39 +277,8 @@ export type DenormalizedListContentItem = {|
 
 // List of LIST contentItem props that can be edited through propsForType.
 export const editablePropsForListContentItem = [
-  ...editablePropsForContainerContentItem,
   ...editablePropsForTaggableContentItem,
   ...editablePropsForSubableContentItem,
-];
-
-
-// LIST_ITEM ---------------------------------------------------------------------------------------
-
-// Additional props for LIST_ITEM contentItems.
-export type ListItemContentItemProps = {|
-  // Limit contentItem type to LIST_ITEM.
-  +type: typeof types.contentItemTypes.LIST_ITEM,
-  // Custom LIST_ITEM props go here.
-|};
-
-// Type for a LIST_ITEM contentItem.
-export type ListItemContentItem = {|
-  ...PlainTextContentItem,
-  ...TaggableContentItem,
-  ...ListItemContentItemProps,
-|};
-
-// Type for a denormalized LIST_ITEM contentItem.
-export type DenormalizedListItemContentItem = {|
-  ...PlainTextContentItem,
-  ...TaggableContentItem,
-  ...ListItemContentItemProps,
-|};
-
-// List of LIST_ITEM contentItem props that can be edited through propsForType.
-export const editablePropsForListItemContentItem = [
-  ...editablePropsForPlainTextContentItem,
-  ...editablePropsForTaggableContentItem,
 ];
 
 
@@ -575,7 +546,6 @@ export type ContentItem =
   | HeadingContentItem
   | ParagraphContentItem
   | ListContentItem
-  | ListItemContentItem
   | BlockquoteContentItem
   | CodeContentItem
   | ImageContentItem
@@ -591,7 +561,6 @@ export type DenormalizedContentItem =
   | DenormalizedHeadingContentItem
   | DenormalizedParagraphContentItem
   | DenormalizedListContentItem
-  | DenormalizedListItemContentItem
   | DenormalizedBlockquoteContentItem
   | DenormalizedCodeContentItem
   | DenormalizedImageContentItem
@@ -607,7 +576,6 @@ export const editablePropsForType = {
   [types.contentItemTypes.HEADING]: editablePropsForHeadingContentItem,
   [types.contentItemTypes.PARAGRAPH]: editablePropsForParagraphContentItem,
   [types.contentItemTypes.LIST]: editablePropsForListContentItem,
-  [types.contentItemTypes.LIST_ITEM]: editablePropsForListItemContentItem,
   [types.contentItemTypes.BLOCKQUOTE]: editablePropsForBlockquoteContentItem,
   [types.contentItemTypes.CODE]: editablePropsForCodeContentItem,
   [types.contentItemTypes.IMAGE]: editablePropsForImageContentItem,
@@ -624,7 +592,6 @@ export type AllPropsForAllTypes = {|
   ...HeadingContentItem,
   ...ParagraphContentItem,
   ...ListContentItem,
-  ...ListItemContentItem,
   ...BlockquoteContentItem,
   ...CodeContentItem,
   ...ImageContentItem,

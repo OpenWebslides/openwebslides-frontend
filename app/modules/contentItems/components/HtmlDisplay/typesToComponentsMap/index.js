@@ -17,7 +17,6 @@ const typesToComponentsMap = {
   [m.contentItemTypes.HEADING]: Heading,
   [m.contentItemTypes.PARAGRAPH]: Paragraph,
   [m.contentItemTypes.LIST]: DummyDisplayComponent,
-  [m.contentItemTypes.LIST_ITEM]: DummyDisplayComponent,
   [m.contentItemTypes.BLOCKQUOTE]: DummyDisplayComponent,
   [m.contentItemTypes.CODE]: DummyDisplayComponent,
   [m.contentItemTypes.IMAGE]: DummyDisplayComponent,
