@@ -24,7 +24,7 @@ describe(`refresh`, (): void => {
     dummyAccessToken = 'dummyAccessToken';
   });
 
-  it(`selects the current user's refresh token from the state and puts an apiPatchToken action, then puts an setUserAuthInState(null) action`, (): void => {
+  it(`selects the current user's refresh token from the state and puts an apiPatchToken action, while toggling the refreshing flag`, (): void => {
     const dummyAction = actions.refresh();
 
     return expectSaga(sagas.refresh, dummyAction)
@@ -34,8 +34,9 @@ describe(`refresh`, (): void => {
           return (action.type === a.API_PATCH_TOKEN) ? null : next();
         })],
       ])
-      .put(actions.setUserAuthInState(null))
+      .put(asyncRequests.actions.setRefreshing(true))
       .call(asyncRequests.lib.putAndReturn, actions.apiPatchToken(dummyRefreshToken))
+      .put(asyncRequests.actions.setRefreshing(false))
       .run();
   });
 

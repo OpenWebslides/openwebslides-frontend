@@ -17,8 +17,14 @@ const refresh = function* (action: a.RefreshAction): Saga<void> {
   const userAuth: ?m.UserAuth = yield select(selectors.getUserAuth);
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
-  yield put(actions.setUserAuthInState(null));
+  // Set pending refresh request
+  yield put(asyncRequests.actions.setRefreshing(true));
+
+  // Obtain new access token
   yield call(putAndReturn, actions.apiPatchToken(userAuth.refreshToken));
+
+  // Unset pending refresh request
+  yield put(asyncRequests.actions.setRefreshing(false));
 };
 
 export default refresh;
