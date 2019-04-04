@@ -53,6 +53,9 @@ function* sagaWrapper<A: SagaAction>(
       // Set logging to TRUE here by default,
       // since this code is mainly used for actions that were dispatched from the UI.
       log: true,
+      // Set replay to TRUE here by default,
+      // since this code is mainly used for actions that were dispatched from the UI.
+      replay: true,
     };
     // $FlowFixMe Flow doesn't realize the copied action is still of type A.
     actionWithAsyncRequestData = {

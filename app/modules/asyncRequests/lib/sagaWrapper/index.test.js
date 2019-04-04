@@ -195,7 +195,7 @@ describe(`sagaWrapper`, (): void => {
     const dummyAction = { type: 'dummy' };
 
     return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
-      .call(dummySaga, { ...dummyAction, asyncRequestData: { id: dummyId, log: true } })
+      .call(dummySaga, { ...dummyAction, asyncRequestData: { id: dummyId, log: true, replay: true } })
       .put(actions.setPending(dummyId))
       .run();
   });

@@ -19,6 +19,7 @@ type SagaActionPayload = {|
 export type AsyncRequestData = {|
   id: string,
   log: boolean,
+  replay: boolean,
 |};
 
 export type Action = {|
