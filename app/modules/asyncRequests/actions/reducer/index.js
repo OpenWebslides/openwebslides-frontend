@@ -1,11 +1,11 @@
 // @flow
 
 import setAndClearOldInState from './setAndClearOldInState';
-import setRefreshing from './setRefreshing';
+import setRefreshingInState from './setRefreshingInState';
 
 const reducerActions = {
   setAndClearOldInState,
-  setRefreshing,
+  setRefreshingInState,
 };
 
 export default reducerActions;

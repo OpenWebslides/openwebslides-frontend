@@ -34,9 +34,9 @@ describe(`refresh`, (): void => {
           return (action.type === a.API_PATCH_TOKEN) ? null : next();
         })],
       ])
-      .put(asyncRequests.actions.setRefreshing(true))
+      .put(asyncRequests.actions.setRefreshingInState(true))
       .call(asyncRequests.lib.putAndReturn, actions.apiPatchToken(dummyRefreshToken))
-      .put(asyncRequests.actions.setRefreshing(false))
+      .put(asyncRequests.actions.setRefreshingInState(false))
       .run();
   });
 

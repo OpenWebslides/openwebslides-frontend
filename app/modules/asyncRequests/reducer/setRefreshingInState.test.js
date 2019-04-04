@@ -5,15 +5,15 @@ import * as m from '../model';
 
 import reducer from '.';
 
-describe(`setInState`, (): void => {
+describe(`setRefreshingInState`, (): void => {
 
   it(`set refreshing in the state when the passed refreshing is not equal to the current state`, (): void => {
     const prevState: m.AsyncRequestsState = {
       byId: {},
       refreshing: false,
     };
-    const setInStateAction: a.SetRefreshingAction = {
-      type: a.SET_REFRESHING,
+    const setRefreshingInStateAction: a.SetRefreshingInStateAction = {
+      type: a.SET_REFRESHING_IN_STATE,
       payload: {
         refreshing: true,
       },
@@ -22,7 +22,7 @@ describe(`setInState`, (): void => {
       byId: {},
       refreshing: true,
     };
-    const resultState = reducer(prevState, setInStateAction);
+    const resultState = reducer(prevState, setRefreshingInStateAction);
 
     expect(resultState).toStrictEqual(nextState);
     expect(resultState).not.toBe(prevState);
@@ -33,13 +33,13 @@ describe(`setInState`, (): void => {
       byId: {},
       refreshing: false,
     };
-    const setInStateAction: a.SetRefreshingAction = {
-      type: a.SET_REFRESHING,
+    const setRefreshingInStateAction: a.SetRefreshingInStateAction = {
+      type: a.SET_REFRESHING_IN_STATE,
       payload: {
         refreshing: false,
       },
     };
-    const resultState = reducer(prevState, setInStateAction);
+    const resultState = reducer(prevState, setRefreshingInStateAction);
 
     expect(resultState).toStrictEqual(prevState);
     expect(resultState).toBe(prevState);

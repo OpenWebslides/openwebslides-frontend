@@ -3,9 +3,9 @@
 import * as a from '../actionTypes';
 import * as m from '../model';
 
-const setRefreshing = (
+const setRefreshingInState = (
   state: m.AsyncRequestsState,
-  action: a.SetRefreshingAction,
+  action: a.SetRefreshingInStateAction,
 ): m.AsyncRequestsState => {
   const { refreshing } = action.payload;
 
@@ -20,4 +20,4 @@ const setRefreshing = (
   }
 };
 
-export default setRefreshing;
+export default setRefreshingInState;
