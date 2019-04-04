@@ -21,7 +21,7 @@ describe(`getById`, (): void => {
       [dummyAsyncRequest1.id]: dummyAsyncRequest1,
       [dummyAsyncRequest2.id]: dummyAsyncRequest2,
     };
-    dummyAsyncRequestsState = { byId: dummyAsyncRequestsById };
+    dummyAsyncRequestsState = { byId: dummyAsyncRequestsById, refreshing: false };
     dummyState = { modules: { asyncRequests: dummyAsyncRequestsState } };
   });
 

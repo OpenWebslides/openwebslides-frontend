@@ -7,6 +7,7 @@ import setAndClearOldInState from './setAndClearOldInState';
 
 const initialState: m.AsyncRequestsState = {
   byId: {},
+  refreshing: false,
 };
 
 const reducer = (

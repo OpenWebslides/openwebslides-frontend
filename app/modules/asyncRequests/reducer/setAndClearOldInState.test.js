@@ -24,6 +24,7 @@ describe(`setInState`, (): void => {
       byId: {
         [dummyAsyncRequest1.id]: dummyAsyncRequest1,
       },
+      refreshing: false,
     };
     const setInStateAction: a.SetAndClearOldInStateAction = {
       type: a.SET_AND_CLEAR_OLD_IN_STATE,
@@ -36,6 +37,7 @@ describe(`setInState`, (): void => {
         [dummyAsyncRequest1.id]: dummyAsyncRequest1,
         [dummyAsyncRequest2.id]: dummyAsyncRequest2,
       },
+      refreshing: false,
     };
     const resultState = reducer(prevState, setInStateAction);
 
@@ -55,6 +57,7 @@ describe(`setInState`, (): void => {
       byId: {
         [dummyAsyncRequest1.id]: dummyAsyncRequest1,
       },
+      refreshing: false,
     };
     const setInStateAction: a.SetAndClearOldInStateAction = {
       type: a.SET_AND_CLEAR_OLD_IN_STATE,
@@ -66,6 +69,7 @@ describe(`setInState`, (): void => {
       byId: {
         [dummyAsyncRequest1.id]: updatedDummyAsyncRequest1,
       },
+      refreshing: false,
     };
     const resultState = reducer(prevState, setInStateAction);
 
@@ -84,6 +88,7 @@ describe(`setInState`, (): void => {
           timestamp: dummyCurrentTimestamp - OLD_AGE,
         },
       },
+      refreshing: false,
     };
     const setInStateAction: a.SetAndClearOldInStateAction = {
       type: a.SET_AND_CLEAR_OLD_IN_STATE,
@@ -102,6 +107,7 @@ describe(`setInState`, (): void => {
           timestamp: dummyCurrentTimestamp,
         },
       },
+      refreshing: false,
     };
     const resultState = reducer(prevState, setInStateAction);
 
@@ -115,6 +121,7 @@ describe(`setInState`, (): void => {
       byId: {
         [dummyAsyncRequest1.id]: dummyAsyncRequest1,
       },
+      refreshing: false,
     };
     const setInStateAction: a.SetAndClearOldInStateAction = {
       type: a.SET_AND_CLEAR_OLD_IN_STATE,
