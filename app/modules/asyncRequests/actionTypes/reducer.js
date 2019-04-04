@@ -10,6 +10,7 @@ import * as m from '../model';
 // Action constants --------------------------------------------------------------------------------
 
 export const SET_AND_CLEAR_OLD_IN_STATE: 'asyncRequests/SET_AND_CLEAR_OLD_IN_STATE' = 'asyncRequests/SET_AND_CLEAR_OLD_IN_STATE';
+export const SET_REFRESHING: 'asyncRequests/SET_REFRESHING' = 'asyncRequests/SET_REFRESHING';
 
 
 // Action types ------------------------------------------------------------------------------------
@@ -23,8 +24,18 @@ export type SetAndClearOldInStateAction = {|
   |},
 |};
 
+export type SetRefreshingAction = {|
+  ...ReducerAction,
+  type: typeof SET_REFRESHING,
+  payload: {|
+    ...$PropertyType<ReducerAction, 'payload'>,
+    refreshing: boolean,
+  |},
+|};
+
 
 // Reducer action ----------------------------------------------------------------------------------
 
 export type AsyncRequestsReducerAction =
-  | SetAndClearOldInStateAction;
+  | SetAndClearOldInStateAction
+  | SetRefreshingAction;
