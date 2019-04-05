@@ -13,7 +13,7 @@ import { InvalidArgumentError } from 'errors';
 import platform from 'modules/platform';
 
 type DispatchProps = {|
-  setUserAuthAndRedirect: (token: string, id: string) => void,
+  ssoSigninAndRedirect: (token: string, id: string) => void,
   flashErrorAndRedirect: (error: string) => void,
 |};
 
@@ -21,8 +21,8 @@ type Props = {| ...RouterProps, ...DispatchProps |};
 
 const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps => {
   return {
-    setUserAuthAndRedirect: (token: string, id: string): void => {
-      dispatch(platform.actions.setUserAuth(token, id));
+    ssoSigninAndRedirect: (refreshToken: string, id: string): void => {
+      dispatch(platform.actions.ssoSignin(id, refreshToken));
       dispatch(push(HOME_ROUTE));
     },
     flashErrorAndRedirect: (error: string): void => {
@@ -39,11 +39,11 @@ const mapDispatchToProps = (dispatch: Dispatch<ModulesAction>): DispatchProps =>
  */
 class PureSSOCallbackPage extends React.Component<Props> {
   componentDidMount(): void {
-    const { location, setUserAuthAndRedirect, flashErrorAndRedirect } = this.props;
+    const { location, ssoSigninAndRedirect, flashErrorAndRedirect } = this.props;
     const params = new URLSearchParams(location.search);
 
     const error = params.get('error');
-    const apiToken = params.get('apiToken');
+    const refreshToken = params.get('refreshToken');
     const userId = params.get('userId');
 
     if (error != null) {
@@ -51,10 +51,10 @@ class PureSSOCallbackPage extends React.Component<Props> {
       return;
     }
 
-    if (apiToken == null) throw new InvalidArgumentError(`Invalid token`);
+    if (refreshToken == null) throw new InvalidArgumentError(`Invalid token`);
     if (userId == null) throw new InvalidArgumentError(`Invalid id`);
 
-    setUserAuthAndRedirect(apiToken, userId);
+    ssoSigninAndRedirect(refreshToken, userId);
   }
 
   render(): React.Node {
