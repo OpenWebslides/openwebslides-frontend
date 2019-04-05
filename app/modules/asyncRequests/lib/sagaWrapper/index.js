@@ -4,7 +4,7 @@
 
 import { flashSuccessMessage, flashErrorMessage } from 'redux-flash';
 import { type Saga } from 'redux-saga';
-import { call, put } from 'redux-saga/effects';
+import { call, put, select, take } from 'redux-saga/effects';
 
 import { type SagaAction, type AsyncRequestData } from 'types/actions';
 import i18next from 'config/i18next';
@@ -12,6 +12,7 @@ import errors from 'modules/errors';
 import { NetworkError, Http401UnauthorizedError } from 'errors';
 
 import actions from '../../actions';
+import selectors from '../../selectors';
 
 import lib from '..';
 
@@ -85,23 +86,39 @@ function* sagaWrapper<A: SagaAction>(
     }
   }
   catch (error) {
-    // If an error occurred, set status to FAILURE and pass on the error.
+    // If an error occurred, set status to FAILURE
     yield put(actions.setFailure(asyncRequestData.id, error));
 
     if (error instanceof NetworkError) {
       yield put(flashErrorMessage('flash:NetworkError', { timeout: false }));
     }
     else if (error instanceof Http401UnauthorizedError) {
-      // TODO: importing platform renders a cyclic dependency
-      if (action.type === 'platform/REFRESH') {
-        // Refresh token has expired, sign the user out
-        yield put({ type: 'platform/SIGNOUT', payload: {} });
-        yield put(flashErrorMessage('flash:UnauthorizedError', { timeout: false }));
+      // Access token has expired, request a new one and replay action if necessary
+      try {
+        // Generally, API actions will have replay set to FALSE, and task actions to TRUE
+        // So when one API request in a task saga returns a HTTP 401, the entire saga gets replayed
+        if (asyncRequestData.replay) {
+          // If no REFRESH request is pending, dispatch one
+          // TODO: importing platform renders a cyclic dependency
+          if (!(yield select(selectors.isRefreshing))) {
+            yield call(lib.putAndReturn, { type: 'platform/REFRESH', payload: {} });
+          }
+
+          // Wait until REFRESH request is no longer pending
+          while (yield select(selectors.isRefreshing)) yield take('*');
+
+          // Replay action
+          const replayAction = { ...action };
+          delete replayAction.asyncRequestData;
+
+          yield put(replayAction);
+        }
       }
-      else {
-        // Access token has expired, request a new one and replay action
-        yield call(lib.putAndReturn, { type: 'platform/REFRESH', payload: {} });
-        yield put(action);
+      catch (e) {
+        // REFRESH action throws a HTTP 401, which means that
+        // the refresh token has expired, and the user should be signed out
+        yield put({ type: 'platform/SIGNOUT' });
+        yield put(flashErrorMessage('flash:UnauthorizedError', { timeout: false }));
       }
     }
 
