@@ -7,7 +7,6 @@ import { expectSaga } from 'redux-saga-test-plan';
 import * as matchers from 'redux-saga-test-plan/matchers';
 import { dynamic } from 'redux-saga-test-plan/providers';
 
-import asyncRequests from 'modules/asyncRequests';
 import { type SagaAction } from 'types/actions';
 import i18next from 'config/i18next';
 import errors from 'modules/errors';
@@ -268,14 +267,14 @@ describe(`sagaWrapper`, (): void => {
         return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
           .provide([
             [select(selectors.isRefreshing), false],
-            [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+            [matchers.call.fn(lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
               return (action.type === 'platform/REFRESH') ? null : next();
             })],
           ])
           .put(actions.setPending(dummyAction.asyncRequestData.id))
           .call(dummySaga, dummyAction)
           .put(actions.setFailure(dummyAction.asyncRequestData.id, dummyError))
-          .call(asyncRequests.lib.putAndReturn, { type: 'platform/REFRESH', payload: {} })
+          .call(lib.putAndReturn, { type: 'platform/REFRESH', payload: {} })
           .put({ type: dummyAction.type })
           .run();
       });
@@ -291,7 +290,7 @@ describe(`sagaWrapper`, (): void => {
         return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
           .provide([
             [select(selectors.isRefreshing), false],
-            [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+            [matchers.call.fn(lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
               if (action.type === 'platform/REFRESH') throw new Http401UnauthorizedError();
               return next();
             })],
@@ -299,7 +298,7 @@ describe(`sagaWrapper`, (): void => {
           .put(actions.setPending(dummyAction.asyncRequestData.id))
           .call(dummySaga, dummyAction)
           .put(actions.setFailure(dummyAction.asyncRequestData.id, dummyError))
-          .call(asyncRequests.lib.putAndReturn, { type: 'platform/REFRESH', payload: {} })
+          .call(lib.putAndReturn, { type: 'platform/REFRESH', payload: {} })
           .put({ type: 'platform/SIGNOUT' })
           .put(flashErrorMessage(`flash:UnauthorizedError`, { timeout: false }))
           .run();
