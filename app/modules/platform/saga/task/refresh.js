@@ -20,11 +20,14 @@ const refresh = function* (action: a.RefreshAction): Saga<void> {
   // Set pending refresh request
   yield put(asyncRequests.actions.setRefreshingInState(true));
 
-  // Obtain new access token
-  yield call(putAndReturn, actions.apiPatchToken(userAuth.refreshToken));
-
-  // Unset pending refresh request
-  yield put(asyncRequests.actions.setRefreshingInState(false));
+  try {
+    // Obtain new access token
+    yield call(putAndReturn, actions.apiPatchToken(userAuth.refreshToken));
+  }
+  finally {
+    // Unset pending refresh request
+    yield put(asyncRequests.actions.setRefreshingInState(false));
+  }
 };
 
 export default refresh;
