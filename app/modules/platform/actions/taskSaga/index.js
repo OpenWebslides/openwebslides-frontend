@@ -5,9 +5,9 @@ import refresh from './refresh';
 import resendConfirmationEmail from './resendConfirmationEmail';
 import resetPassword from './resetPassword';
 import sendResetPasswordEmail from './sendResetPasswordEmail';
-import setUserAuth from './setUserAuth';
 import signin from './signin';
 import signout from './signout';
+import ssoSignin from './ssoSignin';
 import toggleSidebar from './toggleSidebar';
 
 const taskSagaActions = {
@@ -16,9 +16,9 @@ const taskSagaActions = {
   resendConfirmationEmail,
   resetPassword,
   sendResetPasswordEmail,
-  setUserAuth,
   signin,
   signout,
+  ssoSignin,
   toggleSidebar,
 };
 

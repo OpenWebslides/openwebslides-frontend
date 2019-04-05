@@ -2,19 +2,17 @@
 
 import * as a from '../../actionTypes';
 
-const setUserAuth = (
+const ssoSignin = (
   userId: string,
   refreshToken: string,
-  accessToken: ?string,
-): a.SetUserAuthAction => {
+): a.SSOSigninAction => {
   return {
-    type: a.SET_USER_AUTH,
+    type: a.SSO_SIGNIN,
     payload: {
       userId,
       refreshToken,
-      accessToken,
     },
   };
 };
 
-export default setUserAuth;
+export default ssoSignin;
