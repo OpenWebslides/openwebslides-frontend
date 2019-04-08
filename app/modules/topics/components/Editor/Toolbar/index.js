@@ -10,7 +10,6 @@ import { type TFunction } from 'types/i18next';
 import { type ModulesAction } from 'types/redux';
 import contentItems from 'modules/contentItems';
 
-import actions from '../../../actions';
 import * as m from '../../../model';
 
 type PassedProps = {|
@@ -18,7 +17,7 @@ type PassedProps = {|
 |};
 
 type DispatchProps = {|
-  onUpdate: (title: ?string, description: ?string, access: ?m.AccessType) => void,
+  onInsertContentItem: (contentItemType: contentItems.model.ContentItemType) => void,
 |};
 
 type Props = {| ...PassedProps, ...DispatchProps |};
@@ -30,31 +29,44 @@ const mapDispatchToProps = (
   const { topic } = props;
 
   return {
-    onUpdate: (title: ?string, description: ?string, access: ?m.AccessType): void => {
-      dispatch(actions.update(topic.id, title, description, access));
+    onInsertContentItem: (contentItemType: contentItems.model.ContentItemType): void => {
+      dispatch(contentItems.actions.add(
+        contentItemType,
+        { contextType: contentItems.model.contextTypes.PARENT,
+          contextItemId: topic.rootContentItemId,
+          indexInSiblingItems: -1,
+        },
+        { text: 'Untitled heading' },
+      ));
     },
   };
 };
 
 class PureToolbar extends React.Component<Props> {
-  render(): React.Node {
-    const { topic } = this.props;
+  handleInsertHeading = (): void => {
+    const { onInsertContentItem } = this.props;
+    onInsertContentItem(contentItems.model.contentItemTypes.HEADING);
+  };
 
+  render(): React.Node {
     return (
       <Translation>
         {(t: TFunction): React.Node => (
           <Menu secondary={true}>
             <Menu.Item fitted={true}>
-              <Button.Group basic={true} style={{ marginRight: '1em' }}>
+              <Button.Group basic={true}>
                 <Button
                   icon={true}
                   title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.HEADING}`)}
+                  onClick={this.handleInsertHeading}
+                  data-test-id="toolbar-heading-button"
                 >
                   <Icon name="heading" />
                 </Button>
                 <Button
                   icon={true}
                   title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.PARAGRAPH}`)}
+                  disabled={true}
                 >
                   <Icon name="paragraph" />
                 </Button>
@@ -81,7 +93,7 @@ class PureToolbar extends React.Component<Props> {
                 </Button>
               </Button.Group>
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item fitted={true}>
               <Button.Group basic={true}>
                 <Button
                   icon={true}
@@ -113,7 +125,7 @@ class PureToolbar extends React.Component<Props> {
                 </Button>
               </Button.Group>
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item fitted={true}>
               <Button.Group basic={true}>
                 <Button
                   icon={true}
