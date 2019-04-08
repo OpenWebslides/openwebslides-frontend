@@ -58,6 +58,20 @@ describe(`addSubItemIdToContext`, (): void => {
     expect(((actualResult: any): m.SubableContentItem).subItemIds).not.toBe(((dummyHeading1: any): m.SubableContentItem).subItemIds);
   });
 
+  it(`returns a copy of the contextItem with the passed subItemId appended to it when the passed index is -1`, (): void => {
+    const dummyContext = {
+      contextType: m.contextTypes.SUPER,
+      contextItemId: dummyHeading1.id,
+      indexInSiblingItems: -1,
+    };
+    const actualResult = lib.edit.addSubItemIdToContext(dummyContext, dummyId, dummyContentItemsById);
+    const expectedResult = { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id, dummyId] };
+
+    expect(actualResult).toStrictEqual(expectedResult);
+    expect(actualResult).not.toBe(dummyHeading1);
+    expect(((actualResult: any): m.SubableContentItem).subItemIds).not.toBe(((dummyHeading1: any): m.SubableContentItem).subItemIds);
+  });
+
   it(`throws an ObjectNotFoundError, when the contentItem for the passed contextItemId could not be found`, (): void => {
     const dummyContext = {
       contextType: m.contextTypes.SUPER,
