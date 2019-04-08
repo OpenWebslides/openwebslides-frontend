@@ -23,6 +23,7 @@ import * as m from '../../model';
 import selectors from '../../selectors';
 
 import Metadata from './Metadata';
+import Toolbar from './Toolbar';
 
 type PassedProps = {|
   topicId: string,
@@ -200,6 +201,8 @@ class PureEditor extends React.Component<Props, ComponentState> {
             </Segment>
 
             <Divider hidden={true} />
+
+            <Toolbar topic={topic} />
 
             <RootContentItemEditableDisplay
               rootContentItemId={topic.rootContentItemId}
