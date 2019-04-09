@@ -73,6 +73,7 @@ describe(`toggleEditing`, (): void => {
         })],
       ])
       .put(actions.switchEditingInState(null, dummyHeading1.id))
+      .put(actions.setCurrentlySelectedInState(dummyHeading1.id))
       .run();
   });
 
@@ -90,6 +91,7 @@ describe(`toggleEditing`, (): void => {
         })],
       ])
       .put(actions.switchEditingInState(null, dummyHeading1.id))
+      .put(actions.setCurrentlySelectedInState(dummyHeading1.id))
       .run();
   });
 

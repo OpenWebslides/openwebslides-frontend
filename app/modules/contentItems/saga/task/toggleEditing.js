@@ -39,6 +39,9 @@ const toggleEditing = function* (action: a.ToggleEditingAction): Saga<void> {
       // from that contentItem to this one.
       previousEditingItemId = (currentlyEditingItem != null) ? currentlyEditingItem.id : null;
       nextEditingItemId = id;
+
+      // Set currently selected id in state
+      yield put(actions.setCurrentlySelectedInState(id));
     }
     // If the contentItem's isEditing value is flipped from TRUE to FALSE
     else {
