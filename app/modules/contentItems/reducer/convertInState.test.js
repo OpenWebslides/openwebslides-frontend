@@ -48,6 +48,7 @@ describe(`convertInState`, (): void => {
         [dummyParagraph332.id]: { ...dummyParagraph332 },
         [dummyBlockquote333.id]: { ...dummyBlockquote333 },
       },
+      currentlySelectedId: null,
     };
     const convertInStateAction: a.ConvertInStateAction = {
       type: a.CONVERT_IN_STATE,
@@ -69,6 +70,7 @@ describe(`convertInState`, (): void => {
         [dummyParagraph332.id]: { ...dummyParagraph332 },
         [dummyBlockquote333.id]: { ...dummyBlockquote333 },
       },
+      currentlySelectedId: null,
     };
     const resultState: m.ContentItemsState = reducer(prevState, convertInStateAction);
 
@@ -92,6 +94,7 @@ describe(`convertInState`, (): void => {
         [dummyParagraph332.id]: { ...dummyParagraph332 },
         [dummyBlockquote333.id]: { ...dummyBlockquote333 },
       },
+      currentlySelectedId: null,
     };
     const convertInStateAction: a.ConvertInStateAction = {
       type: a.CONVERT_IN_STATE,
@@ -113,6 +116,7 @@ describe(`convertInState`, (): void => {
         [dummyParagraph332.id]: { ...dummyParagraph332 },
         [dummyBlockquote333.id]: { ...dummyBlockquote333 },
       },
+      currentlySelectedId: null,
     };
     const resultState: m.ContentItemsState = reducer(prevState, convertInStateAction);
 
@@ -136,6 +140,7 @@ describe(`convertInState`, (): void => {
         [dummyParagraph332.id]: { ...dummyParagraph332 },
         [dummyBlockquote333.id]: { ...dummyBlockquote333 },
       },
+      currentlySelectedId: null,
     };
     const convertInStateAction: a.ConvertInStateAction = {
       type: a.CONVERT_IN_STATE,
@@ -164,6 +169,7 @@ describe(`convertInState`, (): void => {
         [dummyParagraph332.id]: { ...dummyParagraph332 },
         [dummyBlockquote333.id]: { ...dummyBlockquote333 },
       },
+      currentlySelectedId: null,
     };
     const convertInStateAction: a.ConvertInStateAction = {
       type: a.CONVERT_IN_STATE,
@@ -192,6 +198,7 @@ describe(`convertInState`, (): void => {
         [dummyParagraph332.id]: { ...dummyParagraph332 },
         [dummyBlockquote333.id]: { ...dummyBlockquote333 },
       },
+      currentlySelectedId: null,
     };
     const convertInStateAction: a.ConvertInStateAction = {
       type: a.CONVERT_IN_STATE,
@@ -220,6 +227,7 @@ describe(`convertInState`, (): void => {
         [dummyParagraph332.id]: { ...dummyParagraph332 },
         [dummyBlockquote333.id]: { ...dummyBlockquote333 },
       },
+      currentlySelectedId: null,
     };
     const convertInStateAction: a.ConvertInStateAction = {
       type: a.CONVERT_IN_STATE,
@@ -248,6 +256,7 @@ describe(`convertInState`, (): void => {
         [dummyParagraph332.id]: { ...dummyParagraph332 },
         [dummyBlockquote333.id]: { ...dummyBlockquote333 },
       },
+      currentlySelectedId: null,
     };
     const convertInStateAction: a.ConvertInStateAction = {
       type: a.CONVERT_IN_STATE,
@@ -276,6 +285,7 @@ describe(`convertInState`, (): void => {
         [dummyParagraph332.id]: { ...dummyParagraph332 },
         [dummyBlockquote333.id]: { ...dummyBlockquote333 },
       },
+      currentlySelectedId: null,
     };
     const convertInStateAction: a.ConvertInStateAction = {
       type: a.CONVERT_IN_STATE,
@@ -304,6 +314,7 @@ describe(`convertInState`, (): void => {
         [dummyParagraph332.id]: { ...dummyParagraph332 },
         [dummyBlockquote333.id]: { ...dummyBlockquote333 },
       },
+      currentlySelectedId: null,
     };
     const convertInStateAction: a.ConvertInStateAction = {
       type: a.CONVERT_IN_STATE,

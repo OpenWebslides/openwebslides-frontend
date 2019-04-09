@@ -27,6 +27,7 @@ describe(`switchEditingInState`, (): void => {
           isEditing: false,
         },
       },
+      currentlySelectedId: null,
     };
     const switchEditingInStateAction: a.SwitchEditingInStateAction = {
       type: a.SWITCH_EDITING_IN_STATE,
@@ -51,6 +52,7 @@ describe(`switchEditingInState`, (): void => {
           isEditing: true,
         },
       },
+      currentlySelectedId: null,
     };
     const resultState = reducer(prevState, switchEditingInStateAction);
 
@@ -78,6 +80,7 @@ describe(`switchEditingInState`, (): void => {
           isEditing: false,
         },
       },
+      currentlySelectedId: null,
     };
     const switchEditingInStateAction: a.SwitchEditingInStateAction = {
       type: a.SWITCH_EDITING_IN_STATE,
@@ -108,6 +111,7 @@ describe(`switchEditingInState`, (): void => {
           isEditing: false,
         },
       },
+      currentlySelectedId: null,
     };
     const switchEditingInStateAction: a.SwitchEditingInStateAction = {
       type: a.SWITCH_EDITING_IN_STATE,
@@ -139,6 +143,7 @@ describe(`switchEditingInState`, (): void => {
           isEditing: false,
         },
       },
+      currentlySelectedId: null,
     };
     const switchEditingInStateAction: a.SwitchEditingInStateAction = {
       type: a.SWITCH_EDITING_IN_STATE,
@@ -170,6 +175,7 @@ describe(`switchEditingInState`, (): void => {
           isEditing: false,
         },
       },
+      currentlySelectedId: null,
     };
     const switchEditingInStateAction: a.SwitchEditingInStateAction = {
       type: a.SWITCH_EDITING_IN_STATE,
@@ -201,6 +207,7 @@ describe(`switchEditingInState`, (): void => {
           isEditing: true,
         },
       },
+      currentlySelectedId: null,
     };
     const switchEditingInStateAction: a.SwitchEditingInStateAction = {
       type: a.SWITCH_EDITING_IN_STATE,

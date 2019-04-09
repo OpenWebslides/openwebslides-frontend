@@ -36,6 +36,7 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
         [dummyParagraph.id]: dummyParagraph,
         [dummyData.rootContentItem2.id]: { ...dummyData.rootContentItem2 },
       },
+      currentlySelectedId: null,
     };
     dummyState = { modules: { contentItems: dummyContentItemsState } };
     dummyTopicId = 'dummyTopicId';

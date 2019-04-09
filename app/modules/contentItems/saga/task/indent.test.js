@@ -59,7 +59,7 @@ describe(`indent`, (): void => {
       [dummySlideBreak23.id]: dummySlideBreak23,
       [dummyParagraph24.id]: dummyParagraph24,
     };
-    dummyContentItemsState = { byId: dummyContentItemsById };
+    dummyContentItemsState = { byId: dummyContentItemsById, currentlySelectedId: null };
     dummyState = { modules: { contentItems: dummyContentItemsState } };
   });
 

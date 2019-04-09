@@ -71,7 +71,7 @@ describe(`reverseIndent`, (): void => {
       [dummyParagraph22.id]: dummyParagraph22,
       [dummyHeading221.id]: dummyHeading221,
     };
-    dummyContentItemsState = { byId: dummyContentItemsById };
+    dummyContentItemsState = { byId: dummyContentItemsById, currentlySelectedId: null };
     dummyState = { modules: { contentItems: dummyContentItemsState } };
   });
 

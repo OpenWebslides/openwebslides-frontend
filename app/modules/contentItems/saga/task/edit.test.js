@@ -60,6 +60,7 @@ describe(`edit`, (): void => {
     };
     dummyContentItemsState = {
       byId: dummyContentItemsById,
+      currentlySelectedId: null,
     };
     dummyState = {
       modules: {

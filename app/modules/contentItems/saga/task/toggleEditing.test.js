@@ -37,7 +37,7 @@ describe(`toggleEditing`, (): void => {
       [dummyHeading1.id]: dummyHeading1,
       [dummyHeading2.id]: dummyHeading2,
     };
-    dummyContentItemsState = { byId: dummyContentItemsById };
+    dummyContentItemsState = { byId: dummyContentItemsById, currentlySelectedId: null };
     dummyState = { modules: { contentItems: dummyContentItemsState } };
   });
 

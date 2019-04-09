@@ -28,6 +28,7 @@ describe(`editPropsForTypeInState`, (): void => {
       byId: {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
+      currentlySelectedId: null,
     };
     const editPropsForTypeInStateAction: a.EditPropsForTypeInStateAction = {
       type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
@@ -42,6 +43,7 @@ describe(`editPropsForTypeInState`, (): void => {
       byId: {
         [dummyPlainTextContentItem.id]: editedPlainTextContentItem,
       },
+      currentlySelectedId: null,
     };
     const resultState = reducer(prevState, editPropsForTypeInStateAction);
 
@@ -56,6 +58,7 @@ describe(`editPropsForTypeInState`, (): void => {
       byId: {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
+      currentlySelectedId: null,
     };
     const editPropsForTypeInStateAction: a.EditPropsForTypeInStateAction = {
       type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
@@ -76,6 +79,7 @@ describe(`editPropsForTypeInState`, (): void => {
       byId: {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
+      currentlySelectedId: null,
     };
     const editPropsForTypeInStateAction: a.EditPropsForTypeInStateAction = {
       type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
@@ -96,6 +100,7 @@ describe(`editPropsForTypeInState`, (): void => {
   it(`throws an ObjectNotFoundError, when the passed contentItem could not be found in the state`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {},
+      currentlySelectedId: null,
     };
     const editPropsForTypeInStateAction: a.EditPropsForTypeInStateAction = {
       type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
@@ -117,6 +122,7 @@ describe(`editPropsForTypeInState`, (): void => {
       byId: {
         [dummyPlainTextContentItem.id]: dummyPlainTextContentItem,
       },
+      currentlySelectedId: null,
     };
     const editPropsForTypeInStateAction: a.EditPropsForTypeInStateAction = {
       type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,
@@ -141,6 +147,7 @@ describe(`editPropsForTypeInState`, (): void => {
       byId: {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
       },
+      currentlySelectedId: null,
     };
     const editPropsForTypeInStateAction: a.EditPropsForTypeInStateAction = {
       type: a.EDIT_PROPS_FOR_TYPE_IN_STATE,

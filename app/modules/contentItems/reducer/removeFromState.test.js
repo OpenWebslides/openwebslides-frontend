@@ -32,6 +32,7 @@ describe(`removeFromState`, (): void => {
         [dummyRoot1.id]: { ...dummyRoot1 },
         [dummyRoot2.id]: { ...dummyRoot2 },
       },
+      currentlySelectedId: null,
     };
     const removeFromStateAction: a.RemoveFromStateAction = {
       type: a.REMOVE_FROM_STATE,
@@ -43,6 +44,7 @@ describe(`removeFromState`, (): void => {
       byId: {
         [dummyRoot2.id]: { ...dummyRoot2 },
       },
+      currentlySelectedId: null,
     };
     const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
 
@@ -60,6 +62,7 @@ describe(`removeFromState`, (): void => {
         [dummyParagraph112.id]: { ...dummyParagraph112 },
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
+      currentlySelectedId: null,
     };
     const removeFromStateAction: a.RemoveFromStateAction = {
       type: a.REMOVE_FROM_STATE,
@@ -74,6 +77,7 @@ describe(`removeFromState`, (): void => {
         [dummyParagraph112.id]: { ...dummyParagraph112 },
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
+      currentlySelectedId: null,
     };
     const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
 
@@ -93,6 +97,7 @@ describe(`removeFromState`, (): void => {
         [dummyParagraph112.id]: { ...dummyParagraph112 },
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
+      currentlySelectedId: null,
     };
     const removeFromStateAction: a.RemoveFromStateAction = {
       type: a.REMOVE_FROM_STATE,
@@ -105,6 +110,7 @@ describe(`removeFromState`, (): void => {
         [dummyRoot1.id]: { ...dummyRoot1, subItemIds: [dummyHeading12.id] },
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
+      currentlySelectedId: null,
     };
     const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
 
@@ -120,6 +126,7 @@ describe(`removeFromState`, (): void => {
         [dummyParagraph112.id]: { ...dummyParagraph112 },
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
+      currentlySelectedId: null,
     };
     const removeFromStateAction: a.RemoveFromStateAction = {
       type: a.REMOVE_FROM_STATE,
@@ -142,6 +149,7 @@ describe(`removeFromState`, (): void => {
         [dummyParagraph112.id]: { ...dummyParagraph112 },
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
+      currentlySelectedId: null,
     };
     const removeFromStateAction: a.RemoveFromStateAction = {
       type: a.REMOVE_FROM_STATE,
@@ -164,6 +172,7 @@ describe(`removeFromState`, (): void => {
         [dummyParagraph112.id]: { ...dummyParagraph112 },
         [dummyHeading12.id]: { ...dummyHeading12 },
       },
+      currentlySelectedId: null,
     };
     const removeFromStateAction: a.RemoveFromStateAction = {
       type: a.REMOVE_FROM_STATE,

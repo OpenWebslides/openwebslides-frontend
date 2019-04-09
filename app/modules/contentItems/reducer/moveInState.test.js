@@ -44,6 +44,7 @@ describe(`moveInState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const moveInStateAction: a.MoveInStateAction = {
       type: a.MOVE_IN_STATE,
@@ -66,6 +67,7 @@ describe(`moveInState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const resultState = reducer(prevState, moveInStateAction);
 
@@ -90,6 +92,7 @@ describe(`moveInState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const moveInStateAction: a.MoveInStateAction = {
       type: a.MOVE_IN_STATE,
@@ -119,6 +122,7 @@ describe(`moveInState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const moveInStateAction: a.MoveInStateAction = {
       type: a.MOVE_IN_STATE,
@@ -148,6 +152,7 @@ describe(`moveInState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const moveInStateAction: a.MoveInStateAction = {
       type: a.MOVE_IN_STATE,
@@ -177,6 +182,7 @@ describe(`moveInState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const moveInStateAction: a.MoveInStateAction = {
       type: a.MOVE_IN_STATE,
@@ -206,6 +212,7 @@ describe(`moveInState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const moveInStateAction: a.MoveInStateAction = {
       type: a.MOVE_IN_STATE,
@@ -235,6 +242,7 @@ describe(`moveInState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const moveInStateAction: a.MoveInStateAction = {
       type: a.MOVE_IN_STATE,
@@ -265,6 +273,7 @@ describe(`moveInState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const moveInStateAction: a.MoveInStateAction = {
       type: a.MOVE_IN_STATE,

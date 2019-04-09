@@ -587,6 +587,8 @@ export type ContentItemsById = {
 
 export type ContentItemsState = {|
   +byId: ContentItemsById,
+  // Currently selected content item
+  +currentlySelectedId: ?string,
 |};
 
 
