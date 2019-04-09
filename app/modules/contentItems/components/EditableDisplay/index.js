@@ -20,6 +20,7 @@ type PassedProps = {|
 
 type StateProps = {|
   contentItem: ?m.ContentItem,
+  isSelected: boolean,
 |};
 
 type DispatchProps = {|
@@ -36,6 +37,7 @@ type DispatchProps = {|
 type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const passThroughProps = [
+  'isSelected',
   'onStartEditing',
   'onEndEditing',
   'onEditPlainText',
@@ -51,6 +53,7 @@ const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { contentItemId } = props;
   return {
     contentItem: selectors.getById(state, { id: contentItemId }),
+    isSelected: (selectors.getCurrentlySelectedId(state) === contentItemId),
   };
 };
 

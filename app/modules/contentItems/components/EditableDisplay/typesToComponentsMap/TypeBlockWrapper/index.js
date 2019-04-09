@@ -5,16 +5,17 @@ import { Icon } from 'semantic-ui-react';
 
 type PassedProps = {|
   iconName: string,
+  isSelected: boolean,
   children?: React.Node,
 |};
 
 type Props = {| ...PassedProps |};
 
 const PureTypeBlockWrapper = (props: Props): React.Node => {
-  const { iconName, children } = props;
+  const { iconName, isSelected, children } = props;
 
   return (
-    <div className="content-item-editable-display-block">
+    <div className={`content-item-editable-display-block ${isSelected ? 'content-item-editable-display-block--selected' : ''}`}>
       <div className="content-item-editable-display-block__wrapper">
         <div className="content-item-editable-display-block__icon">
           <Icon name={iconName} color="grey" />

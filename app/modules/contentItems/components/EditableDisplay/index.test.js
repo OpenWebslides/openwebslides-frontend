@@ -83,6 +83,7 @@ describe(`EditableDisplay`, (): void => {
         contentItem={{ id: 'abcdefghij', type: m.contentItemTypes.ROOT, isEditing: false, subItemIds: [] }}
         {...dummyDispatchProps}
         setTopicDirty={dummySetTopicDirty}
+        isSelected={false}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
@@ -91,40 +92,40 @@ describe(`EditableDisplay`, (): void => {
   it(`renders a the correct type component for the type of the passed contentItem`, (): void => {
     let enzymeWrapper: any;
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.rootContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.rootContentItem} setTopicDirty={dummySetTopicDirty} isSelected={false} />);
     expect(enzymeWrapper.find('PureRoot')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.headingContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.headingContentItem} setTopicDirty={dummySetTopicDirty} isSelected={false} />);
     expect(enzymeWrapper.find('PureHeading')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.paragraphContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.paragraphContentItem} setTopicDirty={dummySetTopicDirty} isSelected={false} />);
     expect(enzymeWrapper.find('PureParagraph')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.listContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.listContentItem} setTopicDirty={dummySetTopicDirty} isSelected={false} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.blockquoteContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.blockquoteContentItem} setTopicDirty={dummySetTopicDirty} isSelected={false} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.codeContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.codeContentItem} setTopicDirty={dummySetTopicDirty} isSelected={false} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.imageContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.imageContentItem} setTopicDirty={dummySetTopicDirty} isSelected={false} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.videoContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.videoContentItem} setTopicDirty={dummySetTopicDirty} isSelected={false} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.audioContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.audioContentItem} setTopicDirty={dummySetTopicDirty} isSelected={false} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.iframeContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.iframeContentItem} setTopicDirty={dummySetTopicDirty} isSelected={false} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.slideBreakContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.slideBreakContentItem} setTopicDirty={dummySetTopicDirty} isSelected={false} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.courseBreakContentItem} setTopicDirty={dummySetTopicDirty} />);
+    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.courseBreakContentItem} setTopicDirty={dummySetTopicDirty} isSelected={false} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
   });
 
@@ -192,6 +193,46 @@ describe(`EditableDisplay`, (): void => {
     );
     const subItemsTags = enzymeWrapper.find(subItemsSelector).hostNodes();
     expect(subItemsTags).toHaveLength(0);
+  });
+
+  it(`maps isSelected to TRUE when the content item is currently selected in the state`, (): void => {
+    const dummySelectedState = {
+      ...dummyInitialState,
+      modules: {
+        ...dummyInitialState.modules,
+        contentItems: {
+          ...dummyInitialState.modules.contentItems,
+          currentlySelectedId: dummyHeading11.id,
+        },
+      },
+    };
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummySelectedState}>
+        <EditableDisplay contentItemId={dummyHeading11.id} />
+      </DummyProviders>,
+    );
+    expect(enzymeWrapper.find('PureEditableDisplay').props().isSelected).toBe(true);
+  });
+
+  it(`maps isSelected to FALSE when the content item is not currently selected in the state`, (): void => {
+    const dummySelectedState = {
+      ...dummyInitialState,
+      modules: {
+        ...dummyInitialState.modules,
+        contentItems: {
+          ...dummyInitialState.modules.contentItems,
+          currentlySelectedId: dummyHeading113.id,
+        },
+      },
+    };
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummySelectedState}>
+        <EditableDisplay contentItemId={dummyHeading11.id} />
+      </DummyProviders>,
+    );
+    expect(enzymeWrapper.find('PureEditableDisplay').props().isSelected).toBe(false);
   });
 
   describe(`mapDispatchToProps`, (): void => {
