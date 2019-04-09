@@ -106,6 +106,17 @@ describe(`Paragraph`, (): void => {
       expect(dummyFunctionProps.onAddEmptySiblingItemBelow).toHaveBeenCalledWith(dummyParagraph.id);
     });
 
+    it(`calls the passed onEndEditing function, when the pressed key was "Escape"`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureParagraph
+          contentItem={{ ...dummyParagraph, text: '' }}
+          {...dummyFunctionProps}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentKeyDown(({ key: 'Escape', preventDefault: jest.fn() }: any));
+      expect(dummyFunctionProps.onEndEditing).toHaveBeenCalledWith(dummyParagraph.id);
+    });
+
     it(`calls the passed onRemove function, when the pressed key was "Backspace" and the contentItem's text prop was empty`, (): void => {
       const enzymeWrapper = shallow(
         <PureParagraph

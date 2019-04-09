@@ -106,6 +106,17 @@ describe(`Heading`, (): void => {
       expect(dummyFunctionProps.onAddEmptySubItem).toHaveBeenCalledWith(dummyHeading.id);
     });
 
+    it(`calls the passed onEndEditing function, when the pressed key was "Escape"`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureHeading
+          contentItem={dummyHeading}
+          {...dummyFunctionProps}
+        />,
+      );
+      enzymeWrapper.instance().onEditableTextContentKeyDown(({ key: 'Escape', preventDefault: jest.fn() }: any));
+      expect(dummyFunctionProps.onEndEditing).toHaveBeenCalledWith(dummyHeading.id);
+    });
+
     it(`calls the passed onRemove function, when the pressed key was "Backspace" and the contentItem's text prop was empty`, (): void => {
       const enzymeWrapper = shallow(
         <PureHeading

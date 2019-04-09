@@ -44,6 +44,7 @@ class PureParagraph extends React.Component<Props> {
     const {
       contentItem,
       onAddEmptySiblingItemBelow,
+      onEndEditing,
       onRemove,
       onIndent,
       onReverseIndent,
@@ -52,6 +53,10 @@ class PureParagraph extends React.Component<Props> {
     if (event.key === 'Enter') {
       event.preventDefault();
       onAddEmptySiblingItemBelow(contentItem.id);
+    }
+    else if (event.key === 'Escape') {
+      event.preventDefault();
+      onEndEditing(contentItem.id);
     }
     else if (event.key === 'Backspace' && contentItem.text === '') {
       event.preventDefault();
