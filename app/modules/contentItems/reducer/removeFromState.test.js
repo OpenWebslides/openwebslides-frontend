@@ -88,6 +88,102 @@ describe(`removeFromState`, (): void => {
     expect(((resultState.byId[dummyHeading11.id]: any): m.SubableContentItem).subItemIds).not.toBe(((nextState.byId[dummyHeading11.id]: any): m.SubableContentItem).subItemIds);
   });
 
+  it(`does not change the currently selected contentItem, if the contentItem was not selected`, (): void => {
+    const prevState: m.ContentItemsState = {
+      byId: {
+        [dummyRoot1.id]: { ...dummyRoot1, subItemIds: [dummyHeading11.id, dummyHeading12.id] },
+        [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph111.id, dummyParagraph112.id] },
+        [dummyParagraph111.id]: { ...dummyParagraph111 },
+        [dummyParagraph112.id]: { ...dummyParagraph112 },
+        [dummyHeading12.id]: { ...dummyHeading12 },
+      },
+      currentlySelectedId: dummyHeading11.id,
+    };
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
+      payload: {
+        id: dummyHeading12.id,
+      },
+    };
+    const nextState: m.ContentItemsState = {
+      byId: {
+        [dummyRoot1.id]: { ...dummyRoot1, subItemIds: [dummyHeading11.id] },
+        [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph111.id, dummyParagraph112.id] },
+        [dummyParagraph111.id]: { ...dummyParagraph111 },
+        [dummyParagraph112.id]: { ...dummyParagraph112 },
+      },
+      currentlySelectedId: dummyHeading11.id,
+    };
+    const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
+
+    expect(resultState).toStrictEqual(nextState);
+    expect(resultState).not.toBe(nextState);
+    expect(resultState.byId).not.toBe(nextState.byId);
+    expect(resultState.byId[dummyRoot1.id]).not.toBe(nextState.byId[dummyRoot1.id]);
+  });
+
+  it(`sets the previous contentItem as new selection, if the contentItem was selected`, (): void => {
+    const prevState: m.ContentItemsState = {
+      byId: {
+        [dummyRoot1.id]: { ...dummyRoot1, subItemIds: [dummyHeading11.id, dummyHeading12.id] },
+        [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph111.id, dummyParagraph112.id] },
+        [dummyParagraph111.id]: { ...dummyParagraph111 },
+        [dummyParagraph112.id]: { ...dummyParagraph112 },
+        [dummyHeading12.id]: { ...dummyHeading12 },
+      },
+      currentlySelectedId: dummyHeading12.id,
+    };
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
+      payload: {
+        id: dummyHeading12.id,
+      },
+    };
+    const nextState: m.ContentItemsState = {
+      byId: {
+        [dummyRoot1.id]: { ...dummyRoot1, subItemIds: [dummyHeading11.id] },
+        [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph111.id, dummyParagraph112.id] },
+        [dummyParagraph111.id]: { ...dummyParagraph111 },
+        [dummyParagraph112.id]: { ...dummyParagraph112 },
+      },
+      currentlySelectedId: dummyParagraph112.id,
+    };
+    const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
+
+    expect(resultState).toStrictEqual(nextState);
+    expect(resultState).not.toBe(nextState);
+    expect(resultState.byId).not.toBe(nextState.byId);
+    expect(resultState.byId[dummyRoot1.id]).not.toBe(nextState.byId[dummyRoot1.id]);
+  });
+
+  it(`clears the new selection, if the contentItem was selected but there is no previous contentItem`, (): void => {
+    const prevState: m.ContentItemsState = {
+      byId: {
+        [dummyRoot1.id]: { ...dummyRoot1, subItemIds: [dummyHeading11.id, dummyHeading12.id] },
+        [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph111.id, dummyParagraph112.id] },
+        [dummyParagraph111.id]: { ...dummyParagraph111 },
+        [dummyParagraph112.id]: { ...dummyParagraph112 },
+        [dummyHeading12.id]: { ...dummyHeading12 },
+      },
+      currentlySelectedId: dummyRoot1.id,
+    };
+    const removeFromStateAction: a.RemoveFromStateAction = {
+      type: a.REMOVE_FROM_STATE,
+      payload: {
+        id: dummyRoot1.id,
+      },
+    };
+    const nextState: m.ContentItemsState = {
+      byId: {},
+      currentlySelectedId: null,
+    };
+    const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
+
+    expect(resultState).toStrictEqual(nextState);
+    expect(resultState).not.toBe(nextState);
+    expect(resultState.byId).not.toBe(nextState.byId);
+  });
+
   it(`removes all subItems as well, when the contentItem to delete is a superItem`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
