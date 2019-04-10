@@ -1,6 +1,6 @@
 // @flow
 
-import { dummyInitialState, dummyContentItemData as dummyData } from 'lib/testResources';
+import { dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as a from '../actionTypes';
 import * as m from '../model';
@@ -10,26 +10,35 @@ import reducer from '.';
 describe(`selectInState`, (): void => {
 
   let dummyId: string;
-  let dummyContentItem1: m.HeadingContentItem;
-  let dummyContentItem2: m.ParagraphContentItem;
-  let dummyContentItem3: m.ParagraphContentItem;
-  let dummyContentItemParent: m.HeadingContentItem;
+  let dummyParagraph1: m.ParagraphContentItem;
+  let dummyParagraph2: m.ParagraphContentItem;
+  let dummyParagraph3: m.ParagraphContentItem;
+  let dummyParagraph4: m.ParagraphContentItem;
+  let dummyHeading1: m.HeadingContentItem;
+  let dummyHeading2: m.HeadingContentItem;
+  let dummyRoot: m.RootContentItem;
   let dummySelection: m.SelectionType;
   let dummyContentItemsById: m.ContentItemsById;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
-    dummyContentItem1 = dummyData.headingContentItem;
-    dummyContentItem2 = dummyData.paragraphContentItem;
-    dummyContentItem3 = dummyData.paragraphContentItem2;
-    dummyContentItemParent = { ...dummyData.headingContentItem2, subItemIds: [dummyContentItem1.id, dummyContentItem2.id, dummyContentItem3.id] };
+    dummyParagraph1 = dummyData.paragraphContentItem;
+    dummyParagraph2 = dummyData.paragraphContentItem2;
+    dummyParagraph3 = dummyData.paragraphContentItem3;
+    dummyParagraph4 = dummyData.paragraphContentItem4;
+    dummyHeading1 = { ...dummyData.headingContentItem, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyParagraph3.id] };
+    dummyHeading2 = { ...dummyData.headingContentItem2, subItemIds: [dummyParagraph4.id] };
+    dummyRoot = { ...dummyData.rootContentItem, subItemIds: [dummyHeading1.id, dummyHeading2.id] };
     dummySelection = m.selectionTypes.NEXT;
 
     dummyContentItemsById = {
-      [dummyContentItem1.id]: dummyContentItem1,
-      [dummyContentItem2.id]: dummyContentItem2,
-      [dummyContentItem3.id]: dummyContentItem3,
-      [dummyContentItemParent.id]: dummyContentItemParent,
+      [dummyRoot.id]: dummyRoot,
+      [dummyHeading1.id]: dummyHeading1,
+      [dummyParagraph1.id]: dummyParagraph1,
+      [dummyParagraph2.id]: dummyParagraph2,
+      [dummyParagraph3.id]: dummyParagraph3,
+      [dummyHeading2.id]: dummyHeading2,
+      [dummyParagraph4.id]: dummyParagraph4,
     };
   });
 
@@ -55,7 +64,7 @@ describe(`selectInState`, (): void => {
     it(`sets the parent or super contentItem as currently selected contentItem in the state`, (): void => {
       const prevState: m.ContentItemsState = {
         byId: dummyContentItemsById,
-        currentlySelectedId: dummyContentItem1.id,
+        currentlySelectedId: dummyParagraph1.id,
       };
       const selectInStateAction: a.SelectInStateAction = {
         type: a.SELECT_IN_STATE,
@@ -65,7 +74,7 @@ describe(`selectInState`, (): void => {
       };
       const nextState: m.ContentItemsState = {
         byId: dummyContentItemsById,
-        currentlySelectedId: dummyContentItemParent.id,
+        currentlySelectedId: dummyHeading1.id,
       };
 
       const resultState = reducer(prevState, selectInStateAction);
@@ -77,7 +86,7 @@ describe(`selectInState`, (): void => {
     it(`leaves the state unchanged, when the currently selected contentItem has no parent`, (): void => {
       const prevState: m.ContentItemsState = {
         byId: dummyContentItemsById,
-        currentlySelectedId: dummyContentItemParent.id,
+        currentlySelectedId: dummyRoot.id,
       };
       const selectInStateAction: a.SelectInStateAction = {
         type: a.SELECT_IN_STATE,
@@ -98,7 +107,7 @@ describe(`selectInState`, (): void => {
     it(`sets the first child or sub contentItem as currently selected contentItem in the state`, (): void => {
       const prevState: m.ContentItemsState = {
         byId: dummyContentItemsById,
-        currentlySelectedId: dummyContentItemParent.id,
+        currentlySelectedId: dummyHeading1.id,
       };
       const selectInStateAction: a.SelectInStateAction = {
         type: a.SELECT_IN_STATE,
@@ -108,7 +117,7 @@ describe(`selectInState`, (): void => {
       };
       const nextState: m.ContentItemsState = {
         ...prevState,
-        currentlySelectedId: dummyContentItem1.id,
+        currentlySelectedId: dummyParagraph1.id,
       };
 
       const resultState = reducer(prevState, selectInStateAction);
@@ -120,7 +129,7 @@ describe(`selectInState`, (): void => {
     it(`leaves the state unchanged, when the currently selected contentItem has no children or sub contentItems`, (): void => {
       const prevState: m.ContentItemsState = {
         byId: dummyContentItemsById,
-        currentlySelectedId: dummyContentItem1.id,
+        currentlySelectedId: dummyParagraph1.id,
       };
       const selectInStateAction: a.SelectInStateAction = {
         type: a.SELECT_IN_STATE,
@@ -138,10 +147,10 @@ describe(`selectInState`, (): void => {
 
   describe(`when PREVIOUS is passed as selectionType`, (): void => {
 
-    it(`sets the previous sibling as currently selected contentItem in the state`, (): void => {
+    it(`sets the previous direct sibling as currently selected contentItem in the state`, (): void => {
       const prevState: m.ContentItemsState = {
         byId: dummyContentItemsById,
-        currentlySelectedId: dummyContentItem2.id,
+        currentlySelectedId: dummyParagraph2.id,
       };
       const selectInStateAction: a.SelectInStateAction = {
         type: a.SELECT_IN_STATE,
@@ -149,21 +158,43 @@ describe(`selectInState`, (): void => {
           selection: m.selectionTypes.PREVIOUS,
         },
       };
-      const nextState: m.ContentItemsState = {
+      const previousState: m.ContentItemsState = {
         ...prevState,
-        currentlySelectedId: dummyContentItem1.id,
+        currentlySelectedId: dummyParagraph1.id,
       };
 
       const resultState = reducer(prevState, selectInStateAction);
-      expect(resultState).toStrictEqual(nextState);
+      expect(resultState).toStrictEqual(previousState);
       expect(resultState).not.toBe(prevState);
       expect(resultState.currentlySelectedId).not.toBe(prevState.currentlySelectedId);
     });
 
-    it(`leaves the state unchanged, when the currently selected contentItem has no previous sibling`, (): void => {
+    it(`sets the previous contentItem in editor order as currently selected contentItem in the state, when the currently selected contentItem has no direct previous sibling`, (): void => {
       const prevState: m.ContentItemsState = {
         byId: dummyContentItemsById,
-        currentlySelectedId: dummyContentItem1.id,
+        currentlySelectedId: dummyParagraph4.id,
+      };
+      const selectInStateAction: a.SelectInStateAction = {
+        type: a.SELECT_IN_STATE,
+        payload: {
+          selection: m.selectionTypes.PREVIOUS,
+        },
+      };
+      const previousState: m.ContentItemsState = {
+        ...prevState,
+        currentlySelectedId: dummyHeading2.id,
+      };
+
+      const resultState = reducer(prevState, selectInStateAction);
+      expect(resultState).toStrictEqual(previousState);
+      expect(resultState).not.toBe(prevState);
+      expect(resultState.currentlySelectedId).not.toBe(prevState.currentlySelectedId);
+    });
+
+    it(`leaves the state unchanged, when the currently selected contentItem has no previous sibling or contentItem in editor order`, (): void => {
+      const prevState: m.ContentItemsState = {
+        byId: dummyContentItemsById,
+        currentlySelectedId: dummyRoot.id,
       };
       const selectInStateAction: a.SelectInStateAction = {
         type: a.SELECT_IN_STATE,
@@ -181,10 +212,10 @@ describe(`selectInState`, (): void => {
 
   describe(`when NEXT is passed as selectionType`, (): void => {
 
-    it(`sets the next sibling as currently selected contentItem in the state`, (): void => {
+    it(`sets the next direct sibling as currently selected contentItem in the state`, (): void => {
       const prevState: m.ContentItemsState = {
         byId: dummyContentItemsById,
-        currentlySelectedId: dummyContentItem2.id,
+        currentlySelectedId: dummyParagraph2.id,
       };
       const selectInStateAction: a.SelectInStateAction = {
         type: a.SELECT_IN_STATE,
@@ -194,7 +225,7 @@ describe(`selectInState`, (): void => {
       };
       const nextState: m.ContentItemsState = {
         ...prevState,
-        currentlySelectedId: dummyContentItem3.id,
+        currentlySelectedId: dummyParagraph3.id,
       };
 
       const resultState = reducer(prevState, selectInStateAction);
@@ -203,10 +234,32 @@ describe(`selectInState`, (): void => {
       expect(resultState.currentlySelectedId).not.toBe(prevState.currentlySelectedId);
     });
 
-    it(`leaves the state unchanged, when the currently selected contentItem has no next sibling`, (): void => {
+    it(`sets the next contentItem in editor order as currently selected contentItem in the state, when the currently selected contentItem has no direct next sibling`, (): void => {
       const prevState: m.ContentItemsState = {
         byId: dummyContentItemsById,
-        currentlySelectedId: dummyContentItem3.id,
+        currentlySelectedId: dummyParagraph3.id,
+      };
+      const selectInStateAction: a.SelectInStateAction = {
+        type: a.SELECT_IN_STATE,
+        payload: {
+          selection: m.selectionTypes.NEXT,
+        },
+      };
+      const nextState: m.ContentItemsState = {
+        ...prevState,
+        currentlySelectedId: dummyHeading2.id,
+      };
+
+      const resultState = reducer(prevState, selectInStateAction);
+      expect(resultState).toStrictEqual(nextState);
+      expect(resultState).not.toBe(prevState);
+      expect(resultState.currentlySelectedId).not.toBe(prevState.currentlySelectedId);
+    });
+
+    it(`leaves the state unchanged, when the currently selected contentItem has no next sibling or contentItem in editor order`, (): void => {
+      const prevState: m.ContentItemsState = {
+        byId: dummyContentItemsById,
+        currentlySelectedId: dummyParagraph4.id,
       };
       const selectInStateAction: a.SelectInStateAction = {
         type: a.SELECT_IN_STATE,

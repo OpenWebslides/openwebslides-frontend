@@ -17,16 +17,31 @@ const selectInState = (
 
   switch (action.payload.selection) {
     case m.selectionTypes.PARENT:
-      newContentItem = lib.find.parentOrSuperItem(currentContentItem, state.byId);
+      // Select parent of current contentItem
+      newContentItem = lib.find.superItem(currentContentItem, state.byId);
       break;
     case m.selectionTypes.CHILD:
-      newContentItem = lib.find.allChildOrSubItems(currentContentItem, state.byId)[0];
+      // Select first child of current contentItem
+      newContentItem = lib.find.allSubItems(currentContentItem, state.byId)[0];
       break;
     case m.selectionTypes.NEXT:
+      // Select next sibling of current contentItem
       newContentItem = lib.find.nextSiblingItem(currentContentItem, state.byId);
+
+      // Or next item in editor order if there are no more siblings
+      if (newContentItem == null) {
+        newContentItem = lib.find.nextEditorItem(currentContentItem, state.byId);
+      }
+
       break;
     case m.selectionTypes.PREVIOUS:
+      // Select previous sibling of current contentItem
       newContentItem = lib.find.previousSiblingItem(currentContentItem, state.byId);
+
+      // Or previous item in editor order if there are no more siblings
+      if (newContentItem == null) {
+        newContentItem = lib.find.previousEditorItem(currentContentItem, state.byId);
+      }
       break;
     default:
       return state;
