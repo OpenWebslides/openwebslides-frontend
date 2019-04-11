@@ -7,7 +7,7 @@ import { type Dispatch } from 'redux';
 import { Button, Icon, Menu } from 'semantic-ui-react';
 
 import { type TFunction } from 'types/i18next';
-import { type ModulesAction } from 'types/redux';
+import { type AppState, type ModulesAction } from 'types/redux';
 import contentItems from 'modules/contentItems';
 
 import * as m from '../../../model';
@@ -16,11 +16,24 @@ type PassedProps = {|
   topic: m.Topic,
 |};
 
-type DispatchProps = {|
-  onInsertContentItem: (contentItemType: contentItems.model.ContentItemType) => void,
+type StateProps = {|
+  currentlySelectedId: ?string,
 |};
 
-type Props = {| ...PassedProps, ...DispatchProps |};
+type DispatchProps = {|
+  onInsertContentItem: (
+    contentItemType: contentItems.model.ContentItemType,
+    currentlySelectedId: ?string,
+  ) => void,
+|};
+
+type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
+
+const mapStateToProps = (state: AppState): StateProps => {
+  return {
+    currentlySelectedId: contentItems.selectors.getCurrentlySelectedId(state),
+  };
+};
 
 const mapDispatchToProps = (
   dispatch: Dispatch<ModulesAction>,
@@ -29,13 +42,32 @@ const mapDispatchToProps = (
   const { topic } = props;
 
   return {
-    onInsertContentItem: (contentItemType: contentItems.model.ContentItemType): void => {
-      dispatch(contentItems.actions.add(
-        contentItemType,
-        { contextType: contentItems.model.contextTypes.PARENT,
+    onInsertContentItem: (
+      contentItemType: contentItems.model.ContentItemType,
+      currentlySelectedId: ?string,
+    ): void => {
+      let context: contentItems.model.ContentItemContext;
+
+      if (currentlySelectedId == null) {
+        // Append to topic
+        context = {
+          contextType: contentItems.model.contextTypes.PARENT,
           contextItemId: topic.rootContentItemId,
           indexInSiblingItems: -1,
-        },
+        };
+      }
+      else {
+        // Insert after current selection
+        context = {
+          contextType: contentItems.model.contextTypes.SIBLING,
+          contextItemId: currentlySelectedId,
+        };
+      }
+
+      dispatch(contentItems.actions.add(
+        contentItemType,
+        context,
+        // TODO: internationalization
         { text: 'Untitled heading' },
       ));
     },
@@ -44,8 +76,8 @@ const mapDispatchToProps = (
 
 class PureToolbar extends React.Component<Props> {
   handleInsertHeading = (): void => {
-    const { onInsertContentItem } = this.props;
-    onInsertContentItem(contentItems.model.contentItemTypes.HEADING);
+    const { onInsertContentItem, currentlySelectedId } = this.props;
+    onInsertContentItem(contentItems.model.contentItemTypes.HEADING, currentlySelectedId);
   };
 
   render(): React.Node {
@@ -156,7 +188,7 @@ class PureToolbar extends React.Component<Props> {
   }
 }
 
-const Toolbar = connect(null, mapDispatchToProps)(PureToolbar);
+const Toolbar = connect(mapStateToProps, mapDispatchToProps)(PureToolbar);
 
 export { PureToolbar };
 export default Toolbar;
