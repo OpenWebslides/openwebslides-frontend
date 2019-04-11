@@ -46,7 +46,7 @@ type ComponentState = {|
   isShareModalOpen: boolean,
 |};
 
-const { EditableDisplay: ContentItemEditableDisplay } = contentItems.components;
+const { RootEditableDisplay: RootContentItemEditableDisplay } = contentItems.components;
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { topicId } = props;
@@ -201,8 +201,8 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
             <Divider hidden={true} />
 
-            <ContentItemEditableDisplay
-              contentItemId={topic.rootContentItemId}
+            <RootContentItemEditableDisplay
+              rootContentItemId={topic.rootContentItemId}
               setTopicDirty={onSetDirty}
             />
 

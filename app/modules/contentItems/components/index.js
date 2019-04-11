@@ -2,10 +2,12 @@
 
 import EditableDisplay from './EditableDisplay';
 import HtmlDisplay from './HtmlDisplay';
+import RootEditableDisplay from './RootEditableDisplay';
 
 const components = {
   EditableDisplay,
   HtmlDisplay,
+  RootEditableDisplay,
 };
 
 /* istanbul ignore next */
