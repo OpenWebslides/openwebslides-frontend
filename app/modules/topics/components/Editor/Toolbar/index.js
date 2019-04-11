@@ -84,104 +84,106 @@ class PureToolbar extends React.Component<Props> {
     return (
       <Translation>
         {(t: TFunction): React.Node => (
-          <Menu secondary={true}>
-            <Menu.Item fitted={true}>
-              <Button.Group basic={true}>
-                <Button
-                  icon={true}
-                  title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.HEADING}`)}
-                  onClick={this.handleInsertHeading}
-                  data-test-id="toolbar-heading-button"
-                >
-                  <Icon name="heading" />
-                </Button>
-                <Button
-                  icon={true}
-                  title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.PARAGRAPH}`)}
-                  disabled={true}
-                >
-                  <Icon name="paragraph" />
-                </Button>
-                <Button
-                  icon={true}
-                  title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.LIST}`)}
-                  disabled={true}
-                >
-                  <Icon name="list ul" />
-                </Button>
-                <Button
-                  icon={true}
-                  title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.BLOCKQUOTE}`)}
-                  disabled={true}
-                >
-                  <Icon name="quote left" />
-                </Button>
-                <Button
-                  icon={true}
-                  title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.CODE}`)}
-                  disabled={true}
-                >
-                  <Icon name="code" />
-                </Button>
-              </Button.Group>
-            </Menu.Item>
-            <Menu.Item fitted={true}>
-              <Button.Group basic={true}>
-                <Button
-                  icon={true}
-                  title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.IMAGE}`)}
-                  disabled={true}
-                >
-                  <Icon name="image" />
-                </Button>
-                <Button
-                  icon={true}
-                  title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.VIDEO}`)}
-                  disabled={true}
-                >
-                  <Icon name="video" />
-                </Button>
-                <Button
-                  icon={true}
-                  title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.AUDIO}`)}
-                  disabled={true}
-                >
-                  <Icon name="music" />
-                </Button>
-                <Button
-                  icon={true}
-                  title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.IFRAME}`)}
-                  disabled={true}
-                >
-                  <Icon name="world" />
-                </Button>
-              </Button.Group>
-            </Menu.Item>
-            <Menu.Item fitted={true}>
-              <Button.Group basic={true}>
-                <Button
-                  icon={true}
-                  title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.COURSE_BREAK}`)}
-                  disabled={true}
-                >
-                  <Icon.Group>
-                    <Icon name="file alternate outline" />
-                    <Icon name="plus" corner="top right" />
-                  </Icon.Group>
-                </Button>
-                <Button
-                  icon={true}
-                  title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.SLIDE_BREAK}`)}
-                  disabled={true}
-                >
-                  <Icon.Group>
-                    <Icon name="image outline" />
-                    <Icon name="plus" corner="top right" />
-                  </Icon.Group>
-                </Button>
-              </Button.Group>
-            </Menu.Item>
-          </Menu>
+          <div className="toolbar">
+            <Menu secondary={true}>
+              <Menu.Item fitted={true}>
+                <Button.Group basic={true}>
+                  <Button
+                    icon={true}
+                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.HEADING}`)}
+                    onClick={this.handleInsertHeading}
+                    data-test-id="toolbar-heading-button"
+                  >
+                    <Icon name="heading" />
+                  </Button>
+                  <Button
+                    icon={true}
+                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.PARAGRAPH}`)}
+                    disabled={true}
+                  >
+                    <Icon name="paragraph" />
+                  </Button>
+                  <Button
+                    icon={true}
+                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.LIST}`)}
+                    disabled={true}
+                  >
+                    <Icon name="list ul" />
+                  </Button>
+                  <Button
+                    icon={true}
+                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.BLOCKQUOTE}`)}
+                    disabled={true}
+                  >
+                    <Icon name="quote left" />
+                  </Button>
+                  <Button
+                    icon={true}
+                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.CODE}`)}
+                    disabled={true}
+                  >
+                    <Icon name="code" />
+                  </Button>
+                </Button.Group>
+              </Menu.Item>
+              <Menu.Item fitted={true}>
+                <Button.Group basic={true}>
+                  <Button
+                    icon={true}
+                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.IMAGE}`)}
+                    disabled={true}
+                  >
+                    <Icon name="image" />
+                  </Button>
+                  <Button
+                    icon={true}
+                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.VIDEO}`)}
+                    disabled={true}
+                  >
+                    <Icon name="video" />
+                  </Button>
+                  <Button
+                    icon={true}
+                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.AUDIO}`)}
+                    disabled={true}
+                  >
+                    <Icon name="music" />
+                  </Button>
+                  <Button
+                    icon={true}
+                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.IFRAME}`)}
+                    disabled={true}
+                  >
+                    <Icon name="world" />
+                  </Button>
+                </Button.Group>
+              </Menu.Item>
+              <Menu.Item fitted={true}>
+                <Button.Group basic={true}>
+                  <Button
+                    icon={true}
+                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.COURSE_BREAK}`)}
+                    disabled={true}
+                  >
+                    <Icon.Group>
+                      <Icon name="file alternate outline" />
+                      <Icon name="plus" corner="top right" />
+                    </Icon.Group>
+                  </Button>
+                  <Button
+                    icon={true}
+                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.SLIDE_BREAK}`)}
+                    disabled={true}
+                  >
+                    <Icon.Group>
+                      <Icon name="image outline" />
+                      <Icon name="plus" corner="top right" />
+                    </Icon.Group>
+                  </Button>
+                </Button.Group>
+              </Menu.Item>
+            </Menu>
+          </div>
         )}
       </Translation>
     );

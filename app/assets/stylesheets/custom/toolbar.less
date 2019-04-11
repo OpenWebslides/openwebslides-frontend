@@ -1,0 +1,24 @@
+/*******************************
+            .toolbar
+*******************************/
+
+// .fixed is added to .sticky when floating
+.sticky.fixed .toolbar {
+  background: @white;
+
+  border: 1px solid @borderColor;
+  border-radius: @defaultBorderRadius;
+  box-shadow: @floatingShadow;
+
+  padding: .5em 1em;
+}
+
+.markdown-toolbar {
+  &.ui.secondary.menu {
+    margin-bottom: 0;
+  }
+
+  &.item {
+    margin: 0;
+  }
+}
