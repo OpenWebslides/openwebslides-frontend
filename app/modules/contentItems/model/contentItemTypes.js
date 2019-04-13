@@ -75,6 +75,7 @@ export type TaggableContentItemType = $Values<typeof taggableContentItemTypes>;
 
 // Group contentItemTypes that can have sub-items.
 export const subableContentItemTypes = {
+  ROOT,
   HEADING,
   PARAGRAPH,
   LIST,
@@ -86,10 +87,3 @@ export const subableContentItemTypes = {
   IFRAME,
 };
 export type SubableContentItemType = $Values<typeof subableContentItemTypes>;
-
-// Group contentItemTypes that can contain other contentItems.
-export const containerContentItemTypes = {
-  ROOT,
-  LIST,
-};
-export type ContainerContentItemType = $Values<typeof containerContentItemTypes>;

@@ -52,7 +52,7 @@ describe(`findAllAncestorItems`, (): void => {
     };
     dummyRoot = {
       ...dummyData.rootContentItem,
-      childItemIds: [dummyHeading1.id, dummyHeading2.id],
+      subItemIds: [dummyHeading1.id, dummyHeading2.id],
     };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
@@ -80,13 +80,7 @@ describe(`findAllAncestorItems`, (): void => {
     expect(actualResult[3]).toBe(dummyRoot);
   });
 
-  it(`returns an array containing all of the passed contentItem's ancestorItems, when the passed contentItem is a childItem`, (): void => {
-    const actualResult = lib.find.allAncestorItems(dummyHeading1, dummyContentItemsById);
-    expect(actualResult).toHaveLength(1);
-    expect(actualResult[0]).toBe(dummyRoot);
-  });
-
-  it(`returns an empty array, when the passed contentItem is neither a child- nor a subItem (i.e. is a ROOT)`, (): void => {
+  it(`returns an empty array, when the passed contentItem is not a subItem (i.e. is a ROOT)`, (): void => {
     const actualResult = lib.find.allAncestorItems(dummyRoot, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });

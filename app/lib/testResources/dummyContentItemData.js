@@ -11,21 +11,21 @@ export const rootContentItem: contentItems.model.RootContentItem = {
   id: 'dummyRootContentItem',
   type: contentItems.model.contentItemTypes.ROOT,
   isEditing: false,
-  childItemIds: [],
+  subItemIds: [],
 };
 
 export const rootContentItem2: contentItems.model.RootContentItem = {
   id: 'dummyRootContentItem2',
   type: contentItems.model.contentItemTypes.ROOT,
   isEditing: false,
-  childItemIds: [],
+  subItemIds: [],
 };
 
 export const rootContentItem3: contentItems.model.RootContentItem = {
   id: 'dummyRootContentItem3',
   type: contentItems.model.contentItemTypes.ROOT,
   isEditing: false,
-  childItemIds: [],
+  subItemIds: [],
 };
 
 export const headingContentItem: contentItems.model.HeadingContentItem = {

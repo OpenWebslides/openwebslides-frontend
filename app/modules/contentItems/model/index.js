@@ -124,33 +124,6 @@ export const editablePropsForSubableContentItem = [
 ];
 
 
-// CONTAINER ---------------------------------------------------------------------------------------
-
-// Additional props for 'container' contentItems.
-export type ContainerContentItem = {|
-  ...BaseContentItem,
-  // Limit contentItem type to containerContentItemTypes.
-  +type: types.ContainerContentItemType,
-  // Ids of contentItems that are direct children of this container.
-  +childItemIds: $ReadOnlyArray<string>,
-|};
-
-// Additional props for denormalized 'container' contentItems.
-export type DenormalizedContainerContentItem = {|
-  ...BaseContentItem,
-  // Limit contentItem type to containerContentItemTypes.
-  +type: types.ContainerContentItemType,
-  // ContentItems that are direct children of this container.
-  // eslint-disable-next-line no-use-before-define
-  +childItems: $ReadOnlyArray<DenormalizedContentItem>,
-|};
-
-// List of 'container' contentItem props that can be edited through propsForType.
-export const editablePropsForContainerContentItem = [
-  ...editablePropsForBaseContentItem,
-];
-
-
 // ROOT --------------------------------------------------------------------------------------------
 
 // Additional props for ROOT contentItems.
@@ -163,21 +136,21 @@ export type RootContentItemProps = {|
 // Type for a ROOT contentItem.
 export type RootContentItem = {|
   ...SymbolContentItem,
-  ...ContainerContentItem,
+  ...SubableContentItem,
   ...RootContentItemProps,
 |};
 
 // Type for a denormalized ROOT contentItem.
 export type DenormalizedRootContentItem = {|
   ...SymbolContentItem,
-  ...DenormalizedContainerContentItem,
+  ...DenormalizedSubableContentItem,
   ...RootContentItemProps,
 |};
 
 // List of ROOT contentItem props that can be edited through propsForType.
 export const editablePropsForRootContentItem = [
   ...editablePropsForSymbolContentItem,
-  ...editablePropsForContainerContentItem,
+  ...editablePropsForSubableContentItem,
 ];
 
 

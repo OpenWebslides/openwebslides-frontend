@@ -34,7 +34,7 @@ describe(`findNextSiblingItem`, (): void => {
     };
     dummyRoot = {
       ...dummyData.rootContentItem,
-      childItemIds: [dummyHeading1.id, dummyHeading2.id],
+      subItemIds: [dummyHeading1.id, dummyHeading2.id],
     };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
@@ -53,18 +53,12 @@ describe(`findNextSiblingItem`, (): void => {
     expect(actualResult).toBe(expectedResult);
   });
 
-  it(`returns the next siblingItem, when the passed contentItem is a childItem and not the last in its list of siblings`, (): void => {
-    const actualResult = lib.find.nextSiblingItem(dummyHeading1, dummyContentItemsById);
-    const expectedResult = dummyHeading2;
-    expect(actualResult).toBe(expectedResult);
-  });
-
   it(`returns NULL, when the passed contentItem is the last in its list of siblings`, (): void => {
     const actualResult = lib.find.nextSiblingItem(dummyParagraph12, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
-  it(`returns NULL, when the passed contentItem is neither a child- nor a subItem (i.e. is a ROOT)`, (): void => {
+  it(`returns NULL, when the passed contentItem is not a subItem (i.e. is a ROOT)`, (): void => {
     const actualResult = lib.find.nextSiblingItem(dummyRoot, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });

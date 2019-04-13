@@ -10,7 +10,7 @@ import * as a from '../actionTypes';
 import lib from '../lib';
 import * as m from '../model';
 
-const removeChildrenAndSubItemsFromState = (
+const removeSubItemsFromState = (
   state: m.ContentItemsState,
   contentItem: m.ContentItem,
 ): m.ContentItemsState => {
@@ -18,8 +18,8 @@ const removeChildrenAndSubItemsFromState = (
     ...state,
   };
 
-  if (_.includes(m.subableContentItemTypes, contentItem.type)) {
-    ((contentItem: any): m.SubableContentItem).subItemIds.forEach(
+  if (contentItem.subItemIds != null && contentItem.subItemIds.length > 0) {
+    contentItem.subItemIds.forEach(
       (subItemId: string): void => {
         const subItem = state.byId[subItemId];
         if (subItem == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
@@ -27,21 +27,7 @@ const removeChildrenAndSubItemsFromState = (
           ...newState,
           byId: _.omit(newState.byId, subItem.id),
         };
-        newState = removeChildrenAndSubItemsFromState(newState, subItem);
-      },
-    );
-  }
-
-  if (_.includes(m.containerContentItemTypes, contentItem.type)) {
-    ((contentItem: any): m.ContainerContentItem).childItemIds.forEach(
-      (childItemId: string): void => {
-        const childItem = state.byId[childItemId];
-        if (childItem == null) throw new CorruptedInternalStateError(`This shouldn't happen.`);
-        newState = {
-          ...newState,
-          byId: _.omit(newState.byId, childItem.id),
-        };
-        newState = removeChildrenAndSubItemsFromState(newState, childItem);
+        newState = removeSubItemsFromState(newState, subItem);
       },
     );
   }
@@ -63,7 +49,7 @@ const removeFromState = (
   if (contentItemToRemove == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
 
   // Find its context
-  const context = lib.find.extendedVerticalContext(contentItemToRemove, state.byId);
+  const context = lib.find.extendedSuperContext(contentItemToRemove, state.byId);
 
   // Remove it from the byId object
   newState = {
@@ -71,8 +57,8 @@ const removeFromState = (
     byId: _.omit(newState.byId, contentItemToRemove.id),
   };
 
-  // Remove its nested subItems and/or childItems from the byId object
-  newState = removeChildrenAndSubItemsFromState(newState, contentItemToRemove);
+  // Remove its nested subItems from the byId object
+  newState = removeSubItemsFromState(newState, contentItemToRemove);
 
   // Update the removed contentItem's context, if there is one
   if (context == null) {
@@ -81,7 +67,7 @@ const removeFromState = (
     }
   }
   else {
-    const editedParentOrSuperItem = lib.edit.removeChildOrSubItemIdFromContext(
+    const editedParentOrSuperItem = lib.edit.removeSubItemIdFromContext(
       context,
       contentItemToRemove.id,
       state.byId,

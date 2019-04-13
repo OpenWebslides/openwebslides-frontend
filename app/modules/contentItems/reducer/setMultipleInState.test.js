@@ -7,7 +7,7 @@ import * as m from '../model';
 
 import reducer from '.';
 
-describe(`SET_MULTIPLE_IN_STATE`, (): void => {
+describe(`setMultipleInState`, (): void => {
 
   it(`leaves the state unchanged, when the passed array is empty`, (): void => {
     const prevState: m.ContentItemsState = {

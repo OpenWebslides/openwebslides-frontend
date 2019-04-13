@@ -11,14 +11,14 @@ describe(`addToState`, (): void => {
 
   let dummyId: string;
   let dummyPlainTextType: m.ContentItemType;
-  let dummyContext: m.VerticalContext;
+  let dummyContext: m.SuperContext;
   let dummyPlainTextProps: $Shape<m.AllPropsForAllTypes>;
 
   beforeEach((): void => {
     dummyId = 'abcdefghij';
     dummyPlainTextType = m.contentItemTypes.HEADING;
     dummyContext = {
-      contextType: m.contextTypes.PARENT,
+      contextType: m.contextTypes.SUPER,
       contextItemId: 'uvwxyzabcdefghijklmn',
     };
     dummyPlainTextProps = {

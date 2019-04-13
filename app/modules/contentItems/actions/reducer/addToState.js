@@ -11,7 +11,7 @@ import * as m from '../../model';
 const addToState = (
   id: string,
   type: m.ContentItemType,
-  context: ?m.VerticalContext,
+  context: ?m.SuperContext,
   propsForType: $Shape<m.AllPropsForAllTypes>,
 ): a.AddToStateAction => {
   if (!(_.includes(m.plainTextContentItemTypes, type) || type === m.contentItemTypes.ROOT)) throw new NotYetImplementedError(`ContentItemType not yet supported`);

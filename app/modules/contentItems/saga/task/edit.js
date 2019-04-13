@@ -16,7 +16,7 @@ import selectors from '../../selectors';
 const { putAndReturn } = asyncRequests.lib;
 
 const findNextParagraphs = function* (
-  context: m.ExtendedVerticalContext,
+  context: m.ExtendedSuperContext,
 ): Saga<$ReadOnlyArray<m.ParagraphContentItem>> {
   const nextParagraphs = [];
   let currentSiblingItem: ?m.ContentItem;
@@ -38,7 +38,7 @@ const findNextParagraphs = function* (
 const convertParagraphIntoHeading = function* (contentItem: m.ParagraphContentItem): Saga<void> {
   // Get contentItem context data.
   const contentItemsById = yield select(selectors.getAllById);
-  const context = lib.find.extendedVerticalContext(contentItem, contentItemsById);
+  const context = lib.find.extendedSuperContext(contentItem, contentItemsById);
   if (context == null) throw new CorruptedInternalStateError('Corrupted contentItemsById: could not find context for PARAGRAPH contentItem.');
 
   // First, make sure the conversion doesn't result in invalid state;
@@ -47,7 +47,7 @@ const convertParagraphIntoHeading = function* (contentItem: m.ParagraphContentIt
   // happen in a more conventional editor, where if you insert a heading above existing paragraphs,
   // those paragraphs automatically 'belong' to that heading).
   const nextParagraphs = yield call(findNextParagraphs, context);
-  const moveContext: m.VerticalContext = {
+  const moveContext: m.SuperContext = {
     contextType: m.contextTypes.SUPER,
     contextItemId: contentItem.id,
     indexInSiblingItems: contentItem.subItemIds.length,

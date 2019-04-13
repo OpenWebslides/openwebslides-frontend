@@ -8,7 +8,7 @@ import * as m from '../model';
 
 import reducer from '.';
 
-describe(`CONVERT_IN_STATE`, (): void => {
+describe(`convertInState`, (): void => {
 
   let dummyBlockquote333: m.BlockquoteContentItem;
   let dummyParagraph332: m.ParagraphContentItem;
@@ -37,7 +37,7 @@ describe(`CONVERT_IN_STATE`, (): void => {
   it(`converts a PARAGRAPH into a HEADING, when the contentItem for the passed id is a PARAGRAPH and newType is HEADING`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
+        [dummyRoot.id]: { ...dummyRoot, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
         [dummyParagraph1.id]: { ...dummyParagraph1 },
         [dummyParagraph2.id]: { ...dummyParagraph2 },
         [dummyHeading3.id]: { ...dummyHeading3, subItemIds: [dummyParagraph31.id, dummyParagraph32.id, dummyHeading33.id] },
@@ -58,7 +58,7 @@ describe(`CONVERT_IN_STATE`, (): void => {
     };
     const nextState: m.ContentItemsState = {
       byId: {
-        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
+        [dummyRoot.id]: { ...dummyRoot, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
         [dummyParagraph1.id]: { ...dummyParagraph1 },
         [dummyParagraph2.id]: { ...dummyParagraph2, type: m.contentItemTypes.HEADING },
         [dummyHeading3.id]: { ...dummyHeading3, subItemIds: [dummyParagraph31.id, dummyParagraph32.id, dummyHeading33.id] },
@@ -81,7 +81,7 @@ describe(`CONVERT_IN_STATE`, (): void => {
   it(`converts a HEADING into a PARAGRAPH, when the contentItem for the passed id is a HEADING and newType is PARAGRAPH`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
+        [dummyRoot.id]: { ...dummyRoot, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
         [dummyParagraph1.id]: { ...dummyParagraph1 },
         [dummyParagraph2.id]: { ...dummyParagraph2 },
         [dummyHeading3.id]: { ...dummyHeading3, subItemIds: [dummyParagraph31.id, dummyParagraph32.id, dummyHeading33.id] },
@@ -102,7 +102,7 @@ describe(`CONVERT_IN_STATE`, (): void => {
     };
     const nextState: m.ContentItemsState = {
       byId: {
-        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
+        [dummyRoot.id]: { ...dummyRoot, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
         [dummyParagraph1.id]: { ...dummyParagraph1 },
         [dummyParagraph2.id]: { ...dummyParagraph2 },
         [dummyHeading3.id]: { ...dummyHeading3, subItemIds: [dummyParagraph31.id, dummyParagraph32.id, dummyHeading33.id] },
@@ -125,7 +125,7 @@ describe(`CONVERT_IN_STATE`, (): void => {
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id could not be found`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
+        [dummyRoot.id]: { ...dummyRoot, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
         [dummyParagraph1.id]: { ...dummyParagraph1 },
         [dummyParagraph2.id]: { ...dummyParagraph2 },
         [dummyHeading3.id]: { ...dummyHeading3, subItemIds: [dummyParagraph31.id, dummyParagraph32.id, dummyHeading33.id] },
@@ -153,7 +153,7 @@ describe(`CONVERT_IN_STATE`, (): void => {
   it(`throws an UnsupportedOperationError, when the contentItem for the passed id is not a PlainText contentItem`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
+        [dummyRoot.id]: { ...dummyRoot, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
         [dummyParagraph1.id]: { ...dummyParagraph1 },
         [dummyParagraph2.id]: { ...dummyParagraph2 },
         [dummyHeading3.id]: { ...dummyHeading3, subItemIds: [dummyParagraph31.id, dummyParagraph32.id, dummyHeading33.id] },
@@ -181,7 +181,7 @@ describe(`CONVERT_IN_STATE`, (): void => {
   it(`throws an InvalidArgumentError, when the contentItem for the passed id already has newType as its type`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
+        [dummyRoot.id]: { ...dummyRoot, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
         [dummyParagraph1.id]: { ...dummyParagraph1 },
         [dummyParagraph2.id]: { ...dummyParagraph2 },
         [dummyHeading3.id]: { ...dummyHeading3, subItemIds: [dummyParagraph31.id, dummyParagraph32.id, dummyHeading33.id] },
@@ -209,7 +209,7 @@ describe(`CONVERT_IN_STATE`, (): void => {
   it(`throws an UnsupportedOperationError, when the newType is not a PlainText type`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
+        [dummyRoot.id]: { ...dummyRoot, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
         [dummyParagraph1.id]: { ...dummyParagraph1 },
         [dummyParagraph2.id]: { ...dummyParagraph2 },
         [dummyHeading3.id]: { ...dummyHeading3, subItemIds: [dummyParagraph31.id, dummyParagraph32.id, dummyHeading33.id] },
@@ -237,7 +237,7 @@ describe(`CONVERT_IN_STATE`, (): void => {
   it(`throws an UnsupportedOperationError, when attempting to convert a HEADING that has other HEADINGS in its descendants to a PARAGRAPH`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
+        [dummyRoot.id]: { ...dummyRoot, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
         [dummyParagraph1.id]: { ...dummyParagraph1 },
         [dummyParagraph2.id]: { ...dummyParagraph2 },
         [dummyHeading3.id]: { ...dummyHeading3, subItemIds: [dummyParagraph31.id, dummyParagraph32.id, dummyHeading33.id] },
@@ -265,7 +265,7 @@ describe(`CONVERT_IN_STATE`, (): void => {
   it(`temporarily throws a NotYetImplementedError, when the contentItem for the passed id has a PlainText type different from HEADING or PARAGRAPH`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
+        [dummyRoot.id]: { ...dummyRoot, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
         [dummyParagraph1.id]: { ...dummyParagraph1 },
         [dummyParagraph2.id]: { ...dummyParagraph2 },
         [dummyHeading3.id]: { ...dummyHeading3, subItemIds: [dummyParagraph31.id, dummyParagraph32.id, dummyHeading33.id] },
@@ -293,7 +293,7 @@ describe(`CONVERT_IN_STATE`, (): void => {
   it(`temporarily throws a NotYetImplementedError, when the newType is a PlainText type different from HEADING or PARAGRAPH`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot.id]: { ...dummyRoot, childItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
+        [dummyRoot.id]: { ...dummyRoot, subItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id] },
         [dummyParagraph1.id]: { ...dummyParagraph1 },
         [dummyParagraph2.id]: { ...dummyParagraph2 },
         [dummyHeading3.id]: { ...dummyHeading3, subItemIds: [dummyParagraph31.id, dummyParagraph32.id, dummyHeading33.id] },

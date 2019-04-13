@@ -38,9 +38,6 @@ const createNewContentItemFromPropsForType = (
   if (_.includes(m.subableContentItemTypes, type)) {
     ((newContentItem: any): m.SubableContentItem).subItemIds = [];
   }
-  if (_.includes(m.containerContentItemTypes, type)) {
-    ((newContentItem: any): m.ContainerContentItem).childItemIds = [];
-  }
 
   switch (type) {
     case m.contentItemTypes.HEADING:
@@ -92,7 +89,7 @@ const addToState = (
     }
   }
   else {
-    const editedParentOrSuperItem = lib.edit.addChildOrSubItemIdToContext(
+    const editedSuperItem = lib.edit.addSubItemIdToContext(
       context,
       newContentItem.id,
       state.byId,
@@ -102,12 +99,12 @@ const addToState = (
       ...newState,
       byId: {
         ...newState.byId,
-        [editedParentOrSuperItem.id]: editedParentOrSuperItem,
+        [editedSuperItem.id]: editedSuperItem,
       },
     };
 
     try {
-      lib.edit.validateChildOrSubItemsInContext(context, newState.byId);
+      lib.edit.validateSubItemsInContext(context, newState.byId);
     }
     catch (e) {
       if (e instanceof CorruptedInternalStateError) {

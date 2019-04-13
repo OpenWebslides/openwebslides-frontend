@@ -30,7 +30,7 @@ describe(`removeAndTogglePreviousItem`, (): void => {
     };
     dummyRoot = {
       ...dummyData.rootContentItem,
-      childItemIds: [dummyHeading1.id],
+      subItemIds: [dummyHeading1.id],
     };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,

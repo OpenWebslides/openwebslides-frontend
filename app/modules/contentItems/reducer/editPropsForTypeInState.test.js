@@ -8,7 +8,7 @@ import * as m from '../model';
 
 import reducer from '.';
 
-describe(`EDIT_PROPS_FOR_TYPE_IN_STATE`, (): void => {
+describe(`editPropsForTypeInState`, (): void => {
 
   let dummyPlainTextContentItem: m.HeadingContentItem;
 

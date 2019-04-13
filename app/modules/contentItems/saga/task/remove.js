@@ -21,7 +21,7 @@ const removeHeading = function* (
   contentItemsById: m.ContentItemsById,
 ): Saga<void> {
   const previousSiblingItem = lib.find.previousSiblingItem(headingToRemove, contentItemsById);
-  let moveContext: m.VerticalContext;
+  let moveContext: m.SuperContext;
 
   // Note: we move the HEADING's subItems in such a way that the editor behaves in a similar way to
   // existing editors for 'flat' documents; i.e. when a heading is removed, the content that follows
@@ -39,7 +39,7 @@ const removeHeading = function* (
   }
   // Or, if there is no previous HEADING, to the location where the removed HEADING used to be.
   else {
-    const context = lib.find.extendedVerticalContext(headingToRemove, contentItemsById);
+    const context = lib.find.extendedSuperContext(headingToRemove, contentItemsById);
     if (context == null) throw new CorruptedInternalStateError(`Invalid contentItemsById: could not find parentOrSuperItem for a non-ROOT contentItem.`);
 
     moveContext = context;
@@ -59,7 +59,7 @@ const generatePlaceholderIfRootEmpty = function* (rootContentItemId: string): Sa
   const rootContentItem = yield select(selectors.getById, { id: rootContentItemId });
 
   // If the ROOT is empty, generate a placeholder item.
-  if (rootContentItem.childItemIds.length === 0) {
+  if (rootContentItem.subItemIds.length === 0) {
     yield call(putAndReturn, actions.generatePlaceholder(rootContentItemId));
   }
 };
@@ -77,7 +77,7 @@ const remove = function* (action: a.RemoveAction): Saga<void> {
   const rootContentItem = lib.find.closest(
     contentItemToRemove,
     contentItemsById,
-    lib.find.parentOrSuperItem,
+    lib.find.superItem,
     (contentItem: m.ContentItem) => (contentItem.type === m.contentItemTypes.ROOT),
   );
   if (rootContentItem == null) throw new CorruptedInternalStateError('Invalid contentItemsById: could not find ROOT.');
@@ -90,7 +90,7 @@ const remove = function* (action: a.RemoveAction): Saga<void> {
   // Then, remove the contentItem.
   yield put(actions.removeFromState(id));
 
-  // If the removed contentItem was the last child of the ROOT,
+  // If the removed contentItem was the last subItem of the ROOT,
   // generate a new placeholder so that the user still has a place to continue editing.
   yield call(generatePlaceholderIfRootEmpty, rootContentItem.id);
 };

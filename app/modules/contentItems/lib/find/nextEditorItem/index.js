@@ -15,7 +15,7 @@ const findClosestAncestorThatHasNextSiblingItem = (
   contentItemsById: m.ContentItemsById,
 ): ?m.ContentItem => {
   let currentContentItem: m.ContentItem = contentItem;
-  let candidateContext: ?m.ExtendedVerticalContext = find.extendedVerticalContext(
+  let candidateContext: ?m.ExtendedSuperContext = find.extendedSuperContext(
     currentContentItem,
     contentItemsById,
   );
@@ -26,7 +26,7 @@ const findClosestAncestorThatHasNextSiblingItem = (
       closestValidAncestor = currentContentItem;
     }
     currentContentItem = contentItemsById[candidateContext.contextItemId];
-    candidateContext = find.extendedVerticalContext(currentContentItem, contentItemsById);
+    candidateContext = find.extendedSuperContext(currentContentItem, contentItemsById);
   }
 
   return closestValidAncestor;
@@ -38,14 +38,14 @@ const findNextEditorItem: SingleFindFunction = (
 ): ?m.ContentItem => {
   if (contentItem == null) return null;
 
-  // First, see if the contentItem has subItems or childItems.
-  const allChildOrSubItems = find.allChildOrSubItems(contentItem, contentItemsById);
+  // First, see if the contentItem has subItems.
+  const allSubItems = find.allSubItems(contentItem, contentItemsById);
 
-  // If so, return the first sub- or childItem.
-  if (allChildOrSubItems.length !== 0) {
-    return allChildOrSubItems[0];
+  // If so, return the first subItem.
+  if (allSubItems.length !== 0) {
+    return allSubItems[0];
   }
-  // If the contentItem has no sub- or childItems
+  // If the contentItem has no subItems
   else {
     // Find the closest ancestor for which the previous ancestor on the path is not the last in
     // its list of siblings.

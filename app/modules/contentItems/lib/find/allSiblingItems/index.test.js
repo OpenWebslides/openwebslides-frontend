@@ -10,111 +10,55 @@ import * as m from '../../../model';
 
 describe(`findAllSiblingItems`, (): void => {
 
-  let dummyParagraph524: m.ParagraphContentItem;
-  let dummyParagraph523: m.ParagraphContentItem;
-  let dummyParagraph522: m.ParagraphContentItem;
-  let dummyParagraph521: m.ParagraphContentItem;
-  let dummyTestParentAndSuperItem52: any;
-  let dummyParagraph51: m.ParagraphContentItem;
-  let dummyHeading5: m.HeadingContentItem;
-  let dummyParagraph41: m.ParagraphContentItem;
-  let dummyHeading4: m.HeadingContentItem;
-  let dummyParagraph32: m.ParagraphContentItem;
-  let dummyParagraph31: m.ParagraphContentItem;
-  let dummyHeading3: m.HeadingContentItem;
-  let dummyParagraph2: m.ParagraphContentItem;
-  let dummyParagraph1: m.ParagraphContentItem;
+  let dummyParagraph23: m.ParagraphContentItem;
+  let dummyParagraph22: m.ParagraphContentItem;
+  let dummyParagraph21: m.ParagraphContentItem;
+  let dummyHeading2: m.HeadingContentItem;
+  let dummyParagraph11: m.ParagraphContentItem;
+  let dummyHeading1: m.HeadingContentItem;
   let dummyRoot: m.RootContentItem;
-  let dummyContentItemsById: any;
+  let dummyContentItemsById: m.ContentItemsById;
 
   beforeEach((): void => {
-    dummyParagraph524 = { ...dummyData.paragraphContentItem10 };
-    dummyParagraph523 = { ...dummyData.paragraphContentItem9 };
-    dummyParagraph522 = { ...dummyData.paragraphContentItem8 };
-    dummyParagraph521 = { ...dummyData.paragraphContentItem7 };
-    dummyTestParentAndSuperItem52 = {
-      id: 'dummyTestParentAndSuperItem52',
-      type: 'TEST_PARENT_AND_SUPER_TYPE',
-      isEditing: false,
-      childItemIds: [dummyParagraph521.id, dummyParagraph522.id],
-      subItemIds: [dummyParagraph523.id, dummyParagraph524.id],
-    };
-    dummyParagraph51 = { ...dummyData.paragraphContentItem6 };
-    dummyHeading5 = {
-      ...dummyData.headingContentItem3,
-      subItemIds: [dummyParagraph51.id, dummyTestParentAndSuperItem52.id],
-    };
-    dummyParagraph41 = { ...dummyData.paragraphContentItem5 };
-    dummyHeading4 = {
+    dummyParagraph23 = { ...dummyData.paragraphContentItem5 };
+    dummyParagraph22 = { ...dummyData.paragraphContentItem4 };
+    dummyParagraph21 = { ...dummyData.paragraphContentItem3 };
+    dummyHeading2 = {
       ...dummyData.headingContentItem2,
-      subItemIds: [dummyParagraph41.id],
+      subItemIds: [dummyParagraph21.id, dummyParagraph22.id, dummyParagraph23.id],
     };
-    dummyParagraph32 = { ...dummyData.paragraphContentItem4 };
-    dummyParagraph31 = { ...dummyData.paragraphContentItem3 };
-    dummyHeading3 = {
+    dummyParagraph11 = { ...dummyData.paragraphContentItem };
+    dummyHeading1 = {
       ...dummyData.headingContentItem,
-      subItemIds: [dummyParagraph31.id, dummyParagraph32.id],
+      subItemIds: [dummyParagraph11.id],
     };
-    dummyParagraph2 = { ...dummyData.paragraphContentItem2 };
-    dummyParagraph1 = { ...dummyData.paragraphContentItem };
     dummyRoot = {
       ...dummyData.rootContentItem,
-      childItemIds: [dummyParagraph1.id, dummyParagraph2.id, dummyHeading3.id, dummyHeading4.id, dummyHeading5.id],
+      subItemIds: [dummyHeading1.id, dummyHeading2.id],
     };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
-      [dummyParagraph1.id]: dummyParagraph1,
-      [dummyParagraph2.id]: dummyParagraph2,
-      [dummyHeading3.id]: dummyHeading3,
-      [dummyParagraph31.id]: dummyParagraph31,
-      [dummyParagraph32.id]: dummyParagraph32,
-      [dummyHeading4.id]: dummyHeading4,
-      [dummyParagraph41.id]: dummyParagraph41,
-      [dummyHeading5.id]: dummyHeading5,
-      [dummyParagraph51.id]: dummyParagraph51,
-      [dummyTestParentAndSuperItem52.id]: dummyTestParentAndSuperItem52,
-      [dummyParagraph521.id]: dummyParagraph521,
-      [dummyParagraph522.id]: dummyParagraph522,
-      [dummyParagraph523.id]: dummyParagraph523,
-      [dummyParagraph524.id]: dummyParagraph524,
+      [dummyHeading1.id]: dummyHeading1,
+      [dummyParagraph11.id]: dummyParagraph11,
+      [dummyHeading2.id]: dummyHeading2,
+      [dummyParagraph21.id]: dummyParagraph21,
+      [dummyParagraph22.id]: dummyParagraph22,
+      [dummyParagraph23.id]: dummyParagraph23,
     };
   });
 
   it(`returns an array containing all subItems of the passed contentItem's superItem, when the passed contentItem is a subItem`, (): void => {
-    const actualResult = lib.find.allSiblingItems(dummyParagraph32, dummyContentItemsById);
-    expect(actualResult).toHaveLength(2);
-    expect(actualResult[0]).toBe(dummyParagraph31);
-    expect(actualResult[1]).toBe(dummyParagraph32);
-  });
-
-  it(`returns an array containing all childItems of the passed contentItem's parentItem, when the passed contentItem is a childItem`, (): void => {
-    const actualResult = lib.find.allSiblingItems(dummyHeading4, dummyContentItemsById);
-    expect(actualResult).toHaveLength(5);
-    expect(actualResult[0]).toBe(dummyParagraph1);
-    expect(actualResult[1]).toBe(dummyParagraph2);
-    expect(actualResult[2]).toBe(dummyHeading3);
-    expect(actualResult[3]).toBe(dummyHeading4);
-    expect(actualResult[4]).toBe(dummyHeading5);
-  });
-
-  it(`returns an array containg all subItems of the passed contentItem's superItem, when the passed contentItem's parentOrSuperItem is a superItem as well as a parentItem`, (): void => {
-    const actualResult = lib.find.allSiblingItems(dummyParagraph523, dummyContentItemsById);
-    expect(actualResult).toHaveLength(2);
-    expect(actualResult[0]).toBe(dummyParagraph523);
-    expect(actualResult[1]).toBe(dummyParagraph524);
-  });
-
-  it(`returns an array containg all childItems of the passed contentItem's parentItem, when the passed contentItem's parentOrSuperItem is a superItem as well as a parentItem`, (): void => {
-    const actualResult = lib.find.allSiblingItems(dummyParagraph521, dummyContentItemsById);
-    expect(actualResult).toHaveLength(2);
-    expect(actualResult[0]).toBe(dummyParagraph521);
-    expect(actualResult[1]).toBe(dummyParagraph522);
+    const actualResult = lib.find.allSiblingItems(dummyParagraph22, dummyContentItemsById);
+    expect(actualResult).toHaveLength(3);
+    expect(actualResult[0]).toBe(dummyParagraph21);
+    expect(actualResult[1]).toBe(dummyParagraph22);
+    expect(actualResult[2]).toBe(dummyParagraph23);
   });
 
   it(`returns an array containing only the passed contentItem itself, when the passed contentItem doesn't have siblings`, (): void => {
-    const actualResult = lib.find.allSiblingItems(dummyParagraph41, dummyContentItemsById);
+    const actualResult = lib.find.allSiblingItems(dummyParagraph11, dummyContentItemsById);
     expect(actualResult).toHaveLength(1);
-    expect(actualResult[0]).toBe(dummyParagraph41);
+    expect(actualResult[0]).toBe(dummyParagraph11);
   });
 
   it(`returns an empty array, when the passed contentItem is NULL`, (): void => {
@@ -122,16 +66,16 @@ describe(`findAllSiblingItems`, (): void => {
     expect(actualResult).toHaveLength(0);
   });
 
-  it(`returns an empty array, when the passed contentItem is neither a child- nor a subItem (i.e. is a ROOT)`, (): void => {
+  it(`returns an empty array, when the passed contentItem is not a subItem (i.e. is a ROOT)`, (): void => {
     const actualResult = lib.find.allSiblingItems(dummyRoot, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });
 
   it(`throws a CorruptedInternalStateError, when the passed contentItemsById object contains inconsistencies`, (): void => {
-    dummyContentItemsById = _.omit(dummyContentItemsById, dummyParagraph31.id);
+    dummyContentItemsById = _.omit(dummyContentItemsById, dummyParagraph21.id);
 
     expect((): void => {
-      lib.find.allSiblingItems(dummyParagraph32, dummyContentItemsById);
+      lib.find.allSiblingItems(dummyParagraph22, dummyContentItemsById);
     }).toThrow(CorruptedInternalStateError);
   });
 

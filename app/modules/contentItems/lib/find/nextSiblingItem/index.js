@@ -2,10 +2,6 @@
 
 /**
  * Finds the siblingItem that comes immediately after the passed contentItem.
- * Note that 'siblings' refers to siblings of the same type; i.e. if the contentItem's
- * parentOrSuperItem is a parent- as well as a superItem, the returned siblings will be only its
- * subItems if the passed contentItem is a subItem, or only the childItems if the passed contentItem
- * is a childItem.
  */
 
 import { CorruptedInternalStateError } from 'errors';
@@ -22,7 +18,7 @@ const findNextSiblingItem: SingleFindFunction = (
 ): ?m.ContentItem => {
   if (contentItem == null) return null;
 
-  const context = find.extendedVerticalContext(contentItem, contentItemsById);
+  const context = find.extendedSuperContext(contentItem, contentItemsById);
   if (context == null) return null;
 
   const { indexInSiblingItems, siblingItemIds } = context;

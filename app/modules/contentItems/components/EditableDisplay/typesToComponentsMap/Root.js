@@ -18,12 +18,12 @@ const PureRoot = (props: Props): React.Node => {
 
   return (
     <div data-test-id="content-item-editable-display-root">
-      {contentItem.childItemIds.map((childItemId: string): React.Node => {
+      {contentItem.subItemIds.map((subItemId: string): React.Node => {
         return (
           <ContentItemEditableDisplay
             {..._.pick(props, passThroughProps)}
-            key={childItemId}
-            contentItemId={childItemId}
+            key={subItemId}
+            contentItemId={subItemId}
           />
         );
       })}

@@ -120,7 +120,7 @@ export const dummyRootContentItem1: contentItems.model.DenormalizedRootContentIt
   id: 'ldoivik3dh',
   type: contentItems.model.contentItemTypes.ROOT,
   isEditing: false,
-  childItems: [
+  subItems: [
     dummyHeadingContentItem1,
     dummyParagraphContentItem1,
   ],
@@ -130,7 +130,7 @@ export const dummyRootContentItem2: contentItems.model.DenormalizedRootContentIt
   id: 'ivjdoieo3k',
   type: contentItems.model.contentItemTypes.ROOT,
   isEditing: false,
-  childItems: [
+  subItems: [
     dummyHeadingContentItem2,
     dummyHeadingContentItem3,
   ],
@@ -140,7 +140,7 @@ export const dummyRootContentItem3: contentItems.model.DenormalizedRootContentIt
   id: 'ivjdoieo3k',
   type: contentItems.model.contentItemTypes.ROOT,
   isEditing: false,
-  childItems: [
+  subItems: [
     dummyHeadingContentItem4,
   ],
 };
@@ -149,7 +149,7 @@ export const dummyRootContentItem4: contentItems.model.DenormalizedRootContentIt
   id: 'ocodk2fdoi',
   type: contentItems.model.contentItemTypes.ROOT,
   isEditing: false,
-  childItems: [
+  subItems: [
     dummyHeadingContentItem5,
   ],
 };

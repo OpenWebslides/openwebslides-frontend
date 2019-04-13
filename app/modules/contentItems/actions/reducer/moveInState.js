@@ -5,7 +5,7 @@ import * as m from '../../model';
 
 const moveInState = (
   id: string,
-  nextContext: m.VerticalContext,
+  nextContext: m.SuperContext,
 ): a.MoveInStateAction => {
   return {
     type: a.MOVE_IN_STATE,

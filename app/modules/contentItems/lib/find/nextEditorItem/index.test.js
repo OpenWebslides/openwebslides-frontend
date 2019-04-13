@@ -44,7 +44,7 @@ describe(`findNextEditorItem`, (): void => {
     };
     dummyRoot = {
       ...dummyData.rootContentItem,
-      childItemIds: [dummyHeading1.id, dummyHeading2.id, dummyHeading3.id],
+      subItemIds: [dummyHeading1.id, dummyHeading2.id, dummyHeading3.id],
     };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
@@ -62,31 +62,25 @@ describe(`findNextEditorItem`, (): void => {
     };
   });
 
-  it(`returns the first childItem, when the passed contentItem is a parentItem`, (): void => {
-    const actualResult = lib.find.nextEditorItem(dummyRoot, dummyContentItemsById);
-    const expectedResult = dummyHeading1;
-    expect(actualResult).toBe(expectedResult);
-  });
-
   it(`returns the first subItem, when the passed contentItem is a superItem`, (): void => {
     const actualResult = lib.find.nextEditorItem(dummyHeading1, dummyContentItemsById);
     const expectedResult = dummyParagraph11;
     expect(actualResult).toBe(expectedResult);
   });
 
-  it(`returns the next sibling, when the passed contentItem has no subItems or childItems and is not the last in its list of siblings`, (): void => {
+  it(`returns the next sibling, when the passed contentItem has no subItems and is not the last in its list of siblings`, (): void => {
     const actualResult = lib.find.nextEditorItem(dummyParagraph11, dummyContentItemsById);
     const expectedResult = dummyParagraph12;
     expect(actualResult).toBe(expectedResult);
   });
 
-  it(`returns the parent- or superItem's next sibling, when the passed contentItem has no subItems or childItems and is the last in its list of siblings and its parent- or superItem is not the last in its list of siblings`, (): void => {
+  it(`returns the superItem's next sibling, when the passed contentItem has no subItems and is the last in its list of siblings and its superItem is not the last in its list of siblings`, (): void => {
     const actualResult = lib.find.nextEditorItem(dummyParagraph132, dummyContentItemsById);
     const expectedResult = dummyHeading14;
     expect(actualResult).toBe(expectedResult);
   });
 
-  it(`returns the next sibling of the first ancestorItem that has one, when the passed contentItem has no subItems or childItems and is the last in its list of siblings and its parent- or superItem is the last in its list of siblings`, (): void => {
+  it(`returns the next sibling of the first ancestorItem that has one, when the passed contentItem has no subItems and is the last in its list of siblings and its superItem is the last in its list of siblings`, (): void => {
     const actualResult = lib.find.nextEditorItem(dummyParagraph142, dummyContentItemsById);
     const expectedResult = dummyHeading2;
     expect(actualResult).toBe(expectedResult);

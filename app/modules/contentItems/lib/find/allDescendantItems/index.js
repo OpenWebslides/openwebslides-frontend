@@ -1,9 +1,9 @@
 // @flow
 
 /**
- * Finds all descendants (i.e. nested child- and subItems) for the passed contentItem.
- * Descendants are ordered like they would appear in the editor; i.e. each child- or subItem
- * of the passed contentItem is immediately followed by its own nested descendants.
+ * Finds all descendants (i.e. nested subItems) for the passed contentItem.
+ * Descendants are ordered like they would appear in the editor; i.e. each subItem of the passed
+ * contentItem is immediately followed by its own nested descendants.
  */
 
 import * as m from '../../../model';
@@ -18,12 +18,12 @@ const findAllDescendantItems: MultipleFindFunction = (
 ): $ReadOnlyArray<m.ContentItem> => {
   if (contentItem == null) return [];
 
-  const allChildOrSubItems = find.allChildOrSubItems(contentItem, contentItemsById);
+  const allSubItems = find.allSubItems(contentItem, contentItemsById);
   const allDescendantItems = [];
 
-  allChildOrSubItems.forEach((childOrSubItem: m.ContentItem): void => {
-    allDescendantItems.push(childOrSubItem);
-    allDescendantItems.push(...(findAllDescendantItems(childOrSubItem, contentItemsById)));
+  allSubItems.forEach((subItem: m.ContentItem): void => {
+    allDescendantItems.push(subItem);
+    allDescendantItems.push(...(findAllDescendantItems(subItem, contentItemsById)));
   });
 
   return allDescendantItems;

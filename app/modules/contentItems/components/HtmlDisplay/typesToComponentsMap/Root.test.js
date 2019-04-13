@@ -19,7 +19,7 @@ describe(`Root`, (): void => {
   beforeEach((): void => {
     dummyHeading2 = { ..._.omit(dummyData.headingContentItem4, 'subItemIds'), subItems: [] };
     dummyHeading1 = { ..._.omit(dummyData.headingContentItem, 'subItemIds'), subItems: [] };
-    dummyRoot = { ..._.omit(dummyData.rootContentItem, 'subItemIds'), childItems: [dummyHeading1, dummyHeading2] };
+    dummyRoot = { ..._.omit(dummyData.rootContentItem, 'subItemIds'), subItems: [dummyHeading1, dummyHeading2] };
   });
 
   it(`renders without errors`, (): void => {

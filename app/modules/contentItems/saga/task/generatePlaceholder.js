@@ -19,7 +19,7 @@ const generatePlaceholder = function* (
     headingContentItemId,
     m.contentItemTypes.HEADING,
     {
-      contextType: m.contextTypes.PARENT,
+      contextType: m.contextTypes.SUPER,
       contextItemId: rootContentItemId,
     },
     {

@@ -5,7 +5,7 @@ import { dummyContentItemData as dummyData } from 'lib/testResources';
 import lib from '../..';
 import * as m from '../../../model';
 
-describe(`findParentOrSuperItem`, (): void => {
+describe(`findSuperItem`, (): void => {
 
   let dummyParagraph23: m.ParagraphContentItem;
   let dummyParagraph22: m.ParagraphContentItem;
@@ -33,7 +33,7 @@ describe(`findParentOrSuperItem`, (): void => {
     };
     dummyRoot = {
       ...dummyData.rootContentItem,
-      childItemIds: [dummyHeading1.id, dummyHeading2.id],
+      subItemIds: [dummyHeading1.id, dummyHeading2.id],
     };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
@@ -47,25 +47,19 @@ describe(`findParentOrSuperItem`, (): void => {
     };
   });
 
-  it(`returns the parent item, when the passed contentItem is a childItem`, (): void => {
-    const actualResult = lib.find.parentOrSuperItem(dummyHeading2, dummyContentItemsById);
-    const expectedResult = dummyRoot;
-    expect(actualResult).toBe(expectedResult);
-  });
-
   it(`returns the super item, when the passed contentItem is a subItem`, (): void => {
-    const actualResult = lib.find.parentOrSuperItem(dummyParagraph21, dummyContentItemsById);
+    const actualResult = lib.find.superItem(dummyParagraph21, dummyContentItemsById);
     const expectedResult = dummyHeading2;
     expect(actualResult).toBe(expectedResult);
   });
 
-  it(`returns NULL, when no parent or super item could be found`, (): void => {
-    const actualResult = lib.find.parentOrSuperItem(dummyRoot, dummyContentItemsById);
+  it(`returns NULL, when no super item could be found`, (): void => {
+    const actualResult = lib.find.superItem(dummyRoot, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 
   it(`returns NULL, when the passed contentItem is NULL`, (): void => {
-    const actualResult = lib.find.parentOrSuperItem(null, dummyContentItemsById);
+    const actualResult = lib.find.superItem(null, dummyContentItemsById);
     expect(actualResult).toBeNull();
   });
 

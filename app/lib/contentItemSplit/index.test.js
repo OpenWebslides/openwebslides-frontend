@@ -5,7 +5,7 @@ import * as data from './dummyData';
 import split, { recursiveSplit } from '.';
 
 describe(`recursiveSplit`, (): void => {
-  it(`splits rootContentItem into childItems`, (): void => {
+  it(`splits rootContentItem into subItems`, (): void => {
     const result = recursiveSplit(data.dummyRootContentItem1);
 
     expect(result).toStrictEqual([data.dummyHeadingContentItem1, data.dummyParagraphContentItem1]);
@@ -57,7 +57,7 @@ describe(`split`, (): void => {
     const result = split(data.dummyRootContentItem1);
 
     expect(result).toHaveLength(2);
-    expect(result[0].childItems).toStrictEqual([data.dummyHeadingContentItem1]);
-    expect(result[1].childItems).toStrictEqual([data.dummyParagraphContentItem1]);
+    expect(result[0].subItems).toStrictEqual([data.dummyHeadingContentItem1]);
+    expect(result[1].subItems).toStrictEqual([data.dummyParagraphContentItem1]);
   });
 });
