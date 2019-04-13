@@ -22,7 +22,25 @@ const apiGetAllByTopicId = function* (action: a.ApiGetAllByTopicIdAction): Saga<
   const { attributes } = responseData.body.data;
 
   // TODO: validate response
+
   const contentItems: $ReadOnlyArray<m.ContentItem> = attributes.content;
+
+  // Backwards compatibility measure;
+  // automatically rename the ROOT childItemIds into subItemIds when a legacy topic is loaded.
+  contentItems.forEach((contentItem: m.ContentItem): void => {
+    if (
+      contentItem.type === m.contentItemTypes.ROOT
+      // This is intentional since it is a backwards compatibility issue:
+      // $FlowFixMe property is missing on ContentItem
+      && contentItem.childItemIds != null
+    ) {
+      /* eslint-disable no-param-reassign */
+      contentItem.subItemIds = contentItem.childItemIds;
+      delete contentItem.childItemIds;
+      /* eslint-enable */
+    }
+  });
+
   yield put(actions.setMultipleInState(contentItems));
 };
 

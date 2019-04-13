@@ -1,5 +1,6 @@
 // @flow
 
+import _ from 'lodash';
 import { call, select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
@@ -91,6 +92,32 @@ describe(`apiGetAllByTopicId`, (): void => {
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);
+  });
+
+  it(`renames childItemIds on the ROOT of legacy topics into subItemIds so that they match the new model`, (): void => {
+    const dummyValidRoot = { ...dummyData.rootContentItem };
+    const dummyLegacyRoot = { ..._.omit(dummyValidRoot, 'subItemIds'), childItemIds: dummyValidRoot.subItemIds };
+
+    const dummyAction = actions.apiGetAllByTopicId(dummyTopicId);
+    const dummyApiResponse = {
+      status: 200,
+      body: {
+        data: {
+          attributes: {
+            content: [dummyLegacyRoot],
+          },
+        },
+      },
+    };
+
+    return expectSaga(sagas.apiGetAllByTopicId, dummyAction)
+      .provide([
+        [select(platform.selectors.getUserAuth), null],
+        [call(api.topics.getContent, dummyTopicId, null), dummyApiResponse],
+      ])
+      .call(api.topics.getContent, dummyTopicId, null)
+      .put(actions.setMultipleInState([dummyValidRoot]))
+      .run();
   });
 
 });
