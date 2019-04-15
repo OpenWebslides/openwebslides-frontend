@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
 import { push } from 'connected-react-router';
-import { Button, Icon, Menu, Divider, Segment, Sticky, Ref, Rail } from 'semantic-ui-react';
+import { Button, Icon, Menu, Segment, Sticky, Ref } from 'semantic-ui-react';
 
 import { type TFunction } from 'types/i18next';
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
@@ -206,7 +206,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
               <Metadata topic={topic} />
             </Segment>
 
-            <Sticky context={context}>
+            <Sticky context={context} className="topic-editor--sticky-toolbar">
               <Toolbar topic={topic} />
             </Sticky>
             <div ref={this.handleContextRef}>

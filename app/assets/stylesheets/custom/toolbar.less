@@ -2,15 +2,20 @@
             .toolbar
 *******************************/
 
-// .fixed is added to .sticky when floating
-.sticky.fixed .toolbar {
-  background: @white;
+// Style for stickied toolbar
+.topic-editor--sticky-toolbar .sticky.fixed {
+  // Override style set in Semantic UI Sticky component
+  width: 100% !important;
+  left: 0 !important;
 
-  border: 1px solid @borderColor;
-  border-radius: @defaultBorderRadius;
-  box-shadow: @floatingShadow;
+  .toolbar {
+    background: @white;
 
-  padding: .5em 1em;
+    border-bottom: 1px solid @borderColor;
+    box-shadow: @floatingShadow;
+
+    padding: .5em 1em;
+  }
 }
 
 .markdown-toolbar {
