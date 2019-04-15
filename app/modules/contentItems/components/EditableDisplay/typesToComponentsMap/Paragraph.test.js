@@ -21,6 +21,8 @@ describe(`Paragraph`, (): void => {
       onEditPlainText: jest.fn(),
       onAddEmptySiblingItemBelow: jest.fn(),
       onRemove: jest.fn(),
+      onIndent: jest.fn(),
+      onReverseIndent: jest.fn(),
     };
   });
 
@@ -89,6 +91,36 @@ describe(`Paragraph`, (): void => {
     );
     enzymeWrapper.instance().onEditableTextContentRemove();
     expect(dummyFunctionProps.onRemove).toHaveBeenCalledWith(dummyParagraph.id);
+  });
+
+  describe(`onIndent`, (): void => {
+
+    it(`calls the passed onIndent function`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureParagraph
+          contentItem={dummyParagraph}
+          {...dummyFunctionProps}
+        />,
+      );
+      enzymeWrapper.instance().onIndent();
+      expect(dummyFunctionProps.onIndent).toHaveBeenCalledTimes(1);
+    });
+
+  });
+
+  describe(`onUnindent`, (): void => {
+
+    it(`calls the passed onUnindent function`, (): void => {
+      const enzymeWrapper = shallow(
+        <PureParagraph
+          contentItem={dummyParagraph}
+          {...dummyFunctionProps}
+        />,
+      );
+      enzymeWrapper.instance().onUnindent();
+      expect(dummyFunctionProps.onReverseIndent).toHaveBeenCalledTimes(1);
+    });
+
   });
 
 });

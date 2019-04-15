@@ -15,6 +15,8 @@ type PassedProps = {|
   onSubmit: (text: string) => void,
   onDeactivate: (addEmptyItem: boolean) => void,
   onRemove: () => void,
+  onIndent: () => void,
+  onUnindent: () => void,
 |};
 
 type Props = {| ...PassedProps |};
@@ -107,13 +109,14 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
 
   handleBlur = (event: SyntheticEvent<HTMLInputElement>): void => {
     const { onSubmit, onDeactivate } = this.props;
+
     this.setState({ isActive: false });
     onSubmit(event.currentTarget.value);
     onDeactivate(false);
   };
 
   renderAsInput(): React.Node {
-    const { multiline, maxLength } = this.props;
+    const { multiline, maxLength, onIndent, onUnindent } = this.props;
     const { text } = this.state;
 
     return (
@@ -123,7 +126,10 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
           onKeyEvent={this.handleKeyEvent}
           isExclusive={true}
         >
-          <MarkdownToolbar />
+          <MarkdownToolbar
+            onIndent={onIndent}
+            onUnindent={onUnindent}
+          />
           {(multiline)
             ? (
               <TextArea
