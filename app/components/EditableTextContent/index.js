@@ -5,6 +5,7 @@ import { Form, Input, TextArea } from 'semantic-ui-react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 import InlineMarkdown from 'components/InlineMarkdown';
+import MarkdownToolbar from 'components/MarkdownToolbar';
 
 type PassedProps = {|
   multiline: boolean,
@@ -122,6 +123,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
           onKeyEvent={this.handleKeyEvent}
           isExclusive={true}
         >
+          <MarkdownToolbar />
           {(multiline)
             ? (
               <TextArea
