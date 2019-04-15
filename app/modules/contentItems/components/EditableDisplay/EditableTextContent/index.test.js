@@ -116,6 +116,42 @@ describe(`EditableTextContent`, (): void => {
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
   });
 
+  it(`rerenders itself with the ghost div height, when it is in multiline input mode and receives a change event`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} multiline={true} />
+      </DummyProviders>,
+    );
+
+    const dummyHeight = 999;
+
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+    enzymeWrapper.find('EditableTextContent').instance().ghostRef = { clientHeight: dummyHeight };
+    enzymeWrapper.find(inputSelector).hostNodes().simulate('change');
+
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('EditableTextContent').instance().state.height).toStrictEqual(dummyHeight);
+    expect(enzymeWrapper.find(inputSelector).hostNodes().props().style.minHeight).toStrictEqual(dummyHeight);
+  });
+
+  it(`rerenders itself with the ghost div height, when it is in multiline input mode and receives a focus event`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} multiline={true} />
+      </DummyProviders>,
+    );
+
+    const dummyHeight = 999;
+
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+    enzymeWrapper.find('EditableTextContent').instance().ghostRef = { clientHeight: dummyHeight };
+    enzymeWrapper.find(inputSelector).hostNodes().simulate('focus');
+
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('EditableTextContent').instance().state.height).toStrictEqual(dummyHeight);
+    expect(enzymeWrapper.find(inputSelector).hostNodes().props().style.minHeight).toStrictEqual(dummyHeight);
+  });
+
   it(`rerenders itself, when it is in input mode and receives an input event`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>

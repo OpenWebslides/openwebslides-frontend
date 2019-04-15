@@ -29,6 +29,7 @@ type ComponentState = {|
   isActive: boolean,
   initialText: string,
   text: string,
+  height: number,
 |};
 
 const handleKeys = [
@@ -69,6 +70,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     isActive: false,
     initialText: '',
     text: '',
+    height: 0,
   };
   /* eslint-enable */
 
@@ -134,6 +136,10 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     else this.fieldRef = null;
   };
 
+  handleGhostRef = (c: ?HTMLDivElement): void => {
+    this.ghostRef = c;
+  };
+
   handleInput = (event: SyntheticInputEvent<HTMLInputElement>): void => {
     this.setState({ text: event.currentTarget.value });
   };
@@ -180,14 +186,27 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     });
   };
 
+  handleChange = (): void => {
+    this.setState({ height: this.ghostRef ? this.ghostRef.clientHeight : 0 });
+  };
+
   fieldRef: ?HTMLTextAreaElement | ?HTMLInputElement;
+
+  ghostRef: ?HTMLDivElement;
 
   renderAsInput(): React.Node {
     const { contentItem, multiline, maxLength, onIndent, onUnindent } = this.props;
-    const { text } = this.state;
+    const { text, height } = this.state;
 
     return (
       <Form>
+        <div
+          className="editable-text-content__ghost"
+          data-test-id="editable-text-content__ghost"
+          ref={this.handleGhostRef}
+        >
+          {text}
+        </div>
         <KeyboardEventHandler
           handleKeys={handleKeys}
           onKeyEvent={this.handleKeyEvent}
@@ -209,8 +228,11 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
                   value={text}
                   autoFocus={true}
                   maxLength={maxLength}
+                  style={{ minHeight: height }}
                   onInput={this.handleInput}
                   onBlur={this.handleBlur}
+                  onChange={this.handleChange}
+                  onFocus={this.handleChange}
                 />
               </Ref>
             )

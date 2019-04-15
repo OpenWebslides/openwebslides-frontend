@@ -4,6 +4,22 @@
 
 .editable-text-content {
   &__text {
+    padding: @inputPadding;
     cursor: pointer;
+  }
+
+  &__input {
+    overflow: hidden;
+  }
+
+  &__ghost {
+    // Mimick a textarea
+    &:extend(.ui.form textarea);
+    font-family: sans-serif;
+
+    // Hide the ghost input
+    visibility: hidden;
+    position: absolute;
+    top: 0;
   }
 }
