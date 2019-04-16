@@ -127,6 +127,26 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     onDeactivate(false);
   };
 
+  handleEdit = (prefix: string, suffix: string): void => {
+    const { text } = this.state;
+
+    if (this.fieldRef == null) return;
+
+    const start = this.fieldRef.selectionStart;
+    const end = this.fieldRef.selectionEnd;
+
+    this.setState({
+      text: `${text.slice(0, start)}${prefix}${text.slice(start, end)}${suffix}${text.slice(end)}`,
+    }, (): void => {
+      if (this.fieldRef != null) {
+        this.fieldRef.setSelectionRange(
+          start + prefix.length,
+          end + prefix.length,
+        );
+      }
+    });
+  };
+
   fieldRef: ?HTMLTextAreaElement | ?HTMLInputElement;
 
   renderAsInput(): React.Node {
@@ -141,9 +161,10 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
           isExclusive={true}
         >
           <MarkdownToolbar
+            contentItemId={contentItemId}
             onIndent={onIndent}
             onUnindent={onUnindent}
-            contentItemId={contentItemId}
+            onEdit={this.handleEdit}
             data-test-id="editable-text-content__markdown-toolbar"
           />
           {(multiline)

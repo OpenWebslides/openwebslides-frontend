@@ -275,6 +275,63 @@ describe(`EditableTextContent`, (): void => {
     expect(dummyFunctionProps.onRemove).not.toHaveBeenCalled();
   });
 
+  describe(`handleEdit`, (): void => {
+
+    it(`appends a prefix and a suffix into the text when the handleEdit function passed to the markdown toolbar is called and there is nothing selected`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
+        </DummyProviders>,
+      );
+
+      enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+
+      // Set cursor position to end of input field
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      enzymeWrapper.find(inputSelector).hostNodes().instance().setSelectionRange(dummyText.length, dummyText.length);
+
+      enzymeWrapper.find('PureMarkdownToolbar').props().onEdit('**', '**');
+
+      // Asterisks are appended
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      expect(enzymeWrapper.find('EditableTextContent').instance().state.text).toStrictEqual(`${dummyText}****`);
+
+      // Selection is now between the four asterisks
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      expect(enzymeWrapper.find(inputSelector).hostNodes().instance().selectionStart).toStrictEqual(dummyText.length + 2);
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      expect(enzymeWrapper.find(inputSelector).hostNodes().instance().selectionEnd).toStrictEqual(dummyText.length + 2);
+    });
+
+    it(`splices a prefix and a suffix into the text when the handleEdit function passed to the markdown toolbar is called and there is a selection`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
+        </DummyProviders>,
+      );
+
+      enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+
+      // Set selection to 'ipsum'
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      enzymeWrapper.find(inputSelector).hostNodes().instance().setSelectionRange(dummyText.indexOf('ipsum'), dummyText.indexOf('ipsum') + 'ipsum'.length);
+
+      enzymeWrapper.find('PureMarkdownToolbar').props().onEdit('**', '**');
+
+      // Asterisks surround 'ipsum'
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      const text = enzymeWrapper.find('EditableTextContent').instance().state.text;
+      expect(text).toStrictEqual(`${dummyText.replace('ipsum', '**ipsum**')}`);
+
+      // Selection is still 'ipsum'
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      expect(enzymeWrapper.find(inputSelector).hostNodes().instance().selectionStart).toStrictEqual(text.indexOf('ipsum'));
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      expect(enzymeWrapper.find(inputSelector).hostNodes().instance().selectionEnd).toStrictEqual(text.indexOf('ipsum') + 'ipsum'.length);
+    });
+
+  });
+
   describe(`getDerivedStateFromProps`, (): void => {
 
     it(`returns an object containing the new text and initialText, when the new initialText prop is different from the previous one`, (): void => {
