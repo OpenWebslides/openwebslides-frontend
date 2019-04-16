@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { Form, Input, TextArea } from 'semantic-ui-react';
+import { Form, Input, TextArea, Ref } from 'semantic-ui-react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 import InlineMarkdown from 'components/InlineMarkdown';
@@ -92,6 +92,17 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     }
   };
 
+  handleRef = (c: ?HTMLInputElement): void => {
+    this.fieldRef = c;
+  };
+
+  handleInputRef = (c: ?Input): void => {
+    if (c != null && c.inputRef != null) {
+      this.fieldRef = c.inputRef.current;
+    }
+    else this.fieldRef = null;
+  };
+
   handleInput = (event: SyntheticInputEvent<HTMLInputElement>): void => {
     this.setState({ text: event.currentTarget.value });
   };
@@ -116,6 +127,8 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     onDeactivate(false);
   };
 
+  fieldRef: ?HTMLTextAreaElement | ?HTMLInputElement;
+
   renderAsInput(): React.Node {
     const { contentItemId, multiline, maxLength, onIndent, onUnindent } = this.props;
     const { text } = this.state;
@@ -135,15 +148,17 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
           />
           {(multiline)
             ? (
-              <TextArea
-                className="editable-text-content__input editable-text-content__input--multiline"
-                data-test-id="editable-text-content__input"
-                value={text}
-                autoFocus={true}
-                maxLength={maxLength}
-                onInput={this.handleInput}
-                onBlur={this.handleBlur}
-              />
+              <Ref innerRef={this.handleRef}>
+                <TextArea
+                  className="editable-text-content__input editable-text-content__input--multiline"
+                  data-test-id="editable-text-content__input"
+                  value={text}
+                  autoFocus={true}
+                  maxLength={maxLength}
+                  onInput={this.handleInput}
+                  onBlur={this.handleBlur}
+                />
+              </Ref>
             )
             : (
               <Input
@@ -155,6 +170,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
                 maxLength={maxLength}
                 onInput={this.handleInput}
                 onBlur={this.handleBlur}
+                ref={this.handleInputRef}
               />
             )}
         </KeyboardEventHandler>
