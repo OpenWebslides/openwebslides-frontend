@@ -11,12 +11,14 @@ describe(`Toolbar`, (): void => {
 
   let dummyContentItemId: string;
 
+  let dummyOnEdit: any;
   let dummyOnIndent: any;
   let dummyOnUnindent: any;
 
   beforeEach((): void => {
     dummyContentItemId = 'dummyContentItemId';
 
+    dummyOnEdit = jest.fn();
     dummyOnIndent = jest.fn();
     dummyOnUnindent = jest.fn();
   });
@@ -25,6 +27,7 @@ describe(`Toolbar`, (): void => {
     const enzymeWrapper = shallow(
       <PureMarkdownToolbar
         contentItemId={dummyContentItemId}
+        onEdit={dummyOnEdit}
         onIndent={dummyOnIndent}
         onUnindent={dummyOnUnindent}
         canIndent={true}
@@ -34,11 +37,92 @@ describe(`Toolbar`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
+  it(`calls the passed onEdit function with the correct arguments when the STRONG button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <MarkdownToolbar
+          contentItemId={dummyContentItemId}
+          onEdit={dummyOnEdit}
+          canIndent={true}
+          canUnindent={true}
+        />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="markdown-toolbar-strong-button"]').hostNodes().simulate('click');
+    expect(dummyOnEdit).toHaveBeenCalledWith('**', '**');
+  });
+
+  it(`calls the passed onEdit function with the correct arguments when the EMPHASIS button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <MarkdownToolbar
+          contentItemId={dummyContentItemId}
+          onEdit={dummyOnEdit}
+          canIndent={true}
+          canUnindent={true}
+        />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="markdown-toolbar-emphasis-button"]').hostNodes().simulate('click');
+    expect(dummyOnEdit).toHaveBeenCalledWith('_', '_');
+  });
+
+  it(`calls the passed onEdit function with the correct arguments when the CODE button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <MarkdownToolbar
+          contentItemId={dummyContentItemId}
+          onEdit={dummyOnEdit}
+          canIndent={true}
+          canUnindent={true}
+        />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="markdown-toolbar-code-button"]').hostNodes().simulate('click');
+    expect(dummyOnEdit).toHaveBeenCalledWith('`', '`');
+  });
+
+  it(`calls the passed onEdit function with the correct arguments when the STRIKETHROUGH button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <MarkdownToolbar
+          contentItemId={dummyContentItemId}
+          onEdit={dummyOnEdit}
+          canIndent={true}
+          canUnindent={true}
+        />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="markdown-toolbar-strikethrough-button"]').hostNodes().simulate('click');
+    expect(dummyOnEdit).toHaveBeenCalledWith('~~', '~~');
+  });
+
+  it(`calls the passed onEdit function with the correct arguments when the LINK button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <MarkdownToolbar
+          contentItemId={dummyContentItemId}
+          onEdit={dummyOnEdit}
+          canIndent={true}
+          canUnindent={true}
+        />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="markdown-toolbar-link-button"]').hostNodes().simulate('click');
+    expect(dummyOnEdit).toHaveBeenCalledWith('[', '](url)');
+  });
+
   it(`calls the passed onIndent function when the INDENT button is clicked`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <PureMarkdownToolbar
           contentItemId={dummyContentItemId}
+          onEdit={dummyOnEdit}
           onIndent={dummyOnIndent}
           onUnindent={dummyOnUnindent}
           canIndent={true}
@@ -56,6 +140,7 @@ describe(`Toolbar`, (): void => {
       <DummyProviders>
         <PureMarkdownToolbar
           contentItemId={dummyContentItemId}
+          onEdit={dummyOnEdit}
           onIndent={dummyOnIndent}
           onUnindent={dummyOnUnindent}
           canIndent={true}
@@ -73,8 +158,6 @@ describe(`Toolbar`, (): void => {
       <DummyProviders>
         <MarkdownToolbar
           contentItemId={dummyContentItemId}
-          onIndent={dummyOnIndent}
-          onUnindent={dummyOnUnindent}
           canIndent={false}
           canUnindent={true}
         />
@@ -89,8 +172,6 @@ describe(`Toolbar`, (): void => {
       <DummyProviders>
         <MarkdownToolbar
           contentItemId={dummyContentItemId}
-          onIndent={dummyOnIndent}
-          onUnindent={dummyOnUnindent}
           canIndent={true}
           canUnindent={false}
         />
