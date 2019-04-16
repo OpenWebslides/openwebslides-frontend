@@ -9,6 +9,7 @@ import EditableTextContent from '.';
 
 describe(`EditableTextContent`, (): void => {
 
+  let dummyContentItemId: string;
   let dummyText: string;
 
   let dummyFunctionProps: any;
@@ -19,6 +20,7 @@ describe(`EditableTextContent`, (): void => {
   let inputSelector: string;
 
   beforeEach((): void => {
+    dummyContentItemId = 'dummyContentItemId';
     dummyText = 'Lorem ipsum dolor sit amet.';
 
     dummyFunctionProps = {
@@ -41,7 +43,7 @@ describe(`EditableTextContent`, (): void => {
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
-      <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />,
+      <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
@@ -49,7 +51,7 @@ describe(`EditableTextContent`, (): void => {
   it(`renders its text prop`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
     expect(enzymeWrapper.text()).toContain(dummyText);
@@ -58,7 +60,7 @@ describe(`EditableTextContent`, (): void => {
   it(`renders itself in text mode, when it has not been interacted with yet`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
     expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(1);
@@ -68,7 +70,7 @@ describe(`EditableTextContent`, (): void => {
   it(`renders itself in input mode, when it is in text mode and receives a click event`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
@@ -79,7 +81,7 @@ describe(`EditableTextContent`, (): void => {
   it(`renders itself in text mode, when it is in singleline input mode and receives a blur event`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
@@ -88,10 +90,20 @@ describe(`EditableTextContent`, (): void => {
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
   });
 
+  it(`renders a markdown toolbar when it is in input mode`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
+      </DummyProviders>,
+    );
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+    expect(enzymeWrapper.find('[data-test-id="editable-text-content__markdown-toolbar"]')).not.toHaveLength(0);
+  });
+
   it(`renders itself in text mode, when it is in multiline input mode and receives a blur event`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} multiline={true} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} multiline={true} />
       </DummyProviders>,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
@@ -103,7 +115,7 @@ describe(`EditableTextContent`, (): void => {
   it(`rerenders itself, when it is in input mode and receives an input event`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
@@ -116,7 +128,7 @@ describe(`EditableTextContent`, (): void => {
   it(`renders itself with a maxLength, if one was defined`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} maxLength={20} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} maxLength={20} />
       </DummyProviders>,
     );
 
@@ -127,7 +139,7 @@ describe(`EditableTextContent`, (): void => {
   it(`renders itself without a maxLength, if one was not defined`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
 
@@ -138,7 +150,7 @@ describe(`EditableTextContent`, (): void => {
   it(`renders itself in input mode, when it is in text mode and receives a left button click event`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
@@ -151,7 +163,7 @@ describe(`EditableTextContent`, (): void => {
   it(`renders itself in text mode, when it is in text mode and receives a right button click event`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 2 });
@@ -165,7 +177,7 @@ describe(`EditableTextContent`, (): void => {
     const dummyPreventDefault = jest.fn();
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('mouseDown', { preventDefault: dummyPreventDefault });
@@ -175,7 +187,7 @@ describe(`EditableTextContent`, (): void => {
   it(`renders itself in text mode and calls the passed onSubmit and onDeactivate functions with the correct arguments, when it is in input mode and receives a blur event`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
@@ -195,7 +207,7 @@ describe(`EditableTextContent`, (): void => {
   it(`calls the passed onSubmit and onDeactive functions, when it is in input mode and the ENTER key is pressed`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
@@ -213,7 +225,7 @@ describe(`EditableTextContent`, (): void => {
   it(`resets the text value and calls the passed onDeactive function, when it is in input mode and the ESC key is pressed`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
@@ -232,7 +244,7 @@ describe(`EditableTextContent`, (): void => {
   it(`calls the passed onRemove function, when it is in input mode, the text value is empty and the BACKSPACE key is pressed`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
@@ -249,7 +261,7 @@ describe(`EditableTextContent`, (): void => {
   it(`does not call the passed onRemove function, when it is in input mode, and the text value is not empty and the BACKSPACE key is pressed`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItemId={dummyContentItemId} {...dummyFunctionProps} initialText={dummyText} />
       </DummyProviders>,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
@@ -274,6 +286,7 @@ describe(`EditableTextContent`, (): void => {
         text: dummyText,
       };
       const dummyNextProps = {
+        contentItemId: dummyContentItemId,
         multiline: false,
         maxLength: undefined,
         initialText: dummyNewText,
@@ -299,6 +312,7 @@ describe(`EditableTextContent`, (): void => {
         text: dummyText,
       };
       const dummyNextProps = {
+        contentItemId: dummyContentItemId,
         multiline: false,
         maxLength: undefined,
         initialText: dummyText,
@@ -324,6 +338,7 @@ describe(`EditableTextContent`, (): void => {
         text: dummyText,
       };
       const dummyNextProps = {
+        contentItemId: dummyContentItemId,
         multiline: false,
         maxLength: undefined,
         initialText: dummyText,

@@ -67,6 +67,7 @@ class PureParagraph extends React.Component<Props> {
         iconName="paragraph"
       >
         <EditableTextContent
+          contentItemId={contentItem.id}
           multiline={true}
           initialText={contentItem.text}
           initialIsActive={contentItem.isEditing}

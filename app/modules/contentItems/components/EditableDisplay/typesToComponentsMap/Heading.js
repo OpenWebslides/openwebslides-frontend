@@ -67,6 +67,7 @@ class PureHeading extends React.Component<Props> {
         iconName="header"
       >
         <EditableTextContent
+          contentItemId={contentItem.id}
           maxLength={100}
           initialText={contentItem.text}
           initialIsActive={contentItem.isEditing}

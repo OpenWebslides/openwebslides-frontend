@@ -1,20 +1,38 @@
 // @flow
 
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Translation } from 'react-i18next';
 import { Button, Menu } from 'semantic-ui-react';
 
+import { type AppState } from 'types/redux';
 import { type TFunction } from 'types/i18next';
+import contentItems from 'modules/contentItems';
 
 type PassedProps = {|
+  contentItemId: ?string,
   onIndent: () => void,
   onUnindent: () => void,
 |};
 
-type Props = {| ...PassedProps |};
+type StateProps = {|
+  canIndent: boolean,
+  canUnindent: boolean,
+|};
+
+type Props = {| ...PassedProps, ...StateProps |};
+
+const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
+  const { contentItemId } = props;
+
+  return {
+    canIndent: contentItems.selectors.canIndent(state, { id: contentItemId }),
+    canUnindent: contentItems.selectors.canUnindent(state, { id: contentItemId }),
+  };
+};
 
 const PureMarkdownToolbar = (props: Props): React.Node => {
-  const { onIndent, onUnindent } = props;
+  const { canIndent, canUnindent, onIndent, onUnindent } = props;
 
   return (
     <Translation>
@@ -56,12 +74,14 @@ const PureMarkdownToolbar = (props: Props): React.Node => {
                 title={t('contentItems:structure.unindent')}
                 onClick={onUnindent}
                 data-test-id="markdown-toolbar-unindent-button"
+                disabled={!canUnindent}
               />
               <Button
                 icon="indent"
                 title={t('contentItems:structure.indent')}
                 onClick={onIndent}
                 data-test-id="markdown-toolbar-indent-button"
+                disabled={!canIndent}
               />
             </Button.Group>
           </Menu.Item>
@@ -71,7 +91,7 @@ const PureMarkdownToolbar = (props: Props): React.Node => {
   );
 };
 
-const MarkdownToolbar = PureMarkdownToolbar;
+const MarkdownToolbar = connect(mapStateToProps, null)(PureMarkdownToolbar);
 
 export { PureMarkdownToolbar };
 export default MarkdownToolbar;

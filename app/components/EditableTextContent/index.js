@@ -8,6 +8,7 @@ import InlineMarkdown from 'components/InlineMarkdown';
 import MarkdownToolbar from 'components/MarkdownToolbar';
 
 type PassedProps = {|
+  contentItemId: string,
   multiline: boolean,
   maxLength: ?number,
   initialText: string,
@@ -116,7 +117,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
   };
 
   renderAsInput(): React.Node {
-    const { multiline, maxLength, onIndent, onUnindent } = this.props;
+    const { contentItemId, multiline, maxLength, onIndent, onUnindent } = this.props;
     const { text } = this.state;
 
     return (
@@ -129,6 +130,8 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
           <MarkdownToolbar
             onIndent={onIndent}
             onUnindent={onUnindent}
+            contentItemId={contentItemId}
+            data-test-id="editable-text-content__markdown-toolbar"
           />
           {(multiline)
             ? (
