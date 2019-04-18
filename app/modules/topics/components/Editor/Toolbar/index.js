@@ -51,7 +51,7 @@ const mapDispatchToProps = (
       if (currentlySelectedId == null) {
         // Append to topic
         context = {
-          contextType: contentItems.model.contextTypes.PARENT,
+          contextType: contentItems.model.contextTypes.SUPER,
           contextItemId: topic.rootContentItemId,
           indexInSiblingItems: -1,
         };

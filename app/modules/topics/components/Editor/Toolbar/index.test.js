@@ -86,7 +86,7 @@ describe(`Toolbar`, (): void => {
     expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
       contentItems.model.contentItemTypes.HEADING,
       {
-        contextType: contentItems.model.contextTypes.PARENT,
+        contextType: contentItems.model.contextTypes.SUPER,
         contextItemId: dummyTopic.rootContentItemId,
         indexInSiblingItems: -1,
       },
