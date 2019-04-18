@@ -148,7 +148,7 @@ describe(`RootEditableDisplay`, (): void => {
     (enzymeWrapper.find('PureRootEditableDisplay').instance(): any).handleKeyEvent('left', dummyEvent);
 
     expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.selectInState(m.selectionTypes.PARENT));
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.selectInState(m.selectionTypes.SUPER));
   });
 
   it(`dispatches a SELECT action with the correct arguments when the RIGHT key is pressed`, (): void => {
@@ -165,7 +165,7 @@ describe(`RootEditableDisplay`, (): void => {
     (enzymeWrapper.find('PureRootEditableDisplay').instance(): any).handleKeyEvent('right', dummyEvent);
 
     expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
-    expect(dummyDispatch).toHaveBeenCalledWith(actions.selectInState(m.selectionTypes.CHILD));
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.selectInState(m.selectionTypes.SUB));
   });
 
   it(`dispatches a TOGGLE_EDITING action with the correct arguments when the ENTER key is pressed, and there is a currently selected contentItem`, (): void => {

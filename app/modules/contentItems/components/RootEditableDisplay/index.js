@@ -81,10 +81,10 @@ class PureRootEditableDisplay extends React.Component<Props> {
         select(m.selectionTypes.NEXT, currentlySelectedId);
         break;
       case 'left':
-        select(m.selectionTypes.PARENT, currentlySelectedId);
+        select(m.selectionTypes.SUPER, currentlySelectedId);
         break;
       case 'right':
-        select(m.selectionTypes.CHILD, currentlySelectedId);
+        select(m.selectionTypes.SUB, currentlySelectedId);
         break;
       case 'enter':
         toggleEditing(currentlySelectedId);

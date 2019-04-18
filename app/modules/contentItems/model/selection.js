@@ -4,14 +4,14 @@
 
 // SelectionTypes ----------------------------------------------------------------------------------
 
-const PARENT: 'contentItems/selectionTypes/PARENT' = 'contentItems/selectionTypes/PARENT';
-const CHILD: 'contentItems/selectionTypes/CHILD' = 'contentItems/selectionTypes/CHILD';
+const SUPER: 'contentItems/selectionTypes/SUPER' = 'contentItems/selectionTypes/SUPER';
+const SUB: 'contentItems/selectionTypes/SUB' = 'contentItems/selectionTypes/SUB';
 const NEXT: 'contentItems/selectionTypes/NEXT' = 'contentItems/selectionTypes/NEXT';
 const PREVIOUS: 'contentItems/selectionTypes/PREVIOUS' = 'contentItems/selectionTypes/PREVIOUS';
 
 const selectionTypes = {
-  PARENT,
-  CHILD,
+  SUPER,
+  SUB,
   NEXT,
   PREVIOUS,
 };

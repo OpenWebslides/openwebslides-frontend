@@ -15,19 +15,19 @@ const selectInState = (
 
   let newContentItem: ?m.ContentItem;
 
-  if (action.payload.selection === m.selectionTypes.PARENT) {
-    // Select parent of current contentItem
+  if (action.payload.selection === m.selectionTypes.SUPER) {
+    // Select super contentItem of current contentItem
     newContentItem = lib.find.superItem(currentContentItem, state.byId);
   }
-  else if (action.payload.selection === m.selectionTypes.CHILD) {
-    // Select first child of current contentItem
+  else if (action.payload.selection === m.selectionTypes.SUB) {
+    // Select first sub contentItem of current contentItem
     newContentItem = lib.find.allSubItems(currentContentItem, state.byId)[0];
   }
   else if (action.payload.selection === m.selectionTypes.NEXT) {
-    // Select next sibling of current contentItem
+    // Select next sibling contentItem of current contentItem
     newContentItem = lib.find.nextSiblingItem(currentContentItem, state.byId);
 
-    // Or next item in editor order if there are no more siblings
+    // Or next contentItem in editor order if there are no more siblings
     if (newContentItem == null) {
       newContentItem = lib.find.nextEditorItem(currentContentItem, state.byId);
     }

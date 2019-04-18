@@ -59,9 +59,9 @@ describe(`selectInState`, (): void => {
     expect(resultState.currentlySelectedId).toBe(prevState.currentlySelectedId);
   });
 
-  describe(`when PARENT is passed as selectionType`, (): void => {
+  describe(`when SUPER is passed as selectionType`, (): void => {
 
-    it(`sets the parent or super contentItem as currently selected contentItem in the state`, (): void => {
+    it(`sets the super contentItem as currently selected contentItem in the state`, (): void => {
       const prevState: m.ContentItemsState = {
         byId: dummyContentItemsById,
         currentlySelectedId: dummyParagraph1.id,
@@ -69,7 +69,7 @@ describe(`selectInState`, (): void => {
       const selectInStateAction: a.SelectInStateAction = {
         type: a.SELECT_IN_STATE,
         payload: {
-          selection: m.selectionTypes.PARENT,
+          selection: m.selectionTypes.SUPER,
         },
       };
       const nextState: m.ContentItemsState = {
@@ -83,7 +83,7 @@ describe(`selectInState`, (): void => {
       expect(resultState.currentlySelectedId).not.toBe(prevState.currentlySelectedId);
     });
 
-    it(`leaves the state unchanged, when the currently selected contentItem has no parent`, (): void => {
+    it(`leaves the state unchanged, when the currently selected contentItem has no super contentItem`, (): void => {
       const prevState: m.ContentItemsState = {
         byId: dummyContentItemsById,
         currentlySelectedId: dummyRoot.id,
@@ -91,7 +91,7 @@ describe(`selectInState`, (): void => {
       const selectInStateAction: a.SelectInStateAction = {
         type: a.SELECT_IN_STATE,
         payload: {
-          selection: m.selectionTypes.PARENT,
+          selection: m.selectionTypes.SUPER,
         },
       };
       const resultState = reducer(prevState, selectInStateAction);
@@ -102,9 +102,9 @@ describe(`selectInState`, (): void => {
 
   });
 
-  describe(`when CHILD is passed as selectionType`, (): void => {
+  describe(`when SUB is passed as selectionType`, (): void => {
 
-    it(`sets the first child or sub contentItem as currently selected contentItem in the state`, (): void => {
+    it(`sets the first sub contentItem as currently selected contentItem in the state`, (): void => {
       const prevState: m.ContentItemsState = {
         byId: dummyContentItemsById,
         currentlySelectedId: dummyHeading1.id,
@@ -112,7 +112,7 @@ describe(`selectInState`, (): void => {
       const selectInStateAction: a.SelectInStateAction = {
         type: a.SELECT_IN_STATE,
         payload: {
-          selection: m.selectionTypes.CHILD,
+          selection: m.selectionTypes.SUB,
         },
       };
       const nextState: m.ContentItemsState = {
@@ -126,7 +126,7 @@ describe(`selectInState`, (): void => {
       expect(resultState.currentlySelectedId).not.toBe(prevState.currentlySelectedId);
     });
 
-    it(`leaves the state unchanged, when the currently selected contentItem has no children or sub contentItems`, (): void => {
+    it(`leaves the state unchanged, when the currently selected contentItem has no sub contentItems`, (): void => {
       const prevState: m.ContentItemsState = {
         byId: dummyContentItemsById,
         currentlySelectedId: dummyParagraph1.id,
@@ -134,7 +134,7 @@ describe(`selectInState`, (): void => {
       const selectInStateAction: a.SelectInStateAction = {
         type: a.SELECT_IN_STATE,
         payload: {
-          selection: m.selectionTypes.CHILD,
+          selection: m.selectionTypes.SUB,
         },
       };
       const resultState = reducer(prevState, selectInStateAction);
