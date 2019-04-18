@@ -15,6 +15,7 @@ describe(`EditableTextContent`, (): void => {
   let dummyText: string;
 
   let dummyFunctionProps: any;
+  let dummyHandleEdit: any;
 
   let dummyEvent: any;
 
@@ -32,6 +33,7 @@ describe(`EditableTextContent`, (): void => {
       onIndent: jest.fn(),
       onUnindent: jest.fn(),
     };
+    dummyHandleEdit = jest.fn();
 
     dummyEvent = { preventDefault: jest.fn() };
 
@@ -426,6 +428,65 @@ describe(`EditableTextContent`, (): void => {
       // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
       expect(enzymeWrapper.find('EditableTextContent').instance().state.text).toStrictEqual('[lorem](url)');
     });
+
+  });
+
+  describe(`keyboard events`, (): void => {
+
+    it(`calls the handleEdit function with the correct arguments when the CTRL+B key is pressed`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} />
+        </DummyProviders>,
+      );
+
+      // Mock handleEdit function
+      (enzymeWrapper.find('EditableTextContent').instance(): any).handleEdit = dummyHandleEdit;
+
+      // Enzyme does not support event propagation yet, so we cannot test out
+      // the handleKeyEvent callback by simulating keyboard events
+      (enzymeWrapper.find('EditableTextContent').instance(): any).handleKeyEvent('ctrl+b', dummyEvent);
+
+      expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+      expect(dummyHandleEdit).toHaveBeenCalledWith(m.markdownTypes.STRONG);
+    });
+
+    it(`calls the handleEdit function with the correct arguments when the CTRL+I key is pressed`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} />
+        </DummyProviders>,
+      );
+
+      // Mock handleEdit function
+      (enzymeWrapper.find('EditableTextContent').instance(): any).handleEdit = dummyHandleEdit;
+
+      // Enzyme does not support event propagation yet, so we cannot test out
+      // the handleKeyEvent callback by simulating keyboard events
+      (enzymeWrapper.find('EditableTextContent').instance(): any).handleKeyEvent('ctrl+i', dummyEvent);
+
+      expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+      expect(dummyHandleEdit).toHaveBeenCalledWith(m.markdownTypes.EMPHASIS);
+    });
+
+    it(`calls the handleEdit function with the correct arguments when the CTRL+K key is pressed`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} />
+        </DummyProviders>,
+      );
+
+      // Mock handleEdit function
+      (enzymeWrapper.find('EditableTextContent').instance(): any).handleEdit = dummyHandleEdit;
+
+      // Enzyme does not support event propagation yet, so we cannot test out
+      // the handleKeyEvent callback by simulating keyboard events
+      (enzymeWrapper.find('EditableTextContent').instance(): any).handleKeyEvent('ctrl+k', dummyEvent);
+
+      expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+      expect(dummyHandleEdit).toHaveBeenCalledWith(m.markdownTypes.LINK);
+    });
+
   });
 
   describe(`getDerivedStateFromProps`, (): void => {

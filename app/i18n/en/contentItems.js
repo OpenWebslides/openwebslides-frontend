@@ -3,11 +3,11 @@
 const contentItems = {
   contentItem: 'content item',
   markdown: {
-    strong: 'Strong',
-    emphasis: 'Emphasis',
+    strong: 'Strong (Ctrl+B)',
+    emphasis: 'Emphasis (Ctrl+I)',
     code: 'Inline code fragment',
     strikethrough: 'Strikethrough',
-    link: 'Hyperlink',
+    link: 'Hyperlink (Ctrl+K)',
   },
   structure: {
     indent: 'Indent',

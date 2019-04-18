@@ -35,6 +35,15 @@ const handleKeys = [
   'enter',
   'esc',
   'backspace',
+
+  'ctrl+b', // Control key
+  'meta+b', // Command key
+
+  'ctrl+i', // Control key
+  'meta+i', // Command key
+
+  'ctrl+k', // Control key
+  'meta+k', // Command key
 ];
 
 const mapMarkdownTypeToAffix = {
@@ -99,6 +108,18 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     else if (key === 'backspace' && text === '') {
       event.preventDefault();
       onRemove();
+    }
+    else if (key === 'ctrl+b' || key === 'meta+b') {
+      event.preventDefault();
+      this.handleEdit(m.markdownTypes.STRONG);
+    }
+    else if (key === 'ctrl+i' || key === 'meta+i') {
+      event.preventDefault();
+      this.handleEdit(m.markdownTypes.EMPHASIS);
+    }
+    else if (key === 'ctrl+k' || key === 'meta+k') {
+      event.preventDefault();
+      this.handleEdit(m.markdownTypes.LINK);
     }
   };
 
