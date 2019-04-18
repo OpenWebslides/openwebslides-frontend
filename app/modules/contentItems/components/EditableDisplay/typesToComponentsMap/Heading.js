@@ -3,11 +3,11 @@
 import _ from 'lodash';
 import * as React from 'react';
 
-import EditableTextContent from 'components/EditableTextContent';
-
 import * as m from '../../../model';
 
 import TypeBlockWrapper from './TypeBlockWrapper';
+
+import EditableTextContent from '../EditableTextContent';
 
 import { passThroughProps } from '..';
 
@@ -67,7 +67,7 @@ class PureHeading extends React.Component<Props> {
         iconName="header"
       >
         <EditableTextContent
-          contentItemId={contentItem.id}
+          contentItem={contentItem}
           maxLength={100}
           initialText={contentItem.text}
           initialIsActive={contentItem.isEditing}

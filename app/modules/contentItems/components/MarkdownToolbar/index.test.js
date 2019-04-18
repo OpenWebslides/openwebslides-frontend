@@ -3,20 +3,22 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { DummyProviders } from 'lib/testResources';
+import { DummyProviders, dummyContentItemData as dummyData } from 'lib/testResources';
+
+import * as m from '../../model';
 
 import MarkdownToolbar, { PureMarkdownToolbar } from '.';
 
 describe(`Toolbar`, (): void => {
 
-  let dummyContentItemId: string;
+  let dummyContentItem: m.ContentItem;
 
   let dummyOnEdit: any;
   let dummyOnIndent: any;
   let dummyOnUnindent: any;
 
   beforeEach((): void => {
-    dummyContentItemId = 'dummyContentItemId';
+    dummyContentItem = dummyData.paragraphContentItem;
 
     dummyOnEdit = jest.fn();
     dummyOnIndent = jest.fn();
@@ -26,7 +28,7 @@ describe(`Toolbar`, (): void => {
   it(`renders without errors`, (): void => {
     const enzymeWrapper = shallow(
       <PureMarkdownToolbar
-        contentItemId={dummyContentItemId}
+        contentItem={dummyContentItem}
         onEdit={dummyOnEdit}
         onIndent={dummyOnIndent}
         onUnindent={dummyOnUnindent}
@@ -41,7 +43,7 @@ describe(`Toolbar`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <MarkdownToolbar
-          contentItemId={dummyContentItemId}
+          contentItem={dummyContentItem}
           onEdit={dummyOnEdit}
           canIndent={true}
           canUnindent={true}
@@ -57,7 +59,7 @@ describe(`Toolbar`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <MarkdownToolbar
-          contentItemId={dummyContentItemId}
+          contentItem={dummyContentItem}
           onEdit={dummyOnEdit}
           canIndent={true}
           canUnindent={true}
@@ -73,7 +75,7 @@ describe(`Toolbar`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <MarkdownToolbar
-          contentItemId={dummyContentItemId}
+          contentItem={dummyContentItem}
           onEdit={dummyOnEdit}
           canIndent={true}
           canUnindent={true}
@@ -89,7 +91,7 @@ describe(`Toolbar`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <MarkdownToolbar
-          contentItemId={dummyContentItemId}
+          contentItem={dummyContentItem}
           onEdit={dummyOnEdit}
           canIndent={true}
           canUnindent={true}
@@ -105,7 +107,7 @@ describe(`Toolbar`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <MarkdownToolbar
-          contentItemId={dummyContentItemId}
+          contentItem={dummyContentItem}
           onEdit={dummyOnEdit}
           canIndent={true}
           canUnindent={true}
@@ -121,7 +123,7 @@ describe(`Toolbar`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <PureMarkdownToolbar
-          contentItemId={dummyContentItemId}
+          contentItem={dummyContentItem}
           onEdit={dummyOnEdit}
           onIndent={dummyOnIndent}
           onUnindent={dummyOnUnindent}
@@ -139,7 +141,7 @@ describe(`Toolbar`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <PureMarkdownToolbar
-          contentItemId={dummyContentItemId}
+          contentItem={dummyContentItem}
           onEdit={dummyOnEdit}
           onIndent={dummyOnIndent}
           onUnindent={dummyOnUnindent}
@@ -157,7 +159,7 @@ describe(`Toolbar`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <MarkdownToolbar
-          contentItemId={dummyContentItemId}
+          contentItem={dummyContentItem}
           canIndent={false}
           canUnindent={true}
         />
@@ -171,7 +173,7 @@ describe(`Toolbar`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <MarkdownToolbar
-          contentItemId={dummyContentItemId}
+          contentItem={dummyContentItem}
           canIndent={true}
           canUnindent={false}
         />

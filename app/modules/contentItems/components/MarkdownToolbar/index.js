@@ -7,10 +7,12 @@ import { Button, Menu } from 'semantic-ui-react';
 
 import { type AppState } from 'types/redux';
 import { type TFunction } from 'types/i18next';
-import contentItems from 'modules/contentItems';
+
+import selectors from '../../selectors';
+import * as m from '../../model';
 
 type PassedProps = {|
-  contentItemId: ?string,
+  contentItem: m.ContentItem,
   onIndent: () => void,
   onUnindent: () => void,
   onEdit: (prefix: string, suffix: string) => void,
@@ -24,11 +26,11 @@ type StateProps = {|
 type Props = {| ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
-  const { contentItemId } = props;
+  const { contentItem } = props;
 
   return {
-    canIndent: contentItems.selectors.canIndent(state, { id: contentItemId }),
-    canUnindent: contentItems.selectors.canUnindent(state, { id: contentItemId }),
+    canIndent: selectors.canIndent(state, { id: contentItem.id }),
+    canUnindent: selectors.canUnindent(state, { id: contentItem.id }),
   };
 };
 

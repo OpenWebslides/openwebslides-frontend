@@ -3,11 +3,11 @@
 import _ from 'lodash';
 import * as React from 'react';
 
-import EditableTextContent from 'components/EditableTextContent';
-
 import * as m from '../../../model';
 
 import TypeBlockWrapper from './TypeBlockWrapper';
+
+import EditableTextContent from '../EditableTextContent';
 
 import { passThroughProps } from '..';
 
@@ -67,7 +67,7 @@ class PureParagraph extends React.Component<Props> {
         iconName="paragraph"
       >
         <EditableTextContent
-          contentItemId={contentItem.id}
+          contentItem={contentItem}
           multiline={true}
           initialText={contentItem.text}
           initialIsActive={contentItem.isEditing}

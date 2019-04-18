@@ -2,11 +2,13 @@
 
 import EditableDisplay from './EditableDisplay';
 import HtmlDisplay from './HtmlDisplay';
+import MarkdownToolbar from './MarkdownToolbar';
 import RootEditableDisplay from './RootEditableDisplay';
 
 const components = {
   EditableDisplay,
   HtmlDisplay,
+  MarkdownToolbar,
   RootEditableDisplay,
 };
 

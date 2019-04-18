@@ -5,10 +5,12 @@ import { Form, Input, TextArea, Ref } from 'semantic-ui-react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 import InlineMarkdown from 'components/InlineMarkdown';
-import MarkdownToolbar from 'components/MarkdownToolbar';
+
+import MarkdownToolbar from '../../MarkdownToolbar';
+import * as m from '../../../model';
 
 type PassedProps = {|
-  contentItemId: string,
+  contentItem: m.ContentItem,
   multiline: boolean,
   maxLength: ?number,
   initialText: string,
@@ -150,7 +152,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
   fieldRef: ?HTMLTextAreaElement | ?HTMLInputElement;
 
   renderAsInput(): React.Node {
-    const { contentItemId, multiline, maxLength, onIndent, onUnindent } = this.props;
+    const { contentItem, multiline, maxLength, onIndent, onUnindent } = this.props;
     const { text } = this.state;
 
     return (
@@ -161,7 +163,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
           isExclusive={true}
         >
           <MarkdownToolbar
-            contentItemId={contentItemId}
+            contentItem={contentItem}
             onIndent={onIndent}
             onUnindent={onUnindent}
             onEdit={this.handleEdit}
