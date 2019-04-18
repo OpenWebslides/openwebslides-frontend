@@ -1,5 +1,6 @@
 // @flow
 
+import { CorruptedInternalStateError } from 'errors';
 import { dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as a from '../actionTypes';
@@ -9,7 +10,6 @@ import reducer from '.';
 
 describe(`selectInState`, (): void => {
 
-  let dummyId: string;
   let dummyParagraph1: m.ParagraphContentItem;
   let dummyParagraph2: m.ParagraphContentItem;
   let dummyParagraph3: m.ParagraphContentItem;
@@ -21,7 +21,6 @@ describe(`selectInState`, (): void => {
   let dummyContentItemsById: m.ContentItemsById;
 
   beforeEach((): void => {
-    dummyId = 'dummyId';
     dummyParagraph1 = dummyData.paragraphContentItem;
     dummyParagraph2 = dummyData.paragraphContentItem2;
     dummyParagraph3 = dummyData.paragraphContentItem3;
@@ -42,10 +41,10 @@ describe(`selectInState`, (): void => {
     };
   });
 
-  it(`leaves the state unchanged, when there is not selection set in the state`, (): void => {
+  it(`leaves the state unchanged, when there is no selection set in the state`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {},
-      currentlySelectedId: dummyId,
+      currentlySelectedId: null,
     };
     const selectInStateAction: a.SelectInStateAction = {
       type: a.SELECT_IN_STATE,
@@ -87,6 +86,23 @@ describe(`selectInState`, (): void => {
       const prevState: m.ContentItemsState = {
         byId: dummyContentItemsById,
         currentlySelectedId: dummyRoot.id,
+      };
+      const selectInStateAction: a.SelectInStateAction = {
+        type: a.SELECT_IN_STATE,
+        payload: {
+          selection: m.selectionTypes.SUPER,
+        },
+      };
+      const resultState = reducer(prevState, selectInStateAction);
+
+      expect(resultState).toBe(prevState);
+      expect(resultState.currentlySelectedId).toBe(prevState.currentlySelectedId);
+    });
+
+    it(`leaves the state unchanged, when the currently selected contentItem has a ROOT super item`, (): void => {
+      const prevState: m.ContentItemsState = {
+        byId: dummyContentItemsById,
+        currentlySelectedId: dummyHeading1.id,
       };
       const selectInStateAction: a.SelectInStateAction = {
         type: a.SELECT_IN_STATE,
@@ -273,6 +289,23 @@ describe(`selectInState`, (): void => {
       expect(resultState.currentlySelectedId).toBe(prevState.currentlySelectedId);
     });
 
+  });
+
+  it(`throws an CorruptedInternalStateError, when the contentItem for the currentlySelectedId could not be found`, (): void => {
+    const prevState: m.ContentItemsState = {
+      byId: dummyContentItemsById,
+      currentlySelectedId: 'DefinitelyNotValidId',
+    };
+    const selectInStateAction: a.SelectInStateAction = {
+      type: a.SELECT_IN_STATE,
+      payload: {
+        selection: m.selectionTypes.NEXT,
+      },
+    };
+
+    expect((): void => {
+      reducer(prevState, selectInStateAction);
+    }).toThrow(CorruptedInternalStateError);
   });
 
 });

@@ -1,6 +1,9 @@
 // @flow
 
 /* eslint-disable flowtype/no-weak-types */
+
+import { CorruptedInternalStateError } from 'errors';
+
 import * as a from '../actionTypes';
 import * as m from '../model';
 import lib from '../lib';
@@ -12,6 +15,8 @@ const selectInState = (
   if (state.currentlySelectedId == null) return state;
 
   const currentContentItem: m.ContentItem = state.byId[state.currentlySelectedId];
+
+  if (currentContentItem == null) throw new CorruptedInternalStateError(`Invalid contentItemsById: could not find contentItem for currentlySelectedId`);
 
   let newContentItem: ?m.ContentItem;
 
@@ -42,7 +47,17 @@ const selectInState = (
     }
   }
 
-  return (newContentItem == null ? state : { ...state, currentlySelectedId: newContentItem.id });
+  // Prevent selecting the ROOT content item, select the first subItem instead
+  if (newContentItem != null && newContentItem.type === m.contentItemTypes.ROOT) {
+    const subItems = lib.find.allSubItems(newContentItem, state.byId);
+
+    newContentItem = (subItems.length > 0 ? subItems[0] : null);
+  }
+
+  if (newContentItem == null || newContentItem.id === state.currentlySelectedId) {
+    return state;
+  }
+  else return { ...state, currentlySelectedId: newContentItem.id };
 };
 
 export default selectInState;
