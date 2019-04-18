@@ -292,7 +292,7 @@ describe(`EditableTextContent`, (): void => {
       // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
       enzymeWrapper.find(inputSelector).hostNodes().instance().setSelectionRange(dummyText.length, dummyText.length);
 
-      enzymeWrapper.find('PureMarkdownToolbar').props().onEdit('**', '**');
+      enzymeWrapper.find('PureMarkdownToolbar').props().onEdit(m.markdownTypes.STRONG);
 
       // Asterisks are appended
       // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
@@ -318,7 +318,7 @@ describe(`EditableTextContent`, (): void => {
       // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
       enzymeWrapper.find(inputSelector).hostNodes().instance().setSelectionRange(dummyText.indexOf('ipsum'), dummyText.indexOf('ipsum') + 'ipsum'.length);
 
-      enzymeWrapper.find('PureMarkdownToolbar').props().onEdit('**', '**');
+      enzymeWrapper.find('PureMarkdownToolbar').props().onEdit(m.markdownTypes.STRONG);
 
       // Asterisks surround 'ipsum'
       // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
@@ -332,6 +332,100 @@ describe(`EditableTextContent`, (): void => {
       expect(enzymeWrapper.find(inputSelector).hostNodes().instance().selectionEnd).toStrictEqual(text.indexOf('ipsum') + 'ipsum'.length);
     });
 
+    it(`maps the STRONG markdownType argument to the correct affixes`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText="lorem" />
+        </DummyProviders>,
+      );
+
+      enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+
+      // Set selection to 'ipsum'
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      enzymeWrapper.find(inputSelector).hostNodes().instance().setSelectionRange(0, 5);
+
+      enzymeWrapper.find('PureMarkdownToolbar').props().onEdit(m.markdownTypes.STRONG);
+
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      expect(enzymeWrapper.find('EditableTextContent').instance().state.text).toStrictEqual('**lorem**');
+    });
+
+    it(`maps the EMPHASIS markdownType argument to the correct affixes`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText="lorem" />
+        </DummyProviders>,
+      );
+
+      enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+
+      // Set selection to 'ipsum'
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      enzymeWrapper.find(inputSelector).hostNodes().instance().setSelectionRange(0, 5);
+
+      enzymeWrapper.find('PureMarkdownToolbar').props().onEdit(m.markdownTypes.EMPHASIS);
+
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      expect(enzymeWrapper.find('EditableTextContent').instance().state.text).toStrictEqual('_lorem_');
+    });
+
+    it(`maps the CODE markdownType argument to the correct affixes`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText="lorem" />
+        </DummyProviders>,
+      );
+
+      enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+
+      // Set selection to 'ipsum'
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      enzymeWrapper.find(inputSelector).hostNodes().instance().setSelectionRange(0, 5);
+
+      enzymeWrapper.find('PureMarkdownToolbar').props().onEdit(m.markdownTypes.CODE);
+
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      expect(enzymeWrapper.find('EditableTextContent').instance().state.text).toStrictEqual('`lorem`');
+    });
+
+    it(`maps the STRIKETHROUGH markdownType argument to the correct affixes`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText="lorem" />
+        </DummyProviders>,
+      );
+
+      enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+
+      // Set selection to 'ipsum'
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      enzymeWrapper.find(inputSelector).hostNodes().instance().setSelectionRange(0, 5);
+
+      enzymeWrapper.find('PureMarkdownToolbar').props().onEdit(m.markdownTypes.STRIKETHROUGH);
+
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      expect(enzymeWrapper.find('EditableTextContent').instance().state.text).toStrictEqual('~~lorem~~');
+    });
+
+    it(`maps the LINK markdownType argument to the correct affixes`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText="lorem" />
+        </DummyProviders>,
+      );
+
+      enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+
+      // Set selection to 'ipsum'
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      enzymeWrapper.find(inputSelector).hostNodes().instance().setSelectionRange(0, 5);
+
+      enzymeWrapper.find('PureMarkdownToolbar').props().onEdit(m.markdownTypes.LINK);
+
+      // $FlowFixMe ignore warning for 'missing in undefined' as it would throw an error anyway
+      expect(enzymeWrapper.find('EditableTextContent').instance().state.text).toStrictEqual('[lorem](url)');
+    });
   });
 
   describe(`getDerivedStateFromProps`, (): void => {

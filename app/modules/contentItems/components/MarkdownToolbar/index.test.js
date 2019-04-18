@@ -52,7 +52,7 @@ describe(`Toolbar`, (): void => {
     );
 
     enzymeWrapper.find('[data-test-id="markdown-toolbar-strong-button"]').hostNodes().simulate('click');
-    expect(dummyOnEdit).toHaveBeenCalledWith('**', '**');
+    expect(dummyOnEdit).toHaveBeenCalledWith(m.markdownTypes.STRONG);
   });
 
   it(`calls the passed onEdit function with the correct arguments when the EMPHASIS button is clicked`, (): void => {
@@ -68,7 +68,7 @@ describe(`Toolbar`, (): void => {
     );
 
     enzymeWrapper.find('[data-test-id="markdown-toolbar-emphasis-button"]').hostNodes().simulate('click');
-    expect(dummyOnEdit).toHaveBeenCalledWith('_', '_');
+    expect(dummyOnEdit).toHaveBeenCalledWith(m.markdownTypes.EMPHASIS);
   });
 
   it(`calls the passed onEdit function with the correct arguments when the CODE button is clicked`, (): void => {
@@ -84,7 +84,7 @@ describe(`Toolbar`, (): void => {
     );
 
     enzymeWrapper.find('[data-test-id="markdown-toolbar-code-button"]').hostNodes().simulate('click');
-    expect(dummyOnEdit).toHaveBeenCalledWith('`', '`');
+    expect(dummyOnEdit).toHaveBeenCalledWith(m.markdownTypes.CODE);
   });
 
   it(`calls the passed onEdit function with the correct arguments when the STRIKETHROUGH button is clicked`, (): void => {
@@ -100,7 +100,7 @@ describe(`Toolbar`, (): void => {
     );
 
     enzymeWrapper.find('[data-test-id="markdown-toolbar-strikethrough-button"]').hostNodes().simulate('click');
-    expect(dummyOnEdit).toHaveBeenCalledWith('~~', '~~');
+    expect(dummyOnEdit).toHaveBeenCalledWith(m.markdownTypes.STRIKETHROUGH);
   });
 
   it(`calls the passed onEdit function with the correct arguments when the LINK button is clicked`, (): void => {
@@ -116,7 +116,7 @@ describe(`Toolbar`, (): void => {
     );
 
     enzymeWrapper.find('[data-test-id="markdown-toolbar-link-button"]').hostNodes().simulate('click');
-    expect(dummyOnEdit).toHaveBeenCalledWith('[', '](url)');
+    expect(dummyOnEdit).toHaveBeenCalledWith(m.markdownTypes.LINK);
   });
 
   it(`calls the passed onIndent function when the INDENT button is clicked`, (): void => {

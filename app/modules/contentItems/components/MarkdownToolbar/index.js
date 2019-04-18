@@ -15,7 +15,7 @@ type PassedProps = {|
   contentItem: m.ContentItem,
   onIndent: () => void,
   onUnindent: () => void,
-  onEdit: (prefix: string, suffix: string) => void,
+  onEdit: (type: m.MarkdownType) => void,
 |};
 
 type StateProps = {|
@@ -37,27 +37,27 @@ const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
 class PureMarkdownToolbar extends React.Component<Props> {
   handleStrong = (): void => {
     const { onEdit } = this.props;
-    onEdit('**', '**');
+    onEdit(m.markdownTypes.STRONG);
   };
 
   handleEmphasis = (): void => {
     const { onEdit } = this.props;
-    onEdit('_', '_');
+    onEdit(m.markdownTypes.EMPHASIS);
   };
 
   handleCode = (): void => {
     const { onEdit } = this.props;
-    onEdit('`', '`');
+    onEdit(m.markdownTypes.CODE);
   };
 
   handleStrikethrough = (): void => {
     const { onEdit } = this.props;
-    onEdit('~~', '~~');
+    onEdit(m.markdownTypes.STRIKETHROUGH);
   };
 
   handleLink = (): void => {
     const { onEdit } = this.props;
-    onEdit('[', '](url)');
+    onEdit(m.markdownTypes.LINK);
   };
 
   render(): React.Node {

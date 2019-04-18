@@ -37,6 +37,14 @@ const handleKeys = [
   'backspace',
 ];
 
+const mapMarkdownTypeToAffix = {
+  [m.markdownTypes.STRONG]: { prefix: '**', suffix: '**' },
+  [m.markdownTypes.EMPHASIS]: { prefix: '_', suffix: '_' },
+  [m.markdownTypes.CODE]: { prefix: '`', suffix: '`' },
+  [m.markdownTypes.STRIKETHROUGH]: { prefix: '~~', suffix: '~~' },
+  [m.markdownTypes.LINK]: { prefix: '[', suffix: '](url)' },
+};
+
 class EditableTextContent extends React.Component<Props, ComponentState> {
   static defaultProps = {
     multiline: false,
@@ -129,21 +137,23 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     onDeactivate(false);
   };
 
-  handleEdit = (prefix: string, suffix: string): void => {
+  handleEdit = (type: m.MarkdownType): void => {
     const { text } = this.state;
 
-    if (this.fieldRef == null) return;
+    const affix = mapMarkdownTypeToAffix[type];
+
+    if (affix == null || this.fieldRef == null) return;
 
     const start = this.fieldRef.selectionStart;
     const end = this.fieldRef.selectionEnd;
 
     this.setState({
-      text: `${text.slice(0, start)}${prefix}${text.slice(start, end)}${suffix}${text.slice(end)}`,
+      text: `${text.slice(0, start)}${affix.prefix}${text.slice(start, end)}${affix.suffix}${text.slice(end)}`,
     }, (): void => {
       if (this.fieldRef != null) {
         this.fieldRef.setSelectionRange(
-          start + prefix.length,
-          end + prefix.length,
+          start + affix.prefix.length,
+          end + affix.prefix.length,
         );
       }
     });
