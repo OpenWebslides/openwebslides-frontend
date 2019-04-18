@@ -8,7 +8,7 @@ import actions from '.';
 describe(`moveInState`, (): void => {
 
   let dummyId: string;
-  let dummyNextContext: m.VerticalContext;
+  let dummyNextContext: m.SuperContext;
 
   beforeEach((): void => {
     dummyId = 'abcdefghijklmnopqrst';

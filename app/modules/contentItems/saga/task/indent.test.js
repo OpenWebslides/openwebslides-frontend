@@ -46,7 +46,7 @@ describe(`indent`, (): void => {
     };
     dummyRoot = {
       ...dummyData.rootContentItem,
-      childItemIds: [dummyHeading1.id, dummyHeading2.id],
+      subItemIds: [dummyHeading1.id, dummyHeading2.id],
     };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,

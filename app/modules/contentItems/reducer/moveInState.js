@@ -20,8 +20,8 @@ const moveInState = (
   if (contentItemToMove == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
   if (contentItemToMove.type === m.contentItemTypes.ROOT) throw new UnsupportedOperationError(`Can't move a ROOT.`);
 
-  const previousContext = lib.find.extendedVerticalContext(contentItemToMove, state.byId);
-  if (previousContext == null) throw new CorruptedInternalStateError(`Invalid contentItemsById: could not find parentOrSuperItem for a non-ROOT contentItem.`);
+  const previousContext = lib.find.extendedSuperContext(contentItemToMove, state.byId);
+  if (previousContext == null) throw new CorruptedInternalStateError(`Invalid contentItemsById: could not find superItem for a non-ROOT contentItem.`);
 
   // If the previousContext is the same as the nextContext
   if (
@@ -34,12 +34,12 @@ const moveInState = (
   }
   // If the move is meaningful
   else {
-    const editedPreviousParentOrSuperItem = lib.edit.removeChildOrSubItemIdFromContext(
+    const editedPreviousSuperItem = lib.edit.removeSubItemIdFromContext(
       previousContext,
       contentItemToMove.id,
       state.byId,
     );
-    const editedNextParentOrSuperItem = lib.edit.addChildOrSubItemIdToContext(
+    const editedNextSuperItem = lib.edit.addSubItemIdToContext(
       nextContext,
       contentItemToMove.id,
       state.byId,
@@ -49,13 +49,13 @@ const moveInState = (
       ...state,
       byId: {
         ...state.byId,
-        [editedPreviousParentOrSuperItem.id]: editedPreviousParentOrSuperItem,
-        [editedNextParentOrSuperItem.id]: editedNextParentOrSuperItem,
+        [editedPreviousSuperItem.id]: editedPreviousSuperItem,
+        [editedNextSuperItem.id]: editedNextSuperItem,
       },
     };
 
     try {
-      lib.edit.validateChildOrSubItemsInContext(nextContext, newState.byId);
+      lib.edit.validateSubItemsInContext(nextContext, newState.byId);
     }
     catch (e) {
       if (e instanceof CorruptedInternalStateError) {

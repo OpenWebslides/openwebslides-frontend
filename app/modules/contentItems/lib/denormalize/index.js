@@ -10,23 +10,23 @@ import { CorruptedInternalStateError } from 'errors';
 
 import * as m from '../../model';
 
-const denormalizeProp = (
-  contentItem: m.ContentItem,
+const denormalize = (
+  contentItem: ?m.ContentItem,
   contentItemsById: m.ContentItemsById,
-  denormalizableIdsProp: string,
-  denormalizedItemsProp: string,
-): m.DenormalizedContentItem => {
+): ?m.DenormalizedContentItem => {
+  if (contentItem == null) return null;
+
   // Create copy of contentItem
   let denormalizedContentItem: any = {
     ...contentItem,
   };
 
   // If this contentItem is denormalizable
-  if (contentItem[denormalizableIdsProp] != null) {
+  if (contentItem.subItemIds != null) {
     let descendantItems: $ReadOnlyArray<m.DenormalizedContentItem> = [];
     let descendantItem: any;
     // Iterate over all denormalizableIds.
-    denormalizedContentItem[denormalizableIdsProp].forEach(
+    denormalizedContentItem.subItemIds.forEach(
       (denormalizableId: string): void => {
         // Get the contentItem object for this id.
         descendantItem = _.get(contentItemsById, denormalizableId, null);
@@ -43,42 +43,12 @@ const denormalizeProp = (
       },
     );
     // Set the denormalizedItemsProp on the denormalized contentItem.
-    denormalizedContentItem[denormalizedItemsProp] = descendantItems;
+    denormalizedContentItem.subItems = descendantItems;
     // Remove the denormalizableIdsProp from the denormalized contentItem.
-    denormalizedContentItem = _.omit(denormalizedContentItem, denormalizableIdsProp);
+    denormalizedContentItem = _.omit(denormalizedContentItem, 'subItemIds');
   }
 
   return denormalizedContentItem;
-};
-
-const denormalize = (
-  contentItem: ?m.ContentItem,
-  contentItemsById: m.ContentItemsById,
-): ?m.DenormalizedContentItem => {
-  if (contentItem == null) {
-    return null;
-  }
-  else {
-    let denormalizedContentItem: any = { ...contentItem };
-
-    // Denormalize subItemIds.
-    denormalizedContentItem = denormalizeProp(
-      (denormalizedContentItem: any),
-      contentItemsById,
-      'subItemIds',
-      'subItems',
-    );
-
-    // Denormalize childItemIds.
-    denormalizedContentItem = denormalizeProp(
-      (denormalizedContentItem: any),
-      contentItemsById,
-      'childItemIds',
-      'childItems',
-    );
-
-    return denormalizedContentItem;
-  }
 };
 
 export default denormalize;

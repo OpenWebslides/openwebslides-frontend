@@ -44,7 +44,7 @@ describe(`findPreviousEditorItem`, (): void => {
     };
     dummyRoot = {
       ...dummyData.rootContentItem,
-      childItemIds: [dummyHeading1.id, dummyHeading2.id, dummyHeading3.id],
+      subItemIds: [dummyHeading1.id, dummyHeading2.id, dummyHeading3.id],
     };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
@@ -62,19 +62,19 @@ describe(`findPreviousEditorItem`, (): void => {
     };
   });
 
-  it(`returns the parent- or superItem, when the passed contentItem is the first in its list of siblings but has a parent- or superItem`, (): void => {
+  it(`returns the superItem, when the passed contentItem is the first in its list of siblings but has a superItem`, (): void => {
     const actualResult = lib.find.previousEditorItem(dummyParagraph131, dummyContentItemsById);
     const expectedResult = dummyHeading13;
     expect(actualResult).toBe(expectedResult);
   });
 
-  it(`returns the previous sibling, when the passed contentItem is not the first in its list of siblings and the previous sibling has no subItems or childItems`, (): void => {
+  it(`returns the previous sibling, when the passed contentItem is not the first in its list of siblings and the previous sibling has no subItems`, (): void => {
     const actualResult = lib.find.previousEditorItem(dummyParagraph142, dummyContentItemsById);
     const expectedResult = dummyParagraph141;
     expect(actualResult).toBe(expectedResult);
   });
 
-  it(`returns the previous sibling's last nested subItem or childItem, when the passed contentItem is not the first in its list of siblings and the previous sibling has subItems or childItems`, (): void => {
+  it(`returns the previous sibling's last nested subItem, when the passed contentItem is not the first in its list of siblings and the previous sibling has subItems`, (): void => {
     const actualResult = lib.find.previousEditorItem(dummyHeading2, dummyContentItemsById);
     const expectedResult = dummyParagraph142;
     expect(actualResult).toBe(expectedResult);

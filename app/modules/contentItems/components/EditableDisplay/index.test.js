@@ -12,6 +12,7 @@ import EditableDisplay, { PureEditableDisplay, mapDispatchToProps, type Dispatch
 
 describe(`EditableDisplay`, (): void => {
 
+  let dummySlideBreak21: m.SlideBreakContentItem;
   let dummyRoot2: m.RootContentItem;
   let dummyParagraph1132: m.ParagraphContentItem;
   let dummyParagraph1131: m.ParagraphContentItem;
@@ -29,14 +30,15 @@ describe(`EditableDisplay`, (): void => {
   let dummySetTopicDirty: any;
 
   beforeEach((): void => {
-    dummyRoot2 = { ...dummyData.rootContentItem2 };
+    dummySlideBreak21 = { ...dummyData.slideBreakContentItem };
+    dummyRoot2 = { ...dummyData.rootContentItem2, subItemIds: [dummySlideBreak21.id] };
     dummyParagraph1132 = { ...dummyData.paragraphContentItem4 };
     dummyParagraph1131 = { ...dummyData.paragraphContentItem3 };
     dummyHeading113 = { ...dummyData.headingContentItem2, subItemIds: [dummyParagraph1131.id, dummyParagraph1132.id] };
     dummyParagraph112 = { ...dummyData.paragraphContentItem2 };
     dummyParagraph111 = { ...dummyData.paragraphContentItem };
     dummyHeading11 = { ...dummyData.headingContentItem, subItemIds: [dummyParagraph111.id, dummyParagraph112.id, dummyHeading113.id] };
-    dummyRoot1 = { ...dummyData.rootContentItem, childItemIds: [dummyHeading11.id] };
+    dummyRoot1 = { ...dummyData.rootContentItem, subItemIds: [dummyHeading11.id] };
     dummyContentItemsById = {
       [dummyRoot1.id]: dummyRoot1,
       [dummyHeading11.id]: dummyHeading11,
@@ -46,6 +48,7 @@ describe(`EditableDisplay`, (): void => {
       [dummyParagraph1131.id]: dummyParagraph1131,
       [dummyParagraph1132.id]: dummyParagraph1132,
       [dummyRoot2.id]: dummyRoot2,
+      [dummySlideBreak21.id]: dummySlideBreak21,
     };
     dummyState = {
       ...dummyInitialState,
@@ -77,7 +80,7 @@ describe(`EditableDisplay`, (): void => {
     const enzymeWrapper = shallow(
       <PureEditableDisplay
         contentItemId="abcdefghij"
-        contentItem={{ id: 'abcdefghij', type: m.contentItemTypes.ROOT, isEditing: false, childItemIds: [] }}
+        contentItem={{ id: 'abcdefghij', type: m.contentItemTypes.ROOT, isEditing: false, subItemIds: [] }}
         {...dummyDispatchProps}
         setTopicDirty={dummySetTopicDirty}
       />,
@@ -98,9 +101,6 @@ describe(`EditableDisplay`, (): void => {
     expect(enzymeWrapper.find('PureParagraph')).toHaveLength(1);
 
     enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.listContentItem} setTopicDirty={dummySetTopicDirty} />);
-    expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
-
-    enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.listItemContentItem} setTopicDirty={dummySetTopicDirty} />);
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
 
     enzymeWrapper = shallow(<PureEditableDisplay contentItemId="" {...dummyDispatchProps} contentItem={dummyData.blockquoteContentItem} setTopicDirty={dummySetTopicDirty} />);
@@ -172,7 +172,7 @@ describe(`EditableDisplay`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState}>
         <EditableDisplay
-          contentItemId={dummyRoot2.id}
+          contentItemId={dummySlideBreak21.id}
           setTopicDirty={dummySetTopicDirty}
         />
       </DummyProviders>,

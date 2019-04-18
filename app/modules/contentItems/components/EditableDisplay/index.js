@@ -114,6 +114,7 @@ class PureEditableDisplay extends React.Component<Props> {
   renderSubItemsEditableDisplay = (contentItem: m.ContentItem): React.Node => {
     if (
       contentItem == null
+      || contentItem.type === m.contentItemTypes.ROOT
       || contentItem.subItemIds == null
       || contentItem.subItemIds.length === 0
     ) {

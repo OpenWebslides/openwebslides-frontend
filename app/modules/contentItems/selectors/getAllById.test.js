@@ -26,7 +26,7 @@ describe(`getAllById`, (): void => {
     dummyParagraph12 = { ...dummyData.paragraphContentItem2 };
     dummyParagraph11 = { ...dummyData.paragraphContentItem };
     dummyHeading1 = { ...dummyData.headingContentItem, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] };
-    dummyRoot = { ...dummyData.rootContentItem, childItemIds: [dummyHeading1.id, dummyHeading2.id] };
+    dummyRoot = { ...dummyData.rootContentItem, subItemIds: [dummyHeading1.id, dummyHeading2.id] };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
       [dummyHeading1.id]: dummyHeading1,

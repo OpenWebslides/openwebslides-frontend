@@ -24,7 +24,7 @@ describe(`SlidesList`, (): void => {
   beforeEach((): void => {
     dummyHeading2 = { ...dummyContentItemData.headingContentItem2 };
     dummyHeading1 = { ...dummyContentItemData.headingContentItem };
-    dummyRoot = { ...dummyContentItemData.rootContentItem, childItemIds: [dummyHeading1.id, dummyHeading2.id] };
+    dummyRoot = { ...dummyContentItemData.rootContentItem, subItemIds: [dummyHeading1.id, dummyHeading2.id] };
     dummyTopic = { ...dummyTopicData.topic, rootContentItemId: dummyRoot.id };
     dummyState = {
       ...dummyInitialState,

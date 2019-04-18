@@ -28,7 +28,7 @@ describe(`apiPatchAllByTopicIdAndRoot`, (): void => {
   beforeEach((): void => {
     dummyParagraph = { ...dummyData.paragraphContentItem };
     dummyHeading = { ...dummyData.headingContentItem, subItemIds: [dummyParagraph.id] };
-    dummyRoot = { ...dummyData.rootContentItem, childItemIds: [dummyHeading.id] };
+    dummyRoot = { ...dummyData.rootContentItem, subItemIds: [dummyHeading.id] };
     dummyContentItemsState = {
       byId: {
         [dummyRoot.id]: dummyRoot,

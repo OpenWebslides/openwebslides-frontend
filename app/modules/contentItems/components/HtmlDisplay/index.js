@@ -25,7 +25,10 @@ class PureHtmlDisplay extends React.Component<Props> {
   renderSubItemsHtmlDisplay = (contentItem: m.DenormalizedContentItem): React.Node => {
     const { headingLevel } = this.props;
 
-    if (contentItem.subItems == null || contentItem.subItems.length === 0) {
+    if (
+      contentItem.subItems == null
+      || contentItem.type === m.contentItemTypes.ROOT
+      || contentItem.subItems.length === 0) {
       return null;
     }
     else {

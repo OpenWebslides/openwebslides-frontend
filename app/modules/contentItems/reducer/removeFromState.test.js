@@ -51,10 +51,10 @@ describe(`removeFromState`, (): void => {
     expect(resultState.byId).not.toBe(nextState.byId);
   });
 
-  it(`removes the contentItem from the state, when the contentItem is a subItem`, (): void => {
+  it(`removes the contentItem from the state`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading11.id, dummyHeading12.id] },
+        [dummyRoot1.id]: { ...dummyRoot1, subItemIds: [dummyHeading11.id, dummyHeading12.id] },
         [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph111.id, dummyParagraph112.id] },
         [dummyParagraph111.id]: { ...dummyParagraph111 },
         [dummyParagraph112.id]: { ...dummyParagraph112 },
@@ -69,7 +69,7 @@ describe(`removeFromState`, (): void => {
     };
     const nextState: m.ContentItemsState = {
       byId: {
-        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading11.id, dummyHeading12.id] },
+        [dummyRoot1.id]: { ...dummyRoot1, subItemIds: [dummyHeading11.id, dummyHeading12.id] },
         [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph112.id] },
         [dummyParagraph112.id]: { ...dummyParagraph112 },
         [dummyHeading12.id]: { ...dummyHeading12 },
@@ -84,43 +84,10 @@ describe(`removeFromState`, (): void => {
     expect(((resultState.byId[dummyHeading11.id]: any): m.SubableContentItem).subItemIds).not.toBe(((nextState.byId[dummyHeading11.id]: any): m.SubableContentItem).subItemIds);
   });
 
-  it(`removes the contentItem from the state, when the contentItem is a childItem`, (): void => {
-    const prevState: m.ContentItemsState = {
-      byId: {
-        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading11.id, dummyHeading12.id] },
-        [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph111.id, dummyParagraph112.id] },
-        [dummyParagraph111.id]: { ...dummyParagraph111 },
-        [dummyParagraph112.id]: { ...dummyParagraph112 },
-        [dummyHeading12.id]: { ...dummyHeading12 },
-      },
-    };
-    const removeFromStateAction: a.RemoveFromStateAction = {
-      type: a.REMOVE_FROM_STATE,
-      payload: {
-        id: dummyHeading12.id,
-      },
-    };
-    const nextState: m.ContentItemsState = {
-      byId: {
-        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading11.id] },
-        [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph111.id, dummyParagraph112.id] },
-        [dummyParagraph111.id]: { ...dummyParagraph111 },
-        [dummyParagraph112.id]: { ...dummyParagraph112 },
-      },
-    };
-    const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
-
-    expect(resultState).toStrictEqual(nextState);
-    expect(resultState).not.toBe(nextState);
-    expect(resultState.byId).not.toBe(nextState.byId);
-    expect(resultState.byId[dummyRoot1.id]).not.toBe(nextState.byId[dummyRoot1.id]);
-    expect(((resultState.byId[dummyRoot1.id]: any): m.ContainerContentItem).childItemIds).not.toBe(((nextState.byId[dummyRoot1.id]: any): m.ContainerContentItem).childItemIds);
-  });
-
   it(`removes all subItems as well, when the contentItem to delete is a superItem`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading11.id, dummyHeading12.id] },
+        [dummyRoot1.id]: { ...dummyRoot1, subItemIds: [dummyHeading11.id, dummyHeading12.id] },
         [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph111.id, dummyParagraph112.id] },
         [dummyParagraph111.id]: { ...dummyParagraph111 },
         [dummyParagraph112.id]: { ...dummyParagraph112 },
@@ -135,35 +102,8 @@ describe(`removeFromState`, (): void => {
     };
     const nextState: m.ContentItemsState = {
       byId: {
-        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading12.id] },
+        [dummyRoot1.id]: { ...dummyRoot1, subItemIds: [dummyHeading12.id] },
         [dummyHeading12.id]: { ...dummyHeading12 },
-      },
-    };
-    const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
-
-    expect(resultState).toStrictEqual(nextState);
-  });
-
-  it(`removes all childItems as well, when the contentItem to delete is a parentItem`, (): void => {
-    const prevState: m.ContentItemsState = {
-      byId: {
-        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading11.id, dummyHeading12.id] },
-        [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph111.id, dummyParagraph112.id] },
-        [dummyParagraph111.id]: { ...dummyParagraph111 },
-        [dummyParagraph112.id]: { ...dummyParagraph112 },
-        [dummyHeading12.id]: { ...dummyHeading12 },
-        [dummyRoot2.id]: { ...dummyRoot2 },
-      },
-    };
-    const removeFromStateAction: a.RemoveFromStateAction = {
-      type: a.REMOVE_FROM_STATE,
-      payload: {
-        id: dummyRoot1.id,
-      },
-    };
-    const nextState: m.ContentItemsState = {
-      byId: {
-        [dummyRoot2.id]: { ...dummyRoot2 },
       },
     };
     const resultState: m.ContentItemsState = reducer(prevState, removeFromStateAction);
@@ -174,7 +114,7 @@ describe(`removeFromState`, (): void => {
   it(`throws an ObjectNotFoundError, when the contentItem for the passed id cannot be found`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading11.id, dummyHeading12.id] },
+        [dummyRoot1.id]: { ...dummyRoot1, subItemIds: [dummyHeading11.id, dummyHeading12.id] },
         [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph111.id, dummyParagraph112.id] },
         [dummyParagraph111.id]: { ...dummyParagraph111 },
         [dummyParagraph112.id]: { ...dummyParagraph112 },
@@ -196,7 +136,7 @@ describe(`removeFromState`, (): void => {
   it(`throws a CorruptedInternalStateError, when a subItem cannot be found`, (): void => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading11.id, dummyHeading12.id] },
+        [dummyRoot1.id]: { ...dummyRoot1, subItemIds: [dummyHeading11.id, dummyHeading12.id] },
         [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph111.id, dummyParagraph112.id, 'DefinitelyNotValidId'] },
         [dummyParagraph111.id]: { ...dummyParagraph111 },
         [dummyParagraph112.id]: { ...dummyParagraph112 },
@@ -215,32 +155,10 @@ describe(`removeFromState`, (): void => {
     }).toThrow(CorruptedInternalStateError);
   });
 
-  it(`throws a CorruptedInternalStateError, when a childItem cannot be found`, (): void => {
+  it(`throws a CorruptedInternalStateError, when a superItem cannot be found for a non-root contentItem`, async (): Promise<void> => {
     const prevState: m.ContentItemsState = {
       byId: {
-        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading11.id, dummyHeading12.id, 'DefinitelyNotValidId'] },
-        [dummyHeading11.id]: { ...dummyHeading11, subItemIds: [dummyParagraph111.id, dummyParagraph112.id] },
-        [dummyParagraph111.id]: { ...dummyParagraph111 },
-        [dummyParagraph112.id]: { ...dummyParagraph112 },
-        [dummyHeading12.id]: { ...dummyHeading12 },
-      },
-    };
-    const removeFromStateAction: a.RemoveFromStateAction = {
-      type: a.REMOVE_FROM_STATE,
-      payload: {
-        id: dummyRoot1.id,
-      },
-    };
-
-    expect((): void => {
-      reducer(prevState, removeFromStateAction);
-    }).toThrow(CorruptedInternalStateError);
-  });
-
-  it(`throws a CorruptedInternalStateError, when a parentOrSuperItem cannot be found for a non-root contentItem`, async (): Promise<void> => {
-    const prevState: m.ContentItemsState = {
-      byId: {
-        [dummyRoot1.id]: { ...dummyRoot1, childItemIds: [dummyHeading11.id, dummyHeading12.id] },
+        [dummyRoot1.id]: { ...dummyRoot1, subItemIds: [dummyHeading11.id, dummyHeading12.id] },
         [dummyHeading11.id]: { ...dummyHeading11, subItemIds: ['DefinitelyNotValidId', dummyParagraph112.id] },
         [dummyParagraph111.id]: { ...dummyParagraph111 },
         [dummyParagraph112.id]: { ...dummyParagraph112 },

@@ -1,13 +1,13 @@
 // @flow
 
-import addChildOrSubItemIdToContext from './addChildOrSubItemIdToContext';
-import removeChildOrSubItemIdFromContext from './removeChildOrSubItemIdFromContext';
-import validateChildOrSubItemsInContext from './validateChildOrSubItemsInContext';
+import addSubItemIdToContext from './addSubItemIdToContext';
+import removeSubItemIdFromContext from './removeSubItemIdFromContext';
+import validateSubItemsInContext from './validateSubItemsInContext';
 
 const edit = {
-  addChildOrSubItemIdToContext,
-  removeChildOrSubItemIdFromContext,
-  validateChildOrSubItemsInContext,
+  addSubItemIdToContext,
+  removeSubItemIdFromContext,
+  validateSubItemsInContext,
 };
 
 export default edit;

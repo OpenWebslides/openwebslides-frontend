@@ -14,8 +14,8 @@ const recursiveSplit = (
 ): $ReadOnlyArray<contentItems.model.DenormalizedContentItem> => {
   switch (contentItem.type) {
     case contentItems.model.contentItemTypes.ROOT:
-      // ROOT content item: split into childItems and recurse
-      return contentItem.childItems
+      // ROOT content item: split into subItems and recurse
+      return contentItem.subItems
         .map((
           c: contentItems.model.DenormalizedContentItem,
         ): $ReadOnlyArray<contentItems.model.DenormalizedContentItem> => {
@@ -99,7 +99,7 @@ const split = (
       id: `${rootContentItem.id}-${index}`,
       type: contentItems.model.contentItemTypes.ROOT,
       isEditing: false,
-      childItems: [item],
+      subItems: [item],
     };
   });
 };

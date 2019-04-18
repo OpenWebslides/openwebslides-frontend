@@ -16,7 +16,7 @@ describe(`switchEditingInState`, (): void => {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
           isEditing: false,
-          childItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
+          subItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
         },
         [dummyData.headingContentItem.id]: {
           ...dummyData.headingContentItem,
@@ -40,7 +40,7 @@ describe(`switchEditingInState`, (): void => {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
           isEditing: false,
-          childItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
+          subItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
         },
         [dummyData.headingContentItem.id]: {
           ...dummyData.headingContentItem,
@@ -67,7 +67,7 @@ describe(`switchEditingInState`, (): void => {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
           isEditing: false,
-          childItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
+          subItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
         },
         [dummyData.headingContentItem.id]: {
           ...dummyData.headingContentItem,
@@ -97,7 +97,7 @@ describe(`switchEditingInState`, (): void => {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
           isEditing: false,
-          childItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
+          subItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
         },
         [dummyData.headingContentItem.id]: {
           ...dummyData.headingContentItem,
@@ -128,7 +128,7 @@ describe(`switchEditingInState`, (): void => {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
           isEditing: false,
-          childItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
+          subItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
         },
         [dummyData.headingContentItem.id]: {
           ...dummyData.headingContentItem,
@@ -159,7 +159,7 @@ describe(`switchEditingInState`, (): void => {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
           isEditing: false,
-          childItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
+          subItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
         },
         [dummyData.headingContentItem.id]: {
           ...dummyData.headingContentItem,
@@ -190,7 +190,7 @@ describe(`switchEditingInState`, (): void => {
         [dummyData.rootContentItem.id]: {
           ...dummyData.rootContentItem,
           isEditing: false,
-          childItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
+          subItemIds: [dummyData.headingContentItem.id, dummyData.headingContentItem2.id],
         },
         [dummyData.headingContentItem.id]: {
           ...dummyData.headingContentItem,

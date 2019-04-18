@@ -18,12 +18,12 @@ const findAllAncestorItems: MultipleFindFunction = (
   if (contentItem == null) return [];
 
   let allAncestorItems: $ReadOnlyArray<m.ContentItem> = [];
-  let parentOrSuperItem: ?m.ContentItem = contentItem;
+  let superItem: ?m.ContentItem = contentItem;
 
-  while (parentOrSuperItem !== null) {
-    parentOrSuperItem = find.parentOrSuperItem(parentOrSuperItem, contentItemsById);
-    if (parentOrSuperItem != null) {
-      allAncestorItems = allAncestorItems.concat([parentOrSuperItem]);
+  while (superItem !== null) {
+    superItem = find.superItem(superItem, contentItemsById);
+    if (superItem != null) {
+      allAncestorItems = allAncestorItems.concat([superItem]);
     }
   }
 

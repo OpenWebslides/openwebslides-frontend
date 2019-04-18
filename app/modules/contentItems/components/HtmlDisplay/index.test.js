@@ -41,7 +41,7 @@ describe(`HtmlDisplay`, (): void => {
     dummyParagraph111 = { ..._.omit(dummyData.paragraphContentItem, 'subItemIds'), subItems: [] };
     dummyHeading11 = { ..._.omit(dummyData.headingContentItem2, 'subItemIds'), subItems: [dummyParagraph111, dummyParagraph112] };
     dummyHeading1 = { ..._.omit(dummyData.headingContentItem, 'subItemIds'), subItems: [dummyHeading11, dummyHeading12] };
-    dummyRoot = { ..._.omit(dummyData.rootContentItem, 'childItemIds'), childItems: [dummyHeading1, dummyHeading2] };
+    dummyRoot = { ..._.omit(dummyData.rootContentItem, 'childItemIds'), subItems: [dummyHeading1, dummyHeading2] };
 
     subItemsSelector = `[data-test-id="content-item-html-display__sub-items"]`;
   });

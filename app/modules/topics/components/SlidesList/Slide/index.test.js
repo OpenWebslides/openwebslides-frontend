@@ -14,7 +14,7 @@ describe(`Slide`, (): void => {
       id: 'abcdefghij',
       type: contentItems.model.contentItemTypes.ROOT,
       isEditing: false,
-      childItems: [],
+      subItems: [],
     };
 
     const enzymeWrapper = shallow(

@@ -20,12 +20,12 @@ const reverseIndent = function* (action: a.ReverseIndentAction): Saga<void> {
 
   const contentItemToReverseIndent = yield select(selectors.getById, { id });
   if (contentItemToReverseIndent == null) throw new ObjectNotFoundError('contentItems:contentItem', id);
-  const parentOrSuperItem = lib.find.parentOrSuperItem(
+  const parentOrSuperItem = lib.find.superItem(
     contentItemToReverseIndent,
     contentItemsById,
   );
   const parentOrSuperContext = (parentOrSuperItem != null)
-    ? lib.find.extendedVerticalContext(parentOrSuperItem, contentItemsById)
+    ? lib.find.extendedSuperContext(parentOrSuperItem, contentItemsById)
     : null;
 
   // Move the contentItem to right below its parent- or superItem, if it has one.

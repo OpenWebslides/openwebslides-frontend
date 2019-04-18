@@ -27,7 +27,7 @@ export type AddToStateAction = {|
     ...$PropertyType<ReducerAction, 'payload'>,
     id: string,
     type: m.ContentItemType,
-    context: ?m.VerticalContext,
+    context: ?m.SuperContext,
     propsForType: $Shape<m.AllPropsForAllTypes>,
   |},
 |};
@@ -58,7 +58,7 @@ export type MoveInStateAction = {|
   payload: {|
     ...$PropertyType<ReducerAction, 'payload'>,
     id: string,
-    nextContext: m.VerticalContext,
+    nextContext: m.SuperContext,
   |},
 |};
 

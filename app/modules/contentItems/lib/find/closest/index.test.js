@@ -52,7 +52,7 @@ describe(`findClosest`, (): void => {
     };
     dummyRoot = {
       ...dummyData.rootContentItem,
-      childItemIds: [dummyHeading1.id, dummyHeading2.id],
+      subItemIds: [dummyHeading1.id, dummyHeading2.id],
     };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
@@ -72,32 +72,32 @@ describe(`findClosest`, (): void => {
   });
 
   it(`returns the first recursive singleFindFunction result, when no predicate is passed`, (): void => {
-    const actualResult = lib.find.closest(dummyParagraph1121, dummyContentItemsById, lib.find.parentOrSuperItem);
+    const actualResult = lib.find.closest(dummyParagraph1121, dummyContentItemsById, lib.find.superItem);
     const expectedResult = dummyParagraph112;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns the first recursive singleFindFunction result for which the passed predicate returns TRUE`, (): void => {
     const dummyPredicate = (contentItem: m.ContentItem): boolean => (contentItem.type === m.contentItemTypes.HEADING);
-    const actualResult = lib.find.closest(dummyParagraph1121, dummyContentItemsById, lib.find.parentOrSuperItem, dummyPredicate);
+    const actualResult = lib.find.closest(dummyParagraph1121, dummyContentItemsById, lib.find.superItem, dummyPredicate);
     const expectedResult = dummyHeading11;
     expect(actualResult).toBe(expectedResult);
   });
 
   it(`returns NULL, when there is no recursive singleFindFunction result for which the passed predicate returns TRUE`, (): void => {
     const dummyPredicate = (contentItem: m.ContentItem): boolean => (contentItem.type === m.contentItemTypes.BLOCKQUOTE);
-    const actualResult = lib.find.closest(dummyParagraph1121, dummyContentItemsById, lib.find.parentOrSuperItem, dummyPredicate);
+    const actualResult = lib.find.closest(dummyParagraph1121, dummyContentItemsById, lib.find.superItem, dummyPredicate);
     expect(actualResult).toBeNull();
   });
 
   it(`returns NULL, when the passed contentItem is NULL`, (): void => {
-    const actualResult = lib.find.closest(null, dummyContentItemsById, lib.find.parentOrSuperItem, jest.fn(() => true));
+    const actualResult = lib.find.closest(null, dummyContentItemsById, lib.find.superItem, jest.fn(() => true));
     expect(actualResult).toBeNull();
   });
 
   it(`calls the passed precicate function with the correct arguments`, (): void => {
     const dummyPredicate = jest.fn(() => false);
-    lib.find.closest(dummyParagraph1121, dummyContentItemsById, lib.find.parentOrSuperItem, dummyPredicate);
+    lib.find.closest(dummyParagraph1121, dummyContentItemsById, lib.find.superItem, dummyPredicate);
     expect(JSON.stringify(dummyPredicate.mock.calls)).toStrictEqual(JSON.stringify([
       [dummyParagraph112, [dummyParagraph1121.id], dummyContentItemsById],
       [dummyHeading11, [dummyParagraph1121.id, dummyParagraph112.id], dummyContentItemsById],

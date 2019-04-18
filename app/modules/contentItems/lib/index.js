@@ -1,6 +1,6 @@
 // @flow
 
-import convertContextToVerticalContext from './convertContextToVerticalContext';
+import convertContextToSuperContext from './convertContextToSuperContext';
 import denormalize from './denormalize';
 import edit from './edit';
 import find from './find';
@@ -8,7 +8,7 @@ import generateId from './generateId';
 import isEmpty from './isEmpty';
 
 const lib = {
-  convertContextToVerticalContext,
+  convertContextToSuperContext,
   denormalize,
   edit,
   find,

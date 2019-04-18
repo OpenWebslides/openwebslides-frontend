@@ -87,7 +87,7 @@ export type MoveAction = {|
   payload: {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
     id: string,
-    nextContext: m.VerticalContext,
+    nextContext: m.SuperContext,
   |},
 |};
 

@@ -5,13 +5,13 @@
  */
 
 // Context
-import extendedVerticalContext from './extendedVerticalContext';
-// Vertical traversing
-import parentOrSuperItem from './parentOrSuperItem';
+import extendedSuperContext from './extendedSuperContext';
+// Super/sub item traversing
+import superItem from './superItem';
 import allAncestorItems from './allAncestorItems';
-import allChildOrSubItems from './allChildOrSubItems';
+import allSubItems from './allSubItems';
 import allDescendantItems from './allDescendantItems';
-// Horizontal traversing
+// Sibling traversing
 import previousSiblingItem from './previousSiblingItem';
 import nextSiblingItem from './nextSiblingItem';
 import allSiblingItems from './allSiblingItems';
@@ -23,10 +23,10 @@ import closest from './closest';
 import furthest from './furthest';
 
 const find = {
-  extendedVerticalContext,
-  parentOrSuperItem,
+  extendedSuperContext,
+  superItem,
   allAncestorItems,
-  allChildOrSubItems,
+  allSubItems,
   allDescendantItems,
   previousSiblingItem,
   nextSiblingItem,

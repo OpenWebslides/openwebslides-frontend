@@ -20,7 +20,7 @@ describe(`Root`, (): void => {
   beforeEach((): void => {
     dummyHeading2 = { ...dummyData.headingContentItem2 };
     dummyHeading1 = { ...dummyData.headingContentItem };
-    dummyRoot = { ...dummyData.rootContentItem, childItemIds: [dummyHeading1.id, dummyHeading2.id] };
+    dummyRoot = { ...dummyData.rootContentItem, subItemIds: [dummyHeading1.id, dummyHeading2.id] };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
       [dummyHeading1.id]: dummyHeading1,
@@ -45,7 +45,7 @@ describe(`Root`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`renders all of its child items`, (): void => {
+  it(`renders all of its sub items`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState}>
         <PureRoot contentItem={dummyRoot} />

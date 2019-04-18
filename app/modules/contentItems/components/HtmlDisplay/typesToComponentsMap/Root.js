@@ -18,11 +18,11 @@ const PureRoot = (props: Props): React.Node => {
 
   return (
     <>
-      {contentItem.childItems.map((childItem: m.DenormalizedContentItem): React.Node => {
+      {contentItem.subItems.map((subItem: m.DenormalizedContentItem): React.Node => {
         return (
           <HtmlDisplay
-            key={childItem.id}
-            contentItem={childItem}
+            key={subItem.id}
+            contentItem={subItem}
             headingLevel={headingLevel}
           />
         );

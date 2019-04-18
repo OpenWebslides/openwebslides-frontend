@@ -52,7 +52,7 @@ describe(`findAllDescendantItems`, (): void => {
     };
     dummyRoot = {
       ...dummyData.rootContentItem,
-      childItemIds: [dummyHeading1.id, dummyHeading2.id],
+      subItemIds: [dummyHeading1.id, dummyHeading2.id],
     };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
@@ -88,7 +88,7 @@ describe(`findAllDescendantItems`, (): void => {
     expect(actualResult[11]).toBe(dummyParagraph22);
   });
 
-  it(`returns an empty array, when the passed contentItem is neither a super- nor a parentItem`, (): void => {
+  it(`returns an empty array, when the passed contentItem is not a superItem`, (): void => {
     const actualResult = lib.find.allDescendantItems(dummyParagraph21, dummyContentItemsById);
     expect(actualResult).toHaveLength(0);
   });

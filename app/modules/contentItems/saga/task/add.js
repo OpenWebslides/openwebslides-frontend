@@ -18,8 +18,8 @@ const add = function* (action: a.AddAction): Saga<void> {
 
   // Generate random id for the new contentItem
   const newId = lib.generateId();
-  // Convert general context to VerticalContext so it can be processed by addToState reducer
-  const newContext = lib.convertContextToVerticalContext(context, contentItemsById);
+  // Convert general context to SuperContext so it can be processed by addToState reducer
+  const newContext = lib.convertContextToSuperContext(context, contentItemsById);
 
   // Add a new contentItem with the passed props to the state
   yield put(actions.addToState(newId, type, newContext, propsForType));

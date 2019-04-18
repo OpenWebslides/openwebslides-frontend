@@ -7,7 +7,6 @@ const ROOT: 'contentItemTypes/ROOT' = 'contentItemTypes/ROOT';
 const HEADING: 'contentItemTypes/HEADING' = 'contentItemTypes/HEADING';
 const PARAGRAPH: 'contentItemTypes/PARAGRAPH' = 'contentItemTypes/PARAGRAPH';
 const LIST: 'contentItemTypes/LIST' = 'contentItemTypes/LIST';
-const LIST_ITEM: 'contentItemTypes/LIST_ITEM' = 'contentItemTypes/LIST_ITEM';
 const BLOCKQUOTE: 'contentItemTypes/BLOCKQUOTE' = 'contentItemTypes/BLOCKQUOTE';
 const CODE: 'contentItemTypes/CODE' = 'contentItemTypes/CODE';
 const IMAGE: 'contentItemTypes/IMAGE' = 'contentItemTypes/IMAGE';
@@ -23,7 +22,6 @@ export const contentItemTypes = {
   HEADING,
   PARAGRAPH,
   LIST,
-  LIST_ITEM,
   BLOCKQUOTE,
   CODE,
   IMAGE,
@@ -47,7 +45,6 @@ export type SymbolContentItemType = $Values<typeof symbolContentItemTypes>;
 export const plainTextContentItemTypes = {
   HEADING,
   PARAGRAPH,
-  LIST_ITEM,
   BLOCKQUOTE,
   CODE,
 };
@@ -67,7 +64,6 @@ export const taggableContentItemTypes = {
   HEADING,
   PARAGRAPH,
   LIST,
-  LIST_ITEM,
   BLOCKQUOTE,
   CODE,
   IMAGE,
@@ -79,6 +75,7 @@ export type TaggableContentItemType = $Values<typeof taggableContentItemTypes>;
 
 // Group contentItemTypes that can have sub-items.
 export const subableContentItemTypes = {
+  ROOT,
   HEADING,
   PARAGRAPH,
   LIST,
@@ -90,10 +87,3 @@ export const subableContentItemTypes = {
   IFRAME,
 };
 export type SubableContentItemType = $Values<typeof subableContentItemTypes>;
-
-// Group contentItemTypes that can contain other contentItems.
-export const containerContentItemTypes = {
-  ROOT,
-  LIST,
-};
-export type ContainerContentItemType = $Values<typeof containerContentItemTypes>;

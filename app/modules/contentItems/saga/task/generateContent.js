@@ -19,7 +19,7 @@ const generateContent = function* (
     headingTwoContentItemId,
     m.contentItemTypes.HEADING,
     {
-      contextType: m.contextTypes.PARENT,
+      contextType: m.contextTypes.SUPER,
       contextItemId: rootContentItemId,
     },
     {
@@ -47,7 +47,7 @@ const generateContent = function* (
     headingOneContentItemId,
     m.contentItemTypes.HEADING,
     {
-      contextType: m.contextTypes.PARENT,
+      contextType: m.contextTypes.SUPER,
       contextItemId: rootContentItemId,
     },
     {

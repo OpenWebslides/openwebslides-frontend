@@ -60,7 +60,7 @@ describe(`remove`, (): void => {
     };
     dummyRoot = {
       ...dummyData.rootContentItem,
-      childItemIds: [dummyHeading1.id, dummyHeading2.id],
+      subItemIds: [dummyHeading1.id, dummyHeading2.id],
     };
     dummyContentItemsById = {
       [dummyRoot.id]: dummyRoot,
@@ -192,7 +192,7 @@ describe(`remove`, (): void => {
     };
     const dummyAlmostEmptyRoot: m.RootContentItem = {
       ...dummyData.rootContentItem3,
-      childItemIds: [dummyLastParagraph.id],
+      subItemIds: [dummyLastParagraph.id],
     };
     const dummyTestContentItemsById = {
       [dummyAlmostEmptyRoot.id]: dummyAlmostEmptyRoot,
@@ -215,7 +215,7 @@ describe(`remove`, (): void => {
         })],
         [select(selectors.getById, { id: dummyAlmostEmptyRoot.id }), {
           ...dummyAlmostEmptyRoot,
-          childItemIds: [],
+          subItemIds: [],
         }],
       ])
       .call(asyncRequests.lib.putAndReturn, actions.generatePlaceholder(dummyAlmostEmptyRoot.id))
