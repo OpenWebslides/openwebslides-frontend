@@ -6,7 +6,7 @@
  * API documentation: https://openwebslides.github.io/documentation/#get-all-feed-items
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { FEED_ITEMS_ENDPOINT } from '../endpoints';
 

@@ -11,21 +11,21 @@ import { sagas } from '..';
 
 describe(`apiPatchConfirmation`, (): void => {
 
-  let dummyToken: string;
+  let dummyConfirmationToken: string;
 
   beforeEach((): void => {
-    dummyToken = 'foobarToken';
+    dummyConfirmationToken = 'dummyConfirmationToken';
   });
 
   it(`executes a patch request to the confirmation API endpoint`, (): void => {
-    const dummyAction = actions.apiPatchConfirmation(dummyToken);
+    const dummyAction = actions.apiPatchConfirmation(dummyConfirmationToken);
     const dummyApiResponse = { status: 200 };
 
     return expectSaga(sagas.apiPatchConfirmation, dummyAction)
       .provide([
-        [call(api.confirmation.patch, dummyToken), dummyApiResponse],
+        [call(api.confirmation.patch, dummyConfirmationToken), dummyApiResponse],
       ])
-      .call(api.confirmation.patch, dummyToken)
+      .call(api.confirmation.patch, dummyConfirmationToken)
       .run();
   });
 

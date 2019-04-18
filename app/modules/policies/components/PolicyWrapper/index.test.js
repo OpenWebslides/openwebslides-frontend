@@ -32,7 +32,7 @@ describe(`PolicyWrapper`, (): void => {
         ...dummyInitialState.modules,
         platform: {
           ...dummyInitialState.modules.platform,
-          userAuth: { userId: dummyUser.id, apiToken: 'foobarToken' },
+          userAuth: { userId: dummyUser.id, accessToken: 'accessToken' },
         },
         users: {
           ...dummyInitialState.modules.users,

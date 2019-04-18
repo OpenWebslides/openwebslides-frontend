@@ -6,17 +6,17 @@
  * API documentation: https://openwebslides.github.io/documentation/#get-all-user-alerts
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { USERS_ENDPOINT, ALERTS_ENDPOINT } from '../endpoints';
 
-const getAllByUserId = (userId: string, token: string): Promise<ApiResponseData> => {
+const getAllByUserId = (userId: string, accessToken: ?string): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.GET)
     .addPathSegment(USERS_ENDPOINT)
     .addPathSegment(userId)
     .addPathSegment(ALERTS_ENDPOINT)
     .setParameter('include', 'user,topic,pullRequest,subject')
-    .setToken(token)
+    .setToken(accessToken)
     .execute();
 };
 

@@ -7,7 +7,8 @@ import { type ApiSagaAction } from 'types/actions';
 
 // Action constants --------------------------------------------------------------------------------
 
-export const API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH: 'platform/API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH' = 'platform/API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH';
+export const API_POST_TOKEN: 'platform/API_POST_TOKEN' = 'platform/API_POST_TOKEN';
+export const API_PATCH_TOKEN: 'platform/API_PATCH_TOKEN' = 'platform/API_PATCH_TOKEN';
 export const API_DELETE_TOKEN: 'platform/API_DELETE_TOKEN' = 'platform/API_DELETE_TOKEN';
 export const API_POST_CONFIRMATION: 'platform/API_POST_CONFIRMATION' = 'platform/API_POST_CONFIRMATION';
 export const API_PATCH_CONFIRMATION: 'platform/API_PATCH_CONFIRMATION' = 'platform/API_PATCH_CONFIRMATION';
@@ -16,13 +17,22 @@ export const API_PATCH_PASSWORD: 'platform/API_PATCH_PASSWORD' = 'platform/API_P
 
 // Action types ------------------------------------------------------------------------------------
 
-export type ApiPostSigninToTokenAndGetUserAuthAction = {|
+export type ApiPostToken = {|
   ...ApiSagaAction,
-  type: typeof API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH,
+  type: typeof API_POST_TOKEN,
   payload: {|
     ...$PropertyType<ApiSagaAction, 'payload'>,
     email: string,
     password: string,
+  |},
+|};
+
+export type ApiPatchToken = {|
+  ...ApiSagaAction,
+  type: typeof API_PATCH_TOKEN,
+  payload: {|
+    ...$PropertyType<ApiSagaAction, 'payload'>,
+    refreshToken: string,
   |},
 |};
 
@@ -31,7 +41,7 @@ export type ApiDeleteTokenAction = {|
   type: typeof API_DELETE_TOKEN,
   payload: {|
     ...$PropertyType<ApiSagaAction, 'payload'>,
-    token: string,
+    refreshToken: string,
   |},
 |};
 
@@ -75,7 +85,8 @@ export type ApiPatchPasswordAction = {|
 // ApiSaga action ----------------------------------------------------------------------------------
 
 export type PlatformApiSagaAction =
-  | ApiPostSigninToTokenAndGetUserAuthAction
+  | ApiPostToken
+  | ApiPatchToken
   | ApiDeleteTokenAction
   | ApiPostConfirmationAction
   | ApiPatchConfirmationAction

@@ -6,7 +6,7 @@
  * API docs: https://openwebslides.github.io/documentation/#submit-a-pull-request
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { PULL_REQUESTS_ENDPOINT } from '../endpoints';
 
@@ -15,7 +15,7 @@ const post = (
   sourceTopicId: string,
   targetTopicId: string,
   userId: string,
-  token: string,
+  accessToken: ?string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
@@ -49,7 +49,7 @@ const post = (
   return new ApiRequest(httpMethods.POST)
     .addPathSegment(PULL_REQUESTS_ENDPOINT)
     .setBody(body)
-    .setToken(token)
+    .setToken(accessToken)
     .execute();
 };
 

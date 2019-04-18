@@ -58,7 +58,7 @@ describe(`Comments`, (): void => {
         },
         platform: {
           ...dummyInitialState.modules.platform,
-          userAuth: { userId: dummyUser.id, apiToken: 'foobarToken' },
+          userAuth: { userId: dummyUser.id, accessToken: 'foobarToken' },
         },
       },
     };

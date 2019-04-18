@@ -1,11 +1,13 @@
 // @flow
 
-import deleteFunction from './delete';
-import postSignin from './postSignin';
+import deleteToken from './delete';
+import patch from './patch';
+import post from './post';
 
 const tokenApi = {
-  delete: deleteFunction,
-  postSignin,
+  delete: deleteToken,
+  patch,
+  post,
 };
 
 export default tokenApi;

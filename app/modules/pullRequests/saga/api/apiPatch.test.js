@@ -16,13 +16,13 @@ describe(`apiPatch`, (): void => {
   let dummyId: string;
   let dummyStateEvent: string;
   let dummyFeedback: string;
-  let dummyToken: string;
+  let dummyAccessToken: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
     dummyStateEvent = 'dummyStateEvent';
     dummyFeedback = 'dummyFeedback';
-    dummyToken = 'dummyToken';
+    dummyAccessToken = 'dummyAccessToken';
   });
 
   it(`sends a PATCH request for the passed props to the pullRequests endpoint`, (): void => {
@@ -38,10 +38,10 @@ describe(`apiPatch`, (): void => {
 
     return expectSaga(sagas.apiPatch, dummyAction)
       .provide([
-        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-        [call(api.pullRequests.patch, dummyId, dummyStateEvent, dummyFeedback, dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', accessToken: dummyAccessToken }],
+        [call(api.pullRequests.patch, dummyId, dummyStateEvent, dummyFeedback, dummyAccessToken), dummyApiResponse],
       ])
-      .call(api.pullRequests.patch, dummyId, dummyStateEvent, dummyFeedback, dummyToken)
+      .call(api.pullRequests.patch, dummyId, dummyStateEvent, dummyFeedback, dummyAccessToken)
       .run();
   });
 
@@ -62,7 +62,7 @@ describe(`apiPatch`, (): void => {
       expectSaga(sagas.apiPatch, dummyAction)
         .provide([
           [select(platform.selectors.getUserAuth), null],
-          [call(api.pullRequests.patch, dummyId, dummyStateEvent, dummyFeedback, dummyToken), dummyApiResponse],
+          [call(api.pullRequests.patch, dummyId, dummyStateEvent, dummyFeedback, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);

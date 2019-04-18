@@ -19,7 +19,7 @@ describe(`apiGet`, (): void => {
   let dummyGravatarHash: string;
   let dummyLocale: string;
   let dummyAlertEmails: boolean;
-  let dummyToken: string;
+  let dummyAccessToken: string;
   let dummyTopicId1: string;
   let dummyTopicId2: string;
 
@@ -30,7 +30,7 @@ describe(`apiGet`, (): void => {
     dummyGravatarHash = 'test';
     dummyLocale = 'en';
     dummyAlertEmails = true;
-    dummyToken = 'foobarToken';
+    dummyAccessToken = 'dummyAccessToken';
     dummyTopicId1 = 'dummyTopicId1';
     dummyTopicId2 = 'dummyTopicId2';
   });
@@ -63,10 +63,10 @@ describe(`apiGet`, (): void => {
 
     return expectSaga(sagas.apiGet, dummyAction)
       .provide([
-        [select(platform.selectors.getUserAuth), { userId: 'dummyId', apiToken: dummyToken }],
-        [call(api.users.get, dummyId, dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { userId: 'dummyId', accessToken: dummyAccessToken }],
+        [call(api.users.get, dummyId, dummyAccessToken), dummyApiResponse],
       ])
-      .call(api.users.get, dummyId, dummyToken)
+      .call(api.users.get, dummyId, dummyAccessToken)
       .put(actions.setMultipleInState([{ id: dummyId, email: dummyEmail, name: dummyName, gravatarHash: dummyGravatarHash, locale: dummyLocale, alertEmails: dummyAlertEmails, topicIds: [dummyTopicId1, dummyTopicId2] }]))
       .run();
   });

@@ -7,7 +7,8 @@ describe(`getUserAuth`, (): void => {
   it(`returns the UserAuth object, when the current user is authenticated`, (): void => {
     const dummyUserAuth = {
       userId: 'dummyUserId',
-      apiToken: 'foobarToken',
+      refreshToken: 'refreshToken',
+      accessToken: 'accessToken',
     };
     const dummyState: any = { modules: { platform: {
       userAuth: dummyUserAuth,

@@ -17,7 +17,7 @@ describe(`apiGetAllByTopicId`, (): void => {
 
   let dummyTopicId: string;
   let dummyContentItems: $ReadOnlyArray<m.ContentItem>;
-  let dummyToken: string;
+  let dummyAccessToken: string;
 
   beforeEach((): void => {
     dummyTopicId = 'dummyTopicId';
@@ -28,7 +28,7 @@ describe(`apiGetAllByTopicId`, (): void => {
       // $FlowFixMe couldn't decide which case to select; probable bug
       { ...dummyData.paragraphContentItem },
     ];
-    dummyToken = 'dummyToken';
+    dummyAccessToken = 'dummyAccessToken';
   });
 
   it(`sends a GET request for the topic content to the topics endpoint, processes the response and sets the contentItems in the state when there is no currently signed in user`, (): void => {
@@ -69,10 +69,10 @@ describe(`apiGetAllByTopicId`, (): void => {
 
     return expectSaga(sagas.apiGetAllByTopicId, dummyAction)
       .provide([
-        [select(platform.selectors.getUserAuth), { apiToken: dummyToken }],
-        [call(api.topics.getContent, dummyTopicId, dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { accessToken: dummyAccessToken }],
+        [call(api.topics.getContent, dummyTopicId, dummyAccessToken), dummyApiResponse],
       ])
-      .call(api.topics.getContent, dummyTopicId, dummyToken)
+      .call(api.topics.getContent, dummyTopicId, dummyAccessToken)
       .put(actions.setMultipleInState(dummyContentItems))
       .run();
   });

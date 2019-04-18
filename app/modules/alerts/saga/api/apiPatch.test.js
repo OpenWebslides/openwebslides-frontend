@@ -15,12 +15,12 @@ describe(`apiPatch`, (): void => {
 
   let dummyId: string;
   let dummyRead: boolean;
-  let dummyToken: string;
+  let dummyAccessToken: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
     dummyRead = true;
-    dummyToken = 'foobarToken';
+    dummyAccessToken = 'dummyAccessToken';
   });
 
   it(`sends a PATCH request for the passed id with true as parameter to the alerts endpoint`, (): void => {
@@ -29,10 +29,10 @@ describe(`apiPatch`, (): void => {
 
     return expectSaga(sagas.apiPatch, dummyAction)
       .provide([
-        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-        [call(api.alerts.patch, dummyId, dummyRead, dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', accessToken: dummyAccessToken }],
+        [call(api.alerts.patch, dummyId, dummyRead, dummyAccessToken), dummyApiResponse],
       ])
-      .call(api.alerts.patch, dummyId, dummyRead, dummyToken)
+      .call(api.alerts.patch, dummyId, dummyRead, dummyAccessToken)
       .run();
   });
 
@@ -46,7 +46,7 @@ describe(`apiPatch`, (): void => {
       expectSaga(sagas.apiPatch, dummyAction)
         .provide([
           [select(platform.selectors.getUserAuth), null],
-          [call(api.alerts.patch, dummyId, dummyRead, dummyToken), dummyApiResponse],
+          [call(api.alerts.patch, dummyId, dummyRead, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);

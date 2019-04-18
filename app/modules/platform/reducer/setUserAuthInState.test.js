@@ -10,7 +10,8 @@ describe(`setUserAuthInState`, (): void => {
   it(`sets the passed userAuth prop in the state, when the passed auth prop is not NULL`, (): void => {
     const dummyUserAuth: m.UserAuth = {
       userId: 'dummyUserId',
-      apiToken: 'foobarToken',
+      refreshToken: 'refreshToken',
+      accessToken: 'accessToken',
     };
 
     const prevState: m.PlatformState = {
@@ -36,7 +37,8 @@ describe(`setUserAuthInState`, (): void => {
   it(`sets auth to NULL in the state, when the passed auth prop is NULL`, (): void => {
     const dummyUserAuth: m.UserAuth = {
       userId: 'dummyUserId',
-      apiToken: 'foobarToken',
+      refreshToken: 'refreshToken',
+      accessToken: 'accessToken',
     };
 
     const prevState: m.PlatformState = {
@@ -62,11 +64,13 @@ describe(`setUserAuthInState`, (): void => {
   it(`replaces a previous auth prop in the state, when the passed auth prop is not NULL and the state already had an non-NULL auth prop`, (): void => {
     const dummyUserAuth1: m.UserAuth = {
       userId: 'dummyUserId',
-      apiToken: 'foobarToken',
+      refreshToken: 'refreshToken1',
+      accessToken: 'accessToken1',
     };
     const dummyUserAuth2: m.UserAuth = {
       userId: 'secondDummyId',
-      apiToken: 'tokenFoobar',
+      refreshToken: 'refreshToken2',
+      accessToken: 'accessToken2',
     };
 
     const prevState: m.PlatformState = {
@@ -92,11 +96,13 @@ describe(`setUserAuthInState`, (): void => {
   it(`returns the passed state unchanged, when the passed userAuth prop is identical to the previous one`, (): void => {
     const dummyUserAuth1: m.UserAuth = {
       userId: 'dummyUserId',
-      apiToken: 'foobarToken',
+      refreshToken: 'refreshToken',
+      accessToken: 'accessToken',
     };
     const dummyUserAuth2: m.UserAuth = {
       userId: 'dummyUserId',
-      apiToken: 'foobarToken',
+      refreshToken: 'refreshToken',
+      accessToken: 'accessToken',
     };
 
     const prevState: m.PlatformState = {

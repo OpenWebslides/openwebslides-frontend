@@ -6,7 +6,7 @@
  * API documentation: https://openwebslides.github.io/documentation/#request-password-reset
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { PASSWORD_ENDPOINT } from '../endpoints';
 

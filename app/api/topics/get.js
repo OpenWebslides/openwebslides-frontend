@@ -6,16 +6,16 @@
  * API docs: https://openwebslides.github.io/documentation/#get-a-topic
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { TOPICS_ENDPOINT } from '../endpoints';
 
-const get = (id: string, token: ?string): Promise<ApiResponseData> => {
+const get = (id: string, accessToken: ?string): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.GET)
     .addPathSegment(TOPICS_ENDPOINT)
     .addPathSegment(id)
     .setParameter('include', 'user,upstream,forks,incomingPullRequests,outgoingPullRequests,collaborators')
-    .setToken(token)
+    .setToken(accessToken)
     .execute();
 };
 

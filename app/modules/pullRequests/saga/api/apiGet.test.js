@@ -15,7 +15,7 @@ import { sagas } from '..';
 describe(`apiGet`, (): void => {
 
   let dummyId: string;
-  let dummyToken: string;
+  let dummyAccessToken: string;
   let dummyMessage: string;
   let dummyFeedback: string;
   let dummySourceTopicId: string;
@@ -26,7 +26,7 @@ describe(`apiGet`, (): void => {
 
   beforeEach((): void => {
     dummyId = 'dummyId';
-    dummyToken = 'dummyToken';
+    dummyAccessToken = 'dummyAccessToken';
     dummyMessage = 'dummyMessage';
     dummyFeedback = 'dummyFeedback';
     dummySourceTopicId = 'dummySourceTopicId';
@@ -59,10 +59,10 @@ describe(`apiGet`, (): void => {
 
     return expectSaga(sagas.apiGet, dummyAction)
       .provide([
-        [select(platform.selectors.getUserAuth), { userId: dummyUserId, apiToken: dummyToken }],
-        [call(api.pullRequests.get, dummyId, dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { userId: dummyUserId, accessToken: dummyAccessToken }],
+        [call(api.pullRequests.get, dummyId, dummyAccessToken), dummyApiResponse],
       ])
-      .call(api.pullRequests.get, dummyId, dummyToken)
+      .call(api.pullRequests.get, dummyId, dummyAccessToken)
       .put(actions.setMultipleInState([{ id: dummyId, message: dummyMessage, feedback: dummyFeedback, sourceTopicId: dummySourceTopicId, targetTopicId: dummyTargetTopicId, userId: dummyUserId, state: pullRequestStates.READY, timestamp: (dummyCreatedAt * 1000) }]))
       .run();
   });
@@ -93,10 +93,10 @@ describe(`apiGet`, (): void => {
 
       return expectSaga(sagas.apiGet, dummyAction)
         .provide([
-          [select(platform.selectors.getUserAuth), { userId: dummyUserId, apiToken: dummyToken }],
-          [call(api.pullRequests.get, dummyId, dummyToken), dummyApiResponse],
+          [select(platform.selectors.getUserAuth), { userId: dummyUserId, accessToken: dummyAccessToken }],
+          [call(api.pullRequests.get, dummyId, dummyAccessToken), dummyApiResponse],
         ])
-        .call(api.pullRequests.get, dummyId, dummyToken)
+        .call(api.pullRequests.get, dummyId, dummyAccessToken)
         .put(actions.setMultipleInState([{ id: dummyId, message: dummyMessage, feedback: dummyFeedback, sourceTopicId: dummySourceTopicId, targetTopicId: dummyTargetTopicId, userId: dummyUserId, state: states[state], timestamp: (dummyCreatedAt * 1000) }]))
         .run();
     });
@@ -127,7 +127,7 @@ describe(`apiGet`, (): void => {
       expectSaga(sagas.apiGet, dummyAction)
         .provide([
           [select(platform.selectors.getUserAuth), null],
-          [call(api.pullRequests.get, dummyId, dummyToken), dummyApiResponse],
+          [call(api.pullRequests.get, dummyId, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);
@@ -142,8 +142,8 @@ describe(`apiGet`, (): void => {
     await expect(
       expectSaga(sagas.apiGet, dummyAction)
         .provide([
-          [select(platform.selectors.getUserAuth), { userId: dummyUserId, apiToken: dummyToken }],
-          [call(api.pullRequests.get, dummyId, dummyToken), dummyApiResponse],
+          [select(platform.selectors.getUserAuth), { userId: dummyUserId, accessToken: dummyAccessToken }],
+          [call(api.pullRequests.get, dummyId, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);

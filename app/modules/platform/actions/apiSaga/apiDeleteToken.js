@@ -2,11 +2,11 @@
 
 import * as a from '../../actionTypes';
 
-const apiDeleteToken = (token: string): a.ApiDeleteTokenAction => {
+const apiDeleteToken = (refreshToken: string): a.ApiDeleteTokenAction => {
   return {
     type: a.API_DELETE_TOKEN,
     payload: {
-      token,
+      refreshToken,
     },
   };
 };

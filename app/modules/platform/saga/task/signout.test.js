@@ -16,24 +16,26 @@ import { sagas } from '..';
 
 describe(`signout`, (): void => {
 
-  let dummyToken: string;
+  let dummyRefreshToken: string;
+  let dummyAccessToken: string;
 
   beforeEach((): void => {
-    dummyToken = 'foobarToken';
+    dummyRefreshToken = 'dummyRefreshToken';
+    dummyAccessToken = 'dummyAccessToken';
   });
 
-  it(`selects the current user's token from the state and puts an apiDeleteToken action, then puts an setUserAuthInState(null) action`, (): void => {
+  it(`selects the current user's refresh token from the state and puts an apiDeleteToken action, then puts an setUserAuthInState(null) action`, (): void => {
     const dummyAction = actions.signout();
 
     return expectSaga(sagas.signout, dummyAction)
       .provide([
-        [select(selectors.getUserAuth), { userId: 'dummyId', apiToken: dummyToken }],
+        [select(selectors.getUserAuth), { userId: 'dummyId', refreshToken: dummyRefreshToken, accessToken: dummyAccessToken }],
         [matchers.call.fn(asyncRequests.lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
           return (action.type === a.API_DELETE_TOKEN) ? null : next();
         })],
       ])
       .put(actions.setUserAuthInState(null))
-      .call(asyncRequests.lib.putAndReturn, actions.apiDeleteToken(dummyToken))
+      .call(asyncRequests.lib.putAndReturn, actions.apiDeleteToken(dummyRefreshToken))
       .run();
   });
 

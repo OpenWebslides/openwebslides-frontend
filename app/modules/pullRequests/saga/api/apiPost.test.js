@@ -14,7 +14,7 @@ import { sagas } from '..';
 describe(`apiPost`, (): void => {
 
   let dummyId: string;
-  let dummyToken: string;
+  let dummyAccessToken: string;
   let dummyMessage: string;
   let dummySourceTopicId: string;
   let dummyTargetTopicId: string;
@@ -22,7 +22,7 @@ describe(`apiPost`, (): void => {
 
   beforeEach((): void => {
     dummyId = 'dummyId';
-    dummyToken = 'dummyToken';
+    dummyAccessToken = 'dummyAccessToken';
     dummyMessage = 'dummyMessage';
     dummySourceTopicId = 'dummySourceTopicId';
     dummyTargetTopicId = 'dummyTargetTopicId';
@@ -42,10 +42,10 @@ describe(`apiPost`, (): void => {
 
     return expectSaga(sagas.apiPost, dummyAction)
       .provide([
-        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-        [call(api.pullRequests.post, dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId, dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', accessToken: dummyAccessToken }],
+        [call(api.pullRequests.post, dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId, dummyAccessToken), dummyApiResponse],
       ])
-      .call(api.pullRequests.post, dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId, dummyToken)
+      .call(api.pullRequests.post, dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId, dummyAccessToken)
       .returns({ id: dummyId })
       .run();
   });
@@ -67,7 +67,7 @@ describe(`apiPost`, (): void => {
       expectSaga(sagas.apiPost, dummyAction)
         .provide([
           [select(platform.selectors.getUserAuth), null],
-          [call(api.pullRequests.post, dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId, dummyToken), dummyApiResponse],
+          [call(api.pullRequests.post, dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);
@@ -82,8 +82,8 @@ describe(`apiPost`, (): void => {
     await expect(
       expectSaga(sagas.apiPost, dummyAction)
         .provide([
-          [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-          [call(api.pullRequests.post, dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId, dummyToken), dummyApiResponse],
+          [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', accessToken: dummyAccessToken }],
+          [call(api.pullRequests.post, dummyMessage, dummySourceTopicId, dummyTargetTopicId, dummyUserId, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);

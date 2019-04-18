@@ -29,7 +29,7 @@ describe(`getAllPending`, (): void => {
       [dummyPendingRequest2.id]: dummyPendingRequest2,
       [dummyFailureRequest1.id]: dummyFailureRequest1,
     };
-    dummyAsyncRequestsState = { byId: dummyAsyncRequestsById };
+    dummyAsyncRequestsState = { byId: dummyAsyncRequestsById, refreshing: false };
     dummyState = { modules: { asyncRequests: dummyAsyncRequestsState } };
   });
 

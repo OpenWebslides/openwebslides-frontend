@@ -6,7 +6,7 @@
  * API docs: https://openwebslides.github.io/documentation/#update-topic-content
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { TOPICS_ENDPOINT } from '../endpoints';
 
@@ -15,7 +15,7 @@ const patch = (
   title: ?string,
   description: ?string,
   access: ?string,
-  token: string,
+  accessToken: ?string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
@@ -33,7 +33,7 @@ const patch = (
     .addPathSegment(TOPICS_ENDPOINT)
     .addPathSegment(id)
     .setBody(body)
-    .setToken(token)
+    .setToken(accessToken)
     .execute();
 };
 

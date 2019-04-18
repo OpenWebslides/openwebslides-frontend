@@ -12,22 +12,22 @@ import { sagas } from '..';
 describe(`apiPatchPassword`, (): void => {
 
   let dummyPassword: string;
-  let dummyToken: string;
+  let dummyResetPasswordToken: string;
 
   beforeEach((): void => {
     dummyPassword = 'P@ssword1';
-    dummyToken = 'foobarToken';
+    dummyResetPasswordToken = 'dummyResetPasswordToken';
   });
 
   it(`executes a patch request to the password API endpoint`, (): void => {
-    const dummyAction = actions.apiPatchPassword(dummyPassword, dummyToken);
+    const dummyAction = actions.apiPatchPassword(dummyPassword, dummyResetPasswordToken);
     const dummyApiResponse = { status: 200 };
 
     return expectSaga(sagas.apiPatchPassword, dummyAction)
       .provide([
-        [call(api.password.patch, dummyPassword, dummyToken), dummyApiResponse],
+        [call(api.password.patch, dummyPassword, dummyResetPasswordToken), dummyApiResponse],
       ])
-      .call(api.password.patch, dummyPassword, dummyToken)
+      .call(api.password.patch, dummyPassword, dummyResetPasswordToken)
       .run();
   });
 

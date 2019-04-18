@@ -6,16 +6,16 @@
  * API docs: #TODO
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { USERS_ENDPOINT, TOPICS_ENDPOINT } from '../endpoints';
 
-const getAllByUserId = (userId: string, token: ?string): Promise<ApiResponseData> => {
+const getAllByUserId = (userId: string, accessToken: ?string): Promise<ApiResponseData> => {
   return new ApiRequest(httpMethods.GET)
     .addPathSegment(USERS_ENDPOINT)
     .addPathSegment(userId)
     .addPathSegment(TOPICS_ENDPOINT)
-    .setToken(token)
+    .setToken(accessToken)
     .execute();
 };
 

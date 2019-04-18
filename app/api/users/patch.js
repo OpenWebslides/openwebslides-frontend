@@ -6,7 +6,7 @@
  * API documentation: https://openwebslides.github.io/documentation/#update-a-user
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { USERS_ENDPOINT } from '../endpoints';
 
@@ -17,7 +17,7 @@ const patch = (
   alertEmails: ?boolean,
   currentPassword: ?string,
   password: ?string,
-  token: string,
+  accessToken: ?string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
@@ -37,7 +37,7 @@ const patch = (
     .addPathSegment(USERS_ENDPOINT)
     .addPathSegment(id)
     .setBody(body)
-    .setToken(token)
+    .setToken(accessToken)
     .execute();
 };
 

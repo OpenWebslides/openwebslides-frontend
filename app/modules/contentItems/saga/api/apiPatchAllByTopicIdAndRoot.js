@@ -25,7 +25,7 @@ const apiPatchAllByTopicIdAndRoot = function* (
   );
   const topicContentItems = [rootContentItem, ...descendantItems];
 
-  yield call(api.topics.patchContent, topicId, topicContentItems, message, userAuth.apiToken);
+  yield call(api.topics.patchContent, topicId, topicContentItems, message, userAuth.accessToken);
 };
 
 export default apiPatchAllByTopicIdAndRoot;

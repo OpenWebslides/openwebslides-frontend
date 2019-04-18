@@ -5,7 +5,7 @@ import { call, select } from 'redux-saga/effects';
 
 import api from 'api';
 import { UnexpectedHttpResponseError, UnsupportedOperationError } from 'errors';
-import { type ApiResponseData } from 'lib/ApiRequest';
+import { type ApiResponseData } from 'lib/ApiConnection';
 import platform from 'modules/platform';
 
 import * as a from '../../actionTypes';
@@ -28,7 +28,7 @@ const apiPatch = function* (action: a.ApiPatchAction): Saga<{ id: string }> {
     title,
     description,
     access ? apiAccessTypesMap[access] : undefined,
-    userAuth.apiToken,
+    userAuth.accessToken,
   );
   if (responseData.body == null) throw new UnexpectedHttpResponseError();
 

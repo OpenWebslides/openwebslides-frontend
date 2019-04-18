@@ -14,7 +14,7 @@ const apiDelete = function* (action: a.ApiDeleteAction): Saga<void> {
   const userAuth: ?platform.model.UserAuth = yield select(platform.selectors.getUserAuth);
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
-  yield call(api.topics.delete, id, userAuth.apiToken);
+  yield call(api.topics.delete, id, userAuth.accessToken);
 };
 
 export default apiDelete;

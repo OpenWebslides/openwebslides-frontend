@@ -13,8 +13,9 @@ import apiDeleteToken from './apiDeleteToken';
 import apiPatchConfirmation from './apiPatchConfirmation';
 import apiPostConfirmation from './apiPostConfirmation';
 import apiPatchPassword from './apiPatchPassword';
+import apiPatchToken from './apiPatchToken';
 import apiPostPassword from './apiPostPassword';
-import apiPostSigninToTokenAndGetUserAuth from './apiPostSigninToTokenAndGetUserAuth';
+import apiPostToken from './apiPostToken';
 
 const { sagaWrapper } = asyncRequests.lib;
 
@@ -22,10 +23,11 @@ const apiSaga = function* (): Saga<void> {
   yield all([
     takeEvery(a.API_DELETE_TOKEN, sagaWrapper, apiDeleteToken),
     takeEvery(a.API_PATCH_CONFIRMATION, sagaWrapper, apiPatchConfirmation),
-    takeEvery(a.API_POST_CONFIRMATION, sagaWrapper, apiPostConfirmation),
     takeEvery(a.API_PATCH_PASSWORD, sagaWrapper, apiPatchPassword),
+    takeEvery(a.API_PATCH_TOKEN, sagaWrapper, apiPatchToken),
+    takeEvery(a.API_POST_CONFIRMATION, sagaWrapper, apiPostConfirmation),
     takeEvery(a.API_POST_PASSWORD, sagaWrapper, apiPostPassword),
-    takeEvery(a.API_POST_SIGNIN_TO_TOKEN_AND_GET_USER_AUTH, sagaWrapper, apiPostSigninToTokenAndGetUserAuth),
+    takeEvery(a.API_POST_TOKEN, sagaWrapper, apiPostToken),
   ]);
 };
 
@@ -33,9 +35,10 @@ const apiSagas = {
   apiDeleteToken,
   apiPatchConfirmation,
   apiPatchPassword,
+  apiPatchToken,
   apiPostConfirmation,
   apiPostPassword,
-  apiPostSigninToTokenAndGetUserAuth,
+  apiPostToken,
 };
 
 export { apiSagas };

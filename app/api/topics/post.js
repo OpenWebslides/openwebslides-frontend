@@ -6,7 +6,7 @@
  * API docs: https://openwebslides.github.io/documentation/#create-a-topic
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { TOPICS_ENDPOINT } from '../endpoints';
 
@@ -15,7 +15,7 @@ const post = (
   description: ?string,
   rootContentItemId: string,
   userId: string,
-  token: string,
+  accessToken: ?string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
@@ -40,7 +40,7 @@ const post = (
   return new ApiRequest(httpMethods.POST)
     .addPathSegment(TOPICS_ENDPOINT)
     .setBody(body)
-    .setToken(token)
+    .setToken(accessToken)
     .execute();
 };
 

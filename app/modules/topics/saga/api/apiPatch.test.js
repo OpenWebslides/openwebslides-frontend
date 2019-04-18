@@ -15,14 +15,14 @@ import { sagas } from '..';
 describe(`apiPatch`, (): void => {
 
   let dummyId: string;
-  let dummyToken: string;
+  let dummyAccessToken: string;
   let dummyTitle: string;
   let dummyDescription: string;
   let dummyAccess: m.AccessType;
 
   beforeEach((): void => {
     dummyId = 'dummyReturnedId';
-    dummyToken = 'foobarToken';
+    dummyAccessToken = 'dummyAccessToken';
     dummyTitle = 'The Title';
     dummyDescription = 'The description.';
     dummyAccess = m.accessTypes.PUBLIC;
@@ -41,10 +41,10 @@ describe(`apiPatch`, (): void => {
 
     return expectSaga(sagas.apiPatch, dummyAction)
       .provide([
-        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-        [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, undefined, dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', accessToken: dummyAccessToken }],
+        [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, undefined, dummyAccessToken), dummyApiResponse],
       ])
-      .call(api.topics.patch, dummyId, dummyTitle, dummyDescription, undefined, dummyToken)
+      .call(api.topics.patch, dummyId, dummyTitle, dummyDescription, undefined, dummyAccessToken)
       .returns({ id: dummyId })
       .run();
   });
@@ -62,10 +62,10 @@ describe(`apiPatch`, (): void => {
 
     return expectSaga(sagas.apiPatch, dummyAction)
       .provide([
-        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-        [call(api.topics.patch, dummyId, undefined, undefined, 'public', dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', accessToken: dummyAccessToken }],
+        [call(api.topics.patch, dummyId, undefined, undefined, 'public', dummyAccessToken), dummyApiResponse],
       ])
-      .call(api.topics.patch, dummyId, undefined, undefined, 'public', dummyToken)
+      .call(api.topics.patch, dummyId, undefined, undefined, 'public', dummyAccessToken)
       .returns({ id: dummyId })
       .run();
   });
@@ -87,7 +87,7 @@ describe(`apiPatch`, (): void => {
       expectSaga(sagas.apiPatch, dummyAction)
         .provide([
           [select(platform.selectors.getUserAuth), null],
-          [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, 'public', dummyToken), dummyApiResponse],
+          [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, 'public', dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);
@@ -102,8 +102,8 @@ describe(`apiPatch`, (): void => {
     await expect(
       expectSaga(sagas.apiPatch, dummyAction)
         .provide([
-          [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', apiToken: dummyToken }],
-          [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, 'public', dummyToken), dummyApiResponse],
+          [select(platform.selectors.getUserAuth), { userId: 'dummyUserId', accessToken: dummyAccessToken }],
+          [call(api.topics.patch, dummyId, dummyTitle, dummyDescription, 'public', dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);

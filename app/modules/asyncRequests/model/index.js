@@ -60,4 +60,6 @@ export type AsyncRequestsById = {
 
 export type AsyncRequestsState = {|
   +byId: AsyncRequestsById,
+  // Refresh request is pending
+  +refreshing: boolean,
 |};

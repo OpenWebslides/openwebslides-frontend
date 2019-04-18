@@ -31,7 +31,7 @@ describe(`apiGet`, (): void => {
   let dummyPullRequestId2: string;
   let dummyCollaboratorId1: string;
   let dummyCollaboratorId2: string;
-  let dummyToken: string;
+  let dummyAccessToken: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
@@ -48,7 +48,7 @@ describe(`apiGet`, (): void => {
     dummyPullRequestId2 = 'dummyPullRequestId2';
     dummyCollaboratorId1 = 'dummyCollaboratorId1';
     dummyCollaboratorId2 = 'dummyCollaboratorId2';
-    dummyToken = 'dummyToken';
+    dummyAccessToken = 'dummyAccessToken';
   });
 
   it(`sends an unauthorized GET request for the passed id to the topics endpoint, processes the response and puts the topic in the state when there is no currently signed in user`, (): void => {
@@ -119,10 +119,10 @@ describe(`apiGet`, (): void => {
 
     return expectSaga(sagas.apiGet, dummyAction)
       .provide([
-        [select(platform.selectors.getUserAuth), { apiToken: dummyToken }],
-        [call(api.topics.get, dummyId, dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { accessToken: dummyAccessToken }],
+        [call(api.topics.get, dummyId, dummyAccessToken), dummyApiResponse],
       ])
-      .call(api.topics.get, dummyId, dummyToken)
+      .call(api.topics.get, dummyId, dummyAccessToken)
       .put(actions.setMultipleInState([{ id: dummyId, title: dummyTitle, description: dummyDescription, access: dummyAccess, userId: dummyUserId, rootContentItemId: dummyRootContentId, hasOpenPullRequest: false, timestamp: Number(dummyTimestamp) * 1000, upstreamTopicId: null, forkedTopicIds: [], incomingPullRequestIds: [], outgoingPullRequestIds: [], collaboratorUserIds: [], isContentFetched: false, isDirty: false }]))
       .run();
   });

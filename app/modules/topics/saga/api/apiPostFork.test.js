@@ -16,13 +16,13 @@ describe(`apiPostFork`, (): void => {
   let dummyId: string;
   let dummyForkedId: string;
   let dummyUserId: string;
-  let dummyToken: string;
+  let dummyAccessToken: string;
 
   beforeEach((): void => {
     dummyId = 'dummyId';
     dummyForkedId = 'dummyForkedId';
     dummyUserId = 'dummyUserId';
-    dummyToken = 'dummyToken';
+    dummyAccessToken = 'dummyAccessToken';
   });
 
   it(`sends a POST request for the passed id to the topics fork endpoint, processes the response and returns the forked topic ID`, (): void => {
@@ -38,10 +38,10 @@ describe(`apiPostFork`, (): void => {
 
     return expectSaga(sagas.apiPostFork, dummyAction)
       .provide([
-        [select(platform.selectors.getUserAuth), { userId: dummyUserId, apiToken: dummyToken }],
-        [call(api.topics.postFork, dummyId, dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { userId: dummyUserId, accessToken: dummyAccessToken }],
+        [call(api.topics.postFork, dummyId, dummyAccessToken), dummyApiResponse],
       ])
-      .call(api.topics.postFork, dummyId, dummyToken)
+      .call(api.topics.postFork, dummyId, dummyAccessToken)
       .returns({ id: dummyForkedId })
       .run();
   });
@@ -56,7 +56,7 @@ describe(`apiPostFork`, (): void => {
       expectSaga(sagas.apiPostFork, dummyAction)
         .provide([
           [select(platform.selectors.getUserAuth), null],
-          [call(api.topics.postFork, dummyId, dummyToken), dummyApiResponse],
+          [call(api.topics.postFork, dummyId, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);
@@ -71,8 +71,8 @@ describe(`apiPostFork`, (): void => {
     await expect(
       expectSaga(sagas.apiPostFork, dummyAction)
         .provide([
-          [select(platform.selectors.getUserAuth), { userId: dummyUserId, apiToken: dummyToken }],
-          [call(api.topics.postFork, dummyId, dummyToken), dummyApiResponse],
+          [select(platform.selectors.getUserAuth), { userId: dummyUserId, accessToken: dummyAccessToken }],
+          [call(api.topics.postFork, dummyId, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);

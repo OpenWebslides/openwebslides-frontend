@@ -7,7 +7,7 @@
  */
 
 import contentItems from 'modules/contentItems';
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { TOPICS_ENDPOINT, TOPICS_CONTENT_ENDPOINT } from '../endpoints';
 
@@ -15,7 +15,7 @@ const patchContent = (
   id: string,
   content: $ReadOnlyArray<contentItems.model.ContentItem>,
   message: string,
-  token: string,
+  accessToken: ?string,
 ): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
@@ -32,7 +32,7 @@ const patchContent = (
     .addPathSegment(id)
     .addPathSegment(TOPICS_CONTENT_ENDPOINT)
     .setBody(body)
-    .setToken(token)
+    .setToken(accessToken)
     .execute();
 };
 

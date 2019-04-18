@@ -14,26 +14,26 @@ import SSOCallbackPage, { PureSSOCallbackPage } from '.';
 
 describe(`SSOCallbackPage`, (): void => {
 
-  let dummyApiToken: string;
+  let dummyRefreshToken: string;
   let dummyId: any;
   let dummySetUserAuth: any;
 
   let dummyDispatch: any;
 
   beforeEach((): void => {
-    dummyApiToken = 'foobarApiToken';
-    dummyId = 'foobarId';
+    dummyRefreshToken = 'dummyRefreshToken';
+    dummyId = 'dummyId';
     dummySetUserAuth = jest.fn();
 
     dummyDispatch = jest.fn();
   });
 
-  it(`dispatches a dummySetUserAuth() action with the passed apiToken and id and redirects to the home page`, (): void => {
+  it(`dispatches a SSO_SIGNIN action with the passed refreshToken and userId and redirects to the home page`, (): void => {
     const fixedDummyRouterProps = {
       ...dummyProviderProps.routerProps,
       location: {
         ...dummyProviderProps.routerProps.location,
-        search: `?apiToken=${dummyApiToken}&userId=${dummyId}`,
+        search: `?refreshToken=${dummyRefreshToken}&userId=${dummyId}`,
       },
     };
 
@@ -43,7 +43,7 @@ describe(`SSOCallbackPage`, (): void => {
       </DummyProviders>,
     );
 
-    expect(dummyDispatch).toHaveBeenCalledWith(platform.actions.setUserAuth(dummyApiToken, dummyId));
+    expect(dummyDispatch).toHaveBeenCalledWith(platform.actions.ssoSignin(dummyId, dummyRefreshToken));
     expect(dummyDispatch).toHaveBeenCalledWith(push(HOME_ROUTE));
   });
 
@@ -66,8 +66,8 @@ describe(`SSOCallbackPage`, (): void => {
     expect(dummyDispatch).toHaveBeenCalledWith(push(AUTH_SIGNIN_ROUTE));
   });
 
-  it(`throws an InvalidArgumentError, when no apiToken is passed`, (): void => {
-    const noApiTokenDummyRouterProps = {
+  it(`throws an InvalidArgumentError, when no refreshToken is passed`, (): void => {
+    const noRefreshTokenDummyRouterProps = {
       ...dummyProviderProps.routerProps,
       location: {
         ...dummyProviderProps.routerProps.location,
@@ -78,7 +78,7 @@ describe(`SSOCallbackPage`, (): void => {
     expect((): void => {
       shallow(
         <PureSSOCallbackPage
-          {...noApiTokenDummyRouterProps}
+          {...noRefreshTokenDummyRouterProps}
           setUserAuth={dummySetUserAuth}
         />,
       );
@@ -90,7 +90,7 @@ describe(`SSOCallbackPage`, (): void => {
       ...dummyProviderProps.routerProps,
       location: {
         ...dummyProviderProps.routerProps.location,
-        search: `?apiToken=foobarToken`,
+        search: `?refreshToken=foobarToken`,
       },
     };
 

@@ -10,8 +10,9 @@ import * as m from '../model';
 // Action constants --------------------------------------------------------------------------------
 
 // Authentication
-export const SET_USER_AUTH: 'platform/SET_USER_AUTH' = 'platform/SET_USER_AUTH';
 export const SIGNIN: 'platform/SIGNIN' = 'platform/SIGNIN';
+export const SSO_SIGNIN: 'platform/SSO_SIGNIN' = 'platform/SSO_SIGNIN';
+export const REFRESH: 'platform/REFRESH' = 'platform/REFRESH';
 export const SIGNOUT: 'platform/SIGNOUT' = 'platform/SIGNOUT';
 export const CONFIRM_EMAIL: 'platform/CONFIRM_EMAIL' = 'platform/CONFIRM_EMAIL';
 export const RESEND_CONFIRMATION_EMAIL: 'platform/RESEND_CONFIRMATION_EMAIL' = 'platform/RESEND_CONFIRMATION_EMAIL';
@@ -23,16 +24,6 @@ export const TOGGLE_SIDEBAR: 'platform/TOGGLE_SIDEBAR' = 'platform/TOGGLE_SIDEBA
 
 // Action types ------------------------------------------------------------------------------------
 
-export type SetUserAuthAction = {|
-  ...TaskSagaAction,
-  type: typeof SET_USER_AUTH,
-  payload: {|
-    ...$PropertyType<TaskSagaAction, 'payload'>,
-    apiToken: string,
-    userId: string,
-  |},
-|};
-
 export type SigninAction = {|
   ...TaskSagaAction,
   type: typeof SIGNIN,
@@ -40,6 +31,24 @@ export type SigninAction = {|
     ...$PropertyType<TaskSagaAction, 'payload'>,
     email: string,
     password: string,
+  |},
+|};
+
+export type SSOSigninAction = {|
+  ...TaskSagaAction,
+  type: typeof SSO_SIGNIN,
+  payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
+    userId: string,
+    refreshToken: string,
+  |},
+|};
+
+export type RefreshAction = {|
+  ...TaskSagaAction,
+  type: typeof REFRESH,
+  payload: {|
+    ...$PropertyType<TaskSagaAction, 'payload'>,
   |},
 |};
 
@@ -101,8 +110,9 @@ export type ToggleSidebarAction = {|
 // TaskSaga action ---------------------------------------------------------------------------------
 
 export type PlatformTaskSagaAction =
-  | SetUserAuthAction
   | SigninAction
+  | SSOSigninAction
+  | RefreshAction
   | SignoutAction
   | ConfirmEmailAction
   | ResendConfirmationEmailAction

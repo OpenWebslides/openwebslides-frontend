@@ -1,16 +1,16 @@
 // @flow
 
 /**
- * POST email and password on token on token endpoint, signs in a user (creates a token)
+ * POST email and password on token endpoint, requests a refresh token
  *
  * API docs: https://openwebslides.github.io/documentation/#token-api
  */
 
-import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiRequest';
+import ApiRequest, { httpMethods, type ApiResponseData } from 'lib/ApiConnection';
 
 import { TOKEN_ENDPOINT } from '../endpoints';
 
-const postSignin = (email: string, password: string): Promise<ApiResponseData> => {
+const post = (email: string, password: string): Promise<ApiResponseData> => {
   const body = JSON.stringify({
     data: {
       type: 'tokens',
@@ -27,4 +27,4 @@ const postSignin = (email: string, password: string): Promise<ApiResponseData> =
     .execute();
 };
 
-export default postSignin;
+export default post;

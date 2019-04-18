@@ -1,11 +1,11 @@
 // @flow
 
 import { API_URL } from 'config/url';
-import { httpMethods } from 'lib/ApiRequest';
+import { httpMethods } from 'lib/ApiConnection';
 
 import api from '..';
 
-describe(`api.token.postSignin`, (): void => {
+describe(`api.token.post`, (): void => {
 
   beforeEach((): void => {
     fetch.resetMocks();
@@ -15,7 +15,7 @@ describe(`api.token.postSignin`, (): void => {
     const dummyEmail = 'test@test.be';
     const dummyPassword = 'mahpasswordy0';
     fetch.mockResponseOnce('', { status: 200 });
-    await api.token.postSignin(dummyEmail, dummyPassword);
+    await api.token.post(dummyEmail, dummyPassword);
 
     expect(fetch.mock.calls).toHaveLength(1);
 

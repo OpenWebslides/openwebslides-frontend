@@ -5,7 +5,7 @@ import { call, put, select } from 'redux-saga/effects';
 
 import api from 'api';
 import { UnexpectedHttpResponseError, UnsupportedOperationError } from 'errors';
-import { type ApiResponseData } from 'lib/ApiRequest';
+import { type ApiResponseData } from 'lib/ApiConnection';
 import platform from 'modules/platform';
 
 import actions from '../../actions';
@@ -27,7 +27,7 @@ const apiGet = function* (action: a.ApiGetAction): Saga<void> {
   if (userAuth == null) throw new UnsupportedOperationError(`Not signed in.`);
 
   const pullRequestsResponseData: ApiResponseData = yield call(
-    api.pullRequests.get, id, userAuth.apiToken,
+    api.pullRequests.get, id, userAuth.accessToken,
   );
   if (pullRequestsResponseData.body == null) {
     throw new UnexpectedHttpResponseError();

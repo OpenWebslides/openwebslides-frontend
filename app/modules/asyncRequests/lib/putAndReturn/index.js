@@ -28,9 +28,19 @@ import lib from '..';
  *                  Note 2: default is FALSE, since actions passed through this function cannot
  *                  come straight from the UI and therefore don't usually need separate loggin /
  *                  flash messages; setting it to TRUE should only rarely be necessary.
+ * @param   replay  TRUE when the action can be replayed on authentication error
+ *                  FALSE otherwise (usually for API actions)
+ *                  When a HTTP 401 is encountered and replay is set to TRUE, the access token
+ *                  is refreshed and a new, duplicated action is dispatched.
+ *                  Note: default is FALSE, since actions passed through this function cannot
+ *                  come straight from the UI and therefore are generally API actions.
  * @returns Saga<void>
  */
-const putAndReturn = function* (action: ModulesAction, log: boolean = false): Saga<mixed> {
+const putAndReturn = function* (
+  action: ModulesAction,
+  log: boolean = false,
+  replay: boolean = false,
+): Saga<mixed> {
   let asyncRequestData: AsyncRequestData;
   let actionWithAsyncRequestData: typeof action;
 
@@ -44,6 +54,7 @@ const putAndReturn = function* (action: ModulesAction, log: boolean = false): Sa
     asyncRequestData = {
       id: lib.generateId(action.type),
       log,
+      replay,
     };
     // $FlowFixMe couldn't decide which case to select
     actionWithAsyncRequestData = {

@@ -2,13 +2,17 @@
 
 import { flashSuccessMessage, flashErrorMessage } from 'redux-flash';
 import { type Saga } from 'redux-saga';
+import { select } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import { dynamic } from 'redux-saga-test-plan/providers';
 
 import { type SagaAction } from 'types/actions';
 import i18next from 'config/i18next';
 import errors from 'modules/errors';
 import { NetworkError, Http401UnauthorizedError } from 'errors';
 
+import selectors from '../../selectors';
 import actions from '../../actions';
 
 import lib from '..';
@@ -184,22 +188,6 @@ describe(`sagaWrapper`, (): void => {
       .run();
   });
 
-  it(`displays an error flash message and dispatches a platform SIGNOUT action when the passed saga throws a 401 error`, (): void => {
-    i18next.exists = jest.fn((): boolean => true);
-
-    const dummyError = new Http401UnauthorizedError();
-    // eslint-disable-next-line require-yield
-    const dummySaga = function* (action: SagaAction): Saga<void> {
-      throw dummyError;
-    };
-    const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyId', log: true } };
-
-    return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
-      .put(flashErrorMessage(`flash:UnauthorizedError`, { timeout: false }))
-      .put({ type: 'platform/SIGNOUT', payload: {} })
-      .run();
-  });
-
   it(`generates asyncRequestData with a random id, when no existing asyncRequestData is set on the action`, (): void => {
     // eslint-disable-next-line require-yield
     const dummySaga = function* (action: SagaAction): Saga<void> {
@@ -208,9 +196,116 @@ describe(`sagaWrapper`, (): void => {
     const dummyAction = { type: 'dummy' };
 
     return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
-      .call(dummySaga, { ...dummyAction, asyncRequestData: { id: dummyId, log: true } })
+      .call(dummySaga, { ...dummyAction, asyncRequestData: { id: dummyId, log: true, replay: true } })
       .put(actions.setPending(dummyId))
       .run();
+  });
+
+  describe(`when the passed saga throws a HTTP 401 error`, (): void => {
+
+    it(`fails the request, when the passed saga throws an error and replay is set to FALSE`, (): void => {
+      const dummyError = new Http401UnauthorizedError();
+      // eslint-disable-next-line require-yield
+      const dummySaga = function* (action: SagaAction): Saga<void> {
+        throw dummyError;
+      };
+      const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyId', log: true, replay: false } };
+
+      return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
+        .put(actions.setPending(dummyAction.asyncRequestData.id))
+        .call(dummySaga, dummyAction)
+        .put(actions.setFailure(dummyAction.asyncRequestData.id, dummyError))
+        .run();
+    });
+
+    describe(`when replay is set to TRUE`, (): void => {
+
+      it(`waits until the REFRESH action is done when a REFRESH action is already pending, and replays the action (dispatches a duplicate)`, (): void => {
+        const dummyError = new Http401UnauthorizedError();
+        // eslint-disable-next-line require-yield
+        const dummySaga = function* (action: SagaAction): Saga<void> {
+          throw dummyError;
+        };
+        const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyId', replay: true } };
+
+        const provideEvent = (): any => {
+          let i: number = 0;
+
+          return {
+            select({ selector }: any, next: any): any {
+              if (selector === selectors.isRefreshing) {
+                i += 1;
+                // Return TRUE twice, then FALSE
+                return (i <= 2);
+              }
+
+              return next();
+            },
+          };
+        };
+
+        return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
+          .provide([
+            provideEvent(),
+          ])
+          .put(actions.setPending(dummyAction.asyncRequestData.id))
+          .call(dummySaga, dummyAction)
+          .put(actions.setFailure(dummyAction.asyncRequestData.id, dummyError))
+          .take('*')
+          .put({ type: dummyAction.type })
+          .run();
+      });
+
+      it(`dispatches a REFRESH action, waits for its completion and replays the action (dispatches a duplicate)`, (): void => {
+        const dummyError = new Http401UnauthorizedError();
+        // eslint-disable-next-line require-yield
+        const dummySaga = function* (action: SagaAction): Saga<void> {
+          throw dummyError;
+        };
+        const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyId', replay: true } };
+
+        return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
+          .provide([
+            [select(selectors.isRefreshing), false],
+            [matchers.call.fn(lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+              return (action.type === 'platform/REFRESH') ? null : next();
+            })],
+          ])
+          .put(actions.setPending(dummyAction.asyncRequestData.id))
+          .call(dummySaga, dummyAction)
+          .put(actions.setFailure(dummyAction.asyncRequestData.id, dummyError))
+          .call(lib.putAndReturn, { type: 'platform/REFRESH', payload: {} })
+          .put({ type: dummyAction.type })
+          .run();
+      });
+
+      it(`dispatches a SIGNOUT action and displays an error flash message when the dispatched REFRESH action throws a HTTP 401 error`, (): void => {
+        const dummyError = new Http401UnauthorizedError();
+        // eslint-disable-next-line require-yield
+        const dummySaga = function* (action: SagaAction): Saga<void> {
+          throw dummyError;
+        };
+        const dummyAction = { type: 'dummy', asyncRequestData: { id: 'dummyId', replay: true } };
+
+        return expectSaga(lib.sagaWrapper, dummySaga, dummyAction)
+          .provide([
+            [select(selectors.isRefreshing), false],
+            [matchers.call.fn(lib.putAndReturn), dynamic(({ args: [action] }: any, next: any): any => {
+              if (action.type === 'platform/REFRESH') throw new Http401UnauthorizedError();
+              return next();
+            })],
+          ])
+          .put(actions.setPending(dummyAction.asyncRequestData.id))
+          .call(dummySaga, dummyAction)
+          .put(actions.setFailure(dummyAction.asyncRequestData.id, dummyError))
+          .call(lib.putAndReturn, { type: 'platform/REFRESH', payload: {} })
+          .put({ type: 'platform/SIGNOUT' })
+          .put(flashErrorMessage(`flash:UnauthorizedError`, { timeout: false }))
+          .run();
+      });
+
+    });
+
   });
 
 });

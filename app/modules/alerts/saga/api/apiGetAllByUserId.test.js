@@ -19,14 +19,14 @@ import { sagas } from '..';
 describe(`apiGetAllByUserId`, (): void => {
 
   let dummyUserId: string;
-  let dummyToken: string;
+  let dummyAccessToken: string;
   let dummyUpdateAlert: m.UpdateAlert;
   let dummyPRSubmittedAlert: m.PullRequestAlert;
   let dummyForkedAlert: m.ForkedAlert;
 
   beforeEach((): void => {
     dummyUserId = 'dummyUserId';
-    dummyToken = 'dummyToken';
+    dummyAccessToken = 'dummyAccessToken';
     dummyUpdateAlert = { ...dummyAlertData.updateAlert1 };
     dummyPRSubmittedAlert = { ...dummyAlertData.PRSubmittedAlert };
     dummyForkedAlert = { ...dummyAlertData.forkedAlert };
@@ -85,8 +85,8 @@ describe(`apiGetAllByUserId`, (): void => {
 
     return expectSaga(sagas.apiGetAllByUserId, dummyAction)
       .provide([
-        [select(platform.selectors.getUserAuth), { userId: dummyUserId, apiToken: dummyToken }],
-        [call(api.alerts.getAllByUserId, dummyUserId, dummyToken), dummyApiResponse],
+        [select(platform.selectors.getUserAuth), { userId: dummyUserId, accessToken: dummyAccessToken }],
+        [call(api.alerts.getAllByUserId, dummyUserId, dummyAccessToken), dummyApiResponse],
       ])
       .put(actions.setMultipleInState([dummyUpdateAlert, dummyPRSubmittedAlert, dummyForkedAlert]))
       .run();
@@ -104,8 +104,8 @@ describe(`apiGetAllByUserId`, (): void => {
     await expect(
       expectSaga(sagas.apiGetAllByUserId, dummyAction)
         .provide([
-          [select(platform.selectors.getUserAuth), { userId: dummyUserId, apiToken: dummyToken }],
-          [call(api.alerts.getAllByUserId, dummyUserId, dummyToken), dummyApiResponse],
+          [select(platform.selectors.getUserAuth), { userId: dummyUserId, accessToken: dummyAccessToken }],
+          [call(api.alerts.getAllByUserId, dummyUserId, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnexpectedHttpResponseError);
@@ -140,8 +140,8 @@ describe(`apiGetAllByUserId`, (): void => {
     await expect(
       expectSaga(sagas.apiGetAllByUserId, dummyAction)
         .provide([
-          [select(platform.selectors.getUserAuth), { userId: dummyUserId, apiToken: dummyToken }],
-          [call(api.alerts.getAllByUserId, dummyUserId, dummyToken), dummyApiResponse],
+          [select(platform.selectors.getUserAuth), { userId: dummyUserId, accessToken: dummyAccessToken }],
+          [call(api.alerts.getAllByUserId, dummyUserId, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);
@@ -157,7 +157,7 @@ describe(`apiGetAllByUserId`, (): void => {
       expectSaga(sagas.apiGetAllByUserId, dummyAction)
         .provide([
           [select(platform.selectors.getUserAuth), null],
-          [call(api.alerts.getAllByUserId, dummyUserId, dummyToken), dummyApiResponse],
+          [call(api.alerts.getAllByUserId, dummyUserId, dummyAccessToken), dummyApiResponse],
         ])
         .run(),
     ).rejects.toBeInstanceOf(UnsupportedOperationError);
