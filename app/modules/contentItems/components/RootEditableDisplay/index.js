@@ -22,11 +22,12 @@ type StateProps = {|
 |};
 
 type DispatchProps = {|
-  select: (selection: m.SelectionType, currentlySelectedId: ?string) => void,
+  select: (selection: m.SelectionType) => void,
+  selectId: (id: ?string) => void,
   clearSelection: () => void,
-  toggleEditing: (id: ?string) => void,
-  indent: (id: ?string) => void,
-  reverseIndent: (id: ?string) => void,
+  toggleEditing: (id: string) => void,
+  indent: (id: string) => void,
+  reverseIndent: (id: string) => void,
 |};
 
 type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
@@ -59,33 +60,28 @@ const mapDispatchToProps = (
   dispatch: Dispatch<ModulesAction>,
   props: PassedProps,
 ): DispatchProps => {
-  const { rootContentItemId, setTopicDirty } = props;
+  const { setTopicDirty } = props;
 
   return {
-    select: (selection: m.SelectionType, currentlySelectedId: ?string): void => {
-      if (currentlySelectedId == null) {
-        // Set the root content item as default selection
-        dispatch(actions.setCurrentlySelectedInState(rootContentItemId));
-      }
-      else dispatch(actions.selectInState(selection));
+    select: (selection: m.SelectionType): void => {
+      dispatch(actions.selectInState(selection));
+    },
+    selectId: (id: ?string): void => {
+      dispatch(actions.setCurrentlySelectedInState(id));
     },
     clearSelection: (): void => {
       dispatch(actions.setCurrentlySelectedInState(null));
     },
-    toggleEditing: (id: ?string): void => {
-      if (id != null) dispatch(actions.toggleEditing(id, true));
+    toggleEditing: (id: string): void => {
+      dispatch(actions.toggleEditing(id, true));
     },
-    indent: (id: ?string): void => {
-      if (id != null) {
-        setTopicDirty(true);
-        dispatch(actions.indent(id));
-      }
+    indent: (id: string): void => {
+      setTopicDirty(true);
+      dispatch(actions.indent(id));
     },
-    reverseIndent: (id: ?string): void => {
-      if (id != null) {
-        setTopicDirty(true);
-        dispatch(actions.reverseIndent(id));
-      }
+    reverseIndent: (id: string): void => {
+      setTopicDirty(true);
+      dispatch(actions.reverseIndent(id));
     },
   };
 };
@@ -93,7 +89,9 @@ const mapDispatchToProps = (
 class PureRootEditableDisplay extends React.Component<Props> {
   handleKeyEvent = (key: string, event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
     const {
+      rootContentItemId,
       select,
+      selectId,
       clearSelection,
       toggleEditing,
       currentlySelectedId,
@@ -101,33 +99,57 @@ class PureRootEditableDisplay extends React.Component<Props> {
       reverseIndent,
     } = this.props;
 
-    event.preventDefault();
-
     switch (key) {
       case 'up':
-        select(m.selectionTypes.PREVIOUS, currentlySelectedId);
+        event.preventDefault();
+        // Set the root content item as default selection
+        if (currentlySelectedId == null) selectId(rootContentItemId);
+        else select(m.selectionTypes.PREVIOUS);
+
         break;
       case 'down':
-        select(m.selectionTypes.NEXT, currentlySelectedId);
+        event.preventDefault();
+        // Set the root content item as default selection
+        if (currentlySelectedId == null) selectId(rootContentItemId);
+        else select(m.selectionTypes.NEXT);
+
         break;
       case 'left':
-        select(m.selectionTypes.SUPER, currentlySelectedId);
+        event.preventDefault();
+        // Set the root content item as default selection
+        if (currentlySelectedId == null) selectId(rootContentItemId);
+        else select(m.selectionTypes.SUPER);
+
         break;
       case 'right':
-        select(m.selectionTypes.SUB, currentlySelectedId);
+        event.preventDefault();
+        // Set the root content item as default selection
+        if (currentlySelectedId == null) selectId(rootContentItemId);
+        else select(m.selectionTypes.SUB);
+
         break;
       case 'meta+left':
       case 'ctrl+left':
+        if (currentlySelectedId == null) break;
+
+        event.preventDefault();
         reverseIndent(currentlySelectedId);
         break;
       case 'meta+right':
       case 'ctrl+right':
+        if (currentlySelectedId == null) break;
+
+        event.preventDefault();
         indent(currentlySelectedId);
         break;
       case 'enter':
+        if (currentlySelectedId == null) break;
+
+        event.preventDefault();
         toggleEditing(currentlySelectedId);
         break;
       case 'esc':
+        event.preventDefault();
         clearSelection();
         break;
       default:

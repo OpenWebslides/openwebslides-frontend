@@ -58,6 +58,7 @@ describe(`RootEditableDisplay`, (): void => {
         rootContentItemId={dummyRootContentItem.id}
         setTopicDirty={dummySetTopicDirty}
         select={jest.fn()}
+        selectId={jest.fn()}
         clearSelection={jest.fn()}
         toggleEditing={jest.fn()}
         indent={jest.fn()}
@@ -82,6 +83,7 @@ describe(`RootEditableDisplay`, (): void => {
     // the handleKeyEvent callback by simulating keyboard events
     (enzymeWrapper.find('PureRootEditableDisplay').instance(): any).handleKeyEvent('r', dummyEvent);
 
+    expect(dummyEvent.preventDefault).not.toHaveBeenCalled();
     expect(dummyDispatch).not.toHaveBeenCalled();
   });
 
@@ -276,7 +278,7 @@ describe(`RootEditableDisplay`, (): void => {
     // the handleKeyEvent callback by simulating keyboard events
     (enzymeWrapper.find('PureRootEditableDisplay').instance(): any).handleKeyEvent('enter', dummyEvent);
 
-    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+    expect(dummyEvent.preventDefault).not.toHaveBeenCalled();
     expect(dummyDispatch).not.toHaveBeenCalled();
   });
 
