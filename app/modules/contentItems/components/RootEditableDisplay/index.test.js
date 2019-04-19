@@ -170,6 +170,44 @@ describe(`RootEditableDisplay`, (): void => {
     expect(dummyDispatch).toHaveBeenCalledWith(actions.selectInState(m.selectionTypes.SUB));
   });
 
+  it(`calls the passed setTopicDirty function and dispatches an UNINDENT action with the correct arguments when the META+LEFT key is pressed`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <RootEditableDisplay
+          rootContentItemId={dummyRootContentItem.id}
+          setTopicDirty={dummySetTopicDirty}
+        />
+      </DummyProviders>,
+    );
+
+    // Enzyme does not support event propagation yet, so we cannot test out
+    // the handleKeyEvent callback by simulating keyboard events
+    (enzymeWrapper.find('PureRootEditableDisplay').instance(): any).handleKeyEvent('meta+left', dummyEvent);
+
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+    expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.reverseIndent(dummyRootContentItem.id));
+  });
+
+  it(`calls the passed setTopicDirty function and dispatches an INDENT action with the correct arguments when the META+RIGHT key is pressed`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <RootEditableDisplay
+          rootContentItemId={dummyRootContentItem.id}
+          setTopicDirty={dummySetTopicDirty}
+        />
+      </DummyProviders>,
+    );
+
+    // Enzyme does not support event propagation yet, so we cannot test out
+    // the handleKeyEvent callback by simulating keyboard events
+    (enzymeWrapper.find('PureRootEditableDisplay').instance(): any).handleKeyEvent('meta+right', dummyEvent);
+
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+    expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.indent(dummyRootContentItem.id));
+  });
+
   it(`calls the passed setTopicDirty function and dispatches an UNINDENT action with the correct arguments when the CTRL+LEFT key is pressed`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>

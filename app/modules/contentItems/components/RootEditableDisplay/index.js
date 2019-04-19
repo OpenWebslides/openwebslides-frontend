@@ -40,7 +40,9 @@ const handleKeys = [
 
   // Indent
   'ctrl+left',
+  'meta+left',
   'ctrl+right',
+  'meta+right',
 
   // Mode
   'enter',
@@ -114,9 +116,11 @@ class PureRootEditableDisplay extends React.Component<Props> {
       case 'right':
         select(m.selectionTypes.SUB, currentlySelectedId);
         break;
+      case 'meta+left':
       case 'ctrl+left':
         reverseIndent(currentlySelectedId);
         break;
+      case 'meta+right':
       case 'ctrl+right':
         indent(currentlySelectedId);
         break;
