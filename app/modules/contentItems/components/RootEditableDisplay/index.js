@@ -25,15 +25,24 @@ type DispatchProps = {|
   select: (selection: m.SelectionType, currentlySelectedId: ?string) => void,
   clearSelection: () => void,
   toggleEditing: (id: ?string) => void,
+  indent: (id: ?string) => void,
+  reverseIndent: (id: ?string) => void,
 |};
 
 type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 const handleKeys = [
+  // Selection
   'up',
   'down',
   'left',
   'right',
+
+  // Indent
+  'ctrl+left',
+  'ctrl+right',
+
+  // Mode
   'enter',
   'esc',
 ];
@@ -48,7 +57,7 @@ const mapDispatchToProps = (
   dispatch: Dispatch<ModulesAction>,
   props: PassedProps,
 ): DispatchProps => {
-  const { rootContentItemId } = props;
+  const { rootContentItemId, setTopicDirty } = props;
 
   return {
     select: (selection: m.SelectionType, currentlySelectedId: ?string): void => {
@@ -64,12 +73,31 @@ const mapDispatchToProps = (
     toggleEditing: (id: ?string): void => {
       if (id != null) dispatch(actions.toggleEditing(id, true));
     },
+    indent: (id: ?string): void => {
+      if (id != null) {
+        setTopicDirty(true);
+        dispatch(actions.indent(id));
+      }
+    },
+    reverseIndent: (id: ?string): void => {
+      if (id != null) {
+        setTopicDirty(true);
+        dispatch(actions.reverseIndent(id));
+      }
+    },
   };
 };
 
 class PureRootEditableDisplay extends React.Component<Props> {
   handleKeyEvent = (key: string, event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
-    const { select, clearSelection, toggleEditing, currentlySelectedId } = this.props;
+    const {
+      select,
+      clearSelection,
+      toggleEditing,
+      currentlySelectedId,
+      indent,
+      reverseIndent,
+    } = this.props;
 
     event.preventDefault();
 
@@ -85,6 +113,12 @@ class PureRootEditableDisplay extends React.Component<Props> {
         break;
       case 'right':
         select(m.selectionTypes.SUB, currentlySelectedId);
+        break;
+      case 'ctrl+left':
+        reverseIndent(currentlySelectedId);
+        break;
+      case 'ctrl+right':
+        indent(currentlySelectedId);
         break;
       case 'enter':
         toggleEditing(currentlySelectedId);
@@ -105,6 +139,7 @@ class PureRootEditableDisplay extends React.Component<Props> {
         <KeyboardEventHandler
           handleKeys={handleKeys}
           onKeyEvent={this.handleKeyEvent}
+          handleFocusableElements={true}
         />
         <EditableDisplay
           contentItemId={rootContentItemId}
