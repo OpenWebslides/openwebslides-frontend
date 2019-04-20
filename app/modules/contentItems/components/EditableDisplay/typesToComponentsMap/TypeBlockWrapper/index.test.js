@@ -14,7 +14,6 @@ describe(`TypeBlockWrapper`, (): void => {
 
   let dummyOnFocus: any;
   let dummyOnBlur: any;
-  let dummyBlockRef: any;
 
   beforeEach((): void => {
     dummyContentItemId = 'dummyContentItemId';
@@ -26,7 +25,6 @@ describe(`TypeBlockWrapper`, (): void => {
 
     dummyOnFocus = jest.fn();
     dummyOnBlur = jest.fn();
-    dummyBlockRef = { focus: jest.fn(), blur: jest.fn() };
   });
 
   it(`renders without errors`, (): void => {
@@ -92,40 +90,6 @@ describe(`TypeBlockWrapper`, (): void => {
     );
     enzymeWrapper.find('[data-test-id="type-block-wrapper"]').hostNodes().simulate('blur');
     expect(dummyOnBlur).toHaveBeenCalledWith(dummyContentItemId, expect.anything());
-  });
-
-  it(`focuses the component when the contentItem is selected`, (): void => {
-    const enzymeWrapper = mount(
-      <PureTypeBlockWrapper contentItemId={dummyContentItemId} iconName={dummyIconName} isSelected={false} onFocus={dummyOnFocus} onBlur={dummyOnBlur}>
-        <DummyChildComponent />
-      </PureTypeBlockWrapper>,
-    );
-
-    enzymeWrapper.instance().blockRef = dummyBlockRef;
-
-    enzymeWrapper.setProps({ isSelected: true });
-
-    // Enzyme does not support event propagation yet, so we cannot test out
-    // the onFocus callback, but we can test the reference focus() call
-    expect(dummyBlockRef.focus).toHaveBeenCalledTimes(1);
-    expect(dummyBlockRef.blur).not.toHaveBeenCalled();
-  });
-
-  it(`blurs the component when the contentItem is deselected`, (): void => {
-    const enzymeWrapper = mount(
-      <PureTypeBlockWrapper contentItemId={dummyContentItemId} iconName={dummyIconName} isSelected={true} onFocus={dummyOnFocus} onBlur={dummyOnBlur}>
-        <DummyChildComponent />
-      </PureTypeBlockWrapper>,
-    );
-
-    enzymeWrapper.instance().blockRef = dummyBlockRef;
-
-    enzymeWrapper.setProps({ isSelected: false });
-
-    // Enzyme does not support event propagation yet, so we cannot test out
-    // the onFocus callback, but we can test the reference focus() call
-    expect(dummyBlockRef.focus).not.toHaveBeenCalled();
-    expect(dummyBlockRef.blur).toHaveBeenCalledTimes(1);
   });
 
 });
