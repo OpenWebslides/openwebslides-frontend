@@ -4,10 +4,11 @@ import * as React from 'react';
 import { Icon } from 'semantic-ui-react';
 
 type PassedProps = {|
-  onFocus: (event: SyntheticFocusEvent<HTMLElement>) => void,
-  onBlur: (event: SyntheticFocusEvent<HTMLElement>) => void,
-  iconName: string,
+  contentItemId: string,
   isSelected: boolean,
+  iconName: string,
+  onFocus: (id: string, event: SyntheticFocusEvent<HTMLElement>) => void,
+  onBlur: (id: string, event: SyntheticFocusEvent<HTMLElement>) => void,
   children?: React.Node,
 |};
 
@@ -27,6 +28,16 @@ class PureTypeBlockWrapper extends React.Component<Props> {
     else this.blockRef.blur();
   }
 
+  handleFocus = (event: SyntheticFocusEvent<HTMLElement>): void => {
+    const { contentItemId, onFocus } = this.props;
+    onFocus(contentItemId, event);
+  };
+
+  handleBlur = (event: SyntheticFocusEvent<HTMLElement>): void => {
+    const { contentItemId, onBlur } = this.props;
+    onBlur(contentItemId, event);
+  };
+
   handleRef = (c: ?HTMLDivElement): void => {
     this.blockRef = c;
   };
@@ -34,7 +45,7 @@ class PureTypeBlockWrapper extends React.Component<Props> {
   blockRef: ?HTMLDivElement;
 
   render(): React.Node {
-    const { isSelected, onFocus, onBlur, iconName, children } = this.props;
+    const { isSelected, iconName, children } = this.props;
 
     return (
       /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -42,8 +53,8 @@ class PureTypeBlockWrapper extends React.Component<Props> {
         className={`content-item-editable-display-block ${isSelected ? 'content-item-editable-display-block--selected' : ''}`}
         role="link"
         tabIndex={0}
-        onFocus={onFocus}
-        onBlur={onBlur}
+        onFocus={this.handleFocus}
+        onBlur={this.handleBlur}
         ref={this.handleRef}
         data-test-id="type-block-wrapper"
       >
