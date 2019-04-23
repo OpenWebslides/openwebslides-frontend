@@ -3,13 +3,12 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { type Dispatch } from 'redux';
 
-import { type ModulesAction, type AppState } from 'types/redux';
+import { type AppState } from 'types/redux';
 
-import actions from '../../actions';
 import * as m from '../../model';
 import selectors from '../../selectors';
+import { passThroughProps } from '../RootEditableDisplay';
 
 import typesToComponentsMap from './typesToComponentsMap';
 
@@ -23,93 +22,13 @@ type StateProps = {|
   isSelected: boolean,
 |};
 
-type DispatchProps = {|
-  onStartEditing: (id: string) => void,
-  onEndEditing: (id: string) => void,
-  onEditPlainText: (id: string, text: string) => void,
-  onAddEmptySubItem: (id: string) => void,
-  onAddEmptySiblingItemBelow: (id: string) => void,
-  onRemove: (id: string) => void,
-  onIndent: (id: string) => void,
-  onReverseIndent: (id: string) => void,
-|};
-
-type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
-
-const passThroughProps = [
-  'isSelected',
-  'onStartEditing',
-  'onEndEditing',
-  'onEditPlainText',
-  'onAddEmptySubItem',
-  'onAddEmptySiblingItemBelow',
-  'onRemove',
-  'onIndent',
-  'onReverseIndent',
-  'setTopicDirty',
-];
+type Props = {| ...PassedProps, ...StateProps |};
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { contentItemId } = props;
   return {
     contentItem: selectors.getById(state, { id: contentItemId }),
     isSelected: (selectors.getCurrentlySelectedId(state) === contentItemId),
-  };
-};
-
-const mapDispatchToProps = (
-  dispatch: Dispatch<ModulesAction>,
-  props: PassedProps,
-): DispatchProps => {
-  const { setTopicDirty } = props;
-
-  return {
-    onStartEditing: (id: string): void => {
-      dispatch(actions.toggleEditing(id, true));
-    },
-    onEndEditing: (id: string): void => {
-      dispatch(actions.toggleEditing(id, false));
-    },
-    onEditPlainText: (id: string, text: string): void => {
-      setTopicDirty(true);
-      dispatch(actions.edit(id, { text }));
-    },
-    onAddEmptySubItem: (id: string): void => {
-      setTopicDirty(true);
-      dispatch(actions.add(
-        m.contentItemTypes.PARAGRAPH,
-        {
-          contextType: m.contextTypes.SUPER,
-          contextItemId: id,
-          indexInSiblingItems: 0,
-        },
-        { text: '' },
-      ));
-    },
-    onAddEmptySiblingItemBelow: (id: string): void => {
-      setTopicDirty(true);
-      dispatch(actions.add(
-        m.contentItemTypes.PARAGRAPH,
-        {
-          contextType: m.contextTypes.SIBLING,
-          contextItemId: id,
-          indexInSiblingItemsShift: 0,
-        },
-        { text: '' },
-      ));
-    },
-    onRemove: (id: string): void => {
-      setTopicDirty(true);
-      dispatch(actions.removeAndTogglePreviousItem(id));
-    },
-    onIndent: (id: string): void => {
-      setTopicDirty(true);
-      dispatch(actions.indent(id));
-    },
-    onReverseIndent: (id: string): void => {
-      setTopicDirty(true);
-      dispatch(actions.reverseIndent(id));
-    },
   };
 };
 
@@ -142,6 +61,8 @@ class PureEditableDisplay extends React.Component<Props> {
   };
 
   renderEditableDisplay = (contentItem: m.ContentItem): React.Node => {
+    const { isSelected } = this.props;
+
     const DisplayComponent = typesToComponentsMap[contentItem.type];
 
     return (
@@ -152,6 +73,7 @@ class PureEditableDisplay extends React.Component<Props> {
         <DisplayComponent
           {..._.pick(this.props, passThroughProps)}
           contentItem={contentItem}
+          isSelected={isSelected}
         />
         {this.renderSubItemsEditableDisplay(contentItem)}
       </div>
@@ -164,8 +86,7 @@ class PureEditableDisplay extends React.Component<Props> {
   }
 }
 
-const EditableDisplay = connect(mapStateToProps, mapDispatchToProps)(PureEditableDisplay);
+const EditableDisplay = connect(mapStateToProps)(PureEditableDisplay);
 
-export { PureEditableDisplay, passThroughProps, mapDispatchToProps };
-export type { DispatchProps };
+export { PureEditableDisplay, passThroughProps };
 export default EditableDisplay;

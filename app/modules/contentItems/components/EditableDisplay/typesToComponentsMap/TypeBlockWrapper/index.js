@@ -7,8 +7,8 @@ type PassedProps = {|
   contentItemId: string,
   isSelected: boolean,
   iconName: string,
-  onFocus: (id: string, event: SyntheticFocusEvent<HTMLElement>) => void,
-  onBlur: (id: string, event: SyntheticFocusEvent<HTMLElement>) => void,
+  onFocus: (id: string) => void,
+  onBlur: () => void,
   children?: React.Node,
 |};
 
@@ -19,14 +19,14 @@ class PureTypeBlockWrapper extends React.Component<Props> {
     children: null,
   };
 
-  handleFocus = (event: SyntheticFocusEvent<HTMLElement>): void => {
+  handleFocus = (): void => {
     const { contentItemId, onFocus } = this.props;
-    onFocus(contentItemId, event);
+    onFocus(contentItemId);
   };
 
-  handleBlur = (event: SyntheticFocusEvent<HTMLElement>): void => {
-    const { contentItemId, onBlur } = this.props;
-    onBlur(contentItemId, event);
+  handleBlur = (): void => {
+    const { onBlur } = this.props;
+    onBlur();
   };
 
   render(): React.Node {

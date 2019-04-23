@@ -79,7 +79,7 @@ describe(`TypeBlockWrapper`, (): void => {
       </PureTypeBlockWrapper>,
     );
     enzymeWrapper.find('[data-test-id="type-block-wrapper"]').hostNodes().simulate('focus');
-    expect(dummyOnFocus).toHaveBeenCalledWith(dummyContentItemId, expect.anything());
+    expect(dummyOnFocus).toHaveBeenCalledWith(dummyContentItemId);
   });
 
   it(`calls the passed onBlur function with the correct arguments when the component is blurred`, (): void => {
@@ -89,7 +89,7 @@ describe(`TypeBlockWrapper`, (): void => {
       </PureTypeBlockWrapper>,
     );
     enzymeWrapper.find('[data-test-id="type-block-wrapper"]').hostNodes().simulate('blur');
-    expect(dummyOnBlur).toHaveBeenCalledWith(dummyContentItemId, expect.anything());
+    expect(dummyOnBlur).toHaveBeenCalledWith();
   });
 
 });

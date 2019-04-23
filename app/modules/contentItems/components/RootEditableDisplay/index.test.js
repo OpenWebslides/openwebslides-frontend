@@ -8,19 +8,22 @@ import { DummyProviders, dummyInitialState, dummyContentItemData as dummyData } 
 import actions from '../../actions';
 import * as m from '../../model';
 
-import RootEditableDisplay, { PureRootEditableDisplay } from '.';
+import RootEditableDisplay, { PureRootEditableDisplay, mapDispatchToProps } from '.';
 
 describe(`RootEditableDisplay`, (): void => {
 
+  let dummyId: string;
   let dummyRootContentItem: m.RootContentItem;
   let dummyState: any;
   let dummyUnselectedState: any;
   let dummyDispatch: any;
+  let dummyDispatchProps: any;
 
   let dummyEvent: any;
   let dummySetTopicDirty: any;
 
   beforeEach((): void => {
+    dummyId = 'dummyId';
     dummyRootContentItem = dummyData.rootContentItem;
     dummyState = {
       ...dummyInitialState,
@@ -47,6 +50,20 @@ describe(`RootEditableDisplay`, (): void => {
     };
 
     dummyDispatch = jest.fn();
+    dummyDispatchProps = {
+      select: jest.fn(),
+      selectId: jest.fn(),
+      onStartEditing: jest.fn(),
+      onEndEditing: jest.fn(),
+      onEditPlainText: jest.fn(),
+      onAddEmptySubItem: jest.fn(),
+      onAddEmptySiblingItemBelow: jest.fn(),
+      onRemove: jest.fn(),
+      onIndent: jest.fn(),
+      onReverseIndent: jest.fn(),
+      onFocus: jest.fn(),
+      onBlur: jest.fn(),
+    };
 
     dummyEvent = { preventDefault: jest.fn() };
     dummySetTopicDirty = jest.fn();
@@ -57,13 +74,7 @@ describe(`RootEditableDisplay`, (): void => {
       <PureRootEditableDisplay
         rootContentItemId={dummyRootContentItem.id}
         setTopicDirty={dummySetTopicDirty}
-        select={jest.fn()}
-        selectId={jest.fn()}
-        clearSelection={jest.fn()}
-        toggleEditing={jest.fn()}
-        indent={jest.fn()}
-        reverseIndent={jest.fn()}
-        currentlySelectedId="dummyCurrentlySelectedId"
+        {...dummyDispatchProps}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
@@ -87,7 +98,7 @@ describe(`RootEditableDisplay`, (): void => {
     expect(dummyDispatch).not.toHaveBeenCalled();
   });
 
-  it(`dispatches a SET_CURRENTLY_SELECTED_IN_STATE action with the passed rootContentItemId when a key is pressed and there is no currently selected contentItem`, (): void => {
+  it(`dispatches a SET_CURRENTLY_SELECTED_IN_STATE action with the passed rootContentItemId when an UP/DOWN/LEFT/RIGHT key is pressed and there is no currently selected contentItem`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyUnselectedState} dummyDispatch={dummyDispatch}>
         <RootEditableDisplay
@@ -297,6 +308,83 @@ describe(`RootEditableDisplay`, (): void => {
 
     expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
     expect(dummyDispatch).toHaveBeenCalledWith(actions.setCurrentlySelectedInState(null));
+  });
+
+  describe(`mapDispatchToProps`, (): void => {
+
+    it(`dispatches the correct TOGGLE_EDITING action, when onStartEditing is called`, (): void => {
+      mapDispatchToProps(dummyDispatch, ({}: any)).onStartEditing(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.toggleEditing(dummyId, true));
+    });
+
+    it(`dispatches the correct TOGGLE_EDITING action, when onEndEditing is called`, (): void => {
+      mapDispatchToProps(dummyDispatch, ({}: any)).onEndEditing(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.toggleEditing(dummyId, false));
+    });
+
+    it(`dispatches the correct EDIT action and calls setTopicDirty, when onEditPlainText is called`, (): void => {
+      const dummyText = 'Lorem ipsum';
+      mapDispatchToProps(dummyDispatch, ({ setTopicDirty: dummySetTopicDirty }: any)).onEditPlainText(dummyId, dummyText);
+      expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.edit(dummyId, { text: dummyText }));
+    });
+
+    it(`dispatches the correct ADD action and calls setTopicDirty, when onAddEmptySubItem is called`, (): void => {
+      mapDispatchToProps(dummyDispatch, ({ setTopicDirty: dummySetTopicDirty }: any)).onAddEmptySubItem(dummyId);
+      expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.add(
+        m.contentItemTypes.PARAGRAPH,
+        {
+          contextType: m.contextTypes.SUPER,
+          contextItemId: dummyId,
+          indexInSiblingItems: 0,
+        },
+        { text: '' },
+      ));
+    });
+
+    it(`dispatches the correct ADD action and calls setTopicDirty, when onAddEmptySiblingItemBelow is called`, (): void => {
+      mapDispatchToProps(dummyDispatch, ({ setTopicDirty: dummySetTopicDirty }: any)).onAddEmptySiblingItemBelow(dummyId);
+      expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.add(
+        m.contentItemTypes.PARAGRAPH,
+        {
+          contextType: m.contextTypes.SIBLING,
+          contextItemId: dummyId,
+          indexInSiblingItemsShift: 0,
+        },
+        { text: '' },
+      ));
+    });
+
+    it(`dispatches the correct REMOVE_AND_TOGGLE_PREVIOUS_ITEM action and calls setTopicDirty, when onRemove is called`, (): void => {
+      mapDispatchToProps(dummyDispatch, ({ setTopicDirty: dummySetTopicDirty }: any)).onRemove(dummyId);
+      expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.removeAndTogglePreviousItem(dummyId));
+    });
+
+    it(`dispatches the correct INDENT action and calls setTopicDirty, when onIndent is called`, (): void => {
+      mapDispatchToProps(dummyDispatch, ({ setTopicDirty: dummySetTopicDirty }: any)).onIndent(dummyId);
+      expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.indent(dummyId));
+    });
+
+    it(`dispatches the correct REVERSE_INDENT action and calls setTopicDirty, when onReverseIndent is called`, (): void => {
+      mapDispatchToProps(dummyDispatch, ({ setTopicDirty: dummySetTopicDirty }: any)).onReverseIndent(dummyId);
+      expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.reverseIndent(dummyId));
+    });
+
+    it(`dispatches the correct SET_CURRENTLY_SELECTED_IN_STATE action, when onFocus is called`, (): void => {
+      mapDispatchToProps(dummyDispatch, ({}: any)).onFocus(dummyId);
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.setCurrentlySelectedInState(dummyId));
+    });
+
+    it(`dispatches the correct SET_CURRENTLY_SELECTED_IN_STATE action, when onBlur is called`, (): void => {
+      mapDispatchToProps(dummyDispatch, ({}: any)).onBlur();
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.setCurrentlySelectedInState(null));
+    });
+
   });
 
 });
