@@ -8,19 +8,22 @@ import EditableTextContent from '.';
 describe(`EditableTextContent`, (): void => {
 
   let dummyText: string;
-  let dummyInput: any;
-  let dummyActivate: any;
-  let dummyDeactivate: any;
-  let dummyKeyDown: any;
+  let dummyOnSubmit: any;
+  let dummyOnDeactivate: any;
+  let dummyOnRemove: any;
+  let dummyEvent: any;
+
   let textSelector: string;
   let inputSelector: string;
 
   beforeEach((): void => {
     dummyText = 'Lorem ipsum dolor sit amet.';
-    dummyInput = jest.fn();
-    dummyActivate = jest.fn();
-    dummyDeactivate = jest.fn();
-    dummyKeyDown = jest.fn();
+    dummyOnSubmit = jest.fn();
+    dummyOnDeactivate = jest.fn();
+    dummyOnRemove = jest.fn();
+
+    dummyEvent = { preventDefault: jest.fn() };
+
     textSelector = `[data-test-id="editable-text-content__text"]`;
     // Using [data-test-id="editable-text-content__input"] as a selector won't work if the element
     // is in singleline mode because Semantic UI wraps the <input> element in a <div>.
@@ -33,6 +36,9 @@ describe(`EditableTextContent`, (): void => {
     const enzymeWrapper = shallow(
       <EditableTextContent
         initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
@@ -42,6 +48,9 @@ describe(`EditableTextContent`, (): void => {
     const enzymeWrapper = mount(
       <EditableTextContent
         initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
       />,
     );
     expect(enzymeWrapper.text()).toContain(dummyText);
@@ -49,35 +58,27 @@ describe(`EditableTextContent`, (): void => {
 
   it(`renders itself in text mode, when it has not been interacted with yet`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} />,
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+      />,
     );
     expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(1);
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
   });
 
-  it(`renders itself in input mode, when it is in text mode and receives a click event`, (): void => {
-    const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} />,
-    );
-    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
-    expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(0);
-    expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(1);
-  });
-
-  it(`renders itself in input mode, when it is in text mode and receives a focus event`, (): void => {
-    const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} />,
-    );
-    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
-    expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(0);
-    expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(1);
-  });
-
   it(`renders itself in text mode, when it is in singleline input mode and receives a blur event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} />,
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+      />,
     );
-    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
     enzymeWrapper.find(inputSelector).hostNodes().simulate('blur');
     expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(1);
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
@@ -85,9 +86,15 @@ describe(`EditableTextContent`, (): void => {
 
   it(`renders itself in text mode, when it is in multiline input mode and receives a blur event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} multiline={true} />,
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+        multiline={true}
+      />,
     );
-    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
     enzymeWrapper.find(inputSelector).hostNodes().simulate('blur');
     expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(1);
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
@@ -95,9 +102,14 @@ describe(`EditableTextContent`, (): void => {
 
   it(`rerenders itself, when it is in input mode and receives an input event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} />,
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+      />,
     );
-    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
 
     const renderSpy = jest.spyOn(enzymeWrapper.instance(), 'render');
     enzymeWrapper.find(inputSelector).hostNodes().simulate('input');
@@ -106,96 +118,183 @@ describe(`EditableTextContent`, (): void => {
 
   it(`renders itself with a maxLength, if one was defined`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} maxLength={20} />,
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+        maxLength={20}
+      />,
     );
 
-    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
     expect(enzymeWrapper.find(inputSelector).hostNodes().props().maxLength).toStrictEqual(20);
   });
 
   it(`renders itself without a maxLength, if one was not defined`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} />,
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+      />,
     );
 
-    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
     expect(enzymeWrapper.find(inputSelector).hostNodes().props().maxLength).toBeUndefined();
   });
 
-  it(`calls the passed onActivate function, when it is in text mode and receives a left button click event`, (): void => {
+  it(`renders itself in input mode, when it is in text mode and receives a left button click event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} onActivate={dummyActivate} />,
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+      />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
-    expect(dummyActivate).toHaveBeenCalledWith();
+    enzymeWrapper.update();
+
+    expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(1);
   });
 
-  it(`does not call onActivate, when it is in text mode and receives a right button click event`, (): void => {
+  it(`renders itself in text mode, when it is in text mode and receives a right button click event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} onActivate={dummyActivate} />,
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+      />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 2 });
-    expect(dummyActivate).not.toHaveBeenCalledWith();
-  });
+    enzymeWrapper.update();
 
-  it(`calls the passed onActivate function, when it is in text mode and receives a focus event`, (): void => {
-    const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} onActivate={dummyActivate} />,
-    );
-    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
-    expect(dummyActivate).toHaveBeenCalledWith();
-  });
-
-  it(`calls the passed onDeactivate function, when it is in input mode and receives a blur event`, (): void => {
-    const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} onDeactivate={dummyDeactivate} />,
-    );
-    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
-    enzymeWrapper.find(inputSelector).hostNodes().simulate('blur');
-    expect(dummyDeactivate).toHaveBeenCalledWith(dummyText);
-  });
-
-  it(`calls the passed onInput function, when it is in input mode and receives an input event`, (): void => {
-    const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} onInput={dummyInput} />,
-    );
-    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
-    enzymeWrapper.find(inputSelector).hostNodes().simulate('input');
-    expect(dummyInput).toHaveBeenCalledWith(dummyText);
-  });
-
-  it(`calls the passed onKeyDown function, when it is in input mode and receives a keyDown event`, (): void => {
-    const dummyKeyDownEvent = {
-      key: 'a',
-      ctrlKey: false,
-      shiftKey: false,
-      altKey: false,
-    };
-    const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} onKeyDown={dummyKeyDown} />,
-    );
-    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
-    enzymeWrapper.find(inputSelector).hostNodes().simulate('keyDown', dummyKeyDownEvent);
-    expect(dummyKeyDown).toHaveBeenCalledWith(expect.anything());
+    expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
   });
 
   it(`calls event.preventDefault(), when it is in text mode and receives a mouseDown event`, (): void => {
     const dummyPreventDefault = jest.fn();
     const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} />,
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+      />,
     );
     enzymeWrapper.find(textSelector).hostNodes().simulate('mouseDown', { preventDefault: dummyPreventDefault });
     expect(dummyPreventDefault).toHaveBeenCalledWith();
   });
 
-  // eslint-disable-next-line jest/expect-expect
-  it(`doesn't do anything, when there is no passed onKeyDown function and it is in input mode and receives a keyDown event`, (): void => {
-    // Pointless but needed for 100% coverage...
+  it(`renders itself in text mode and calls the passed onSubmit and onDeactivate functions with the correct arguments, when it is in input mode and receives a blur event`, (): void => {
     const enzymeWrapper = mount(
-      <EditableTextContent initialText={dummyText} />,
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+      />,
     );
-    enzymeWrapper.find(textSelector).hostNodes().simulate('focus');
-    enzymeWrapper.find(inputSelector).hostNodes().simulate('keyDown');
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+    enzymeWrapper.update();
+
+    expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(1);
+    enzymeWrapper.find(inputSelector).hostNodes().simulate('blur');
+    enzymeWrapper.update();
+
+    expect(enzymeWrapper.find(textSelector).hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
+    expect(dummyOnSubmit).toHaveBeenCalledWith(dummyText);
+    expect(dummyOnDeactivate).toHaveBeenCalledWith(false);
+  });
+
+  it(`calls the passed onSubmit and onDeactive functions, when it is in input mode and the ENTER key is pressed`, (): void => {
+    const enzymeWrapper = mount(
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+      />,
+    );
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+    enzymeWrapper.instance().setState({ text: `${dummyText}${dummyText}` });
+
+    // Enzyme does not support event propagation yet, so we cannot test out
+    // the handleKeyEvent callback by simulating keyboard events
+    enzymeWrapper.instance().handleKeyEvent('enter', dummyEvent);
+
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+    expect(dummyOnSubmit).toHaveBeenCalledWith(`${dummyText}${dummyText}`);
+    expect(dummyOnDeactivate).toHaveBeenCalledWith(true);
+  });
+
+  it(`resets the text value and calls the passed onDeactive function, when it is in input mode and the ESC key is pressed`, (): void => {
+    const enzymeWrapper = mount(
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+      />,
+    );
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+    enzymeWrapper.instance().setState({ text: `${dummyText}${dummyText}` });
+
+    // Enzyme does not support event propagation yet, so we cannot test out
+    // the handleKeyEvent callback by simulating keyboard events
+    enzymeWrapper.instance().handleKeyEvent('esc', dummyEvent);
+
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+    expect(enzymeWrapper.instance().state.text).toStrictEqual(dummyText);
+    expect(enzymeWrapper.instance().state.isActive).toBe(false);
+    expect(dummyOnDeactivate).toHaveBeenCalledWith(false);
+  });
+
+  it(`calls the passed onRemove function, when it is in input mode, the text value is empty and the BACKSPACE key is pressed`, (): void => {
+    const enzymeWrapper = mount(
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+      />,
+    );
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+    enzymeWrapper.instance().setState({ text: '' });
+
+    // Enzyme does not support event propagation yet, so we cannot test out
+    // the handleKeyEvent callback by simulating keyboard events
+    enzymeWrapper.instance().handleKeyEvent('backspace', dummyEvent);
+
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+    expect(dummyOnRemove).toHaveBeenCalledTimes(1);
+  });
+
+  it(`does not call the passed onRemove function, when it is in input mode, and the text value is not empty and the BACKSPACE key is pressed`, (): void => {
+    const enzymeWrapper = mount(
+      <EditableTextContent
+        initialText={dummyText}
+        onSubmit={dummyOnSubmit}
+        onDeactivate={dummyOnDeactivate}
+        onRemove={dummyOnRemove}
+      />,
+    );
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+    enzymeWrapper.instance().setState({ text: `${dummyText}${dummyText}` });
+
+    // Enzyme does not support event propagation yet, so we cannot test out
+    // the handleKeyEvent callback by simulating keyboard events
+    enzymeWrapper.instance().handleKeyEvent('backspace', dummyEvent);
+
+    expect(dummyEvent.preventDefault).not.toHaveBeenCalled();
+    expect(dummyOnRemove).not.toHaveBeenCalled();
   });
 
   describe(`getDerivedStateFromProps`, (): void => {
@@ -213,9 +312,9 @@ describe(`EditableTextContent`, (): void => {
         maxLength: undefined,
         initialText: dummyNewText,
         initialIsActive: false,
-        onInput: dummyInput,
-        onActivate: dummyActivate,
-        onDeactivate: dummyDeactivate,
+        onSubmit: dummyOnSubmit,
+        onDeactivate: dummyOnDeactivate,
+        onRemove: dummyOnRemove,
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
       expect(result).toStrictEqual({
@@ -236,9 +335,9 @@ describe(`EditableTextContent`, (): void => {
         maxLength: undefined,
         initialText: dummyText,
         initialIsActive: true,
-        onInput: dummyInput,
-        onActivate: dummyActivate,
-        onDeactivate: dummyDeactivate,
+        onSubmit: dummyOnSubmit,
+        onDeactivate: dummyOnDeactivate,
+        onRemove: dummyOnRemove,
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
       expect(result).toStrictEqual({
@@ -259,9 +358,9 @@ describe(`EditableTextContent`, (): void => {
         maxLength: undefined,
         initialText: dummyText,
         initialIsActive: false,
-        onInput: dummyInput,
-        onActivate: dummyActivate,
-        onDeactivate: dummyDeactivate,
+        onSubmit: dummyOnSubmit,
+        onDeactivate: dummyOnDeactivate,
+        onRemove: dummyOnRemove,
       };
       const result = EditableTextContent.getDerivedStateFromProps(dummyNextProps, dummyPrevState);
       expect(result).toStrictEqual({});
