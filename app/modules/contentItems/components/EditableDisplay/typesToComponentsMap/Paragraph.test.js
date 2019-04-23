@@ -17,13 +17,10 @@ describe(`Paragraph`, (): void => {
   beforeEach((): void => {
     dummyParagraph = { ...dummyData.paragraphContentItem };
     dummyFunctionProps = {
-      onStartEditing: jest.fn(),
       onEndEditing: jest.fn(),
       onEditPlainText: jest.fn(),
       onAddEmptySiblingItemBelow: jest.fn(),
       onRemove: jest.fn(),
-      onIndent: jest.fn(),
-      onReverseIndent: jest.fn(),
     };
   });
 
@@ -47,122 +44,51 @@ describe(`Paragraph`, (): void => {
     expect(enzymeWrapper.text()).toContain(dummyParagraph.text);
   });
 
-  describe(`onEditableTextContentInput`, (): void => {
-
-    it(`calls the passed onEditPlainText function`, (): void => {
-      const dummyText = 'Lorem ipsum';
-      const enzymeWrapper = shallow(
-        <PureParagraph
-          contentItem={dummyParagraph}
-          {...dummyFunctionProps}
-        />,
-      );
-      enzymeWrapper.instance().onEditableTextContentInput(dummyText);
-      expect(dummyFunctionProps.onEditPlainText).toHaveBeenCalledWith(dummyParagraph.id, dummyText);
-    });
-
+  it(`calls the passed onEditPlainText function when onEditableTextContentSubmit passed to the EditableTextContent is called`, (): void => {
+    const dummyText = 'Lorem ipsum';
+    const enzymeWrapper = shallow(
+      <PureParagraph
+        contentItem={dummyParagraph}
+        {...dummyFunctionProps}
+      />,
+    );
+    enzymeWrapper.instance().onEditableTextContentSubmit(dummyText);
+    expect(dummyFunctionProps.onEditPlainText).toHaveBeenCalledWith(dummyParagraph.id, dummyText);
   });
 
-  describe(`onEditableTextContentActivate`, (): void => {
-
-    it(`calls the passed onStartEditing function`, (): void => {
-      const enzymeWrapper = shallow(
-        <PureParagraph
-          contentItem={dummyParagraph}
-          {...dummyFunctionProps}
-        />,
-      );
-      enzymeWrapper.instance().onEditableTextContentActivate();
-      expect(dummyFunctionProps.onStartEditing).toHaveBeenCalledWith(dummyParagraph.id);
-    });
-
+  it(`calls the passed onEndEditing and onAddEmptySiblingItemBelow functions, when onEditableTextContentDeactivate passed to the EditableTextContent is called with TRUE as argument`, (): void => {
+    const enzymeWrapper = shallow(
+      <PureParagraph
+        contentItem={dummyParagraph}
+        {...dummyFunctionProps}
+      />,
+    );
+    enzymeWrapper.instance().onEditableTextContentDeactivate(true);
+    expect(dummyFunctionProps.onEndEditing).toHaveBeenCalledWith(dummyParagraph.id);
+    expect(dummyFunctionProps.onAddEmptySiblingItemBelow).toHaveBeenCalledWith(dummyParagraph.id);
   });
 
-  describe(`onEditableTextContentDeactivate`, (): void => {
-
-    it(`calls the passed onEndEditing function`, (): void => {
-      const enzymeWrapper = shallow(
-        <PureParagraph
-          contentItem={dummyParagraph}
-          {...dummyFunctionProps}
-        />,
-      );
-      enzymeWrapper.instance().onEditableTextContentDeactivate();
-      expect(dummyFunctionProps.onEndEditing).toHaveBeenCalledWith(dummyParagraph.id);
-    });
-
+  it(`calls the passed onEndEditing function when onEditableTextContentDeactivate passed to the EditableTextContent is called with FALSE as argument`, (): void => {
+    const enzymeWrapper = shallow(
+      <PureParagraph
+        contentItem={dummyParagraph}
+        {...dummyFunctionProps}
+      />,
+    );
+    enzymeWrapper.instance().onEditableTextContentDeactivate(false);
+    expect(dummyFunctionProps.onEndEditing).toHaveBeenCalledWith(dummyParagraph.id);
+    expect(dummyFunctionProps.onAddEmptySiblingItemBelow).not.toHaveBeenCalled();
   });
 
-  describe(`onEditableTextContentKeyDown`, (): void => {
-
-    it(`calls the passed onAddEmptySubItem function, when the pressed key was "Enter"`, (): void => {
-      const enzymeWrapper = shallow(
-        <PureParagraph
-          contentItem={dummyParagraph}
-          {...dummyFunctionProps}
-        />,
-      );
-      enzymeWrapper.instance().onEditableTextContentKeyDown(({ key: 'Enter', preventDefault: jest.fn() }: any));
-      expect(dummyFunctionProps.onAddEmptySiblingItemBelow).toHaveBeenCalledWith(dummyParagraph.id);
-    });
-
-    it(`calls the passed onEndEditing function, when the pressed key was "Escape"`, (): void => {
-      const enzymeWrapper = shallow(
-        <PureParagraph
-          contentItem={{ ...dummyParagraph, text: '' }}
-          {...dummyFunctionProps}
-        />,
-      );
-      enzymeWrapper.instance().onEditableTextContentKeyDown(({ key: 'Escape', preventDefault: jest.fn() }: any));
-      expect(dummyFunctionProps.onEndEditing).toHaveBeenCalledWith(dummyParagraph.id);
-    });
-
-    it(`calls the passed onRemove function, when the pressed key was "Backspace" and the contentItem's text prop was empty`, (): void => {
-      const enzymeWrapper = shallow(
-        <PureParagraph
-          contentItem={{ ...dummyParagraph, text: '' }}
-          {...dummyFunctionProps}
-        />,
-      );
-      enzymeWrapper.instance().onEditableTextContentKeyDown(({ key: 'Backspace', preventDefault: jest.fn() }: any));
-      expect(dummyFunctionProps.onRemove).toHaveBeenCalledWith(dummyParagraph.id);
-    });
-
-    it(`calls the passed onIndent function, when the pressed key combination was "CTRL" + "ArrowRight"`, (): void => {
-      const enzymeWrapper = shallow(
-        <PureParagraph
-          contentItem={dummyParagraph}
-          {...dummyFunctionProps}
-        />,
-      );
-      enzymeWrapper.instance().onEditableTextContentKeyDown(({ key: 'ArrowRight', ctrlKey: true, preventDefault: jest.fn() }: any));
-      expect(dummyFunctionProps.onIndent).toHaveBeenCalledWith(dummyParagraph.id);
-    });
-
-    it(`calls the passed onReverseIndent function, when the pressed key combination was "CTRL" + "ArrowLeft"`, (): void => {
-      const enzymeWrapper = shallow(
-        <PureParagraph
-          contentItem={dummyParagraph}
-          {...dummyFunctionProps}
-        />,
-      );
-      enzymeWrapper.instance().onEditableTextContentKeyDown(({ key: 'ArrowLeft', ctrlKey: true, preventDefault: jest.fn() }: any));
-      expect(dummyFunctionProps.onReverseIndent).toHaveBeenCalledWith(dummyParagraph.id);
-    });
-
-    it(`does not call any function, when the pressed key is anything other than the above key combinations`, (): void => {
-      const enzymeWrapper = shallow(
-        <PureParagraph
-          contentItem={dummyParagraph}
-          {...dummyFunctionProps}
-        />,
-      );
-      enzymeWrapper.instance().onEditableTextContentKeyDown(({ key: 'A' }: any));
-      Object.values(dummyFunctionProps).forEach((value: any): void => {
-        expect(value).toHaveBeenCalledTimes(0);
-      });
-    });
-
+  it(`calls the passed onRemove function when onEditableTextContentRemove passed to the EditableTextContent is called`, (): void => {
+    const enzymeWrapper = shallow(
+      <PureParagraph
+        contentItem={dummyParagraph}
+        {...dummyFunctionProps}
+      />,
+    );
+    enzymeWrapper.instance().onEditableTextContentRemove();
+    expect(dummyFunctionProps.onRemove).toHaveBeenCalledWith(dummyParagraph.id);
   });
 
 });

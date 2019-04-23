@@ -13,82 +13,52 @@ import { passThroughProps } from '..';
 
 type PassedProps = {|
   contentItem: m.ParagraphContentItem,
-  onStartEditing: (id: string) => void,
+  isSelected: boolean,
   onEndEditing: (id: string) => void,
   onEditPlainText: (id: string, text: string) => void,
   onAddEmptySiblingItemBelow: (id: string) => void,
   onRemove: (id: string) => void,
-  onIndent: (id: string) => void,
-  onReverseIndent: (id: string) => void,
 |};
 
 type Props = {| ...PassedProps |};
 
 class PureParagraph extends React.Component<Props> {
-  onEditableTextContentActivate = (): void => {
-    const { contentItem, onStartEditing } = this.props;
-    onStartEditing(contentItem.id);
-  };
-
-  onEditableTextContentDeactivate = (): void => {
-    const { contentItem, onEndEditing } = this.props;
-    onEndEditing(contentItem.id);
-  };
-
-  onEditableTextContentInput = (text: string): void => {
+  onEditableTextContentSubmit = (text: string): void => {
     const { contentItem, onEditPlainText } = this.props;
     onEditPlainText(contentItem.id, text);
   };
 
-  onEditableTextContentKeyDown = (event: SyntheticKeyboardEvent<HTMLInputElement>): void => {
-    const {
-      contentItem,
-      onAddEmptySiblingItemBelow,
-      onEndEditing,
-      onRemove,
-      onIndent,
-      onReverseIndent,
-    } = this.props;
+  onEditableTextContentDeactivate = (addEmptyItem: boolean): void => {
+    const { contentItem, onEndEditing, onAddEmptySiblingItemBelow } = this.props;
 
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      onAddEmptySiblingItemBelow(contentItem.id);
-    }
-    else if (event.key === 'Escape') {
-      event.preventDefault();
-      onEndEditing(contentItem.id);
-    }
-    else if (event.key === 'Backspace' && contentItem.text === '') {
-      event.preventDefault();
-      onRemove(contentItem.id);
-    }
-    else if (event.key === 'ArrowRight' && event.ctrlKey === true) {
-      event.preventDefault();
-      onIndent(contentItem.id);
-    }
-    else if (event.key === 'ArrowLeft' && event.ctrlKey === true) {
-      event.preventDefault();
-      onReverseIndent(contentItem.id);
-    }
+    onEndEditing(contentItem.id);
+
+    if (addEmptyItem) onAddEmptySiblingItemBelow(contentItem.id);
+  };
+
+  onEditableTextContentRemove = (): void => {
+    const { contentItem, onRemove } = this.props;
+    onRemove(contentItem.id);
   };
 
   render = (): React.Node => {
-    const { contentItem } = this.props;
+    const { contentItem, isSelected } = this.props;
 
     return (
       <TypeBlockWrapper
         data-test-id="content-item-editable-display-paragraph"
         {..._.pick(this.props, passThroughProps)}
+        contentItemId={contentItem.id}
+        isSelected={isSelected}
         iconName="paragraph"
       >
         <EditableTextContent
           multiline={true}
           initialText={contentItem.text}
           initialIsActive={contentItem.isEditing}
-          onActivate={this.onEditableTextContentActivate}
+          onSubmit={this.onEditableTextContentSubmit}
           onDeactivate={this.onEditableTextContentDeactivate}
-          onInput={this.onEditableTextContentInput}
-          onKeyDown={this.onEditableTextContentKeyDown}
+          onRemove={this.onEditableTextContentRemove}
         />
       </TypeBlockWrapper>
     );

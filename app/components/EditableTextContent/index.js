@@ -12,7 +12,7 @@ type PassedProps = {|
   initialText: string,
   initialIsActive: boolean,
   onSubmit: (text: string) => void,
-  onDeactivate: (addEmptySibling: boolean) => void,
+  onDeactivate: (addEmptyItem: boolean) => void,
   onRemove: () => void,
 |};
 
