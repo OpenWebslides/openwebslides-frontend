@@ -49,13 +49,6 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
   };
   /* eslint-enable */
 
-  componentDidUpdate(): void {
-    const { isActive } = this.state;
-    if (isActive && this.fieldRef != null) {
-      this.fieldRef.focus();
-    }
-  }
-
   static getDerivedStateFromProps = (
     props: Props,
     state: ComponentState,
@@ -95,10 +88,6 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     }
   };
 
-  handleRef = (c: ?HTMLInputElement): void => {
-    this.fieldRef = c;
-  };
-
   handleInput = (event: SyntheticInputEvent<HTMLInputElement>): void => {
     this.setState({ text: event.currentTarget.value });
   };
@@ -122,8 +111,6 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     onDeactivate(false);
   };
 
-  fieldRef: ?HTMLInputElement;
-
   renderAsInput(): React.Node {
     const { multiline, maxLength } = this.props;
     const { text } = this.state;
@@ -145,7 +132,6 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
                 maxLength={maxLength}
                 onInput={this.handleInput}
                 onBlur={this.handleBlur}
-                ref={this.handleRef}
               />
             )
             : (
@@ -158,7 +144,6 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
                 maxLength={maxLength}
                 onInput={this.handleInput}
                 onBlur={this.handleBlur}
-                ref={this.handleRef}
               />
             )}
         </KeyboardEventHandler>
