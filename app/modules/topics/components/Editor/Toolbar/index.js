@@ -90,7 +90,7 @@ class PureToolbar extends React.Component<Props> {
                 <Button.Group basic={true}>
                   <Button
                     icon={true}
-                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.HEADING}`)}
+                    title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.HEADING}`)}
                     onClick={this.handleInsertHeading}
                     data-test-id="toolbar-heading-button"
                   >
@@ -98,28 +98,28 @@ class PureToolbar extends React.Component<Props> {
                   </Button>
                   <Button
                     icon={true}
-                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.PARAGRAPH}`)}
+                    title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.PARAGRAPH}`)}
                     disabled={true}
                   >
                     <Icon name="paragraph" />
                   </Button>
                   <Button
                     icon={true}
-                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.LIST}`)}
+                    title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.LIST}`)}
                     disabled={true}
                   >
                     <Icon name="list ul" />
                   </Button>
                   <Button
                     icon={true}
-                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.BLOCKQUOTE}`)}
+                    title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.BLOCKQUOTE}`)}
                     disabled={true}
                   >
                     <Icon name="quote left" />
                   </Button>
                   <Button
                     icon={true}
-                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.CODE}`)}
+                    title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.CODE}`)}
                     disabled={true}
                   >
                     <Icon name="code" />
@@ -130,28 +130,28 @@ class PureToolbar extends React.Component<Props> {
                 <Button.Group basic={true}>
                   <Button
                     icon={true}
-                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.IMAGE}`)}
+                    title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.IMAGE}`)}
                     disabled={true}
                   >
                     <Icon name="image" />
                   </Button>
                   <Button
                     icon={true}
-                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.VIDEO}`)}
+                    title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.VIDEO}`)}
                     disabled={true}
                   >
                     <Icon name="video" />
                   </Button>
                   <Button
                     icon={true}
-                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.AUDIO}`)}
+                    title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.AUDIO}`)}
                     disabled={true}
                   >
                     <Icon name="music" />
                   </Button>
                   <Button
                     icon={true}
-                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.IFRAME}`)}
+                    title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.IFRAME}`)}
                     disabled={true}
                   >
                     <Icon name="world" />
@@ -162,7 +162,7 @@ class PureToolbar extends React.Component<Props> {
                 <Button.Group basic={true}>
                   <Button
                     icon={true}
-                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.COURSE_BREAK}`)}
+                    title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.COURSE_BREAK}`)}
                     disabled={true}
                   >
                     <Icon.Group>
@@ -172,7 +172,7 @@ class PureToolbar extends React.Component<Props> {
                   </Button>
                   <Button
                     icon={true}
-                    title={t(`contentItems:contentItemForType.${contentItems.model.contentItemTypes.SLIDE_BREAK}`)}
+                    title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.SLIDE_BREAK}`)}
                     disabled={true}
                   >
                     <Icon.Group>
