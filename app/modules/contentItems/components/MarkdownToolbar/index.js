@@ -35,6 +35,12 @@ const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
 };
 
 class PureMarkdownToolbar extends React.Component<Props> {
+  handleMouseDown = (event: SyntheticMouseEvent<HTMLElement>): void => {
+    // Prevent blur event from being fired as a result of the mouse click
+    // This prevents the active content item from being blurred
+    event.preventDefault();
+  };
+
   handleStrong = (): void => {
     const { onEdit } = this.props;
     onEdit(m.markdownTypes.STRONG);
@@ -72,30 +78,35 @@ class PureMarkdownToolbar extends React.Component<Props> {
                 <Button
                   icon="bold"
                   title={t('contentItems:markdown.strong')}
+                  onMouseDown={this.handleMouseDown}
                   onClick={this.handleStrong}
                   data-test-id="markdown-toolbar-strong-button"
                 />
                 <Button
                   icon="italic"
                   title={t('contentItems:markdown.emphasis')}
+                  onMouseDown={this.handleMouseDown}
                   onClick={this.handleEmphasis}
                   data-test-id="markdown-toolbar-emphasis-button"
                 />
                 <Button
                   icon="code"
                   title={t('contentItems:markdown.code')}
+                  onMouseDown={this.handleMouseDown}
                   onClick={this.handleCode}
                   data-test-id="markdown-toolbar-code-button"
                 />
                 <Button
                   icon="strikethrough"
                   title={t('contentItems:markdown.strikethrough')}
+                  onMouseDown={this.handleMouseDown}
                   onClick={this.handleStrikethrough}
                   data-test-id="markdown-toolbar-strikethrough-button"
                 />
                 <Button
                   icon="linkify"
                   title={t('contentItems:markdown.link')}
+                  onMouseDown={this.handleMouseDown}
                   onClick={this.handleLink}
                   data-test-id="markdown-toolbar-link-button"
                 />
@@ -106,6 +117,7 @@ class PureMarkdownToolbar extends React.Component<Props> {
                 <Button
                   icon="outdent"
                   title={t('contentItems:structure.unindent')}
+                  onMouseDown={this.handleMouseDown}
                   onClick={onUnindent}
                   data-test-id="markdown-toolbar-unindent-button"
                   disabled={!canUnindent}
@@ -113,6 +125,7 @@ class PureMarkdownToolbar extends React.Component<Props> {
                 <Button
                   icon="indent"
                   title={t('contentItems:structure.indent')}
+                  onMouseDown={this.handleMouseDown}
                   onClick={onIndent}
                   data-test-id="markdown-toolbar-indent-button"
                   disabled={!canIndent}

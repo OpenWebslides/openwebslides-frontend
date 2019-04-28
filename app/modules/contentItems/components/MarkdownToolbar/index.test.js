@@ -17,12 +17,16 @@ describe(`Toolbar`, (): void => {
   let dummyOnIndent: any;
   let dummyOnUnindent: any;
 
+  let dummyEvent: any;
+
   beforeEach((): void => {
     dummyContentItem = dummyData.paragraphContentItem;
 
     dummyOnEdit = jest.fn();
     dummyOnIndent = jest.fn();
     dummyOnUnindent = jest.fn();
+
+    dummyEvent = { preventDefault: jest.fn() };
   });
 
   it(`renders without errors`, (): void => {
@@ -51,6 +55,9 @@ describe(`Toolbar`, (): void => {
       </DummyProviders>,
     );
 
+    enzymeWrapper.find('[data-test-id="markdown-toolbar-strong-button"]').hostNodes().simulate('mouseDown', dummyEvent);
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+
     enzymeWrapper.find('[data-test-id="markdown-toolbar-strong-button"]').hostNodes().simulate('click');
     expect(dummyOnEdit).toHaveBeenCalledWith(m.markdownTypes.STRONG);
   });
@@ -66,6 +73,9 @@ describe(`Toolbar`, (): void => {
         />
       </DummyProviders>,
     );
+
+    enzymeWrapper.find('[data-test-id="markdown-toolbar-emphasis-button"]').hostNodes().simulate('mouseDown', dummyEvent);
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
 
     enzymeWrapper.find('[data-test-id="markdown-toolbar-emphasis-button"]').hostNodes().simulate('click');
     expect(dummyOnEdit).toHaveBeenCalledWith(m.markdownTypes.EMPHASIS);
@@ -83,6 +93,9 @@ describe(`Toolbar`, (): void => {
       </DummyProviders>,
     );
 
+    enzymeWrapper.find('[data-test-id="markdown-toolbar-code-button"]').hostNodes().simulate('mouseDown', dummyEvent);
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+
     enzymeWrapper.find('[data-test-id="markdown-toolbar-code-button"]').hostNodes().simulate('click');
     expect(dummyOnEdit).toHaveBeenCalledWith(m.markdownTypes.CODE);
   });
@@ -99,6 +112,9 @@ describe(`Toolbar`, (): void => {
       </DummyProviders>,
     );
 
+    enzymeWrapper.find('[data-test-id="markdown-toolbar-strikethrough-button"]').hostNodes().simulate('mouseDown', dummyEvent);
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+
     enzymeWrapper.find('[data-test-id="markdown-toolbar-strikethrough-button"]').hostNodes().simulate('click');
     expect(dummyOnEdit).toHaveBeenCalledWith(m.markdownTypes.STRIKETHROUGH);
   });
@@ -114,6 +130,9 @@ describe(`Toolbar`, (): void => {
         />
       </DummyProviders>,
     );
+
+    enzymeWrapper.find('[data-test-id="markdown-toolbar-link-button"]').hostNodes().simulate('mouseDown', dummyEvent);
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
 
     enzymeWrapper.find('[data-test-id="markdown-toolbar-link-button"]').hostNodes().simulate('click');
     expect(dummyOnEdit).toHaveBeenCalledWith(m.markdownTypes.LINK);
@@ -133,6 +152,9 @@ describe(`Toolbar`, (): void => {
       </DummyProviders>,
     );
 
+    enzymeWrapper.find('[data-test-id="markdown-toolbar-indent-button"]').hostNodes().simulate('mouseDown', dummyEvent);
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+
     enzymeWrapper.find('[data-test-id="markdown-toolbar-indent-button"]').hostNodes().simulate('click');
     expect(dummyOnIndent).toHaveBeenCalledTimes(1);
   });
@@ -150,6 +172,9 @@ describe(`Toolbar`, (): void => {
         />
       </DummyProviders>,
     );
+
+    enzymeWrapper.find('[data-test-id="markdown-toolbar-unindent-button"]').hostNodes().simulate('mouseDown', dummyEvent);
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
 
     enzymeWrapper.find('[data-test-id="markdown-toolbar-unindent-button"]').hostNodes().simulate('click');
     expect(dummyOnUnindent).toHaveBeenCalledTimes(1);

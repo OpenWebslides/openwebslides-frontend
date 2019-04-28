@@ -139,7 +139,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
   };
 
   handleMouseDown = (event: SyntheticMouseEvent<HTMLElement>): void => {
-    // Prevent focus event from being fired as a result of the mouse click
+    // Prevent blur event from being fired as a result of the mouse click
     event.preventDefault();
   };
 
