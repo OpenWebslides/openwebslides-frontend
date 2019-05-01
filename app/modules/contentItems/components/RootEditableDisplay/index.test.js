@@ -1,5 +1,7 @@
 // @flow
 
+import _ from 'lodash';
+
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
@@ -181,6 +183,86 @@ describe(`RootEditableDisplay`, (): void => {
 
     expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
     expect(dummyDispatch).toHaveBeenCalledWith(actions.selectInState(m.selectionTypes.SUB));
+  });
+
+  it(`dispatches a REMOVE action with the correct arguments when the BACKSPACE key is pressed and there is a content item selected`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <RootEditableDisplay
+          rootContentItemId={dummyRootContentItem.id}
+          setTopicDirty={dummySetTopicDirty}
+        />
+      </DummyProviders>,
+    );
+
+    // Enzyme does not support event propagation yet, so we cannot test out
+    // the handleKeyEvent callback by simulating keyboard events
+    (enzymeWrapper.find('PureRootEditableDisplay').instance(): any).handleKeyEvent('backspace', dummyEvent);
+
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+    expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.removeAndTogglePreviousItem(dummyRootContentItem.id));
+  });
+
+  it(`dispatches a REMOVE action with the correct arguments when the DELETE key is pressed and there is a content item selected`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <RootEditableDisplay
+          rootContentItemId={dummyRootContentItem.id}
+          setTopicDirty={dummySetTopicDirty}
+        />
+      </DummyProviders>,
+    );
+
+    // Enzyme does not support event propagation yet, so we cannot test out
+    // the handleKeyEvent callback by simulating keyboard events
+    (enzymeWrapper.find('PureRootEditableDisplay').instance(): any).handleKeyEvent('backspace', dummyEvent);
+
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+    expect(dummySetTopicDirty).toHaveBeenCalledWith(true);
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.removeAndTogglePreviousItem(dummyRootContentItem.id));
+  });
+
+  it(`dispatches nothing when the BACKSPACE key is pressed and there is no content item selected`, (): void => {
+    _.set(dummyState, 'modules.contentItems.currentlySelectedId', null);
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <RootEditableDisplay
+          rootContentItemId={dummyRootContentItem.id}
+          setTopicDirty={dummySetTopicDirty}
+        />
+      </DummyProviders>,
+    );
+
+    // Enzyme does not support event propagation yet, so we cannot test out
+    // the handleKeyEvent callback by simulating keyboard events
+    (enzymeWrapper.find('PureRootEditableDisplay').instance(): any).handleKeyEvent('backspace', dummyEvent);
+
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+    expect(dummySetTopicDirty).not.toHaveBeenCalled();
+    expect(dummyDispatch).not.toHaveBeenCalled();
+  });
+
+  it(`dispatches nothing when the DELETE key is pressed and there is no content item selected`, (): void => {
+    _.set(dummyState, 'modules.contentItems.currentlySelectedId', null);
+
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+        <RootEditableDisplay
+          rootContentItemId={dummyRootContentItem.id}
+          setTopicDirty={dummySetTopicDirty}
+        />
+      </DummyProviders>,
+    );
+
+    // Enzyme does not support event propagation yet, so we cannot test out
+    // the handleKeyEvent callback by simulating keyboard events
+    (enzymeWrapper.find('PureRootEditableDisplay').instance(): any).handleKeyEvent('backspace', dummyEvent);
+
+    expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+    expect(dummySetTopicDirty).not.toHaveBeenCalled();
+    expect(dummyDispatch).not.toHaveBeenCalled();
   });
 
   it(`calls the passed setTopicDirty function and dispatches an UNINDENT action with the correct arguments when the META+LEFT key is pressed`, (): void => {

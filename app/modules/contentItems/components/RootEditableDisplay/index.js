@@ -61,6 +61,10 @@ const handleKeys = [
   'left',
   'right',
 
+  // Delete
+  'backspace',
+  'delete',
+
   // Indent
   'ctrl+left',
   'meta+left',
@@ -154,6 +158,7 @@ class PureRootEditableDisplay extends React.Component<Props> {
       selectId,
       currentlySelectedId,
       onStartEditing,
+      onRemove,
       onIndent,
       onReverseIndent,
     } = this.props;
@@ -181,6 +186,10 @@ class PureRootEditableDisplay extends React.Component<Props> {
       // Set the root content item as default selection
       if (currentlySelectedId == null) selectId(rootContentItemId);
       else select(m.selectionTypes.SUB);
+    }
+    else if (key === 'backspace' || key === 'delete') {
+      event.preventDefault();
+      if (currentlySelectedId != null) onRemove(currentlySelectedId);
     }
     else if ((key === 'ctrl+left' || key === 'meta+left') && currentlySelectedId != null) {
       event.preventDefault();
