@@ -18,6 +18,7 @@
 // Editor
 & { @import "../../custom/editable-text-content"; }
 & { @import "../../custom/content-item-editable-display"; }
+& { @import "../../custom/draggable"; }
 
 // Slides
 & { @import "../../custom/ows_slide"; }
