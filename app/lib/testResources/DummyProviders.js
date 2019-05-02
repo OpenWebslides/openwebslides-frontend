@@ -7,6 +7,7 @@ import { createStore, type Dispatch } from 'redux';
 import { Provider } from 'react-redux';
 import { MemoryRouter, type LocationShape } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
+import { wrapInTestContext } from 'react-dnd-test-utils';
 
 import i18nextConfig from 'config/i18next';
 
@@ -22,7 +23,7 @@ type PassedProps = {|
 
 type Props = {| ...PassedProps |};
 
-const DummyProviders = (props: Props): React.Node => {
+const DummyDecoratedProviders = (props: Props): React.Node => {
   const {
     children,
     dummyState,
@@ -45,10 +46,12 @@ const DummyProviders = (props: Props): React.Node => {
   );
 };
 
-DummyProviders.defaultProps = {
+DummyDecoratedProviders.defaultProps = {
   dummyState: dummyInitialState,
   dummyDispatch: jest.fn(),
   dummyRouterEntries: [''],
 };
+
+const DummyProviders = wrapInTestContext(DummyDecoratedProviders);
 
 export default DummyProviders;
