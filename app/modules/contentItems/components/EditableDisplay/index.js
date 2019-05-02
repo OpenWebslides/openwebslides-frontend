@@ -39,25 +39,22 @@ class PureEditableDisplay extends React.Component<Props> {
       || contentItem.type === m.contentItemTypes.ROOT
       || contentItem.subItemIds == null
       || contentItem.subItemIds.length === 0
-    ) {
-      return null;
-    }
-    else {
-      return (
-        <div
-          className="content-item-editable-display__sub-items"
-          data-test-id="content-item-editable-display__sub-items"
-        >
-          {contentItem.subItemIds.map((subItemId: string): React.Node => (
-            <EditableDisplay
-              {..._.pick(this.props, passThroughProps)}
-              key={subItemId}
-              contentItemId={subItemId}
-            />
-          ))}
-        </div>
-      );
-    }
+    ) return null;
+
+    return (
+      <div
+        className="content-item-editable-display__sub-items"
+        data-test-id="content-item-editable-display__sub-items"
+      >
+        {contentItem.subItemIds.map((subItemId: string): React.Node => (
+          <EditableDisplay
+            {..._.pick(this.props, passThroughProps)}
+            key={subItemId}
+            contentItemId={subItemId}
+          />
+        ))}
+      </div>
+    );
   };
 
   renderEditableDisplay = (contentItem: m.ContentItem): React.Node => {
