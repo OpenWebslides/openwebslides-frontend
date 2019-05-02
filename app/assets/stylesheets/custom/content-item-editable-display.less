@@ -13,7 +13,7 @@
   &-block {
     @background: @white;
     @borderWidth: 1px;
-    @border: @borderWidth solid @borderColor;
+    @borderWidthSelected: 3px;
 
     @boxShadow: @subtleShadow;
     @verticalPadding: @basePadding - @inputVerticalPadding;
@@ -25,7 +25,9 @@
     @margin: @verticalMargin @horizontalMargin;
     @borderRadius: @defaultBorderRadius;
 
-    border: @border;
+    border-color: @borderColor;
+    border-style: solid;
+    border-width: @borderWidth @borderWidth @borderWidthSelected @borderWidth;
     border-radius: @borderRadius;
     box-shadow: @boxShadow;
 
@@ -55,6 +57,7 @@
     }
 
     &--selected {
+      outline: none;
       border-bottom: 3px solid @owsPink !important;
     }
   }
