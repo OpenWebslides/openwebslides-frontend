@@ -9,6 +9,8 @@ import * as React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { ConnectedRouter } from 'connected-react-router';
 import { type BrowserHistory } from 'history/createBrowserHistory';
+import { DragDropContextProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import i18nextConfig from 'config/i18next';
 import ApplicationPage from 'components/ApplicationPage';
@@ -29,7 +31,9 @@ const PureApplication = (props: Props): React.Node => {
     <ErrorBoundary>
       <I18nextProvider i18n={i18nextConfig}>
         <ConnectedRouter history={history}>
-          <ApplicationPage />
+          <DragDropContextProvider backend={HTML5Backend}>
+            <ApplicationPage />
+          </DragDropContextProvider>
         </ConnectedRouter>
       </I18nextProvider>
     </ErrorBoundary>
