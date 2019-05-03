@@ -12,7 +12,7 @@ import {
 import * as m from '../../../model';
 
 type PassedProps = {|
-  contentItemId: string,
+  contentItem: m.ContentItem,
   children: React.Node,
 |};
 
@@ -20,9 +20,9 @@ type Props = {| ...PassedProps, ...DragSourceCollector |};
 
 const source = {
   beginDrag(props: Props): DragSourceType {
-    const { contentItemId } = props;
+    const { contentItem } = props;
 
-    return { id: contentItemId };
+    return { id: contentItem.id };
   },
 };
 

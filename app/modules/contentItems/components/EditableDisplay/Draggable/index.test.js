@@ -3,24 +3,26 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 
-import { DummyProviders } from 'lib/testResources';
+import { DummyProviders, dummyContentItemData as dummyData } from 'lib/testResources';
+
+import * as m from '../../../model';
 
 import Draggable, { PureDraggable, source } from '.';
 
 describe(`EditableDisplay`, (): void => {
 
   let dummyConnectDragSource: any;
-  let dummyContentItemId: string;
+  let dummyContentItem: m.ContentItem;
 
   beforeEach((): void => {
     dummyConnectDragSource = (body) => body;
-    dummyContentItemId = 'dummyContentItemId';
+    dummyContentItem = dummyData.paragraphContentItem;
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <Draggable contentItemId={dummyContentItemId} />
+        <Draggable contentItem={dummyContentItem} />
       </DummyProviders>,
     );
 
@@ -63,7 +65,7 @@ describe(`EditableDisplay`, (): void => {
   });
 
   it(`returns the content item id as drag source type`, (): void => {
-    expect(source.beginDrag({ contentItemId: dummyContentItemId })).toStrictEqual({ id: dummyContentItemId });
+    expect(source.beginDrag({ contentItem: dummyContentItem })).toStrictEqual({ id: dummyContentItem });
   });
 
 });

@@ -84,8 +84,8 @@ class PureEditableDisplay extends React.Component<Props> {
           {(contentItem.type === m.contentItemTypes.ROOT
             ? this.renderDisplayComponent(contentItem)
             : (
-              <Draggable contentItemId={contentItem.id} data-test-id="content-item-editable-display-draggable">
-                <Droppable contentItemId={contentItem.id} data-test-id="content-item-editable-display-droppable">
+              <Draggable contentItem={contentItem} data-test-id="content-item-editable-display-draggable">
+                <Droppable contentItem={contentItem} data-test-id="content-item-editable-display-droppable">
                   {this.renderDisplayComponent(contentItem)}
                 </Droppable>
               </Draggable>

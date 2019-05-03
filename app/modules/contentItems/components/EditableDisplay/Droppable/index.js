@@ -11,7 +11,7 @@ import {
 import * as m from '../../../model';
 
 type PassedProps = {|
-  contentItemId: string,
+  contentItem: m.ContentItem,
   children: React.Node,
 |};
 
@@ -25,10 +25,10 @@ const target = {
     console.log(`drop ${item.id}`);
   },
   canDrop(props: Props, monitor: DropTargetMonitor): boolean {
-    const { contentItemId } = props;
+    const { contentItem } = props;
 
     // Do not allow dropping onto itself
-    return monitor.getItem().id !== contentItemId;
+    return monitor.getItem().id !== contentItem.id;
   },
 };
 

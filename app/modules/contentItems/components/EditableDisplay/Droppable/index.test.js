@@ -3,24 +3,26 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 
-import { DummyProviders } from 'lib/testResources';
+import { DummyProviders, dummyContentItemData as dummyData } from 'lib/testResources';
+
+import * as m from '../../../model';
 
 import Droppable, { PureDroppable } from '.';
 
 describe(`EditableDisplay`, (): void => {
 
   let dummyConnectDropTarget: any;
-  let dummyContentItemId: string;
+  let dummyContentItem: m.ContentItem;
 
   beforeEach((): void => {
     dummyConnectDropTarget = (body) => body;
-    dummyContentItemId = 'dummyContentItemId';
+    dummyContentItem = dummyData.paragraphContentItem;
   });
 
   it(`renders without errors`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <Droppable contentItemId={dummyContentItemId} />
+        <Droppable contentItem={dummyContentItem} />
       </DummyProviders>,
     );
 
