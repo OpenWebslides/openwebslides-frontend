@@ -11,6 +11,8 @@ import selectors from '../../selectors';
 import { passThroughProps } from '../RootEditableDisplay';
 
 import typesToComponentsMap from './typesToComponentsMap';
+import Draggable from './Draggable';
+import Droppable from './Droppable';
 
 type PassedProps = {|
   contentItemId: string,
@@ -57,21 +59,39 @@ class PureEditableDisplay extends React.Component<Props> {
     );
   };
 
-  renderEditableDisplay = (contentItem: m.ContentItem): React.Node => {
+  renderDisplayComponent = (contentItem: m.ContentItem): React.Node => {
     const { isSelected } = this.props;
 
     const DisplayComponent = typesToComponentsMap[contentItem.type];
 
     return (
+      <DisplayComponent
+        {..._.pick(this.props, passThroughProps)}
+        contentItem={contentItem}
+        isSelected={isSelected}
+      />
+    );
+  };
+
+  renderEditableDisplay = (contentItem: m.ContentItem): React.Node => {
+    return (
       <div
         className="content-item-editable-display"
         data-test-id="content-item-editable-display"
       >
-        <DisplayComponent
-          {..._.pick(this.props, passThroughProps)}
-          contentItem={contentItem}
-          isSelected={isSelected}
-        />
+        <div className="content-item-editable-display-component">
+          {/* Render moveable source/target only for non-root content items */}
+          {(contentItem.type === m.contentItemTypes.ROOT
+            ? this.renderDisplayComponent(contentItem)
+            : (
+              <Draggable contentItemId={contentItem.id} data-test-id="content-item-editable-display-draggable">
+                <Droppable contentItemId={contentItem.id} data-test-id="content-item-editable-display-droppable">
+                  {this.renderDisplayComponent(contentItem)}
+                </Droppable>
+              </Draggable>
+            )
+          )}
+        </div>
         {this.renderSubItemsEditableDisplay(contentItem)}
       </div>
     );

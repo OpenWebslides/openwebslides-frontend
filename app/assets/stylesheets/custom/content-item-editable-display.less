@@ -10,6 +10,14 @@
     padding-left: @basePadding;
   }
 
+  &-component {
+    @verticalMargin: 1rem;
+    @horizontalMargin: 0em;
+    @margin: @verticalMargin @horizontalMargin;
+
+    margin: @margin;
+  }
+
   &-block {
     @background: @white;
     @borderWidth: 1px;
@@ -20,9 +28,6 @@
     @horizontalPadding: @basePadding - @inputHorizontalPadding;
     @padding: @verticalPadding @horizontalPadding;
 
-    @verticalMargin: 1rem;
-    @horizontalMargin: 0em;
-    @margin: @verticalMargin @horizontalMargin;
     @borderRadius: @defaultBorderRadius;
 
     border-color: @borderColor;
@@ -30,8 +35,6 @@
     border-width: @borderWidth @borderWidth @borderWidthSelected @borderWidth;
     border-radius: @borderRadius;
     box-shadow: @boxShadow;
-
-    margin: @margin;
 
     &__wrapper {
       display: table;

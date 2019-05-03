@@ -128,6 +128,26 @@ describe(`EditableDisplay`, (): void => {
     expect(enzymeWrapper.find('DummyDisplayComponent')).toHaveLength(1);
   });
 
+  it(`renders a Draggable and a Droppable component when the contentItem is not a ROOT content item`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState}>
+        <EditableDisplay contentItemId={dummyHeading113.id} />
+      </DummyProviders>,
+    );
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display-draggable"]').hostNodes()).not.toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display-droppable"]').hostNodes()).not.toHaveLength(0);
+  });
+
+  it(`does not render a Draggable and a Droppable component when the contentItem is a ROOT content item`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState}>
+        <EditableDisplay contentItemId={dummyRoot1.id} />
+      </DummyProviders>,
+    );
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display-draggable"]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display-droppable"]').hostNodes()).toHaveLength(0);
+  });
+
   it(`renders NULL, when the contentItem with the passed id could not be found`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState}>
