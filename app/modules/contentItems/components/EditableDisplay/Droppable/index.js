@@ -50,7 +50,9 @@ const PureDroppable = (props: Props): React.Node => {
 };
 
 const Droppable = DropTarget(
-  m.contentItemTypes.ROOT, // TODO: replace with content item-specific type
+  (props: Props): $ReadOnlyArray<string> => {
+    return m.subableContentItemTypesForContentItemType[props.contentItem.type];
+  },
   target,
   collect,
 )(PureDroppable);

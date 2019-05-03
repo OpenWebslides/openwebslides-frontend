@@ -46,7 +46,7 @@ const PureDraggable = (props: Props): React.Node => {
 };
 
 const Draggable = DragSource(
-  m.contentItemTypes.ROOT, // TODO: replace with content item-specific type
+  (props: Props): string => props.contentItem.type,
   source,
   collect,
 )(PureDraggable);

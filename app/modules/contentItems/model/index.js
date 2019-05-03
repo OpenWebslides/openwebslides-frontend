@@ -153,6 +153,11 @@ export const editablePropsForRootContentItem = [
   ...editablePropsForSubableContentItem,
 ];
 
+// List of contentItemTypes that can be nested under a ROOT contentItem
+export const subableContentItemTypesForRootContentItem = [
+  types.contentItemTypes.HEADING,
+];
+
 
 // HEADING -----------------------------------------------------------------------------------------
 
@@ -184,6 +189,20 @@ export const editablePropsForHeadingContentItem = [
   ...editablePropsForPlainTextContentItem,
   ...editablePropsForTaggableContentItem,
   ...editablePropsForSubableContentItem,
+];
+
+// List of contentItemTypes that can be nested under a HEADING contentItem
+export const subableContentItemTypesForHeadingContentItem = [
+  types.contentItemTypes.HEADING,
+  types.contentItemTypes.PARAGRAPH,
+  types.contentItemTypes.LIST,
+  types.contentItemTypes.BLOCKQUOTE,
+  types.contentItemTypes.CODE,
+  types.contentItemTypes.IMAGE,
+  types.contentItemTypes.VIDEO,
+  types.contentItemTypes.IFRAME,
+  types.contentItemTypes.SLIDE_BREAK,
+  types.contentItemTypes.COURSE_BREAK,
 ];
 
 
@@ -219,6 +238,11 @@ export const editablePropsForParagraphContentItem = [
   ...editablePropsForSubableContentItem,
 ];
 
+// List of contentItemTypes that can be nested under a PARAGRAPH contentItem
+export const subableContentItemTypesForParagraphContentItem = [
+  types.contentItemTypes.PARAGRAPH,
+];
+
 
 // LIST --------------------------------------------------------------------------------------------
 
@@ -252,6 +276,10 @@ export type DenormalizedListContentItem = {|
 export const editablePropsForListContentItem = [
   ...editablePropsForTaggableContentItem,
   ...editablePropsForSubableContentItem,
+];
+
+// List of contentItemTypes that can be nested under a LIST contentItem
+export const subableContentItemTypesForListContentItem = [
 ];
 
 
@@ -290,6 +318,10 @@ export const editablePropsForBlockquoteContentItem = [
   ...editablePropsForSubableContentItem,
 ];
 
+// List of contentItemTypes that can be nested under a BLOCKQUOTE contentItem
+export const subableContentItemTypesForBlockquoteContentItem = [
+];
+
 
 // CODE --------------------------------------------------------------------------------------------
 
@@ -322,6 +354,10 @@ export const editablePropsForCodeContentItem = [
   ...editablePropsForPlainTextContentItem,
   ...editablePropsForTaggableContentItem,
   ...editablePropsForSubableContentItem,
+];
+
+// List of contentItemTypes that can be nested under a CODE contentItem
+export const subableContentItemTypesForCodeContentItem = [
 ];
 
 
@@ -357,6 +393,10 @@ export const editablePropsForImageContentItem = [
   ...editablePropsForSubableContentItem,
 ];
 
+// List of contentItemTypes that can be nested under an IMAGE contentItem
+export const subableContentItemTypesForImageContentItem = [
+];
+
 
 // VIDEO -------------------------------------------------------------------------------------------
 
@@ -388,6 +428,10 @@ export const editablePropsForVideoContentItem = [
   ...editablePropsForMediaContentItem,
   ...editablePropsForTaggableContentItem,
   ...editablePropsForSubableContentItem,
+];
+
+// List of contentItemTypes that can be nested under a VIDEO contentItem
+export const subableContentItemTypesForVideoContentItem = [
 ];
 
 
@@ -423,6 +467,10 @@ export const editablePropsForAudioContentItem = [
   ...editablePropsForSubableContentItem,
 ];
 
+// List of contentItemTypes that can be nested under an AUDIO contentItem
+export const subableContentItemTypesForAudioContentItem = [
+];
+
 
 // IFRAME ------------------------------------------------------------------------------------------
 
@@ -456,6 +504,10 @@ export const editablePropsForIframeContentItem = [
   ...editablePropsForSubableContentItem,
 ];
 
+// List of contentItemTypes that can be nested under an IFRAME contentItem
+export const subableContentItemTypesForIframeContentItem = [
+];
+
 
 // SLIDE_BREAK -------------------------------------------------------------------------------------
 
@@ -483,6 +535,10 @@ export const editablePropsForSlideBreakContentItem = [
   ...editablePropsForSymbolContentItem,
 ];
 
+// List of contentItemTypes that can be nested under a SLIDE_BREAK contentItem
+export const subableContentItemTypesForSlideBreakContentItem = [
+];
+
 
 // COURSE_BREAK ------------------------------------------------------------------------------------
 
@@ -508,6 +564,10 @@ export type DenormalizedCourseBreakContentItem = {|
 // List of COURSE_BREAK contentItem props that can be edited through propsForType.
 export const editablePropsForCourseBreakContentItem = [
   ...editablePropsForSymbolContentItem,
+];
+
+// List of contentItemTypes that can be nested under an COURSE_BREAK contentItem
+export const subableContentItemTypesForCourseBreakContentItem = [
 ];
 
 
@@ -557,6 +617,23 @@ export const editablePropsForType = {
   [types.contentItemTypes.IFRAME]: editablePropsForIframeContentItem,
   [types.contentItemTypes.SLIDE_BREAK]: editablePropsForSlideBreakContentItem,
   [types.contentItemTypes.COURSE_BREAK]: editablePropsForCourseBreakContentItem,
+};
+
+// Map contentItemTypes to their subable contentItemTypes
+export const subableContentItemTypesForContentItemType = {
+
+  [types.contentItemTypes.ROOT]: subableContentItemTypesForRootContentItem,
+  [types.contentItemTypes.HEADING]: subableContentItemTypesForHeadingContentItem,
+  [types.contentItemTypes.PARAGRAPH]: subableContentItemTypesForParagraphContentItem,
+  [types.contentItemTypes.LIST]: subableContentItemTypesForListContentItem,
+  [types.contentItemTypes.BLOCKQUOTE]: subableContentItemTypesForBlockquoteContentItem,
+  [types.contentItemTypes.CODE]: subableContentItemTypesForCodeContentItem,
+  [types.contentItemTypes.IMAGE]: subableContentItemTypesForImageContentItem,
+  [types.contentItemTypes.VIDEO]: subableContentItemTypesForVideoContentItem,
+  [types.contentItemTypes.AUDIO]: subableContentItemTypesForAudioContentItem,
+  [types.contentItemTypes.IFRAME]: subableContentItemTypesForIframeContentItem,
+  [types.contentItemTypes.SLIDE_BREAK]: subableContentItemTypesForSlideBreakContentItem,
+  [types.contentItemTypes.COURSE_BREAK]: subableContentItemTypesForCourseBreakContentItem,
 };
 
 // Type object containing all possible props for all possible types.

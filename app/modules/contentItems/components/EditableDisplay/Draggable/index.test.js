@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { mount } from 'enzyme';
+import { wrapInTestContext } from 'react-dnd-test-utils';
 
 import { DummyProviders, dummyContentItemData as dummyData } from 'lib/testResources';
 
@@ -14,9 +15,13 @@ describe(`EditableDisplay`, (): void => {
   let dummyConnectDragSource: any;
   let dummyContentItem: m.ContentItem;
 
+  let TestDraggable: any;
+
   beforeEach((): void => {
     dummyConnectDragSource = (body) => body;
     dummyContentItem = dummyData.paragraphContentItem;
+
+    TestDraggable = wrapInTestContext(Draggable);
   });
 
   it(`renders without errors`, (): void => {
@@ -66,6 +71,12 @@ describe(`EditableDisplay`, (): void => {
 
   it(`returns the content item id as drag source type`, (): void => {
     expect(source.beginDrag({ contentItem: dummyContentItem })).toStrictEqual({ id: dummyContentItem });
+  });
+
+  it(`returns the content item type as draggable type`, (): void => {
+    const enzymeWrapper = mount(<TestDraggable contentItem={dummyContentItem} />);
+
+    expect([...enzymeWrapper.instance().getManager().getRegistry().types.values()][0]).toStrictEqual(dummyContentItem.type);
   });
 
 });
