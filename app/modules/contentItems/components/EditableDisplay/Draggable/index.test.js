@@ -12,13 +12,13 @@ import Draggable, { PureDraggable, source } from '.';
 
 describe(`EditableDisplay`, (): void => {
 
-  let dummyConnectDragSource: any;
+  let dummyConnectFunction: any;
   let dummyContentItem: m.ContentItem;
 
   let TestDraggable: any;
 
   beforeEach((): void => {
-    dummyConnectDragSource = (body) => body;
+    dummyConnectFunction = (body) => body;
     dummyContentItem = dummyData.paragraphContentItem;
 
     TestDraggable = wrapInTestContext(Draggable);
@@ -37,7 +37,8 @@ describe(`EditableDisplay`, (): void => {
   it(`renders the component without .draggable--active class when it is not dragging`, (): void => {
     const enzymeWrapper = mount(
       <PureDraggable
-        connectDragSource={dummyConnectDragSource}
+        connectDragSource={dummyConnectFunction}
+        connectDragPreview={dummyConnectFunction}
         isDragging={false}
       />,
     );
@@ -48,7 +49,8 @@ describe(`EditableDisplay`, (): void => {
   it(`renders the component with .draggable--active class when it is dragging`, (): void => {
     const enzymeWrapper = mount(
       <PureDraggable
-        connectDragSource={dummyConnectDragSource}
+        connectDragSource={dummyConnectFunction}
+        connectDragPreview={dummyConnectFunction}
         isDragging={true}
       />,
     );
@@ -59,7 +61,8 @@ describe(`EditableDisplay`, (): void => {
   it(`renders the passed children`, (): void => {
     const enzymeWrapper = mount(
       <PureDraggable
-        connectDragSource={dummyConnectDragSource}
+        connectDragSource={dummyConnectFunction}
+        connectDragPreview={dummyConnectFunction}
         isDragging={true}
       >
         <div data-test-id="test-children">test children</div>
@@ -69,8 +72,37 @@ describe(`EditableDisplay`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="test-children"]').hostNodes()).toHaveLength(1);
   });
 
+  it(`renders the handlebars when the mouse enters the component`, (): void => {
+    const enzymeWrapper = mount(
+      <PureDraggable
+        connectDragSource={dummyConnectFunction}
+        connectDragPreview={dummyConnectFunction}
+        isDragging={true}
+      />,
+    );
+
+    expect(enzymeWrapper.find(`.icon.bars`).hostNodes()).toHaveLength(0);
+    enzymeWrapper.find('[data-test-id="draggable"]').hostNodes().simulate('mouseEnter');
+    expect(enzymeWrapper.find(`.icon.bars`).hostNodes()).toHaveLength(1);
+  });
+
+  it(`renders the handlebars when the mouse leaves the component`, (): void => {
+    const enzymeWrapper = mount(
+      <PureDraggable
+        connectDragSource={dummyConnectFunction}
+        connectDragPreview={dummyConnectFunction}
+        isDragging={true}
+      />,
+    );
+
+    enzymeWrapper.find('[data-test-id="draggable"]').hostNodes().simulate('mouseEnter');
+    expect(enzymeWrapper.find(`.icon.bars`).hostNodes()).toHaveLength(1);
+    enzymeWrapper.find('[data-test-id="draggable"]').hostNodes().simulate('mouseLeave');
+    expect(enzymeWrapper.find(`.icon.bars`).hostNodes()).toHaveLength(0);
+  });
+
   it(`returns the content item id as drag source type`, (): void => {
-    expect(source.beginDrag({ contentItem: dummyContentItem })).toStrictEqual({ id: dummyContentItem });
+    expect(source.beginDrag({ contentItem: dummyContentItem })).toStrictEqual({ id: dummyContentItem.id });
   });
 
   it(`returns the content item type as draggable type`, (): void => {

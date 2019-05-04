@@ -36,7 +36,7 @@ describe(`TypeBlockWrapper`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`renders an icon with the given iconName when the mouse is not over the component`, (): void => {
+  it(`renders an icon with the given iconName`, (): void => {
     const enzymeWrapper = mount(
       <PureTypeBlockWrapper contentItemId={dummyContentItemId} iconName={dummyIconName} isSelected={false} onFocus={dummyOnFocus} onBlur={dummyOnBlur}>
         <DummyChildComponent />
@@ -45,25 +45,6 @@ describe(`TypeBlockWrapper`, (): void => {
 
     expect(enzymeWrapper.find(`.icon.${dummyIconName}`).hostNodes()).toHaveLength(1);
     expect(enzymeWrapper.find(`.icon.bars`).hostNodes()).toHaveLength(0);
-
-    enzymeWrapper.find('[data-test-id="type-block-wrapper"]').hostNodes().simulate('mouseEnter');
-    enzymeWrapper.find('[data-test-id="type-block-wrapper"]').hostNodes().simulate('mouseLeave');
-
-    expect(enzymeWrapper.find(`.icon.${dummyIconName}`).hostNodes()).toHaveLength(1);
-    expect(enzymeWrapper.find(`.icon.bars`).hostNodes()).toHaveLength(0);
-  });
-
-  it(`renders a handlebars icon when the mouse is over the component`, (): void => {
-    const enzymeWrapper = mount(
-      <PureTypeBlockWrapper contentItemId={dummyContentItemId} iconName={dummyIconName} isSelected={false} onFocus={dummyOnFocus} onBlur={dummyOnBlur}>
-        <DummyChildComponent />
-      </PureTypeBlockWrapper>,
-    );
-
-    enzymeWrapper.find('[data-test-id="type-block-wrapper"]').hostNodes().simulate('mouseEnter');
-
-    expect(enzymeWrapper.find(`.icon.${dummyIconName}`).hostNodes()).toHaveLength(0);
-    expect(enzymeWrapper.find(`.icon.bars`).hostNodes()).toHaveLength(1);
   });
 
   it(`attaches a --selected modifier when the passed isSelected is TRUE`, (): void => {

@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { Icon } from 'semantic-ui-react';
 import {
   DragSource,
   type DragSourceConnector,
@@ -16,6 +17,10 @@ type PassedProps = {|
   children: React.Node,
 |};
 
+type ComponentState = {|
+  isHovering: boolean,
+|};
+
 type Props = {| ...PassedProps, ...DragSourceCollector |};
 
 const source = {
@@ -29,21 +34,49 @@ const source = {
 const collect = (connect: DragSourceConnector, monitor: DragSourceMonitor): DragSourceCollector => {
   return {
     connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging(),
   };
 };
 
-const PureDraggable = (props: Props): React.Node => {
-  const { connectDragSource, isDragging, children } = props;
+class PureDraggable extends React.Component<Props, ComponentState> {
+  state: ComponentState = {
+    isHovering: false,
+  };
 
-  return (
-    connectDragSource(
-      <div className={`draggable ${isDragging ? 'draggable--active' : ''}`}>
-        {children}
-      </div>,
-    )
-  );
-};
+  handleMouseEnter = (): void => {
+    this.setState({ isHovering: true });
+  };
+
+  handleMouseLeave = (): void => {
+    this.setState({ isHovering: false });
+  };
+
+  render(): React.Node {
+    const { connectDragPreview, connectDragSource, isDragging, children } = this.props;
+    const { isHovering } = this.state;
+
+    return (
+      connectDragPreview(
+        <div
+          className={`draggable ${isDragging ? 'draggable--active' : ''}`}
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+          data-test-id="draggable"
+        >
+          {children}
+          {connectDragSource(
+            isHovering && (
+              <div className="draggable__handle">
+                <Icon name="bars" color="grey" />
+              </div>
+            ),
+          )}
+        </div>,
+      )
+    );
+  }
+}
 
 const Draggable = DragSource(
   (props: Props): string => props.contentItem.type,

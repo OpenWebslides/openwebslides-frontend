@@ -3,6 +3,22 @@
 *******************************/
 
 .draggable {
+  position: relative;
+
+  &__handle {
+    cursor: move;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    height: 100%;
+    width: 3rem;
+  }
+
   &--active {
     opacity: .6;
   }

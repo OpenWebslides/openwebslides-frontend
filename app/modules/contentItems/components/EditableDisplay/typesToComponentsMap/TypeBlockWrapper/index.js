@@ -12,19 +12,11 @@ type PassedProps = {|
   children?: React.Node,
 |};
 
-type ComponentState = {|
-  isHovering: boolean,
-|};
-
 type Props = {| ...PassedProps |};
 
-class PureTypeBlockWrapper extends React.Component<Props, ComponentState> {
+class PureTypeBlockWrapper extends React.Component<Props> {
   static defaultProps = {
     children: null,
-  };
-
-  state: ComponentState = {
-    isHovering: false,
   };
 
   handleFocus = (): void => {
@@ -37,17 +29,8 @@ class PureTypeBlockWrapper extends React.Component<Props, ComponentState> {
     onBlur();
   };
 
-  handleMouseEnter = (): void => {
-    this.setState({ isHovering: true });
-  };
-
-  handleMouseLeave = (): void => {
-    this.setState({ isHovering: false });
-  };
-
   render(): React.Node {
-    const { contentItemId, isSelected, iconName, children } = this.props;
-    const { isHovering } = this.state;
+    const { isSelected, iconName, children } = this.props;
 
     return (
       /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -57,17 +40,11 @@ class PureTypeBlockWrapper extends React.Component<Props, ComponentState> {
         tabIndex={0}
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
         data-test-id="type-block-wrapper"
       >
         <div className="content-item-editable-display-block__wrapper">
           <div className="content-item-editable-display-block__icon">
-            {isHovering ? (
-              <Icon name="bars" color="grey" />
-            ) : (
-              <Icon name={iconName} color="grey" />
-            )}
+            <Icon name={iconName} color="grey" />
           </div>
           <div className="content-item-editable-display-block__content">
             {children}
