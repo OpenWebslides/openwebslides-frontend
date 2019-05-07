@@ -3,11 +3,11 @@
 import _ from 'lodash';
 import * as React from 'react';
 
-import EditableTextContent from 'components/EditableTextContent';
-
 import * as m from '../../../model';
 
 import TypeBlockWrapper from './TypeBlockWrapper';
+
+import EditableTextContent from '../EditableTextContent';
 
 import { passThroughProps } from '..';
 
@@ -18,6 +18,8 @@ type PassedProps = {|
   onEditPlainText: (id: string, text: string) => void,
   onAddEmptySiblingItemBelow: (id: string) => void,
   onRemove: (id: string) => void,
+  onIndent: (id: string) => void,
+  onReverseIndent: (id: string) => void,
 |};
 
 type Props = {| ...PassedProps |};
@@ -41,6 +43,18 @@ class PureParagraph extends React.Component<Props> {
     onRemove(contentItem.id);
   };
 
+  onIndent = (): void => {
+    const { contentItem, onIndent } = this.props;
+
+    onIndent(contentItem.id);
+  };
+
+  onUnindent = (): void => {
+    const { contentItem, onReverseIndent } = this.props;
+
+    onReverseIndent(contentItem.id);
+  };
+
   render = (): React.Node => {
     const { contentItem, isSelected } = this.props;
 
@@ -53,12 +67,15 @@ class PureParagraph extends React.Component<Props> {
         iconName="paragraph"
       >
         <EditableTextContent
+          contentItem={contentItem}
           multiline={true}
           initialText={contentItem.text}
           initialIsActive={contentItem.isEditing}
           onSubmit={this.onEditableTextContentSubmit}
           onDeactivate={this.onEditableTextContentDeactivate}
           onRemove={this.onEditableTextContentRemove}
+          onIndent={this.onIndent}
+          onUnindent={this.onUnindent}
         />
       </TypeBlockWrapper>
     );

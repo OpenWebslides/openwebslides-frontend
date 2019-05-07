@@ -1,12 +1,16 @@
 // @flow
 
 import * as React from 'react';
-import { Form, Input, TextArea } from 'semantic-ui-react';
+import { Form, Input, TextArea, Ref } from 'semantic-ui-react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 import InlineMarkdown from 'components/InlineMarkdown';
 
+import MarkdownToolbar from '../../MarkdownToolbar';
+import * as m from '../../../model';
+
 type PassedProps = {|
+  contentItem: m.ContentItem,
   multiline: boolean,
   maxLength: ?number,
   initialText: string,
@@ -14,6 +18,8 @@ type PassedProps = {|
   onSubmit: (text: string) => void,
   onDeactivate: (addEmptyItem: boolean) => void,
   onRemove: () => void,
+  onIndent: () => void,
+  onUnindent: () => void,
 |};
 
 type Props = {| ...PassedProps |};
@@ -29,7 +35,24 @@ const handleKeys = [
   'enter',
   'esc',
   'backspace',
+
+  'ctrl+b', // Control key
+  'meta+b', // Command key
+
+  'ctrl+i', // Control key
+  'meta+i', // Command key
+
+  'ctrl+k', // Control key
+  'meta+k', // Command key
 ];
+
+const mapMarkdownTypeToAffix = {
+  [m.markdownTypes.STRONG]: { prefix: '**', suffix: '**' },
+  [m.markdownTypes.EMPHASIS]: { prefix: '_', suffix: '_' },
+  [m.markdownTypes.CODE]: { prefix: '`', suffix: '`' },
+  [m.markdownTypes.STRIKETHROUGH]: { prefix: '~~', suffix: '~~' },
+  [m.markdownTypes.LINK]: { prefix: '[', suffix: '](url)' },
+};
 
 class EditableTextContent extends React.Component<Props, ComponentState> {
   static defaultProps = {
@@ -86,6 +109,29 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
       event.preventDefault();
       onRemove();
     }
+    else if (key === 'ctrl+b' || key === 'meta+b') {
+      event.preventDefault();
+      this.handleEdit(m.markdownTypes.STRONG);
+    }
+    else if (key === 'ctrl+i' || key === 'meta+i') {
+      event.preventDefault();
+      this.handleEdit(m.markdownTypes.EMPHASIS);
+    }
+    else if (key === 'ctrl+k' || key === 'meta+k') {
+      event.preventDefault();
+      this.handleEdit(m.markdownTypes.LINK);
+    }
+  };
+
+  handleRef = (c: ?HTMLInputElement): void => {
+    this.fieldRef = c;
+  };
+
+  handleInputRef = (c: ?Input): void => {
+    if (c != null && c.inputRef != null) {
+      this.fieldRef = c.inputRef.current;
+    }
+    else this.fieldRef = null;
   };
 
   handleInput = (event: SyntheticInputEvent<HTMLInputElement>): void => {
@@ -93,7 +139,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
   };
 
   handleMouseDown = (event: SyntheticMouseEvent<HTMLElement>): void => {
-    // Prevent focus event from being fired as a result of the mouse click
+    // Prevent blur event from being fired as a result of the mouse click
     event.preventDefault();
   };
 
@@ -106,13 +152,38 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
 
   handleBlur = (event: SyntheticEvent<HTMLInputElement>): void => {
     const { onSubmit, onDeactivate } = this.props;
+
     this.setState({ isActive: false });
     onSubmit(event.currentTarget.value);
     onDeactivate(false);
   };
 
+  handleEdit = (type: m.MarkdownType): void => {
+    const { text } = this.state;
+
+    const affix = mapMarkdownTypeToAffix[type];
+
+    if (affix == null || this.fieldRef == null) return;
+
+    const start = this.fieldRef.selectionStart;
+    const end = this.fieldRef.selectionEnd;
+
+    this.setState({
+      text: `${text.slice(0, start)}${affix.prefix}${text.slice(start, end)}${affix.suffix}${text.slice(end)}`,
+    }, (): void => {
+      if (this.fieldRef != null) {
+        this.fieldRef.setSelectionRange(
+          start + affix.prefix.length,
+          end + affix.prefix.length,
+        );
+      }
+    });
+  };
+
+  fieldRef: ?HTMLTextAreaElement | ?HTMLInputElement;
+
   renderAsInput(): React.Node {
-    const { multiline, maxLength } = this.props;
+    const { contentItem, multiline, maxLength, onIndent, onUnindent } = this.props;
     const { text } = this.state;
 
     return (
@@ -122,17 +193,26 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
           onKeyEvent={this.handleKeyEvent}
           isExclusive={true}
         >
+          <MarkdownToolbar
+            contentItem={contentItem}
+            onIndent={onIndent}
+            onUnindent={onUnindent}
+            onEdit={this.handleEdit}
+            data-test-id="editable-text-content__markdown-toolbar"
+          />
           {(multiline)
             ? (
-              <TextArea
-                className="editable-text-content__input editable-text-content__input--multiline"
-                data-test-id="editable-text-content__input"
-                value={text}
-                autoFocus={true}
-                maxLength={maxLength}
-                onInput={this.handleInput}
-                onBlur={this.handleBlur}
-              />
+              <Ref innerRef={this.handleRef}>
+                <TextArea
+                  className="editable-text-content__input editable-text-content__input--multiline"
+                  data-test-id="editable-text-content__input"
+                  value={text}
+                  autoFocus={true}
+                  maxLength={maxLength}
+                  onInput={this.handleInput}
+                  onBlur={this.handleBlur}
+                />
+              </Ref>
             )
             : (
               <Input
@@ -144,6 +224,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
                 maxLength={maxLength}
                 onInput={this.handleInput}
                 onBlur={this.handleBlur}
+                ref={this.handleInputRef}
               />
             )}
         </KeyboardEventHandler>
