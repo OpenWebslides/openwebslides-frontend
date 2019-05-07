@@ -126,11 +126,11 @@ describe(`EditableTextContent`, (): void => {
     const dummyHeight = 999;
 
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
-    enzymeWrapper.find('EditableTextContent').instance().ghostRef = { clientHeight: dummyHeight };
+    (enzymeWrapper.find('EditableTextContent').instance(): any).ghostRef = { clientHeight: dummyHeight };
     enzymeWrapper.find(inputSelector).hostNodes().simulate('change');
 
     enzymeWrapper.update();
-    expect(enzymeWrapper.find('EditableTextContent').instance().state.height).toStrictEqual(dummyHeight);
+    expect((enzymeWrapper.find('EditableTextContent').instance(): any).state.height).toStrictEqual(dummyHeight);
     expect(enzymeWrapper.find(inputSelector).hostNodes().props().style.minHeight).toStrictEqual(dummyHeight);
   });
 
@@ -144,11 +144,11 @@ describe(`EditableTextContent`, (): void => {
     const dummyHeight = 999;
 
     enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
-    enzymeWrapper.find('EditableTextContent').instance().ghostRef = { clientHeight: dummyHeight };
+    (enzymeWrapper.find('EditableTextContent').instance(): any).ghostRef = { clientHeight: dummyHeight };
     enzymeWrapper.find(inputSelector).hostNodes().simulate('focus');
 
     enzymeWrapper.update();
-    expect(enzymeWrapper.find('EditableTextContent').instance().state.height).toStrictEqual(dummyHeight);
+    expect((enzymeWrapper.find('EditableTextContent').instance(): any).state.height).toStrictEqual(dummyHeight);
     expect(enzymeWrapper.find(inputSelector).hostNodes().props().style.minHeight).toStrictEqual(dummyHeight);
   });
 
@@ -534,6 +534,7 @@ describe(`EditableTextContent`, (): void => {
         isActive: false,
         initialText: dummyText,
         text: dummyText,
+        height: 0,
       };
       const dummyNextProps = {
         contentItem: dummyContentItem,
@@ -560,6 +561,7 @@ describe(`EditableTextContent`, (): void => {
         isActive: false,
         initialText: dummyText,
         text: dummyText,
+        height: 0,
       };
       const dummyNextProps = {
         contentItem: dummyContentItem,
@@ -586,6 +588,7 @@ describe(`EditableTextContent`, (): void => {
         isActive: false,
         initialText: dummyText,
         text: dummyText,
+        height: 0,
       };
       const dummyNextProps = {
         contentItem: dummyContentItem,
