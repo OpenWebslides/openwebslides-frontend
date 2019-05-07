@@ -37,7 +37,7 @@ describe(`toggleEditing`, (): void => {
       [dummyHeading1.id]: dummyHeading1,
       [dummyHeading2.id]: dummyHeading2,
     };
-    dummyContentItemsState = { byId: dummyContentItemsById };
+    dummyContentItemsState = { byId: dummyContentItemsById, currentlySelectedId: null };
     dummyState = { modules: { contentItems: dummyContentItemsState } };
   });
 
@@ -73,6 +73,7 @@ describe(`toggleEditing`, (): void => {
         })],
       ])
       .put(actions.switchEditingInState(null, dummyHeading1.id))
+      .put(actions.setCurrentlySelectedInState(dummyHeading1.id))
       .run();
   });
 
@@ -90,6 +91,7 @@ describe(`toggleEditing`, (): void => {
         })],
       ])
       .put(actions.switchEditingInState(null, dummyHeading1.id))
+      .put(actions.setCurrentlySelectedInState(dummyHeading1.id))
       .run();
   });
 

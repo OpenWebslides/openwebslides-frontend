@@ -75,7 +75,7 @@ describe(`remove`, (): void => {
       [dummyParagraph21.id]: dummyParagraph21,
       [dummyParagraph22.id]: dummyParagraph22,
     };
-    dummyContentItemsState = { byId: dummyContentItemsById };
+    dummyContentItemsState = { byId: dummyContentItemsById, currentlySelectedId: null };
     dummyState = { modules: { contentItems: dummyContentItemsState } };
   });
 

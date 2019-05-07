@@ -51,10 +51,21 @@ const removeFromState = (
   // Find its context
   const context = lib.find.extendedSuperContext(contentItemToRemove, state.byId);
 
+  let newSelectedId: ?string;
+
+  // If it was selected, select the previous contentItem in editor order
+  if (state.currentlySelectedId === contentItemToRemove.id) {
+    const previousContentItem = lib.find.previousEditorItem(contentItemToRemove, state.byId);
+
+    newSelectedId = (previousContentItem != null ? previousContentItem.id : null);
+  }
+  else newSelectedId = state.currentlySelectedId;
+
   // Remove it from the byId object
   newState = {
     ...newState,
     byId: _.omit(newState.byId, contentItemToRemove.id),
+    currentlySelectedId: newSelectedId,
   };
 
   // Remove its nested subItems from the byId object

@@ -15,7 +15,9 @@ export const SWITCH_EDITING_IN_STATE: 'contentItems/SWITCH_EDITING_IN_STATE' = '
 export const MOVE_IN_STATE: 'contentItems/MOVE_IN_STATE' = 'contentItems/MOVE_IN_STATE';
 export const CONVERT_IN_STATE: 'contentItems/CONVERT_IN_STATE' = 'contentItems/CONVERT_IN_STATE';
 export const REMOVE_FROM_STATE: 'contentItems/REMOVE_FROM_STATE' = 'contentItems/REMOVE_FROM_STATE';
+export const SELECT_IN_STATE: 'contentItems/SELECT_IN_STATE' = 'contentItems/SELECT_IN_STATE';
 export const SET_MULTIPLE_IN_STATE: 'contentItems/SET_MULTIPLE_IN_STATE' = 'contentItems/SET_MULTIPLE_IN_STATE';
+export const SET_CURRENTLY_SELECTED_IN_STATE: 'contentItems/SET_CURRENTLY_SELECTED_IN_STATE' = 'contentItems/SET_CURRENTLY_SELECTED_IN_STATE';
 
 
 // Action types ------------------------------------------------------------------------------------
@@ -81,6 +83,24 @@ export type RemoveFromStateAction = {|
   |},
 |};
 
+export type SelectInStateAction = {|
+  ...ReducerAction,
+  type: typeof SELECT_IN_STATE,
+  payload: {|
+    ...$PropertyType<ReducerAction, 'payload'>,
+    selection: m.SelectionType,
+  |},
+|};
+
+export type SetCurrentlySelectedInStateAction = {|
+  ...ReducerAction,
+  type: typeof SET_CURRENTLY_SELECTED_IN_STATE,
+  payload: {|
+    ...$PropertyType<ReducerAction, 'payload'>,
+    id: ?string,
+  |},
+|};
+
 export type SetMultipleInStateAction = {|
   ...ReducerAction,
   type: typeof SET_MULTIPLE_IN_STATE,
@@ -97,4 +117,6 @@ export type ContentItemsReducerAction =
   | MoveInStateAction
   | ConvertInStateAction
   | RemoveFromStateAction
+  | SelectInStateAction
+  | SetCurrentlySelectedInStateAction
   | SetMultipleInStateAction;

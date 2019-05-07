@@ -9,10 +9,13 @@ import editPropsForTypeInState from './editPropsForTypeInState';
 import switchEditingInState from './switchEditingInState';
 import moveInState from './moveInState';
 import removeFromState from './removeFromState';
+import selectInState from './selectInState';
+import setCurrentlySelectedInState from './setCurrentlySelectedInState';
 import setMultipleInState from './setMultipleInState';
 
 const initialState: m.ContentItemsState = {
   byId: {},
+  currentlySelectedId: null,
 };
 
 const reducer = (
@@ -32,6 +35,10 @@ const reducer = (
       return moveInState(state, action);
     case a.REMOVE_FROM_STATE:
       return removeFromState(state, action);
+    case a.SELECT_IN_STATE:
+      return selectInState(state, action);
+    case a.SET_CURRENTLY_SELECTED_IN_STATE:
+      return setCurrentlySelectedInState(state, action);
     case a.SET_MULTIPLE_IN_STATE:
       return setMultipleInState(state, action);
     default:

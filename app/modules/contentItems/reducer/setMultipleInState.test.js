@@ -14,6 +14,7 @@ describe(`setMultipleInState`, (): void => {
       byId: {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
       },
+      currentlySelectedId: null,
     };
     const setMultipleInStateAction: a.SetMultipleInStateAction = {
       type: a.SET_MULTIPLE_IN_STATE,
@@ -32,6 +33,7 @@ describe(`setMultipleInState`, (): void => {
       byId: {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
       },
+      currentlySelectedId: null,
     };
     const setMultipleInStateAction: a.SetMultipleInStateAction = {
       type: a.SET_MULTIPLE_IN_STATE,
@@ -44,6 +46,7 @@ describe(`setMultipleInState`, (): void => {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
         [dummyData.headingContentItem.id]: dummyData.headingContentItem,
       },
+      currentlySelectedId: null,
     };
     const resultState = reducer(prevState, setMultipleInStateAction);
 
@@ -58,6 +61,7 @@ describe(`setMultipleInState`, (): void => {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
         [dummyData.headingContentItem.id]: dummyData.headingContentItem,
       },
+      currentlySelectedId: null,
     };
     const newContentItem: m.HeadingContentItem = {
       ...dummyData.headingContentItem,
@@ -74,6 +78,7 @@ describe(`setMultipleInState`, (): void => {
         [dummyData.rootContentItem.id]: dummyData.rootContentItem,
         [dummyData.headingContentItem.id]: newContentItem,
       },
+      currentlySelectedId: null,
     };
 
     const resultState = reducer(prevState, setMultipleInStateAction);

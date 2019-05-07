@@ -48,6 +48,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const addToStateAction: a.AddToStateAction = {
       type: a.ADD_TO_STATE,
@@ -75,6 +76,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
         [dummyNewHeading.id]: dummyNewHeading,
       },
+      currentlySelectedId: null,
     };
     const resultState: m.ContentItemsState = reducer(prevState, addToStateAction);
 
@@ -95,6 +97,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const addToStateAction: a.AddToStateAction = {
       type: a.ADD_TO_STATE,
@@ -122,6 +125,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
         [dummyNewParagraph.id]: dummyNewParagraph,
       },
+      currentlySelectedId: null,
     };
     const resultState: m.ContentItemsState = reducer(prevState, addToStateAction);
 
@@ -142,6 +146,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const addToStateAction: a.AddToStateAction = {
       type: a.ADD_TO_STATE,
@@ -163,6 +168,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
         [dummyNewRoot.id]: dummyNewRoot,
       },
+      currentlySelectedId: null,
     };
     const resultState: m.ContentItemsState = reducer(prevState, addToStateAction);
 
@@ -182,6 +188,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const addToStateAction: a.AddToStateAction = {
       type: a.ADD_TO_STATE,
@@ -207,6 +214,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
         [dummyNewParagraph.id]: { ...dummyNewParagraph, text: '' },
       },
+      currentlySelectedId: null,
     };
     const resultState: m.ContentItemsState = reducer(prevState, addToStateAction);
 
@@ -224,6 +232,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const addToStateAction: a.AddToStateAction = {
       type: a.ADD_TO_STATE,
@@ -250,6 +259,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph22.id]: { ...dummyParagraph22 },
         [dummyNewParagraph.id]: dummyNewParagraph,
       },
+      currentlySelectedId: null,
     };
     const resultState: m.ContentItemsState = reducer(prevState, addToStateAction);
 
@@ -267,6 +277,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const addToStateAction: any = {
       type: a.ADD_TO_STATE,
@@ -297,6 +308,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const addToStateAction: any = {
       type: a.ADD_TO_STATE,
@@ -325,6 +337,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const addToStateAction: a.AddToStateAction = {
       type: a.ADD_TO_STATE,
@@ -359,6 +372,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const addToStateAction: a.AddToStateAction = {
       type: a.ADD_TO_STATE,
@@ -396,6 +410,7 @@ describe(`addToState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
       },
+      currentlySelectedId: null,
     };
     const addToStateAction: a.AddToStateAction = {
       type: a.ADD_TO_STATE,
