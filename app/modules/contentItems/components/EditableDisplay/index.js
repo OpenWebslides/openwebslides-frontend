@@ -2,9 +2,12 @@
 
 import _ from 'lodash';
 import * as React from 'react';
+import { Translation } from 'react-i18next';
 import { connect } from 'react-redux';
+import { Button, Icon } from 'semantic-ui-react';
 
 import { type AppState } from 'types/redux';
+import { type TFunction } from 'types/i18next';
 
 import * as m from '../../model';
 import selectors from '../../selectors';
@@ -24,6 +27,10 @@ type StateProps = {|
 
 type Props = {| ...PassedProps, ...StateProps |};
 
+type ComponentState = {|
+  isCollapsed: boolean,
+|};
+
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   const { contentItemId } = props;
   return {
@@ -32,7 +39,17 @@ const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   };
 };
 
-class PureEditableDisplay extends React.Component<Props> {
+class PureEditableDisplay extends React.Component<Props, ComponentState> {
+  state: ComponentState = {
+    isCollapsed: false,
+  };
+
+  toggleCollapse = (): void => {
+    const { isCollapsed } = this.state;
+
+    this.setState({ isCollapsed: !isCollapsed });
+  };
+
   renderSubItemsEditableDisplay = (contentItem: m.ContentItem): React.Node => {
     if (
       contentItem == null
@@ -58,6 +75,7 @@ class PureEditableDisplay extends React.Component<Props> {
   };
 
   renderEditableDisplay = (contentItem: m.ContentItem): React.Node => {
+    const { isCollapsed } = this.state;
     const { isSelected } = this.props;
 
     const DisplayComponent = typesToComponentsMap[contentItem.type];
@@ -67,12 +85,40 @@ class PureEditableDisplay extends React.Component<Props> {
         className="content-item-editable-display"
         data-test-id="content-item-editable-display"
       >
-        <DisplayComponent
-          {..._.pick(this.props, passThroughProps)}
-          contentItem={contentItem}
-          isSelected={isSelected}
-        />
-        {this.renderSubItemsEditableDisplay(contentItem)}
+        {isCollapsed ? (
+          <Translation>
+            {(t: TFunction): React.Node => (
+              <Button
+                type="button"
+                className="link"
+                size="mini"
+                compact={true}
+                onClick={this.toggleCollapse}
+                data-test-id="content-item-editable-display__expand-button"
+              >
+                <Icon name="plus square" />
+                {t(`contentItems:hiddenForType.${contentItem.type}`)}
+              </Button>
+            )}
+          </Translation>
+        ) : (
+          <>
+            {(contentItem.type !== m.contentItemTypes.ROOT) && (
+              <Button
+                onClick={this.toggleCollapse}
+                className="content-item-editable-display__collapse-button"
+                data-test-id="content-item-editable-display__collapse-button"
+              />
+            )}
+            <DisplayComponent
+              {..._.pick(this.props, passThroughProps)}
+              contentItem={contentItem}
+              isSelected={isSelected}
+              data-test-id="content-item-editable-display__display-component"
+            />
+            {this.renderSubItemsEditableDisplay(contentItem)}
+          </>
+        )}
       </div>
     );
   };

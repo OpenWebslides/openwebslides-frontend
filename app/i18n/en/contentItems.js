@@ -13,6 +13,10 @@ const contentItems = {
     indent: 'Indent',
     unindent: 'Unindent',
   },
+  hiddenForType: {
+    'contentItemTypes/PARAGRAPH': 'Paragraph hidden',
+    'contentItemTypes/HEADING': 'Heading hidden',
+  },
 };
 
 export default contentItems;
