@@ -80,6 +80,11 @@ class PureToolbar extends React.Component<Props> {
     onInsertContentItem(contentItems.model.contentItemTypes.HEADING, currentlySelectedId);
   };
 
+  handleInsertParagraph = (): void => {
+    const { onInsertContentItem, currentlySelectedId } = this.props;
+    onInsertContentItem(contentItems.model.contentItemTypes.PARAGRAPH, currentlySelectedId);
+  };
+
   render(): React.Node {
     return (
       <Translation>
@@ -99,7 +104,8 @@ class PureToolbar extends React.Component<Props> {
                   <Button
                     icon={true}
                     title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.PARAGRAPH}`)}
-                    disabled={true}
+                    onClick={this.handleInsertParagraph}
+                    data-test-id="toolbar-paragraph-button"
                   >
                     <Icon name="paragraph" />
                   </Button>
