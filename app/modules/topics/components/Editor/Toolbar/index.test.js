@@ -21,6 +21,8 @@ describe(`Toolbar`, (): void => {
 
   let dummyOnInsertContentItem: any;
 
+  let dummyEvent: any;
+
   beforeEach((): void => {
     dummyTopic = dummyTopicData.topic;
     dummyId = 'dummyId';
@@ -48,6 +50,8 @@ describe(`Toolbar`, (): void => {
     dummyDispatch = jest.fn();
 
     dummyOnInsertContentItem = jest.fn();
+
+    dummyEvent = { preventDefault: jest.fn() };
   });
 
   it(`renders without errors`, (): void => {
@@ -66,6 +70,9 @@ describe(`Toolbar`, (): void => {
         </DummyProviders>,
       );
 
+      enzymeWrapper.find('[data-test-id="toolbar-heading-button"]').hostNodes().simulate('mousedown', dummyEvent);
+      expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+
       enzymeWrapper.find('[data-test-id="toolbar-heading-button"]').hostNodes().simulate('click');
       expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
         contentItems.model.contentItemTypes.HEADING,
@@ -83,6 +90,9 @@ describe(`Toolbar`, (): void => {
           <Toolbar topic={dummyTopic} />
         </DummyProviders>,
       );
+
+      enzymeWrapper.find('[data-test-id="toolbar-heading-button"]').hostNodes().simulate('mousedown', dummyEvent);
+      expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
 
       enzymeWrapper.find('[data-test-id="toolbar-heading-button"]').hostNodes().simulate('click');
       expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
@@ -107,6 +117,9 @@ describe(`Toolbar`, (): void => {
         </DummyProviders>,
       );
 
+      enzymeWrapper.find('[data-test-id="toolbar-paragraph-button"]').hostNodes().simulate('mousedown', dummyEvent);
+      expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+
       enzymeWrapper.find('[data-test-id="toolbar-paragraph-button"]').hostNodes().simulate('click');
       expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
         contentItems.model.contentItemTypes.PARAGRAPH,
@@ -124,6 +137,9 @@ describe(`Toolbar`, (): void => {
           <Toolbar topic={dummyTopic} />
         </DummyProviders>,
       );
+
+      enzymeWrapper.find('[data-test-id="toolbar-paragraph-button"]').hostNodes().simulate('mousedown', dummyEvent);
+      expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
 
       enzymeWrapper.find('[data-test-id="toolbar-paragraph-button"]').hostNodes().simulate('click');
       expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
@@ -148,6 +164,9 @@ describe(`Toolbar`, (): void => {
         </DummyProviders>,
       );
 
+      enzymeWrapper.find('[data-test-id="toolbar-blockquote-button"]').hostNodes().simulate('mousedown', dummyEvent);
+      expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
+
       enzymeWrapper.find('[data-test-id="toolbar-blockquote-button"]').hostNodes().simulate('click');
       expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
         contentItems.model.contentItemTypes.BLOCKQUOTE,
@@ -165,6 +184,9 @@ describe(`Toolbar`, (): void => {
           <Toolbar topic={dummyTopic} />
         </DummyProviders>,
       );
+
+      enzymeWrapper.find('[data-test-id="toolbar-blockquote-button"]').hostNodes().simulate('mousedown', dummyEvent);
+      expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
 
       enzymeWrapper.find('[data-test-id="toolbar-blockquote-button"]').hostNodes().simulate('click');
       expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(

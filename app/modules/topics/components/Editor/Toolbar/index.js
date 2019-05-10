@@ -75,6 +75,12 @@ const mapDispatchToProps = (
 };
 
 class PureToolbar extends React.Component<Props> {
+  handleMouseDown = (event: SyntheticMouseEvent<HTMLElement>): void => {
+    // Prevent blur event from being fired as a result of the mouse click
+    // This prevents the active content item from being blurred
+    event.preventDefault();
+  };
+
   handleInsertHeading = (): void => {
     const { onInsertContentItem, currentlySelectedId } = this.props;
     onInsertContentItem(contentItems.model.contentItemTypes.HEADING, currentlySelectedId);
@@ -101,6 +107,7 @@ class PureToolbar extends React.Component<Props> {
                   <Button
                     icon={true}
                     title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.HEADING}`)}
+                    onMouseDown={this.handleMouseDown}
                     onClick={this.handleInsertHeading}
                     data-test-id="toolbar-heading-button"
                   >
@@ -109,6 +116,7 @@ class PureToolbar extends React.Component<Props> {
                   <Button
                     icon={true}
                     title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.PARAGRAPH}`)}
+                    onMouseDown={this.handleMouseDown}
                     onClick={this.handleInsertParagraph}
                     data-test-id="toolbar-paragraph-button"
                   >
@@ -124,6 +132,7 @@ class PureToolbar extends React.Component<Props> {
                   <Button
                     icon={true}
                     title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.BLOCKQUOTE}`)}
+                    onMouseDown={this.handleMouseDown}
                     onClick={this.handleInsertBlockquote}
                     data-test-id="toolbar-blockquote-button"
                   >
