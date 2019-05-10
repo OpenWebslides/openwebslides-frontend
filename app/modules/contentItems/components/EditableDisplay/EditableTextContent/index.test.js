@@ -116,6 +116,58 @@ describe(`EditableTextContent`, (): void => {
     expect(enzymeWrapper.find(inputSelector).hostNodes()).toHaveLength(0);
   });
 
+  it(`rerenders itself with the ghost div height, when it is in multiline input mode and receives a change event`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} multiline={true} />
+      </DummyProviders>,
+    );
+
+    const dummyHeight = 999;
+
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+    (enzymeWrapper.find('EditableTextContent').instance(): any).ghostRef = { clientHeight: dummyHeight };
+    enzymeWrapper.find(inputSelector).hostNodes().simulate('change');
+
+    enzymeWrapper.update();
+    expect((enzymeWrapper.find('EditableTextContent').instance(): any).state.height).toStrictEqual(dummyHeight);
+    expect(enzymeWrapper.find(inputSelector).hostNodes().props().style.minHeight).toStrictEqual(dummyHeight);
+  });
+
+  it(`rerenders itself with the ghost div height, when it is in multiline input mode and receives a focus event`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} multiline={true} />
+      </DummyProviders>,
+    );
+
+    const dummyHeight = 999;
+
+    enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+    (enzymeWrapper.find('EditableTextContent').instance(): any).ghostRef = { clientHeight: dummyHeight };
+    enzymeWrapper.find(inputSelector).hostNodes().simulate('focus');
+
+    enzymeWrapper.update();
+    expect((enzymeWrapper.find('EditableTextContent').instance(): any).state.height).toStrictEqual(dummyHeight);
+    expect(enzymeWrapper.find(inputSelector).hostNodes().props().style.minHeight).toStrictEqual(dummyHeight);
+  });
+
+  // Necessary test to check when ghostRef is null for full coverage
+  it(`does nothing, when ghostRef is null and handleChange is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} multiline={true} />
+      </DummyProviders>,
+    );
+
+    const height = (enzymeWrapper.find('EditableTextContent').instance(): any).state.height;
+
+    (enzymeWrapper.find('EditableTextContent').instance(): any).handleChange();
+
+    enzymeWrapper.update();
+    expect((enzymeWrapper.find('EditableTextContent').instance(): any).state.height).toStrictEqual(height);
+  });
+
   it(`rerenders itself, when it is in input mode and receives an input event`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
@@ -334,6 +386,27 @@ describe(`EditableTextContent`, (): void => {
       expect(enzymeWrapper.find(inputSelector).hostNodes().instance().selectionEnd).toStrictEqual(text.indexOf('ipsum') + 'ipsum'.length);
     });
 
+    // Necessary test to check when fieldRef is null for full coverage
+    it(`does nothing when fieldRef is null, and handleChange is called`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} />
+        </DummyProviders>,
+      );
+
+      enzymeWrapper.find(textSelector).hostNodes().simulate('click', { button: 0 });
+
+      const prevState = { ...(enzymeWrapper.find('EditableTextContent').instance(): any).state };
+
+      // Set fieldRef to null
+      (enzymeWrapper.find('EditableTextContent').instance(): any).fieldRef = null;
+
+      (enzymeWrapper.find('EditableTextContent').instance(): any).handleEdit(m.markdownTypes.STRONG);
+
+      // Text was not changed
+      expect(prevState).toStrictEqual((enzymeWrapper.find('EditableTextContent').instance(): any).state);
+    });
+
     it(`maps the STRONG markdownType argument to the correct affixes`, (): void => {
       const enzymeWrapper = mount(
         <DummyProviders>
@@ -498,6 +571,7 @@ describe(`EditableTextContent`, (): void => {
         isActive: false,
         initialText: dummyText,
         text: dummyText,
+        height: 0,
       };
       const dummyNextProps = {
         contentItem: dummyContentItem,
@@ -524,6 +598,7 @@ describe(`EditableTextContent`, (): void => {
         isActive: false,
         initialText: dummyText,
         text: dummyText,
+        height: 0,
       };
       const dummyNextProps = {
         contentItem: dummyContentItem,
@@ -550,6 +625,7 @@ describe(`EditableTextContent`, (): void => {
         isActive: false,
         initialText: dummyText,
         text: dummyText,
+        height: 0,
       };
       const dummyNextProps = {
         contentItem: dummyContentItem,

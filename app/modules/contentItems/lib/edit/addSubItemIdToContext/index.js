@@ -18,11 +18,19 @@ const addSubItemIdToContext = (
 
   const editedContentItem: any = { ...superItem };
 
-  editedContentItem.subItemIds = insertIntoArray(
-    superItem.subItemIds,
-    subItemId,
-    (context.indexInSiblingItems || 0),
-  );
+  if (context.indexInSiblingItems === -1) {
+    editedContentItem.subItemIds = [
+      ...superItem.subItemIds,
+      subItemId,
+    ];
+  }
+  else {
+    editedContentItem.subItemIds = insertIntoArray(
+      superItem.subItemIds,
+      subItemId,
+      (context.indexInSiblingItems || 0),
+    );
+  }
 
   return editedContentItem;
 };

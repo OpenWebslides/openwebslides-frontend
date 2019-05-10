@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 import { type Dispatch } from 'redux';
 import { push } from 'connected-react-router';
-import { Button, Icon, Menu, Divider, Segment } from 'semantic-ui-react';
+import { Button, Icon, Menu, Segment, Sticky, Ref } from 'semantic-ui-react';
 
 import { type TFunction } from 'types/i18next';
 import { TOPIC_VIEWER_ROUTE } from 'config/routes';
@@ -23,6 +23,7 @@ import * as m from '../../model';
 import selectors from '../../selectors';
 
 import Metadata from './Metadata';
+import Toolbar from './Toolbar';
 
 type PassedProps = {|
   topicId: string,
@@ -44,6 +45,7 @@ type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 type ComponentState = {|
   isCommitModalOpen: boolean,
   isShareModalOpen: boolean,
+  context: Ref,
 |};
 
 const { RootEditableDisplay: RootContentItemEditableDisplay } = contentItems.components;
@@ -82,6 +84,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     isCommitModalOpen: false,
     isShareModalOpen: false,
+    context: null,
   };
 
   componentDidMount(): void {
@@ -98,6 +101,10 @@ class PureEditor extends React.Component<Props, ComponentState> {
     // Remove event listener to prevent unloading window when topic is dirty
     window.removeEventListener('beforeunload', this.beforeUnloadHandler);
   }
+
+  handleContextRef = (ref: Ref): void => {
+    this.setState({ context: ref });
+  };
 
   showCommitModal = (): void => {
     this.setState({ isCommitModalOpen: true });
@@ -147,7 +154,7 @@ class PureEditor extends React.Component<Props, ComponentState> {
 
   renderEditor = (topic: m.Topic): React.Node => {
     const { onSetDirty } = this.props;
-    const { isCommitModalOpen, isShareModalOpen } = this.state;
+    const { isCommitModalOpen, isShareModalOpen, context } = this.state;
 
     return (
       <Translation>
@@ -199,12 +206,16 @@ class PureEditor extends React.Component<Props, ComponentState> {
               <Metadata topic={topic} />
             </Segment>
 
-            <Divider hidden={true} />
+            <Sticky context={context} className="topic-editor--sticky-toolbar">
+              <Toolbar topic={topic} />
+            </Sticky>
+            <div ref={this.handleContextRef}>
 
-            <RootContentItemEditableDisplay
-              rootContentItemId={topic.rootContentItemId}
-              setTopicDirty={onSetDirty}
-            />
+              <RootContentItemEditableDisplay
+                rootContentItemId={topic.rootContentItemId}
+                setTopicDirty={onSetDirty}
+              />
+            </div>
 
             <CommitModal
               isOpen={isCommitModalOpen}

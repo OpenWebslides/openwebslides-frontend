@@ -1,0 +1,29 @@
+/*******************************
+            .toolbar
+*******************************/
+
+// Style for stickied toolbar
+.topic-editor--sticky-toolbar .sticky.fixed {
+  // Override style set in Semantic UI Sticky component
+  width: 100% !important;
+  left: 0 !important;
+
+  .toolbar {
+    background: @white;
+
+    border-bottom: 1px solid @borderColor;
+    box-shadow: @floatingShadow;
+
+    padding: .5em 1em;
+  }
+}
+
+.markdown-toolbar {
+  &.ui.secondary.menu {
+    margin-bottom: 0;
+  }
+
+  &.item {
+    margin: 0;
+  }
+}

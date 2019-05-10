@@ -29,6 +29,7 @@ type ComponentState = {|
   isActive: boolean,
   initialText: string,
   text: string,
+  height: number,
 |};
 
 const handleKeys = [
@@ -69,6 +70,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     isActive: false,
     initialText: '',
     text: '',
+    height: 0,
   };
   /* eslint-enable */
 
@@ -134,6 +136,10 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     else this.fieldRef = null;
   };
 
+  handleGhostRef = (c: ?HTMLDivElement): void => {
+    this.ghostRef = c;
+  };
+
   handleInput = (event: SyntheticInputEvent<HTMLInputElement>): void => {
     this.setState({ text: event.currentTarget.value });
   };
@@ -163,31 +169,47 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
 
     const affix = mapMarkdownTypeToAffix[type];
 
-    if (affix == null || this.fieldRef == null) return;
+    if (!this.fieldRef) return;
 
-    const start = this.fieldRef.selectionStart;
-    const end = this.fieldRef.selectionEnd;
+    // Hold on to ref to prevent Flow refinement invalidation
+    const ref = this.fieldRef;
+
+    const start = ref.selectionStart;
+    const end = ref.selectionEnd;
 
     this.setState({
       text: `${text.slice(0, start)}${affix.prefix}${text.slice(start, end)}${affix.suffix}${text.slice(end)}`,
     }, (): void => {
-      if (this.fieldRef != null) {
-        this.fieldRef.setSelectionRange(
-          start + affix.prefix.length,
-          end + affix.prefix.length,
-        );
-      }
+      ref.setSelectionRange(
+        start + affix.prefix.length,
+        end + affix.prefix.length,
+      );
     });
+  };
+
+  handleChange = (): void => {
+    if (!this.ghostRef) return;
+
+    this.setState({ height: this.ghostRef.clientHeight });
   };
 
   fieldRef: ?HTMLTextAreaElement | ?HTMLInputElement;
 
+  ghostRef: ?HTMLDivElement;
+
   renderAsInput(): React.Node {
     const { contentItem, multiline, maxLength, onIndent, onUnindent } = this.props;
-    const { text } = this.state;
+    const { text, height } = this.state;
 
     return (
       <Form>
+        <div
+          className="editable-text-content__ghost"
+          data-test-id="editable-text-content__ghost"
+          ref={this.handleGhostRef}
+        >
+          {text}
+        </div>
         <KeyboardEventHandler
           handleKeys={handleKeys}
           onKeyEvent={this.handleKeyEvent}
@@ -209,8 +231,11 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
                   value={text}
                   autoFocus={true}
                   maxLength={maxLength}
+                  style={{ minHeight: height }}
                   onInput={this.handleInput}
                   onBlur={this.handleBlur}
+                  onChange={this.handleChange}
+                  onFocus={this.handleChange}
                 />
               </Ref>
             )
