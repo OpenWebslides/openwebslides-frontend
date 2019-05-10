@@ -49,8 +49,12 @@ const createNewContentItemFromPropsForType = (
     case m.contentItemTypes.ROOT:
       // Extra root props should be processed here.
       break;
-    case m.contentItemTypes.LIST:
     case m.contentItemTypes.BLOCKQUOTE:
+      // Extra blockquote props should be processed here.
+      ((newContentItem: any): m.BlockquoteContentItem).cite = propsForType.cite;
+      ((newContentItem: any): m.BlockquoteContentItem).href = propsForType.href;
+      break;
+    case m.contentItemTypes.LIST:
     case m.contentItemTypes.CODE:
     case m.contentItemTypes.IMAGE:
     case m.contentItemTypes.VIDEO:

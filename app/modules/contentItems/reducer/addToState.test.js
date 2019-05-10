@@ -14,6 +14,7 @@ describe(`addToState`, (): void => {
   let dummyNewRoot: m.RootContentItem;
   let dummyNewHeading: m.HeadingContentItem;
   let dummyNewParagraph: m.ParagraphContentItem;
+  let dummyNewBlockquote: m.BlockquoteContentItem;
 
   let dummyParagraph22: m.ParagraphContentItem;
   let dummyParagraph21: m.ParagraphContentItem;
@@ -27,6 +28,7 @@ describe(`addToState`, (): void => {
     dummyNewRoot = { ...dummyData.rootContentItem2 };
     dummyNewHeading = { ...dummyData.headingContentItem3 };
     dummyNewParagraph = { ...dummyData.paragraphContentItem5 };
+    dummyNewBlockquote = { ...dummyData.blockquoteContentItem };
 
     dummyParagraph22 = { ...dummyData.paragraphContentItem4 };
     dummyParagraph21 = { ...dummyData.paragraphContentItem3 };
@@ -124,6 +126,57 @@ describe(`addToState`, (): void => {
         [dummyParagraph21.id]: { ...dummyParagraph21 },
         [dummyParagraph22.id]: { ...dummyParagraph22 },
         [dummyNewParagraph.id]: dummyNewParagraph,
+      },
+      currentlySelectedId: null,
+    };
+    const resultState: m.ContentItemsState = reducer(prevState, addToStateAction);
+
+    expect(resultState).toStrictEqual(nextState);
+    expect(resultState).not.toBe(nextState);
+    expect(resultState.byId).not.toBe(prevState.byId);
+    expect(resultState.byId[dummyHeading1.id]).not.toBe(prevState.byId[dummyHeading1.id]);
+  });
+
+  it(`adds a BlockquoteContentItem to the state, when the type is BLOCKQUOTE and the passed props are valid`, (): void => {
+    const prevState: m.ContentItemsState = {
+      byId: {
+        [dummyRoot.id]: { ...dummyRoot, subItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyParagraph12.id] },
+        [dummyParagraph11.id]: { ...dummyParagraph11 },
+        [dummyParagraph12.id]: { ...dummyParagraph12 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] },
+        [dummyParagraph21.id]: { ...dummyParagraph21 },
+        [dummyParagraph22.id]: { ...dummyParagraph22 },
+      },
+      currentlySelectedId: null,
+    };
+    const addToStateAction: a.AddToStateAction = {
+      type: a.ADD_TO_STATE,
+      payload: {
+        id: dummyNewBlockquote.id,
+        type: m.contentItemTypes.BLOCKQUOTE,
+        context: {
+          contextType: m.contextTypes.SUPER,
+          contextItemId: dummyHeading1.id,
+          indexInSiblingItems: 1,
+        },
+        propsForType: {
+          text: dummyNewBlockquote.text,
+          cite: dummyNewBlockquote.cite,
+          href: dummyNewBlockquote.href,
+        },
+      },
+    };
+    const nextState: m.ContentItemsState = {
+      byId: {
+        [dummyRoot.id]: { ...dummyRoot, subItemIds: [dummyHeading1.id, dummyHeading2.id] },
+        [dummyHeading1.id]: { ...dummyHeading1, subItemIds: [dummyParagraph11.id, dummyNewBlockquote.id, dummyParagraph12.id] },
+        [dummyParagraph11.id]: { ...dummyParagraph11 },
+        [dummyParagraph12.id]: { ...dummyParagraph12 },
+        [dummyHeading2.id]: { ...dummyHeading2, subItemIds: [dummyParagraph21.id, dummyParagraph22.id] },
+        [dummyParagraph21.id]: { ...dummyParagraph21 },
+        [dummyParagraph22.id]: { ...dummyParagraph22 },
+        [dummyNewBlockquote.id]: dummyNewBlockquote,
       },
       currentlySelectedId: null,
     };
