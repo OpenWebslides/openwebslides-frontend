@@ -85,6 +85,11 @@ class PureToolbar extends React.Component<Props> {
     onInsertContentItem(contentItems.model.contentItemTypes.PARAGRAPH, currentlySelectedId);
   };
 
+  handleInsertBlockquote = (): void => {
+    const { onInsertContentItem, currentlySelectedId } = this.props;
+    onInsertContentItem(contentItems.model.contentItemTypes.BLOCKQUOTE, currentlySelectedId);
+  };
+
   render(): React.Node {
     return (
       <Translation>
@@ -119,7 +124,8 @@ class PureToolbar extends React.Component<Props> {
                   <Button
                     icon={true}
                     title={t(`contentItems:toolbarButtonForType.${contentItems.model.contentItemTypes.BLOCKQUOTE}`)}
-                    disabled={true}
+                    onClick={this.handleInsertBlockquote}
+                    data-test-id="toolbar-blockquote-button"
                   >
                     <Icon name="quote left" />
                   </Button>

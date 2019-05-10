@@ -139,4 +139,45 @@ describe(`Toolbar`, (): void => {
 
   });
 
+  describe(`when the BLOCKQUOTE button is clicked`, (): void => {
+
+    it(`dispatches a content items ADD action with the right arguments when the current selection is not empty`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+          <Toolbar topic={dummyTopic} />
+        </DummyProviders>,
+      );
+
+      enzymeWrapper.find('[data-test-id="toolbar-blockquote-button"]').hostNodes().simulate('click');
+      expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
+        contentItems.model.contentItemTypes.BLOCKQUOTE,
+        {
+          contextType: contentItems.model.contextTypes.SIBLING,
+          contextItemId: dummyId,
+        },
+        { text: 'Untitled heading' },
+      ));
+    });
+
+    it(`dispatches a content items ADD action with the right arguments when the current selection is empty`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders dummyState={dummyUnselectedState} dummyDispatch={dummyDispatch}>
+          <Toolbar topic={dummyTopic} />
+        </DummyProviders>,
+      );
+
+      enzymeWrapper.find('[data-test-id="toolbar-blockquote-button"]').hostNodes().simulate('click');
+      expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
+        contentItems.model.contentItemTypes.BLOCKQUOTE,
+        {
+          contextType: contentItems.model.contextTypes.SUPER,
+          contextItemId: dummyTopic.rootContentItemId,
+          indexInSiblingItems: -1,
+        },
+        { text: 'Untitled heading' },
+      ));
+    });
+
+  });
+
 });
