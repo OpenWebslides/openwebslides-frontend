@@ -6,6 +6,7 @@ import { mount, shallow } from 'enzyme';
 import { DummyProviders, dummyInitialState, dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as m from '../../model';
+import actions from '../../actions';
 
 import EditableDisplay, { PureEditableDisplay } from '.';
 
@@ -22,6 +23,7 @@ describe(`EditableDisplay`, (): void => {
   let dummyRoot1: m.RootContentItem;
   let dummyContentItemsById: m.ContentItemsById;
   let dummyState: any;
+  let dummyDispatch: any;
 
   let dummyDispatchProps: any;
   let subItemsSelector: string;
@@ -59,6 +61,7 @@ describe(`EditableDisplay`, (): void => {
         },
       },
     };
+    dummyDispatch = jest.fn();
 
     dummyDispatchProps = {
       onStartEditing: jest.fn(),
@@ -262,9 +265,9 @@ describe(`EditableDisplay`, (): void => {
     expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__collapse-button"]').hostNodes()).toHaveLength(6);
   });
 
-  it(`collapses the content item and renders a placeholder message when the collapse button is clicked`, (): void => {
+  it(`collapses the content item, clears the selection and renders a placeholder message when the collapse button is clicked`, (): void => {
     const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState}>
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <EditableDisplay
           contentItemId={dummyHeading11.id}
           setTopicDirty={dummySetTopicDirty}
@@ -280,11 +283,13 @@ describe(`EditableDisplay`, (): void => {
 
     // Collapsed placeholder
     expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__expand-button"]').hostNodes()).not.toHaveLength(0);
+
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.setCurrentlySelectedInState(null));
   });
 
-  it(`expands the content item and renders the display component and subItems when the expand button is clicked`, (): void => {
+  it(`expands the content item, clears the selection and renders the display component and subItems when the expand button is clicked`, (): void => {
     const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState}>
+      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
         <EditableDisplay
           contentItemId={dummyHeading11.id}
           setTopicDirty={dummySetTopicDirty}
@@ -301,6 +306,8 @@ describe(`EditableDisplay`, (): void => {
 
     // Collapsed placeholder
     expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__expand-button"]').hostNodes()).toHaveLength(0);
+
+    expect(dummyDispatch).toHaveBeenCalledWith(actions.setCurrentlySelectedInState(null));
   });
 
 });

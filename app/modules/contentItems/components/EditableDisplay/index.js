@@ -4,13 +4,15 @@ import _ from 'lodash';
 import * as React from 'react';
 import { Translation } from 'react-i18next';
 import { connect } from 'react-redux';
+import { type Dispatch } from 'redux';
 import { Button, Icon } from 'semantic-ui-react';
 
-import { type AppState } from 'types/redux';
+import { type ModulesAction, type AppState } from 'types/redux';
 import { type TFunction } from 'types/i18next';
 
 import * as m from '../../model';
 import selectors from '../../selectors';
+import actions from '../../actions';
 import { passThroughProps } from '../RootEditableDisplay';
 
 import typesToComponentsMap from './typesToComponentsMap';
@@ -20,12 +22,16 @@ type PassedProps = {|
   setTopicDirty: (dirty: boolean) => void,
 |};
 
+type DispatchProps = {|
+  selectId: (id: ?string) => void,
+|};
+
 type StateProps = {|
   contentItem: ?m.ContentItem,
   isSelected: boolean,
 |};
 
-type Props = {| ...PassedProps, ...StateProps |};
+type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 type ComponentState = {|
   isCollapsed: boolean,
@@ -39,15 +45,27 @@ const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
   };
 };
 
+const mapDispatchToProps = (
+  dispatch: Dispatch<ModulesAction>,
+): DispatchProps => {
+  return {
+    selectId: (id: ?string): void => {
+      dispatch(actions.setCurrentlySelectedInState(id));
+    },
+  };
+};
+
 class PureEditableDisplay extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     isCollapsed: false,
   };
 
   toggleCollapse = (): void => {
+    const { selectId } = this.props;
     const { isCollapsed } = this.state;
 
     this.setState({ isCollapsed: !isCollapsed });
+    selectId(null);
   };
 
   renderSubItemsEditableDisplay = (contentItem: m.ContentItem): React.Node => {
@@ -129,7 +147,7 @@ class PureEditableDisplay extends React.Component<Props, ComponentState> {
   }
 }
 
-const EditableDisplay = connect(mapStateToProps)(PureEditableDisplay);
+const EditableDisplay = connect(mapStateToProps, mapDispatchToProps)(PureEditableDisplay);
 
 export { PureEditableDisplay, passThroughProps };
 export default EditableDisplay;
