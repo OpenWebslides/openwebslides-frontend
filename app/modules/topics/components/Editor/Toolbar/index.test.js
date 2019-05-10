@@ -57,78 +57,86 @@ describe(`Toolbar`, (): void => {
     expect(enzymeWrapper.isEmptyRender()).toBe(false);
   });
 
-  it(`dispatches a content items ADD action with the right arguments when the HEADING button is clicked and the current selection is not empty`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Toolbar topic={dummyTopic} />
-      </DummyProviders>,
-    );
+  describe(`when the HEADING button is clicked`, (): void => {
 
-    enzymeWrapper.find('[data-test-id="toolbar-heading-button"]').hostNodes().simulate('click');
-    expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
-      contentItems.model.contentItemTypes.HEADING,
-      {
-        contextType: contentItems.model.contextTypes.SIBLING,
-        contextItemId: dummyId,
-      },
-      { text: 'Untitled heading' },
-    ));
+    it(`dispatches a content items ADD action with the right arguments when the current selection is not empty`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+          <Toolbar topic={dummyTopic} />
+        </DummyProviders>,
+      );
+
+      enzymeWrapper.find('[data-test-id="toolbar-heading-button"]').hostNodes().simulate('click');
+      expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
+        contentItems.model.contentItemTypes.HEADING,
+        {
+          contextType: contentItems.model.contextTypes.SIBLING,
+          contextItemId: dummyId,
+        },
+        { text: 'Untitled heading' },
+      ));
+    });
+
+    it(`dispatches a content items ADD action with the right arguments when the current selection is empty`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders dummyState={dummyUnselectedState} dummyDispatch={dummyDispatch}>
+          <Toolbar topic={dummyTopic} />
+        </DummyProviders>,
+      );
+
+      enzymeWrapper.find('[data-test-id="toolbar-heading-button"]').hostNodes().simulate('click');
+      expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
+        contentItems.model.contentItemTypes.HEADING,
+        {
+          contextType: contentItems.model.contextTypes.SUPER,
+          contextItemId: dummyTopic.rootContentItemId,
+          indexInSiblingItems: -1,
+        },
+        { text: 'Untitled heading' },
+      ));
+    });
+
   });
 
-  it(`dispatches a content items ADD action with the right arguments when the HEADING button is clicked and the current selection is empty`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyUnselectedState} dummyDispatch={dummyDispatch}>
-        <Toolbar topic={dummyTopic} />
-      </DummyProviders>,
-    );
+  describe(`when the PARAGRAPH button is clicked`, (): void => {
 
-    enzymeWrapper.find('[data-test-id="toolbar-heading-button"]').hostNodes().simulate('click');
-    expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
-      contentItems.model.contentItemTypes.HEADING,
-      {
-        contextType: contentItems.model.contextTypes.SUPER,
-        contextItemId: dummyTopic.rootContentItemId,
-        indexInSiblingItems: -1,
-      },
-      { text: 'Untitled heading' },
-    ));
-  });
+    it(`dispatches a content items ADD action with the right arguments when the current selection is not empty`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
+          <Toolbar topic={dummyTopic} />
+        </DummyProviders>,
+      );
 
-  it(`dispatches a content items ADD action with the right arguments when the PARAGRAPH button is clicked and the current selection is not empty`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyState} dummyDispatch={dummyDispatch}>
-        <Toolbar topic={dummyTopic} />
-      </DummyProviders>,
-    );
+      enzymeWrapper.find('[data-test-id="toolbar-paragraph-button"]').hostNodes().simulate('click');
+      expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
+        contentItems.model.contentItemTypes.PARAGRAPH,
+        {
+          contextType: contentItems.model.contextTypes.SIBLING,
+          contextItemId: dummyId,
+        },
+        { text: 'Untitled heading' },
+      ));
+    });
 
-    enzymeWrapper.find('[data-test-id="toolbar-paragraph-button"]').hostNodes().simulate('click');
-    expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
-      contentItems.model.contentItemTypes.PARAGRAPH,
-      {
-        contextType: contentItems.model.contextTypes.SIBLING,
-        contextItemId: dummyId,
-      },
-      { text: 'Untitled heading' },
-    ));
-  });
+    it(`dispatches a content items ADD action with the right arguments when the current selection is empty`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders dummyState={dummyUnselectedState} dummyDispatch={dummyDispatch}>
+          <Toolbar topic={dummyTopic} />
+        </DummyProviders>,
+      );
 
-  it(`dispatches a content items ADD action with the right arguments when the PARAGRAPH button is clicked and the current selection is empty`, (): void => {
-    const enzymeWrapper = mount(
-      <DummyProviders dummyState={dummyUnselectedState} dummyDispatch={dummyDispatch}>
-        <Toolbar topic={dummyTopic} />
-      </DummyProviders>,
-    );
+      enzymeWrapper.find('[data-test-id="toolbar-paragraph-button"]').hostNodes().simulate('click');
+      expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
+        contentItems.model.contentItemTypes.PARAGRAPH,
+        {
+          contextType: contentItems.model.contextTypes.SUPER,
+          contextItemId: dummyTopic.rootContentItemId,
+          indexInSiblingItems: -1,
+        },
+        { text: 'Untitled heading' },
+      ));
+    });
 
-    enzymeWrapper.find('[data-test-id="toolbar-paragraph-button"]').hostNodes().simulate('click');
-    expect(dummyDispatch).toHaveBeenCalledWith(contentItems.actions.add(
-      contentItems.model.contentItemTypes.PARAGRAPH,
-      {
-        contextType: contentItems.model.contextTypes.SUPER,
-        contextItemId: dummyTopic.rootContentItemId,
-        indexInSiblingItems: -1,
-      },
-      { text: 'Untitled heading' },
-    ));
   });
 
 });
