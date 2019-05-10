@@ -2,12 +2,43 @@
  .content-item-editable-display
 *******************************/
 
+@basePadding: 1em;
+
+.root-content-item-editable-display {
+  margin-left: @basePadding;
+}
+
 .content-item-editable-display {
-  @basePadding: 1em;
+  position: relative;
+
+  margin: @basePadding 0;
 
   &__sub-items {
-    border-left: 0.2em solid lightgray;
     padding-left: @basePadding;
+
+    position: relative;
+  }
+
+  &__collapse-button {
+    position: absolute;
+    left: -@basePadding;
+    height: 100%;
+
+    padding: .1em !important;
+
+    &:hover {
+      background-color: @owsPurple !important;
+    }
+
+    // Increase clickable area with a pseudo-element
+    &:before {
+      position: absolute;
+      content: '';
+      top: -(@basePadding / 2);
+      bottom: -(@basePadding / 2);
+      right: -.4em;
+      left: -.4em;
+    }
   }
 
   &-block {

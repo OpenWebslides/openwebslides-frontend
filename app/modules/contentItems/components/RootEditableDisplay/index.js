@@ -204,7 +204,7 @@ class PureRootEditableDisplay extends React.Component<Props> {
     const { rootContentItemId, setTopicDirty } = this.props;
 
     return (
-      <>
+      <div className="root-content-item-editable-display">
         <KeyboardEventHandler
           handleKeys={handleKeys}
           onKeyEvent={this.handleKeyEvent}
@@ -215,7 +215,7 @@ class PureRootEditableDisplay extends React.Component<Props> {
           contentItemId={rootContentItemId}
           setTopicDirty={setTopicDirty}
         />
-      </>
+      </div>
     );
   }
 }

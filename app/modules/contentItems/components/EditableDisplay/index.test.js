@@ -234,4 +234,73 @@ describe(`EditableDisplay`, (): void => {
     expect(enzymeWrapper.find('PureEditableDisplay').props().isSelected).toBe(false);
   });
 
+  it(`renders the collapse button when the content item is not a ROOT content item`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState}>
+        <EditableDisplay
+          contentItemId={dummyHeading113.id}
+          setTopicDirty={dummySetTopicDirty}
+        />
+      </DummyProviders>,
+    );
+
+    // Entire hierarchy should contain 3 collapse buttons (one heading and two paragraphs)
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__collapse-button"]').hostNodes()).toHaveLength(3);
+  });
+
+  it(`does not render the collapse button when the content item is a ROOT content item`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState}>
+        <EditableDisplay
+          contentItemId={dummyRoot1.id}
+          setTopicDirty={dummySetTopicDirty}
+        />
+      </DummyProviders>,
+    );
+
+    // Entire hierarchy should contain 6 collapse buttons (none for the ROOT)
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__collapse-button"]').hostNodes()).toHaveLength(6);
+  });
+
+  it(`collapses the content item and renders a placeholder message when the collapse button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState}>
+        <EditableDisplay
+          contentItemId={dummyHeading11.id}
+          setTopicDirty={dummySetTopicDirty}
+        />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="content-item-editable-display__collapse-button"]').first().simulate('click');
+
+    // Display component and subItems
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__display-component"]')).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__sub-items"]').hostNodes()).toHaveLength(0);
+
+    // Collapsed placeholder
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__expand-button"]').hostNodes()).not.toHaveLength(0);
+  });
+
+  it(`expands the content item and renders the display component and subItems when the expand button is clicked`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState}>
+        <EditableDisplay
+          contentItemId={dummyHeading11.id}
+          setTopicDirty={dummySetTopicDirty}
+        />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('[data-test-id="content-item-editable-display__collapse-button"]').first().simulate('click');
+    enzymeWrapper.find('[data-test-id="content-item-editable-display__expand-button"]').hostNodes().simulate('click');
+
+    // Display component and subItems
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__display-component"]')).not.toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__sub-items"]').hostNodes()).not.toHaveLength(0);
+
+    // Collapsed placeholder
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__expand-button"]').hostNodes()).toHaveLength(0);
+  });
+
 });
