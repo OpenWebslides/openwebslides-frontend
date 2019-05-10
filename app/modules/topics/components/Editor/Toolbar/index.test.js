@@ -7,6 +7,7 @@ import { DummyProviders, dummyInitialState, dummyTopicData } from 'lib/testResou
 import contentItems from 'modules/contentItems';
 
 import * as m from '../../../model';
+import actions from '../../../actions';
 
 import Toolbar, { PureToolbar } from '.';
 
@@ -82,6 +83,7 @@ describe(`Toolbar`, (): void => {
         },
         { text: 'Untitled heading' },
       ));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.setDirtyInState(dummyTopic.id, true));
     });
 
     it(`dispatches a content items ADD action with the right arguments when the current selection is empty`, (): void => {
@@ -104,6 +106,7 @@ describe(`Toolbar`, (): void => {
         },
         { text: 'Untitled heading' },
       ));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.setDirtyInState(dummyTopic.id, true));
     });
 
   });
@@ -129,6 +132,7 @@ describe(`Toolbar`, (): void => {
         },
         { text: 'Untitled heading' },
       ));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.setDirtyInState(dummyTopic.id, true));
     });
 
     it(`dispatches a content items ADD action with the right arguments when the current selection is empty`, (): void => {
@@ -151,6 +155,7 @@ describe(`Toolbar`, (): void => {
         },
         { text: 'Untitled heading' },
       ));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.setDirtyInState(dummyTopic.id, true));
     });
 
   });
@@ -176,6 +181,7 @@ describe(`Toolbar`, (): void => {
         },
         { text: 'Untitled heading' },
       ));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.setDirtyInState(dummyTopic.id, true));
     });
 
     it(`dispatches a content items ADD action with the right arguments when the current selection is empty`, (): void => {
@@ -198,6 +204,7 @@ describe(`Toolbar`, (): void => {
         },
         { text: 'Untitled heading' },
       ));
+      expect(dummyDispatch).toHaveBeenCalledWith(actions.setDirtyInState(dummyTopic.id, true));
     });
 
   });

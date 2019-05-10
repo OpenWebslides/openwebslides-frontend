@@ -11,6 +11,7 @@ import { type AppState, type ModulesAction } from 'types/redux';
 import contentItems from 'modules/contentItems';
 
 import * as m from '../../../model';
+import actions from '../../../actions';
 
 type PassedProps = {|
   topic: m.Topic,
@@ -70,6 +71,7 @@ const mapDispatchToProps = (
         // TODO: internationalization
         { text: 'Untitled heading' },
       ));
+      dispatch(actions.setDirtyInState(topic.id, true));
     },
   };
 };
