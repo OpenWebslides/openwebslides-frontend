@@ -169,25 +169,28 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
 
     const affix = mapMarkdownTypeToAffix[type];
 
-    if (affix == null || this.fieldRef == null) return;
+    if (!this.fieldRef) return;
 
-    const start = this.fieldRef.selectionStart;
-    const end = this.fieldRef.selectionEnd;
+    // Hold on to ref to prevent Flow refinement invalidation
+    const ref = this.fieldRef;
+
+    const start = ref.selectionStart;
+    const end = ref.selectionEnd;
 
     this.setState({
       text: `${text.slice(0, start)}${affix.prefix}${text.slice(start, end)}${affix.suffix}${text.slice(end)}`,
     }, (): void => {
-      if (this.fieldRef != null) {
-        this.fieldRef.setSelectionRange(
-          start + affix.prefix.length,
-          end + affix.prefix.length,
-        );
-      }
+      ref.setSelectionRange(
+        start + affix.prefix.length,
+        end + affix.prefix.length,
+      );
     });
   };
 
   handleChange = (): void => {
-    this.setState({ height: this.ghostRef ? this.ghostRef.clientHeight : 0 });
+    if (!this.ghostRef) return;
+
+    this.setState({ height: this.ghostRef.clientHeight });
   };
 
   fieldRef: ?HTMLTextAreaElement | ?HTMLInputElement;
