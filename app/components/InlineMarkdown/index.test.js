@@ -110,6 +110,7 @@ describe(`InlineMarkdown`, (): void => {
 
     for (let i: number = 0; i < anchorElements.length; i += 1) {
       expect(anchorElements.eq(i).text()).toBe(dummyTextAnchor[i]);
+      expect(anchorElements.eq(i)[0].attribs.target).toStrictEqual('_blank');
     }
   });
 

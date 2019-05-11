@@ -26,6 +26,7 @@ const PureInlineMarkdown = (props: Props): React.Node => {
       className="inline-markdown"
       source={text}
       allowedTypes={allowedMarkdownTypes}
+      linkTarget="_blank"
       unwrapDisallowed={true}
       renderers={{ root: 'span' }}
     />
