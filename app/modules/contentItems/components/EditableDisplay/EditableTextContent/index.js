@@ -4,8 +4,6 @@ import * as React from 'react';
 import { Form, Input, TextArea, Ref } from 'semantic-ui-react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 
-import InlineMarkdown from 'components/InlineMarkdown';
-
 import MarkdownToolbar from '../../MarkdownToolbar';
 import * as m from '../../../model';
 
@@ -14,7 +12,6 @@ type PassedProps = {|
   multiline: boolean,
   maxLength: ?number,
   initialText: string,
-  initialIsActive: boolean,
   onSubmit: (text: string) => void,
   onDeactivate: (addEmptyItem: boolean) => void,
   onRemove: () => void,
@@ -25,8 +22,6 @@ type PassedProps = {|
 type Props = {| ...PassedProps |};
 
 type ComponentState = {|
-  initialIsActive: boolean,
-  isActive: boolean,
   initialText: string,
   text: string,
   height: number,
@@ -60,14 +55,11 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     multiline: false,
     maxLength: undefined,
     initialText: '',
-    initialIsActive: false,
   };
 
   // bug: see https://github.com/yannickcr/eslint-plugin-react/issues/2061
   /* eslint-disable react/no-unused-state */
   state: ComponentState = {
-    initialIsActive: false,
-    isActive: false,
     initialText: '',
     text: '',
     height: 0,
@@ -85,11 +77,6 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
       nextState.text = props.initialText;
     }
 
-    if (state.initialIsActive !== props.initialIsActive) {
-      nextState.initialIsActive = props.initialIsActive;
-      nextState.isActive = props.initialIsActive;
-    }
-
     return nextState;
   };
 
@@ -104,7 +91,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     }
     else if (key === 'esc') {
       event.preventDefault();
-      this.setState({ text: initialText, isActive: false });
+      this.setState({ text: initialText });
       onDeactivate(false);
     }
     else if (key === 'backspace' && text === '') {
@@ -144,26 +131,6 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     this.setState({ text: event.currentTarget.value });
   };
 
-  handleMouseDown = (event: SyntheticMouseEvent<HTMLElement>): void => {
-    // Prevent blur event from being fired as a result of the mouse click
-    event.preventDefault();
-  };
-
-  handleClick = (event: SyntheticMouseEvent<HTMLElement>): void => {
-    // Only activate if left mouse button was clicked
-    if (event.button === 0) {
-      this.setState({ isActive: true });
-    }
-  };
-
-  handleBlur = (event: SyntheticEvent<HTMLInputElement>): void => {
-    const { onSubmit, onDeactivate } = this.props;
-
-    this.setState({ isActive: false });
-    onSubmit(event.currentTarget.value);
-    onDeactivate(false);
-  };
-
   handleEdit = (type: m.MarkdownType): void => {
     const { text } = this.state;
 
@@ -187,6 +154,13 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
     });
   };
 
+  handleBlur = (event: SyntheticEvent<HTMLInputElement>): void => {
+    const { onSubmit, onDeactivate } = this.props;
+
+    onSubmit(event.currentTarget.value);
+    onDeactivate(false);
+  };
+
   handleChange = (): void => {
     if (!this.ghostRef) return;
 
@@ -197,94 +171,67 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
 
   ghostRef: ?HTMLDivElement;
 
-  renderAsInput(): React.Node {
+  render(): React.Node {
     const { contentItem, multiline, maxLength, onIndent, onUnindent } = this.props;
     const { text, height } = this.state;
-
-    return (
-      <Form>
-        <div
-          className="editable-text-content__ghost"
-          data-test-id="editable-text-content__ghost"
-          ref={this.handleGhostRef}
-        >
-          {text}
-        </div>
-        <KeyboardEventHandler
-          handleKeys={handleKeys}
-          onKeyEvent={this.handleKeyEvent}
-          isExclusive={true}
-        >
-          <MarkdownToolbar
-            contentItem={contentItem}
-            onIndent={onIndent}
-            onUnindent={onUnindent}
-            onEdit={this.handleEdit}
-            data-test-id="editable-text-content__markdown-toolbar"
-          />
-          {(multiline)
-            ? (
-              <Ref innerRef={this.handleRef}>
-                <TextArea
-                  className="editable-text-content__input editable-text-content__input--multiline"
-                  data-test-id="editable-text-content__input"
-                  value={text}
-                  autoFocus={true}
-                  maxLength={maxLength}
-                  style={{ minHeight: height }}
-                  onInput={this.handleInput}
-                  onBlur={this.handleBlur}
-                  onChange={this.handleChange}
-                  onFocus={this.handleChange}
-                />
-              </Ref>
-            )
-            : (
-              <Input
-                className="editable-text-content__input editable-text-content__input--singleline"
-                data-test-id="editable-text-content__input"
-                fluid={true}
-                value={text}
-                autoFocus={true}
-                maxLength={maxLength}
-                onInput={this.handleInput}
-                onBlur={this.handleBlur}
-                ref={this.handleInputRef}
-              />
-            )}
-        </KeyboardEventHandler>
-      </Form>
-    );
-  }
-
-  renderAsText(): React.Node {
-    const { text } = this.state;
-
-    /* eslint-disable jsx-a11y/click-events-have-key-events */
-    return (
-      <div
-        className="editable-text-content__text"
-        data-test-id="editable-text-content__text"
-        role="link"
-        tabIndex={-1}
-        onMouseDown={this.handleMouseDown}
-        onClick={this.handleClick}
-      >
-        <InlineMarkdown text={text} />
-      </div>
-    );
-    /* eslint-enable */
-  }
-
-  render(): React.Node {
-    const { isActive } = this.state;
 
     return (
       <div
         className="editable-text-content"
         data-test-id="editable-text-content"
       >
-        {(isActive) ? this.renderAsInput() : this.renderAsText()}
+        <Form>
+          <div
+            className="editable-text-content__ghost"
+            data-test-id="editable-text-content__ghost"
+            ref={this.handleGhostRef}
+          >
+            {text}
+          </div>
+          <KeyboardEventHandler
+            handleKeys={handleKeys}
+            onKeyEvent={this.handleKeyEvent}
+            isExclusive={true}
+          >
+            <MarkdownToolbar
+              contentItem={contentItem}
+              onIndent={onIndent}
+              onUnindent={onUnindent}
+              onEdit={this.handleEdit}
+              data-test-id="editable-text-content__markdown-toolbar"
+            />
+            {(multiline)
+              ? (
+                <Ref innerRef={this.handleRef}>
+                  <TextArea
+                    className="editable-text-content__input editable-text-content__input--multiline"
+                    data-test-id="editable-text-content__input"
+                    value={text}
+                    autoFocus={true}
+                    maxLength={maxLength}
+                    style={{ minHeight: height }}
+                    onInput={this.handleInput}
+                    onBlur={this.handleBlur}
+                    onChange={this.handleChange}
+                    onFocus={this.handleChange}
+                  />
+                </Ref>
+              )
+              : (
+                <Input
+                  className="editable-text-content__input editable-text-content__input--singleline"
+                  data-test-id="editable-text-content__input"
+                  fluid={true}
+                  value={text}
+                  autoFocus={true}
+                  maxLength={maxLength}
+                  onInput={this.handleInput}
+                  onBlur={this.handleBlur}
+                  ref={this.handleInputRef}
+                />
+              )}
+          </KeyboardEventHandler>
+        </Form>
       </div>
     );
   }

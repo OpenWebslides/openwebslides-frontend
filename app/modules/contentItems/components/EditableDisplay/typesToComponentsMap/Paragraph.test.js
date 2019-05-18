@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { dummyContentItemData as dummyData } from 'lib/testResources';
+import { DummyProviders, dummyContentItemData as dummyData } from 'lib/testResources';
 
 import * as m from '../../../model';
 
@@ -46,6 +46,56 @@ describe(`Paragraph`, (): void => {
     expect(enzymeWrapper.text()).toContain(dummyParagraph.text);
   });
 
+  it(`renders itself in text mode, when it has not been interacted with yet`, (): void => {
+    const enzymeWrapper = mount(
+      <PureParagraph
+        contentItem={dummyParagraph}
+        {...dummyFunctionProps}
+      />,
+    );
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__text"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__input"]').hostNodes()).toHaveLength(0);
+  });
+
+  it(`renders itself in input mode, when it is in text mode and receives a left button click event`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <PureParagraph
+          contentItem={dummyParagraph}
+          {...dummyFunctionProps}
+        />
+      </DummyProviders>,
+    );
+    enzymeWrapper.find('[data-test-id="content-item-editable-display__text"]').hostNodes().simulate('click', { button: 0 });
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__text"]').hostNodes()).toHaveLength(0);
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__input"]').hostNodes()).toHaveLength(1);
+  });
+
+  it(`renders itself in text mode, when it is in text mode and receives a right button click event`, (): void => {
+    const enzymeWrapper = mount(
+      <PureParagraph
+        contentItem={dummyParagraph}
+        {...dummyFunctionProps}
+      />,
+    );
+    enzymeWrapper.find('[data-test-id="content-item-editable-display__text"]').hostNodes().simulate('click', { button: 1 });
+    enzymeWrapper.update();
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__text"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__input"]').hostNodes()).toHaveLength(0);
+  });
+
+  it(`calls event.preventDefault(), when it is in text mode and receives a mouseDown event`, (): void => {
+    const dummyPreventDefault = jest.fn();
+    const enzymeWrapper = mount(
+      <PureParagraph
+        contentItem={dummyParagraph}
+        {...dummyFunctionProps}
+      />,
+    );
+    enzymeWrapper.find('[data-test-id="content-item-editable-display__text"]').hostNodes().simulate('mouseDown', { preventDefault: dummyPreventDefault });
+    expect(dummyPreventDefault).toHaveBeenCalledWith();
+  });
+
   it(`calls the passed onEditPlainText function when onEditableTextContentSubmit passed to the EditableTextContent is called`, (): void => {
     const dummyText = 'Lorem ipsum';
     const enzymeWrapper = shallow(
@@ -58,7 +108,7 @@ describe(`Paragraph`, (): void => {
     expect(dummyFunctionProps.onEditPlainText).toHaveBeenCalledWith(dummyParagraph.id, dummyText);
   });
 
-  it(`calls the passed onEndEditing and onAddEmptySiblingItemBelow functions, when onEditableTextContentDeactivate passed to the EditableTextContent is called with TRUE as argument`, (): void => {
+  it(`rerenders in text mode and calls the passed onEndEditing and onAddEmptySiblingItemBelow functions, when onEditableTextContentDeactivate passed to the EditableTextContent is called with TRUE as argument`, (): void => {
     const enzymeWrapper = shallow(
       <PureParagraph
         contentItem={dummyParagraph}
@@ -66,11 +116,16 @@ describe(`Paragraph`, (): void => {
       />,
     );
     enzymeWrapper.instance().onEditableTextContentDeactivate(true);
+    enzymeWrapper.update();
+
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__text"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__input"]').hostNodes()).toHaveLength(0);
+
     expect(dummyFunctionProps.onEndEditing).toHaveBeenCalledWith(dummyParagraph.id);
     expect(dummyFunctionProps.onAddEmptySiblingItemBelow).toHaveBeenCalledWith(dummyParagraph.id);
   });
 
-  it(`calls the passed onEndEditing function when onEditableTextContentDeactivate passed to the EditableTextContent is called with FALSE as argument`, (): void => {
+  it(`rerenders in text mode and calls the passed onEndEditing function when onEditableTextContentDeactivate passed to the EditableTextContent is called with FALSE as argument`, (): void => {
     const enzymeWrapper = shallow(
       <PureParagraph
         contentItem={dummyParagraph}
@@ -78,6 +133,11 @@ describe(`Paragraph`, (): void => {
       />,
     );
     enzymeWrapper.instance().onEditableTextContentDeactivate(false);
+    enzymeWrapper.update();
+
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__text"]').hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__input"]').hostNodes()).toHaveLength(0);
+
     expect(dummyFunctionProps.onEndEditing).toHaveBeenCalledWith(dummyParagraph.id);
     expect(dummyFunctionProps.onAddEmptySiblingItemBelow).not.toHaveBeenCalled();
   });
