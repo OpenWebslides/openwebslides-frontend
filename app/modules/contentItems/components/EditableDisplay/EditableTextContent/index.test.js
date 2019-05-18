@@ -59,13 +59,22 @@ describe(`EditableTextContent`, (): void => {
     expect(enzymeWrapper.text()).toContain(dummyText);
   });
 
-  it(`renders a markdown toolbar`, (): void => {
+  it(`renders a markdown toolbar when markdown is TRUE`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
-        <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} />
+        <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} markdown={true} />
       </DummyProviders>,
     );
     expect(enzymeWrapper.find('[data-test-id="editable-text-content__markdown-toolbar"]')).not.toHaveLength(0);
+  });
+
+  it(`does not render a markdown toolbar when markdown is FALSE`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders>
+        <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} markdown={false} />
+      </DummyProviders>,
+    );
+    expect(enzymeWrapper.find('[data-test-id="editable-text-content__markdown-toolbar"]')).toHaveLength(0);
   });
 
   it(`rerenders itself with the ghost div height, when it is in multiline mode and receives a change event`, (): void => {
@@ -386,10 +395,10 @@ describe(`EditableTextContent`, (): void => {
 
   describe(`keyboard events`, (): void => {
 
-    it(`calls the handleEdit function with the correct arguments when the CTRL+B key is pressed`, (): void => {
+    it(`calls the handleEdit function with the correct arguments when the CTRL+B key is pressed and markdown is TRUE`, (): void => {
       const enzymeWrapper = mount(
         <DummyProviders>
-          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} />
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} markdown={true} />
         </DummyProviders>,
       );
 
@@ -404,10 +413,27 @@ describe(`EditableTextContent`, (): void => {
       expect(dummyHandleEdit).toHaveBeenCalledWith(m.markdownTypes.STRONG);
     });
 
-    it(`calls the handleEdit function with the correct arguments when the CTRL+I key is pressed`, (): void => {
+    it(`does not call the handleEdit function when the CTRL+B key is pressed and markdown is FALSE`, (): void => {
       const enzymeWrapper = mount(
         <DummyProviders>
-          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} />
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} markdown={false} />
+        </DummyProviders>,
+      );
+
+      // Mock handleEdit function
+      (enzymeWrapper.find('EditableTextContent').instance(): any).handleEdit = dummyHandleEdit;
+
+      // Enzyme does not support event propagation yet, so we cannot test out
+      // the handleKeyEvent callback by simulating keyboard events
+      (enzymeWrapper.find('EditableTextContent').instance(): any).handleKeyEvent('ctrl+b', dummyEvent);
+
+      expect(dummyHandleEdit).not.toHaveBeenCalled();
+    });
+
+    it(`calls the handleEdit function with the correct arguments when the CTRL+I key is pressed and markdown is TRUE`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} markdown={true} />
         </DummyProviders>,
       );
 
@@ -422,10 +448,27 @@ describe(`EditableTextContent`, (): void => {
       expect(dummyHandleEdit).toHaveBeenCalledWith(m.markdownTypes.EMPHASIS);
     });
 
-    it(`calls the handleEdit function with the correct arguments when the CTRL+K key is pressed`, (): void => {
+    it(`does not call the handleEdit function when the CTRL+I key is pressed and markdown is FALSE`, (): void => {
       const enzymeWrapper = mount(
         <DummyProviders>
-          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} />
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} markdown={false} />
+        </DummyProviders>,
+      );
+
+      // Mock handleEdit function
+      (enzymeWrapper.find('EditableTextContent').instance(): any).handleEdit = dummyHandleEdit;
+
+      // Enzyme does not support event propagation yet, so we cannot test out
+      // the handleKeyEvent callback by simulating keyboard events
+      (enzymeWrapper.find('EditableTextContent').instance(): any).handleKeyEvent('ctrl+i', dummyEvent);
+
+      expect(dummyHandleEdit).not.toHaveBeenCalled();
+    });
+
+    it(`calls the handleEdit function with the correct arguments when the CTRL+K key is pressed and markdown is TRUE`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} markdown={true} />
         </DummyProviders>,
       );
 
@@ -438,6 +481,23 @@ describe(`EditableTextContent`, (): void => {
 
       expect(dummyEvent.preventDefault).toHaveBeenCalledTimes(1);
       expect(dummyHandleEdit).toHaveBeenCalledWith(m.markdownTypes.LINK);
+    });
+
+    it(`does not call the handleEdit function when the CTRL+K key is pressed and markdown is FALSE`, (): void => {
+      const enzymeWrapper = mount(
+        <DummyProviders>
+          <EditableTextContent contentItem={dummyContentItem} {...dummyFunctionProps} initialText={dummyText} markdown={false} />
+        </DummyProviders>,
+      );
+
+      // Mock handleEdit function
+      (enzymeWrapper.find('EditableTextContent').instance(): any).handleEdit = dummyHandleEdit;
+
+      // Enzyme does not support event propagation yet, so we cannot test out
+      // the handleKeyEvent callback by simulating keyboard events
+      (enzymeWrapper.find('EditableTextContent').instance(): any).handleKeyEvent('ctrl+k', dummyEvent);
+
+      expect(dummyHandleEdit).not.toHaveBeenCalled();
     });
 
   });
@@ -454,6 +514,7 @@ describe(`EditableTextContent`, (): void => {
       const dummyNextProps = {
         contentItem: dummyContentItem,
         multiline: false,
+        markdown: true,
         maxLength: undefined,
         initialText: dummyNewText,
         onSubmit: dummyFunctionProps.onSubmit,
@@ -478,6 +539,7 @@ describe(`EditableTextContent`, (): void => {
       const dummyNextProps = {
         contentItem: dummyContentItem,
         multiline: false,
+        markdown: true,
         maxLength: undefined,
         initialText: dummyText,
         onSubmit: dummyFunctionProps.onSubmit,
@@ -499,6 +561,7 @@ describe(`EditableTextContent`, (): void => {
       const dummyNextProps = {
         contentItem: dummyContentItem,
         multiline: false,
+        markdown: true,
         maxLength: undefined,
         initialText: dummyText,
         onSubmit: dummyFunctionProps.onSubmit,

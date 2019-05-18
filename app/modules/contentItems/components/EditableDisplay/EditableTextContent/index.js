@@ -10,6 +10,7 @@ import * as m from '../../../model';
 type PassedProps = {|
   contentItem: m.ContentItem,
   multiline: boolean,
+  markdown: boolean,
   maxLength: ?number,
   initialText: string,
   onSubmit: (text: string) => void,
@@ -53,6 +54,7 @@ const mapMarkdownTypeToAffix = {
 class EditableTextContent extends React.Component<Props, ComponentState> {
   static defaultProps = {
     multiline: false,
+    markdown: true,
     maxLength: undefined,
     initialText: '',
   };
@@ -81,7 +83,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
   };
 
   handleKeyEvent = (key: string, event: SyntheticKeyboardEvent<HTMLElement>): void => {
-    const { onSubmit, onDeactivate, onRemove, initialText } = this.props;
+    const { markdown, onSubmit, onDeactivate, onRemove, initialText } = this.props;
     const { text } = this.state;
 
     if (key === 'enter') {
@@ -98,15 +100,15 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
       event.preventDefault();
       onRemove();
     }
-    else if (key === 'ctrl+b' || key === 'meta+b') {
+    else if (markdown && (key === 'ctrl+b' || key === 'meta+b')) {
       event.preventDefault();
       this.handleEdit(m.markdownTypes.STRONG);
     }
-    else if (key === 'ctrl+i' || key === 'meta+i') {
+    else if (markdown && (key === 'ctrl+i' || key === 'meta+i')) {
       event.preventDefault();
       this.handleEdit(m.markdownTypes.EMPHASIS);
     }
-    else if (key === 'ctrl+k' || key === 'meta+k') {
+    else if (markdown && (key === 'ctrl+k' || key === 'meta+k')) {
       event.preventDefault();
       this.handleEdit(m.markdownTypes.LINK);
     }
@@ -172,7 +174,7 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
   ghostRef: ?HTMLDivElement;
 
   render(): React.Node {
-    const { contentItem, multiline, maxLength, onIndent, onUnindent } = this.props;
+    const { contentItem, multiline, markdown, maxLength, onIndent, onUnindent } = this.props;
     const { text, height } = this.state;
 
     return (
@@ -193,13 +195,15 @@ class EditableTextContent extends React.Component<Props, ComponentState> {
             onKeyEvent={this.handleKeyEvent}
             isExclusive={true}
           >
-            <MarkdownToolbar
-              contentItem={contentItem}
-              onIndent={onIndent}
-              onUnindent={onUnindent}
-              onEdit={this.handleEdit}
-              data-test-id="editable-text-content__markdown-toolbar"
-            />
+            {markdown && (
+              <MarkdownToolbar
+                contentItem={contentItem}
+                onIndent={onIndent}
+                onUnindent={onUnindent}
+                onEdit={this.handleEdit}
+                data-test-id="editable-text-content__markdown-toolbar"
+              />
+            )}
             {(multiline)
               ? (
                 <Ref innerRef={this.handleRef}>
