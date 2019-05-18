@@ -93,8 +93,8 @@ class PureParagraph extends React.Component<Props> {
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     return (
       <div
-        className="content-item-editable-display-paragraph__text"
-        data-test-id="content-item-editable-display-paragraph__text"
+        className="content-item-editable-display__text"
+        data-test-id="content-item-editable-display__text"
         role="link"
         tabIndex={-1}
         onClick={this.handleClick}
