@@ -35,6 +35,7 @@ type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 type ComponentState = {|
   isCollapsed: boolean,
+  isActive: boolean,
 |};
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
@@ -58,6 +59,7 @@ const mapDispatchToProps = (
 class PureEditableDisplay extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     isCollapsed: false,
+    isActive: false,
   };
 
   toggleCollapse = (): void => {
@@ -66,6 +68,14 @@ class PureEditableDisplay extends React.Component<Props, ComponentState> {
 
     this.setState({ isCollapsed: !isCollapsed });
     selectId(null);
+  };
+
+  handleActivate = (): void => {
+    this.setState({ isActive: true });
+  };
+
+  handleDeactivate = (): void => {
+    this.setState({ isActive: false });
   };
 
   renderSubItemsEditableDisplay = (contentItem: m.ContentItem): React.Node => {
@@ -93,8 +103,8 @@ class PureEditableDisplay extends React.Component<Props, ComponentState> {
   };
 
   renderEditableDisplay = (contentItem: m.ContentItem): React.Node => {
-    const { isCollapsed } = this.state;
     const { isSelected } = this.props;
+    const { isCollapsed, isActive } = this.state;
 
     const DisplayComponent = typesToComponentsMap[contentItem.type];
 
@@ -132,6 +142,9 @@ class PureEditableDisplay extends React.Component<Props, ComponentState> {
               {..._.pick(this.props, passThroughProps)}
               contentItem={contentItem}
               isSelected={isSelected}
+              isActive={isActive}
+              onActivate={this.handleActivate}
+              onDeactivate={this.handleDeactivate}
               data-test-id="content-item-editable-display__display-component"
             />
             {this.renderSubItemsEditableDisplay(contentItem)}

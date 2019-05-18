@@ -16,40 +16,25 @@ import { passThroughProps } from '..';
 type PassedProps = {|
   contentItem: m.ParagraphContentItem,
   isSelected: boolean,
+  onActivate: () => void,
+  onDeactivate: () => void,
   onEndEditing: (id: string) => void,
   onEditPlainText: (id: string, text: string) => void,
   onAddEmptySiblingItemBelow: (id: string) => void,
   onRemove: (id: string) => void,
   onIndent: (id: string) => void,
   onReverseIndent: (id: string) => void,
+  isActive: boolean,
 |};
 
 type Props = {| ...PassedProps |};
 
-type ComponentState = {|
-  initialIsActive: boolean,
-  isActive: boolean,
-|};
-
-class PureParagraph extends React.Component<Props, ComponentState> {
-  // bug: see https://github.com/yannickcr/eslint-plugin-react/issues/2061
-  /* eslint-disable react/no-unused-state */
-  state: ComponentState = {
-    initialIsActive: false,
-    isActive: false,
-  };
-  /* eslint-enable */
-
-  handleMouseDown = (event: SyntheticMouseEvent<HTMLElement>): void => {
-    // Prevent blur event from being fired as a result of the mouse click
-    event.preventDefault();
-  };
-
+class PureParagraph extends React.Component<Props> {
   handleClick = (event: SyntheticMouseEvent<HTMLElement>): void => {
+    const { onActivate } = this.props;
+
     // Only activate if left mouse button was clicked
-    if (event.button === 0) {
-      this.setState({ isActive: true });
-    }
+    if (event.button === 0) onActivate();
   };
 
   onEditableTextContentSubmit = (text: string): void => {
@@ -58,9 +43,9 @@ class PureParagraph extends React.Component<Props, ComponentState> {
   };
 
   onEditableTextContentDeactivate = (addEmptyItem: boolean): void => {
-    const { contentItem, onEndEditing, onAddEmptySiblingItemBelow } = this.props;
+    const { contentItem, onDeactivate, onEndEditing, onAddEmptySiblingItemBelow } = this.props;
 
-    this.setState({ isActive: false });
+    onDeactivate();
     onEndEditing(contentItem.id);
 
     if (addEmptyItem) onAddEmptySiblingItemBelow(contentItem.id);
@@ -73,13 +58,11 @@ class PureParagraph extends React.Component<Props, ComponentState> {
 
   onIndent = (): void => {
     const { contentItem, onIndent } = this.props;
-
     onIndent(contentItem.id);
   };
 
   onUnindent = (): void => {
     const { contentItem, onReverseIndent } = this.props;
-
     onReverseIndent(contentItem.id);
   };
 
@@ -110,11 +93,10 @@ class PureParagraph extends React.Component<Props, ComponentState> {
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     return (
       <div
-        className="content-item-editable-display__text"
-        data-test-id="content-item-editable-display__text"
+        className="content-item-editable-display-paragraph__text"
+        data-test-id="content-item-editable-display-paragraph__text"
         role="link"
         tabIndex={-1}
-        onMouseDown={this.handleMouseDown}
         onClick={this.handleClick}
       >
         <InlineMarkdown text={contentItem.text} />
@@ -124,8 +106,7 @@ class PureParagraph extends React.Component<Props, ComponentState> {
   }
 
   render = (): React.Node => {
-    const { contentItem, isSelected } = this.props;
-    const { isActive } = this.state;
+    const { contentItem, isSelected, isActive } = this.props;
 
     return (
       <TypeBlockWrapper

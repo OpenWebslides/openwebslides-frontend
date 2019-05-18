@@ -197,6 +197,35 @@ describe(`EditableDisplay`, (): void => {
     expect(subItemsTags).toHaveLength(0);
   });
 
+  it(`sets the content item as active when the onActivate function passed to the DisplayComponent is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState}>
+        <EditableDisplay
+          contentItemId={dummyParagraph111.id}
+        />
+      </DummyProviders>,
+    );
+
+    expect((enzymeWrapper.find('PureEditableDisplay').instance(): any).state.isActive).toBe(false);
+    enzymeWrapper.find('PureParagraph').props().onActivate();
+    expect((enzymeWrapper.find('PureEditableDisplay').instance(): any).state.isActive).toBe(true);
+  });
+
+  it(`sets the content item as inactive when the onDeactivate function passed to the DisplayComponent is called`, (): void => {
+    const enzymeWrapper = mount(
+      <DummyProviders dummyState={dummyState}>
+        <EditableDisplay
+          contentItemId={dummyParagraph111.id}
+        />
+      </DummyProviders>,
+    );
+
+    enzymeWrapper.find('PureParagraph').props().onActivate();
+    expect((enzymeWrapper.find('PureEditableDisplay').instance(): any).state.isActive).toBe(true);
+    enzymeWrapper.find('PureParagraph').props().onDeactivate();
+    expect((enzymeWrapper.find('PureEditableDisplay').instance(): any).state.isActive).toBe(false);
+  });
+
   it(`maps isSelected to TRUE when the content item is currently selected in the state`, (): void => {
     const dummySelectedState = {
       ...dummyInitialState,
