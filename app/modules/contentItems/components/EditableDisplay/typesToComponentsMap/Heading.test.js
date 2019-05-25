@@ -48,25 +48,23 @@ describe(`Heading`, (): void => {
     expect(enzymeWrapper.text()).toContain(dummyHeading.text);
   });
 
-  it(`renders itself in text mode, when the passed isActive is set to FALSE`, (): void => {
+  it(`renders itself in text mode, when the content item is not editing`, (): void => {
     const enzymeWrapper = mount(
       <PureHeading
-        contentItem={dummyHeading}
+        contentItem={{ ...dummyHeading, isEditing: false }}
         {...dummyFunctionProps}
-        isActive={false}
       />,
     );
     expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__text"]').hostNodes()).toHaveLength(1);
     expect(enzymeWrapper.find('[data-test-id="content-item-editable-display__input"]').hostNodes()).toHaveLength(0);
   });
 
-  it(`renders itself in input mode, when the passed isActive is set to TRUE`, (): void => {
+  it(`renders itself in input mode, when the content item is editing`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders>
         <PureHeading
-          contentItem={dummyHeading}
+          contentItem={{ ...dummyHeading, isEditing: true }}
           {...dummyFunctionProps}
-          isActive={true}
         />
       </DummyProviders>,
     );

@@ -16,7 +16,6 @@ import { passThroughProps } from '..';
 type PassedProps = {|
   contentItem: m.HeadingContentItem,
   isSelected: boolean,
-  isActive: boolean,
   onActivate: () => void,
   onDeactivate: () => void,
   onEndEditing: (id: string) => void,
@@ -106,7 +105,7 @@ class PureHeading extends React.Component<Props> {
   }
 
   render = (): React.Node => {
-    const { contentItem, isSelected, isActive } = this.props;
+    const { contentItem, isSelected } = this.props;
 
     return (
       <TypeBlockWrapper
@@ -116,7 +115,7 @@ class PureHeading extends React.Component<Props> {
         isSelected={isSelected}
         iconName="heading"
       >
-        {(isActive) ? this.renderAsInput() : this.renderAsText()}
+        {(contentItem.isEditing) ? this.renderAsInput() : this.renderAsText()}
       </TypeBlockWrapper>
     );
   };

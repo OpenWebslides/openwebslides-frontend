@@ -19,6 +19,9 @@ import typesToComponentsMap from './typesToComponentsMap';
 
 type PassedProps = {|
   contentItemId: string,
+
+  onStartEditing: (id: string) => void,
+  onEndEditing: (id: string) => void,
   setTopicDirty: (dirty: boolean) => void,
 |};
 
@@ -35,7 +38,6 @@ type Props = {| ...PassedProps, ...StateProps, ...DispatchProps |};
 
 type ComponentState = {|
   isCollapsed: boolean,
-  isActive: boolean,
 |};
 
 const mapStateToProps = (state: AppState, props: PassedProps): StateProps => {
@@ -59,7 +61,6 @@ const mapDispatchToProps = (
 class PureEditableDisplay extends React.Component<Props, ComponentState> {
   state: ComponentState = {
     isCollapsed: false,
-    isActive: false,
   };
 
   toggleCollapse = (): void => {
@@ -71,11 +72,15 @@ class PureEditableDisplay extends React.Component<Props, ComponentState> {
   };
 
   handleActivate = (): void => {
-    this.setState({ isActive: true });
+    const { contentItemId, onStartEditing } = this.props;
+
+    onStartEditing(contentItemId);
   };
 
   handleDeactivate = (): void => {
-    this.setState({ isActive: false });
+    const { contentItemId, onEndEditing } = this.props;
+
+    onEndEditing(contentItemId);
   };
 
   renderSubItemsEditableDisplay = (contentItem: m.ContentItem): React.Node => {
@@ -104,7 +109,7 @@ class PureEditableDisplay extends React.Component<Props, ComponentState> {
 
   renderEditableDisplay = (contentItem: m.ContentItem): React.Node => {
     const { isSelected } = this.props;
-    const { isCollapsed, isActive } = this.state;
+    const { isCollapsed } = this.state;
 
     const DisplayComponent = typesToComponentsMap[contentItem.type];
 
@@ -142,7 +147,6 @@ class PureEditableDisplay extends React.Component<Props, ComponentState> {
               {..._.pick(this.props, passThroughProps)}
               contentItem={contentItem}
               isSelected={isSelected}
-              isActive={isActive}
               onActivate={this.handleActivate}
               onDeactivate={this.handleDeactivate}
               data-test-id="content-item-editable-display__display-component"

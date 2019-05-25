@@ -197,33 +197,32 @@ describe(`EditableDisplay`, (): void => {
     expect(subItemsTags).toHaveLength(0);
   });
 
-  it(`sets the content item as active when the onActivate function passed to the DisplayComponent is called`, (): void => {
+  it(`calls the passed onStartEditing function with the correct parameters, when the onActivate function passed to the DisplayComponent is called`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState}>
         <EditableDisplay
           contentItemId={dummyParagraph111.id}
+          {...dummyDispatchProps}
         />
       </DummyProviders>,
     );
 
-    expect((enzymeWrapper.find('PureEditableDisplay').instance(): any).state.isActive).toBe(false);
     enzymeWrapper.find('PureParagraph').props().onActivate();
-    expect((enzymeWrapper.find('PureEditableDisplay').instance(): any).state.isActive).toBe(true);
+    expect(dummyDispatchProps.onStartEditing).toHaveBeenCalledWith(dummyParagraph111.id);
   });
 
-  it(`sets the content item as inactive when the onDeactivate function passed to the DisplayComponent is called`, (): void => {
+  it(`calls the passed onEndEditing function with the correct parameters, when the onDeactivate function passed to the DisplayComponent is called`, (): void => {
     const enzymeWrapper = mount(
       <DummyProviders dummyState={dummyState}>
         <EditableDisplay
           contentItemId={dummyParagraph111.id}
+          {...dummyDispatchProps}
         />
       </DummyProviders>,
     );
 
-    enzymeWrapper.find('PureParagraph').props().onActivate();
-    expect((enzymeWrapper.find('PureEditableDisplay').instance(): any).state.isActive).toBe(true);
     enzymeWrapper.find('PureParagraph').props().onDeactivate();
-    expect((enzymeWrapper.find('PureEditableDisplay').instance(): any).state.isActive).toBe(false);
+    expect(dummyDispatchProps.onEndEditing).toHaveBeenCalledWith(dummyParagraph111.id);
   });
 
   it(`maps isSelected to TRUE when the content item is currently selected in the state`, (): void => {
