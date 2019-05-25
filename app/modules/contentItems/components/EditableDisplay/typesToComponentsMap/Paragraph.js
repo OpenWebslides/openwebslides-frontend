@@ -16,6 +16,7 @@ import { passThroughProps } from '..';
 type PassedProps = {|
   contentItem: m.ParagraphContentItem,
   isSelected: boolean,
+  isActive: boolean,
   onActivate: () => void,
   onDeactivate: () => void,
   onEndEditing: (id: string) => void,
@@ -24,7 +25,6 @@ type PassedProps = {|
   onRemove: (id: string) => void,
   onIndent: (id: string) => void,
   onReverseIndent: (id: string) => void,
-  isActive: boolean,
 |};
 
 type Props = {| ...PassedProps |};
