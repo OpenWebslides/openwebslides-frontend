@@ -16,6 +16,15 @@ const contentItems = {
   hiddenForType: {
     'contentItemTypes/PARAGRAPH': 'Paragraph hidden',
     'contentItemTypes/HEADING': 'Heading hidden',
+    'contentItemTypes/LIST': 'List hidden',
+    'contentItemTypes/BLOCKQUOTE': 'Quote hidden',
+    'contentItemTypes/CODE': 'Code fragment hidden',
+    'contentItemTypes/IMAGE': 'Image hidden',
+    'contentItemTypes/VIDEO': 'Video hidden',
+    'contentItemTypes/AUDIO': 'Audio hidden',
+    'contentItemTypes/IFRAME': 'Embed website hidden',
+    'contentItemTypes/SLIDE_BREAK': 'Slide break hidden',
+    'contentItemTypes/COURSE_BREAK': 'Course break hidden',
   },
   contentItemForType: {
     'contentItemTypes/HEADING': 'Heading',
